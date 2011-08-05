@@ -395,9 +395,30 @@ Now we write each syllable $g_i$ of $g=g_1\cdots g_t$ in normal form using the a
 This gives $g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S_1\cup S_2$. Using $\phi_1$ or $\phi_2$, as appropriate,
 we now write $h_{i,1}$ and $h_{i,2}$ as words in $F(Z)$. For $i=1,\ldots , t-1$, we reduce the 
 word $h_{i,2}h_{(i+1),1}\in F(Z)$ to give a reduced word $h_i\in F(Z)$ and set $h_0=h_{1,1}$ and  $h_{t+1}=h_{t,2}$.
-Then $g$ has normal form $h_0d_1h_1\cdots d_th_{t+1}$. 
+Then $g$ has normal form $h_0d_1h_1\cdots d_th_{t+1}$.
+%
+%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{The generalised folding process}
-We shall restrict to malnormal $H_i$ to make the generalised folding process terminate.
+The object is to construct an automaton which will accept a word $w$
+in double-coset normal form if and only if it belongs to the subgroup $K$.
+The idea is to this by starting with the flower automaton for the 
+generators of $K$, written in (double-coset) normal form, carrying out
+Stallings folding as usual to produce a deterministic, trim, involutive
+automaton, and next adding some additional paths to allow normal forms
+to be read. This may introduce new non-deterministic (unfolded) states, so
+the resulting automaton must be folded. We carry on this process as long
+as we can: but of course need to show that it halts. Suppose $L$ is the 
+language accepted by the flower automaton of $K$. The image of $L$ under
+the canonical map to $G$ is $K$. All the stages of our generalised folding
+process will preserve this image, so our final automaton will accept a language
+$L_1$ which also maps to $K$. We must then prove that if $w$ is a word
+in normal form which represents an element of $K$ then $w$ is in $L_0$. It will
+therefore suffice to show that if $u$ is any word in $L_0$ then the 
+normal form of $u$ is also in $L_0$. 
+
+If things get unpleasant then we  shall restrict to malnormal $H_i$ to make the generalised folding process simpler.
 \begin{align*} 
 G &= F_1 \underset{H_1=H_2}{\ast}F_2 \\ 
 K &= \langle k_1, \ldots, k_t \rangle \leqslant G
