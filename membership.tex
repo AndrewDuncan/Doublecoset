@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{amsmath,amsfonts,amsthm,amscd,amssymb,latexsym,comment,eufrak}
 %%%%%%%%%%%%%
-\usepackage{enumerate,graphicx,psfrag}%,subfigure,jchangebar,oldgerm}
+\usepackage{enumerate,graphicx,psfrag,subfigure}%,jchangebar,oldgerm}
 \usepackage[mathscr]{eucal}
 \usepackage[usenames]{color}
 %\usepackage{showkeys}
@@ -25,7 +25,7 @@
 \def\d{\delta }
 %\def\vd{\vardelta}
 \def\b{\beta }
-\def\y{\zeta }
+\def\z{\zeta }
 \def\i{\iota }
 \def\k{\kappa }
 \def\l{\lambda }
@@ -443,7 +443,7 @@ in normal form: say
 k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
 \end{equation}
 where $h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$.   
-\subsection{Double coset automata}
+\subsection{Double-coset automata and graphs}
 {\bf We should include a short description of Stallings folding, as in
 Enric's notes from Manresa.} \\[1em]
 
@@ -454,8 +454,9 @@ the {\em transition function}, $s_0\in Q$ is the {\em start state} and
 $F\subseteq Q$ is a set of {\em final} states. (If $F=\{s_0\}$ it's common
 to drop $F$ from the description and define $A$ as a quadruple.) 
 
-We shall associate to an automaton $A$ a directed, edge labelled graph
-$\G_A$ with vertices $V=V(\G_A)=Q$, edge set $E=E(\G_A)$ consisting
+We shall associate to an automaton $A$ a rooted, directed, edge labelled graph
+$\G_A$ with vertices $V=V(\G_A)=Q$, with root vertex $s_0$, 
+edge set $E=E(\G_A)$ consisting
 of elements $(u,\s,v)$ of $Q\times \S\times Q$ such that $\d(u,\s)=v$ and 
 labelling function $l:E\maps \S$ given by $l(u,\s,v)=\s$, for all $(u,\s,v)
 \in E$.  If $A$ has a property (like trim, involutive or deterministic) then
@@ -467,6 +468,7 @@ A colouring of a directed, inversive, labelled graph $\G$ is a map $c$  from $V(
 then $c(e)=c(\i(e))$. (We make no conditions on the colouring of vertices:
 in particular adjacent vertices may have the same colour.)
 
+\begin{definition}
 A finite, directed, labelled, coloured graph $\G$ is called a 
 {\em double-coset-graph} or 
 {\em dc-graph}
@@ -489,11 +491,48 @@ $c_k(x)\ge 0$, for all $x\in V\cup E$ and  for $k=1$ and $2$.
 $c_k(v)>0$ if and only if $v\in V_0$. Moreover, if $v\in V_0$ then
 $c_k(v)=\max\{c_k(e): e \textrm{ is incident to } v\}$. 
 \ee
-If $\G$ is a dc-graph then corresponding to any choice of vertex as 
-a start state, and any subset of $V$ as a set of final states, we have an automaton,
-which we call a {\em dc-automaton}.
+An automaton $A$ is called a {\em dc-automaton} if $\G_A$ is  a dc-graph.
+\end{definition}
 
-An {\em elementary folding} of a dc-graph $\G$ is a graph $\G^\prime$
+\begin{example}\label{ex:dc-graph}
+Figure \ref{fig:dc-grapha} shows a dc-graph, where $x\in X_1$, $y_1,y_2,y_3\in X_2$,
+$z\in Z$, the only vertex not in $V_0$ is $\d$, 
+colours of all edges are shown and the colours of vertices  are 
+$c(\a)=(3,0)$, $c(\b)=(3,0)$, $c(\g)=(0,2)$, $c(\d)=(0,0)$, $c(\e)=(0,2)$ and 
+$c(\z)=(1,0)$.  
+\end{example}
+\begin{figure}
+\begin{center}
+\psfrag{a}{$\a$}
+\psfrag{b}{$\b$}
+\psfrag{c}{$\g$}
+\psfrag{d}{$\d$}
+\psfrag{e}{$\e$}
+\psfrag{f}{$\z$}
+\psfrag{g}{$\eta$}
+\psfrag{h}{$\theta$}
+\psfrag{x}{$x$}
+\psfrag{z}{$z$}
+\psfrag{y1}{$y_1$}
+\psfrag{y2}{$y_2$}
+\psfrag{y3}{$y_3$}
+\psfrag{(1,0)}{$(1,0)$}
+\psfrag{(0,0)}{$(0,0)$}
+\psfrag{(0,2)}{$(0,2)$}
+\psfrag{(3,0)}{$(3,0)$}
+\subfigure[A dc-graph...]{
+\includegraphics[scale=.5]{dc-graph.eps}
+\label{fig:dc-grapha}
+}
+\hspace{15mm}
+\subfigure[... and its Stallings folding]{
+\includegraphics[scale=.5]{dc-folded.eps}
+\label{fig:dc-graphb}
+}
+\end{center}
+\caption{Folding a  dc-graph}\label{fig:dc-graph}
+\end{figure}
+An {\em elementary dc-folding} of a dc-graph $\G$ is a graph $\G^\prime$
 obtained from $\G$ as follows. Suppose that $e=(p,a,q)$ and 
 $e^\prime=(p,a,q^\prime)$
 are edges of $\G$. (We do not require $p$, $q$ and $q^\prime$ to be distinct.) 
@@ -508,10 +547,28 @@ is the same as that of $\G$ except that
 and $c_k(q^{\prime\prime})=\max\{c_k(q),c_k(q^{\prime\prime})\}$,
 for $k=1,2$. 
 From the definition, the conditions for a dc-graph are satisfied by 
-$\G^\prime$. A {\em folding} of a dc-graph $\G$ is a graph obtained 
-from $\G$ by a finite sequence of elementary foldings. A dc-graph is 
-said to be {\em folded} if it is not possible to perform an elementary
-folding. 
+$\G^\prime$. A {\em dc-folding} of a dc-graph $\G$ is a graph obtained 
+from $\G$ by a finite sequence of elementary foldings. Thus a dc-folding 
+of a dc-graph is again a dc-graph. 
+
+From now on we shall assume, unless we explicitly indicate otherwise,
+ that all graphs are dc-graphs and  all foldings are dc-foldings. 
+A graph on which  it is not possible to perform an elementary
+folding is 
+said to be {\em folded}. A {\em Stallings folding} of a graph $\G$ is
+ a (possibly trivial) folding of $\G$ which is folded. As every non-trivial 
+folding dedreases
+ the number of edges of the graph, every graph has a Stallings folding. From the
+standard theory (e.g. Enric's notes) a Stallings folding of a graph is unique,
+so we may define {\em the Stallings folding} $S(\G)$ of a graph $\G$.\\
+({\bf This is not quite clear, because it needs to be established that colouring
+of a Stallings folding of $\G$ is not dependent on  the order of folding. It 
+would be enough to show that the morphism from $\G$ to $S(\G)$ is uniquely 
+determined by $\G$, but I haven't checked this out.})
+\begin{example}
+Figure \ref{fig:dc-graphb} shows the Stallings folding of the graph of 
+Example \ref{ex:dc-graph}. Colours are shown only where the folding changes them.
+\end{example}
 %
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
