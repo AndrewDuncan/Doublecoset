@@ -486,13 +486,32 @@ $V_Y=\{\textrm{vertices incident only to edges of } E_Y\}$, for $Y=Z,X_1$ or $X_
 onto the $k$th factor of $\ZZ\times \ZZ$, for $k=1$ or $2$. Then 
 $c_k(x)\ge 0$, for all $x\in V\cup E$ and  for $k=1$ and $2$. 
 \item Fix $k\in \{1,2\}$.  For all $v\in V$,  
-$c_k(v)>0$ if and only if $v$ is incident both to an edge of 
-$E_k$ and to an edge of $E_Z\cup E_{X_{k^\prime}}$, with $k^\prime \neq k$. 
+$c_k(v)>0$ if and only if $v\in V_0$. Moreover, if $v\in V_0$ then
+$c_k(v)=\max\{c_k(e): e \textrm{ is incident to } v\}$. 
 \ee
-
 If $\G$ is a dc-graph then corresponding to any choice of vertex as 
 a start state, and any subset of $V$ as a set of final states, we have an automaton,
-which we call a {\em dc-automaton}. 
+which we call a {\em dc-automaton}.
+
+An {\em elementary folding} of a dc-graph $\G$ is a graph $\G^\prime$
+obtained from $\G$ as follows. Suppose that $e=(p,a,q)$ and 
+$e^\prime=(p,a,q^\prime)$
+are edges of $\G$. (We do not require $p$, $q$ and $q^\prime$ to be distinct.) 
+% with $c(p)=(m_1,n_1)$, $c(q)=(m_2,n_2)$, 
+%$c(q^\prime)=(m_3,n_3)$, $c(e)=(r_1,s_1)$ and $c(e^\prime)=(r_2,s_2)$.
+ Then $\G^\prime$ is the quotient of $\G$ formed by identifying 
+$q$ and $q^\prime$, to form a new vertex $q^{\prime\prime}$; and 
+$e$ and $e^\prime$, to form a new edge 
+$e^{\prime\prime}=(p,a,q^{\prime\prime})$. The colouring map of $\G^\prime$
+is the same as that of $\G$ except that  
+ $c_k(\e^{\prime\prime})=\max\{c_k(e),c_k(e^{\prime\prime})\}$ 
+and $c_k(q^{\prime\prime})=\max\{c_k(q),c_k(q^{\prime\prime})\}$,
+for $k=1,2$. 
+From the definition, the conditions for a dc-graph are satisfied by 
+$\G^\prime$. A {\em folding} of a dc-graph $\G$ is a graph obtained 
+from $\G$ by a finite sequence of elementary foldings. A dc-graph is 
+said to be {\em folded} if it is not possible to perform an elementary
+folding. 
 %
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
