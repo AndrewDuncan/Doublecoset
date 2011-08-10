@@ -16,34 +16,43 @@
 }
 \author{ 
 }
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\nul{\emptyset }
-\def\D{\Delta }
-\def\d{\delta }
+\renewcommand{\a}{\alpha }
+\renewcommand{\b}{\beta }
+\newcommand{\G}{\Gamma }
+\newcommand{\g}{\gamma }
+\newcommand{\D}{\Delta }
+\renewcommand{\d}{\delta }
 %\def\vd{\vardelta}
-\def\b{\beta }
-\def\z{\zeta }
-\def\i{\iota }
-\def\k{\kappa }
-\def\l{\lambda }
-\def\L{\Lambda }
-\def\r{\rho }
-\def\x{\chi }
-\def\ep{\epsilon}
-\def\e{\varepsilon }
-\def\G{\Gamma }
-\def\g{\gamma }
-\def\a{\alpha }
-\def\t{\tau }
-\def\th{\theta}
-\newcommand{\T}{\Theta}
-\def\s{\sigma }
-\def\S{\Sigma }
-\def\W{\Omega}
-\def\w{\omega }
+\newcommand{\ep}{\epsilon }
+\newcommand{\e}{\varepsilon }
+\newcommand{\z}{\zeta }
+%\eta
+\renewcommand{\th}{\theta }
+\newcommand{\T}{\Theta }
+\renewcommand{\i}{\iota }
+\renewcommand{\k}{\kappa }
+\renewcommand{\l}{\lambda }
+\renewcommand{\L}{\Lambda }
+%\mu
+%\nu
+%\xi
+%omicron
+%\pi
+\renewcommand{\r}{\rho }
+\newcommand{\s}{\sigma }
+\renewcommand{\S}{\Sigma }
+\renewcommand{\t}{\tau }
+\newcommand{\up}{\upsilon }
+\newcommand{\U}{\Upsilon }
+%\phi
+\newcommand{\x}{\chi }
+%\psi
+\newcommand{\W}{\Omega }
+\newcommand{\w}{\omega }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\pd{\partial}
 \def\wht{\widehat}
 %\def\cC{{\mathcal C}}
@@ -64,7 +73,7 @@
 %\newcommand{\GG}{\ensuremath{\mathbb{G}}}
 \newcommand{\pp}{\mathbf{p}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\def\nul{\emptyset }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newtheorem{theorem}{Theorem}[section]
@@ -639,7 +648,10 @@ are readable.
 Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an edge of 
 $\T$ labelled by an element $z\in Z$ then add a path from $\a$ to 
 $\b$ labelled by $\phi_1(z)$ to the graph $\T$. Do this for all such edges
-and call the result $\T_1$.  
+and call the result $\T_1$.   A 
+{\em boundary vertex} of $\T_1$ is defined to be a vertex
+$\a$ such that $\a$ is incident, in $\D$, to a vertex which does not
+belong to $\T_1$.  
 
 Given labelled 
 graphs $\G_1$ and $\G_2$ we define the {\em product} graph $G_1\times G_2$
@@ -648,8 +660,63 @@ edge labelled $a$ from $(u_1,u_2)$ to $(v_1,v_2)$ if and only if there are
 edges $(u_1,a, v_1)$ and $(u_2,a,v_2)$ in $\G_1$ and $\G_2$, respectively. 
 Let $P=\T_1\times \G_{A_k}$. Then there is a path labelled $w$ from 
 $\a$ to $\b$ in $T_1$ and a path labelled $w$ from $\a^\prime $ to $\b^\prime$
-in $\G_{A_k}$ if and only if there is a path labelled $w$ from $(\a,\a^prime)$ to
-$(\b,\b^prime)$ in $P$. 
+in $\G_{A_k}$ if and only if there is a path labelled $w$ from $(\a,\a^\prime)$ to
+$(\b,\b^\prime)$ in $P$. Choose a spanning  subtree $\U$ of  $P$. We shall
+use $P$ to add new paths to $\T_1$. First order the vertices of
+$\T_1$: say these are $\a_0,\ldots, \a_t$, in the given order.
+
+Let $\a_i$, $\a_j$ be vertices of  $\T_1$ with $i\le j$. If  
+there exists a simple path $p$ in $P$ from $(\a_i,1)$ to $(\a_j,1)$ then let 
+$l_p\in F(X_k)$ be the label of $p$ and let $w_p=\phi_k^{-1}(l_p)\in F(Z)$. 
+Let $q$ be a path (disjoint from $\T_1$) of length $|w_p|$ and with 
+label $w_p$. Identify the intial vertex of $q$ with $\a_i$ and the 
+terminal vertex of $q$ with $\a_j$. Now fold the resulting graph. Repeat
+this process for all simple paths from  $(\a_i,1)$ to $(\a_j,1)$, over
+all pairs of vertices $\a_i$, $\a_j$ with $i\le j$. Call the resulting
+graph $\T_2$. There are finitely many simple paths in $P$ so this process
+terminates. Moreover, regarding $\T_1$ and $\T_2$ as automata, if $\a$ and
+ $\b$ are
+boundary vertices of $\T_1$ and $L_1$ and $L_2$ are the
+languages accepted by $(\T_1,(X_k\cup Z), \a,\b)$ and 
+$(\T_2,(X_k\cup Z), \a,\b)$, respectively, then $\pi(L_1)=\pi(L_2)\subseteq G$.
+
+As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements 
+of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$ 
+the graphs $P=\T_1\times \G_{A_k}$ and $\T_2\times \G_{A_k}$ differ only
+in that the second may have some new isolated vertices. For our purposes
+we may discard these and assume that $P=\T_1\times \G_{A_k}=
+ \T_2\times \G_{A_k}$. If $P=\U$ then we have nothing to do at the
+next stage and we immediately set $\T_3=\T_2$. Otherwise, 
+suppose that $e$ is an edge of $P$ which does not belong to $\U$ but
+which does belong to a component $\Xi$  of $P$ containing a vertex
+$(\a,1)$, for some vertex $\a$ of $\T_2$. 
+Let 
+$e=((\a_i,\b_1), x, (\a_j,\b_2))$, 
+with $i\le j$ and with label $x\in X_k^{\pm 1}$. 
+Let 
+$\a_m$ be the minimal vertex of $\T_2$ (necessarily also a vertex
+of $\T_1$)  such that $(\a_m,1)$ belongs to $\Xi$.    
+Let $p_i$ be 
+the path in $\U$ from $(\a_m,1)$ to $(\a_i,\b_1)$ and let $p_j$ be
+the path in $\U$ from  $(\a_j,\b_2)$ to $(\a_m,1)$ and 
+let $l_i$ and $l_j$ be the labels of $p_i$ and $p_j$, respectively. Then 
+$p_i,e,p_j$ projects to a closed path in $\G_{A_k}$, based at $1$, with
+label $h_e=l_i x l_j \in H_k\subseteq F_k$. Moreover   
+$p_i,e,p_j$ projects to a closed path in $\T_2$, based at $\a_m$, also 
+with label $h_e$. Let 
+$w_e=\phi_k^{-1}(h_e)$ and let 
+$q$ be a path (disjoint from $\T_2$) of length
+$|w_e|$ and with label $w_e$. Identify the initial and terminal 
+vertices of $q$ to $\a_i$ and $\a_j$, respectively, and fold the
+resulting graph. Repeat this process for all such edges $e$ of $P$
+and denote the result by $\T_3$. If 
+$L_3$ is the
+language accepted by $(\T_3,(X_k\cup Z), \a,\b)$, for boundary
+vertices $\a$, $\b$ of $\T_3$, then again $\pi(L_3)=\pi(L_1)$.  
+As before we may assume that
+$P=\T_1\times \G_{A_k}=
+ \T_3\times \G_{A_k}$.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
 \bibliography{membership}
