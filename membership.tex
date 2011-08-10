@@ -778,16 +778,28 @@ Then, for $i=1,\ldots ,l$, the path $L_i e_i R_i$ is a closed path in $P$, based
 at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U$. 
 Thus the label of  $L_i e_i R_i$ is $h_i\in H_k$ and $\phi_k(h_i)$ is the
 label of a closed path in $\T_3$, based at  $\a$. (All such paths
-were added in the construction of $\T_3$ from $\T_2$.    
+were added in the construction of $\T_3$ from $\T_2$.)   
+Also, there is a path $q_1$ in $\U$ from $(\a,1)$ to $(\a_i,1)$, with 
+label $h_{l+1}$, and by construction of $\T_2$ there is a path from $\a$ to
+$\a_i$ in $\T_2$ with label $\phi_k(h_{l+1})$. 
+Now the path
+$p_1$ is the result of reducing (deleting adjacent edges $e,e^{-1}$) the path 
+$o_0 e_1 (R_1 R_1^{-1}) o_1 \cdots e_{l}(R_l R_l^{-1}) o_{l}  e_l o_{l+1}$.
+Moreover $o_0=L_1$; for $2\le i\le l$, 
+$L_i$ is the path obtained by reducing $R_{i-1}^{-1}o_{i-1}$; and 
+$R_{l}^{-1}o_{l+1}$ reduces to the path in $\U$ from 
+$(\a,1)$ to $(\a_i,1)$, that is to $q_1$. 
+Since the
+order in which these reductions are carried out does not affect the end
+result we may regard $p$ as the result of reducing the path
+$L_1 e_1 R_1 \cdots L_l e_l R_l q_1$. Hence the label $g_1$ 
+of $p_1$ is the result of 
+reducing the word $h_1\cdots h_l h_{l+1}$ and $\phi_k(g_1)$ is the result of
+reducing $\phi_k(h_1) \cdots \phi_k(h_{l+1})$. As each $\phi_k(h_i)$ is readable 
+in $\T_3$ and $\T_3$ is folded this means  that $\phi_k(g_1)$ is the
+label of a path, from $\a$ to   $\a_i$, in $\T_3$. Similarly, $\phi_k(g_2)$
+is the label of a path from $\a_2$ to $\b$ in $\T_3$. 
  
-Let $p^\prime_1$ be a simple subpath of $p_1$ from $(\a,1)$ to $(\a_1,1)$, say
-$p^prime_1$ has label $l^\prime_1$. Then in $\T_2$ there is, by construction, 
- a path with label $l_1=\phi^{-1}(l_1^\prime)\in F(Z)$. 
-For each $i=1,\ldots ,l$ the path 
-$d_i=(o_0\cdots o_i)e_i (o_1\cdots o_{i})^{-1}$ is
-then a closed path based at $(\a,1)$ and containing exactly one edge, 
-$e_i$, not in $\U$.
-
 
 \end{proof}
 
