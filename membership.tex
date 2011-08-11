@@ -726,15 +726,18 @@ form of words $w$ which are readable by $\T_3$ and readable
 As before we may assume that
 $P=\T_1\times \G_{A_k}=
  \T_3\times \G_{A_k}$. 
-To this end recall that we have fixed a spanning subtree 
-$T_k$ of $\G_{A_k}$. Fix a vertex $\b$ of $\G_{A_k}$.  
- If $P$ projects to a subgraph of $\G_{A_k}$ which contains 
-the path from $1$ to $\b$ in $T_k$ then say that $P$ {\em covers} $\b$. 
-If all vertices of $\G_{A_k}$ are covered by $P$ then set $\T_4=\T_3$.
+Recall that we have fixed a spanning subtree 
+$T_k$ of $\G_{A_k}$. Let $p$ be a simple path in $P$ from a 
+vertex $(\a_0,1)$ to a vertex $(\a_1,\b_1)$, containing no
+vertices of the form $(\a,1)$ except the first. If $P$ contains a 
+path from $(\a_0,1)$ to $(\a_1,\b_1)$ which projects onto $T_k$ then
+ say that $P$ {\em covers} $p$. 
+If all such paths are covered by $P$ then set $\T_4=\T_3$.
 Otherwise 
-let $p$ be a simple path in $P$ from a  vertex $(\a_i,1)$ to a vertex $(\a_j,\b)$, 
-where $\b$ is not covered by $P$, and where $p$ contains no further
-vertices of the form $(\a,1)$ (if such a path exists). Let 
+let $p$ be a simple path in $P$ from a  vertex $(\a_i,1)$ to a vertex $(\a_j,\b)$, containing no further
+vertices of the form $(\a,1)$,
+which is not covered by $P$.
+ Let 
 $p$ have label $a$.  
 Let $b$ be label of the path in $T_k$ from $1$ to $\b$. 
 Then $ab^{-1}=h\in H_k\in F_k$. Let 
@@ -742,7 +745,11 @@ $w=\phi_{k}^{-1}(ab^{-1})
 \in F(Z)$ and let $q$ be a path with label $wb$. Identify the initial
 and terminal vertices of $q$ with vertices $a_i$ and $a_j$ of $\T_3$, 
 respectively, and fold
-the resulting graph. Repeat this process for all such paths $p$ in $P$ and 
+the resulting graph. 
+As $\pi(a)=\pi(wb)\in G$ the image of the language accepted by
+the resulting graph (considered as an automaton) is unchanged by
+this operation. 
+Repeat this process for all such paths $p$ in $P$ and 
 call the result $\T_4$. 
 
 \begin{lemma}
@@ -764,10 +771,10 @@ $\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
 
 Since $g_i\in H_k$ and $w$ is accepted by $\T_1$ there is a path
 labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\T_1$ and a path
-labelled $g_2$ from a vertex $\a_2$ of $\T_1$ to $\b$. Therefore, in $P$,
+labelled $g_2$ from $\b$ to a vertex $\a_2$ of $\T_1$. Therefore, in $P$,
 there are paths $p_1$ from $(\a,1)$ to $(\a_1,1)$ labelled $g_1$, and 
 $p_2$  
-from $(\a_2,1)$ to $(\b,1)$ labelled $g_2$. 
+from $(\b,1)$ to $(\a_2,1)$ labelled $g_2$. 
 Now $p_1$ may 
 be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l+1}$,
 where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $P$ which does
@@ -782,7 +789,7 @@ were added in the construction of $\T_3$ from $\T_2$.)
 Also, there is a path $q_1$ in $\U$ from $(\a,1)$ to $(\a_i,1)$, with 
 label $h_{l+1}$, and by construction of $\T_2$ there is a path from $\a$ to
 $\a_i$ in $\T_2$ with label $\phi_k(h_{l+1})$. 
-Now the path
+The path
 $p_1$ is the result of reducing (deleting adjacent edges $e,e^{-1}$) the path 
 $o_0 e_1 (R_1 R_1^{-1}) o_1 \cdots e_{l}(R_l R_l^{-1}) o_{l}  e_l o_{l+1}$.
 Moreover $o_0=L_1$; for $2\le i\le l$, 
@@ -798,9 +805,34 @@ reducing the word $h_1\cdots h_l h_{l+1}$ and $\phi_k(g_1)$ is the result of
 reducing $\phi_k(h_1) \cdots \phi_k(h_{l+1})$. As each $\phi_k(h_i)$ is readable 
 in $\T_3$ and $\T_3$ is folded this means  that $\phi_k(g_1)$ is the
 label of a path, from $\a$ to   $\a_i$, in $\T_3$. Similarly, $\phi_k(g_2)$
-is the label of a path from $\a_2$ to $\b$ in $\T_3$. 
- 
+is the label of a path from $\b$ to $\a_2$ in $\T_3$. 
 
+For $i=1,2$ the words $b_i$ are readable by $\G_{A_k}$, and there
+is a path in $\T_1$ from $\a_i$ to some vertex $\b_i$ of $\T_1$.
+Hence $b_1$ is the label of a path in $P$ from $(\a_1,1)$ to
+$(\b_1,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.   Let $b_1^\prime$
+ be the label of the simple path $p_1^\prime$ in $\U$ from 
+$(\a_1,1)$ to $(\b_1,\e_1)$. By construction $\T_4$ contains a path
+from $\a_1$ to $\b_1$ with label $h_1^\prime b_1^{\prime\prime}$, where
+$h_1^\prime \in F(Z)$ (and is the empty word if $P$ covers $p^\prime$) and 
+$b_1^{\prime\prime}$ is the label of the path in $T_k$ from $1$ to 
+$\e_1$ (and equals $b_1^\prime$ if $P$ covers $p_1^\prime$).  
+Furthermore we have 
+$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$. 
+Now $b_1(b_1^\prime)^{-1}\in H_k$ and is the label of a closed
+path  in $P$ based at $(\a_1,1)$; so by the 
+previous part of proof, $\T_3$ contains a closed path, based at $\a_1$, 
+ with label 
+$w_1^\prime=\phi_k(b_1(b_1^\prime)^{-1})$. Hence, as it is folded, 
+$\T_4$ contains a path, from $\a_1$ to $\b_1$, 
+with label the reduced word obtained from the product 
+$w_1^{\prime} h_1^\prime b_1^{\prime\prime}$. The latter is the normal 
+form of $b_1$, as required. Similarly, $\T_4$ contains a path from 
+$\a_2$ to $\b_2$ with label the normal form of $b_2$. 
+
+As $w$ is the label of a path in $\T_1$ there is a path from $\b_1$ to
+$\b_2$ in $\T_4$ with label $c$. Therefore, in this case, $\T_4$ contains
+a path from $\a$ to $\b$ which has label the normal form of $w$. 
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
