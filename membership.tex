@@ -53,27 +53,28 @@
 \newcommand{\w}{\omega }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\pd{\partial}
-\def\wht{\widehat}
-%\def\cC{{\mathcal C}}
+\newcommand{\pd}{\partial}
+\newcommand{\wht}{\widehat}
+%\newcommand{\cC}{{\mathcal C}}
 %\newcommand{\cdim}{\texttt{cdim}}
-\def\fC{{\textswab C}}
+\newcommand{\fC}{{\textswab C}}
 %
-\def\cD{{\cal{D}}}
-\def\cF{{\cal{F}}}
-\def\cH{{\cal{H}}}
-\def\cJ{{\cal{J}}}
+\newcommand{\cA}{{\cal{A}}}
+\newcommand{\cD}{{\cal{D}}}
+\newcommand{\cF}{{\cal{F}}}
+\newcommand{\cH}{{\cal{H}}}
+\newcommand{\cJ}{{\cal{J}}}
 
-\def\cK{{\cal{K}}}
-\def\cP{{\cal{P}}}
-\def\cR{{\cal{R}}}
-\def\cS{{\cal{S}}}
-\def\cW{{\cal{W}}}
-\def\cQ{{\cal{Q}}}
+\newcommand{\cK}{{\cal{K}}}
+\newcommand{\cP}{{\cal{P}}}
+\newcommand{\cR}{{\cal{R}}}
+\newcommand{\cS}{{\cal{S}}}
+\newcommand{\cW}{{\cal{W}}}
+\newcommand{\cQ}{{\cal{Q}}}
 %\newcommand{\GG}{\ensuremath{\mathbb{G}}}
 \newcommand{\pp}{\mathbf{p}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\nul{\emptyset }
+\newcommand{\nul}{\emptyset }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newtheorem{theorem}{Theorem}[section]
@@ -896,18 +897,68 @@ of $\D_k$, for $k=1$ and $2$. The resulting graph is said to
 be obtained from $\D$ by {\em resolution of attracting pairs} and 
 is  a dc-graph. Hence its Stallings folding is also a dc-graph.
 
+
 \begin{lemma}
 Let $\D$ be  a connected, deterministic, trim, dc-graph, let $\T$ be 
 the graph  
 obtained from $\D$ by resolution of attracting pairs and let 
-$\L$ be the Stallings folding of $\T$. Let $u,v$ be vertices
-of $\L$ with $c_k(u)=c_k(v)$ and let $p$ be a reduced path from $u$ to
-$v$ with label an element of $F(X_k\cup Z)$.  Then there is a path
-$q$ from $u$ to $v$ in $\L$ with label $l(q)$ equal to the normal
-form of $l(p)$.   
+$\L$ be the Stallings folding of $\T$. Then $\L$ is formed from
+$\T$ by folding edges of type $Z$. 
 \end{lemma}
 \begin{proof}
-
+Let $\T=\L_0,\L_1,\ldots, \L_n$ be a sequence of graphs such that
+$\L_{i+1}$ is obtained from $\L_i$ by and elementary folding. 
+Suppose that all these foldings except possibly the last involve only edges
+of type $Z$. Assume $L_n$ is formed from $L_{n-1}$ by folding edges
+$(\a,x,\b_1)$ and $(\a,x,\b_2)$ with label $x\in X_k$. Since the 
+first $n-1$ foldings involve only edges of type $Z$ it follows that 
+if $\g_1$ and $\g_2$ are vertices of $\T$ which map via these foldings
+to $\b_1$ and $\b_2$, then there is a path $q$ in $\T$ from $\g_1$ to $\g_2$ 
+which has label in $F(Z\cup \{x\})$. Hence $\g_1$ and $\g_2$ both belong to
+ the same $X_k$ component of $\T$, which also contains the path $q$. 
+Therefore all $n$ foldings can be carried out in this $X_k$
+component. However the $X_k$ components of $\T$ are folded, since they
+correspond to the graphs $\T_5$ constructed from $X_k$ components of $\D$. 
+Therefore no folding involving an edge of type $X_1$ or $X_2$ can occur
+in such a sequence, and the result follows.
+\end{proof}
+\begin{lemma}
+Let $\D$ be  a connected, deterministic, trim, dc-graph, let $\T$ be 
+the graph  
+obtained from $\D$ by resolution of attracting pairs and let 
+$\L$ be the Stallings folding of $\T$. Let $\a$  and $\b$ be boundary
+vertices of an $X_k$ component of $\L$ and let $p$ be a path from 
+$\a$ to $\b$ with label $w\in F(X_k\cup Z)$. Then $\L$ contains a
+path $q$ with label equal to the normal form of $w$. 
+\end{lemma}
+\begin{proof}
+Let $\g$ and $\d$ be vertices of $\T$ which map to $\a$ and $\b$ in the
+folding of $\T$ to $\L$. As this folding involves only edges of type $Z$
+it follows that $\g$ and $\d$ are in the same $X_k$ component of $\T$. 
+Moreover $p$ there is a path $p^\prime$ in $\T$ such that the image
+of $p^\prime$ in $\L$ reduces to $p$. Then $\T$ contains a path 
+$q^\prime$ such that the label of $q^\prime$ is the normal form of 
+the label of $p^\prime$. Let $q$ be the reduced path in $\L$ obtained by
+reduction of the image of $q^prime$. Then the images of $l(q)$ and 
+$l(q^\prime)$ in $G$ are equal and both are equal to the image of $l(p)$ in
+$G$. Moreover, since $l(q^prime)$ is in normal form and $l(q)$ is obtained
+from $l(q^\prime)$ by cancellation of letters of $Z$ it follows that 
+$l(q)$ is in normal form. Hence $l(q)$ is the normal form of $l(p)$,
+as required.
+\end{proof}
+\begin{theorem}
+Let $\cA=(\L,X_1\cup X_2\cup Z)$, where $\L$ is defined in the previous
+lemma. Then $\pi(L(\cA))=K$ and if $w$ is the normal form of an element
+of $K$ then $w\in L(\cA)$. 
+\end{theorem}
+\begin{proof}
+We have $\pi(L(\cA))=\pi(L(\cF(K))=K$, by construction. If $u$ is a word
+accepted by $\cA$ then we may write $u=z_0t_1z_1\cdots z_rt_rz_{r+1}$, where
+$z_i\in F(Z)$ and $t_i$ is the label of a path between two boundary
+vertices of an $X_1$ or $X_2$ component of $\L$, for all $i$. If 
+$s_i$ is the normal form of $t_i$ then, from the previous lemma, it follows
+that $\cA$ also accepts the word $z_0s_1z_1\cdots z_rs_rz_{r+1}$, which
+is the normal form of $u$. 
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
