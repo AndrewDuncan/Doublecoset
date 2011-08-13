@@ -132,7 +132,7 @@
 %
 \begin{document}
 \maketitle
-\section{Double coset normal form}
+\section{Double coset normal form}\label{sec:intro}
 Based on notes copied (laboriously) from Christian's page 
 \url{
 http://checkmyworking.com/misc/writemaths/?doublecoset
@@ -273,7 +273,7 @@ We shall define a set of double coset representatives for $H$ in two parts.
 First, a word $w\in F(X)$ is a {\em representative of type} $1$ if 
 \[w=s\circ e \circ t^{-1},\]
 where $s$ is a maximal $L_T$-prefix of $w$, $t$ is a maximal $L_T$-prefix of 
-$t\circ e^{-1}$ and $e\neq 1$. Let $S_1$ denote the set of all representatives of 
+$t\circ e^{-1}$ and $e\neq 1$. Let $S^{(1)}$ denote the set of all representatives of 
 type $1$. 
 
 To describe the remaining representatives we shall first define an equivalence
@@ -318,9 +318,15 @@ of $Y$) and define $(u,v)$ to be the $\sim${\em representative} of $\pp$. Fix
 one $\sim$ representative for each equivalence class of $\sim$ and  
 let $Q$ denote the set of  all these $\sim$ representatives. A word $w\in F(X)$ is
  a {\em representative of type} $2$ if $w=w(u)w(v)^{-1}$, for some $(u,v)\in Q$. 
-Let $S_2$ denote the set of all representatives of type $2$ and define $S=S_1\cup S_2$.
+Let $S^{(2)}$ denote the set of all representatives of type $2$ and 
+define $S=S^{(1)}\cup S^{(2)}$.
 (Note that by the minimality conditions of the defintion, if $(u,v)$ is a 
 $\sim$ representative then $w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$.)
+In order to ensure uniqueness of the normal form of an element of $F(X)$ we 
+also need to choose an element $c(u,v)$ of $F(X)$, for each $(u,v)\in P$,
+of $P$: $c(u,v)$ is defined to be the label of some fixed choice of path
+from $u$ to $u_0$ and $v$ to $v_0$, where $(u_0,v_0)$ is the $\sim$ 
+representative of $(u,v)$. 
 
 \begin{proposition}\label{prop:dcreps}
 $S$ is a set of double coset representatives for $H$.
@@ -341,7 +347,7 @@ and a path from $v$ to $v^\prime$, also with label $l$.
 Having constructed the equivalence classes of $\sim$
  a set of $\sim$ representatives may be constructed, by considering the 
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
-sets $Q$ and $S_2$ may be computed.   \\
+sets $Q$ and $S^{(2)}$ may be computed.   \\
 
 \noindent{\bf The algorithm}:\\
 Input $w\in F(X)$. 
@@ -367,34 +373,38 @@ In particular
 $ye=y\circ e$. Similarly, the first letter of $e^{-1}$ is not readable from
 the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ z^{-1}$. Moreover $y$ is a 
 maximal $L_T$-prefix of $yez^{-1}$ and $z$ is a maximal $L_T$-prefix of $ze^{-1}$. 
-Thus $yez^{-1}\in S_1$ and we output
+Thus $yez^{-1}\in S^{(1)}$ and we output
 \[w=(py^{-1}) (yez^{-1})(zt^{-1})\in HSH,\]
 of the required form.
 
 On the other hand if $e=1$ then 
 \[w=h\circ p\circ t^{-1}\circ g.\]
-In this case let $u=\t(p)$ and $v=\t(t)$ and let $(u_0,v_0)$ be the $\sim$ representative
-of the equivalence class of $(u,v)$.  Let $y=w(u_0)$ and $z=w(v_0)$. Then,  from Lemma
-\ref{lem:equiv_verts}, there exist $h_0,h_1\in H$ such that 
-\[w(u)w(v)^{-1}=h_0yz^{-1}h_1^{-1}\]
-and we have $p w(u)^{-1}$, $t w(v)^{-1}$ in $H$. Hence 
+In this case let $u=\t(p)$ and $v=\t(t)$, 
+let $(u_0,v_0)$ be the $\sim$ representative
+of the equivalence class of $(u,v)$ and let $c=c(u,v)$.  
+Let $y=w(u_0)$ and $z=w(v_0)$. Then,  as in the proof of Lemma
+\ref{lem:equiv_verts}, setting $h_0=w(u)c^{-1}y^{-1}$ and
+$h_1=w(v)c^{-1}z^{-1}$ we have  
+ $h_0,h_1\in H$ and 
+\[w(u)w(v)^{-1}=h_0yz^{-1}h_1^{-1}.\] Furthermore 
+ $p w(u)^{-1}$ and  $t w(v)^{-1}$ are in $H$. Hence 
 \[
 p\circ t^{-1}=( p w(u)^{-1})w(u)w(v)^{-1}( w(v)t^{-1})=( p w(u)^{-1}) h_0 yz^{-1}
 h_1^{-1}( w(v)t^{-1})
 \]
-and by definition $yz^{-1}\in S_2$. We then output 
+and by definition $yz^{-1}\in S^{(2)}$. We then output 
 \[w=a yz^{-1} b,\]
 where $a=h ( p w(u)^{-1}) h_0\in H$ and $b=h_1^{-1}( w(v)t^{-1})g \in H$.
 
 It remains to show that if $s_0,s_1\in S$ with $s_1\in Hs_0H$ then $s_1=s_0$.
 Suppose that $s_1=as_0b$, where $a, b\in H$.  
-If $s_0\in S_1$, say $s_0=y_0e_0z_0^{-1}$, then, as $ay_0$ and $b^{-1}z_0$ are readable
+If $s_0\in S^{(1)}$, say $s_0=y_0e_0z_0^{-1}$, then, as $ay_0$ and $b^{-1}z_0$ are readable
 by $A$ and $e_0\neq 1$, it follows (as above) that $s_1$  
 cannot be factored as $s_1=yz^{-1}$,
 where both $y$ and $z$ are readable by $A$. Hence both $s_0$ and $s_1$ belong to
-$S_1$ or both belong to $S_2$. 
+$S^{(1)}$ or both belong to $S^{(2)}$. 
 
-Consider the case where both belong to $S_1$ and, in the usual notation,
+Consider the case where both belong to $S^{(1)}$ and, in the usual notation,
 $s_i=y_i e_i z_i^{-1}$, $i=0,1$. We have $s_1=as_0b$, $a,b\in H$, and as $y_0$ has
 no left divisor in $H$, if $a\neq 1$ then $a$ does not cancel completely with
  a prefix of $y_0$. Thus, if $a\neq 1$ we may write $a=a_0\circ a_1$ and 
@@ -412,8 +422,9 @@ $z_1=b_1^{-1}\circ z_0^\prime$. We now have  $\t(y_1)=\t(a_0y_0^\prime)=\t(y_0)$
 $y_0=y_1$ and this in turn implies that $a=1$. Similarly $z_0=z_1$ so $b=1$. 
 Hence $s_0=s_1$ in this case.
 
-Finally consider the case where $s_1$ and $s_2$ belong to $S_2$. As $s_1=as_0b$, with
-$a,b\in H$, Lemma \ref{lem:equiv_verts} and the definition of $S_2$ imply  that 
+Finally consider the case where $s_1$ and $s_2$ belong to $S^{(2)}$. 
+As $s_1=as_0b$, with
+$a,b\in H$, Lemma \ref{lem:equiv_verts} and the definition of $S^{(2)}$ imply  that 
 $s_0= s_1$. Therefore $S$ is a set of double coset representatives.
 \end{proof}
 
@@ -441,7 +452,7 @@ g &= x_1^3x_2^2y_1y_2 \\
 As before let $g$ be a word in $F_1\ast F_2$ and suppose that 
 $g=g_1\cdots g_t$ in reduced form. 
 Write each syllable $g_i$ of $g=g_1\cdots g_t$ in normal form using the algorithm above. 
-This gives $g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S_1\cup S_2$ and 
+This gives $g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S^{(1)}\cup S^{(2)}$ and 
 $h_{i,j}\in H_1\cup H_2$. Using $\phi_1^{-1}$ or $\phi_2^{-1}$, as appropriate,
 we now write $h_{i,1}$ and $h_{i,2}$ as reduced words in $F(Z)$. For $i=1,\ldots , t-1$, we reduce the 
 word $h_{i,2}h_{(i+1),1}\in F(Z)$ to give a reduced word $h_i\in F(Z)$ and set $h_0=h_{1,1}$ and  $h_{t+1}=h_{t,2}$.
@@ -452,15 +463,17 @@ Then $g$ has normal form $h_0d_1h_1\cdots d_th_{t+1}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{The generalised folding process}
 The object is to construct an automaton which will accept a word $w$
-in double coset normal form if and only if it belongs to the subgroup $K$.
+in double coset normal form if and only if it belongs to a given subgroup $K$.
 The idea is to this by starting with the flower automaton for the 
-generators of $K$, written in (double coset) normal form, carrying out
+generators of $K$, written in (double coset) normal form; carrying out
 Stallings folding as usual to produce a deterministic, trim, inversive 
-automaton, and next adding some additional paths to allow normal forms
-to be read. This may introduce new non-determinism in some  states (i.e.
-things not folded), so
-the resulting automaton must be folded. We carry on this process as long
-as we can: but of course need to show that it halts. Suppose $L$ is the 
+automaton; and next adding some additional paths to allow normal forms
+to be read. This may introduce new non-determinism in some  states (i.e. edges
+which may be folded), so
+the resulting automaton must be folded again. 
+The result of the final folding is the candidate automaton.
+
+ Suppose $L$ is the 
 language accepted by the flower automaton of $K$. The image of $L$ under
 the canonical map to $G$ is $K$. All the stages of our generalised folding
 process will preserve this image, so our final automaton will accept a language
@@ -469,7 +482,7 @@ in normal form which represents an element of $K$ then $w$ is in $L_1$. It will
 therefore suffice to show that if $u$ is any word in $L_1$ then the 
 normal form of $u$ is also in $L_1$. 
 
-If things get unpleasant then we  shall restrict to malnormal $H_i$ to make the generalised folding process simpler, but for now we make no such assumption.
+
  Recall from above that we have 
 $F_1$, $F_2$ free groups (finitely generated by $X_1$ 
 and $X_2$, respectively); 
@@ -478,14 +491,16 @@ there exists an isomorphism $\phi: H_1 \rightarrow H_2$; a free group
  $F(Z)$, generated by $Z=\{z_1, \ldots, z_m\}$, 
 and  maps $\phi_1$ and $\phi_2$ such that 
 $\phi_1(z_i)=h_i(X_1)  $ and  $\phi_2(z_i)=h^\prime_i(X_2)$, $i=1,\ldots ,m$,
-both of which induce isomorphisms. 
+both of which induce isomorphisms with $\phi=\phi_2\phi_1^{-1}$. 
 Implicit in all this is that $X_1\cap X_2=X_1\cap Z = X_2\cap Z=\nul$. 
 We define 
 ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$, the group with  
  presentation $\la X_1,X_2 | h_i = h_i', i=1 \ldots m\ra$ and 
 let $S_1$ and $S_2$ be sets of  double coset representatives of 
-$H_1\le F_1$ and $H_2\le F_2$, respectively, (as in  the 
-previous section).
+$H_1\le F_1$ and $H_2\le F_2$, respectively, (as in  
+Section \ref{sec:intro}). Let $A_k$ be the Stallings automaton
+for $H_k$ and let $T_k$ be a spanning tree for the associated
+graph $\G_{A_k}$. 
 
 Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$ written
 in normal form: say
@@ -493,8 +508,9 @@ in normal form: say
 k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
 \end{equation}
 where $h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$.   
-\subsection{double coset automata and graphs}
+\subsection{Double coset automata and graphs}
 
+\begin{comment}
 A colouring of a directed, inversive, labelled graph $\G$ is a map $c$  from $V(\G)\cup E(\G)$
  to a set $C$ such that if $\i_E$ is the involution on edges 
 then $c(e)=c(\i(e))$. (We make no conditions on the colouring of vertices:
@@ -512,15 +528,15 @@ respectively, satisfying the following conditions.
 \item $c$ is a map $c:V\cup E\maps \ZZ\times \ZZ$. 
 \item $E=E_Z\cup E_{X_1}\cup E_{X_2}$,
 where $E_Z=l^{-1}(Z)$, $E_{X_1}=l^{-1}(X_1)$ and $E_{X_2}=l^{-1}(X_2)$.
-\item $V=V_0\cup V_C$, where $V_C=V\bs V_0$ and 
-$V_0$ is the union of 
+\item $V=V_0\cup V_C$, where $V_0=V\bs V_C$ and 
+$V_C$ is the union of 
 $V_{X_1}$, $V_{X_2}$ and $V_Z$, with   
 $V_Y=\{\textrm{vertices incident only to edges of } E_Y\}$, for $Y=Z,X_1$ or $X_2$. 
 \item Let $c_k:V\cup E\maps \ZZ$ be the composition of $c$ with projection
 onto the $k$th factor of $\ZZ\times \ZZ$, for $k=1$ or $2$. Then 
 $c_k(x)\ge 0$, for all $x\in V\cup E$ and  for $k=1$ and $2$. 
-\item Fix $k\in \{1,2\}$.  For all $v\in V$,  
-$c_k(v)>0$ if and only if $v\in V_0$. Moreover, if $v\in V_0$ then
+\item   For all $v\in V$,  
+$c_1(v)+c_2(v)>0$ if and only if $v\in V_0$. Moreover, if $v\in V_0$ then
 $c_k(v)=\max\{c_k(e): e \textrm{ is incident to } v\}$. 
 \ee
 An automaton $A$ is called a {\em dc-automaton} if $\G_A$ is  a dc-graph.
@@ -587,15 +603,33 @@ from $\G$ by a finite sequence of elementary foldings. Thus a dc-folding
 of a dc-graph is again a dc-graph. 
 
 From now on we shall assume, unless we explicitly indicate otherwise,
- that all graphs are dc-graphs and  all foldings are dc-foldings. 
+ that all graphs are dc-graphs and  all foldings are dc-foldings.
+\end{comment}
+ 
+An {\em elementary folding} of a graph $\G$ is a graph $\G^\prime$
+obtained from $\G$ as follows. Suppose that $e=(p,a,q)$ and 
+$e^\prime=(p,a,q^\prime)$
+are edges of $\G$. (We do not require $p$, $q$ and $q^\prime$ to be distinct.) 
+ Then $\G^\prime$ is the quotient of $\G$ formed by identifying 
+$q$ and $q^\prime$, to form a new vertex $q^{\prime\prime}$; and 
+$e$ and $e^\prime$, to form a new edge 
+$e^{\prime\prime}=(p,a,q^{\prime\prime})$. If the root of $\G$ is $q$
+ or $q^\prime$ then $q^{\prime\prime}$ is the root of $\G^\prime$ and otherwise
+ the root of $\G^\prime$ is that of $\G$. 
+ A {\em folding} of a graph $\G$ is a graph obtained 
+from $\G$ by a finite sequence of elementary foldings.
+
 A graph on which  it is not possible to perform an elementary
 folding is 
 said to be {\em folded}. A {\em Stallings folding} of a graph $\G$ is
  a (possibly trivial) folding of $\G$ which is folded. As every non-trivial 
 folding dedreases
- the number of edges of the graph, every graph has a Stallings folding. From the
+ the number of edges of the graph, every graph has a Stallings folding. 
+From the
 standard theory (e.g. Enric's notes \cite{ventura11}) a Stallings folding of a graph is unique,
-so we may define {\em the Stallings folding} $S(\G)$ of a graph $\G$.\\
+so we may define {\em the Stallings folding} $S(\G)$ of a graph $\G$.
+\begin{comment}
+\\
 ({\bf This is not quite clear, because it needs to be established that colouring
 of a Stallings folding of $\G$ is not dependent on  the order of folding. It 
 would be enough to show that the morphism from $\G$ to $S(\G)$ is uniquely 
@@ -606,23 +640,31 @@ Example \ref{ex:dc-graph}. Colours are shown only where the folding changes them
 \end{example}
 %
 %
+\end{comment}
+
 Now let $\cF(K)$ be the flower automaton of $K$ and let 
 $\G$ be the corresponding rooted graph. If $e$ is an edge of $\G$ then
 $e$ is labelled by a letter (of $X_1\cup X_2 \cup Z$) 
 occuring in $h_{i,j}$ or $t_{i,j}$, for some $i,j$, as in 
-\eqref{eq:k-form}. If $e$ is labelled by a letter of $Z$ we say $e$ has {\em type} $Z$
-and define $c(e)=(0,0)$. If $e$ is labelled by a letter of $X_k$ occuring in 
-$t_{i,j}$, we say $e$ has {\em type} $X_k$ and define 
+\eqref{eq:k-form}. If $e$ is labelled by a letter of $Z$ we say $e$ has {\em type} $Z$. 
+ %and define $c(e)=(0,0)$. 
+If $e$ is labelled by a letter of $X_k$ occuring in 
+$t_{i,j}$, we say $e$ has {\em type} $X_k$. 
+\begin{comment}
+ and define 
 \[c_k(e)=m_1+\cdots m_{i-1} +j\textrm{ and } c_{k^\prime}(e)=0,\]
 where $k\neq k^\prime$. If $v\in V_C$ then we define $c(v)=(0,0)$. If $v\in V_0$ then
  we define $c_k(v)=\max\{c_k(e): e \textrm{ is incident to } v\}$, for $k=1,2$.  
 This makes $\G$ into a dc-graph. The graph of Example \ref{ex:dc-graph} is obtained 
 from the subgroup $K$ generated by the single element $xzy_1y_2y_3x^{-1}$ in this way.
+\end{comment}
 
-Now let $\D$ be the Stallings folding of the dc-graph $\G$.  Then
- $\D$ is a connected, deterministic, trim, dc-graph and $\pi(L(\D))=K$. However
+Now let $\D$ be the Stallings folding of the graph $\G$.  Then
+ $\D$ is a connected, deterministic, trim, graph and $\pi(L(\D))=K$. However
 $L(\D)$ does not, in general, contain all normal forms of elements of $K$. 
-Next we enlarge $\D$ to allow it to accept normal forms. 
+Next we transform $\D$ to allow it to accept normal forms. 
+
+\begin{comment}
 \begin{definition}\label{def:attractive}
 Let $\D$ be a  dc-graph, let $k\in \{1,2\}$ and let 
 $u,v\in V_0(\D)$ such that 
@@ -647,6 +689,8 @@ As a direct consequence of the definitions we have the following lemma.
 If $\{u,v\}$ and $\{v,w\}\in A_k$ and $c_k(u)\neq c_k(v)$ then 
 $\{u,w\}\in A_k$.
 \end{lemma}
+\end{comment}
+
 Let $\D_k$ be the graph formed from $\D$ by removing all edges of type
 $X_{k^\prime}$, where $k\neq k^\prime$. An $X_k$ component of $\D_k$ is 
 the subgraph of $\D$ formed from a connected component of $\D_k$ by removing
@@ -655,35 +699,43 @@ process till there are no such leaves left.
  We shall modify the $X_k$ components of $\D_k$ so that normal forms of words 
 are readable. 
 
-Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an edge of 
-$\T$ labelled by an element $z\in Z$ then add a path from $\a$ to 
-$\b$ labelled by $\phi_1(z)$ to the graph $\T$. Do this for all such edges
-and call the result $\T_1$.   A 
-{\em boundary vertex} of $\T_1$ is defined to be a vertex
+Let $\T$ be an $X_k$ component of $\D_k$. A 
+{\em boundary vertex} of $\T$ is defined to be a vertex
 $\a$ such that $\a$ is incident, in $\D$, to a vertex which does not
-belong to $\T_1$.  
+belong to $\T$.  If $(\a,z,\b)$ is an edge of 
+$\T$ labelled by an element $z\in Z$ then add a path from $\a$ to 
+$\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this for all such edges
+and call the result $\T_1$.  Define the boundary vertices of $\T_1$ to be  
+the boundary vertices of the subgraph $\T$. Similarly, the images of these
+boundary vertices are defined to be the boundary vertices of 
+the graphs $\T_2$, $\T_3$, $\T_4$ and $\T_5$ constructed
+below.
 
 Given labelled 
 graphs $\G_1$ and $\G_2$ we define the {\em product} graph $G_1\times G_2$
 to be the graph with vertices $V=V(G_1)\times V(G_2)$ and with a directed
 edge labelled $a$ from $(u_1,u_2)$ to $(v_1,v_2)$ if and only if there are 
 edges $(u_1,a, v_1)$ and $(u_2,a,v_2)$ in $\G_1$ and $\G_2$, respectively. 
-Let $P=\T_1\times \G_{A_k}$. Then there is a path labelled $w$ from 
+Let $\cP=\T_1\times \G_{A_k}$. 
+Then there is a path labelled $w$ from 
 $\a$ to $\b$ in $T_1$ and a path labelled $w$ from $\a^\prime $ to $\b^\prime$
 in $\G_{A_k}$ if and only if there is a path labelled $w$ from $(\a,\a^\prime)$ to
-$(\b,\b^\prime)$ in $P$. Choose a spanning  subtree $\U$ of  $P$. We shall
-use $P$ to add new paths to $\T_1$. First order the vertices of
-$\T_1$: say these are $\a_0,\ldots, \a_t$, in the given order.
+$(\b,\b^\prime)$ in $\cP$. 
+ We shall
+use this property of $\cP$ to determine which new paths to add  to $\T_1$. 
+Choose a spanning  subtree $\U$ of  $\cP$. Next
+ order the vertices of
+$\T_1$: say these are $\a_0,\ldots, \a_t$, in the order written.
 
 Let $\a_i$, $\a_j$ be vertices of  $\T_1$ with $i\le j$. If  
-there exists a simple path $p$ in $P$ from $(\a_i,1)$ to $(\a_j,1)$ then let 
+there exists a simple path $p$ in $\cP$ from $(\a_i,1)$ to $(\a_j,1)$ then let 
 $l_p\in F(X_k)$ be the label of $p$ and let $w_p=\phi_k^{-1}(l_p)\in F(Z)$. 
 Let $q$ be a path (disjoint from $\T_1$) of length $|w_p|$ and with 
 label $w_p$. Identify the intial vertex of $q$ with $\a_i$ and the 
 terminal vertex of $q$ with $\a_j$. Now fold the resulting graph. Repeat
 this process for all simple paths from  $(\a_i,1)$ to $(\a_j,1)$, over
 all pairs of vertices $\a_i$, $\a_j$ with $i\le j$. Call the resulting
-graph $\T_2$. There are finitely many simple paths in $P$ so this process
+graph $\T_2$. There are finitely many simple paths in $\cP$ so this process
 terminates. Moreover, regarding $\T_1$ and $\T_2$ as automata, if $\a$ and
  $\b$ are
 boundary vertices of $\T_1$ and $L_1$ and $L_2$ are the
@@ -692,17 +744,17 @@ $(\T_2,(X_k\cup Z), \a,\b)$, respectively, then $\pi(L_1)=\pi(L_2)\subseteq G$.
 
 As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements 
 of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$ 
-the graphs $P=\T_1\times \G_{A_k}$ and $\T_2\times \G_{A_k}$ differ only
+the graphs $\cP=\T_1\times \G_{A_k}$ and $\T_2\times \G_{A_k}$ differ only
 in that the second may have some new isolated vertices. For our purposes
-we may discard these and assume that $P=\T_1\times \G_{A_k}=
- \T_2\times \G_{A_k}$. If $P=\U$ then we have nothing to do at the
+we may discard these and assume that $\cP=\T_1\times \G_{A_k}=
+ \T_2\times \G_{A_k}$. If $\cP=\U$ then we have nothing to do at the
 next stage and we immediately set $\T_3=\T_2$. Otherwise, 
-suppose that $e$ is an edge of $P$ which does not belong to $\U$ but
-which does belong to a component $\Xi$  of $P$ containing a vertex
+suppose that $e$ is an edge of $\cP$ which does not belong to $\U$ but
+which does belong to a component $\Xi$  of $\cP$ containing a vertex
 $(\a,1)$, for some vertex $\a$ of $\T_2$. 
 Let $(\a,1)$ be such a vertex and let 
 $e=((\a_i,\b_1), x, (\a_j,\b_2))$, 
-with $i\le j$ and with label $x\in X_k^{\pm 1}$. 
+ with label $x\in X_k$. 
 %Let 
 %$\a_m$ be the minimal vertex of $\T_2$ (necessarily also a vertex
 %of $\T_1$)  such that $(\a_m,1)$ belongs to $\Xi$.    
@@ -719,79 +771,91 @@ $q$ be a path (disjoint from $\T_2$) of length
 $|w_e|$ and with label $w_e$. Identify the initial and terminal 
 vertices of $q$ to $\a_i$ and $\a_j$, respectively, and fold the
 resulting graph. Repeat this process for all such edges $e$ and 
-vertices $(\a,1)$ of $P$
-and denote the result by $\T_3$. If 
+vertices $(\a,1)$ of $\cP$
+and denote the result by $\T_3$. 
+(In practice it's not necessary to 
+repeat this process for {\em all} such vertices $(\a,1)$ in $\Xi$: but it
+makes the proofs later easier if we assume that we do so.) 
+If 
 $L_3$ is the
 language accepted by $(\T_3,(X_k\cup Z), \a,\b)$, for boundary
-vertices $\a$, $\b$ of $\T_3$, then again $\pi(L_3)=\pi(L_1)$. 
-Later we shall show that if a word $w$ belongs to $H_k\subseteq F_k$ and 
-$L_1$ then
-$\phi_k(w)$ belongs to $L_3$. (In practice it's not necessary to 
-repeat this process for {\em all} such vertices $(\a,1)$ in $\Xi$: but it
-makes the proofs later easier if we assume that we do so.)
+vertices $\a$, $\b$ of $\T_1$, then again $\pi(L_3)=\pi(L_1)$. 
+
 
 Next we wish to add paths to $\T_3$ that allow us to read the normal
-form of words $w$ which are readable by $\T_3$ and readable 
-(but not accepted) by $\G_{A_k}$.  
+forms of words $w$ which are readable by $\T_3$ and readable, 
+but not accepted, by $\G_{A_k}$.  
 As before we may assume that
-$P=\T_1\times \G_{A_k}=
+$\cP=\T_1\times \G_{A_k}=
  \T_3\times \G_{A_k}$. 
 Recall that we have fixed a spanning subtree 
-$T_k$ of $\G_{A_k}$. Let $p$ be a simple path in $P$ from a 
-vertex $(\a_0,1)$ to a vertex $(\a_1,\b_1)$, containing no
-vertices of the form $(\a,1)$ except the first. If $P$ contains a 
-path from $(\a_0,1)$ to $(\a_1,\b_1)$ which projects onto $T_k$ then
- say that $P$ {\em covers} $p$. 
-If all such paths are covered by $P$ then set $\T_4=\T_3$.
+$T_k$ of $\G_{A_k}$. 
+Let $\d=(\a_j,\b)$ be a vertex of $\cP$, with $\b\neq 1$, which lies 
+in a connected component of $\cP$ containing a vertex  $\g=(\a_i,1)$,
+for some vertex $\a_i$ of $\T_3$.  
+Let $b$ be the label of the path in $T_k$ from $1$ to $\b$. 
+ If $\cP$ contains a simple  
+path from $(\a_i,1)$ to $(\a_j,\b)$, with label $b$,  then
+ say that $\cP$ {\em covers} the pair $\g,\d$. 
+If all such pairs of vertices are covered by $\cP$ then set $\T_4=\T_3$.
 Otherwise 
-let $p$ be a simple path in $P$ from a  vertex $(\a_i,1)$ to a vertex $(\a_j,\b)$, containing no further
-vertices of the form $(\a,1)$,
-which is not covered by $P$.
+let $p$ be the simple path in $\U$ from a  
+vertex $\g=(\a_i,1)$ to a vertex $\d=(\a_j,\b)$, where $\g,\d$ 
+is not covered by $\cP$.
  Let 
 $p$ have label $a$.  
-Let $b$ be label of the path in $T_k$ from $1$ to $\b$. 
-Then $ab^{-1}=h\in H_k\in F_k$. Let 
+Then $ab^{-1}=h\in H_k$. Let 
 $w=\phi_{k}^{-1}(ab^{-1})
-\in F(Z)$ and let $q$ be a path with label $wb$. Identify the initial
-and terminal vertices of $q$ with vertices $a_i$ and $a_j$ of $\T_3$, 
+\in F(Z)$ and let $q$ be a path (disjoint from $\T_3$) 
+with label $wb$. Identify the initial
+and terminal vertices of $q$ with vertices $\a_i$ and $\a_j$ of $\T_3$, 
 respectively, and fold
 the resulting graph. 
 As $\pi(a)=\pi(wb)\in G$ the image of the language accepted by
-the resulting graph (considered as an automaton) is unchanged by
+the resulting graph (considered as an automaton with start state  $\a_i$
+ and final 
+state $\a_j$) is unchanged by
 this operation. 
-Repeat this process for all such paths $p$ in $P$ and 
+Repeat this process for all pairs of  vertices which are not
+covered by $\cP$ and 
 call the result $\T_4$. 
 
 Finally we wish to add paths which allow double coset representatives
 of type $2$ to be read. Suppose $(\e,\xi)\in \G_{A_k}\times \G_{A_k}$ and
-that the $\sim$ representative of $(\e,\xi)$ is $(\e_0,\xi_0)$. If there
-exist paths $p_1$ from $(\a_i,1)$ to $(\a_j,\e)$ and $p_2$ from
-$(\a_l,1)$ to $(\a_j,\xi)$, in $P$,  then let $b_1$ and $b_2$ be the labels
+that the $\sim$ representative of $(\e,\xi)$ is $(\e_0,\xi_0)$. 
+Let $b_1$ and $b_2$ be the labels
 of paths $w(\e)$ and $w(\xi)$, from $1$ to $\e$ and $1$ to $\xi$ in the
 subtree $T_k$ of $\G_{A_k}$. Let $a_1$ and $a_2$ be the labels of 
-paths $w(\e_0)$ and $w(\xi_0)$. Then there is a path with label 
-$c$ from $\e$ to $\e_0$ and from $\xi$ to $\xi_0$. Let $h_i=
-b_ica_i^{-1}\in H_k$ and let $w_i=\phi_k(h_i)$, for $i=1,2$. 
-Let $q$ be a path with label $w_1 a_1a_2^{-1} w_2^{-1}$ 
+paths $w(\e_0)$ and $w(\xi_0)$. Then there are  paths in $\G_{A_k}$,  
+with label 
+$c=c(\e,\xi)$, from $\e$ to $\e_0$ and from $\xi$ to $\xi_0$. 
+Furthermore $h_i=
+b_ica_i^{-1}\in H_k$ and $w_i=\phi_k^{-1}(h_i)\in F(Z)$, for $i=1,2$. 
+If there
+exist paths $p_1$, with label $b_1$ from $(\a_i,1)$ to $(\a_j,\e)$, 
+and $p_2$, with label $b_2$ from
+$(\a_l,1)$ to $(\a_j,\xi)$, in $\U$,  then 
+let $q$ be a path (disjoint from $\T_4$) 
+with label $w_1 a_1a_2^{-1} w_2^{-1}$, 
 and identify the initial
-and terminal vertices of $q$ to  vertices $\a_i$ and $\a_l$
+and terminal vertices of $q$ with  vertices $\a_i$ and $\a_l$
 of $\T_4$, respectively. 
 Fold the resulting graph. 
 To see that the image of the language accepted by
  the new graph is the same as that of the original note
 that the word $b_1b_2^{-1}$ is readable, starting at $\a_j$ and 
-ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2{-1}=\pi(w_1a_1a_2^{-1}w_2^{-1})$
-the addition of this new path has no effect on the image of the language 
-under $\pi$.  
+ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
+the addition of this new path has no effect on the image, under $\pi$, of 
+the language accepted.  
 %$d_1$ and
-%$d_2$ be labels of paths $p_1$ and $p_2$ in $P$ and let $e_1$ and 
+%$d_2$ be labels of paths $p_1$ and $p_2$ in $\cP$ and let $e_1$ and 
 %$e_2$ be labels of simple paths with the same end points. Then 
 %$d_ie_i^{-1}\in H_k$ and  there is a path
 %in $\T_4$ with label $\phi_k(d_ie_i^{-1})e_i$, for $i=1,2$. Moreover,
 %$\T_4$ contains a path
 %with label $\phi_k(e_ib_i^{-1})b_i$ and so a path with label
 %$\phi(d_ib_i^{-1})b_i$, $i=1,2$.  
-Repeat this process for all such 
+Repeat this process for all such paths $p_i$ and $p_j$ and all such 
 pairs $(\e,\xi)$ to form $\T_5$.    
 
 \begin{lemma}
@@ -800,12 +864,16 @@ Let $\a$ and $\b$ be boundary vertices of $\T_1$ and let $w$ be a word
 normal form of $w$ is accepted by $(\T_5, X_k\cup Z, \a, \b)$. 
 \end{lemma}
 \begin{proof}
-There are two cases to consider, depending on the nature of the 
-normal form of $w$. First 
-let $w$ have normal form $h_1 a_1 c a_2^{-1} h_2^{-1} $, where 
-$h_1$ and $h_2$ are in $F(Z)$,  $a_1$ and $a_2$ are labels 
-of simple paths in the subtree $T_k$ and $c$ and $c^{-1}$ have
-no non-trivial prefix readable in $A_k$. Then there are words
+We may assume that $w\in F(X_k)$ (given the construction of $\T_1$).
+Let $w$ have normal form $h_1s h_2$, where $s\in S_k$ and $h_i\in F(Z)$.
+There are two cases to consider, depending on whether $s$ is a 
+representative of type $1$ or type $2$. 
+ First consider the case where $s$ is of type $1$, say
+ $s= a_1 c a_2^{-1}$, where 
+$a_1$ and $a_2$ are labels 
+of simple paths in the subtree $T_k$, $c$ is non-empty 
+and $c$ and $c^{-1}$ have
+no non-trivial prefix which is readable in $A_k$. Then there are words
 $g_1, g_2, b_1$ and $b_2\in F(X_k)$ such that 
 $w=g_1\circ b_1\circ c \circ b_2^{-1}\circ g_2^{-1}$, 
 $g_i\in H_k$, $b_i$ is readable but not accepted by  $A_k$ and  
@@ -813,64 +881,72 @@ $\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
 
 Since $g_i\in H_k$ and $w$ is accepted by $\T_1$ there is a path
 labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\T_1$ and a path
-labelled $g_2$ from $\b$ to a vertex $\a_2$ of $\T_1$. Therefore, in $P$,
+labelled $g_2$ from $\b$ to a vertex $\a_2$ of $\T_1$. Therefore, in $\cP$,
 there are paths $p_1$ from $(\a,1)$ to $(\a_1,1)$ labelled $g_1$, and 
 $p_2$  
 from $(\b,1)$ to $(\a_2,1)$ labelled $g_2$. 
 Now $p_1$ may 
-be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l+1}$,
-where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $P$ which does
+be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l}$,
+where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $\cP$ which does
 not belong to $\U$.  Let $e_i$ have initial and terminal vertices 
 $\g_i$ and $\d_i$ and let $L_i$ and $R_i$ be the simple paths in $\U$ from
-$(\a,1)$ to $\g_i$ to $\d_i$ to $(\a,1)$, respectively. 
-Then, for $i=1,\ldots ,l$, the path $L_i e_i R_i$ is a closed path in $P$, based
+$(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively. 
+Then, for $i=1,\ldots ,l$, 
+the path $L_i e_i R_i$ is a closed path in $\cP$, based
 at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U$. 
-Thus the label of  $L_i e_i R_i$ is $h_i\in H_k$ and $\phi_k(h_i)$ is the
+Thus the label of  $L_i e_i R_i$ is $h_i\in H_k$ and $\phi_k^{-1}(h_i)$ is the
 label of a closed path in $\T_3$, based at  $\a$. (All such paths
 were added in the construction of $\T_3$ from $\T_2$.)   
-Also, there is a path $q_1$ in $\U$ from $(\a,1)$ to $(\a_i,1)$, with 
+Also, there is a path $q_1$ in $\U$ from $(\a,1)$ to $(\a_1,1)$, with 
 label $h_{l+1}$, and by construction of $\T_2$ there is a path from $\a$ to
-$\a_i$ in $\T_2$ with label $\phi_k(h_{l+1})$. 
+$\a_1$ in $\T_2$ with label $\phi_k^{-1}(h_{l+1})$. 
 The path
 $p_1$ is the result of reducing (deleting adjacent edges $e,e^{-1}$) the path 
-$o_0 e_1 (R_1 R_1^{-1}) o_1 \cdots e_{l}(R_l R_l^{-1}) o_{l}  e_l o_{l+1}$.
+$o_0 e_1 (R_1 R_1^{-1}) o_1 \cdots e_{l}(R_l R_l^{-1}) o_{l}$.
 Moreover $o_0=L_1$; for $2\le i\le l$, 
 $L_i$ is the path obtained by reducing $R_{i-1}^{-1}o_{i-1}$; and 
-$R_{l}^{-1}o_{l+1}$ reduces to the path in $\U$ from 
-$(\a,1)$ to $(\a_i,1)$, that is to $q_1$. 
+$R_{l}^{-1}o_{l}$ reduces to the path in $\U$ from 
+$(\a,1)$ to $(\a_1,1)$, that is to $q_1$. 
 Since the
 order in which these reductions are carried out does not affect the end
 result we may regard $p$ as the result of reducing the path
 $L_1 e_1 R_1 \cdots L_l e_l R_l q_1$. Hence the label $g_1$ 
 of $p_1$ is the result of 
-reducing the word $h_1\cdots h_l h_{l+1}$ and $\phi_k(g_1)$ is the result of
-reducing $\phi_k(h_1) \cdots \phi_k(h_{l+1})$. As each $\phi_k(h_i)$ is readable 
-in $\T_3$ and $\T_3$ is folded this means  that $\phi_k(g_1)$ is the
-label of a path, from $\a$ to   $\a_i$, in $\T_3$. Similarly, $\phi_k(g_2)$
+reducing the word $h_1\cdots h_l h_{l+1}$ and $\phi_k^{-1}(g_1)$ is the result of
+reducing $\phi_k^{-1}(h_1) \cdots \phi_k^{-1}(h_{l+1})$. As each $\phi_k^{-1}(h_i)$ is readable 
+in $\T_3$ and $\T_3$ is folded this means  that $\phi_k^{-1}(g_1)$ is the
+label of a path, from $\a$ to   $\a_1$, in $\T_3$. Similarly, 
+$\phi_k^{-1}(g_2)$
 is the label of a path from $\b$ to $\a_2$ in $\T_3$. 
 
-For $i=1,2$ the words $b_i$ are readable by $\G_{A_k}$, and there
-is a path in $\T_1$ from $\a_i$ to some vertex $\b_i$ of $\T_1$.
-Hence $b_1$ is the label of a path in $P$ from $(\a_1,1)$ to
-$(\b_1,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.   Let $b_1^\prime$
+The word $b_1$ is readable by $\G_{A_k}$ and there
+is a path with label $b_1$ in $\T_1$ from $\a_1$ to some vertex $\b_1$.
+Hence $b_1$ is the label of a path in $\cP$ from $(\a_1,1)$ to
+$(\b_1,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.   
+By definition $a_1$ is the label of a path in $T_k$ from $1$ to $\e_1$. 
+Let $b_1^\prime$
  be the label of the simple path $p_1^\prime$ in $\U$ from 
 $(\a_1,1)$ to $(\b_1,\e_1)$. By construction $\T_4$ contains a path
-from $\a_1$ to $\b_1$ with label $h_1^\prime b_1^{\prime\prime}$, where
-$h_1^\prime \in F(Z)$ (and is the empty word if $P$ covers $p^\prime$) and 
-$b_1^{\prime\prime}$ is the label of the path in $T_k$ from $1$ to 
-$\e_1$ (and equals $b_1^\prime$ if $P$ covers $p_1^\prime$).  
-Furthermore we have 
-$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$. 
+from $\a_1$ to $\b_1$ with label $h_1^\prime a_1$, where
+$h_1^\prime =\phi_k^{-1}(b_1^\prime a_1)\in F(Z)$. 
+%(and is the empty word if $\cP$ covers $p^\prime$) and 
+%$b_1^{\prime\prime}$ is the label of the path in $T_k$ from $1$ to 
+%$\e_1$ (and equals $b_1^\prime$ if $\cP$ covers $p_1^\prime$).  
+(If $\cP$ covers the pair $(\a_1,)$, $(\b_1,\e_1)$ then $b_1^\prime=a_1$
+and $h_1^\prime$ is the empty word.)
+%Furthermore we have 
+%$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$. 
 Now $b_1(b_1^\prime)^{-1}\in H_k$ and is the label of a closed
-path  in $P$ based at $(\a_1,1)$; so by the 
+path  in $\cP$ based at $(\a_1,1)$; so by the 
 previous part of proof, $\T_3$ contains a closed path, based at $\a_1$, 
  with label 
-$w_1^\prime=\phi_k(b_1(b_1^\prime)^{-1})$. Hence, as it is folded, 
-$\T_4$ contains a path, from $\a_1$ to $\b_1$, 
+$w_1^\prime=\phi_k^{-1}(b_1(b_1^\prime)^{-1})$. Hence, as it is folded, 
+$\T_4$ contains a path, from $\a$ to $\b_1$, 
 with label the reduced word obtained from the product 
-$w_1^{\prime} h_1^\prime b_1^{\prime\prime}$. The latter is the normal 
-form of $b_1$, as required. Similarly, $\T_4$ contains a path from 
-$\a_2$ to $\b_2$ with label the normal form of $b_2$. 
+$\phi_k^{-1}(g_1)w_1^{\prime} h_1^\prime a_1$, that is
+ $\phi_k^{-1}(g_1b_1a_1^{-1}) a_1=h_1a_1$.
+ Similarly, $\T_4$ contains a path from 
+$\b$ to $\b_2$ with label $h_2a_2$. 
 
 As $w$ is the label of a path in $\T_1$ there is a path from $\b_1$ to
 $\b_2$ in $\T_4$ with label $c$. Therefore, in this case, $\T_4$ contains
@@ -881,36 +957,40 @@ let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
 $h_1$ and $h_2$ are in $F(Z)$,  $a_1$ and $a_2$ are labels 
 of simple paths in the subtree $T_k$ and $a_1a_2^{-1}$ is a double coset
 representative of type $2$. Then there are words
-$g_1, g_2, k_1, k_2, b_1, b_2, c_1$ and $c_2\in F(X_k)$ such that 
-$w=g_1\circ b_1\circ c \circ b_2^{-1}\circ g_2^{-1}$, 
+$g_1, g_2, k_1, k_2, b_1, b_2, c_1$ and $c_2\in F(X_k)$, uniquely
+determined by $w$,  such that 
+$w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$, 
 $g_i, k_i\in H_k$, $b_i$ and $c_i$ are 
 readable but not accepted by  $A_k$, $c_i$ is the label of 
 a path in $T_k$, $b_ic_i^{-1}\in H_k$, $a_1a_2^{-1}=k_1c_1c_2^{-1}k_2^{-1}$
  and  
 $\phi_k(h_i)=g_ib_ic_i^{-1}k_i^{-1}$, $i=1,2$. 
-As in the first case the word $\phi_k(g_1b_1c_1^{-1})c_1 c_2^{-1}
-\phi_k(c_2b_2^{-1}g_2^{-1})$ is readable in $\T_4$. By construction the
-normal form $k_1a_1a_2^{-1}k_2^{-1}$ of $c_1 c_2^{-1}$ is readable in
+As in the first case the word $\phi_k^{-1}(g_1b_1c_1^{-1})c_1 c_2^{-1}
+\phi_k^{-1}(c_2b_2^{-1}g_2^{-1})$ is readable in $\T_4$. By construction the
+normal form $\phi_k^{-1}(k_1)a_1a_2^{-1}\phi_k^{-1}(k_2^{-1})$ of $c_1 c_2^{-1}$ is readable in
 $\T_5$. It follows that the normal form of $w$ is readable in $\T_5$. 
 \end{proof}
 
+\begin{comment}
 Let $d=\max\{c_k(u): u\in V(\T_5)\}$.  For all vertices
 in $v\in V_0(\T_5)$ set $c_k(v)=d$ and for all other vertices
 of $\T_5$ set $c_k(v)=0$. If $e$ is an edge of  of $\T_5$  of 
   type $X_k$ then set $c(e)=(d,0)$.  All other edges of $\T_5$ have
 type $Z$ and colour $(0,0)$.
+\end{comment}
+
 Replace
 the subgraph $\T_1$ of $\D$ with $\T_5$, in the obvious
 way. Carry through this procedure for each  connected component 
 of $\D_k$, for $k=1$ and $2$. The resulting graph is said to
-be obtained from $\D$ by {\em resolution of attracting pairs} and 
-is  a dc-graph. Hence its Stallings folding is also a dc-graph.
+be obtained from $\D$ by $H$-{\em resolution}.
 
 
 \begin{lemma}
-Let $\D$ be  a connected, deterministic, trim, dc-graph, let $\T$ be 
+Let $\D$ be  a connected, deterministic, trim, graph, let $\T$ be 
 the graph  
-obtained from $\D$ by resolution of attracting pairs and let 
+obtained from $\D$ by $H$-resolution %of attracting pairs 
+and let 
 $\L$ be the Stallings folding of $\T$. Then $\L$ is formed from
 $\T$ by folding edges of type $Z$. 
 \end{lemma}
@@ -923,7 +1003,7 @@ $(\a,x,\b_1)$ and $(\a,x,\b_2)$ with label $x\in X_k$. Since the
 first $n-1$ foldings involve only edges of type $Z$ it follows that 
 if $\g_1$ and $\g_2$ are vertices of $\T$ which map via these foldings
 to $\b_1$ and $\b_2$, then there is a path $q$ in $\T$ from $\g_1$ to $\g_2$ 
-which has label in $F(Z\cup \{x\})$. Hence $\g_1$ and $\g_2$ both belong to
+which has label in $(Z^{\pm 1}\cup \{x^{\pm 1}\})^\ast$. Hence $\g_1$ and $\g_2$ both belong to
  the same $X_k$ component of $\T$, which also contains the path $q$. 
 Therefore all $n$ foldings can be carried out in this $X_k$
 component. However the $X_k$ components of $\T$ are folded, since they
@@ -932,9 +1012,10 @@ Therefore no folding involving an edge of type $X_1$ or $X_2$ can occur
 in such a sequence, and the result follows.
 \end{proof}
 \begin{lemma}
-Let $\D$ be  a connected, deterministic, trim, dc-graph, let $\T$ be 
+Let $\D$ be  a connected, deterministic, trim, graph, let $\T$ be 
 the graph  
-obtained from $\D$ by resolution of attracting pairs and let 
+obtained from $\D$ by $H$-resolution %of attracting pairs 
+and let 
 $\L$ be the Stallings folding of $\T$. Let $\a$  and $\b$ be boundary
 vertices of an $X_k$ component of $\L$ and let $p$ be a path from 
 $\a$ to $\b$ with label $w\in F(X_k\cup Z)$. Then $\L$ contains a
@@ -944,20 +1025,20 @@ path $q$ with label equal to the normal form of $w$.
 Let $\g$ and $\d$ be vertices of $\T$ which map to $\a$ and $\b$ in the
 folding of $\T$ to $\L$. As this folding involves only edges of type $Z$
 it follows that $\g$ and $\d$ are in the same $X_k$ component of $\T$. 
-Moreover $p$ there is a path $p^\prime$ in $\T$ such that the image
+Moreover there is a path $p^\prime$ in $\T$ such that the image
 of $p^\prime$ in $\L$ reduces to $p$. Then $\T$ contains a path 
 $q^\prime$ such that the label of $q^\prime$ is the normal form of 
 the label of $p^\prime$. Let $q$ be the reduced path in $\L$ obtained by
-reduction of the image of $q^prime$. Then the images of $l(q)$ and 
+reduction of the image of $q^\prime$. Then the images of $l(q)$ and 
 $l(q^\prime)$ in $G$ are equal and both are equal to the image of $l(p)$ in
-$G$. Moreover, since $l(q^prime)$ is in normal form and $l(q)$ is obtained
+$G$. Moreover, since $l(q^\prime)$ is in normal form and $l(q)$ is obtained
 from $l(q^\prime)$ by cancellation of letters of $Z$ it follows that 
 $l(q)$ is in normal form. Hence $l(q)$ is the normal form of $l(p)$,
 as required.
 \end{proof}
 \begin{theorem}
-Let $\cA=(\L,X_1\cup X_2\cup Z)$, where $\L$ is defined in the previous
-lemma. Then $\pi(L(\cA))=K$ and if $w$ is the normal form of an element
+Let $\cA=(\L,X_1\cup X_2\cup Z,\ast)$, where $\L$ is defined in the previous
+lemma and $\ast$ is the root of $\L$. Then $\pi(L(\cA))=K$ and if $w$ is the normal form of an element
 of $K$ then $w\in L(\cA)$. 
 \end{theorem}
 \begin{proof}
@@ -969,6 +1050,9 @@ $s_i$ is the normal form of $t_i$ then, from the previous lemma, it follows
 that $\cA$ also accepts the word $z_0s_1z_1\cdots z_rs_rz_{r+1}$, which
 is the normal form of $u$. 
 \end{proof}
+\begin{theorem}
+$G$ has solvable subgroup membership problem.
+\end{theorem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
 \bibliography{membership}
