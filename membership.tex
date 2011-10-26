@@ -5,6 +5,7 @@
 \usepackage[mathscr]{eucal}
 \usepackage[usenames]{color}
 \usepackage{url}
+\usepackage{comment}
 %\usepackage{showkeys}
 %%%%%%%%%
 \sloppy
@@ -35,7 +36,7 @@
 %\newtheorem{remark}[theorem]{Remark}
 %\newtheorem{proposition}[theorem]{Proposition}
 %\newtheorem{convention}[theorem]{Convention}
-%\newtheorem{comment}[theorem]{Comment}
+%\newtheorem{comment[theorem]{Comment}
 %\newtheorem{claim}[theorem]{Claim}
 %%\newtheorem{procedure}{Procedure}%[theorem]%[section]
 %\newtheorem{procedure}{Procedure}[section]%[theorem]
@@ -116,7 +117,7 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 %cvs -d :pserver:najd2@cvs.mas.ncl.ac.uk:/CVS/najd2
 \newtheorem{exam}[theorem]{Example}
-\newtheorem{comment}[theorem]{Comment}
+%\newtheorem{comment}[theorem]{Comment}
 %
 %
 \newenvironment{example}{\begin{exam} \rm}{\end{exam}}
@@ -450,10 +451,11 @@ First, a word $w\in F(X)$ is a {\em representative of type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
 where $s$ is a maximal $L_T$-prefix of $w$, $t$ is a maximal
 $L_T$-prefix of $t\circ e^{-1}$ and $e\neq 1$.
-\begin{comment} Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
+
+{\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
  representatives and there is a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
  We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
-\end{comment}
+}
 
 
 Let $S^{(1)}$ denote the set of all representatives of type $1$.
@@ -486,7 +488,7 @@ from $\t(a_0)=u_0$ to $\t(b_0)=v_0$ and
 $\t(a_1)=u_1$ to $\t(b_1)=v_1$, both with labels $k$.
 Therefore $(u_0,u_1)\sim (v_0,v_1)$.
 \end{proof}
-\begin{comment}
+{\ef
 It seems like we should specify different cases , depending on
 $u_0, v_0$ and $u_1,v_1$ belonging to the same loop $h_i$ or not;
 or something like this. Take an equivalence class as in example
@@ -495,7 +497,7 @@ y_2^{-1}$, $b_1=y_1$. Further, we obtain $c = y_1$ and the
 equality satisfies, but with elements $h_0 = y_2^{-1} y_1^2 y_2$
 and $h_1 = y_1^2$ which are not in $H_2$, as far as I understand.
 Am I right or I misunderstood something?
-\end{comment}
+}
 
 We shall choose one double coset representative corresponding to each $\sim$
 equivalence class. To be explicit we make a particular choice of transversal
@@ -926,21 +928,24 @@ folding decreases
 From the
 standard theory (e.g. Enric's notes \cite{ventura11}) a Stallings folding of a graph is unique,
 so we may define {\em the Stallings folding} $S(\G)$ of a graph $\G$.
+
 \begin{comment}
 ~\\
 ({\bf This is not quite clear, because it needs to be established
 that colouring of a Stallings folding of $\G$ is not dependent on
 the order of folding. It would be enough to show that the morphism
 from $\G$ to $S(\G)$ is uniquely determined by $\G$, but I haven't
-checked this out.}{\ef It seems to be true, but I didn't check it
+checked this out.}}{\ef It seems to be true, but I didn't check it
 out properly yet.})
 \begin{example}
+
 Figure \ref{fig:dc-graphb} shows the Stallings folding of the graph of
 Example \ref{ex:dc-graph}. Colours are shown only where the folding changes them.
 \end{example}
-%
-%
 \end{comment}
+%
+%
+
 
 Now let $\cF(K)$ be the flower automaton of $K$ and let
 $\G$ be the corresponding rooted graph. If $e$ is an edge of $\G$ then
@@ -1363,7 +1368,7 @@ $G$ has solvable subgroup membership problem.
 \end{theorem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
-\bibliography{membership1}
+\bibliography{membership}
 
 \medskip
 
