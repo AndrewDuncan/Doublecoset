@@ -5,6 +5,7 @@
 \usepackage[mathscr]{eucal}
 \usepackage[usenames]{color}
 \usepackage{url}
+\usepackage{comment}
 %\usepackage{showkeys}
 %%%%%%%%%
 \sloppy
@@ -35,7 +36,7 @@
 %\newtheorem{remark}[theorem]{Remark}
 %\newtheorem{proposition}[theorem]{Proposition}
 %\newtheorem{convention}[theorem]{Convention}
-%\newtheorem{comment}[theorem]{Comment}
+%\newtheorem{comment[theorem]{Comment}
 %\newtheorem{claim}[theorem]{Claim}
 %%\newtheorem{procedure}{Procedure}%[theorem]%[section]
 %\newtheorem{procedure}{Procedure}[section]%[theorem]
@@ -116,7 +117,7 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 %cvs -d :pserver:najd2@cvs.mas.ncl.ac.uk:/CVS/najd2
 \newtheorem{exam}[theorem]{Example}
-\newtheorem{comment}[theorem]{Comment}
+%\newtheorem{comment}[theorem]{Comment}
 %
 %
 \newenvironment{example}{\begin{exam} \rm}{\end{exam}}
@@ -338,9 +339,9 @@ This gives $g=g_1\cdots g_t$ in reduced form.
 
 To rewrite in double coset normal form we need to
  rewrite
-each $g_i$ in double coset normal form in its factor,
-with respect to some (fixed) set
-of double coset representatives.
+each $g_i$ in double coset normal form in its factor, with respect
+to some (fixed) set of double coset representatives. We show how
+this can be done below.
 
 \subsection{Double coset representatives}\label{sub:2cosetrepr}
 %{\bf We should include a short description of Stallings folding, as in
@@ -361,12 +362,14 @@ subset of a group $G$
  then the  natural map from $L(A)$ to
 $G$ is denoted $\pi:L(A)\maps G$.
 
-An automaton $A = (\S, Q, \d, \mathcal{S},\mathcal{F})$ is {\em
-inversive} if $\S$ is an inversive alphabet and for all $p, q \in
-Q$ and $a \in \S$ $\d(p,a)=q$ if and only if $\d(q, a^{-1})=p$.
-Further, an automaton $A= (\S, Q, \d, s_0)$ is called {\em trim}
-if it has no vertices of degree $1$ except maybe the basepoint
-$s_0$. An automaton $A$ is {\em deterministic} if $\d(p,a)=q$ and
+An inversive alphabet $\S$ is a set of a form $\{a_1, \ldots, ,
+a_r, a_1^{-1}, \ldots, a_r^{-1}\}$. An automaton $A = (\S, Q, \d,
+\mathcal{S},\mathcal{F})$ is {\em inversive} if $\S$ is an
+inversive alphabet and for all $p, q \in Q$ and $a \in \S$,
+$\d(p,a)=q$ if and only if $\d(q, a^{-1})=p$. Further, an
+automaton $A= (\S, Q, \d, s_0)$ is called {\em trim} if it has no
+vertices of degree $1$ except maybe the basepoint $s_0$. An
+automaton $A$ is {\em deterministic} if $\d(p,a)=q$ and
 $\d(p,a)=q'$ imply $q=q'$.
 
  We shall associate to an automaton $A$
@@ -376,7 +379,8 @@ $(u,\s,v)$ of $Q\times \S\times Q$ such that $\d(u,\s)=v$; and
 labelling function $l:E\maps \S$ given by $l(u,\s,v)=\s$, for all
 $(u,\s,v) \in E$.  If $\mathcal{S}$ and $\mathcal{F}$ are the sets
 of start and final states of $A$ we sometimes write
-$(\G_A,\mathcal{S},\mathcal{F})$, and in particular if
+$(\G_A,\mathcal{S},\mathcal{F})$ for
+$(\S,Q,\d,\mathcal{S},\mathcal{F})$, and in particular if
 $\mathcal{S}=\{s_0\}$ and $\mathcal{F}=\{f_0\}$, we write
 $(\G_A,s_0,f_0)$ and if $S=\{s_0\}$ we call $s_0$ the {\em root}
 vertex of $\G_A$. We say that graph $\G_A$ is {\em rooted} if
@@ -404,10 +408,11 @@ instead of ``deterministic'', for graphs.
 %%$\varphi: V \rightarrow V^\prime$ such that $\varphi(s_0) =
 %%s^\prime_0$ and $(p,a,q) \in E \Rightarrow
 %%(\varphi(p),a,\varphi(q)) \in E^\prime$.
-Recall the notion of standard Stalling foldings of automata, which
-we will use directly for preparatory ``cleancing'' of an automaton
-we will construct below, and in generalized form to produce
-dc-foldings of this automaton (see Section \ref{sec:foldings}).
+We now recall the notion of standard Stalling folding of an
+automaton, which we will use directly, for the preparatory
+``cleaning'' of automata described below, and in generalized form
+to produce dc-foldings of this automaton (in Section
+\ref{sec:foldings}).
 
 An {\em elementary folding} of a rooted graph $(\G_A,s_0)$ is a
 graph $(\G^\prime_A,s^\prime_0)$ obtained from $(\G_A,s_0)$ as
@@ -431,14 +436,14 @@ to mean that $w$ is a reduced word. For $u,v, w\in F(X)$ we
 write $w=u\circ v$ if $|w|=|u|+|v|$, in which case we say that $u$ is a {\em prefix}
 of $w$.
 
-Let $A$ be the Stallings automaton for $H$. Fix a spanning tree
-$T$ for $A$. For each vertex $v$ of $A$ let $w(v)$ denote the
-label of the path from $s_0=1$ to $v$ in $T$. We say the word $w$
-is {\em readable} by $A$ if, starting in the start state $1$ with
-input $w$, the automaton finishes with the empty word in some
-arbitrary state. If $w$ is readable by $A$ we denote the final
-state of $A$ after reading $w$ (starting in state $1$) by $\t(w)$.
-If $w$ is readable by $A$ and $\t(w)=1$
+Let $A$ be a Stallings automaton for $H$ with start state $s_0 =
+1$. Fix a spanning tree $T$ for $A$. For each vertex $v$ of $A$
+let $w(v)$ denote the label of the path from $s_0=1$ to $v$ in
+$T$. We say the word $w$ is {\em readable} by $A$ if, starting in
+the start state $1$ with input $w$, the automaton finishes with
+the empty word in some arbitrary state. If $w$ is readable by $A$
+we denote the final state of $A$ after reading $w$ (starting in
+state $1$) by $\t(w)$. If $w$ is readable by $A$ and $\t(w)=1$
  then we say $w$ is {\em accepted} by $A$. Define
 \[L_T=\{w(v): v \textrm{ is a vertex of } A\}.\]
 If $w, s\in F(X)$ then we say that $s$ is a {\em maximal}
@@ -450,10 +455,11 @@ First, a word $w\in F(X)$ is a {\em representative of type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
 where $s$ is a maximal $L_T$-prefix of $w$, $t$ is a maximal
 $L_T$-prefix of $t\circ e^{-1}$ and $e\neq 1$.
-\begin{comment} Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
- representatives and there is a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
- We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
-\end{comment}
+%%
+%%{\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
+%% representatives and there is a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
+%% We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
+%%}
 
 
 Let $S^{(1)}$ denote the set of all representatives of type $1$.
@@ -486,39 +492,42 @@ from $\t(a_0)=u_0$ to $\t(b_0)=v_0$ and
 $\t(a_1)=u_1$ to $\t(b_1)=v_1$, both with labels $k$.
 Therefore $(u_0,u_1)\sim (v_0,v_1)$.
 \end{proof}
-\begin{comment}
-It seems like we should specify different cases , depending on
-$u_0, v_0$ and $u_1,v_1$ belonging to the same loop $h_i$ or not;
-or something like this. Take an equivalence class as in example
-\ref{ex:f_1f_2}. Then $a_0 = y_2^{-1}y_1$, $a_1 = y_1^2$, $b_0 =
-y_2^{-1}$, $b_1=y_1$. Further, we obtain $c = y_1$ and the
-equality satisfies, but with elements $h_0 = y_2^{-1} y_1^2 y_2$
-and $h_1 = y_1^2$ which are not in $H_2$, as far as I understand.
-Am I right or I misunderstood something?
-\end{comment}
+%%{\ef
+%%It seems like we should specify different cases , depending on
+%%$u_0, v_0$ and $u_1,v_1$ belonging to the same loop $h_i$ or not;
+%%or something like this. Take an equivalence class as in example
+%%\ref{ex:f_1f_2}. Then $a_0 = y_2^{-1}y_1$, $a_1 = y_1^2$, $b_0 =
+%%y_2^{-1}$, $b_1=y_1$. Further, we obtain $c = y_1$ and the
+%%equality satisfies, but with elements $h_0 = y_2^{-1} y_1^2 y_2$
+%%and $h_1 = y_1^2$ which are not in $H_2$, as far as I understand.
+%%Am I right or I misunderstood something?
+%%}
 
-We shall choose one double coset representative corresponding to each $\sim$
-equivalence class. To be explicit we make a particular choice of transversal
-for the equivalence classes, as follows.
-If $(u,v)\in P$ and $w(u)=a\circ x$, $w(v)=b\circ x$, for some $a,b\in F(X)$ and
-$x\in X^{\pm 1}$, then $(\t(a),\t(b))\in P$ and $(u,v)\sim (\t(a),\t(b))$. It follows
-that every equivalence class of $\sim$ contains an element $(a,b)$ such that
-$w(a)w(b)^{-1}$ is a reduced word. Let $\pp$ be an equivalence class of $\sim$ and
-let $Y$ be the set of all pairs $(u,v)\in \pp$ such that $|w(v)|$ is minimal (amongst
-elements of $\pp$). Choose $(u,v)\in Y$ such that $|w(u)|$ is minimal (amongst elements
-of $Y$) and define $(u,v)$ to be the $\sim${\em representative} of $\pp$. Fix
-one $\sim$ representative for each equivalence class of $\sim$ and
-let $Q$ denote the set of  all these $\sim$ representatives. A word $w\in F(X)$ is
+We shall choose one double coset representative corresponding to
+each $\sim$ equivalence class. To be explicit we make a particular
+choice of transversal for the equivalence classes, as follows. If
+$(u,v)\in P$ and $w(u)=a\circ x$, $w(v)=b\circ x$, for some
+$a,b\in F(X)$ and $x\in X^{\pm 1}$, then $(\t(a),\t(b))\in P$ and
+$(u,v)\sim (\t(a),\t(b))$. It follows that every equivalence class
+of $\sim$ contains an element $(u',v')$ such that
+$w(u')w(v')^{-1}$ is a reduced word. Let $\pp$ be an equivalence
+class of $\sim$ and let $Y$ be the set of all pairs $(u,v)\in \pp$
+such that $|w(v)|$ is minimal (amongst elements of $\pp$). Choose
+$(u,v)\in Y$ such that $|w(u)|$ is minimal (amongst elements of
+$Y$) and define $(u,v)$ to be the $\sim${\em representative} of
+$\pp$. Fix one $\sim$ representative for each equivalence class of
+$\sim$ and let $Q$ denote the set of  all these $\sim$
+representatives (note that by the minimality conditions of the
+definition, if $(u,v)$ is a $\sim$ representative then
+$w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$). A word $w\in F(X)$ is
  a {\em representative of type} $2$ if $w=w(u)w(v)^{-1}$, for some $(u,v)\in Q$.
 Let $S^{(2)}$ denote the set of all representatives of type $2$
-and define $S_1=S^{(1)}\cup S^{(2)}$. (Note that by the minimality
-conditions of the definition, if $(u,v)$ is a $\sim$
-representative then $w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$.) In order
-to ensure uniqueness of the normal form of an element of $F(X)$ we
-also need to choose an element $c(u,v)$ of $F(X)$, for each
-$(u,v)\in P$, of $P$: $c(u,v)$ is defined to be the label of some
-fixed choice of path from $u$ to $u_0$ and $v$ to $v_0$, where
-$(u_0,v_0)$ is the $\sim$ representative of $(u,v)$.
+and define $S_1=S^{(1)}\cup S^{(2)}$. In order to ensure
+uniqueness of the normal form of an element of $F(X)$ we also need
+to choose an element $c(u,v)$ of $F(X)$, for each $(u,v)\in P$, of
+$P$: $c(u,v)$ is defined to be the label of some fixed choice of
+path from $u$ to $u_0$ and $v$ to $v_0$, where $(u_0,v_0)$ is the
+$\sim$ representative of $(u,v)$.
 
 \begin{proposition}\label{prop:dcreps}
 $S_1$ is a set of double coset representatives for $H$.
@@ -542,7 +551,7 @@ Having constructed the equivalence classes of $\sim$
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
 sets $Q$ and $S^{(2)}$ may be computed.   \\
 
-\noindent{\bf The algorithm I}:\\
+\noindent{\bf Algorithm I}:\\
 Input $w\in F(X)$.
 Let $h$ be the maximal prefix of $w$ accepted by $A$; so $h\in H$ and
 $w=h\circ f$, for some $f\in F(X)$. Now use $A$ to find the maximal prefix $p$
@@ -648,13 +657,36 @@ with maximal subtrees $T_1$ and $T_2$ highlighted:
 
 \begin{figure}
 \begin{center}
+\psfrag{x1}{$x_1$}
+
+\psfrag{x2}{$x_2$}
+
+\psfrag{x3}{$x_3$}
+
+\psfrag{h1}{$h_1$}
+
+\psfrag{h2}{$h_2$}
+
+\psfrag{h3}{$h_3$}
+
+\psfrag{y1}{$y_1$}
+
+\psfrag{y2}{$y_2$}
+
+\psfrag{y3}{$y_3$}
+
+\psfrag{y4}{$y_4$}
+
+\psfrag{h11}{$h_1^{\prime}$}
+
+\psfrag{h21}{$h_2^{\prime}$}
+
+\psfrag{h31}{$h_3^{\prime}$}
+
 \subfigure[Stallings automaton recognizing $H_1$]{
-A pic called stallh1
-%\includegraphics[scale=.5]{stallh1.eps}
+\includegraphics[scale=.4]{stallh1.eps}
 \label{fig:stall1} } \hspace{15mm} \subfigure[Stallings automaton
-for $H_2$.]{
-A pic called stallh2
-%\includegraphics[scale=.5]{stallh2.eps}
+for $H_2$.]{ \includegraphics[scale=.4]{stallh2.eps}
 \label{fig:stall2} }
 \end{center}
 \caption{Stallings automata for subgroups $H_1,
@@ -730,16 +762,16 @@ f_2 &= y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2y_3y_4y_2^2\\ &=
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The generalised folding process}\label{sec:foldings}
-The object is to construct an automaton which will accept a word $w$
-in double coset normal form if and only if it belongs to a given subgroup $K$.
-The idea is to this by starting with the flower automaton for the
-generators of $K$, written in (double coset) normal form; carrying out
-Stallings folding as usual to produce a deterministic, trim, inversive
-automaton; and next adding some additional paths to allow normal forms
-to be read. This may introduce new non-determinism in some  states (i.e. edges
-which may be folded), so
-the resulting automaton must be folded again.
-The result of the final folding is the candidate automaton.
+The object is to construct an automaton which will accept a word
+$w$ in double coset normal form if and only if it belongs to a
+given subgroup $K$. The idea is to do this by starting with the
+flower automaton for the generators of $K$, written in (double
+coset) normal form; carrying out Stallings folding as usual to
+produce a deterministic, trim, inversive automaton; and next
+adding some additional paths to allow normal forms to be read.
+This may introduce new non-determinism in some  states (i.e. edges
+which may be folded), so the resulting automaton must be folded
+again. The result of the final folding is the candidate automaton.
 
  Suppose $L$ is the
 language accepted by the flower automaton of $K$. The image of $L$ under
@@ -838,12 +870,11 @@ An automaton $A$ is called a {\em dc-automaton} if $\G_A$ is  a dc-graph.
 
 
 \begin{example}\label{ex:dc-graph}
-Figure \ref{fig:dc-grapha} shows a dc-graph, with root $\a$,
-where $x\in X_1$, $y_1,y_2,y_3\in X_2$,
-$z\in Z$, the only vertex not in $V_0$ is $\d$,
-colours of all edges are shown and the colours of vertices  are
-$c(\a)=(3,0)$, $c(\b)=(3,0)$, $c(\g)=(0,2)$, $c(\d)=(0,0)$, $c(\e)=(0,2)$ and
-$c(\z)=(1,0)$.
+Figure \ref{fig:dc-grapha} shows a dc-graph, with root $\a$, where
+$x\in X_1$, $y_1,y_2,y_3\in X_2$, $z\in Z$, the only vertex not in
+$V_0$ is $\d$, colours of all edges are shown and the colours of
+vertices  are $c(\a)=(0,0)$, $c(\b)=(3,2)$, $c(\g)=(0,2)$,
+$c(\d)=(0,0)$, $c(\e)=(0,2)$ and $c(\z)=(1,0)$.
 \end{example}
 \begin{figure}
 \begin{center}
@@ -926,21 +957,24 @@ folding decreases
 From the
 standard theory (e.g. Enric's notes \cite{ventura11}) a Stallings folding of a graph is unique,
 so we may define {\em the Stallings folding} $S(\G)$ of a graph $\G$.
+
 \begin{comment}
 ~\\
 ({\bf This is not quite clear, because it needs to be established
 that colouring of a Stallings folding of $\G$ is not dependent on
 the order of folding. It would be enough to show that the morphism
 from $\G$ to $S(\G)$ is uniquely determined by $\G$, but I haven't
-checked this out.}{\ef It seems to be true, but I didn't check it
+checked this out.}}{\ef It seems to be true, but I didn't check it
 out properly yet.})
 \begin{example}
+
 Figure \ref{fig:dc-graphb} shows the Stallings folding of the graph of
 Example \ref{ex:dc-graph}. Colours are shown only where the folding changes them.
 \end{example}
-%
-%
 \end{comment}
+%
+%
+
 
 Now let $\cF(K)$ be the flower automaton of $K$ and let
 $\G$ be the corresponding rooted graph. If $e$ is an edge of $\G$ then
@@ -1021,12 +1055,12 @@ from $(u_1,u_2)$ to $(v_1,v_2)$ if and only if there are edges
 $(u_1,a, v_1)$ and $(u_2,a,v_2)$ in $\G_1$ and $\G_2$,
 respectively. Let $\cP=\T_1\times \G_{A_k}$. Then there is a path
  labelled $w$ from $\a$ to $\b$
-in $T_1$ {\ef {$\T_1$?}}and a path labelled $w$ from $\a^\prime $
+in $\T_1$ {\ef {$\T_1$?}}and a path labelled $w$ from $\a^\prime $
 to $\b^\prime$ in $\G_{A_k}$ if and only if there is a path
 labelled $w$ from $(\a,\a^\prime)$ to $(\b,\b^\prime)$ in $\cP$.
  We shall
-use this property of $\cP$ to determine which new paths to add  to $\T_1$.
-Choose a spanning  subtree $\U$ of  $\cP$. Next
+use this property of $\cP$ to determine which new paths to add  to
+$\T_1$. Choose a spanning  forest $\U$ of  $\cP$. Next
  order the vertices of
 $\T_1$: say these are $\a_0,\ldots, \a_t$, in the order written.
 
@@ -1053,13 +1087,13 @@ the graphs $\cP=\T_1\times \G_{A_k}$ and $\T_2\times \G_{A_k}$ differ only
 in that the second may have some new isolated vertices. For our purposes
 we may discard these and assume that $\cP=\T_1\times \G_{A_k}=
  \T_2\times \G_{A_k}$. If $\cP=\U$ then we have nothing to do at the
-next stage and we immediately set $\T_3=\T_2$. Otherwise,
-suppose that $e$ is an edge of $\cP$ which does not belong to $\U$ but
-which does belong to a component $\Xi$  of $\cP$ containing a vertex
-$(\a,1)$, for some vertex $\a$ of $\T_2$.
-Let $(\a,1)$ be such a vertex and let
-$e=((\a_i,\b_1), x, (\a_j,\b_2))$,
- with label $x\in X_k$.
+next stage and we immediately set $\T_3=\T_2$. Otherwise, suppose
+that $e$ is an edge of $\cP$ which does not belong to $\U$ but
+which does belong to a component $\Xi$  of $\cP$ containing a
+vertex $(\a,1)$, for some vertex $\a$ of $\T_2$. Let $(\a,1)$ be
+such a vertex and let $e=((\a_i,\b_1), x, (\a_j,\b_2))$ be an edge
+in same component of $\cP$ as $(\a,1)$,
+ where label $x$ in $X_k$.
 %Let
 %$\a_m$ be the minimal vertex of $\T_2$ (necessarily also a vertex
 %of $\T_1$)  such that $(\a_m,1)$ belongs to $\Xi$.
@@ -1286,12 +1320,9 @@ type $Z$ and colour $(0,0)$.
 \end{comment}
 
 Replace the subgraph $\T_1$ of $\D$ with $\T_5$, in the obvious
-way. Carry through this procedure for each connected component
-{\ef Is it so obvious? Components for $k=1$ and $2$ could be not
-disjoint(as in example of dc-graph). How to define colour of such
-vertices where they intersects?}of $\D_k$, for $k=1$ and $2$. The
-resulting graph is said to be obtained from $\D$ by $H$-{\em
-resolution}.
+way. Carry through this procedure for each connected component of
+$\D_k$, for $k=1$ and $2$. The resulting graph is said to be
+obtained from $\D$ by $H$-{\em resolution}.
 
 
 \begin{lemma}
@@ -1363,7 +1394,7 @@ $G$ has solvable subgroup membership problem.
 \end{theorem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
-\bibliography{membership1}
+\bibliography{membership}
 
 \medskip
 
