@@ -455,11 +455,19 @@ First, a word $w\in F(X)$ is a {\em representative of type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
 where $s$ is a maximal $L_T$-prefix of $w$, $t$ is a maximal
 $L_T$-prefix of $t\circ e^{-1}$ and $e\neq 1$.
+<<<<<<< HEAD
 %%
 %%{\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
 %% representatives and there is a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
 %% We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
 %%}
+=======
+
+{\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
+ representatives and there is a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
+ We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
+}
+>>>>>>> 71241d37b9903c54876d1d2aa30e7ca707e5c526
 
 
 Let $S^{(1)}$ denote the set of all representatives of type $1$.
@@ -492,6 +500,7 @@ from $\t(a_0)=u_0$ to $\t(b_0)=v_0$ and
 $\t(a_1)=u_1$ to $\t(b_1)=v_1$, both with labels $k$.
 Therefore $(u_0,u_1)\sim (v_0,v_1)$.
 \end{proof}
+<<<<<<< HEAD
 %%{\ef
 %%It seems like we should specify different cases , depending on
 %%$u_0, v_0$ and $u_1,v_1$ belonging to the same loop $h_i$ or not;
@@ -520,6 +529,31 @@ $\sim$ and let $Q$ denote the set of  all these $\sim$
 representatives (note that by the minimality conditions of the
 definition, if $(u,v)$ is a $\sim$ representative then
 $w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$). A word $w\in F(X)$ is
+=======
+{\ef
+It seems like we should specify different cases , depending on
+$u_0, v_0$ and $u_1,v_1$ belonging to the same loop $h_i$ or not;
+or something like this. Take an equivalence class as in example
+\ref{ex:f_1f_2}. Then $a_0 = y_2^{-1}y_1$, $a_1 = y_1^2$, $b_0 =
+y_2^{-1}$, $b_1=y_1$. Further, we obtain $c = y_1$ and the
+equality satisfies, but with elements $h_0 = y_2^{-1} y_1^2 y_2$
+and $h_1 = y_1^2$ which are not in $H_2$, as far as I understand.
+Am I right or I misunderstood something?
+}
+
+We shall choose one double coset representative corresponding to each $\sim$
+equivalence class. To be explicit we make a particular choice of transversal
+for the equivalence classes, as follows.
+If $(u,v)\in P$ and $w(u)=a\circ x$, $w(v)=b\circ x$, for some $a,b\in F(X)$ and
+$x\in X^{\pm 1}$, then $(\t(a),\t(b))\in P$ and $(u,v)\sim (\t(a),\t(b))$. It follows
+that every equivalence class of $\sim$ contains an element $(a,b)$ such that
+$w(a)w(b)^{-1}$ is a reduced word. Let $\pp$ be an equivalence class of $\sim$ and
+let $Y$ be the set of all pairs $(u,v)\in \pp$ such that $|w(v)|$ is minimal (amongst
+elements of $\pp$). Choose $(u,v)\in Y$ such that $|w(u)|$ is minimal (amongst elements
+of $Y$) and define $(u,v)$ to be the $\sim${\em representative} of $\pp$. Fix
+one $\sim$ representative for each equivalence class of $\sim$ and
+let $Q$ denote the set of  all these $\sim$ representatives. A word $w\in F(X)$ is
+>>>>>>> 71241d37b9903c54876d1d2aa30e7ca707e5c526
  a {\em representative of type} $2$ if $w=w(u)w(v)^{-1}$, for some $(u,v)\in Q$.
 Let $S^{(2)}$ denote the set of all representatives of type $2$
 and define $S_1=S^{(1)}\cup S^{(2)}$. In order to ensure
