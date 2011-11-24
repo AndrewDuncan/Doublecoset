@@ -344,7 +344,7 @@ each $g_i$ in double coset normal form in its factor, with respect
 to some (fixed) set of double coset representatives. We show how
 this can be done below.
 
-\subsection{Double coset representatives}\label{sub:2cosetrepr}
+\subsection{Automata and Stallings Foldings}\label{sub:foldings}
 %{\bf We should include a short description of Stallings folding, as in
 %Enric's notes from Manresa \cite{ventura11}.} \\[1em]
 
@@ -363,16 +363,6 @@ subset of a group $G$
  then the  natural map from $L(A)$ to
 $G$ is denoted $\pi:L(A)\maps G$.
 
-An inversive alphabet $\S$ is a set of a form $\{a_1, \ldots, ,
-a_r, a_1^{-1}, \ldots, a_r^{-1}\}$. An automaton $A = (\S, Q, \d,
-\mathcal{S},\mathcal{F})$ is {\em inversive} if $\S$ is an
-inversive alphabet and for all $p, q \in Q$ and $a \in \S$,
-$\d(p,a)=q$ if and only if $\d(q, a^{-1})=p$. Further, an
-automaton $A= (\S, Q, \d, s_0)$ is called {\em trim} if it has no
-vertices of degree $1$ except maybe the basepoint $s_0$. An
-automaton $A$ is {\em deterministic} if $\d(p,a)=q$ and
-$\d(p,a)=q'$ imply $q=q'$.
-
  We shall associate to an automaton $A$
 a directed, edge labelled graph $\G_A$ with vertices
 $V=V(\G_A)=Q$; edge set $E=E(\G_A)$ consisting of elements
@@ -381,28 +371,36 @@ labelling function $l:E\maps \S$ given by $l(u,\s,v)=\s$, for all
 $(u,\s,v) \in E$.  If $\mathcal{S}$ and $\mathcal{F}$ are the sets
 of start and final states of $A$ we sometimes write
 $(\G_A,\mathcal{S},\mathcal{F})$ for
-$(\S,Q,\d,\mathcal{S},\mathcal{F})$, and in particular if
-$\mathcal{S}=\{s_0\}$ and $\mathcal{F}=\{f_0\}$, we write
-$(\G_A,s_0,f_0)$ and if $S=\{s_0\}$ we call $s_0$ the {\em root}
-vertex of $\G_A$. We say that graph $\G_A$ is {\em rooted} if
-$s_0=f_0$, and we write $(\G_A,s_0)$ if this is the case. The
+$(\S,Q,\d,\mathcal{S},\mathcal{F})$, and in addition if
+$\mathcal{S}=\{s_0\}$ and $\mathcal{F}=\{f_0\}$, we may abbreviate 
+this to $(\G_A,s_0,f_0)$.  
+If $\mathcal{S}=\{s_0\}=\mathcal{F}$ 
+we 
+call $s_0$ the {\em root}
+vertex of $\G_A$ and say that $A$ and $\G_A$ are {\em rooted}. We may
+ write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case. The
 label $l(p)$ of a path is the concatenation of the labels of the
 edge sequence of $p$. For notational simplicity we identify $\G_A$
 and $A$ whenever it is convenient.
 
-An automaton $A = (\G_A, \mathcal{S}, \mathcal{F})$ is {\em
-inversive} if $\S$ is an inversive alphabet and $(u, \s, v) \in E
-\Leftrightarrow (v, (\s)^{-1}, u) \in E$. From now we will
-consider inversive automaton only. An automaton $A  = (\G_A,
-\mathcal{S}, \mathcal{F})$ is {\em deterministic} if $(u, \s, v)
-\in E$ and $(u, \s, v^\prime) \in E$ imply $v=v^\prime$. A rooted
+An inversive alphabet $\S$ is a set of a form $\{a_1, \ldots, ,
+a_r, a_1^{-1}, \ldots, a_r^{-1}\}$.
+The automaton $A =(\S, Q, \d,\mathcal{S},\mathcal{F})
+= (\G_A, \mathcal{S}, \mathcal{F})$ is {\em
+inversive} if $\S$ is an
+inversive alphabet and, for all $p, q \in Q$ and $a \in \S$,
+$\d(p,a)=q$ if and only if $\d(q, a^{-1})=p$ (that is $(u, \s, v) \in E
+\Leftrightarrow (v, (\s)^{-1}, u) \in E$). From now we will
+consider inversive automaton only. The automaton $A$ 
+is {\em deterministic}  or {\em folded} if $\d(p,a)=q$ and
+$\d(p,a)=q'$ imply $q=q'$ (that is, $(u, \s, v)
+\in E$ and $(u, \s, v^\prime) \in E$ imply $v=v^\prime$). A rooted
 automaton $A= (\G_A, s_0)$ is called {\em trim} if it has no
 vertices of degree $1$ except maybe $s_0$.
 
-Since we identify an automaton $A$ and graph $\G_A$, we ascribe
-properties of $A$ to $\G_A$ (like trim, inversive or
-deterministic) with exception that we use the term ``folded''
-instead of ``deterministic'', for graphs.
+Since we identify the automaton $A$ with the graph $\G_A$, we ascribe
+properties of automata (like rooted, trim, inversive or
+folded) to graphs in general and $\G_A$ in particular.
 
 %%Let $A=(V,E,s_0)$ and $A^\prime=(V^\prime,E^\prime,s^\prime_0)$ be
 %%two automata. A {\em morphism} $A \rightarrow A^\prime$ is a map
@@ -413,23 +411,38 @@ We now recall the notion of standard Stalling folding of an
 automaton, which we will use directly, for the preparatory
 ``cleaning'' of automata described below, and in generalized form
 to produce dc-foldings of this automaton (in Section
-\ref{sec:foldings}).
+\ref{sec:foldings}). For more details of foldings see \cite{ventura11}.
 
-An {\em elementary folding} of a rooted graph $(\G_A,s_0)$ is a
-graph $(\G^\prime_A,s^\prime_0)$ obtained from $(\G_A,s_0)$ as
+An {\em elementary folding} of a rooted, directed, labelled 
+graph $(\G,s_0)$ is a
+graph $(\G^\prime,s^\prime_0)$ obtained from $(\G,s_0)$ as
 follows. Suppose that $e=(u, \s, v)$ and $e^\prime=(u, \s,
 v^\prime)$ are edges of $\G$. (We do not require $u$, $v$ and
 $v^\prime$ to be distinct.)
- Then $\G^\prime_A$ is the quotient of $\G_A$ formed by identifying
+ Then $\G^\prime$ is the quotient of $\G$ formed by identifying
 $v$ and $v^\prime$, to form a new vertex $v^{\prime\prime}$; and
 $e$ and $e^\prime$, to form a new edge $e^{\prime\prime}=(u, \s,
 v^{\prime\prime})$. If $s_0= v$ or $s_0 = v^\prime$ then
 $v^{\prime\prime}$ is the root of $\G^\prime$ and otherwise
 $s^\prime_0=s_0$.
  A {\em folding} of a graph $\G$ is a graph obtained
-from $\G$ by a finite sequence of elementary foldings.
+from $\G$ by a finite sequence of elementary foldings. 
 
-
+A morphism of  rooted, directed, labelled 
+graphs $\G$ and $\G^\prime$ is a map $\theta: \G\maps \G^\prime$ 
+which maps vertices to vertices and edges to edges in such a way
+that
+\be
+\item if $s$ is the root of $\G$ then $\theta(s)$ is the root of 
+$\G^\prime$ and 
+\item  if $(u,\sigma,v)$ is an edge of $\G$ then 
+$\theta(u,\sigma,v)=(\theta(u),\sigma,\theta(v))$. 
+\ee
+An elementary
+folding of  $(\G,s_0)$ to  $(\G^\prime,s^\prime_0)$ induces a morphism
+from $\G$ to $\G^\prime$: namely the quotient map. Therefore there is
+ a (uniquely determined) morphism from $\G$ to any folding.  
+\subsection{Double coset representatives}\label{sub:2cosetrepr}
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
 of $F$.  By a {\em reduced} word we mean
  a freely reduced word in $(X\cup X^{-1})^\ast$, and we write $w\in F(X)$
