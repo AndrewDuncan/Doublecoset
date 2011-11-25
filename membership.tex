@@ -392,8 +392,7 @@ We extend this terminology, for an automaton
 $A=(\S,Q,\d,\mathcal{S},\mathcal{F})$,  
 to say that a  word $w$ is {\em readable} 
 by $A$ if $w$ is in the
-language accepted by $(\G_A,\cS,\{\t\})$, for some $t\in Q$. 
-In this case we denote the state $t$ of $A$ by $\t(w)$. 
+language accepted by $(\G_A,\cS,Q)$.  
 If $\S$ is a
 subset of a group $G$
  then the  natural map from $L(A)$ to
@@ -508,23 +507,38 @@ The automaton $(\G(H),s)$ is  called the {\em Stallings automaton} of $H$.
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
 of $F$. 
 
-Let $A$ be a Stallings automaton for $H$ with start state $s_0 =
-1$. Fix a spanning tree $T$ for $A$. For each vertex $v$ of $A$
+Let $A$ be the Stallings automaton for $H$, and let  $s_0 =
+1$ be its start state. 
+As $A$ is inversive, if $w$ is readable by $A$ then there exists a
+unique vertex $\t(w)$ of $\G_A$ such that $w$ is accepted by 
+$(\G_A,s_0,\t(w))$. ($L$ is the set of words $w$ readable by $A$ with 
+$\t(w)=1$.) 
+Fix a spanning tree $T$ for $A$. For each vertex $v$ of $A$
 let $w(v)$ denote the label of the path from $s_0=1$ to $v$ in
 $T$.  Define
 \[L_T=\{w(v): v \textrm{ is a vertex of } A\}.\]
-If $w, s\in F(X)$ then we say that $s$ is a {\em maximal}
-$L_T${\em -prefix} of $w$ if $s\in L_T$, $w=s\circ u$ and no
-longer prefix of $w$ belongs to $L_T$.
-
+If $w, s, u\in F(X)$ with $w=s\circ u$ then we say that 
+\be[(i)]
+\item
+$s$ is a $A$-{\em readable prefix} of $w$ is $s$ is readable by $A$;  
+\item
+an % {\em maximal}
+$L_T${\em -prefix} of $w$ if $s\in L_T$ and 
+\item a {\em maximal} $A$-readable prefix or $L_T$-prefix if no longer
+subword of $w$ is an $A$-readable prefix or $L_T$-prefix, respectively. 
+\ee
 We shall define a set of double coset representatives for $H$ in two parts.
-First, a word $w\in F(X)$ is a {\em representative of type} $1$ if
+We begin with the definition of the first type of representative. 
+\begin{definition}[Double coset representative, type 1]
+A a word $w\in F(X)$ is a {\em representative of type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
-where $s$ is a maximal $L_T$-prefix of $w$, $t$ is a maximal
+where $s$ is a maximal $A$-readable prefix and an $L_T$-prefix of $w$, 
+and $t$ is a maximal $A$-readable prefix and an 
 $L_T$-prefix of $t\circ e^{-1}$ and $e\neq 1$.
+\end{definition}
 
 {\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
- representatives and there is a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
+ representatives and there are a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
  We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
 }
 
