@@ -510,31 +510,35 @@ of $F$.
 Let $A$ be the Stallings automaton for $H$, and let  $s_0 =
 1$ be its start state. 
 As $A$ is inversive, if $w$ is readable by $A$ then there exists a
-unique vertex $\t(w)$ of $\G_A$ such that $w$ is accepted by 
-$(\G_A,s_0,\t(w))$. ($L$ is the set of words $w$ readable by $A$ with 
+unique vertex  $\t(w)$ of $\G_A$ such that $w$ is accepted by 
+$(\G_A,s_0,\t(w))$: we call $\t(w)$ the {\em terminal vertex} of $w$. ($L$ is the set of words $w$ readable by $A$ with 
 $\t(w)=1$.) 
+
 Fix a spanning tree $T$ for $A$. For each vertex $v$ of $A$
 let $w(v)$ denote the label of the path from $s_0=1$ to $v$ in
 $T$.  Define
-\[L_T=\{w(v): v \textrm{ is a vertex of } A\}.\]
-If $w, s, u\in F(X)$ with $w=s\circ u$ then we say that 
+\[L_T=\{w(v): v \textrm{ is a vertex of } A\}\]
+and 
+\[L_Q=\{w:w \textrm{ is readable by } A\}.\]
+If $w, s, u\in F(X)$ with $w=s\circ u$ then we say that $s$ is 
 \be[(i)]
 \item
-$s$ is a $A$-{\em readable prefix} of $w$ is $s$ is readable by $A$;  
-\item
+ an $L_Q${\em -prefix} of $w$ if $s\in L_Q$;  
+\item 
 an % {\em maximal}
-$L_T${\em -prefix} of $w$ if $s\in L_T$ and 
-\item a {\em maximal} $A$-readable prefix or $L_T$-prefix if no longer
-subword of $w$ is an $A$-readable prefix or $L_T$-prefix, respectively. 
+$L_T${\em -prefix} of $w$ if $s\in L_T$.
 \ee
+An $L_Q$ or $L_T$-prefix $s$ of $w$ is  {\em maximal} if no longer
+subword of $w$ is an $L_Q$ or $L_T$-prefix, respectively. 
+
 We shall define a set of double coset representatives for $H$ in two parts.
 We begin with the definition of the first type of representative. 
 \begin{definition}[Double coset representative, type 1]
-A a word $w\in F(X)$ is a {\em representative of type} $1$ if
+A a word $w\in F(X)$ is a {\em (double coset) representative of type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
-where $s$ is a maximal $A$-readable prefix and an $L_T$-prefix of $w$, 
-and $t$ is a maximal $A$-readable prefix and an 
-$L_T$-prefix of $t\circ e^{-1}$ and $e\neq 1$.
+where $e\neq 1$, $s$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $w$, 
+and $t$ is a maximal $L_Q$-prefix and an 
+$L_T$-prefix of $t\circ e^{-1}$. Let $S^{(1)}$ denote the set of all representatives of type $1$.
 \end{definition}
 
 {\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
@@ -542,7 +546,7 @@ $L_T$-prefix of $t\circ e^{-1}$ and $e\neq 1$.
  We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
 }
 
-Let $S^{(1)}$ denote the set of all representatives of type $1$.
+
 
 To describe the remaining representatives we shall first define an equivalence
 relation on the ordered pairs of distinct vertices of $A$. Let
@@ -585,38 +589,50 @@ Therefore $(u_0,u_1)\sim (v_0,v_1)$.
 %%}
 
 We shall choose one double coset representative corresponding to
-each $\sim$ equivalence class. To be explicit we make a particular
-choice of transversal for the equivalence classes, as follows. If
+each $\sim$ equivalence class. First observe that if
 $(u,v)\in P$ and $w(u)=a\circ x$, $w(v)=b\circ x$, for some
 $a,b\in F(X)$ and $x\in X^{\pm 1}$, then $(\t(a),\t(b))\in P$ and
-$(u,v)\sim (\t(a),\t(b))$. It follows that every equivalence class
+$(u,v)\sim (\t(a),\t(b))$. It follows that every equivalence  class
 of $\sim$ contains an element $(u',v')$ such that
-$w(u')w(v')^{-1}$ is a reduced word. Let $\pp$ be an equivalence
+$w(u')w(v')^{-1}$ is a reduced word; and representatives of each
+equivalence class will be chosen to have this property. 
+%We make a choice $(u,v)$ of representative of each equivalence class
+%of $\sim$ so that 
+%$w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$), in the next definition.
+
+\begin{definition}
+Let $\pp$ be an equivalence
 class of $\sim$ and let $Y$ be the set of all pairs $(u,v)\in \pp$
 such that $|w(v)|$ is minimal (amongst elements of $\pp$). Choose
 $(u,v)\in Y$ such that $|w(u)|$ is minimal (amongst elements of
 $Y$) and define $(u,v)$ to be the $\sim${\em representative} of
-$\pp$. Fix one $\sim$ representative for each equivalence class of
-$\sim$ and let $Q$ denote the set of  all these $\sim$
-representatives (note that by the minimality conditions of the
-definition, if $(u,v)$ is a $\sim$ representative then
-$w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$). A word $w\in F(X)$ is
+$\pp$. %Fix one $\sim$ representative for each equivalence class of$\sim$ and 
+Let $P_0$ denote the set of  all these $\sim$ 
+representatives.
 
- a {\em representative of type} $2$ if $w=w(u)w(v)^{-1}$, for some $(u,v)\in Q$.
-Let $S^{(2)}$ denote the set of all representatives of type $2$
-and define $S_1=S^{(1)}\cup S^{(2)}$. In order to ensure
-uniqueness of the normal form of an element of $F(X)$ we also need
-to choose an element $c(u,v)$ of $F(X)$, for each $(u,v)\in P$, of
-$P$: $c(u,v)$ is defined to be the label of some fixed choice of
-path from $u$ to $u_0$ and $v$ to $v_0$, where $(u_0,v_0)$ is the
-$\sim$ representative of $(u,v)$.
+A word $w\in F(X)$ is
+ a {\em (double coset) representative of type} $2$ 
+if $w=w(u)w(v)^{-1}$, for some $(u,v)\in P_0$.
+Let $S^{(2)}$ denote the set of all representatives of type $2$.
+
+For each $(u,v)$ in $P$ choose a path from $(u,v)$ to the $\sim$ representative
+$(u_0,v_0)$ of $(u,v)$ and define the {\em connecting element}
+$c(u,v)$  of $(u,v)$ to be the label of this path.  
+\end{definition}
+The  connecting elements enable systematic rewriting of certain
+elements of $\FF$ in terms of representatives of type 2, as will be
+seen below.
+\begin{definition}
+Define $S=S^{(1)}\cup S^{(2)}$. 
+\end{definition}
+
 
 \begin{proposition}\label{prop:dcreps}
-$S_1$ is a set of double coset representatives for $H$.
+$S$ is a set of double coset representatives for $H$.
 \end{proposition}
 \begin{proof}
 First we shall show that every element $w\in F(X)$ lies in $HdH$,
-for some $d\in S_1$. In fact we describe an algorithm which
+for some $d\in S$. In fact we describe an algorithm which
 rewrites a given word $w$ in this form.
 
 Assume that the Stallings automaton $A$ for $H$ has been constructed by folding from
@@ -631,7 +647,7 @@ and a path from $v$ to $v^\prime$, also with label $l$.
 Having constructed the equivalence classes of $\sim$
  a set of $\sim$ representatives may be constructed, by considering the
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
-sets $Q$ and $S^{(2)}$ may be computed.   \\
+sets $P_0$ and $S^{(2)}$ may be computed.   \\
 
 \noindent{\bf Algorithm I}:\\
 Input $w\in F(X)$.
@@ -658,7 +674,7 @@ $ye=y\circ e$. Similarly, the first letter of $e^{-1}$ is not readable from
 the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ z^{-1}$. Moreover $y$ is a
 maximal $L_T$-prefix of $yez^{-1}$ and $z$ is a maximal $L_T$-prefix of $ze^{-1}$.
 Thus $yez^{-1}\in S^{(1)}$ and we output
-\[w=(py^{-1}) (yez^{-1})(zt^{-1})\in HS_1H,\]
+\[w=(py^{-1}) (yez^{-1})(zt^{-1})\in HSH,\]
 of the required form.
 
 On the other hand if $e=1$ then
@@ -680,7 +696,7 @@ and by definition $yz^{-1}\in S^{(2)}$. We then output
 \[w=a yz^{-1} b,\]
 where $a=h ( p w(u)^{-1}) h_0\in H$ and $b=h_1^{-1}( w(v)t^{-1})g \in H$.
 
-It remains to show that if $s_0,s_1\in S_1$ with $s_1\in Hs_0H$
+It remains to show that if $s_0,s_1\in S$ with $s_1\in Hs_0H$
 then $s_1=s_0$. Suppose that $s_1=as_0b$, where $a, b\in H$. If
 $s_0\in S^{(1)}$, say $s_0=y_0e_0z_0^{-1}$, then, as $ay_0$ and
 $b^{-1}z_0$ are readable by $A$ and $e_0\neq 1$, it follows (as
@@ -709,7 +725,7 @@ Hence $s_0=s_1$ in this case.
 Finally consider the case where $s_1$ and $s_2$ belong to
 $S^{(2)}$. As $s_1=as_0b$, with $a,b\in H$, Lemma
 \ref{lem:equiv_verts} and the definition of $S^{(2)}$ imply  that
-$s_0= s_1$. Therefore $S_1$ is a set of double coset
+$s_0= s_1$. Therefore $S$ is a set of double coset
 representatives.
 \end{proof}
 
