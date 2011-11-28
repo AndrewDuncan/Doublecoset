@@ -588,6 +588,35 @@ Therefore $(u_0,u_1)\sim (v_0,v_1)$.
 %%Am I right or I misunderstood something?
 %%}
 
+To work with the equivalence relation $\sim$ its useful to define
+the product of graphs. Given (labelled, directed) 
+graphs $\G_1$ and $\G_2$ we define the {\em
+product} graph $\G_1\times \G_2$ to be the graph with vertices
+$V=V(\G_1)\times V(\G_2)$ and with a directed edge labelled $a$
+from $(u_1,u_2)$ to $(v_1,v_2)$ if and only if there are edges
+$(u_1,a, v_1)$ and $(u_2,a,v_2)$ in $\G_1$ and $\G_2$,
+respectively. If $\G$ is a graph then 
+vertices of $\G\times \G$ of 
+ the form $(v,v)$ are called {\em diagonal vertices}. 
+% We call the graph formed from  $\G\times \G$ by removing  
+% the diagonal vertices (and all incident edges) the 
+%{\em non-diagonal subgraph of} $\G\times \G$. 
+Note that if
+$\G$ is folded there is no edge of $\G\times \G$ 
+joining a diagonal vertex to a non-diagonal
+vertex. In this case it 
+follows that the diagonal vertices are the vertices of a 
+connected component of $\G\times \G$, which is isomporphic to $\G$, and 
+that no other connected component contains a diagonal vertex. 
+
+In this notation $P$ is the set of non-diagonal vertices of  
+ of $\G_A\times \G_A$ and   
+$(u,v)\sim (u',v')$ if and only if there is 
+a path from $(u,v)$ to $(u',v')$ in $\G_A\times \G_A$.
+ Thus, as $\G_A$ is folded,  the equivalence class of $(u,v)\in P$
+is the set of vertices of the connected component of $\G_A\times \G_A$ 
+containing $(u,v)$. 
+
 We shall choose one double coset representative corresponding to
 each $\sim$ equivalence class. First observe that if
 $(u,v)\in P$ and $w(u)=a\circ x$, $w(v)=b\circ x$, for some
@@ -615,7 +644,8 @@ A word $w\in F(X)$ is
 if $w=w(u)w(v)^{-1}$, for some $(u,v)\in P_0$.
 Let $S^{(2)}$ denote the set of all representatives of type $2$.
 
-For each $(u,v)$ in $P$ choose a path from $(u,v)$ to the $\sim$ representative
+For each $(u,v)$ in $P$ choose a path in $\G_A\times \G_A$ 
+from $(u,v)$ to the $\sim$ representative
 $(u_0,v_0)$ of $(u,v)$ and define the {\em connecting element}
 $c(u,v)$  of $(u,v)$ to be the label of this path.  
 \end{definition}
@@ -681,13 +711,13 @@ Thus $yez^{-1}\in S^{(1)}$ and we output
 of the required form.
 
 On the other hand if $e=1$ then
-\[w=h\circ p\circ t^{-1}\circ g.\]
+\[w=h\circ p\circ t^{-1}\circ g^{-1}.\]
 In this case let $u=\t(p)$ and $v=\t(t)$,
 let $(u_0,v_0)$ be the $\sim$ representative
 of the equivalence class of $(u,v)$, $c=c(u,v)$, 
  $y=w(u_0)$ and $z=w(v_0)$. Then,  as in the proof of Lemma
-\ref{lem:equiv_verts}, setting $h_0=w(u)c^{-1}y^{-1}$ and
-$h_1=w(v)c^{-1}z^{-1}$ we have
+\ref{lem:equiv_verts}, setting $h_0=w(u)cy^{-1}$ and
+$h_1=w(v)cz^{-1}$ we have
  $h_0,h_1\in H$ and
 \[w(u)w(v)^{-1}=h_0yz^{-1}h_1^{-1}.\] Furthermore
  $p w(u)^{-1}$ and  $t w(v)^{-1}$ are in $H$. Hence
@@ -697,7 +727,8 @@ h_1^{-1}( w(v)t^{-1})
 \]
 and by definition $yz^{-1}\in S^{(2)}$. We then output
 \[w=a yz^{-1} b,\]
-where $a=h ( p w(u)^{-1}) h_0\in H$ and $b=h_1^{-1}( w(v)t^{-1})g \in H$.
+where $a=h ( p w(u)^{-1}) h_0=hpcy^{-1}\in H$ and $b=h_1^{-1}( w(v)t^{-1})g^{-1} 
+=zc^{-1}t^{-1}g^{-1}\in H$.
 
 It remains to show that if $s_0,s_1\in S$ with $s_1\in Hs_0H$
 then $s_1=s_0$. Suppose that $s_1=as_0b$, where $a, b\in H$. If
@@ -732,157 +763,135 @@ $s_0= s_1$. Therefore $S$ is a set of double coset
 representatives.
 \end{proof}
 
-\begin{example}\label{ex:f_1f_2}
-Let $F$ be the free group on generators $x_1,x_2,x_3$ and $H$ its
-subgroup $H=\la
-h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and 
-$h_3=x_1x_2x_3\ra$.
-
-The Stallings automata, $A$ for 
-with maximal subtrees $T$ highlighted ia shown
-in Figure \ref{fig:stall}. 
-The set $L_T$ corresponding to the maximal subtree  $T$ is
- $L_T=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$.
-
-To find double coset normal form for elements $f_1 =
-x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$, in  
-the notation of Algorithm I, use  
-$A$ to read off the maximal acceptable prefix $h=x_2x_3^2x_2^{-1} x_1^3$; and
-then the maximal $L_Q$ prefix $p=x_1$ of the remainder. Then 
-$q^{-1}=x_1x_2x_3x_1^2x_3^{-3}$, which has maximal acceptable prefix 
-$g=x_1x_2x_3$. The maximal $L_Q$-prefix of the remaining part of $q^{-1}$
-is then $t=x_1^2$. Thus
-\[f_1=h\circ p\circ e\circ t^{-1}\circ q^{-1}\circ g^{-1}=\]
-
-$f_2=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2 y_3y_4y_2^2$.
-
-Consider the element $f_1 \in F_1$ first.
-
-\begin{align*}
-f_1 &= (h_2^2h_1)\cdot x_1x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1} =
-(h_2^2h_1)\cdot x_1x_3^3x_1^{-2}\cdot(h_3^{-1})\\
-&= (h_2^2h_1)\cdot x_1 \circ x_3^3x_1^{-1}\circ
-x_1^{-1}\cdot(h_3^{-1})
-\end{align*}
-
-To rewrite $f_2$ in normal form, we need to describe
-representatives of type $2$ in this case. Namely, $(y_1^2,
-y_2^{-1}y_1) \sim (y_1,y_2^{-1})$, and since $(y_1,y_2^{-1})$ is
-minimal one, then we chose it to be representative of equivalence
-class $\pp = \{(y_1,y_2^{-1})(y_1^2, y_2^{-1}y_1),  \}$. Further,
-
-\begin{align*}
-f_2 &= y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2y_3y_4y_2^2\\ &=
-((h_3^{\prime})^2h_2^{\prime}) \cdot y_1 \circ (y_2^{-1})^{-1}
-\cdot(h_2^{\prime}h_1{\prime})=
-\end{align*}
-
-
-\end{example}
-
-\begin{figure}
-\begin{center}
-\psfrag{x1}{$x_1$}
-
-\psfrag{x2}{$x_2$}
-
-\psfrag{x3}{$x_3$}
-
-\psfrag{h1}{$h_1$}
-
-\psfrag{h2}{$h_2$}
-
-\psfrag{h3}{$h_3$}
-
-\psfrag{y1}{$y_1$}
-
-\psfrag{y2}{$y_2$}
-
-\psfrag{y3}{$y_3$}
-
-\psfrag{y4}{$y_4$}
-
-\psfrag{h11}{$h_1^{\prime}$}
-
-\psfrag{h21}{$h_2^{\prime}$}
-
-\psfrag{h31}{$h_3^{\prime}$}
-
-\subfigure[Stallings automaton $A_1$ for $H_1$]{
-\includegraphics[scale=.5]{stallh1.eps}
-\label{fig:stall1}} 
-\hspace{25mm} 
-\subfigure[Stallings automaton $A_2$ for $H_2$.]{ 
-\includegraphics[scale=.5]{stallh2.eps}
-\label{fig:stall2}}
-\end{center}
-\caption{ Stallings automata for Example \ref{ex:f_1f_2}.}\label{fig:stall}
-\end{figure}
-
-
-\begin{example}\label{ex:f_1f_2}
-Let $F=F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
+\begin{example}\label{ex:f_1}
+Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
 subgroup $H_1=\la
 h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and 
 $h_3=x_1x_2x_3\ra$.
 
-Consider also another free group $F_2$ generated by
-$y_1,y_2,y_3,y_4$ with a subgroup $H_2 = \la h_1^{\prime},
-h_2^{\prime},h_3^{\prime}\ra$, where 
-$h_1^{\prime}=y_2^2$, 
-$h_2^{\prime}y_3y_4$ and  
-$h_3^{\prime}=y_1^2y_3y_1^{-1}y_2$.
+The Stallings automata, $\G_{A_1}$ for $H_1$,  
+with maximal subtree $T_1$ highlighted and base vertex $1$, is shown
+in Figure \ref{fig:stall}.\ref{fig:stall1}. 
+The set $L_{T_1}$ corresponding to the maximal subtree  $T_1$ is
+ $L_{T_1}=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$. 
 
-The Stallings automata, $A_1$ for $H_1$ and $A_2$ for $H_2$, 
-with maximal subtrees $T_1$ and $T_2$ highlighted are shown
-in Figure \ref{fig:stall}. 
+Let the set of double coset representatives for $H_1$ be $S_1=S_1^{(1)}
+\cup S_1^{(2)}$. 
+To find the double coset normal form for the element $f_1 =
+x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$: in  
+the notation of Algorithm I, use  
+${A_1}$ to read off the maximal acceptable prefix $h=x_2x_3^2x_2^{-1} x_1^3
+=h_2^2h_1$ 
+of $f_1$; and
+the maximal $L_{Q_1}$ prefix $p=x_1$ of the remaining part of $f_1$. Next  
+$q^{-1}=x_1x_2x_3x_1^2x_3^{-3}$, which has maximal acceptable prefix 
+$g=x_1x_2x_3$. The maximal $L_{Q_1}$-prefix of the remaining part of $q^{-1}$
+is then $t=x_1^2$. Setting $e=x_3$,
+\[f_1=h\circ p\circ e\circ t^{-1}\circ g^{-1}.\]
+As $p$ is an $L_{T_1}$-prefix of $pq$ we have $y=p$. On the other hand 
+$t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=2$, so $z=w(2)=x_1^{-1}$. 
+Now set 
+\[s=p\circ e\circ z^{-1}=x_1x_3x_1^{-1}\in S_1^{(1)}.\]
+Then, writing $h^\prime=gtz^{-1}=h_3h_1$, the normal form for $f_1$ is 
+\[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3x_1^{-1} (h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\] 
 
-Systems of inner representatives (corresponding to the choice of
-maximal subtrees) of $H_1$ in and $H_2$ in $F_2$
- are $S_{1,in} = \{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$ and $S_{2,in} = \{1, y_1, y_1^2,
-y_2^{-1}, y_2^{-1}y_1, y_3 \}$.
-
-We want to find double coset normal form for elements $f_1 =
-x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$ and
-$f_2=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2 y_3y_4y_2^2$.
-
-Consider the element $f_1 \in F_1$ first.
-
-\begin{align*}
-f_1 &= (h_2^2h_1)\cdot x_1x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1} =
-(h_2^2h_1)\cdot x_1x_3^3x_1^{-2}\cdot(h_3^{-1})\\
-&= (h_2^2h_1)\cdot x_1 \circ x_3^3x_1^{-1}\circ
-x_1^{-1}\cdot(h_3^{-1})
-\end{align*}
-
-To rewrite $f_2$ in normal form, we need to describe
-representatives of type $2$ in this case. Namely, $(y_1^2,
-y_2^{-1}y_1) \sim (y_1,y_2^{-1})$, and since $(y_1,y_2^{-1})$ is
-minimal one, then we chose it to be representative of equivalence
-class $\pp = \{(y_1,y_2^{-1})(y_1^2, y_2^{-1}y_1),  \}$. Further,
-
-\begin{align*}
-f_2 &= y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2y_3y_4y_2^2\\ &=
-((h_3^{\prime})^2h_2^{\prime}) \cdot y_1 \circ (y_2^{-1})^{-1}
-\cdot(h_2^{\prime}h_1{\prime})=
-\end{align*}
-
-
+To find the double coset normal form for the element 
+$f_2=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}x_1^{-1}$: use  
+${A_1}$ to read off the maximal acceptable prefix $h=x_3^{-1}x_2^{-1}x_1^{-1}$ 
+of $f_2$;
+and  the maximal $L_{Q_1}$-prefix $p=x_2x_3$ of the rest of $f_2$.  Next  
+$q^{-1}=x_1x_2$, which is readable by ${A_1}$, so  $t=q^{-1}=x_1x_2$ and 
+\[f_2=h\circ p\circ t^{-1}.\] 
+Therefore $f_2$ will be in $H_1S_1^{(2)}H_1$. To find the required double
+coset representative we construct $\G_{A_1}\times \G_{A_1}$, which has 
+two non-diagonal components, shown in Figures 
+\ref{fig:stall}\ref{fig:GxG-1} and \ref{fig:stall}\ref{fig:GxG-2}, with
+the $\sim$ representatives $(3,1)$ and $(2,1)$,  shown as solid vertices. The connecting
+elements are paths in the highligted subtrees.  All other non-diagonal
+components consist of isolated vertices. 
+Now, $u=\t(p)=5$ and $v=\t(t)=4$ and $(5,4)$ has $\sim$ representative 
+$(1,3)$, and connecting element $c=c(5,4)=x_2^{-1}$. Therefore 
+$y=w(1)=1$, $z=w(3)=x_1$, $yz^{-1}\in S_1^{(2)}$, 
+\[a=hpcy^{-1}=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}=h_3^{-1}h_2 
+\textrm{ and } b=zc^{-1}t^{-1}g^{-1}=x_1 x_2 x_2^{-1} x_1^{-1}=1,\]
+and the normal form of $f_2$ is 
+\[f_2=a yz^{-1} b=(h_3^{-1}h_2) x_1^{-1}.\]
 \end{example}
 
 \begin{figure}
 \begin{center}
 \psfrag{x1}{$x_1$}
-
 \psfrag{x2}{$x_2$}
-
 \psfrag{x3}{$x_3$}
+\psfrag{1}{$1$}
+\psfrag{2}{$2$}
+\psfrag{3}{$3$}
+\psfrag{4}{$4$}
+\psfrag{5}{$5$}
+\subfigure[Stallings automaton $\G_{A_1}$ for $H_1$]{
+\includegraphics[scale=.52]{stallh1.eps}
+\label{fig:stall1}} 
+\hspace{5mm} 
+\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(3,1)$.]{ 
+\psfrag{a}{$(1,2)$}
+\psfrag{b}{$(2,3)$}
+\psfrag{c}{$(3,1)$}
+\psfrag{d}{$(4,5)$}
+\psfrag{e}{$(1,5)$}
+\includegraphics[scale=.52]{GxG-1.eps}
+\label{fig:GxG-1}}
+\hspace{5mm} 
+\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(2,1)$.]{ 
+\psfrag{a}{$(2,1)$}
+\psfrag{b}{$(3,2)$}
+\psfrag{c}{$(1,3)$}
+\psfrag{d}{$(5,4)$}
+\psfrag{e}{$(5,1)$}
+\includegraphics[scale=.52]{GxG-2.eps}
+\label{fig:GxG-2}}
+\end{center}
+\caption{Example \ref{ex:f_1}.}\label{fig:stall}
+\end{figure}
 
-\psfrag{h1}{$h_1$}
+\begin{example}\label{ex:f_2}
+Let $F_2$ be the free group on generators
+$y_1,y_2,y_3,y_4$ with a subgroup $H_2 = \la h_1^{\prime},
+h_2^{\prime},h_3^{\prime}\ra$, where 
+$h_1^{\prime}=y_2^2$, 
+$h_2^{\prime}=y_3y_4$ and  
+$h_3^{\prime}=y_1^2y_3y_1^{-1}y_2$.
+The Stallings automata, $\G_{A_2}$ for $H_2$,  
+with maximal subtree $T_2$ highlighted and base vertex $1$, is shown
+in Figure \ref{fig:stallagain}.\ref{fig:stallh2}. 
+The set $L_{T_2}$ corresponding to the maximal subtree  $T_2$ is
+ $L_{T_2}=
+\{1, y_1, y_1^2,
+y_2^{-1}, y_2^{-1}y_1, y_3 \}$.
+Let the set of double coset representatives for $H_2$ be $S_2=S_2^{(1)}
+\cup S_2^{(2)}$. 
 
-\psfrag{h2}{$h_2$}
+To find the normal form of 
+$f_3=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2 y_3y_4y_2^2$: : use  
+${A_2}$ to read off the maximal acceptable prefix 
+$h= y_1^2y_3y_1^{-1}y_2y_3y_4$ of $f_3$; and  the maximal $L_{Q_2}$-prefix 
+$p=y_1$ of the rest of $f_3$.  Next  
+$q^{-1}= y_2^{-2}y_4^{-1}y_3^{-1}y_2^{-1}$, so $g=y_2^{-2}y_4^{-1}y_3^{-1}$
+and $t=y_2^{-1}$. This element will be represented by an
+element of $S_2^{(2)}$, so we need to construct $\G_{A_2}\times \G_{A_2}$. 
+There are $7$  non-trivial, non-diagonal components. One is shown in Figure
+\ref{fig:stallagain}\ref{fig:stallh2} and the remaining
+six in  
+Figure \ref{fig:G2xG2-2}. In all cases the solid vertex corresponds 
+to the $\sim$ representative and connecting elements are paths in the
+highlighted trees. Following Algorithm I, the normal form of $f_3$ is
+seen to be 
+\[f_3=h yz^{-1} g^{-1},\]
+where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is 
+\[f_3=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}.\]
+\end{example}
 
-\psfrag{h3}{$h_3$}
+\begin{figure}
+\begin{center}
 
 \psfrag{y1}{$y_1$}
 
@@ -891,25 +900,79 @@ f_2 &= y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2y_3y_4y_2^2\\ &=
 \psfrag{y3}{$y_3$}
 
 \psfrag{y4}{$y_4$}
-
-\psfrag{h11}{$h_1^{\prime}$}
-
-\psfrag{h21}{$h_2^{\prime}$}
-
-\psfrag{h31}{$h_3^{\prime}$}
-
-\subfigure[Stallings automaton $A_1$ for $H_1$]{
-\includegraphics[scale=.5]{stallh1.eps}
-\label{fig:stall1}} 
+\psfrag{1}{$1$}
+\psfrag{2}{$2$}
+\psfrag{3}{$3$}
+\psfrag{4}{$4$}
+\psfrag{5}{$5$}
+\psfrag{6}{$6$}
+\subfigure[Stallings automaton $A_2$ for $H_2$]{
+\includegraphics[scale=.52]{stallh2.eps}
+\label{fig:stallh2}} 
 \hspace{25mm} 
-\subfigure[Stallings automaton $A_2$ for $H_2$.]{ 
-\includegraphics[scale=.5]{stallh2.eps}
-\label{fig:stall2}}
+\subfigure[$\G_{A_2}\times \G_{A_2}$: connected component of
+$(6,1)$.]{ 
+\psfrag{a}{$(5,3)$}
+\psfrag{b}{$(6,1)$}
+\psfrag{c}{$(1,6)$}
+\psfrag{d}{$(3,5)$}
+\includegraphics[scale=.52]{G2xG2-1.eps}
+\label{fig:G2xG2-1}}
 \end{center}
-\caption{ Stallings automata for Example \ref{ex:f_1f_2}.}\label{fig:stall}
+\caption{Stallings automata for Example \ref{ex:f_2}.}\label{fig:stallagain}
 \end{figure}
 
+\begin{figure}
+\begin{center}
 
+\psfrag{y1}{$y_1$}
+
+\psfrag{y2}{$y_2$}
+
+\psfrag{y3}{$y_3$}
+
+\psfrag{y4}{$y_4$}
+\psfrag{b}{$(1,3)$}
+\psfrag{c}{$(3,4)$}
+\subfigure[$(1,3)$.]{
+\includegraphics[scale=.5]{G2xG2-2.eps}
+\label{fig:G2xG2-2-1}} 
+\hspace{1mm} 
+\subfigure[$(3,1)$.]{ 
+\psfrag{b}{$(3,1)$}
+\psfrag{c}{$(4,3)$}
+\includegraphics[scale=.5]{G2xG2-2.eps}
+\label{fig:G2xG2-2-2}}
+\hspace{1mm} 
+\subfigure[$(2,5)$.]{
+\psfrag{y1}{$y_3$}
+\psfrag{b}{$(1,4)$}
+\psfrag{c}{$(2,5)$}
+\includegraphics[scale=.5]{G2xG2-2.eps}
+\label{fig:G2xG2-2-3}}
+\hspace{1mm} 
+\subfigure[$(5,2)$.]{ 
+\psfrag{y1}{$y_3$}
+\psfrag{b}{$(4,1)$}
+\psfrag{c}{$(5,2)$}
+\includegraphics[scale=.5]{G2xG2-2.eps}
+\label{fig:G2xG2-2-4}}
+\hspace{1mm} 
+\subfigure[$(4,5)$.]{
+\psfrag{y1}{$y_1$} 
+\psfrag{b}{$(3,6)$}
+\psfrag{c}{$(4,5)$}
+\includegraphics[scale=.5]{G2xG2-2.eps}
+\label{fig:G2xG2-2-5}}
+\hspace{1mm} 
+\subfigure[$(6,3)$.]{ 
+\psfrag{b}{$(6,3)$}
+\psfrag{c}{$(5,4)$}
+\includegraphics[scale=.5]{G2xG2-2.eps}
+\label{fig:G2xG2-2-6}}
+\end{center}
+\caption{Example \ref{ex:f_2}: connected components of $\G_{A_2}\times \G_{A_2}$.}\label{fig:G2xG2-2}
+\end{figure}
 
 In fact if we don't require uniqueness of representatives then there is
 a much simpler algorithm to write words in normal form.
@@ -1007,25 +1070,26 @@ d_th_{t+1}$.
 
 
 \begin{example}\label{ex:g}
-Let $g =f_1 f_2 f_1^{-1}$ in settings of Example \ref{ex:f_1f_2}.
+Let $g =f_1 f_2 f_3 f_2^{-1}$ in setting  of Examples \ref{ex:f_1} and 
+Examples \ref{ex:f_2}.
 Set $z_i = h_i = h_i^{\prime}$ for $i= 1,2,3$; then
-
 \begin{align*}
-g &= (z_2^2z_1)\cdot x_1 \circ x_3^3x_1^{-1} \circ x_1^{-1}\cdot
-(z_3^{-1}z_3^2z_2) \cdot y_1 \circ (y_2^{-1})^{-1}\\ &\cdot(z_2 z_1 z_3)\cdot x_1\circ x_1 x_3^{-3} \circ x_1^{-1}\cdot (z_1^{-1}z_2^{-2})=\\
-&(z_2^2z_1)\cdot d_1(x) \cdot (z_3z_2) \cdot d_2(y) \cdot(z_2 z_1
-z_3) \cdot d_1(x)^{-1} (z_1^{-1}z_2^{-2}).
+f_1&=(h_2^{2}h_1) x_1x_3x_1^{-1} (h_1^{-1}h_3^{-1})\\
+&=z_2^2z_1  x_1x_3x_1^{-1}z_1^{-1}z_3^{-1},\\
+f_2&=(h_3^{-1}h_2) x_1^{-1}\\
+&=z_3^{-1}z_2 x_1^{-1}\textrm{ and }\\
+f_3&=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}\\
+&= z_3z_2 y_1y_2^{-1} z_1^{-1}z_2^{-1}.
 \end{align*}
-
+Then 
+\[g=z_2^2 z_1  x_1 x_3 x_1^{-1} z_1^{-1} z_3^{-2}
+z_2 x_1^{-1} 
+z_3z_2 y_1y_2^{-1} z_1^{-1}z_2^{-1}
+x_1z_2^{-1}z_3.
+\]
 \end{example}
 
 
-Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
-written in normal form: say
-\begin{equation}\label{eq:k-form}
-k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
-\end{equation}
-where $h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$.
 
 \subsection{Double coset automata and graphs}
 \begin{comment}
@@ -1068,9 +1132,16 @@ Example \ref{ex:dc-graph}. Colours are shown only where the folding changes them
 \end{comment}
 %
 %
+Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
+written in normal form: say
+\begin{equation}\label{eq:k-form}
+k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
+\end{equation}
+where $h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$.
 
 
-Now let $\cF(K)$ be the flower automaton of $K$ and let
+Now let $\cF(K)$ be the flower automaton of $K$, as a subgroup 
+of $F(X_1\cup X_2 \cup Z)$, and let
 $\G$ be the corresponding rooted graph. If $e$ is an edge of $\G$ then
 $e$ is labelled by a letter (of $X_1\cup X_2 \cup Z$)
 occuring in $h_{i,j}$ or $t_{i,j}$, for some $i,j$, as in
@@ -1106,12 +1177,7 @@ boundary vertices are defined to be the boundary vertices of
 the graphs $\T_2$, $\T_3$, $\T_4$ and $\T_5$ constructed
 below.
 
-Given labelled graphs $\G_1$ and $\G_2$ we define the {\em
-product} graph $\G_1\times \G_2$ to be the graph with vertices
-$V=V(\G_1)\times V(\G_2)$ and with a directed edge labelled $a$
-from $(u_1,u_2)$ to $(v_1,v_2)$ if and only if there are edges
-$(u_1,a, v_1)$ and $(u_2,a,v_2)$ in $\G_1$ and $\G_2$,
-respectively. Let $\cP=\T_1\times \G_{A_k}$. Then there is a path
+ Let $\cP=\T_1\times \G_{A_k}$. Then there is a path
  labelled $w$ from $\a$ to $\b$
 in $\T_1$ {\ef {$\T_1$?}}and a path labelled $w$ from $\a^\prime $
 to $\b^\prime$ in $\G_{A_k}$ if and only if there is a path
