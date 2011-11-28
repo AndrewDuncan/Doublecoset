@@ -1112,11 +1112,30 @@ occuring in $h_{i,j}$ or $t_{i,j}$, for some $i,j$, as in
 If $e$ is labelled by a letter of $X_k$ occuring in
 $t_{i,j}$, we say $e$ has {\em type} $X_k$.
 
-Now let $\D$ be the Stallings folding of the graph $\G$.  Then
- $\D$ is inverse and $\pi(L(\D))=K$. However
-$L(\D)$ does not, in general, contain all normal forms of elements of $K$.
-Next we transform $\D$ to allow it to accept normal forms.
+Now let $\G_K$ be the Stallings folding of the graph $\G$.  Then
+ $\G_K$ is inverse and $\pi(L(\G_K))=K$. However
+$L(\G_K)$ does not, in general, contain all normal forms of elements of $K$.
+We wish to transform $\G_K$ to allow it to accept normal forms of 
+elements of $K$. In outline this transformation process consists 
+of repeating steps \ref{it:gf1} and \ref{it:gf2} below until all normal forms
+are accepted. First, to facilitate the description of the
+loop, let $\G_K=\G_K^{(0)}$ and let $n=0$. 
+\be[Step 1.]
+\item\label{it:gf1} Add new paths to $\G_K^{(n)}$ which allow normal forms of labels
+of certain paths to be read. If at least one path has been added, 
+call the result $\G_{K}^{(n+1)}$.  If no paths are added at this step,
+halt and output  $\G_K^{(n)}$. 
+\item\label{it:gf2} Fold  $\G_{K}^{(n+1)}$, add $1$ to $n$, and repeat Step \ref{it:gf1}. 
+\ee
 
+Algorithm II below describes exactly how to carry out Step 1 of this loop.
+Since Step 1 may run more than once,  the input to this algorithm is
+assumed to be an
+arbitrary inverse automaton $\D$, with alphabet $X_1\cup X_2\cup Z$ and  
+$\pi(L(\D))=K$. We then show that, if we start as above
+with $\G_K=\G_K^{(0)}$,  the loop halts, at some $n<\infty$;  
+at which point $\G_K^{(n)}$ is an inverse automaton which accepts the
+normal form of every element of $K$. 
 
 Let $\D_k$ be the graph formed from $\D$ by removing all edges of
 type $X_{k^\prime}$, where $k\neq k^\prime$. An $X_k$ component of
