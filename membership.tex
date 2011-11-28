@@ -464,9 +464,11 @@ $\G^\prime$ and
 $\theta(u,\sigma,v)=(\theta(u),\sigma,\theta(v))$. 
 \ee
 An elementary
-folding of  $(\G,s_0)$ to  $(\G^\prime,s^\prime_0)$ induces a morphism
+folding of  $(\G,s_0,t)$ to  $(\G^\prime,s^\prime_0, t^\prime)$ induces a morphism
 from $\G$ to $\G^\prime$: namely the quotient map. Therefore there is
- a (uniquely determined) morphism from $\G$ to any folding.  
+ a uniquely determined {\em folding morphism} from $\G$ to any folding. Moreover, if $\G_1$
+is a folding of $\G$ and $\theta$ is the folding morphism then $\pi(L(\G,s,t))=
+\pi(L(G_1,\theta(s),\theta(t)))$.   
 
 
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
@@ -1125,7 +1127,7 @@ loop, let $\G_K=\G_K^{(0)}$ and let $n=0$.
 of certain paths to be read. If at least one path has been added, 
 call the result $\G_{K}^{(n+1)}$.  If no paths are added at this step,
 halt and output  $\G_K^{(n)}$. 
-\item\label{it:gf2} Fold  $\G_{K}^{(n+1)}$, add $1$ to $n$, and repeat Step \ref{it:gf1}. 
+\item\label{it:gf2} Fold  $\G_{K}^{(n+1)}$, add $1$ to $n$, and repeat Step \ref{it:gf1}.
 \ee
 
 Algorithm II below describes exactly how to carry out Step 1 of this loop.
@@ -1135,77 +1137,149 @@ arbitrary inverse automaton $\D$, with alphabet $X_1\cup X_2\cup Z$ and
 $\pi(L(\D))=K$. We then show that, if we start as above
 with $\G_K=\G_K^{(0)}$,  the loop halts, at some $n<\infty$;  
 at which point $\G_K^{(n)}$ is an inverse automaton which accepts the
-normal form of every element of $K$. 
+normal form of every element of $K$. \\[1em]
 
+\noindent\textbf{Algorithm II}. \\
+
+Let $\D$ be an inverse automaton, with alphabet $X_1\cup X_2\cup Z$ and 
+start and final state $1$, such that
+$\pi(L(\D))=K$.  
 Let $\D_k$ be the graph formed from $\D$ by removing all edges of
 type $X_{k^\prime}$, where $k\neq k^\prime$. An $X_k$ component of
 $\D_k$ is the subgraph of $\D$ formed from a connected component
 of $\D_k$ by removing all leaves which are incident to edges of
 type $Z$, and then repeating the process till there are no such
-leaves left.
- We shall modify the $X_k$ components of $\D_k$ so that normal forms of words
-are readable.
-
-Let $\T$ be an $X_k$ component of $\D_k$. A
+leaves left. Given an $X_k$ component $\T$ of $\D_k$,  a
 {\em boundary vertex} of $\T$ is defined to be a vertex
 $\a$ such that $\a$ is incident, in $\D$, to a vertex which does not
-belong to $\T$.  If $(\a,z,\b)$ is an edge of
-$\T$ labelled by an element $z\in Z$ then add a path from $\a$ to
-$\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this for all such edges
-and call the result $\T_1$.  Define the boundary vertices of $\T_1$ to be
-the boundary vertices of the subgraph $\T$. Similarly, the images of these
-boundary vertices are defined to be the boundary vertices of
-the graphs $\T_2$, $\T_3$, $\T_4$ and $\T_5$ constructed
-below.
+belong to $\T$.  
+ We shall modify each  $X_k$ component $\T$ of $\D_k$ so that if $p$ is a path,
+from a  boundary vertex $u$  to a boundary vertex $v$ of $T$,   
+then the normal form  of  the
+label $l(p)$ of $p$ is the label of a path from $u$ to $v$. Throughout
+the modification process we keep track of the boundary vertices, so that 
+once modification is complete the $X_k$ components can be reassembled, by
+attaching as they did in $\D$. The modification of $X_k$ components 
+consists of five steps, producting new graphs $\T_1$, $\T_2$, $\T_3$, $\T_4$ and $\T_5$. 
+In each case there is a canonical morphism $\theta_i$ from $\T_{i-1}$ to $\T_i$ and,
+ (writing $\T=\T_0$)  
+we define the {\em boundary vertices} of $\T_{i}$ to be the vertices $\theta_{i}(v)$
+of $\T_i$, such that $v$ is a boundary vertex of $\T_{i-1}$. Moreover the
+ images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ are 
+called {\em vertices of} $\T$. \\[1em]
 
- Let $\cP=\T_1\times \G_{A_k}$. Then there is a path
+\noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
+ Let $\T$ be an $X_k$ component of $\D_k$. 
+If $(\a,z,\b)$ is an edge of
+$\T$ labelled by an element $z\in Z$ then add a path from $\a$ to
+$\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this for all such edges, fold
+the resulting graph 
+and call the result $\T_1$. (See Figure \ref{fig:alg2-1}.) 
+\begin{figure}
+\begin{center}
+\psfrag{a}{$\a$}
+\psfrag{b}{$\b$}
+\psfrag{h}{$z$}
+\psfrag{w}{$w$}
+\subfigure%[]
+{
+\includegraphics[scale=.5]{alg2-1a.eps}
+\label{fig:alg2-1a}} 
+\raisebox{3ex}{$\leadsto$}
+\subfigure%[]
+{ 
+\psfrag{a}{$\a$}
+\psfrag{b}{$\b$}
+\psfrag{h}{$z$}
+\psfrag{w}{$w$}
+\includegraphics[scale=.5]{alg2-1b.eps}
+\label{fig:alg2-1b}}
+\end{center}
+\caption{$\theta$ to $\theta_1$: $w=\phi_k(z)$}\label{fig:alg2-1}
+\end{figure}
+Let $\theta_1$ be the canonical
+morphism from $\theta$ to $\theta_1$ and  define the boundary vertices of $\T_1$ to be
+the vertices $\theta_1(v)$ of $T_1$, 
+such that $v$ is a boundary vertex of $\T$. (We shall not mention this again in later
+steps.)\\[1em]
+
+\noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
+ Let $\cP_1=\T_1\times \G_{A_k}$. Then there is a path
  labelled $w$ from $\a$ to $\b$
-in $\T_1$ {\ef {$\T_1$?}}and a path labelled $w$ from $\a^\prime $
+in $\T_1$ and a path labelled $w$ from $\a^\prime $
 to $\b^\prime$ in $\G_{A_k}$ if and only if there is a path
-labelled $w$ from $(\a,\a^\prime)$ to $(\b,\b^\prime)$ in $\cP$.
+labelled $w$ from $(\a,\a^\prime)$ to $(\b,\b^\prime)$ in $\cP_1$.
  We shall
-use this property of $\cP$ to determine which new paths to add  to
-$\T_1$. Choose a spanning  forest $\U$ of  $\cP$. Next
+use this property of $\cP_1$ to determine which new paths to add  to
+$\T_1$. Choose a spanning  forest $\U_1$ of  $\cP_1$. Next
  order the vertices of
 $\T_1$: say these are $\a_0,\ldots, \a_t$, in the order written.
 
-Let $\a_i$, $\a_j$ be vertices of  $\T_1$ with $i\le j$. If there
-exists a simple path $p$ in $\cP$ from $(\a_i,1)$ to $(\a_j,1)$
+Let $\a_i$, $\a_j$ be vertices of  $\T$  with $i\le j$. If there
+exists a simple path $p$ in $\cP_1$ from $(\a_i,1)$ to $(\a_j,1)$
 then let $l_p\in F(X_k)$ be the label of $p$ and let
 $w_p=\phi_k^{-1}(l_p)\in F(Z)$. Let $q$ be a path (disjoint from
 $\T_1$) of length $|w_p|$ and with label $w_p$. Identify the
 initial vertex of $q$ with $\a_i$ and the terminal vertex of $q$
-with $\a_j$. Now fold the resulting graph. Repeat this process for
+with $\a_j$. (See Figure \ref{fig:alg2-2}.) 
+\begin{figure}
+\begin{center}
+\psfrag{a}{$\a$}
+\psfrag{b}{$\b$}
+\psfrag{h}{$l_p$}
+\psfrag{w}{$w_p$}
+\psfrag{ai}{$(\a_i,1)$}
+\psfrag{bi}{$(\a_j,1)$}
+\psfrag{1}{$1$}
+\psfrag{Th1 to Th2}{$\T_1\leadsto \T_2$}
+\psfrag{cP}{$\cP_1$}
+\psfrag{G_A}{$\G_{A_k}$}
+\includegraphics[scale=.5]{alg2-2.eps}
+\end{center}
+\caption{$\theta_1$ to $\theta_2$: $w_p=\phi_k^{-1}(l_p)$}\label{fig:alg2-2}
+\end{figure}
+Repeat this process for
 all simple paths from  $(\a_i,1)$ to $(\a_j,1)$, over all pairs of
-vertices $\a_i$, $\a_j$ with $i\le j$. Call the resulting graph
-$\T_2$. There are finitely many simple paths in $\cP$ so this
-process terminates. Moreover, regarding $\T_1$ and $\T_2$ as
-automata, if $\a$ and
+vertices $\a_i$, $\a_j$ of $\T$, with $i\le j$.  
+There are finitely many simple paths in $\cP_1$ so this
+process terminates. Call the result $\T_2^\prime$.
+Then $\T_1$ is a subgraph of $T_2^\prime$. 
+Now fold $\T_2^\prime$ to 
+give a new graph 
+$\T_2$. 
+The composition $\theta_2$ 
+of the the embedding map of $\T_1$ into $\T_2^\prime$ with the
+canonical morphism from $\T_2^\prime$ to $\T_2$ is a morphism from $\T_1$ to
+$\T_2$. 
+ Moreover, if $\a$ and
  $\b$ are
 boundary vertices of $\T_1$ and $L_1$ and $L_2$ are the
-languages accepted by $(\T_1,(X_k\cup Z), \a,\b)$ and
-$(\T_2,(X_k\cup Z), \a,\b)$, respectively, then $\pi(L_1)=\pi(L_2)\subseteq G$.
+languages accepted by $(\T_1,\a,\b)$ and
+$(\T_2,\theta_2(\a),\theta_2(\b))$, respectively, then 
+by construction $\pi(L_1)=\pi(L_2)\subseteq G$.\\[1em]
 
+\noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
 As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements
 of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$
-the graphs $\cP=\T_1\times \G_{A_k}$ and $\T_2\times \G_{A_k}$ differ only
-in that the second may have some new isolated vertices. For our purposes
-we may discard these and assume that $\cP=\T_1\times \G_{A_k}=
- \T_2\times \G_{A_k}$. If $\cP$ is a forest then 
-$\cP=\U$, there is nothing to do at the
-next stage and we immediately set $\T_3=\T_2$. Otherwise, suppose
-that $e$ is an edge of $\cP$ which does not belong to $\U$ but
-which does belong to a component $\Xi$  of $\cP$ containing a
-vertex $(\a,1)$, for some vertex $\a$ of $\T_2$. Let $(\a,1)$ be
+the graphs $\cP_1=\T_1\times \G_{A_k}$ and $\cP_2=\T_2\times \G_{A_k}$ differ only
+in that the second may have some new isolated vertices. Therefore we may
+choose a spanning forest $\U_2$ of $\cP_2$ consisting of the spanning
+forest $\U_1$ of $\cP_1$ with some new isolated vertices if necessary. 
+If $\cP_2$ is a forest then 
+$\cP_2=\U_2$, there is nothing to do at the
+next stage, and we immediately set $\T_3=\T_2$. Otherwise, suppose
+that $e$ is an edge of $\cP_2$ which does not belong to $\U_2$ but
+which does belong to a component $\Xi$  of $\cP_2$ containing a
+vertex $(\a,1)$, for some vertex $\a$ of $\T$. Let $(\a,1)$ be
 such a vertex and let $e=((\a_i,\b_1), x, (\a_j,\b_2))$ be an edge
-in same component of $\cP$ as $(\a,1)$,
+in same component of $\cP_2$ as $(\a,1)$,
  with label $x$ in $X_k$.
 %Let
 %$\a_m$ be the minimal vertex of $\T_2$ (necessarily also a vertex
 %of $\T_1$)  such that $(\a_m,1)$ belongs to $\Xi$.
  Let $p_i$ be
-the path in $\U$ from $(\a,1)$ to $(\a_i,\b_1)$ and let $p_j$ be
-the path in $\U$ from  $(\a_j,\b_2)$ to $(\a,1)$ and
+the path in $\U_2$ from $(\a,1)$ to $(\a_i,\b_1)$ and let $p_j$ be
+the path in $\U_2$ from  $(\a_j,\b_2)$ to $(\a,1)$ and
 let $l_i$ and $l_j$ be the labels of $p_i$ and $p_j$, respectively. Then
 $p_i,e,p_j$ projects to a closed path in $\G_{A_k}$, based at $1$, with
 label $h_e=l_i x l_j \in H_k\subseteq F_k$. Moreover
@@ -1214,17 +1288,18 @@ with label $h_e$. Let
 $w_e=\phi_k^{-1}(h_e)$ and let
 $q$ be a path (disjoint from $\T_2$) of length
 $|w_e|$ and with label $w_e$. Identify the initial and terminal
-vertices of $q$ to the vertex  $\a$ of $\Theta_2$ and fold the
-resulting graph. Repeat this process for all such edges $e$ and
-vertices $(\a,1)$ of $\cP$,
+vertices of $q$ to the vertex  $\a$ of $\Theta_2$. Repeat this process for all such edges $e$ 
+and
+vertices $(\a,1)$ of $\cP_2$,  fold the
+resulting graph, 
 and denote the result by $\T_3$.
 (In practice it's not necessary to
 repeat this process for {\em all} such vertices $(\a,1)$ in $\Xi$: but it
-makes the proofs later easier if we assume that we do so.)
+makes some arguments  later easier if we assume that we do so.)
 If
 $L_3$ is the
-language accepted by $(\T_3,(X_k\cup Z), \a,\b)$, for boundary
-vertices $\a$, $\b$ of $\T_1$, then again $\pi(L_3)=\pi(L_1)$.
+language accepted by $(\T_3, \theta_3(\a),\theta_3(\b))$, for boundary
+vertices $\a$, $\b$ of $\T_2$, then again $\pi(L_3)=\pi(L_2)$.
 
 
 Next we wish to add paths to $\T_3$ that allow us to read the normal
