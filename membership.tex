@@ -605,7 +605,7 @@ Let $\pp$ be an equivalence
 class of $\sim$ and let $Y$ be the set of all pairs $(u,v)\in \pp$
 such that $|w(v)|$ is minimal (amongst elements of $\pp$). Choose
 $(u,v)\in Y$ such that $|w(u)|$ is minimal (amongst elements of
-$Y$) and define $(u,v)$ to be the $\sim${\em representative} of
+$Y$) and define $(u,v)$ to be the $\sim$ {\em representative} of
 $\pp$. %Fix one $\sim$ representative for each equivalence class of$\sim$ and 
 Let $P_0$ denote the set of  all these $\sim$ 
 representatives.
@@ -638,12 +638,13 @@ rewrites a given word $w$ in this form.
 Assume that the Stallings automaton $A$ for $H$ has been constructed by folding from
 given generators for $H$. A spanning tree $T$
 for $A$ may then be chosen and the
-set $L_T$ computed. For each pair $(u,v)\in P$ the equivalence class $\pp$ of
-$(u,v)$ may be constructed by considering all simple paths (no repeated vertices)
-starting at $u$. A pair $(u^\prime ,v^\prime) \in P$ belongs to $\pp$
-if and only
-if there is a simple path from $u$ to $u^\prime$ with label $l$,
-and a path from $v$ to $v^\prime$, also with label $l$.
+set $L_T$ computed. 
+To find the equivalence class of a pair $(u,v)\in P$ the 
+graph $\G_A\times \G_A$ is constructed. By definition, $(u',v')\sim 
+(u,v)$ if and only if there is a path in $\G_A\times \G_A$ from $(u',v')$
+to $(u,v)$. Therefore the $\sim$ equivalence class of $(u,v)$ is the
+vertex set of the connected component of $\G_A\times \G_A$ containing
+$(u,v)$.   
 Having constructed the equivalence classes of $\sim$
  a set of $\sim$ representatives may be constructed, by considering the
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
@@ -652,27 +653,29 @@ sets $P_0$ and $S^{(2)}$ may be computed.   \\
 \noindent{\bf Algorithm I}:\\
 Input $w\in F(X)$.
 Let $h$ be the maximal prefix of $w$ accepted by $A$; so $h\in H$ and
-$w=h\circ f$, for some $f\in F(X)$. Now use $A$ to find the maximal prefix $p$
-of $f$ which is readable by $A$;
- so $f= p\circ q$, for some $q\in F(X)$.
+$w=h\circ f$, for some $f\in F(X)$. Now use $A$ to find the maximal 
+$L_Q$-prefix $p$
+of $f$ (i.e. the maximal prefix readable by $A$). Then
+  $f= p\circ q$, for some $q\in F(X)$.
 
 Next find the maximal prefix $g$ of $q^{-1}$ acceptable by $A$: say
-$q^{-1}=g\circ r$, for some $r\in F(X)$, and then the maximal prefix
-$t$ of $r$ which
-is readable by $A$; say $r=t\circ e^{-1}$, for some $e\in F(X)$.
+$q^{-1}=g\circ r$, for some $r\in F(X)$, and then the maximal $L_Q$-prefix
+$t$ of $r$; say $r=t\circ e^{-1}$, for some $e\in F(X)$.
 
 If $e\neq 1$ then
 \[w=h\circ p \circ e\circ t^{-1}\circ g^{-1},\]
 with $h,g\in H$. In this case $p$ and $t$ are readable by $A$. Set $y=w(\t(p))$
 and $z=w(\t(t))$. Then $py^{-1}$ and $tz^{-1}$ belong to $H$. Moreover, as $p$
-is the maximal prefix of $f$ readable by $A$  it is also the maximal
-prefix of $pet^{-1}$ readable by $A$,  and so
+is the maximal $L_Q$-prefix of $f$ it is also the maximal
+$L_Q$-prefix of $pet^{-1}$,  and so
   the
 first letter of $e$ is not readable from the vertex $\t(p)=\t(y)$ of $A$.
 In particular
 $ye=y\circ e$. Similarly, the first letter of $e^{-1}$ is not readable from
-the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ z^{-1}$. Moreover $y$ is a
-maximal $L_T$-prefix of $yez^{-1}$ and $z$ is a maximal $L_T$-prefix of $ze^{-1}$.
+the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ z^{-1}$. Moreover $y$ is both 
+a
+maximal $L_Q$-prefix  and an $L_T$-prefix of $yez^{-1}$ and $z$ is a 
+maximal $L_Q$-prefix  and an $L_T$-prefix of $ze^{-1}$.
 Thus $yez^{-1}\in S^{(1)}$ and we output
 \[w=(py^{-1}) (yez^{-1})(zt^{-1})\in HSH,\]
 of the required form.
@@ -681,8 +684,8 @@ On the other hand if $e=1$ then
 \[w=h\circ p\circ t^{-1}\circ g.\]
 In this case let $u=\t(p)$ and $v=\t(t)$,
 let $(u_0,v_0)$ be the $\sim$ representative
-of the equivalence class of $(u,v)$ and let $c=c(u,v)$.
-Let $y=w(u_0)$ and $z=w(v_0)$. Then,  as in the proof of Lemma
+of the equivalence class of $(u,v)$, $c=c(u,v)$, 
+ $y=w(u_0)$ and $z=w(v_0)$. Then,  as in the proof of Lemma
 \ref{lem:equiv_verts}, setting $h_0=w(u)c^{-1}y^{-1}$ and
 $h_1=w(v)c^{-1}z^{-1}$ we have
  $h_0,h_1\in H$ and
@@ -716,7 +719,7 @@ if $b\neq 1$ then $b=b_0\circ b_1$ and $z_0=b_0\circ z_0^\prime$, with
 $z_0^{-1}b= (z_0^\prime)^{-1}\circ b_1$ and $e (z_0^\prime)^{-1}b_1=
 e\circ  (z_0^\prime)^{-1}\circ b_1$. This implies that
 $s_1=a_0\circ y_0^\prime \circ  e\circ  (z_0^\prime)^{-1}\circ b_1$ and by considering
-maximal $L_T$-prefixes of both sides we see that $y_1=a_0\circ y_0^\prime$ and
+maximal $L_Q$-prefixes of both sides we see that $y_1=a_0\circ y_0^\prime$ and
 $z_1=b_1^{-1}\circ z_0^\prime$. We now have  $\t(y_1)=\t(a_0y_0^\prime)=\t(y_0)$ which
  means that
 $y_0=y_1$ and this in turn implies that $a=1$. Similarly $z_0=z_1$ so $b=1$.
@@ -729,29 +732,53 @@ $s_0= s_1$. Therefore $S$ is a set of double coset
 representatives.
 \end{proof}
 
-
-
-In fact if we don't require uniqueness of representatives then there is
-a much simpler algorithm to write words in normal form.
-This
-simply finds the maximal prefix $h_1$ of $w$  accepted  by $A$  and so $w=h_1\circ v$. Then finds the
-maximal prefix $p$ of $\bar v$ accepted by $A$. Setting $h_2=\bar p$ gives $w=h_1\circ d \circ h_2$, for
-some uniquely determined word $d$, which is a (non-unique)
-double coset representative.
-
-
 \begin{example}\label{ex:f_1f_2}
-Let $F=F_1$ be the free group on generators $x_1,x_2,x_3$, and its
-subgroup $H_1=\la x_1^3,x_2x_3x_2^{-1},x_1x_2x_3\ra = \la
-h_1,h_2,h_3\ra$.
+Let $F$ be the free group on generators $x_1,x_2,x_3$ and $H$ its
+subgroup $H=\la
+h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and 
+$h_3=x_1x_2x_3\ra$.
 
-Consider also another free group $F_2$ generated by
-$y_1,y_2,y_3,y_4$ with a subgroup $H_2 = \la
-y_2^2,y_3y_4,y_1^2y_3y_1^{-1}y_2\ra = \la h_1^{\prime},
-h_2^{\prime},h_3^{\prime}\ra$.
+The Stallings automata, $A$ for 
+with maximal subtrees $T$ highlighted ia shown
+in Figure \ref{fig:stall}. 
+The set $L_T$ corresponding to the maximal subtree  $T$ is
+ $L_T=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$.
 
-Here is the Stallings automata $A_1$ for $H_1$ and $A_2$ for $H_2$
-with maximal subtrees $T_1$ and $T_2$ highlighted:
+To find double coset normal form for elements $f_1 =
+x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$, in  
+the notation of Algorithm I, use  
+$A$ to read off the maximal acceptable prefix $h=x_2x_3^2x_2^{-1} x_1^3$; and
+then the maximal $L_Q$ prefix $p=x_1$ of the remainder. Then 
+$q^{-1}=x_1x_2x_3x_1^2x_3^{-3}$, which has maximal acceptable prefix 
+$g=x_1x_2x_3$. The maximal $L_Q$-prefix of the remaining part of $q^{-1}$
+is then $t=x_1^2$. Thus
+\[f_1=h\circ p\circ e\circ t^{-1}\circ q^{-1}\circ g^{-1}=\]
+
+$f_2=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2 y_3y_4y_2^2$.
+
+Consider the element $f_1 \in F_1$ first.
+
+\begin{align*}
+f_1 &= (h_2^2h_1)\cdot x_1x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1} =
+(h_2^2h_1)\cdot x_1x_3^3x_1^{-2}\cdot(h_3^{-1})\\
+&= (h_2^2h_1)\cdot x_1 \circ x_3^3x_1^{-1}\circ
+x_1^{-1}\cdot(h_3^{-1})
+\end{align*}
+
+To rewrite $f_2$ in normal form, we need to describe
+representatives of type $2$ in this case. Namely, $(y_1^2,
+y_2^{-1}y_1) \sim (y_1,y_2^{-1})$, and since $(y_1,y_2^{-1})$ is
+minimal one, then we chose it to be representative of equivalence
+class $\pp = \{(y_1,y_2^{-1})(y_1^2, y_2^{-1}y_1),  \}$. Further,
+
+\begin{align*}
+f_2 &= y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2y_3y_4y_2^2\\ &=
+((h_3^{\prime})^2h_2^{\prime}) \cdot y_1 \circ (y_2^{-1})^{-1}
+\cdot(h_2^{\prime}h_1{\prime})=
+\end{align*}
+
+
+\end{example}
 
 \begin{figure}
 \begin{center}
@@ -781,15 +808,34 @@ with maximal subtrees $T_1$ and $T_2$ highlighted:
 
 \psfrag{h31}{$h_3^{\prime}$}
 
-\subfigure[Stallings automaton recognizing $H_1$]{
-\includegraphics[scale=.4]{stallh1.eps}
-\label{fig:stall1} } \hspace{15mm} \subfigure[Stallings automaton
-for $H_2$.]{ \includegraphics[scale=.4]{stallh2.eps}
-\label{fig:stall2} }
+\subfigure[Stallings automaton $A_1$ for $H_1$]{
+\includegraphics[scale=.5]{stallh1.eps}
+\label{fig:stall1}} 
+\hspace{25mm} 
+\subfigure[Stallings automaton $A_2$ for $H_2$.]{ 
+\includegraphics[scale=.5]{stallh2.eps}
+\label{fig:stall2}}
 \end{center}
-\caption{Stallings automata for subgroups $H_1,
-H_2$}\label{fig:stall}
+\caption{ Stallings automata for Example \ref{ex:f_1f_2}.}\label{fig:stall}
 \end{figure}
+
+
+\begin{example}\label{ex:f_1f_2}
+Let $F=F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
+subgroup $H_1=\la
+h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and 
+$h_3=x_1x_2x_3\ra$.
+
+Consider also another free group $F_2$ generated by
+$y_1,y_2,y_3,y_4$ with a subgroup $H_2 = \la h_1^{\prime},
+h_2^{\prime},h_3^{\prime}\ra$, where 
+$h_1^{\prime}=y_2^2$, 
+$h_2^{\prime}y_3y_4$ and  
+$h_3^{\prime}=y_1^2y_3y_1^{-1}y_2$.
+
+The Stallings automata, $A_1$ for $H_1$ and $A_2$ for $H_2$, 
+with maximal subtrees $T_1$ and $T_2$ highlighted are shown
+in Figure \ref{fig:stall}. 
 
 Systems of inner representatives (corresponding to the choice of
 maximal subtrees) of $H_1$ in and $H_2$ in $F_2$
@@ -823,6 +869,56 @@ f_2 &= y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2y_3y_4y_2^2\\ &=
 
 
 \end{example}
+
+\begin{figure}
+\begin{center}
+\psfrag{x1}{$x_1$}
+
+\psfrag{x2}{$x_2$}
+
+\psfrag{x3}{$x_3$}
+
+\psfrag{h1}{$h_1$}
+
+\psfrag{h2}{$h_2$}
+
+\psfrag{h3}{$h_3$}
+
+\psfrag{y1}{$y_1$}
+
+\psfrag{y2}{$y_2$}
+
+\psfrag{y3}{$y_3$}
+
+\psfrag{y4}{$y_4$}
+
+\psfrag{h11}{$h_1^{\prime}$}
+
+\psfrag{h21}{$h_2^{\prime}$}
+
+\psfrag{h31}{$h_3^{\prime}$}
+
+\subfigure[Stallings automaton $A_1$ for $H_1$]{
+\includegraphics[scale=.5]{stallh1.eps}
+\label{fig:stall1}} 
+\hspace{25mm} 
+\subfigure[Stallings automaton $A_2$ for $H_2$.]{ 
+\includegraphics[scale=.5]{stallh2.eps}
+\label{fig:stall2}}
+\end{center}
+\caption{ Stallings automata for Example \ref{ex:f_1f_2}.}\label{fig:stall}
+\end{figure}
+
+
+
+In fact if we don't require uniqueness of representatives then there is
+a much simpler algorithm to write words in normal form.
+This
+simply finds the maximal prefix $h_1$ of $w$  accepted  by $A$  and so $w=h_1\circ v$. It then finds the
+maximal prefix $p$ of $\bar v$ accepted by $A$. Setting $h_2=\bar p$ gives $w=h_1\circ d \circ h_2$, for
+some uniquely determined word $d$, which is a (non-unique)
+double coset representative.
+
 
 %%
 %%
@@ -932,7 +1028,7 @@ k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
 where $h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$.
 
 \subsection{Double coset automata and graphs}
-
+\begin{comment}
 An {\em elementary folding} of a graph $\G$ is a graph $\G^\prime$
 obtained from $\G$ as follows. Suppose that $e=(p,a,q)$ and
 $e^\prime=(p,a,q^\prime)$
@@ -956,7 +1052,7 @@ From the
 standard theory (e.g. Enric's notes \cite{ventura11}) a Stallings folding of a graph is unique,
 so we may define {\em the Stallings folding} $S(\G)$ of a graph $\G$.
 
-\begin{comment}
+
 ~\\
 ({\bf This is not quite clear, because it needs to be established
 that colouring of a Stallings folding of $\G$ is not dependent on
