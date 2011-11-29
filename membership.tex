@@ -1288,7 +1288,29 @@ with label $h_e$. Let
 $w_e=\phi_k^{-1}(h_e)$ and let
 $q$ be a path (disjoint from $\T_2$) of length
 $|w_e|$ and with label $w_e$. Identify the initial and terminal
-vertices of $q$ to the vertex  $\a$ of $\Theta_2$. Repeat this process for all such edges $e$ 
+vertices of $q$ to the vertex  $\a$ of $\Theta_2$. 
+(See Figure \ref{fig:alg2-3}.) 
+\begin{figure}
+\begin{center}
+\psfrag{a}{$\a$}
+\psfrag{b}{$\b$}
+\psfrag{x}{$x$}
+\psfrag{h}{$h_l$}
+\psfrag{w}{$w_l$}
+\psfrag{li}{$l_i$}
+\psfrag{lj}{$l_j$}
+\psfrag{ai}{$(\a_i,\b_1)$}
+\psfrag{bi}{$(\a_j,\b_2)$}
+\psfrag{(a,1)}{$(\a,1)$}
+\psfrag{1}{$1$}
+\psfrag{Th2 to Th3}{$\T_2\leadsto \T_3$}
+\psfrag{cP}{$\cP_2$}
+\psfrag{G_A}{$\G_{A_k}$}
+\includegraphics[scale=.5]{alg2-3.eps}
+\end{center}
+\caption{$\theta_2$ to $\theta_3$: $h_l=l_ixl_j$, $w_l=\phi_k^{-1}(h_l)$}\label{fig:alg2-3}
+\end{figure}
+Repeat this process for all such edges $e$ 
 and
 vertices $(\a,1)$ of $\cP_2$,  fold the
 resulting graph, 
@@ -1296,32 +1318,39 @@ and denote the result by $\T_3$.
 (In practice it's not necessary to
 repeat this process for {\em all} such vertices $(\a,1)$ in $\Xi$: but it
 makes some arguments  later easier if we assume that we do so.)
-If
+As in the previos case there is a natural morphism $\theta_3$ from $\T_2$ to
+$\T_3$. 
+If $\a$, $\b$ are boundary
+vertices of $\T_2$,  $L_2$ is the language accepted by
+$(\T_2,\a,\b)$ 
+and 
 $L_3$ is the
-language accepted by $(\T_3, \theta_3(\a),\theta_3(\b))$, for boundary
-vertices $\a$, $\b$ of $\T_2$, then again $\pi(L_3)=\pi(L_2)$.
+language accepted by $(\T_3, \theta_3(\a),\theta(\b))$ then again 
+$\pi(L_3)=\pi(L_2)$.\\[1em]
 
-
+\noindent\textbf{Modification 4: $\T_3\leadsto \T_4$.}\\
 Next we wish to add paths to $\T_3$ that allow us to read the normal
 forms of words $w$ which are readable by $\T_3$ and readable,
 but not accepted, by $\G_{A_k}$.
-As before we may assume that
-$\cP=\T_1\times \G_{A_k}=
- \T_3\times \G_{A_k}$.
+ Let 
+$\cP_3=\T_3\times \G_{A_k}$. 
+As before we may choose a spanning forest $\U_3$ of $\cP_3$ which 
+consists of $\U_2$ and some additional isolated vertices.
+
 Recall that we have fixed a spanning subtree
 $T_k$ of $\G_{A_k}$.
-Let $\d=(\a_j,\b)$ be a vertex of $\cP$, with $\b\neq 1$, which lies
-in a connected component of $\cP$ containing a vertex  $\g=(\a_i,1)$,
-for some vertex $\a_i$ of $\T_3$.
+Let $\d=(\a_j,\b)$ be a vertex of $\cP_3$, with $\b\neq 1$, which lies
+in a connected component of $\cP_3$ containing a vertex  $\g=(\a_i,1)$,
+for some vertices $\a_i$ and $\a_j$ of $\T$.
 Let $b$ be the label of the path in $T_k$ from $1$ to $\b$.
- If $\cP$ contains a simple
+ If $\cP_3$ contains a simple
 path from $(\a_i,1)$ to $(\a_j,\b)$, with label $b$,  then
- say that $\cP$ {\em covers} the pair $\g,\d$.
-If all such pairs of vertices are covered by $\cP$ then set $\T_4=\T_3$.
+ say that $\cP_3$ {\em covers} the pair $\g,\d$.
+If all such pairs of vertices are covered by $\cP_3$ then set $\T_4=\T_3$.
 Otherwise
-let $p$ be the simple path in $\U$ from a
+let $p$ be the simple path in $\U_3$ from a
 vertex $\g=(\a_i,1)$ to a vertex $\d=(\a_j,\b)$, where $\g,\d$
-is not covered by $\cP$.
+is not covered by $\cP_3$.
  Let
 $p$ have label $a$.
 Then $ab^{-1}=h\in H_k$. Let
@@ -1329,54 +1358,104 @@ $w=\phi_{k}^{-1}(ab^{-1})
 \in F(Z)$ and let $q$ be a path (disjoint from $\T_3$)
 with label $wb$. Identify the initial
 and terminal vertices of $q$ with vertices $\a_i$ and $\a_j$ of $\T_3$,
-respectively, and fold
-the resulting graph.
-As $\pi(a)=\pi(wb)\in G$ the image of the language accepted by
-the resulting graph (considered as an automaton with start state  $\a_i$
- and final
-state $\a_j$) is unchanged by
-this operation.
-Repeat this process for all pairs of  vertices which are not
-covered by $\cP$ and
-call the result $\T_4$.
+respectively, to form a new graph $\T_3^\prime$. 
+(See Figure \ref{fig:alg2-4}.) 
+\begin{figure}
+\begin{center}
+\psfrag{ai}{$\a_i$}
+\psfrag{bi}{$\a_j$}
+\psfrag{g}{$a$}
+\psfrag{h}{$b$}
+\psfrag{w}{$wb$}
+\psfrag{(ai,1)}{$(\a_i,1)$}
+\psfrag{(aj,b)}{$(\a_j,\b)$}
+\psfrag{1}{$1$}
+\psfrag{b}{$\b$}
+\psfrag{Th3 to Th4}{$\T_3\leadsto \T_4$}
+\psfrag{U3 in cP}{$\U_3\subseteq \cP_3$}
+\psfrag{Tk in G_A}{$T_k\subseteq \G_{A_k}$}
+\includegraphics[scale=.5]{alg2-4.eps}
+\end{center}
+\caption{$\theta_3$ to $\theta_4$: $w=\phi_k^{-1}(ab^{-1})$}\label{fig:alg2-4}
+\end{figure}
 
+As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages 
+accepted by $(\T_3,\a,\b)$ and $(\T_3^\prime,\a,\b)$, for some 
+vertices $\a,\b$ of $\T$, then $\pi(L_3)=\pi(L_3^\prime)$. 
+Repeat this process for all pairs of  vertices which are not
+covered by $\cP_3$  and fold
+the result to form the graph $\T_4$. Again there is a natural
+morphism $\theta_4$ from $\T_3$ to $\T_4$ and  
+we have $\pi(L_3)=\pi(L_4)$, in the same notation as in previous cases.\\[1em]
+
+\noindent\textbf{Modification 5: $\T_4\leadsto \T_5$.}\\ 
 Finally we wish to add paths which allow double coset representatives
-of type $2$ to be read. Suppose $(\e,\xi)\in \G_{A_k}\times \G_{A_k}$ and
+of type $2$ to be read. 
+Let $\cP_4=\T_4\times \G_{A_k}$ and choose a spanning forest $\U_4$ for
+$\cP_4$. 
+
+Suppose $(\e,\xi)\in P\subseteq V(\G_{A_k}\times \G_{A_k})$ and
 that the $\sim$ representative of $(\e,\xi)$ is $(\e_0,\xi_0)$.
-Let $b_1$ and $b_2$ be the labels
-of paths $w(\e)$ and $w(\xi)$, from $1$ to $\e$ and $1$ to $\xi$ in the
-subtree $T_k$ of $\G_{A_k}$. Let $a_1$ and $a_2$ be the labels of
-paths $w(\e_0)$ and $w(\xi_0)$. Then there are  paths in $\G_{A_k}$,
+Let $b_1=w(\e)$, $b_2=w(\xi)$ (the labels
+of paths from $1$ to $\e$ and $1$ to $\xi$ in the
+subtree $T_k$ of $\G_{A_k}$). Let $a_1=w(\e_0)$ and $a_2=w(\xi_0)$.
+By definition of $\sim$ there are  paths in $\G_{A_k}$,
 with label
 $c=c(\e,\xi)$, from $\e$ to $\e_0$ and from $\xi$ to $\xi_0$.
 Furthermore $h_i=
 b_ica_i^{-1}\in H_k$ and $w_i=\phi_k^{-1}(h_i)\in F(Z)$, for $i=1,2$.
 If there
-exist paths $p_1$, with label $b_1$ from $(\a_i,1)$ to $(\a_j,\e)$,
+exist paths $p_1$, with label $b_1$ from $(\a_i,1)$ to $(\b,\e)$,
 and $p_2$, with label $b_2$ from
-$(\a_l,1)$ to $(\a_j,\xi)$, in $\U$,  then
+$(\a_l,1)$ to $(\b,\xi)$, in $\U_4$,  then
 let $q$ be a path (disjoint from $\T_4$)
 with label $w_1 a_1a_2^{-1} w_2^{-1}$,
 and identify the initial
 and terminal vertices of $q$ with  vertices $\a_i$ and $\a_l$
-of $\T_4$, respectively.
-Fold the resulting graph.
+of $\T_4$, respectively. 
+(See Figure \ref{fig:alg2-5}.)
+\begin{figure}
+\begin{center}
+\psfrag{1}{$1$}
+\psfrag{ai}{$\a_i$}
+\psfrag{aj}{$\b$}
+\psfrag{al}{$\a_l$}
+\psfrag{a1}{$a_1$}
+\psfrag{a2}{$a_2$}
+\psfrag{b1}{$b_1$}
+\psfrag{b2}{$b_2$}
+\psfrag{c}{$c$}
+\psfrag{w}{$w$}
+\psfrag{e}{$\e$}
+\psfrag{x}{$\xi$}
+\psfrag{e0}{$\e_0$}
+\psfrag{x0}{$\xi_0$}
+\psfrag{(ai,1)}{$(\a_i,1)$}
+\psfrag{(al,1)}{$(\a_l,1)$}
+\psfrag{(aj,e)}{$(\b,\e)$}
+\psfrag{(aj,x)}{$(\b,\xi)$}
+\psfrag{1}{$1$}
+\psfrag{b}{$\b$}
+\psfrag{Th4 to Th5}{$\T_4\leadsto \T_5$}
+\psfrag{U4 in cP}{$\U_4\subseteq \cP_4$}
+\psfrag{G_A}{$\G_{A_k}$}
+\includegraphics[scale=.5]{alg2-5.eps}
+\end{center}
+\caption{$\theta_4$ to $\theta_5$: 
+$w=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$}
+\label{fig:alg2-5}
+\end{figure}
+
+Repeat this process for all such paths $p_i$ and $p_j$ and all such
+pairs $(\e,\xi)$. 
 To see that the image of the language accepted by
  the new graph is the same as that of the original note
-that the word $b_1b_2^{-1}$ is readable, starting at $\a_j$ and
+that the word $b_1b_2^{-1}$ is readable, starting at $\b$ and
 ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
 the addition of this new path has no effect on the image, under $\pi$, of
-the language accepted.
-%$d_1$ and
-%$d_2$ be labels of paths $p_1$ and $p_2$ in $\cP$ and let $e_1$ and
-%$e_2$ be labels of simple paths with the same end points. Then
-%$d_ie_i^{-1}\in H_k$ and  there is a path
-%in $\T_4$ with label $\phi_k(d_ie_i^{-1})e_i$, for $i=1,2$. Moreover,
-%$\T_4$ contains a path
-%with label $\phi_k(e_ib_i^{-1})b_i$ and so a path with label
-%$\phi(d_ib_i^{-1})b_i$, $i=1,2$.
-Repeat this process for all such paths $p_i$ and $p_j$ and all such
-pairs $(\e,\xi)$ to form $\T_5$.
+the language accepted by the automaton. 
+ Fold the resulting graph to form $\T_5$. As before there is a natural
+morphism $\theta_5$ from $\T_4$ to $\T_5$. 
 
 \begin{lemma}
 Let $\a$ and $\b$ be boundary vertices of $\T_1$ and let $w$ be a word
