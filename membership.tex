@@ -1127,14 +1127,19 @@ loop, let $\G_K=\G_K^{(0)}$ and let $n=0$.
 of certain paths to be read. If at least one path has been added, 
 call the result $\G_{K}^{(n+1)}$.  If no paths are added at this step,
 halt and output  $\G_K^{(n)}$. 
-\item\label{it:gf2} Fold  $\G_{K}^{(n+1)}$, add $1$ to $n$, and repeat Step \ref{it:gf1}.
+\item\label{it:gf2} Fold  $\G_{K}^{(n+1)}$, remove any non-root vertices
+of degree one, succesively, till there are none left,  
+add $1$ to $n$, and repeat Step \ref{it:gf1}.
 \ee
 
 Algorithm II below describes exactly how to carry out Step 1 of this loop.
 Since Step 1 may run more than once,  the input to this algorithm is
 assumed to be an
 arbitrary inverse automaton $\D$, with alphabet $X_1\cup X_2\cup Z$ and  
-$\pi(L(\D))=K$. We then show that, if we start as above
+$\pi(L(\D))=K$. The output  is a rooted, labelled, involutive, automaton,
+with the same alphabet, 
+which may fail to be deterministic (and possibly may not be trim). 
+We then show that, if we start as above
 with $\G_K=\G_K^{(0)}$,  the loop halts, at some $n<\infty$;  
 at which point $\G_K^{(n)}$ is an inverse automaton which accepts the
 normal form of every element of $K$. \\[1em]
@@ -1166,7 +1171,11 @@ In each case there is a canonical morphism $\theta_i$ from $\T_{i-1}$ to $\T_i$ 
 we define the {\em boundary vertices} of $\T_{i}$ to be the vertices $\theta_{i}(v)$
 of $\T_i$, such that $v$ is a boundary vertex of $\T_{i-1}$. Moreover the
  images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ are 
-called {\em vertices of} $\T$. \\[1em]
+called {\em vertices of} $\T$. 
+
+The modification process is followed by a ``reassembly'' phase, in which
+we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
+\\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
  Let $\T$ be an $X_k$ component of $\D_k$. 
@@ -1455,7 +1464,42 @@ ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
 the addition of this new path has no effect on the image, under $\pi$, of
 the language accepted by the automaton. 
  Fold the resulting graph to form $\T_5$. As before there is a natural
-morphism $\theta_5$ from $\T_4$ to $\T_5$. 
+morphism $\theta_5$ from $\T_4$ to $\T_5$.\\[1em]
+
+\noindent\textbf{Reassembly.}\\
+The modification process is applied to all $X_k$ components of $\D$, 
+for $k=1$ and $2$. Roughly speaking a new graph is then constructed by
+reconnecting the modified $X_k$ components in the same way as they
+were connected in $\D$. In detail, 
+let $\cC$ be the set of all
+$X_1$ and $X_2$ components. 
+Define 
+\[E_Z=E(\D)\bs \cup_{\Phi\in \cC} E(\Phi)\]
+and $\D_Z$ to be the subgraph of $\D$ consisting of all edges
+of $E_Z$, and their incident vertices. 
+Define $\D^\prime$ to be the disjoint union of the graphs
+ graphs $\T$, such that $\T\in \cC$, with  the graph $\D_Z$. 
+Also define $\D^{\prime}_5$ to be the disjoint union of the graphs
+$\T_5$, such that $\T\in \cC$, with the graph $\D_Z$. 
+For each $\T\in \cC$ there is  a morphism $\theta_1\circ\theta_2\circ\theta_3\circ\theta_4\circ\theta_5$ from $\T$ to $\T_5$. Define $\theta$ to be
+the morphism from $\D^\prime$ to $\D^\prime_5$ which consists of the 
+union of these morphisms with the indentity morphism from $\D_Z$ to $\D_Z$.
+By construction, for each connected component $\Xi$ of $\D^\prime$ there is 
+an embedding of $\Xi$ into $\D$. Let $\nu$ be the union of these 
+embeddings over all components of $\D^\prime$. 
+
+The output of Algorithm II is the graph $\D^{\prime\prime}$ formed 
+from $\D^\prime_5$ as follows. Let $u$ and $v$ be vertices in
+distinct connected components of $\D^\prime_5$.
+\begin{itemize}
+\item If $\nu(\theta^{-1}(u))\cap \nu(\theta^{-1}(v))\neq \nul$ then
+identify vertices $u$ and $v$. 
+\item If $x\in \nu(\theta^{-1}(u))$ and $y\in \nu(\theta^{-1}(v))$ and
+there exists an edge $(x,a,y)$ in $\D$ then add an edge $(u,a,v)$ to
+$\D^\prime_5$. 
+\end{itemize}  
+The root vertex of $\D^{\prime\prime}$ is the image of the root of $\D$
+in $\D^{\prime\prime}$. 
 
 \begin{lemma}
 Let $\a$ and $\b$ be boundary vertices of $\T_1$ and let $w$ be a word
