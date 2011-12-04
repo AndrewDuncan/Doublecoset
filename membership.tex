@@ -1477,7 +1477,7 @@ Define
 \[E_Z=E(\D)\bs \cup_{\Phi\in \cC} E(\Phi)\]
 and $\D_Z$ to be the subgraph of $\D$ consisting of all edges
 of $E_Z$, and their incident vertices. 
-Define $\D^\prime$ to be the disjoint union of the graphs
+Define $\D^\prime$ to be the disjoint union of the 
  graphs $\T$, such that $\T\in \cC$, with  the graph $\D_Z$. 
 Also define $\D^{\prime}_5$ to be the disjoint union of the graphs
 $\T_5$, such that $\T\in \cC$, with the graph $\D_Z$. 
@@ -1502,9 +1502,10 @@ The root vertex of $\D^{\prime\prime}$ is the image of the root of $\D$
 in $\D^{\prime\prime}$. 
 
 \begin{lemma}
-Let $\a$ and $\b$ be boundary vertices of $\T_1$ and let $w$ be a word
- which is accepted by the automaton $(\T_1, \a, \b)$. Then the
-normal form of $w$ is accepted by $(\T_5, \a, \b)$.
+Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of $\D$ 
+and let $w$ be a word
+ which is accepted by the automaton $(\T, \a, \b)$. Then the
+normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
 \end{lemma}
 \begin{proof}
 We may assume that $w\in F(X_k)$ (given the construction of $\T_1$).
@@ -1513,26 +1514,96 @@ There are two cases to consider, depending on whether $s$ is a
 representative of type $1$ or type $2$.
  First consider the case where $s$ is of type $1$, say
  $s= a_1 c a_2^{-1}$, where
-$a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$ of $s$ and 
- $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$ of $a_2\circ c^{-1}$. 
- Then there are words
+$a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and 
+ $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ c^{-1}$. 
+ Then, as the normal form is the output of Algorithm I, 
+ there are words
 $g_1, g_2, b_1$ and $b_2\in F(X_k)$ such that
 $w=g_1\circ b_1\circ c \circ b_2^{-1}\circ g_2^{-1}$,
-$g_i\in H_k$, $b_i$ is readable but not accepted by  $A_k$ and
-$\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
+$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of 
+$b_1\circ c \circ b_2^{-1}\circ g_2^{-1}$, 
+$b_2$ is a maximal $L_Q$-prefix of $b_2\circ c^{-1}$, $c\neq 1$,
+$a_i=w(\t(b_i))$ and $\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
 
 Since $g_i\in H_k$ and $w$ is accepted by $\T_1$ there is a path
-labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\T_1$ and a path
-labelled $g_2$ from $\b$ to a vertex $\a_2$ of $\T_1$. Therefore, in $\cP$,
+labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\T$ and a path
+labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\T$. Therefore, in $\cP$,
 there are paths $p_1$ from $(\a,1)$ to $(\a_1,1)$ labelled $g_1$, and
 $p_2$
-from $(\b,1)$ to $(\a_2,1)$ labelled $g_2$.
+from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
+(See Figure \ref{fig:nf-1}.)
+\begin{figure}
+\begin{center}
+\psfrag{a}{$\a$}
+\psfrag{b}{$\b$}
+\psfrag{a1}{$\a_1$}
+\psfrag{a2}{$\a_2$}
+\psfrag{b1}{$\b_1$}
+\psfrag{b2}{$\b_2$}
+\psfrag{b_1}{$b_1$}
+\psfrag{b_2}{$b_2$}
+\psfrag{h1}{$h_1$}
+\psfrag{c}{$c$}
+\psfrag{w'1}{$w_1^\prime$}
+\psfrag{w'2}{$w_2^\prime$}
+\psfrag{s}{$s$}
+\psfrag{h2}{$h_2$}
+\psfrag{g1}{$\phi_k^{-1}(g_1)$}
+\psfrag{g2}{$\phi_k^{-1}(g_2)$}
+\psfrag{h'2a2}{$h_2^\prime a_2$}
+\psfrag{h'1a1}{$h_1^\prime a_1$}
+\psfrag{Th5}{$\T_5$}
+\psfrag{cP}{$\cP_4$}
+\psfrag{G_A}{$\G_{A_k}$}
+\psfrag{(a,1)}{$(\a,1)$}
+\psfrag{(a1,1)}{$(\a_1,1)$}
+\psfrag{(a2,e1)}{$(\a_2,\e_1)$}
+\psfrag{(b,1)}{$(\b,1)$}
+\psfrag{(b1,1)}{$(\b_1,1)$}
+\psfrag{(b2,e2)}{$(\b_2,\e_2)$}
+\psfrag{g-1}{$g_1$}
+\psfrag{g-2}{$g_2$}
+\psfrag{b'_1}{$b_1^\prime$}
+\psfrag{b'_2}{$b_2^\prime$}
+\psfrag{a_1}{$a_1$}
+\psfrag{a_2}{$a_2$}
+\psfrag{e1}{$\e_1$}
+\psfrag{e2}{$\e_2$}
+\includegraphics[scale=.5]{nf-1.eps}
+\end{center}
+\caption{Normal form: type 1}
+\label{fig:nf-1}
+\end{figure}
 Now $p_1$ may
 be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l}$,
 where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $\cP$ which does
 not belong to $\U$.  Let $e_i$ have initial and terminal vertices
 $\g_i$ and $\d_i$ and let $L_i$ and $R_i$ be the simple paths in $\U$ from
-$(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively.
+$(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively. 
+(See Figure \ref{fig:LeR}.)
+\begin{figure}
+\begin{center}
+\psfrag{R1}{$R_1$}
+\psfrag{L1}{$L_1$}
+\psfrag{e1}{$e_1$}
+\psfrag{o1}{$o_1$}
+\psfrag{R2}{$R_2$}
+\psfrag{L2}{$L_2$}
+\psfrag{e2}{$e_2$}
+\psfrag{o2}{$o_2$}
+\psfrag{Rl}{$R_l$}
+\psfrag{Ll}{$L_l$}
+\psfrag{el}{$e_l$}
+\psfrag{ol}{$o_l$}
+\psfrag{o0}{$o_0$}
+\psfrag{ol-}{$o_{l-1}$}
+\psfrag{(a,1)}{$(\a,1)$}
+\psfrag{(a1,1)}{$(\a_1,1)$}
+\includegraphics[scale=.6]{LeR.eps}
+\end{center}
+\caption{The path $p_1$.}
+\label{fig:LeR}
+\end{figure}
 Then, for $i=1,\ldots ,l$,
 the path $L_i e_i R_i$ is a closed path in $\cP$, based
 at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U$.
@@ -1559,23 +1630,22 @@ reducing $\phi_k^{-1}(v_1) \cdots \phi_k^{-1}(v_{l+1})$. As each $\phi_k^{-1}(v_
 in $\T_3$ and $\T_3$ is folded this means  that $\phi_k^{-1}(g_1)$ is the
 label of a path, from $\a$ to   $\a_1$, in $\T_3$. Similarly,
 $\phi_k^{-1}(g_2)$
-is the label of a path from $\b$ to $\a_2$ in $\T_3$.
+is the label of a path from $\b$ to $\b_1$ in $\T_3$.
 
 The word $b_1$ is readable by $\G_{A_k}$ and there
-is a path with label $b_1$ in $\T_1$ from $\a_1$ to some vertex $\b_1$.
+is a path with label $b_1$ in $\T_1$ from $\a_1$ to some vertex $\a_2$ 
+of $\T$.
 Hence $b_1$ is the label of a path in $\cP$ from $(\a_1,1)$ to
-$(\b_1,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.
-By definition $a_1$ is the label of a path in $T_k$ from $1$ to $\e_1$.
+$(\a_2,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.
+By definition $a_1=w(\t(b_1))$ is the label of a path in $T_k$ from $1$ to $\e_1$.
 Let $b_1^\prime$
  be the label of the simple path $p_1^\prime$ in $\U$ from
-$(\a_1,1)$ to $(\b_1,\e_1)$. By construction $\T_4$ contains a path
-from $\a_1$ to $\b_1$ with label $h_1^\prime a_1$, where
+$(\a_1,1)$ to $(\a_2,\e_1)$. By construction $\T_4$ contains a path
+from $\a_1$ to $\a_2$ with label $h_1^\prime a_1$, where
 $h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in F(Z)$.
-%(and is the empty word if $\cP$ covers $p^\prime$) and
-%$b_1^{\prime\prime}$ is the label of the path in $T_k$ from $1$ to
-%$\e_1$ (and equals $b_1^\prime$ if $\cP$ covers $p_1^\prime$).
-(If $\cP$ covers the pair $(\a_1,1)$, $(\b_1,\e_1)$ then
-$b_1^\prime=a_1$ and $h_1^\prime$ is the empty word.)
+(If $\cP$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
+$b_1^\prime=a_1$ and $h_1^\prime$ is the empty word, while there 
+exists a path with label $a_1$ from $\a_1$ to $\a_2$ in $\T_3$.)
 %Furthermore we have
 %$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$.
 Now $b_1(b_1^\prime)^{-1}\in H_k$ and is the label of a closed
@@ -1583,14 +1653,15 @@ path  in $\cP$ based at $(\a_1,1)$; so by the
 previous part of proof, $\T_3$ contains a closed path, based at $\a_1$,
  with label
 $w_1^\prime=\phi_k^{-1}(b_1(b_1^\prime)^{-1})$. Hence, as it is folded,
-$\T_4$ contains a path, from $\a$ to $\b_1$,
+$\T_4$ contains a path, from $\a$ to $\a_2$,
 with label the reduced word obtained from the product
 $\phi_k^{-1}(g_1)w_1^{\prime} h_1^\prime a_1$, that is
  $\phi_k^{-1}(g_1b_1a_1^{-1}) a_1=h_1a_1$.
- Similarly, $\T_4$ contains a path from
+ Similarly, $\T_1$ contains a path labelled $b_2$ from $\b_1$ to
+some vertex $\b_2$ of $\T$, and $\T_4$ contains a path from
 $\b$ to $\b_2$ with label $h_2a_2$.
 
-As $w$ is the label of a path in $\T_1$ there is a path from $\b_1$ to
+As $w$ is the label of a path in $\T_1$ there is a path from $\a_2$ to
 $\b_2$ in $\T_4$ with label $c$. Therefore, in this case, $\T_4$ contains
 a path from $\a$ to $\b$ which has label the normal form of $w$.
 
@@ -1614,9 +1685,10 @@ $\T_5$. It follows that the normal form of $w$ is readable in $\T_5$.
 \end{proof}
 
 
-Replace the subgraph $\T_1$ of $\D$ with $\T_5$, in the obvious
-way. Carry through this procedure for each connected component of
-$\D_k$, for $k=1$ and $2$. The resulting graph is said to be
+%Replace the subgraph $\T_1$ of $\D$ with $\T_5$, in the obvious
+%way. Carry through this procedure for each connected component of
+%$\D_k$, for $k=1$ and $2$. 
+The  graph $\D^{\prime\prime}$ resulting from Algorithm II is said to be
 obtained from $\D$ by {\em double coset resolution} or {\em dc-resolution}.
 
 
