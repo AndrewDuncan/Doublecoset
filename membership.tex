@@ -1204,7 +1204,7 @@ and call the result $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \includegraphics[scale=.5]{alg2-1b.eps}
 \label{fig:alg2-1b}}
 \end{center}
-\caption{$\theta$ to $\theta_1$: $w=\phi_k(z)$}\label{fig:alg2-1}
+\caption{$\theta$ to $\theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
 \end{figure}
 Let $\theta_1$ be the canonical
 morphism from $\theta$ to $\theta_1$ and  define the boundary vertices of $\T_1$ to be
@@ -1245,7 +1245,7 @@ with $\a_j$. (See Figure \ref{fig:alg2-2}.)
 \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-2.eps}
 \end{center}
-\caption{$\theta_1$ to $\theta_2$: $w_p=\phi_k^{-1}(l_p)$}\label{fig:alg2-2}
+\caption{$\theta_1$ to $\theta_2$: $w_p=\phi_k^{-1}(l_p)$.}\label{fig:alg2-2}
 \end{figure}
 Repeat this process for
 all simple paths from  $(\a_i,1)$ to $(\a_j,1)$, over all pairs of
@@ -1317,7 +1317,7 @@ vertices of $q$ to the vertex  $\a$ of $\Theta_2$.
 \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-3.eps}
 \end{center}
-\caption{$\theta_2$ to $\theta_3$: $h_l=l_ixl_j$, $w_l=\phi_k^{-1}(h_l)$}\label{fig:alg2-3}
+\caption{$\theta_2$ to $\theta_3$: $h_l=l_ixl_j$, $w_l=\phi_k^{-1}(h_l)$.}\label{fig:alg2-3}
 \end{figure}
 Repeat this process for all such edges $e$ 
 and
@@ -1385,7 +1385,7 @@ respectively, to form a new graph $\T_3^\prime$.
 \psfrag{Tk in G_A}{$T_k\subseteq \G_{A_k}$}
 \includegraphics[scale=.5]{alg2-4.eps}
 \end{center}
-\caption{$\theta_3$ to $\theta_4$: $w=\phi_k^{-1}(ab^{-1})$}\label{fig:alg2-4}
+\caption{$\theta_3$ to $\theta_4$: $w=\phi_k^{-1}(ab^{-1})$.}\label{fig:alg2-4}
 \end{figure}
 
 As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages 
@@ -1451,7 +1451,7 @@ of $\T_4$, respectively.
 \includegraphics[scale=.5]{alg2-5.eps}
 \end{center}
 \caption{$\theta_4$ to $\theta_5$: 
-$w=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$}
+$w=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
 \label{fig:alg2-5}
 \end{figure}
 
@@ -1513,16 +1513,16 @@ Let $w$ have normal form $h_1s h_2^{-1}$, where $s\in S_k$ and $h_i\in F(Z)$.
 There are two cases to consider, depending on whether $s$ is a
 representative of type $1$ or type $2$.
  First consider the case where $s$ is of type $1$, say
- $s= a_1 c a_2^{-1}$, where
+ $s= a_1 e a_2^{-1}$, where
 $a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and 
- $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ c^{-1}$. 
+ $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ e^{-1}$. 
  Then, as the normal form is the output of Algorithm I, 
  there are words
 $g_1, g_2, b_1$ and $b_2\in F(X_k)$ such that
-$w=g_1\circ b_1\circ c \circ b_2^{-1}\circ g_2^{-1}$,
+$w=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
 $g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of 
-$b_1\circ c \circ b_2^{-1}\circ g_2^{-1}$, 
-$b_2$ is a maximal $L_Q$-prefix of $b_2\circ c^{-1}$, $c\neq 1$,
+$b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$, 
+$b_2$ is a maximal $L_Q$-prefix of $b_2\circ e^{-1}$, $e\neq 1$,
 $a_i=w(\t(b_i))$ and $\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
 
 Since $g_i\in H_k$ and $w$ is accepted by $\T_1$ there is a path
@@ -1543,7 +1543,7 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \psfrag{b_1}{$b_1$}
 \psfrag{b_2}{$b_2$}
 \psfrag{h1}{$h_1$}
-\psfrag{c}{$c$}
+\psfrag{c}{$e$}
 \psfrag{w'1}{$w_1^\prime$}
 \psfrag{w'2}{$w_2^\prime$}
 \psfrag{s}{$s$}
@@ -1552,8 +1552,8 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \psfrag{g2}{$\phi_k^{-1}(g_2)$}
 \psfrag{h'2a2}{$h_2^\prime a_2$}
 \psfrag{h'1a1}{$h_1^\prime a_1$}
-\psfrag{Th5}{$\T_5$}
-\psfrag{cP}{$\cP_4$}
+\psfrag{Th5}{$\T_4$}
+\psfrag{cP}{$\cP_3$}
 \psfrag{G_A}{$\G_{A_k}$}
 \psfrag{(a,1)}{$(\a,1)$}
 \psfrag{(a1,1)}{$(\a_1,1)$}
@@ -1569,9 +1569,11 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \psfrag{a_2}{$a_2$}
 \psfrag{e1}{$\e_1$}
 \psfrag{e2}{$\e_2$}
+\psfrag{r1}{$g_1$}
+\psfrag{r2}{$g_2$}
 \includegraphics[scale=.5]{nf-1.eps}
 \end{center}
-\caption{Normal form: type 1}
+\caption{Normal form: type 1.}
 \label{fig:nf-1}
 \end{figure}
 Now $p_1$ may
@@ -1580,6 +1582,9 @@ where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $\cP$ which does
 not belong to $\U$.  Let $e_i$ have initial and terminal vertices
 $\g_i$ and $\d_i$ and let $L_i$ and $R_i$ be the simple paths in $\U$ from
 $(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively. 
+In addition let $L_{l+1}$ be the path in $\U$ from $(\a,1)$ to
+$(\a_1,1)$. 
+Then $L_1=o_0$ and, for $i=1,\ldots ,l+1$, $L_i=R_i^{-1}o_{i-1}$.  
 (See Figure \ref{fig:LeR}.)
 \begin{figure}
 \begin{center}
@@ -1599,33 +1604,28 @@ $(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively.
 \psfrag{ol-}{$o_{l-1}$}
 \psfrag{(a,1)}{$(\a,1)$}
 \psfrag{(a1,1)}{$(\a_1,1)$}
-\includegraphics[scale=.6]{LeR.eps}
+\includegraphics[scale=.4]{LeR.eps}
 \end{center}
 \caption{The path $p_1$.}
 \label{fig:LeR}
 \end{figure}
-Then, for $i=1,\ldots ,l$,
+Moreover, for $i=1,\ldots ,l$,
 the path $L_i e_i R_i$ is a closed path in $\cP$, based
 at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U$.
 Thus the label of  $L_i e_i R_i$ is $v_i\in H_k$ and $\phi_k^{-1}(v_i)$ is the
 label of a closed path in $\T_3$, based at  $\a$. (All such paths
 were added in the construction of $\T_3$ from $\T_2$.)
-Also, there is a path $q_1$ in $\U$ from $(\a,1)$ to $(\a_1,1)$, with
-label $v_{l+1}$, and by construction of $\T_2$ there is a path from $\a$ to
+Also, the path $L_{l+1}$, from $(\a,1)$ to $(\a_1,1)$, has 
+label $v_{l+1}\in H$, 
+and by construction of $\T_2$ there is a path from $\a$ to
 $\a_1$ in $\T_2$ with label $\phi_k^{-1}(v_{l+1})$.
 The path
 $p_1$ is the result of reducing (deleting adjacent edges $e,e^{-1}$) the path
-$o_0 e_1 (R_1 R_1^{-1}) o_1 \cdots e_{l}(R_l R_l^{-1}) o_{l}$.
-Moreover $o_0=L_1$; for $2\le i\le l$,
-$L_i$ is the path obtained by reducing $R_{i-1}^{-1}o_{i-1}$; and
-$R_{l}^{-1}o_{l}$ reduces to the path in $\U$ from
-$(\a,1)$ to $(\a_1,1)$, that is to $q_1$.
-Since the
-order in which these reductions are carried out does not affect the end
-result we may regard $p$ as the result of reducing the path
-$L_1 e_1 R_1 \cdots L_l e_l R_l q_1$. Hence the label $g_1$
+$o_0 e_1 (R_1 R_1^{-1}) o_1 \cdots e_{l}(R_l R_l^{-1}) o_{l}$, which
+is equal to the path $L_1 e_1 R_1 \cdots L_l e_l R_l L_{l+1}$. Hence the label $g_1$
 of $p_1$ is the result of
-reducing the word $v_1\cdots v_l v_{l+1}$ and $\phi_k^{-1}(g_1)$ is the result of
+reducing the word $v_1\cdots v_l v_{l+1}$
+ and $\phi_k^{-1}(g_1)$ is the result of
 reducing $\phi_k^{-1}(v_1) \cdots \phi_k^{-1}(v_{l+1})$. As each $\phi_k^{-1}(v_i)$ is readable
 in $\T_3$ and $\T_3$ is folded this means  that $\phi_k^{-1}(g_1)$ is the
 label of a path, from $\a$ to   $\a_1$, in $\T_3$. Similarly,
@@ -1662,26 +1662,59 @@ some vertex $\b_2$ of $\T$, and $\T_4$ contains a path from
 $\b$ to $\b_2$ with label $h_2a_2$.
 
 As $w$ is the label of a path in $\T_1$ there is a path from $\a_2$ to
-$\b_2$ in $\T_4$ with label $c$. Therefore, in this case, $\T_4$ contains
+$\b_2$ in $\T_4$ with label $e$. Therefore, in this case, $\T_4$ contains
 a path from $\a$ to $\b$ which has label the normal form of $w$.
 
 In the second case,
 let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
 $h_1$ and $h_2$ are in $F(Z)$,  $a_1$ and $a_2$ are labels
-of simple paths in the subtree $T_k$ and $a_1a_2^{-1}$ is a double coset
+of simple paths in the subtree $T_k$ and $s=a_1a_2^{-1}$ is a double coset
 representative of type $2$. Then there are words
-$g_1, g_2, k_1, k_2, b_1, b_2, c_1$ and $c_2\in F(X_k)$, uniquely
-determined by $w$,  such that
+$g_1, g_2, b_1, b_2, c$  in $F(X_k)$,  such that
 $w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$,
-$g_i, k_i\in H_k$, $b_i$ and $c_i$ are
-readable but not accepted by  $A_k$, $c_i$ is the label of
-a path in $T_k$, $b_ic_i^{-1}\in H_k$, $a_1a_2^{-1}=k_1c_1c_2^{-1}k_2^{-1}$
- and
-$\phi_k(h_i)=g_ib_ic_i^{-1}k_i^{-1}$, $i=1,2$.
-As in the first case the word $\phi_k^{-1}(g_1b_1c_1^{-1})c_1 c_2^{-1}
-\phi_k^{-1}(c_2b_2^{-1}g_2^{-1})$ is readable in $\T_4$. By construction the
-normal form $\phi_k^{-1}(k_1)a_1a_2^{-1}\phi_k^{-1}(k_2^{-1})$ of $c_1 c_2^{-1}$ is readable in
-$\T_5$. It follows that the normal form of $w$ is readable in $\T_5$.
+$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of 
+$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in 
+$L_Q$, $c=c(\t(b_1),\t(b_2))$ and $a_i=w(v_i)$, where 
+$(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$. 
+
+
+
+As in the first case there are paths in $\T_3$ labelled 
+$\phi_k^{-1}(g_1)$ and 
+$\phi_k^{-1}(g_2)$ from $\a$ to $\a_1$ and $\b$ to $\b_1$, respectively.
+(See Figure \ref{fig:nf-2}.)
+\begin{figure}
+\begin{center}
+\psfrag{a}{$\a$}
+\psfrag{b}{$\b$}
+\psfrag{a1}{$\a_1$}
+\psfrag{a2}{$\a_2$}
+\psfrag{b1}{$\b_1$}
+\psfrag{b2}{$\b_2$}
+\psfrag{g1}{$\phi_k^{-1}(g_1)$}
+\psfrag{g2}{$\phi_k^{-1}(g_2)$}
+\psfrag{Th5}{$\T_5$}
+\psfrag{b_1}{$b_1$}
+\psfrag{b_2}{$b_2$}
+\psfrag{w}{$r$}
+\psfrag{r1}{$g_1$}
+\psfrag{r2}{$g_2$}
+\includegraphics[scale=.5]{nf-2.eps}
+\end{center}
+\caption{Normal form: type 2, $r=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
+\label{fig:nf-2}
+\end{figure}
+As $w$ is readable in $\T$ there is a path labelled $b_1b_2^{-1}$, from
+$\a_1$ to $\b_1$, in $\T_3$. 
+By construction of $\T_5$ there is also a path labelled 
+$\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$
+from $\a_1$ to $\b_1$. As $\T_5$ is folded 
+$
+\phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
+ is readable in
+$\T_5$. Since the latter is in normal form we have 
+$h_1 = \phi_k^{-1}(g_1 b_1ca_1^{-1})$ and 
+$h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.  
 \end{proof}
 
 
