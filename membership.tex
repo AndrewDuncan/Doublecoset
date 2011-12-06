@@ -1114,7 +1114,7 @@ x_1z_2^{-1}z_3.
 
 
 
-\subsection{Double coset automata}
+\subsection{Double coset automata}\label{sec:dca}
 %
 %
 Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
@@ -1138,19 +1138,26 @@ Now let $\G_K$ be the Stallings folding of the graph $\G$.  Then
  $\G_K$ is inverse and $\pi(L(\G_K))=K$. However
 $L(\G_K)$ does not, in general, contain all normal forms of elements of $K$.
 We wish to transform $\G_K$ to allow it to accept normal forms of 
-elements of $K$. In outline this transformation process consists 
-of repeating steps \ref{it:gf1} and \ref{it:gf2} below until all normal forms
-are accepted. First, to facilitate the description of the
-loop, let $\G_K=\G_K^{(0)}$ and let $n=0$. \\[1em]
+elements of $K$. In outline this transformation process consists of
+running the loop below, on input $\G_K$, 
+until it halts, at which point we shall show that we have an
+inverse automaton which accepts  normal forms of elements of $K$. 
+Assume then that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
+and $\pi(L(\D_{(0)})=K$. \\[1em]
 \textbf{Loop.}
+Set $n=0$. 
 \be[Step 1.]
-\item\label{it:gf1} Apply Algorithm II below to add new paths to $\G_K^{(n)}$ which allow normal forms of labels
-of certain paths to be read. If at least one path has been added, 
-call the result $\G_{K}^{(n+1)}$.  If no paths are added at this step,
-halt and output  $\G_K^{(n)}$. 
-\item\label{it:gf2} Fold  $\G_{K}^{(n+1)}$, remove any non-root vertices
-of degree one, succesively, till there are none left,  
-add $1$ to $n$, and repeat Step \ref{it:gf1}.
+\item\label{it:gf1} Apply Algorithm II below to add new paths to $\D_{(n)}$ which allow normal forms of labels
+of certain paths to be read. %If at least one path has been added, 
+Call the result $\D_{(n)}^{\prime\prime}$.  
+%If no paths are added at this step,
+%halt and output  $\G_K^{(n)}$. 
+\item\label{it:gf2} Construct the Stallings automaton $\D_{(n+1)}$ 
+of $\D_{(n)}^{\prime\prime}$. If $\D_{(n+1)}$ and 
+$\D_{(n)}$ have the same 
+ number of 
+$X_1$ and $X_2$ components then output $\D_{(n+1)}$
+and stop. Otherwise add $1$ to $n$ and  repeat Step \ref{it:gf1}.
 \ee
 
 Algorithm II below describes exactly how to carry out Step 1 of this loop.
@@ -1161,8 +1168,8 @@ $\pi(L(\D))=K$. The output  is a rooted, labelled, involutive, automaton,
 with the same alphabet, 
 which may fail to be deterministic. 
 We shall show that, if we start as above
-with $\G_K=\G_K^{(0)}$,  the loop halts, at some $n<\infty$;  
-at which point $\G_K^{(n)}$ is an inverse automaton which accepts the
+with $\G_K=\D_{(0)}$,  the loop halts, at some $n<\infty$;  
+at which point $\D_{(n+1)}$ is an inverse automaton which accepts the
 normal form of every element of $K$. \\[1em]
 
 \noindent\textbf{Algorithm II}. \\
@@ -1485,7 +1492,8 @@ ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
 the addition of this new path has no effect on the image, under $\pi$, of
 the language accepted by the automaton. 
  Fold the resulting graph to form $\T_5$. As before there is a natural
-morphism $\theta_5$ from $\T_4$ to $\T_5$.\\[1em]
+morphism $\theta_5$ from $\T_4$ to $\T_5$ and in the same notation
+as previous cases $\pi(L_4)=\pi(L_5)$.\\[1em]
 
 \noindent\textbf{Reassembly.}\\
 The modification process is applied to all $X_k$ components of $\D$, 
@@ -1551,23 +1559,37 @@ $\rho(u,a,v)=[(\theta(u),a,\theta(v))]$ is an edge of $\D^{\prime\prime}$.
 \end{proof}
 
 \begin{definition}
-Let $\D$ be an inverse automaton, with alphabet $\S$ and 
-start and final state $1$, such that
-$\pi(L(\D))=K$. The result $\D^{\prime\prime}$ of applying Step \ref{it:gf1}
+Let $\D$ be an inverse automaton.
+%, with alphabet $\S$ and 
+%start and final state $1$, such that
+%$\pi(L(\D))=K$.
+ The result $\D^{\prime\prime}$ of applying Step \ref{it:gf1}
 above to $\D$ is called a \emph{double coset resolution} or 
-\emph{dc-resolution} of $\D$. The graph obtained by applying 
+\emph{dc-resolution} of $\D$. The graph $\Psi$ obtained by applying 
 Step \ref{it:gf2} to $\D^{\prime\prime}$ is called a \emph{double
-coset folding} or \emph{dc-folding} of $\D$.  
+coset folding} or \emph{dc-folding} of $\D$.  The composition $\hat\rho$ of 
+the  morphism 
+$\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\maps 
+\Psi$ is called the \emph{dc-folding morphism}.  
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:nfcomp}
 Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of 
-an inverse automaton $\D$, with alphabet $\S$, 
-and let $w$ be a word
+an inverse automaton $\D$, with alphabet $\S$.  
+\be
+\item\label{it:nfcomp1}
+  $\pi(L(\T,\a,\b))=\pi(L(\T_5),\theta(\a),\theta(\b))$. 
+\item\label{it:nfcomp2} Let $w$ be a word
  which is accepted by the automaton $(\T, \a, \b)$. Then the
 normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
+\ee
 \end{lemma}
 \begin{proof}
+\ref{it:nfcomp1}. At each stage of the modification process of Algorithm
+II the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
+preserved. \\[1em]
+
+\ref{it:nfcomp2}. 
 We may assume that $w\in F(X_k)$ (given the construction of $\T_1$).
 Let $w$ have normal form $h_1s h_2^{-1}$, where $s\in S_k$ and $h_i\in F(Z)$.
 There are two cases to consider, depending on whether $s$ is a
@@ -1780,31 +1802,50 @@ $h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.
 \end{proof}
 
 
-\begin{lemma}
+\begin{lemma}\label{lem:dcfold}
 Let $\D$ be  an inverse automaton, 
-with alphabet $\S$, 
+with alphabet $\S$ and start state $s$, 
 and let $\D^{\prime\prime}$  and 
-$\Psi$ be the dc-resolution and dc-foldings of $\D$, 
+$\Psi$ be the dc-resolution and dc-folding of $\D$, 
 respectively.
 \be
 \item \label{it:dcfold1}
 $\Psi$ is 
-is an inverse automaton, with unique start and  final state $1$, and 
+is an inverse automaton, with unique start and  final state $\hat\rho(s)$, and 
+has no more $X_1$ and $X_2$ components than $\D$. 
+\item \label{it:dcfold2} 
 $\pi(L(\Psi))=\pi(L(\D))$. 
-\item \label{it:dcfold2} Either $\Psi$ has fewer $X_1$ or $X_2$ components than
-$\D$; or $\Psi$ is formed from $\D^{\prime\prime}$ by folding only
-edges of type $Z$.
 \ee
 \end{lemma}
 \begin{proof}
 %\be
 \ref{it:dcfold1}.  
 %\item 
-The automaton $\Psi$ is involutive and folded by definition. As 
-$\D$ is trim so is $\Psi$. Its root is the image of the root 
+The automaton $\Psi$ is involutive and folded by definition.
+ Its root is the image of the root $\rho(s)$ of $\D^{\prime\prime}$ under
+ the folding morphism: that is $\hat\rho(s)$.  
+ As 
+$\D$ is connected  so is $\D^{\prime\prime}$ and therefore also $\Psi$.
+Hence $\Psi$ is trim and so inversive. The graphs  
+$\D$ and $\D^{\prime\prime}$  have the same number of $X_k$ components.
+Folding to form $\Psi$ cannot increase this number, so the final statement
+of \ref{it:dcfold1} follows. 
 %\item
  \\[1em]
 \ref{it:dcfold2}. 
+Let $w$ be a word accepted by $\Psi$. Since $\Psi$ is formed 
+by a sequence of foldings of $\D^{\prime\prime}$, there is a word
+$v$ such that $v$ is accepted by $\D^{\prime\prime}$ and $\pi(v)=\pi(w)$. 
+Now $v=v_1\cdots v_n$, where each $v_i$ is accepted by a connected
+component $\Xi_i$ of $\D^\prime_5$, and no two consecutive components are 
+accepted by the same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} it
+follows that there are words $u_1,\ldots , u_n$, such that $\pi(u_i)=\pi(v_i)$
+and $u_i$ is accepted by the component $\theta^{-1}(\Xi_i)$ of $\D^\prime$.
+Moreover it follows that $u_1\cdots u_n$ is accepted by $\D$ and
+$\pi(u_1\cdots u_n)=\pi(v)$. Therefore $\pi(L(\Psi))\subseteq \pi(L(\D))$. 
+The reverse inclusion follows from the existence of the morphism $\hat\rho$
+from $\D$ to $\Psi$.   
+\begin{comment}
 Let $\Phi=\L_0,\L_1,\ldots, \L_n$ be a sequence of graphs such that
 $\L_{i+1}$ is obtained from $\L_i$ by and elementary folding.
 Suppose that all these foldings except possibly the last involve only edges
@@ -1820,19 +1861,52 @@ component. However the $X_k$ components of $\Phi$ are folded, since they
 correspond to the graphs $\T_5$ constructed from $X_k$ components of $\D$.
 Therefore no folding involving an edge of type $X_1$ or $X_2$ can occur
 in such a sequence, and the result follows.
+\end{comment}
 %\ee
 \end{proof}
-\begin{lemma}
-Let $\D$ be  a rooted, deterministic, trim graph,  let $\Phi$ be
-the graph
-obtained from $\D$ by dc-resolution %of attracting pairs
-and let
-$\L$ be the Stallings folding of $\Phi$. Let $\a$  and $\b$ be boundary
-vertices of an $X_k$ component of $\L$ and let $p$ be a path from
-$\a$ to $\b$ with label $w\in F(X_k\cup Z)$. Then $\L$ contains a
-path $q$ with label equal to the normal form of $w$.
+If $w$ is a word in $F(X_1\cup X_2\cup Z)$ and $w=w_1\cdots w_n$, 
+where $w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$ and $n$
+minimal, then  say that each $w_i$ is a \emph {maximal} $X_{k_i}$ 
+\emph{factor}  
+of $w$.  
+\begin{lemma}\label{lem:loopstop}
+Let $\D_0$ be an inverse automaton with alphabet $\S$. 
+\be 
+\item\label{it:loopstop1}
+If $\D_0$ is input  to  the loop then the loop halts after
+finitely many iterations and outputs an inverse automaton  $\D_n$. 
+\item\label{it:loopstop2} Let $\D_n$ be the output from the loop and let $w$ be a word
+accepted by $\D_0$. If $w=a\circ b \circ c$, 
+where $b$ is a maximal $X_k$ factor of $w$ then $\D_n$ accepts 
+the word $avc$, where $v$ is the normal form of $b$. 
+\ee
 \end{lemma}
 \begin{proof}
+\ref{it:loopstop1}.\\ 
+The number of $X_k$ components is not increased by Steps 1 and 2, so 
+at some point the loop must halt.  
+\noindent\ref{it:loopstop2}. The word $b$ is accepted by an $X_k$ component
+of $\D_0$. By construction, the word $v$ is accepted by $\D_1$, and hence
+by $\D_n$. It follows that $\D_n$ accepts $avc$. 
+\end{proof}
+\begin{lemma}\label{lem:nfacc}
+Let $\D_0$ be an inverse automaton with alphabet $\S$ and let 
+$\D_n$ be the output from the loop, with input $\D_0$. If $w$ is
+accepted by $\D_0$ then the normal form of $w$ is accepted by $\D_n$. 
+\end{lemma}
+\begin{proof}
+Let $w$ be a word 
+accepted by $\D_0$. Then $w$ factorises as  $w$ as $w=w_1\cdots w_n$, 
+where $w_i$ is accepted by and $X_k$ component of $\D_0$. Thus
+$w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$. If $n=0$, then
+$w=1$ and the lemma holds. Suppose the lemma holds for all $w$ such 
+that $n\le k$, where $k\ge 0$ and now suppose $n=k+1$. 
+Let $v_i$ be the normal form of $w_i$.
+If $v_i\in F(Z)$, for some $i$ then there is a factorisation of 
+$w$ with at most $k$ factors, and the result follows. Otherwise,  
+from Lemma \ref{lem:loopstop}.\ref{it:loopstop2},  $\D_n$ accepts $v_1\cdots v_n$, which
+is the normal form of $w$.  
+\begin{comment}
 Let $\g$ and $\d$ be vertices of $\Phi$ which map to $\a$ and $\b$ in the
 folding of $\Phi$ to $\L$. As this folding involves only edges of type $Z$
 it follows that $\g$ and $\d$ are in the same $X_k$ component of $\Phi$.
@@ -1846,7 +1920,9 @@ $G$. Moreover, since $l(q^\prime)$ is in normal form and $l(q)$ is obtained
 from $l(q^\prime)$ by cancellation of letters of $Z$ it follows that
 $l(q)$ is in normal form. Hence $l(q)$ is the normal form of $l(p)$,
 as required.
+\end{comment}
 \end{proof}
+\begin{comment}
 \begin{theorem}
 Let $\cA=(\L,\S)$, where $\L$ is defined in the previous
 lemma and $\ast$ is the root of $\L$. Then $\pi(L(\cA))=K$ and if $w$ is the normal form of an element
@@ -1861,9 +1937,22 @@ $s_i$ is the normal form of $t_i$ then, from the previous lemma, it follows
 that $\cA$ also accepts the word $z_0s_1z_1\cdots z_rs_rz_{r+1}$, which
 is the normal form of $u$.
 \end{proof}
+\end{comment}
 \begin{theorem}
 $G$ has solvable subgroup membership problem.
 \end{theorem}
+\begin{proof}
+Construct the flower automaton $\cF(K)$ of $K$ and then
+its Stallings automaton $\G_K$,  as at the beginning of this Section. % \ref{sec:dca},
+Let $\D_0=\G_K$ and input this to the loop to obtain output $\D_n$. 
+Given a word $w\in F(X_1\cup X_2\cup Z)$ write $w$ in normal form
+using Algorithm I. If $w\in K$ then there is a word $v$ in the generators
+ of $K$ with $\pi(v)=\pi(w)$, so $v$ is accepted by $\G_K$. From 
+Lemma \ref{lem:nfacc}, the word $w$ is accepted by $\D_n$. From 
+Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_n)=L(\G_K)$, 
+so if $w\notin K$, then
+$w\notin L(\D_n)$.
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
 \bibliography{membership}
