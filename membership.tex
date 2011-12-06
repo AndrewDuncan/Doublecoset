@@ -256,10 +256,8 @@ precisely normal forms of elements of $K$.
 
 
 Authors are grateful to Vladimir Remeslennikov for helpful
-discussions and to Christian Perfect who did something.{\ef Should
-we mention VNR here or among the authors? What should we say about
-Christian's work?}
-
+discussions and to Christian Perfect who {\color{red}{ did
+something}}.
 
 
 \section{Double coset normal form}\label{sec:intro}
@@ -324,21 +322,38 @@ and  ${g_{i+1}}$ belong to  different factors. As $F_1$ and
 $F_2$ have solvable subgroup membership problem we can write $g$ in
 reduced form. More precisely, we construct a Stallings automaton
 (see below) $A_k$ for
-$H_k\le F_k$. % and choose a maximal subtree $T_k$ of $A_k$, $k=1,2$.
-Then we write $g=f_1\cdots f_r$, in free product normal
-form (each $f_i$ is in a factor and successive terms are
-from different factors).
-Now,
-using the appropriate Stallings automaton $A_k$, we write $f_r=h_rg_r$, where
-$h_r$ is the maximal prefix of $f_r$ accepted by $A_k$ and $g_r$ is
+$H_k\le F_k$, $k=1,2$. % and choose a maximal subtree $T_k$ of $A_k$.
+Then we write $g=f_1\cdots f_r$, in free product normal form (each
+$f_i$ is in a factor and successive terms are from different
+factors). Now, using the appropriate Stallings automaton $A_k$, we
+write $f_r=h_rg_r$, where $h_r$ is the maximal prefix of $f_r$
+accepted by $A_k$ and $g_r$ is
  the
 unique word such that $f_r=h_rg_r$, reduced as written.
 
-Using the maps $\phi_1$ and $\phi_2$ we now write $h_r$ in terms of the
-generators of the other factor, to obtain $h^\prime_r$ and then
-replace $f_{r-1}$ with $f_{r-1}^\prime=f_{r-1}h^\prime_r$. Now start again with
-$f_{r-1}^\prime$ instead of $f_r$. Continue till the word is exhausted.
-This gives $g=g_1\cdots g_t$ in reduced form.
+Using the maps $\phi_1$ and $\phi_2$ we now write $h_r$ in terms
+of the generators of the other factor, to obtain $h^\prime_r$ and
+then replace $f_{r-1}$ with $f_{r-1}^\prime=f_{r-1}h^\prime_r$.
+Now start again with $f_{r-1}^\prime$ instead of $f_r$. Continue
+till the word is exhausted. This gives $g=g_1\cdots g_t$ in
+reduced form. {\ef To rewrite a non-reduced word to its reduced
+form, one can use a simpler algorithm. You are rewriting elements
+in the canonical normal form (and it depends on a choice of $T_k$
+as well). To represent element in a (non-unique) reduced form, we
+care only about factors $f_i$ which belong to a subgroup $H_k$.
+For instance, we can use the following algorithm.
+
+Step 1. Using an appropriate $A_k$, check if $g_i \in H_k$, $i =
+1, \ldots, t$ or not. If none of the $g_i$’s lies in $H_k$ then
+$g= g_1 \cdots g_t$ is reduced.
+
+Step 2. Let now some $g_i \in H_k$ and suppose that $i$ is the
+minimal index with this property. If $i = 1$, rewrite $g$ in the
+form $g = g'2 g_3 \cdots g_t$, where $ g'2 = g_1g_2 = cg_2, c \in
+H_k$, and go back to Step 1. If $i > 1$ then rewrite $g$ as
+follows $g = g_1 \cdots g_{i-2} g'_{i+1}g_{i+2} \cdots g_t$, where
+$g'_{i+1} = g_{i-1}cg_{i+1}$ in $F_1$ or in $F_2$, and go to Step
+1.}
 
 To rewrite in double coset normal form we need to
  rewrite
@@ -359,10 +374,10 @@ start states} and $\mathcal{F}\subseteq Q$ is the set of {\em
 final states}.  If
 $\mathcal{F}=\{s_0\}=\mathcal{S}$ it's common to drop
 $\mathcal{F}$ from the description and define $A$ as a quadruple.
-For details of the theory of automata the reader is referred to 
+For details of the theory of automata the reader is referred to
  \cite{Lawson04}.
- 
-By a graph we mean a finite, directed, edge labelled graph. 
+
+By a graph we mean a finite, directed, edge labelled graph.
 We shall associate to an automaton $A$
 a graph $\G_A$ with vertices
 $V=V(\G_A)=Q$; edge set $E=E(\G_A)$ consisting of elements
@@ -372,46 +387,51 @@ $(u,\s,v) \in E$.  If $\mathcal{S}$ and $\mathcal{F}$ are the sets
 of start and final states of $A$ we sometimes write
 $(\G_A,\mathcal{S},\mathcal{F})$ for
 $(\S,Q,\d,\mathcal{S},\mathcal{F})$, and in addition if
-$\mathcal{S}=\{s_0\}$ and $\mathcal{F}=\{f_0\}$, we may abbreviate 
-this to $(\G_A,s_0,f_0)$. If $\mathcal{S}=\{s_0\}=\mathcal{F}$ 
-we 
+$\mathcal{S}=\{s_0\}$ and $\mathcal{F}=\{f_0\}$, we may abbreviate
+this to $(\G_A,s_0,f_0)$. If $\mathcal{S}=\{s_0\}=\mathcal{F}$
+we
 call $s_0$ the {\em root}
 vertex of $\G_A$ and say that $A$ and $\G_A$ are {\em rooted}. We may
  write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case.  For notational simplicity we identify $\G_A$
-and $A$ whenever it is convenient and unambiguous. 
+and $A$ whenever it is convenient and unambiguous.
 
-By a path $p$ 
+By a path $p$
 in a graph we mean a sequence $(v_0,e_1,v_1, \ldots , e_n ,v_n)$ of
- vertices $v_i$ and edges $e_i$ such that 
-edges such that $e_i=(v_{i-1},\s_i,v_i)$, for $i=1,\ldots ,n$. 
+ vertices $v_i$ and edges $e_i$ such that
+edges such that $e_i=(v_{i-1},\s_i,v_i)$, for $i=1,\ldots ,n$.
 The
-label $l(p)$ of this  path is defined to be 
+label $l(p)$ of this  path is defined to be
  the concatenation $\s_1\cdots \s_n$ of the labels of the
-edge sequence of $p$.  If $w$ is the label of a path 
+edge sequence of $p$.  If $w$ is the label of a path
 in $\G_A$, from a vertex of $\cS$ to a vertex of $\cF$, then we
 say that $w$ is accepted by $A=(\G_A,\cS,\cF)$. The set of all
-words in the free monoid $\S^*$, generated by $\S$, which are 
+words in the free monoid $\S^*$, generated by $\S$, which are
 accepted by $A$  is called
 the {\em language accepted by} $A$ and denoted $L=L(A)$.
-We extend this terminology, for an automaton 
-$A=(\S,Q,\d,\mathcal{S},\mathcal{F})$,  
-to say that a  word $w$ is {\em readable} 
+We extend this terminology, for an automaton
+$A=(\S,Q,\d,\mathcal{S},\mathcal{F})$,
+to say that a  word $w$ is {\em readable}
 by $A$ if $w$ is in the
-language accepted by $(\G_A,\cS,Q)$  and define 
+language accepted by $(\G_A,\cS,Q)$  and define
 \[L_Q=L_Q(A)=\{w:w \textrm{ is readable by } A\}.\]
 If $\S$ is a
 subset of a group $G$ (and whenever $a,a^{-1}\in \S$ then $a^{-1}$ is
-the inverse of $a$) 
+the inverse of $a$)
  then the  natural map from $L_Q(A)$ to
-$G$ is denoted $\pi:L_Q(A)\maps G$. 
+$G$ is denoted $\pi:L_Q(A)\maps G$.
+
+{\ef In chapter 4  we use these terms (readable and accepted) not
+only for initial and final states, but for arbitrary states
+(boundary vertices etc.). Is it better to extend the definitions
+here?}
 
 If $q\in Q$ and there are paths in $\G_A$ from a vertex of $\cS$ to $q$
-and from $q$ to a vertex of $\cF$ then $q$ is said to be \emph{trim}. 
+and from $q$ to a vertex of $\cF$ then $q$ is said to be \emph{trim}.
 If all vertices $q\in Q$ are trim then $A$ is called \emph{trim}.
  {\ajd For an involutive, rooted automaton $A$, being trim is equivalent
-to $\G_A$ being connected. Surely it would be easier to use 
-connected instead of trim?} 
-
+to $\G_A$ being connected. Surely it would be easier to use
+connected instead of trim?}
+ {\ef Definitely! Should we remove this definition at all then?}
 
 
 An {\em involutive alphabet} is a set $\S$ of the form $\{a_1, \ldots, ,
@@ -421,57 +441,58 @@ The automaton $A =(\S, Q, \d,\mathcal{S},\mathcal{F})
 involutive} if $\S$ is an
 involutive alphabet and, for all $p, q \in Q$ and $a \in \S$,
 $\d(p,a)=q$ if and only if $\d(q, a^{-1})=p$ (that is $(u, a, v) \in E
-\Leftrightarrow (v, a^{-1}, u) \in E$). 
-In diagrams of involutive automata an edge labelled $a$  from 
+\Leftrightarrow (v, a^{-1}, u) \in E$).
+In diagrams of involutive automata an edge labelled $a$  from
 $u$ to $v$  represents
 both $(u,a,v)$ and $(u,a^{-1},v)$.  From now we will
-consider involutive automaton only. 
-The automaton $A$ 
+consider involutive automaton only.
+The automaton $A$
 is {\em deterministic}  or {\em folded} if $\d(p,a)=q$ and
 $\d(p,a)=q'$ imply $q=q'$ (that is, $(u, a, v)
-\in E$ and $(u, a, v^\prime) \in E$ imply $v=v^\prime$). 
-%A rooted automaton $A= (\G_A, s_0)$ is called \emph{trim} if it has no vertices of degree $1$ except maybe $s_0$. 
-Finally, an involutive, rooted, 
-deterministic, trim automaton, with a single final state, is called 
-an {\em inverse} automaton. 
+\in E$ and $(u, a, v^\prime) \in E$ imply $v=v^\prime$).
+%A rooted automaton $A= (\G_A, s_0)$ is called \emph{trim} if it has no vertices of degree $1$ except maybe $s_0$.
+Finally, an involutive, rooted, connected, deterministic,
+automaton, with a single final state, is called an {\em inverse}
+automaton.
 
-Let $A=(\G_A,s_0,\cF)$ be an inverse automaton. 
+Let $A=(\G_A,s_0,\cF)$ be an inverse automaton.
 If $w$ is readable by $A$ then there exists a
-unique vertex  $\t(w)$ of $\G_A$ such that $w$ is accepted by 
-$(\G_A,s_0,\t(w))$: we call $\t(w)$ the {\em terminal vertex} of $w$. ($L$ is the set of words $w$ readable by $A$ with 
-$\t(w)=s_0$.) 
+unique vertex  $\t(w)$ of $\G_A$ such that $w$ is accepted by
+$(\G_A,s_0,\t(w))$: we call $\t(w)$ the {\em terminal vertex} of $w$. ($L$ is the set of words $w$ readable by $A$ with
+$\t(w)=s_0$.)
 Fix a spanning tree $T$ for $\G_A$. For each vertex $v$ of $\G_A$
 let $w(v)$ denote the label of the path from $s_0=1$ to $v$ in
 $T$.  Define
 \[L_T=\{w(v): v \textrm{ is a vertex of } A\}.\]
-If $w, s, u\in F(X)$ with $w=s\circ u$ then we say that $s$ is 
+If $w, s, u\in F(X)$ with $w=s\circ u$ then we say that $s$ is
 \be[(i)]
 \item
- an $L_Q${\em -prefix} of $w$ if $s\in L_Q$;  
-\item 
+ an $L_Q${\em -prefix} of $w$ if $s\in L_Q$;
+\item
 an % {\em maximal}
 $L_T${\em -prefix} of $w$ if $s\in L_T$.
 \ee
 An $L_Q$ or $L_T$-prefix $s$ of $w$ is  {\em maximal} if no longer
-subword of $w$ is an $L_Q$ or $L_T$-prefix, respectively. 
+subword of $w$ is an $L_Q$ or $L_T$-prefix, respectively.
 
-Since we identify the automaton $A$ with the graph $\G_A$, we ascribe
-properties of automata (like rooted, trim, involutive, folded or
-inverse) to graphs in general and $\G_A$ in particular.
+Since we identify the automaton $A$ with the graph $\G_A$, we
+ascribe properties of automata (like rooted, connected,
+involutive, folded or inverse) to graphs in general and $\G_A$ in
+particular.
 
 %%Let $A=(V,E,s_0)$ and $A^\prime=(V^\prime,E^\prime,s^\prime_0)$ be
 %%two automata. A {\em morphism} $A \rightarrow A^\prime$ is a map
 %%$\varphi: V \rightarrow V^\prime$ such that $\varphi(s_0) =
 %%s^\prime_0$ and $(p,a,q) \in E \Rightarrow
 %%(\varphi(p),a,\varphi(q)) \in E^\prime$.
-We now recall the notion of a Stallings folding of an
-automaton, which we will use directly, to construct Stallings 
-automata for subgroups of free groups, and in generalized form
-to produce dc-resolutions of automata (in Section
-\ref{sec:foldings}). For more details of Stallings foldings  and  Stallings 
-automata  see \cite{ventura11} or \cite{BartholdiSilva}.
+We now recall the notion of a Stallings folding of an automaton,
+which we will use directly, to construct Stallings automata for
+subgroups of free groups, and in generalized form to produce
+dc-resolutions of automata (in Section \ref{sec:foldings}). For
+more details on Stallings foldings  and  Stallings automata  see
+\cite{ventura11} or \cite{BartholdiSilva}.
 
-An {\em elementary folding} of a rooted, directed, labelled 
+An {\em elementary folding} of a rooted, directed, labelled
 graph $(\G,s_0)$ is a
 graph $(\G^\prime,s^\prime_0)$ obtained from $(\G,s_0)$ as
 follows. Suppose that $e=(u, \s, v)$ and $e^\prime=(u, \s,
@@ -484,32 +505,27 @@ v^{\prime\prime})$. If $s_0= v$ or $s_0 = v^\prime$ then
 $v^{\prime\prime}$ is the root of $\G^\prime$ and otherwise
 $s^\prime_0=s_0$.
  A {\em folding} of a graph $\G$ is a graph obtained
-from $\G$ by a finite sequence of elementary foldings. 
+from $\G$ by a finite sequence of elementary foldings.
 
-If a rooted graph $\G$ is not folded then a folding may be applied; reducing the 
-number of edges of the graph. Continuing this way a folded graph may eventually 
-be produced. It follows that  folded graphs are precisely those 
-to which no elementary folding may be applied. 
+If a rooted graph $\G$ is not folded then a folding may be applied; reducing the
+number of edges of the graph. Continuing this way a folded graph may eventually
+be produced. It follows that  folded graphs are precisely those
+to which no elementary folding may be applied.
 
-A morphism of  rooted 
-graphs $\G$ and $\G^\prime$ is a map $\theta: \G\maps \G^\prime$ 
-which maps vertices to vertices and edges to edges in such a way
-that
-\be
-\item if $s$ is the root of $\G$ then $\theta(s)$ is the root of 
-$\G^\prime$;  
-\item if $t$ is a terminal vertex of $\G$ then $\theta(t)$ is a terminal 
-vertex of 
-$\G^\prime$ and
-\item  if $(u,\sigma,v)$ is an edge of $\G$ then 
-$\theta(u,\sigma,v)=(\theta(u),\sigma,\theta(v))$. 
-\ee
-An elementary
-folding of  $(\G,s_0,t)$ to  $(\G^\prime,s^\prime_0, t^\prime)$ induces a morphism
-from $\G$ to $\G^\prime$: namely the quotient map. Therefore there is
- a uniquely determined {\em folding morphism} from $\G$ to any folding. Moreover, if $\G_1$
-is a folding of $\G$ and $\theta$ is the folding morphism then $\pi(L(\G,s,t))=
-\pi(L(G_1,\theta(s),\theta(t)))$.   
+A morphism of  rooted graphs $\G$ and $\G^\prime$ is a map
+$\theta: \G\maps \G^\prime$ which maps vertices to vertices and
+edges to edges in such a way that \be \item if $s$ is the root of
+$\G$ then $\theta(s)$ is the root of $\G^\prime$; \item if $t$ is
+a terminal vertex of $\G$ then $\theta(t)$ is a terminal vertex of
+$\G^\prime$ and {\ef Do you mean final state?}\item  if
+$(u,\sigma,v)$ is an edge of $\G$ then
+$\theta(u,\sigma,v)=(\theta(u),\sigma,\theta(v))$. \ee An
+elementary folding of  $(\G,s_0,t)$ to $(\G^\prime,s^\prime_0,
+t^\prime)$ induces a morphism from $\G$ to $\G^\prime$: namely the
+quotient map. Therefore there is
+ a uniquely determined {\em folding morphism}  from $\G$ to any folding. Moreover, if $\G_1$
+is a folding of $\G$ and $\theta$ is the folding morphism then
+$\pi(L(\G,s,t))= \pi(L(\G_1,\theta(s),\theta(t)))$.
 
 
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
@@ -517,57 +533,59 @@ of $F$.  By a {\em reduced} word we mean
  a freely reduced word in $(X\cup X^{-1})^\ast$, and we write $w\in \FF(X)$
 to mean that $w$ is a reduced word. For $u,v, w\in F(X)$ we
 write $w=u\circ v$ if $|w|=|u|+|v|$, in which case we say that $u$ is a {\em prefix}
-of $w$. 
+of $w$.
 
-Let $Y=\{w_1,\ldots ,w_n\}$ be a generating set for $H$, where $w_i\in F$. 
+Let $Y=\{w_1,\ldots ,w_n\}$ be a generating set for $H$, where $w_i\in F$.
 The {\em flower automaton} $\G_Y(H)$, of $H$ (with respect to this generating set)
 is the graph constructed as follows. For each $i$ let $C_i$ be a cycle
 graph with $|w_i|$ vertices, and choose a vertex $v_i$ as the root. Direct
-and label the edges of $C_i$, with elements of $X$,  
+and label the edges of $C_i$, with elements of $X$,
 so that the simple closed path based at $v_i$ has
 label $w_i$ (read in, say, a counter-clockwise direction). The flower
-automaton $G_Y(H)$ is formed by identifying all the vertices $v_i$ to form 
+automaton $G_Y(H)$ is formed by identifying all the vertices $v_i$ to form
 a new graph, with root $v$ the image of the $v_i$. If $L_Y$ is the language  accepted
-by $(\G_Y(H), v)$ then $\pi(L_Y)=H$. 
- 
+by $(\G_Y(H), v)$ then $\pi(L_Y)=H$.
 
-The flower automaton of $H$ depends on the chosen generating set, and is, 
+
+The flower automaton of $H$ depends on the chosen generating set, and is,
 in general,
-non-deterministic (at the root vertex $s$). Stallings \cite{stallings83} 
-proved that the folded graph $\G(H)$, obtained by applying foldings to the 
+non-deterministic (at the root vertex $s$). Stallings \cite{stallings83}
+proved that the folded graph $\G(H)$, obtained by applying foldings to the
 flower automaton of $H$ until the result is folded, is an inverse
 automaton, independent of the generating set chosen.
-Moreover  $(\G(H),s)$ is the minimal (fewest states) automaton accepting 
-every reduced word representing an element of $H$. (See \cite{BartholdiSilva} 
+Moreover  $(\G(H),s)$ is the minimal (fewest states) automaton accepting
+every reduced word representing an element of $H$. (See \cite{BartholdiSilva}
 for a proof in terms of automata.)
 \begin{definition}
-The automaton $(\G(H),s)$ is  called the {\em Stallings automaton} of $H$. 
+The automaton $(\G(H),s)$ is  called the {\em Stallings automaton} of $H$.
 \end{definition}
 \subsection{Double coset representatives}\label{sub:2cosetrepr}
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
-of $F$. 
+of $F$.
 
 Let $A$ be the Stallings automaton for $H$, and let  $s_0 =
-1$ be its start state. 
+1$ be its start state.
 We shall define a set of double coset representatives for $H$ in two parts.
-We begin with the definition of the first type of representative. 
+We begin with the definition of the first type of representative.
 \begin{definition}[Double coset representative, type 1]
-A a word $w\in F(X)$ is a {\em (double coset) representative of type} $1$ if
+A word $w\in F(X)$ is a {\em (double coset) representative of
+type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
-where $e\neq 1$, $s$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $w$, 
-and $t$ is a maximal $L_Q$-prefix and an 
+where $e\neq 1$, $s$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $w$,
+and $t$ is a maximal $L_Q$-prefix and an
 $L_T$-prefix of $t\circ e^{-1}$. Let $S^{(1)}$ denote the set of all representatives of type $1$.
 \end{definition}
 
 {\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
  representatives and there are a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
  We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
-}
-{\ajd I think you're right. Would it suffice to give a reference like
-Kapovich,Miasnikov ``Stallings foldings and subgroups of free groups''?
-I don't know because I've never read this paper, which is rather long,
-but it does refer to spanning trees.} 
+} {\ajd I think you're right. Would it suffice to give a reference
+like Kapovich,Miasnikov ``Stallings foldings and subgroups of free
+groups''? I don't know because I've never read this paper, which
+is rather long, but it does refer to spanning trees.}
 
+{\ef Since the text has changed and we have cited them already,
+now I'm happy without any changes here.}
 
 
 To describe the remaining representatives we shall first define an equivalence
@@ -611,33 +629,30 @@ Therefore $(u_0,u_1)\sim (v_0,v_1)$.
 %%}
 
 To work with the equivalence relation $\sim$ its useful to define
-the product of graphs. Given (labelled, directed) 
+the product of graphs. Given (labelled, directed)
 graphs $\G_1$ and $\G_2$ we define the {\em
 product} graph $\G_1\times \G_2$ to be the graph with vertices
 $V=V(\G_1)\times V(\G_2)$ and with a directed edge labelled $a$
 from $(u_1,u_2)$ to $(v_1,v_2)$ if and only if there are edges
 $(u_1,a, v_1)$ and $(u_2,a,v_2)$ in $\G_1$ and $\G_2$,
-respectively. If $\G$ is a graph then 
-vertices of $\G\times \G$ of 
- the form $(v,v)$ are called {\em diagonal vertices}. 
-% We call the graph formed from  $\G\times \G$ by removing  
-% the diagonal vertices (and all incident edges) the 
-%{\em non-diagonal subgraph of} $\G\times \G$. 
-Note that if
-$\G$ is folded there is no edge of $\G\times \G$ 
-joining a diagonal vertex to a non-diagonal
-vertex. In this case it 
-follows that the diagonal vertices are the vertices of a 
-connected component of $\G\times \G$, which is isomporphic to $\G$, and 
-that no other connected component contains a diagonal vertex. 
+respectively. If $\G$ is a graph then
+vertices of $\G\times \G$ of
+ the form $(v,v)$ are called {\em diagonal vertices}.
+% We call the graph formed from  $\G\times \G$ by removing
+% the diagonal vertices (and all incident edges) the
+%{\em non-diagonal subgraph of} $\G\times \G$.
+Note that if $\G$ is folded there is no edge of $\G\times \G$
+joining a diagonal vertex to a non-diagonal vertex. In this case
+it follows that the diagonal vertices are the vertices of a
+connected component of $\G\times \G$, which is isomorphic to $\G$,
+and that no other connected component contains a diagonal vertex.
 
-In this notation $P$ is the set of non-diagonal vertices of  
- of $\G_A\times \G_A$ and   
-$(u,v)\sim (u',v')$ if and only if there is 
+In this notation $P$ is the set of non-diagonal vertices of
+$\G_A\times \G_A$ and $(u,v)\sim (u',v')$ if and only if there is
 a path from $(u,v)$ to $(u',v')$ in $\G_A\times \G_A$.
- Thus, as $\G_A$ is folded,  the equivalence class of $(u,v)\in P$
-is the set of vertices of the connected component of $\G_A\times \G_A$ 
-containing $(u,v)$. 
+ Thus, as $\G_A$ is folded, the equivalence class of $(u,v)\in P$
+is the set of vertices of the connected component of $\G_A\times \G_A$
+containing $(u,v)$.
 
 We shall choose one double coset representative corresponding to
 each $\sim$ equivalence class. First observe that if
@@ -646,9 +661,9 @@ $a,b\in F(X)$ and $x\in X^{\pm 1}$, then $(\t(a),\t(b))\in P$ and
 $(u,v)\sim (\t(a),\t(b))$. It follows that every equivalence  class
 of $\sim$ contains an element $(u',v')$ such that
 $w(u')w(v')^{-1}$ is a reduced word; and representatives of each
-equivalence class will be chosen to have this property. 
+equivalence class will be chosen to have this property.
 %We make a choice $(u,v)$ of representative of each equivalence class
-%of $\sim$ so that 
+%of $\sim$ so that
 %$w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$), in the next definition.
 
 \begin{definition}
@@ -657,25 +672,25 @@ class of $\sim$ and let $Y$ be the set of all pairs $(u,v)\in \pp$
 such that $|w(v)|$ is minimal (amongst elements of $\pp$). Choose
 $(u,v)\in Y$ such that $|w(u)|$ is minimal (amongst elements of
 $Y$) and define $(u,v)$ to be the $\sim$ {\em representative} of
-$\pp$. %Fix one $\sim$ representative for each equivalence class of$\sim$ and 
-Let $P_0$ denote the set of  all these $\sim$ 
+$\pp$. %Fix one $\sim$ representative for each equivalence class of$\sim$ and
+Let $P_0$ denote the set of  all these $\sim$
 representatives.
 
 A word $w\in F(X)$ is
- a {\em (double coset) representative of type} $2$ 
+ a {\em (double coset) representative of type} $2$
 if $w=w(u)w(v)^{-1}$, for some $(u,v)\in P_0$.
 Let $S^{(2)}$ denote the set of all representatives of type $2$.
 
-For each $(u,v)$ in $P$ choose a path in $\G_A\times \G_A$ 
+For each $(u,v)$ in $P$ choose a path in $\G_A\times \G_A$
 from $(u,v)$ to the $\sim$ representative
 $(u_0,v_0)$ of $(u,v)$ and define the {\em connecting element}
-$c(u,v)$  of $(u,v)$ to be the label of this path.  
+$c(u,v)$  of $(u,v)$ to be the label of this path.
 \end{definition}
 The  connecting elements enable systematic rewriting of certain
 elements of $\FF$ in terms of representatives of type 2, as will be
 seen below.
 \begin{definition}
-Define $S=S^{(1)}\cup S^{(2)}$. 
+Define $S=S^{(1)}\cup S^{(2)}$.
 \end{definition}
 
 
@@ -690,13 +705,13 @@ rewrites a given word $w$ in this form.
 Assume that the Stallings automaton $A$ for $H$ has been constructed by folding from
 given generators for $H$. A spanning tree $T$
 for $A$ may then be chosen and the
-set $L_T$ computed. 
-To find the equivalence class of a pair $(u,v)\in P$ the 
-graph $\G_A\times \G_A$ is constructed. By definition, $(u',v')\sim 
+set $L_T$ computed.
+To find the equivalence class of a pair $(u,v)\in P$ the
+graph $\G_A\times \G_A$ is constructed. By definition, $(u',v')\sim
 (u,v)$ if and only if there is a path in $\G_A\times \G_A$ from $(u',v')$
 to $(u,v)$. Therefore the $\sim$ equivalence class of $(u,v)$ is the
 vertex set of the connected component of $\G_A\times \G_A$ containing
-$(u,v)$.   
+$(u,v)$.
 Having constructed the equivalence classes of $\sim$
  a set of $\sim$ representatives may be constructed, by considering the
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
@@ -705,7 +720,7 @@ sets $P_0$ and $S^{(2)}$ may be computed.   \\
 \noindent{\bf Algorithm I}.\\
 Input $w\in F(X)$.
 Let $h$ be the maximal prefix of $w$ accepted by $A$; so $h\in H$ and
-$w=h\circ f$, for some $f\in F(X)$. Now use $A$ to find the maximal 
+$w=h\circ f$, for some $f\in F(X)$. Now use $A$ to find the maximal
 $L_Q$-prefix $p$
 of $f$ (i.e. the maximal prefix readable by $A$). Then
   $f= p\circ q$, for some $q\in F(X)$.
@@ -721,14 +736,16 @@ and $z=w(\t(t))$. Then $py^{-1}$ and $tz^{-1}$ belong to $H$. Moreover, as $p$
 is the maximal $L_Q$-prefix of $f$ it is also the maximal
 $L_Q$-prefix of $pet^{-1}$,  and so
   the
-first letter of $e$ is not readable from the vertex $\t(p)=\t(y)$ of $A$.
-In particular
-$ye=y\circ e$. Similarly, the first letter of $e^{-1}$ is not readable from
-the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ z^{-1}$. Moreover $y$ is both 
-a
-maximal $L_Q$-prefix  and an $L_T$-prefix of $yez^{-1}$ and $z$ is a 
-maximal $L_Q$-prefix  and an $L_T$-prefix of $ze^{-1}$.
-Thus $yez^{-1}\in S^{(1)}$ and we output
+first letter of $e$ is not readable from the vertex $\t(p)=\t(y)$
+of $A$. {\ef Is it worth saying that if $p$ and $q$ are maximal
+and $L_T$, then we do not need $y$ and $z$ (or $py^{-1}$ and
+$tz^{-1}$ are trivial. It looks confusing without it.} In
+particular $ye=y\circ e$. Similarly, the first letter of $e^{-1}$
+is not readable from the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ
+z^{-1}$. Moreover $y$ is both a maximal $L_Q$-prefix  and an
+$L_T$-prefix of $yez^{-1}$ and $z$ is a maximal $L_Q$-prefix  and
+an $L_T$-prefix of $ze^{-1}$. Thus $yez^{-1}\in S^{(1)}$ and we
+output
 \[w=(py^{-1}) (yez^{-1})(zt^{-1})\in HSH,\]
 of the required form.
 
@@ -736,7 +753,7 @@ On the other hand if $e=1$ then
 \[w=h\circ p\circ t^{-1}\circ g^{-1}.\]
 In this case let $u=\t(p)$ and $v=\t(t)$,
 let $(u_0,v_0)$ be the $\sim$ representative
-of the equivalence class of $(u,v)$, $c=c(u,v)$, 
+of the equivalence class of $(u,v)$, $c=c(u,v)$,
  $y=w(u_0)$ and $z=w(v_0)$. Then,  as in the proof of Lemma
 \ref{lem:equiv_verts}, setting $h_0=w(u)cy^{-1}$ and
 $h_1=w(v)cz^{-1}$ we have
@@ -749,7 +766,7 @@ h_1^{-1}( w(v)t^{-1})
 \]
 and by definition $yz^{-1}\in S^{(2)}$. We then output
 \[w=a yz^{-1} b,\]
-where $a=h ( p w(u)^{-1}) h_0=hpcy^{-1}\in H$ and $b=h_1^{-1}( w(v)t^{-1})g^{-1} 
+where $a=h ( p w(u)^{-1}) h_0=hpcy^{-1}\in H$ and $b=h_1^{-1}( w(v)t^{-1})g^{-1}
 =zc^{-1}t^{-1}g^{-1}\in H$.
 
 It remains to show that if $s_0,s_1\in S$ with $s_1\in Hs_0H$
@@ -788,55 +805,63 @@ representatives.
 \begin{example}\label{ex:f_1}
 Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
 subgroup $H_1=\la
-h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and 
+h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and
 $h_3=x_1x_2x_3\ra$.
 
-The Stallings automata, $\G_{A_1}$ for $H_1$,  
+The Stallings automata, $\G_{A_1}$ for $H_1$,
 with maximal subtree $T_1$ highlighted and base vertex $1$, is shown
-in Figure \ref{fig:stall}.\ref{fig:stall1}. 
+in Figure \ref{fig:stall}.\ref{fig:stall1}.
 The set $L_{T_1}$ corresponding to the maximal subtree  $T_1$ is
- $L_{T_1}=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$. 
+ $L_{T_1}=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$.
 
 Let the set of double coset representatives for $H_1$ be $S_1=S_1^{(1)}
-\cup S_1^{(2)}$. 
+\cup S_1^{(2)}$.
 To find the double coset normal form for the element $f_1 =
-x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$: in  
-the notation of Algorithm I, use  
+x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$: in
+the notation of Algorithm I, use
 ${A_1}$ to read off the maximal acceptable prefix $h=x_2x_3^2x_2^{-1} x_1^3
-=h_2^2h_1$ 
+=h_2^2h_1$
 of $f_1$; and
-the maximal $L_{Q_1}$ prefix $p=x_1$ of the remaining part of $f_1$. Next  
-$q^{-1}=x_1x_2x_3x_1^2x_3^{-3}$, which has maximal acceptable prefix 
+the maximal $L_{Q_1}$ prefix $p=x_1$ of the remaining part of $f_1$. Next
+$q^{-1}=x_1x_2x_3x_1^2x_3^{-3}$, which has maximal acceptable prefix
 $g=x_1x_2x_3$. The maximal $L_{Q_1}$-prefix of the remaining part of $q^{-1}$
 is then $t=x_1^2$. Setting $e=x_3$,
 \[f_1=h\circ p\circ e\circ t^{-1}\circ g^{-1}.\]
-As $p$ is an $L_{T_1}$-prefix of $pq$ we have $y=p$. On the other hand 
-$t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=2$, so $z=w(2)=x_1^{-1}$. 
-Now set 
+As $p$ is an $L_{T_1}$-prefix of $pq$ we have $y=p$. On the other hand
+$t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=2$, so $z=w(2)=x_1^{-1}$.
+Now set
 \[s=p\circ e\circ z^{-1}=x_1x_3x_1^{-1}\in S_1^{(1)}.\]
-Then, writing $h^\prime=gtz^{-1}=h_3h_1$, the normal form for $f_1$ is 
-\[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3x_1^{-1} (h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\] 
+Then, writing $h^\prime=gtz^{-1}=h_3h_1$, the normal form for $f_1$ is
+\[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3x_1^{-1} (h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\]
 
-To find the double coset normal form for the element 
-$f_2=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}x_1^{-1}$: use  
-${A_1}$ to read off the maximal acceptable prefix $h=x_3^{-1}x_2^{-1}x_1^{-1}$ 
+To find the double coset normal form for the element
+$f_2=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}x_1^{-1}$: use
+${A_1}$ to read off the maximal acceptable prefix $h=x_3^{-1}x_2^{-1}x_1^{-1}$
 of $f_2$;
-and  the maximal $L_{Q_1}$-prefix $p=x_2x_3$ of the rest of $f_2$.  Next  
-$q^{-1}=x_1x_2$, which is readable by ${A_1}$, so  $t=q^{-1}=x_1x_2$ and 
-\[f_2=h\circ p\circ t^{-1}.\] 
-Therefore $f_2$ will be in $H_1S_1^{(2)}H_1$. To find the required double
-coset representative we construct $\G_{A_1}\times \G_{A_1}$, which has 
-two non-diagonal components, shown in Figures 
-\ref{fig:stall}\ref{fig:GxG-1} and \ref{fig:stall}\ref{fig:GxG-2}, with
-the $\sim$ representatives $(3,1)$ and $(2,1)$,  shown as solid vertices. The connecting
-elements are paths in the highligted subtrees.  All other non-diagonal
-components consist of isolated vertices. 
-Now, $u=\t(p)=5$ and $v=\t(t)=4$ and $(5,4)$ has $\sim$ representative 
-$(1,3)$, and connecting element $c=c(5,4)=x_2^{-1}$. Therefore 
-$y=w(1)=1$, $z=w(3)=x_1$, $yz^{-1}\in S_1^{(2)}$, 
-\[a=hpcy^{-1}=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}=h_3^{-1}h_2 
+
+{\ef The maximal acceptable prefix $ h= h_3^{-1} h_2$. Further, $p
+= x_1^{-1}$ and since $(2,1)$ represents itself, $a = h_3^{-1}
+h_2$, $b=c = 1$ but anyway $f_2 = h_3^{-1} h_2  x_1^{-1}$.}
+
+ and  the
+maximal $L_{Q_1}$-prefix $p=x_2x_3$ of the rest of $f_2$.  Next
+$q^{-1}=x_1x_2$, which is readable by ${A_1}$, so
+$t=q^{-1}=x_1x_2$ and
+\[f_2=h\circ p\circ t^{-1}.\]
+Therefore $f_2$ will be in $H_1S_1^{(2)}H_1$. To find the required
+double coset representative we construct $\G_{A_1}\times
+\G_{A_1}$, which has two non-diagonal components, shown in Figures
+\ref{fig:stall}\ref{fig:GxG-1} and \ref{fig:stall}\ref{fig:GxG-2},
+with the $\sim$ representatives $(3,1)$ and $(2,1)$,  shown as
+solid vertices. The connecting elements are paths in the
+highlighted subtrees.  All other non-diagonal components consist
+of isolated vertices. Now, $u=\t(p)=5$ and $v=\t(t)=4$ and $(5,4)$
+has $\sim$ representative $(1,3)$, and connecting element
+$c=c(5,4)=x_2^{-1}$. Therefore $y=w(1)=1$, $z=w(3)=x_1$,
+$yz^{-1}\in S_1^{(2)}$,
+\[a=hpcy^{-1}=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}=h_3^{-1}h_2
 \textrm{ and } b=zc^{-1}t^{-1}g^{-1}=x_1 x_2 x_2^{-1} x_1^{-1}=1,\]
-and the normal form of $f_2$ is 
+and the normal form of $f_2$ is
 \[f_2=a yz^{-1} b=(h_3^{-1}h_2) x_1^{-1}.\]
 \end{example}
 
@@ -852,9 +877,9 @@ and the normal form of $f_2$ is
 \psfrag{5}{$5$}
 \subfigure[Stallings automaton $\G_{A_1}$ for $H_1$]{
 \includegraphics[scale=.52]{stallh1.eps}
-\label{fig:stall1}} 
-\hspace{5mm} 
-\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(3,1)$.]{ 
+\label{fig:stall1}}
+\hspace{5mm}
+\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(3,1)$.]{
 \psfrag{a}{$(1,2)$}
 \psfrag{b}{$(2,3)$}
 \psfrag{c}{$(3,1)$}
@@ -862,8 +887,8 @@ and the normal form of $f_2$ is
 \psfrag{e}{$(1,5)$}
 \includegraphics[scale=.52]{GxG-1.eps}
 \label{fig:GxG-1}}
-\hspace{5mm} 
-\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(2,1)$.]{ 
+\hspace{5mm}
+\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(2,1)$.]{
 \psfrag{a}{$(2,1)$}
 \psfrag{b}{$(3,2)$}
 \psfrag{c}{$(1,3)$}
@@ -878,37 +903,35 @@ and the normal form of $f_2$ is
 \begin{example}\label{ex:f_2}
 Let $F_2$ be the free group on generators
 $y_1,y_2,y_3,y_4$ with a subgroup $H_2 = \la h_1^{\prime},
-h_2^{\prime},h_3^{\prime}\ra$, where 
-$h_1^{\prime}=y_2^2$, 
-$h_2^{\prime}=y_3y_4$ and  
+h_2^{\prime},h_3^{\prime}\ra$, where
+$h_1^{\prime}=y_2^2$,
+$h_2^{\prime}=y_3y_4$ and
 $h_3^{\prime}=y_1^2y_3y_1^{-1}y_2$.
-The Stallings automata, $\G_{A_2}$ for $H_2$,  
+The Stallings automata, $\G_{A_2}$ for $H_2$,
 with maximal subtree $T_2$ highlighted and base vertex $1$, is shown
-in Figure \ref{fig:stallagain}.\ref{fig:stallh2}. 
+in Figure \ref{fig:stallagain}.\ref{fig:stallh2}.
 The set $L_{T_2}$ corresponding to the maximal subtree  $T_2$ is
  $L_{T_2}=
 \{1, y_1, y_1^2,
 y_2^{-1}, y_2^{-1}y_1, y_3 \}$.
 Let the set of double coset representatives for $H_2$ be $S_2=S_2^{(1)}
-\cup S_2^{(2)}$. 
+\cup S_2^{(2)}$.
 
-To find the normal form of 
-$f_3=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2 y_3y_4y_2^2$: : use  
-${A_2}$ to read off the maximal acceptable prefix 
-$h= y_1^2y_3y_1^{-1}y_2y_3y_4$ of $f_3$; and  the maximal $L_{Q_2}$-prefix 
-$p=y_1$ of the rest of $f_3$.  Next  
-$q^{-1}= y_2^{-2}y_4^{-1}y_3^{-1}y_2^{-1}$, so $g=y_2^{-2}y_4^{-1}y_3^{-1}$
-and $t=y_2^{-1}$. This element will be represented by an
-element of $S_2^{(2)}$, so we need to construct $\G_{A_2}\times \G_{A_2}$. 
-There are $7$  non-trivial, non-diagonal components. One is shown in Figure
-\ref{fig:stallagain}\ref{fig:stallh2} and the remaining
-six in  
-Figure \ref{fig:G2xG2-2}. In all cases the solid vertex corresponds 
-to the $\sim$ representative and connecting elements are paths in the
-highlighted trees. Following Algorithm I, the normal form of $f_3$ is
-seen to be 
+To find the normal form of $f_3=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2
+y_3y_4y_2^2$: use ${A_2}$ to read off the maximal acceptable
+prefix $h= y_1^2y_3y_1^{-1}y_2y_3y_4$ of $f_3$; and  the maximal
+$L_{Q_2}$-prefix $p=y_1$ of the rest of $f_3$.  Next $q^{-1}=
+y_2^{-2}y_4^{-1}y_3^{-1}y_2^{-1}$, so $g=y_2^{-2}y_4^{-1}y_3^{-1}$
+and $t=y_2^{-1}$. This element will be represented by an element
+of $S_2^{(2)}$, so we need to construct $\G_{A_2}\times \G_{A_2}$.
+There are $7$  non-trivial, non-diagonal components. One is shown
+in Figure \ref{fig:stallagain}\ref{fig:G2xG2-1} and the remaining
+six in Figure \ref{fig:G2xG2-2}. In all cases the solid vertex
+corresponds to the $\sim$ representative and connecting elements
+are paths in the highlighted trees. Following Algorithm I, the
+normal form of $f_3$ is seen to be
 \[f_3=h yz^{-1} g^{-1},\]
-where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is 
+where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is
 \[f_3=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}.\]
 \end{example}
 
@@ -930,10 +953,10 @@ where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is
 \psfrag{6}{$6$}
 \subfigure[Stallings automaton $A_2$ for $H_2$]{
 \includegraphics[scale=.52]{stallh2.eps}
-\label{fig:stallh2}} 
-\hspace{25mm} 
+\label{fig:stallh2}}
+\hspace{25mm}
 \subfigure[$\G_{A_2}\times \G_{A_2}$: connected component of
-$(6,1)$.]{ 
+$(6,1)$.]{
 \psfrag{a}{$(5,3)$}
 \psfrag{b}{$(6,1)$}
 \psfrag{c}{$(1,6)$}
@@ -958,36 +981,36 @@ $(6,1)$.]{
 \psfrag{c}{$(3,4)$}
 \subfigure[$(1,3)$.]{
 \includegraphics[scale=.5]{G2xG2-2.eps}
-\label{fig:G2xG2-2-1}} 
-\hspace{1mm} 
-\subfigure[$(3,1)$.]{ 
+\label{fig:G2xG2-2-1}}
+\hspace{1mm}
+\subfigure[$(3,1)$.]{
 \psfrag{b}{$(3,1)$}
 \psfrag{c}{$(4,3)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
 \label{fig:G2xG2-2-2}}
-\hspace{1mm} 
+\hspace{1mm}
 \subfigure[$(2,5)$.]{
 \psfrag{y1}{$y_3$}
 \psfrag{b}{$(1,4)$}
 \psfrag{c}{$(2,5)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
 \label{fig:G2xG2-2-3}}
-\hspace{1mm} 
-\subfigure[$(5,2)$.]{ 
+\hspace{1mm}
+\subfigure[$(5,2)$.]{
 \psfrag{y1}{$y_3$}
 \psfrag{b}{$(4,1)$}
 \psfrag{c}{$(5,2)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
 \label{fig:G2xG2-2-4}}
-\hspace{1mm} 
+\hspace{1mm}
 \subfigure[$(4,5)$.]{
-\psfrag{y1}{$y_1$} 
+\psfrag{y1}{$y_1$}
 \psfrag{b}{$(3,6)$}
 \psfrag{c}{$(4,5)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
 \label{fig:G2xG2-2-5}}
-\hspace{1mm} 
-\subfigure[$(6,3)$.]{ 
+\hspace{1mm}
+\subfigure[$(6,3)$.]{
 \psfrag{b}{$(6,3)$}
 \psfrag{c}{$(5,4)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
@@ -996,13 +1019,13 @@ $(6,1)$.]{
 \caption{Example \ref{ex:f_2}: connected components of $\G_{A_2}\times \G_{A_2}$.}\label{fig:G2xG2-2}
 \end{figure}
 
-In fact if we don't require uniqueness of representatives then there is
-a much simpler algorithm to write words in normal form.
-This
-simply finds the maximal prefix $h_1$ of $w$  accepted  by $A$  and so $w=h_1\circ v$. It then finds the
-maximal prefix $p$ of $\bar v$ accepted by $A$. Setting $h_2=\bar p$ gives $w=h_1\circ d \circ h_2$, for
-some uniquely determined word $d$, which is a (non-unique)
-double coset representative.
+In fact if we don't require uniqueness of representatives then
+there is a much simpler algorithm to write words in normal form.
+This simply finds the maximal prefix $h_1$ of $w$  accepted  by
+$A$  and so $w=h_1\circ v$. It then finds the maximal prefix $p$
+of $v^{-1}$ accepted by $A$. Setting $h_2=p^{-1}$ gives
+$w=h_1\circ d \circ h_2$, for some uniquely determined word $d$,
+which is a (non-unique) double coset representative.
 
 
 %%
@@ -1077,7 +1100,7 @@ $H_1\le F_1$ and $H_2\le F_2$, respectively, (as in Section
 \ref{sec:intro}); denote $S= S_1 \cup S_2$. Let $A_k$ be the
 Stallings automaton for $H_k$ and let $T_k$ be a spanning tree for
 the associated graph $\G_{A_k}$, $k=1,2$. The alphabet of $A_k$ is
-$X_k$ and the set of states of $A_k$ is denoted $Q_k$. 
+$X_k$ and the set of states of $A_k$ is denoted $Q_k$.
 
 %\subsection{Construction of the double coset normal form}\label{sub:construction_dcnf}}
 Suppose that $g \in G$ and $g=g_1\cdots g_t$ is in reduced form.
@@ -1093,7 +1116,7 @@ d_th_{t+1}$.
 
 
 \begin{example}\label{ex:g}
-Let $g =f_1 f_2 f_3 f_2^{-1}$ in setting  of Examples \ref{ex:f_1} and 
+Let $g =f_1 f_2 f_3 f_2^{-1}$ in setting  of Examples \ref{ex:f_1} and
 Examples \ref{ex:f_2}.
 Set $z_i = h_i = h_i^{\prime}$ for $i= 1,2,3$; then
 \begin{align*}
@@ -1104,9 +1127,9 @@ f_2&=(h_3^{-1}h_2) x_1^{-1}\\
 f_3&=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}\\
 &= z_3z_2 y_1y_2^{-1} z_1^{-1}z_2^{-1}.
 \end{align*}
-Then 
+Then
 \[g=z_2^2 z_1  x_1 x_3 x_1^{-1} z_1^{-1} z_3^{-2}
-z_2 x_1^{-1} 
+z_2 x_1^{-1}
 z_3z_2 y_1y_2^{-1} z_1^{-1}z_2^{-1}
 x_1z_2^{-1}z_3.
 \]
@@ -1124,38 +1147,38 @@ k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
 \end{equation}
 with $h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$. Denote
 by $\hat K$ the subgroup of  $F(X_1\cup X_2 \cup Z)$ generated by
-$k_1, \ldots , k_s$. Let $\S=(X_1\cup X_2 \cup Z)^{\pm 1}$. 
+$k_1, \ldots , k_s$. Let $\S=(X_1\cup X_2 \cup Z)^{\pm 1}$.
 Let $\cF(K)$ be the flower automaton of $\hat K$, and let
 $\G$ be the corresponding rooted graph. If $e$ is an edge of $\G$ then
-$e$ is labelled by a letter of $\S$ 
+$e$ is labelled by a letter of $\S$
 occuring in $h_{i,j}$ or $t_{i,j}$, for some $i,j$, as in
 \eqref{eq:k-form}. If $e$ is labelled by a letter of $Z$ we say $e$ has {\em type} $Z$.
  %and define $c(e)=(0,0)$.
-If $e$ is labelled by a letter of $X_k$ occuring in
-$t_{i,j}$, we say $e$ has {\em type} $X_k$.
+If $e$ is labelled by a letter of $X_k$ occuring in $t_{i,j}$, we
+say $e$ has {\em type} $X_k$, $k = 1,2$.
 
 Now let $\G_K$ be the Stallings folding of the graph $\G$.  Then
  $\G_K$ is inverse and $\pi(L(\G_K))=K$. However
 $L(\G_K)$ does not, in general, contain all normal forms of elements of $K$.
-We wish to transform $\G_K$ to allow it to accept normal forms of 
+We wish to transform $\G_K$ to allow it to accept normal forms of
 elements of $K$. In outline this transformation process consists of
-running the loop below, on input $\G_K$, 
+running the loop below, on input $\G_K$,
 until it halts, at which point we shall show that we have an
-inverse automaton which accepts  normal forms of elements of $K$. 
+inverse automaton which accepts  normal forms of elements of $K$.
 Assume then that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
 and $\pi(L(\D_{(0)})=K$. \\[1em]
 \textbf{Loop.}
-Set $n=0$. 
+Set $n=0$.
 \be[Step 1.]
 \item\label{it:gf1} Apply Algorithm II below to add new paths to $\D_{(n)}$ which allow normal forms of labels
-of certain paths to be read. %If at least one path has been added, 
-Call the result $\D_{(n)}^{\prime\prime}$.  
+of certain paths to be read. %If at least one path has been added,
+Call the result $\D_{(n)}^{\prime\prime}$.
 %If no paths are added at this step,
-%halt and output  $\G_K^{(n)}$. 
-\item\label{it:gf2} Construct the Stallings automaton $\D_{(n+1)}$ 
-of $\D_{(n)}^{\prime\prime}$. If $\D_{(n+1)}$ and 
-$\D_{(n)}$ have the same 
- number of 
+%halt and output  $\G_K^{(n)}$.
+\item\label{it:gf2} Construct the Stallings automaton $\D_{(n+1)}$
+of $\D_{(n)}^{\prime\prime}$. If $\D_{(n+1)}$ and
+$\D_{(n)}$ have the same
+ number of
 $X_1$ and $X_2$ components then output $\D_{(n+1)}$
 and stop. Otherwise add $1$ to $n$ and  repeat Step \ref{it:gf1}.
 \ee
@@ -1163,20 +1186,20 @@ and stop. Otherwise add $1$ to $n$ and  repeat Step \ref{it:gf1}.
 Algorithm II below describes exactly how to carry out Step 1 of this loop.
 Since Step 1 may run more than once,  the input to this algorithm is
 assumed to be an
-arbitrary inverse automaton $\D$, with alphabet $\S$ and  
+arbitrary inverse automaton $\D$, with alphabet $\S$ and
 $\pi(L(\D))=K$. The output  is a rooted, labelled, involutive, automaton,
-with the same alphabet, 
-which may fail to be deterministic. 
+with the same alphabet,
+which may fail to be deterministic.
 We shall show that, if we start as above
-with $\G_K=\D_{(0)}$,  the loop halts, at some $n<\infty$;  
+with $\G_K=\D_{(0)}$,  the loop halts, at some $n<\infty$;
 at which point $\D_{(n+1)}$ is an inverse automaton which accepts the
 normal form of every element of $K$. \\[1em]
 
 \noindent\textbf{Algorithm II}. \\
 
-Let $\D$ be an inverse automaton, with alphabet $\S$ and 
+Let $\D$ be an inverse automaton, with alphabet $\S$ and
 start and final state $1$, such that
-$\pi(L(\D))=K$.  
+$\pi(L(\D))=K$.
 Let $\D_k$ be the graph formed from $\D$ by removing all edges of
 type $X_{k^\prime}$, where $k\neq k^\prime$. An $X_k$ component of
 $\D_k$ is the subgraph of $\D$ formed from a connected component
@@ -1185,33 +1208,34 @@ type $Z$, and then repeating the process till there are no such
 leaves left. Given an $X_k$ component $\T$ of $\D_k$,  a
 {\em boundary vertex} of $\T$ is defined to be a vertex
 $\a$ such that $\a$ is incident, in $\D$, to a vertex which does not
-belong to $\T$.  
+belong to $\T$.
  We shall modify each  $X_k$ component $\T$ of $\D_k$ so that if $p$ is a path,
-from a  boundary vertex $u$  to a boundary vertex $v$ of $T$,   
-then the normal form  of  the
-label $l(p)$ of $p$ is the label of a path from $u$ to $v$. Throughout
-the modification process we keep track of the boundary vertices, so that 
-once modification is complete the $X_k$ components can be reassembled, by
-attaching as they did in $\D$. The modification of $X_k$ components 
-consists of five steps, producting new graphs $\T_1$, $\T_2$, $\T_3$, $\T_4$ and $\T_5$. 
-In each case there is a canonical morphism $\theta_i$ from $\T_{i-1}$ to $\T_i$ and,
- (writing $\T=\T_0$)  
+from a  boundary vertex $u$  to a boundary vertex $v$ of $T$, then
+the normal form  of  the label $l(p)$ of $p$ is the label of a
+path from $u$ to $v$. Throughout the modification process we keep
+track of the boundary vertices, so that once modification is
+complete the $X_k$ components can be reassembled, by attaching as
+they did in $\D$. The modification of $X_k$ components consists of
+five steps, producing new graphs $\T_1$, $\T_2$, $\T_3$, $\T_4$
+and $\T_5$. In each case there is a canonical morphism $\theta_i$
+from $\T_{i-1}$ to $\T_i$ and,
+ (writing $\T=\T_0$)
 we define the {\em boundary vertices} of $\T_{i}$ to be the vertices $\theta_{i}(v)$
 of $\T_i$, such that $v$ is a boundary vertex of $\T_{i-1}$. Moreover the
- images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ are 
-called {\em vertices of} $\T$. 
+ images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ are
+called {\em vertices of} $\T$.
 
 The modification process is followed by a ``reassembly'' phase, in which
 we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
 \\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
- Let $\T$ be an $X_k$ component of $\D_k$. 
+ Let $\T$ be an $X_k$ component of $\D_k$.
 If $(\a,z,\b)$ is an edge of
 $\T$ labelled by an element $z\in Z$ then add a path from $\a$ to
 $\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this for all such edges, fold
-the resulting graph 
-and call the result $\T_1$. (See Figure \ref{fig:alg2-1}.) 
+the resulting graph
+and call the result $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a$}
@@ -1221,10 +1245,10 @@ and call the result $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \subfigure%[]
 {
 \includegraphics[scale=.5]{alg2-1a.eps}
-\label{fig:alg2-1a}} 
+\label{fig:alg2-1a}}
 \raisebox{3ex}{$\leadsto$}
 \subfigure%[]
-{ 
+{
 \psfrag{a}{$\a$}
 \psfrag{b}{$\b$}
 \psfrag{h}{$z$}
@@ -1234,10 +1258,10 @@ and call the result $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \end{center}
 \caption{$\theta$ to $\theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
 \end{figure}
-Let $\theta_1$ be the canonical
-morphism from $\theta$ to $\theta_1$ and  define the boundary vertices of $\T_1$ to be
-the vertices $\theta_1(v)$ of $T_1$, 
-such that $v$ is a boundary vertex of $\T$. (We shall not mention this again in later
+Let $\theta_1$ be the canonical morphism from $\theta$ to
+$\theta_1$ and  define the boundary vertices of $\T_1$ to be the
+vertices $\theta_1(v)$ of $\T_1$, such that $v$ is a boundary
+vertex of $\T$. (We shall not mention this again in later
 steps.)\\[1em]
 
 \noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
@@ -1258,7 +1282,7 @@ then let $l_p\in F(X_k)$ be the label of $p$ and let
 $w_p=\phi_k^{-1}(l_p)\in F(Z)$. Let $q$ be a path (disjoint from
 $\T_1$) of length $|w_p|$ and with label $w_p$. Identify the
 initial vertex of $q$ with $\a_i$ and the terminal vertex of $q$
-with $\a_j$. (See Figure \ref{fig:alg2-2}.) 
+with $\a_j$. (See Figure \ref{fig:alg2-2}.)
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a$}
@@ -1275,24 +1299,20 @@ with $\a_j$. (See Figure \ref{fig:alg2-2}.)
 \end{center}
 \caption{$\theta_1$ to $\theta_2$: $w_p=\phi_k^{-1}(l_p)$.}\label{fig:alg2-2}
 \end{figure}
-Repeat this process for
-all simple paths from  $(\a_i,1)$ to $(\a_j,1)$, over all pairs of
-vertices $\a_i$, $\a_j$ of $\T$, with $i\le j$.  
-There are finitely many simple paths in $\cP_1$ so this
-process terminates. Call the result $\T_2^\prime$.
-Then $\T_1$ is a subgraph of $T_2^\prime$. 
-Now fold $\T_2^\prime$ to 
-give a new graph 
-$\T_2$. 
-The composition $\theta_2$ 
-of the the embedding map of $\T_1$ into $\T_2^\prime$ with the
-canonical morphism from $\T_2^\prime$ to $\T_2$ is a morphism from $\T_1$ to
-$\T_2$. 
+Repeat this process for all simple paths from  $(\a_i,1)$ to
+$(\a_j,1)$, over all pairs of vertices $\a_i$, $\a_j$ of $\T$,
+with $i\le j$. There are finitely many simple paths in $\cP_1$ so
+this process terminates. Call the result $\T_2^\prime$. Then
+$\T_1$ is a subgraph of $\T_2^\prime$. Now fold $\T_2^\prime$ to
+give a new graph $\T_2$. The composition $\theta_2$ of the the
+embedding map of $\T_1$ into $\T_2^\prime$ with the canonical
+morphism from $\T_2^\prime$ to $\T_2$ is a morphism from $\T_1$ to
+$\T_2$.
  Moreover, if $\a$ and
  $\b$ are
 boundary vertices of $\T_1$ and $L_1$ and $L_2$ are the
 languages accepted by $(\T_1,\a,\b)$ and
-$(\T_2,\theta_2(\a),\theta_2(\b))$, respectively, then 
+$(\T_2,\theta_2(\a),\theta_2(\b))$, respectively, then
 by construction $\pi(L_1)=\pi(L_2)\subseteq G$.\\[1em]
 
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
@@ -1301,8 +1321,8 @@ of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$
 the graphs $\cP_1=\T_1\times \G_{A_k}$ and $\cP_2=\T_2\times \G_{A_k}$ differ only
 in that the second may have some new isolated vertices. Therefore we may
 choose a spanning forest $\U_2$ of $\cP_2$ consisting of the spanning
-forest $\U_1$ of $\cP_1$ with some new isolated vertices if necessary. 
-If $\cP_2$ is a forest then 
+forest $\U_1$ of $\cP_1$ with some new isolated vertices if necessary.
+If $\cP_2$ is a forest then
 $\cP_2=\U_2$, there is nothing to do at the
 next stage, and we immediately set $\T_3=\T_2$. Otherwise, suppose
 that $e$ is an edge of $\cP_2$ which does not belong to $\U_2$ but
@@ -1325,53 +1345,38 @@ with label $h_e$. Let
 $w_e=\phi_k^{-1}(h_e)$ and let
 $q$ be a path (disjoint from $\T_2$) of length
 $|w_e|$ and with label $w_e$. Identify the initial and terminal
-vertices of $q$ to the vertex  $\a$ of $\Theta_2$. 
-(See Figure \ref{fig:alg2-3}.) 
+vertices of $q$ to the vertex  $\a$ of $\Theta_2$.
+(See Figure \ref{fig:alg2-3}.)
 \begin{figure}
 \begin{center}
-\psfrag{a}{$\a$}
-\psfrag{b}{$\b$}
-\psfrag{x}{$x$}
-\psfrag{h}{$h_l$}
-\psfrag{w}{$w_l$}
-\psfrag{li}{$l_i$}
-\psfrag{lj}{$l_j$}
-\psfrag{ai}{$(\a_i,\b_1)$}
-\psfrag{bi}{$(\a_j,\b_2)$}
-\psfrag{(a,1)}{$(\a,1)$}
-\psfrag{1}{$1$}
-\psfrag{Th2 to Th3}{$\T_2\leadsto \T_3$}
-\psfrag{cP}{$\cP_2$}
-\psfrag{G_A}{$\G_{A_k}$}
+\psfrag{a}{$\a$} \psfrag{b}{$\b$} \psfrag{x}{$x$}
+\psfrag{h}{$h_e$} \psfrag{w}{$w_e$} \psfrag{li}{$l_i$}
+\psfrag{lj}{$l_j$} \psfrag{ai}{$(\a_i,\b_1)$}
+\psfrag{bi}{$(\a_j,\b_2)$} \psfrag{(a,1)}{$(\a,1)$}
+\psfrag{1}{$1$} \psfrag{Th2 to Th3}{$\T_2\leadsto \T_3$}
+\psfrag{cP}{$\cP_2$} \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-3.eps}
 \end{center}
 \caption{$\theta_2$ to $\theta_3$: $h_l=l_ixl_j$, $w_l=\phi_k^{-1}(h_l)$.}\label{fig:alg2-3}
 \end{figure}
-Repeat this process for all such edges $e$ 
-and
-vertices $(\a,1)$ of $\cP_2$,  fold the
-resulting graph, 
-and denote the result by $\T_3$.
-(In practice it's not necessary to
-repeat this process for {\em all} such vertices $(\a,1)$ in $\Xi$: but it
-makes some arguments  later easier if we assume that we do so.)
-As in the previos case there is a natural morphism $\theta_3$ from $\T_2$ to
-$\T_3$. 
-If $\a$, $\b$ are boundary
-vertices of $\T_2$,  $L_2$ is the language accepted by
-$(\T_2,\a,\b)$ 
-and 
-$L_3$ is the
-language accepted by $(\T_3, \theta_3(\a),\theta(\b))$ then again 
+Repeat this process for all such edges $e$ and vertices $(\a,1)$
+of $\cP_2$,  fold the resulting graph, and denote the result by
+$\T_3$. (In practice it's not necessary to repeat this process for
+{\em all} such vertices $(\a,1)$ in $\Xi$: but it makes some
+arguments  later easier if we assume that we do so.) As in the
+previous case there is a natural morphism $\theta_3$ from $\T_2$
+to $\T_3$. If $\a$, $\b$ are boundary vertices of $\T_2$,  $L_2$
+is the language accepted by $(\T_2,\a,\b)$ and $L_3$ is the
+language accepted by $(\T_3, \theta_3(\a),\theta(\b))$ then again
 $\pi(L_3)=\pi(L_2)$.\\[1em]
 
 \noindent\textbf{Modification 4: $\T_3\leadsto \T_4$.}\\
 Next we wish to add paths to $\T_3$ that allow us to read the normal
 forms of words $w$ which are readable by $\T_3$ and readable,
 but not accepted, by $\G_{A_k}$.
- Let 
-$\cP_3=\T_3\times \G_{A_k}$. 
-As before we may choose a spanning forest $\U_3$ of $\cP_3$ which 
+ Let
+$\cP_3=\T_3\times \G_{A_k}$.
+As before we may choose a spanning forest $\U_3$ of $\cP_3$ which
 consists of $\U_2$ and some additional isolated vertices.
 
 Recall that we have fixed a spanning subtree
@@ -1395,8 +1400,8 @@ $w=\phi_{k}^{-1}(ab^{-1})
 \in F(Z)$ and let $q$ be a path (disjoint from $\T_3$)
 with label $wb$. Identify the initial
 and terminal vertices of $q$ with vertices $\a_i$ and $\a_j$ of $\T_3$,
-respectively, to form a new graph $\T_3^\prime$. 
-(See Figure \ref{fig:alg2-4}.) 
+respectively, to form a new graph $\T_3^\prime$.
+(See Figure \ref{fig:alg2-4}.)
 \begin{figure}
 \begin{center}
 \psfrag{ai}{$\a_i$}
@@ -1416,20 +1421,20 @@ respectively, to form a new graph $\T_3^\prime$.
 \caption{$\theta_3$ to $\theta_4$: $w=\phi_k^{-1}(ab^{-1})$.}\label{fig:alg2-4}
 \end{figure}
 
-As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages 
-accepted by $(\T_3,\a,\b)$ and $(\T_3^\prime,\a,\b)$, for some 
-vertices $\a,\b$ of $\T$, then $\pi(L_3)=\pi(L_3^\prime)$. 
+As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages
+accepted by $(\T_3,\a,\b)$ and $(\T_3^\prime,\a,\b)$, for some
+vertices $\a,\b$ of $\T$, then $\pi(L_3)=\pi(L_3^\prime)$.
 Repeat this process for all pairs of  vertices which are not
 covered by $\cP_3$  and fold
 the result to form the graph $\T_4$. Again there is a natural
-morphism $\theta_4$ from $\T_3$ to $\T_4$ and  
+morphism $\theta_4$ from $\T_3$ to $\T_4$ and
 we have $\pi(L_3)=\pi(L_4)$, in the same notation as in previous cases.\\[1em]
 
-\noindent\textbf{Modification 5: $\T_4\leadsto \T_5$.}\\ 
+\noindent\textbf{Modification 5: $\T_4\leadsto \T_5$.}\\
 Finally we wish to add paths which allow double coset representatives
-of type $2$ to be read. 
+of type $2$ to be read.
 Let $\cP_4=\T_4\times \G_{A_k}$ and choose a spanning forest $\U_4$ for
-$\cP_4$. 
+$\cP_4$.
 
 Suppose $(\e,\xi)\in P\subseteq V(\G_{A_k}\times \G_{A_k})$ and
 that the $\sim$ representative of $(\e,\xi)$ is $(\e_0,\xi_0)$.
@@ -1449,7 +1454,7 @@ let $q$ be a path (disjoint from $\T_4$)
 with label $w_1 a_1a_2^{-1} w_2^{-1}$,
 and identify the initial
 and terminal vertices of $q$ with  vertices $\a_i$ and $\a_l$
-of $\T_4$, respectively. 
+of $\T_4$, respectively.
 (See Figure \ref{fig:alg2-5}.)
 \begin{figure}
 \begin{center}
@@ -1478,47 +1483,49 @@ of $\T_4$, respectively.
 \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-5.eps}
 \end{center}
-\caption{$\theta_4$ to $\theta_5$: 
+\caption{$\theta_4$ to $\theta_5$:
 $w=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
 \label{fig:alg2-5}
 \end{figure}
 
 Repeat this process for all such paths $p_i$ and $p_j$ and all such
-pairs $(\e,\xi)$. 
+pairs $(\e,\xi)$.
 To see that the image of the language accepted by
  the new graph is the same as that of the original note
 that the word $b_1b_2^{-1}$ is readable, starting at $\b$ and
 ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
 the addition of this new path has no effect on the image, under $\pi$, of
-the language accepted by the automaton. 
+the language accepted by the automaton.
  Fold the resulting graph to form $\T_5$. As before there is a natural
 morphism $\theta_5$ from $\T_4$ to $\T_5$ and in the same notation
 as previous cases $\pi(L_4)=\pi(L_5)$.\\[1em]
 
 \noindent\textbf{Reassembly.}\\
-The modification process is applied to all $X_k$ components of $\D$, 
+The modification process is applied to all $X_k$ components of $\D$,
 for $k=1$ and $2$. Roughly speaking a new graph is then constructed by
 reconnecting the modified $X_k$ components in the same way as they
-were connected in $\D$. In detail, 
+were connected in $\D$. In detail,
 let $\cC$ be the set of all
-$X_1$ and $X_2$ components. 
-Define 
+$X_1$ and $X_2$ components.
+Define
 \[E_Z=E(\D)\bs \cup_{\Phi\in \cC} E(\Phi)\]
 and $\D_Z$ to be the subgraph of $\D$ consisting of all edges
-of $E_Z$, and their incident vertices. 
-Define $\D^\prime$ to be the disjoint union of the 
- graphs $\T$, such that $\T\in \cC$, with  the graph $\D_Z$. 
+of $E_Z$, and their incident vertices.
+Define $\D^\prime$ to be the disjoint union of the
+ graphs $\T$, such that $\T\in \cC$, with  the graph $\D_Z$.
 Also define $\D^{\prime}_5$ to be the disjoint union of the graphs
-$\T_5$, such that $\T\in \cC$, with the graph $\D_Z$. 
-For each $\T\in \cC$ there is  a morphism $\theta_1\circ\theta_2\circ\theta_3\circ\theta_4\circ\theta_5$ from $\T$ to $\T_5$. Define $\theta$ to be
-the morphism from $\D^\prime$ to $\D^\prime_5$ which consists of the 
-union of these morphisms with the indentity morphism from $\D_Z$ to $\D_Z$.
-By construction, for each connected component $\Xi$ of $\D^\prime$ there is 
-an embedding of $\Xi$ into $\D$. Let $\nu$ be the union of these 
-embeddings over all components of $\D^\prime$. 
+$\T_5$, such that $\T\in \cC$, with the graph $\D_Z$. For each
+$\T\in \cC$ there is  a morphism
+$\theta_1\circ\theta_2\circ\theta_3\circ\theta_4\circ\theta_5$
+from $\T$ to $\T_5$. Define $\theta$ to be the morphism from
+$\D^\prime$ to $\D^\prime_5$ which consists of the union of these
+morphisms with the identity morphism from $\D_Z$ to $\D_Z$. By
+construction, for each connected component $\Xi$ of $\D^\prime$
+there is an embedding of $\Xi$ into $\D$. Let $\nu$ be the union
+of these embeddings over all components of $\D^\prime$.
 
-The output $\D^{\prime\prime}$  of Algorithm II is the quotient of 
- $\D^\prime_5$ defined as follows. 
+The output $\D^{\prime\prime}$  of Algorithm II is the quotient of
+ $\D^\prime_5$ defined as follows.
 Let $u$ and $v$ be vertices in
 distinct connected components of $\D^\prime_5$.
 \begin{itemize}
@@ -1530,55 +1537,55 @@ $v$ is identified with $v^\prime$, in $\D^{\prime\prime}$, then
 identify  $(u,a,v)$ and $(u^\prime, a, v^\prime)$.
 %\item If $x\in \nu(\theta^{-1}(u))$ and $y\in \nu(\theta^{-1}(v))$ and
 %there exists an edge $(x,a,y)$ in $\D$ then add an edge $(u,a,v)$ to
-%$\D^{\prime\prime}$. 
-\end{itemize}  
-The root vertex of $\D^{\prime\prime}$ is the image, in $\D^{\prime\prime}$, 
+%$\D^{\prime\prime}$.
+\end{itemize}
+The root vertex of $\D^{\prime\prime}$ is the image, in $\D^{\prime\prime}$,
 of $\nu^{-1}(1)$, where
-$1$ is  the root of $\D$. 
+$1$ is  the root of $\D$.
 
 \begin{lemma}\label{lem:resol-quot}
-For $u\in V(\D_5)$  and $(u,a,v) \in E(\D_5)$ let $[u]$ and 
-$[(u,a,v)]$ denote equivalence classes in $\D^{\prime\prime}$. 
-There is a morphism  
-$\rho$ from  $\D$ to $\D^{\prime\prime}$ given by 
-$\rho(z)=[\theta(\nu^{-1}(z))]$, for $z\in V(\D)\cup E(\D)$. 
+For $u\in V(\D_5)$  and $(u,a,v) \in E(\D_5)$ let $[u]$ and
+$[(u,a,v)]$ denote equivalence classes in $\D^{\prime\prime}$.
+There is a morphism
+$\rho$ from  $\D$ to $\D^{\prime\prime}$ given by
+$\rho(z)=[\theta(\nu^{-1}(z))]$, for $z\in V(\D)\cup E(\D)$.
 \end{lemma}
 \begin{proof}
 First $\rho$ must be shown to be well defined. If $x\in V(\D)\cup E(\D)$ then
-either $z\in V(\D_Z)\cup E(\D_Z)$ or $z$ belongs to  some $X_k$ component of 
-$\D$. Hence 
- $\nu^{-1}(x)\neq \nul$. If 
-$u$ and $v\in \nu^{-1}(z)$ then, by definition of $\D^{\prime\prime}$, 
-$u$ and $v$ are identified. Hence $\rho$ is well-defined. 
+either $z\in V(\D_Z)\cup E(\D_Z)$ or $z$ belongs to  some $X_k$ component of
+$\D$. Hence
+ $\nu^{-1}(x)\neq \nul$. If
+$u$ and $v\in \nu^{-1}(z)$ then, by definition of $\D^{\prime\prime}$,
+$u$ and $v$ are identified. Hence $\rho$ is well-defined.
 
 To show that $\rho$ is a morphism, suppose that $(u,a,x)$ is an edge
-of $\D$. If $e=(u,a,v)$ is an edge of a component of $\D^\prime$ then 
-either $e$ is an edge of an $X_k$ component of $\D$ or 
- $(u,a,v)\in E_Z=E(\D_Z)$. In either  case 
+of $\D$. If $e=(u,a,v)$ is an edge of a component of $\D^\prime$ then
+either $e$ is an edge of an $X_k$ component of $\D$ or
+ $(u,a,v)\in E_Z=E(\D_Z)$. In either  case
 $\rho(u,a,v)=[(\theta(u),a,\theta(v))]$ is an edge of $\D^{\prime\prime}$.
 \end{proof}
 
 \begin{definition}
 Let $\D$ be an inverse automaton.
-%, with alphabet $\S$ and 
+%, with alphabet $\S$ and
 %start and final state $1$, such that
 %$\pi(L(\D))=K$.
  The result $\D^{\prime\prime}$ of applying Step \ref{it:gf1}
-above to $\D$ is called a \emph{double coset resolution} or 
-\emph{dc-resolution} of $\D$. The graph $\Psi$ obtained by applying 
+above to $\D$ is called a \emph{double coset resolution} or
+\emph{dc-resolution} of $\D$. The graph $\Psi$ obtained by applying
 Step \ref{it:gf2} to $\D^{\prime\prime}$ is called a \emph{double
-coset folding} or \emph{dc-folding} of $\D$.  The composition $\hat\rho$ of 
-the  morphism 
-$\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\maps 
-\Psi$ is called the \emph{dc-folding morphism}.  
+coset folding} or \emph{dc-folding} of $\D$.  The composition $\hat\rho$ of
+the  morphism
+$\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\maps
+\Psi$ is called the \emph{dc-folding morphism}.
 \end{definition}
 
 \begin{lemma}\label{lem:nfcomp}
-Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of 
-an inverse automaton $\D$, with alphabet $\S$.  
+Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of
+an inverse automaton $\D$, with alphabet $\S$.
 \be
 \item\label{it:nfcomp1}
-  $\pi(L(\T,\a,\b))=\pi(L(\T_5),\theta(\a),\theta(\b))$. 
+  $\pi(L(\T,\a,\b))=\pi(L(\T_5),\theta(\a),\theta(\b))$.
 \item\label{it:nfcomp2} Let $w$ be a word
  which is accepted by the automaton $(\T, \a, \b)$. Then the
 normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
@@ -1589,26 +1596,26 @@ normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
 II the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
 preserved. \\[1em]
 
-\ref{it:nfcomp2}. 
+\ref{it:nfcomp2}.
 We may assume that $w\in F(X_k)$ (given the construction of $\T_1$).
 Let $w$ have normal form $h_1s h_2^{-1}$, where $s\in S_k$ and $h_i\in F(Z)$.
 There are two cases to consider, depending on whether $s$ is a
 representative of type $1$ or type $2$.
  First consider the case where $s$ is of type $1$, say
  $s= a_1 e a_2^{-1}$, where
-$a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and 
- $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ e^{-1}$. 
- Then, as the normal form is the output of Algorithm I, 
+$a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and
+ $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ e^{-1}$.
+ Then, as the normal form is the output of Algorithm I,
  there are words
 $g_1, g_2, b_1$ and $b_2\in F(X_k)$ such that
 $w=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
-$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of 
-$b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$, 
+$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
+$b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
 $b_2$ is a maximal $L_Q$-prefix of $b_2\circ e^{-1}$, $e\neq 1$,
 $a_i=w(\t(b_i))$ and $\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
 
 Recall that we refer to the images of vertices of $\T$ in $\T_i$ as
- ``vertices of $\T$'', for $i=1,\ldots ,5$. 
+ ``vertices of $\T$'', for $i=1,\ldots ,5$.
 Since $g_i\in H_k$ and $w$ is accepted by $\T_1$ there is a path
 labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\T$ and a path
 labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\T$. Therefore, in $\cP$,
@@ -1665,10 +1672,10 @@ be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l}$,
 where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $\cP$ which does
 not belong to $\U$.  Let $e_i$ have initial and terminal vertices
 $\g_i$ and $\d_i$ and let $L_i$ and $R_i$ be the simple paths in $\U$ from
-$(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively. 
+$(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively.
 In addition let $L_{l+1}$ be the path in $\U$ from $(\a,1)$ to
-$(\a_1,1)$. 
-Then $L_1=o_0$ and, for $i=1,\ldots ,l+1$, $L_i=R_i^{-1}o_{i-1}$.  
+$(\a_1,1)$.
+Then $L_1=o_0$ and, for $i=1,\ldots ,l+1$, $L_i=R_i^{-1}o_{i-1}$.
 (See Figure \ref{fig:LeR}.)
 \begin{figure}
 \begin{center}
@@ -1699,8 +1706,8 @@ at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U$.
 Thus the label of  $L_i e_i R_i$ is $v_i\in H_k$ and $\phi_k^{-1}(v_i)$ is the
 label of a closed path in $\T_3$, based at  $\a$. (All such paths
 were added in the construction of $\T_3$ from $\T_2$.)
-Also, the path $L_{l+1}$, from $(\a,1)$ to $(\a_1,1)$, has 
-label $v_{l+1}\in H$, 
+Also, the path $L_{l+1}$, from $(\a,1)$ to $(\a_1,1)$, has
+label $v_{l+1}\in H$,
 and by construction of $\T_2$ there is a path from $\a$ to
 $\a_1$ in $\T_2$ with label $\phi_k^{-1}(v_{l+1})$.
 The path
@@ -1717,7 +1724,7 @@ $\phi_k^{-1}(g_2)$
 is the label of a path from $\b$ to $\b_1$ in $\T_3$.
 
 The word $b_1$ is readable by $\G_{A_k}$ and there
-is a path with label $b_1$ in $\T_1$ from $\a_1$ to some vertex $\a_2$ 
+is a path with label $b_1$ in $\T_1$ from $\a_1$ to some vertex $\a_2$
 of $\T$.
 Hence $b_1$ is the label of a path in $\cP$ from $(\a_1,1)$ to
 $(\a_2,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.
@@ -1728,7 +1735,7 @@ $(\a_1,1)$ to $(\a_2,\e_1)$. By construction $\T_4$ contains a path
 from $\a_1$ to $\a_2$ with label $h_1^\prime a_1$, where
 $h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in F(Z)$.
 (If $\cP$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
-$b_1^\prime=a_1$ and $h_1^\prime$ is the empty word, while there 
+$b_1^\prime=a_1$ and $h_1^\prime$ is the empty word, while there
 exists a path with label $a_1$ from $\a_1$ to $\a_2$ in $\T_3$.)
 %Furthermore we have
 %$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$.
@@ -1756,15 +1763,15 @@ of simple paths in the subtree $T_k$ and $s=a_1a_2^{-1}$ is a double coset
 representative of type $2$. Then there are words
 $g_1, g_2, b_1, b_2, c$  in $F(X_k)$,  such that
 $w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$,
-$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of 
-$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in 
-$L_Q$, $c=c(\t(b_1),\t(b_2))$ and $a_i=w(v_i)$, where 
-$(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$. 
+$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
+$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in
+$L_Q$, $c=c(\t(b_1),\t(b_2))$ and $a_i=w(v_i)$, where
+$(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$.
 
 
 
-As in the first case there are paths in $\T_3$ labelled 
-$\phi_k^{-1}(g_1)$ and 
+As in the first case there are paths in $\T_3$ labelled
+$\phi_k^{-1}(g_1)$ and
 $\phi_k^{-1}(g_2)$ from $\a$ to $\a_1$ and $\b$ to $\b_1$, respectively.
 (See Figure \ref{fig:nf-2}.)
 \begin{figure}
@@ -1789,62 +1796,62 @@ $\phi_k^{-1}(g_2)$ from $\a$ to $\a_1$ and $\b$ to $\b_1$, respectively.
 \label{fig:nf-2}
 \end{figure}
 As $w$ is readable in $\T$ there is a path labelled $b_1b_2^{-1}$, from
-$\a_1$ to $\b_1$, in $\T_3$. 
-By construction of $\T_5$ there is also a path labelled 
+$\a_1$ to $\b_1$, in $\T_3$.
+By construction of $\T_5$ there is also a path labelled
 $\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$
-from $\a_1$ to $\b_1$. As $\T_5$ is folded 
+from $\a_1$ to $\b_1$. As $\T_5$ is folded
 $
 \phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
  is readable in
-$\T_5$. Since the latter is in normal form we have 
-$h_1 = \phi_k^{-1}(g_1 b_1ca_1^{-1})$ and 
-$h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.  
+$\T_5$. Since the latter is in normal form we have
+$h_1 = \phi_k^{-1}(g_1 b_1ca_1^{-1})$ and
+$h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.
 \end{proof}
 
 
 \begin{lemma}\label{lem:dcfold}
-Let $\D$ be  an inverse automaton, 
-with alphabet $\S$ and start state $s$, 
-and let $\D^{\prime\prime}$  and 
-$\Psi$ be the dc-resolution and dc-folding of $\D$, 
+Let $\D$ be  an inverse automaton,
+with alphabet $\S$ and start state $s$,
+and let $\D^{\prime\prime}$  and
+$\Psi$ be the dc-resolution and dc-folding of $\D$,
 respectively.
 \be
 \item \label{it:dcfold1}
-$\Psi$ is 
-is an inverse automaton, with unique start and  final state $\hat\rho(s)$, and 
-has no more $X_1$ and $X_2$ components than $\D$. 
-\item \label{it:dcfold2} 
-$\pi(L(\Psi))=\pi(L(\D))$. 
+$\Psi$ is
+is an inverse automaton, with unique start and  final state $\hat\rho(s)$, and
+has no more $X_1$ and $X_2$ components than $\D$.
+\item \label{it:dcfold2}
+$\pi(L(\Psi))=\pi(L(\D))$.
 \ee
 \end{lemma}
 \begin{proof}
 %\be
-\ref{it:dcfold1}.  
-%\item 
+\ref{it:dcfold1}.
+%\item
 The automaton $\Psi$ is involutive and folded by definition.
  Its root is the image of the root $\rho(s)$ of $\D^{\prime\prime}$ under
- the folding morphism: that is $\hat\rho(s)$.  
- As 
-$\D$ is connected  so is $\D^{\prime\prime}$ and therefore also $\Psi$.
-Hence $\Psi$ is trim and so inversive. The graphs  
-$\D$ and $\D^{\prime\prime}$  have the same number of $X_k$ components.
-Folding to form $\Psi$ cannot increase this number, so the final statement
-of \ref{it:dcfold1} follows. 
+ the folding morphism: that is $\hat\rho(s)$.
+ As
+$\D$ is connected  so is $\D^{\prime\prime}$ and therefore also
+$\Psi$. Hence $\Psi$ is inverse. The graphs $\D$ and
+$\D^{\prime\prime}$  have the same number of $X_k$ components.
+Folding to form $\Psi$ cannot increase this number, so the final
+statement of \ref{it:dcfold1} follows.
 %\item
  \\[1em]
-\ref{it:dcfold2}. 
-Let $w$ be a word accepted by $\Psi$. Since $\Psi$ is formed 
+\ref{it:dcfold2}.
+Let $w$ be a word accepted by $\Psi$. Since $\Psi$ is formed
 by a sequence of foldings of $\D^{\prime\prime}$, there is a word
-$v$ such that $v$ is accepted by $\D^{\prime\prime}$ and $\pi(v)=\pi(w)$. 
+$v$ such that $v$ is accepted by $\D^{\prime\prime}$ and $\pi(v)=\pi(w)$.
 Now $v=v_1\cdots v_n$, where each $v_i$ is accepted by a connected
-component $\Xi_i$ of $\D^\prime_5$, and no two consecutive components are 
+component $\Xi_i$ of $\D^\prime_5$, and no two consecutive components are
 accepted by the same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} it
 follows that there are words $u_1,\ldots , u_n$, such that $\pi(u_i)=\pi(v_i)$
 and $u_i$ is accepted by the component $\theta^{-1}(\Xi_i)$ of $\D^\prime$.
 Moreover it follows that $u_1\cdots u_n$ is accepted by $\D$ and
-$\pi(u_1\cdots u_n)=\pi(v)$. Therefore $\pi(L(\Psi))\subseteq \pi(L(\D))$. 
+$\pi(u_1\cdots u_n)=\pi(v)$. Therefore $\pi(L(\Psi))\subseteq \pi(L(\D))$.
 The reverse inclusion follows from the existence of the morphism $\hat\rho$
-from $\D$ to $\Psi$.   
+from $\D$ to $\Psi$.
 \begin{comment}
 Let $\Phi=\L_0,\L_1,\ldots, \L_n$ be a sequence of graphs such that
 $\L_{i+1}$ is obtained from $\L_i$ by and elementary folding.
@@ -1864,48 +1871,48 @@ in such a sequence, and the result follows.
 \end{comment}
 %\ee
 \end{proof}
-If $w$ is a word in $F(X_1\cup X_2\cup Z)$ and $w=w_1\cdots w_n$, 
+If $w$ is a word in $F(X_1\cup X_2\cup Z)$ and $w=w_1\cdots w_n$,
 where $w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$ and $n$
-minimal, then  say that each $w_i$ is a \emph {maximal} $X_{k_i}$ 
-\emph{factor}  
-of $w$.  
+minimal, then  say that each $w_i$ is a \emph {maximal} $X_{k_i}$
+\emph{factor}
+of $w$.
 \begin{lemma}\label{lem:loopstop}
-Let $\D_0$ be an inverse automaton with alphabet $\S$. 
-\be 
+Let $\D_0$ be an inverse automaton with alphabet $\S$.
+\be
 \item\label{it:loopstop1}
 If $\D_0$ is input  to  the loop then the loop halts after
-finitely many iterations and outputs an inverse automaton  $\D_n$. 
+finitely many iterations and outputs an inverse automaton  $\D_n$.
 \item\label{it:loopstop2} Let $\D_n$ be the output from the loop and let $w$ be a word
-accepted by $\D_0$. If $w=a\circ b \circ c$, 
-where $b$ is a maximal $X_k$ factor of $w$ then $\D_n$ accepts 
-the word $avc$, where $v$ is the normal form of $b$. 
+accepted by $\D_0$. If $w=a\circ b \circ c$,
+where $b$ is a maximal $X_k$ factor of $w$ then $\D_n$ accepts
+the word $avc$, where $v$ is the normal form of $b$.
 \ee
 \end{lemma}
 \begin{proof}
-\ref{it:loopstop1}.\\ 
-The number of $X_k$ components is not increased by Steps 1 and 2, so 
-at some point the loop must halt.  
+\ref{it:loopstop1}.\\
+The number of $X_k$ components is not increased by Steps 1 and 2, so
+at some point the loop must halt.
 \noindent\ref{it:loopstop2}. The word $b$ is accepted by an $X_k$ component
 of $\D_0$. By construction, the word $v$ is accepted by $\D_1$, and hence
-by $\D_n$. It follows that $\D_n$ accepts $avc$. 
+by $\D_n$. It follows that $\D_n$ accepts $avc$.
 \end{proof}
 \begin{lemma}\label{lem:nfacc}
-Let $\D_0$ be an inverse automaton with alphabet $\S$ and let 
+Let $\D_0$ be an inverse automaton with alphabet $\S$ and let
 $\D_n$ be the output from the loop, with input $\D_0$. If $w$ is
-accepted by $\D_0$ then the normal form of $w$ is accepted by $\D_n$. 
+accepted by $\D_0$ then the normal form of $w$ is accepted by $\D_n$.
 \end{lemma}
 \begin{proof}
-Let $w$ be a word 
-accepted by $\D_0$. Then $w$ factorises as  $w$ as $w=w_1\cdots w_n$, 
+Let $w$ be a word
+accepted by $\D_0$. Then $w$ factorises as  $w$ as $w=w_1\cdots w_n$,
 where $w_i$ is accepted by and $X_k$ component of $\D_0$. Thus
 $w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$. If $n=0$, then
-$w=1$ and the lemma holds. Suppose the lemma holds for all $w$ such 
-that $n\le k$, where $k\ge 0$ and now suppose $n=k+1$. 
+$w=1$ and the lemma holds. Suppose the lemma holds for all $w$ such
+that $n\le k$, where $k\ge 0$ and now suppose $n=k+1$.
 Let $v_i$ be the normal form of $w_i$.
-If $v_i\in F(Z)$, for some $i$ then there is a factorisation of 
-$w$ with at most $k$ factors, and the result follows. Otherwise,  
+If $v_i\in F(Z)$, for some $i$ then there is a factorisation of
+$w$ with at most $k$ factors, and the result follows. Otherwise,
 from Lemma \ref{lem:loopstop}.\ref{it:loopstop2},  $\D_n$ accepts $v_1\cdots v_n$, which
-is the normal form of $w$.  
+is the normal form of $w$.
 \begin{comment}
 Let $\g$ and $\d$ be vertices of $\Phi$ which map to $\a$ and $\b$ in the
 folding of $\Phi$ to $\L$. As this folding involves only edges of type $Z$
@@ -1944,12 +1951,12 @@ $G$ has solvable subgroup membership problem.
 \begin{proof}
 Construct the flower automaton $\cF(K)$ of $K$ and then
 its Stallings automaton $\G_K$,  as at the beginning of this Section. % \ref{sec:dca},
-Let $\D_0=\G_K$ and input this to the loop to obtain output $\D_n$. 
+Let $\D_0=\G_K$ and input this to the loop to obtain output $\D_n$.
 Given a word $w\in F(X_1\cup X_2\cup Z)$ write $w$ in normal form
 using Algorithm I. If $w\in K$ then there is a word $v$ in the generators
- of $K$ with $\pi(v)=\pi(w)$, so $v$ is accepted by $\G_K$. From 
-Lemma \ref{lem:nfacc}, the word $w$ is accepted by $\D_n$. From 
-Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_n)=L(\G_K)$, 
+ of $K$ with $\pi(v)=\pi(w)$, so $v$ is accepted by $\G_K$. From
+Lemma \ref{lem:nfacc}, the word $w$ is accepted by $\D_n$. From
+Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_n)=L(\G_K)$,
 so if $w\notin K$, then
 $w\notin L(\D_n)$.
 \end{proof}
