@@ -424,6 +424,11 @@ $G$ is denoted $\pi:L_Q(A)\maps G$.
 only for initial and final states, but for arbitrary states
 (boundary vertices etc.). Is it better to extend the definitions
 here?}
+{\ajd I tried to set things up so the definitions cover what we
+do in Section 4. To change the start and final states from $s$ and $f$
+to $\a$ and $\b$,  change the
+automaton from $(\S,Q,\d,s,f)$ to $(\S,Q,\d,\a,\b)$. I may not have
+actually written this in the appropriate places.}
 
 If $q\in Q$ and there are paths in $\G_A$ from a vertex of $\cS$ to $q$
 and from $q$ to a vertex of $\cF$ then $q$ is said to be \emph{trim}.
@@ -432,6 +437,8 @@ If all vertices $q\in Q$ are trim then $A$ is called \emph{trim}.
 to $\G_A$ being connected. Surely it would be easier to use
 connected instead of trim?}
  {\ef Definitely! Should we remove this definition at all then?}
+{\ajd Let's use ``connected'' and just mention somewhere that this
+is equivalent to trim in our case.}
 
 
 An {\em involutive alphabet} is a set $\S$ of the form $\{a_1, \ldots, ,
@@ -516,8 +523,9 @@ A morphism of  rooted graphs $\G$ and $\G^\prime$ is a map
 $\theta: \G\maps \G^\prime$ which maps vertices to vertices and
 edges to edges in such a way that \be \item if $s$ is the root of
 $\G$ then $\theta(s)$ is the root of $\G^\prime$; \item if $t$ is
-a terminal vertex of $\G$ then $\theta(t)$ is a terminal vertex of
-$\G^\prime$ and {\ef Do you mean final state?}\item  if
+a final state of $\G$ then $\theta(t)$ is a final state of
+$\G^\prime$ and 
+\item  if
 $(u,\sigma,v)$ is an edge of $\G$ then
 $\theta(u,\sigma,v)=(\theta(u),\sigma,\theta(v))$. \ee An
 elementary folding of  $(\G,s_0,t)$ to $(\G^\prime,s^\prime_0,
@@ -575,17 +583,6 @@ where $e\neq 1$, $s$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $w$,
 and $t$ is a maximal $L_Q$-prefix and an
 $L_T$-prefix of $t\circ e^{-1}$. Let $S^{(1)}$ denote the set of all representatives of type $1$.
 \end{definition}
-
-{\ef Notions of $L_T$-prefixes, maximal prefixes etc are closely related to the theory of (usual) coset
- representatives and there are a lot of things known about them (one-to-one correspondence between them and spanning subtrees etc. etc).
- We don't need to replace this definition since it looks convenient and compact, but, probably, we should refer reader to it... what do you think?
-} {\ajd I think you're right. Would it suffice to give a reference
-like Kapovich,Miasnikov ``Stallings foldings and subgroups of free
-groups''? I don't know because I've never read this paper, which
-is rather long, but it does refer to spanning trees.}
-
-{\ef Since the text has changed and we have cited them already,
-now I'm happy without any changes here.}
 
 
 To describe the remaining representatives we shall first define an equivalence
@@ -739,7 +736,7 @@ $L_Q$-prefix of $pet^{-1}$,  and so
 first letter of $e$ is not readable from the vertex $\t(p)=\t(y)$
 of $A$. {\ef Is it worth saying that if $p$ and $q$ are maximal
 and $L_T$, then we do not need $y$ and $z$ (or $py^{-1}$ and
-$tz^{-1}$ are trivial. It looks confusing without it.} In
+$tz^{-1}$ are trivial. It looks confusing without it.}{\ajd yes} In
 particular $ye=y\circ e$. Similarly, the first letter of $e^{-1}$
 is not readable from the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ
 z^{-1}$. Moreover $y$ is both a maximal $L_Q$-prefix  and an
