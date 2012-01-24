@@ -21,32 +21,6 @@
 }
 \author{Andrew J. Duncan, Elizaveta Frenkel}
 
-%%%%%%%%%%%Liza to compile
-%\newtheorem{theorem}{Theorem}[section]
-%\newtheorem{maintheorem}{Theorem}[]
-%\newtheorem{lemma}[theorem]{Lemma}
-%\theoremstyle{definition}
-%\newtheorem{algorithm}[theorem]{Algorithm}
-%\newtheorem{corollary}[theorem]{Corollary}
-%\newtheorem{conjecture}[theorem]{Conjecture}
-%\newtheorem{definition}[theorem]{Definition}
-%\newtheorem{example}[theorem]{Example}
-%\newtheorem{problem}[theorem]{Problem}
-%\newtheorem{question}[theorem]{Question}
-%\newtheorem{remark}[theorem]{Remark}
-%\newtheorem{proposition}[theorem]{Proposition}
-%\newtheorem{convention}[theorem]{Convention}
-%\newtheorem{comment[theorem]{Comment}
-%\newtheorem{claim}[theorem]{Claim}
-%%\newtheorem{procedure}{Procedure}%[theorem]%[section]
-%\newtheorem{procedure}{Procedure}[section]%[theorem]
-%%%\newtheorem{proof}[proof]{Proof}
-%%%%%%%%%%%Liza to compile
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\a}{\alpha }
 \renewcommand{\b}{\beta }
 \newcommand{\G}{\Gamma }
@@ -176,12 +150,12 @@ problem for free products with amalgamation.
 
 
 \section{Introduction}\label{se:global_intro}
-%%Lisa's test
+
 Stallings introduced his technique of foldings in his paper
 \cite{stallings83} where he applied this technique to investigate
 free groups. In his \cite{stallings88} Stallings extend ideas of
 foldings to non-free actions of groups on graphs and trees. Next
-years ideas of Stallings was widely generalized in different
+years ideas of Stallings was widely generalised in different
 directions and applied to decide different problems in
 combinatorial group theory, see for example
 \cite{befe,BoWei,KM02,SilvaWeil08}.
@@ -242,7 +216,7 @@ elements amalgamated products of finite rank free groups.
  of their construction. Namely, we show how to obtain a unique normal form of an element in a free group of finite
  rank; these forms are based on double coset of representatives of
  two types representatives (see subsection \ref{sub:2cosetrepr}).
- Simple procedure described in the beginning of \ref{sec:foldings}
+ Simple procedure described in the beginning of Section \ref{sec:foldings}
  shows how to rewrite arbitrary word in a reduced form into double
  coset normal form using these special representations in factors.
 
@@ -253,7 +227,15 @@ folding procedure such the after the sequence of transformations
 of double coset graph for $K$ the resulting graph recognize
 precisely normal forms of elements of $K$.
 
-
+In Section \ref{sec:TC} we estimate the time complexity of
+algorithms described in the previous part of the paper. In
+particular, we illustrate how fast one can do all preparatory
+actions on constructing double coset normal forms of generators
+for $K$, the complexity of modification of double coset graph's
+components modification, the  amount of time required for
+reassembly of these components, and the time complexity of the
+final procedure which allow us to construct the rsulting graph
+recognizing normal forms of elements of $K$.
 
 Authors are grateful to Vladimir Remeslennikov for helpful
 discussions and to Christian Perfect who {\color{red}{ did
@@ -362,8 +344,6 @@ to some (fixed) set of double coset representatives. We show how
 this can be done below.
 
 \subsection{Automata and Stallings Foldings}\label{sub:foldings}
-%{\bf We should include a short description of Stallings folding, as in
-%Enric's notes from Manresa \cite{ventura11}.} \\[1em]
 
 An {\em automaton} $A$ is  a quintuple
 $(\S,Q,\d,\mathcal{S},\mathcal{F})$, where $\S$ is finite set
@@ -420,15 +400,16 @@ the inverse of $a$)
  then the  natural map from $L_Q(A)$ to
 $G$ is denoted $\pi:L_Q(A)\maps G$.
 
-{\ef In chapter 4  we use these terms (readable and accepted) not
-only for initial and final states, but for arbitrary states
-(boundary vertices etc.). Is it better to extend the definitions
-here?}
-{\ajd I tried to set things up so the definitions cover what we
-do in Section 4. To change the start and final states from $s$ and $f$
-to $\a$ and $\b$,  change the
-automaton from $(\S,Q,\d,s,f)$ to $(\S,Q,\d,\a,\b)$. I may not have
-actually written this in the appropriate places.}
+%%{\ef In chapter 4  we use these terms (readable and accepted) not
+%%only for initial and final states, but for arbitrary states
+%%(boundary vertices etc.). Is it better to extend the definitions
+%%here?}
+%%{\ajd I tried to set things up so the definitions cover what we
+%%do in Section 4. To change the start and final states from $s$ and $f$
+%%to $\a$ and $\b$,  change the
+%%automaton from $(\S,Q,\d,s,f)$ to $(\S,Q,\d,\a,\b)$. I may not have
+%%actually written this in the appropriate places.}
+%% Ok, it is written and I've checked, everything agree with given definitions.
 
 If $q\in Q$ and there are paths in $\G_A$ from a vertex of $\cS$ to $q$
 and from $q$ to a vertex of $\cF$ then $q$ is said to be \emph{trim}.
@@ -494,7 +475,7 @@ particular.
 %%(\varphi(p),a,\varphi(q)) \in E^\prime$.
 We now recall the notion of a Stallings folding of an automaton,
 which we will use directly, to construct Stallings automata for
-subgroups of free groups, and in generalized form to produce
+subgroups of free groups, and in generalised form to produce
 dc-resolutions of automata (in Section \ref{sec:foldings}). For
 more details on Stallings foldings  and  Stallings automata  see
 \cite{ventura11} or \cite{BartholdiSilva}.
@@ -524,7 +505,7 @@ $\theta: \G\maps \G^\prime$ which maps vertices to vertices and
 edges to edges in such a way that \be \item if $s$ is the root of
 $\G$ then $\theta(s)$ is the root of $\G^\prime$; \item if $t$ is
 a final state of $\G$ then $\theta(t)$ is a final state of
-$\G^\prime$ and 
+$\G^\prime$ and
 \item  if
 $(u,\sigma,v)$ is an edge of $\G$ then
 $\theta(u,\sigma,v)=(\theta(u),\sigma,\theta(v))$. \ee An
@@ -663,12 +644,12 @@ equivalence class will be chosen to have this property.
 %of $\sim$ so that
 %$w(u)w(v)^{-1}=w(u)\circ w(v)^{-1}$), in the next definition.
 
-\begin{definition}
-Let $\pp$ be an equivalence
-class of $\sim$ and let $Y$ be the set of all pairs $(u,v)\in \pp$
-such that $|w(v)|$ is minimal (amongst elements of $\pp$). Choose
-$(u,v)\in Y$ such that $|w(u)|$ is minimal (amongst elements of
-$Y$) and define $(u,v)$ to be the $\sim$ {\em representative} of
+\begin{definition}\label{def:repres_t2}
+Let $\pp$ be an equivalence class of $\sim$ and let $Y$ be the set
+of all pairs $(u,v)\in \pp$ such that $|w(v)|$ is minimal (amongst
+elements of $\pp$). Choose $(u,v)\in Y$ such that $|w(u)|$ is
+minimal (amongst elements of $Y$) and define $(u,v)$ to be the
+$\sim$ {\em representative} of
 $\pp$. %Fix one $\sim$ representative for each equivalence class of$\sim$ and
 Let $P_0$ denote the set of  all these $\sim$
 representatives.
@@ -745,6 +726,10 @@ an $L_T$-prefix of $ze^{-1}$. Thus $yez^{-1}\in S^{(1)}$ and we
 output
 \[w=(py^{-1}) (yez^{-1})(zt^{-1})\in HSH,\]
 of the required form.
+
+{\ef we output
+\[w=(h py^{-1}) (yez^{-1})(zt^{-1} g^{-1})\in HSH,\]
+don't we? }
 
 On the other hand if $e=1$ then
 \[w=h\circ p\circ t^{-1}\circ g^{-1}.\]
@@ -1180,16 +1165,14 @@ $X_1$ and $X_2$ components then output $\D_{(n+1)}$
 and stop. Otherwise add $1$ to $n$ and  repeat Step \ref{it:gf1}.
 \ee
 
-Algorithm II below describes exactly how to carry out Step 1 of this loop.
-Since Step 1 may run more than once,  the input to this algorithm is
-assumed to be an
-arbitrary inverse automaton $\D$, with alphabet $\S$ and
-$\pi(L(\D))=K$. The output  is a rooted, labelled, involutive, automaton,
-with the same alphabet,
-which may fail to be deterministic.
-We shall show that, if we start as above
-with $\G_K=\D_{(0)}$,  the loop halts, at some $n<\infty$;
-at which point $\D_{(n+1)}$ is an inverse automaton which accepts the
+Algorithm II below describes exactly how to carry out Step 1 of
+this loop. Since Step 1 may run more than once,  the input to this
+algorithm is assumed to be an arbitrary inverse automaton $\D$,
+with alphabet $\S$ and $\pi(L(\D))=K$. The output is a rooted,
+labelled, involutive automaton, with the same alphabet, which may
+fail to be deterministic. We shall show that, if we start as above
+with $\G_K=\D_{(0)}$,  the loop halts, at some $n<\infty$; at
+which point $\D_{(n+1)}$ is an inverse automaton which accepts the
 normal form of every element of $K$. \\[1em]
 
 \noindent\textbf{Algorithm II}. \\
@@ -1207,10 +1190,10 @@ leaves left. Given an $X_k$ component $\T$ of $\D_k$,  a
 $\a$ such that $\a$ is incident, in $\D$, to a vertex which does not
 belong to $\T$.
  We shall modify each  $X_k$ component $\T$ of $\D_k$ so that if $p$ is a path,
-from a  boundary vertex $u$  to a boundary vertex $v$ of $T$, then
-the normal form  of  the label $l(p)$ of $p$ is the label of a
-path from $u$ to $v$. Throughout the modification process we keep
-track of the boundary vertices, so that once modification is
+from a  boundary vertex $u$  to a boundary vertex $v$ of $\T$,
+then the normal form  of  the label $l(p)$ of $p$ is the label of
+a path from $u$ to $v$. Throughout the modification process we
+keep track of the boundary vertices, so that once modification is
 complete the $X_k$ components can be reassembled, by attaching as
 they did in $\D$. The modification of $X_k$ components consists of
 five steps, producing new graphs $\T_1$, $\T_2$, $\T_3$, $\T_4$
@@ -1227,12 +1210,14 @@ we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
 \\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
- Let $\T$ be an $X_k$ component of $\D_k$.
-If $(\a,z,\b)$ is an edge of
-$\T$ labelled by an element $z\in Z$ then add a path from $\a$ to
-$\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this for all such edges, fold
-the resulting graph
-and call the result $\T_1$. (See Figure \ref{fig:alg2-1}.)
+Addition of paths labeled by $X_k-$words corresponding to
+$z-$edges of an $X_k$ component.
+
+Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an
+edge of $\T$ labelled by an element $z\in Z$ then add a path from
+$\a$ to $\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this
+for all such edges, fold the resulting graph and call the result
+$\T_1$. (See Figure \ref{fig:alg2-1}.)
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a$}
@@ -1262,6 +1247,8 @@ vertex of $\T$. (We shall not mention this again in later
 steps.)\\[1em]
 
 \noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
+Here we add to $\T_1$ all $\phi_k^{-1}$ images of labels of simple
+paths in $\T_1\times \G_{A_k}$ from $(\a_i,1)$ to $(\a_j,1)$.
  Let $\cP_1=\T_1\times \G_{A_k}$. Then there is a path
  labelled $w$ from $\a$ to $\b$
 in $\T_1$ and a path labelled $w$ from $\a^\prime $
@@ -1313,6 +1300,10 @@ $(\T_2,\theta_2(\a),\theta_2(\b))$, respectively, then
 by construction $\pi(L_1)=\pi(L_2)\subseteq G$.\\[1em]
 
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
+On this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
+\G_{A_k}$ related to edges of this graph which does not belong to
+its spanning subforest and projects to elements of $\G_{A_k}$.
+
 As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements
 of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$
 the graphs $\cP_1=\T_1\times \G_{A_k}$ and $\cP_2=\T_2\times \G_{A_k}$ differ only
@@ -1333,17 +1324,15 @@ in same component of $\cP_2$ as $(\a,1)$,
 %of $\T_1$)  such that $(\a_m,1)$ belongs to $\Xi$.
  Let $p_i$ be
 the path in $\U_2$ from $(\a,1)$ to $(\a_i,\b_1)$ and let $p_j$ be
-the path in $\U_2$ from  $(\a_j,\b_2)$ to $(\a,1)$ and
-let $l_i$ and $l_j$ be the labels of $p_i$ and $p_j$, respectively. Then
-$p_i,e,p_j$ projects to a closed path in $\G_{A_k}$, based at $1$, with
-label $h_e=l_i x l_j \in H_k\subseteq F_k$. Moreover
-$p_i,e,p_j$ projects to a closed path in $\T_2$, based at $\a$, also
-with label $h_e$. Let
-$w_e=\phi_k^{-1}(h_e)$ and let
-$q$ be a path (disjoint from $\T_2$) of length
-$|w_e|$ and with label $w_e$. Identify the initial and terminal
-vertices of $q$ to the vertex  $\a$ of $\Theta_2$.
-(See Figure \ref{fig:alg2-3}.)
+the path in $\U_2 $ from  $(\a_j,\b_2)$ to $(\a,1)$ and let $l_i$
+and $l_j$ be the labels of $p_i$ and $p_j$, respectively. Then
+$p_i,e,p_j$ projects to a closed path in $\G_{A_k}$, based at $1$,
+with label $h_e=l_i x l_j \in H_k\subseteq F_k$. Moreover
+$p_i,e,p_j$ projects to a closed path in $\T_2$, based at $\a$,
+also with label $h_e$. Let $w_e=\phi_k^{-1}(h_e) \in F(Z)$ and let
+$q$ be a path (disjoint from $\T_2$) of length $|w_e|$ and with
+label $w_e$. Identify the initial and terminal vertices of $q$ to
+the vertex  $\a$ of $\Theta_2$. (See Figure \ref{fig:alg2-3}.)
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a$} \psfrag{b}{$\b$} \psfrag{x}{$x$}
@@ -1354,7 +1343,8 @@ vertices of $q$ to the vertex  $\a$ of $\Theta_2$.
 \psfrag{cP}{$\cP_2$} \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-3.eps}
 \end{center}
-\caption{$\theta_2$ to $\theta_3$: $h_l=l_ixl_j$, $w_l=\phi_k^{-1}(h_l)$.}\label{fig:alg2-3}
+\caption{$\theta_2$ to $\theta_3$: $h_e=l_ixl_j$,
+$w_e=\phi_k^{-1}(h_e)$.}\label{fig:alg2-3}
 \end{figure}
 Repeat this process for all such edges $e$ and vertices $(\a,1)$
 of $\cP_2$,  fold the resulting graph, and denote the result by
@@ -1536,16 +1526,46 @@ identify  $(u,a,v)$ and $(u^\prime, a, v^\prime)$.
 %there exists an edge $(x,a,y)$ in $\D$ then add an edge $(u,a,v)$ to
 %$\D^{\prime\prime}$.
 \end{itemize}
-The root vertex of $\D^{\prime\prime}$ is the image, in $\D^{\prime\prime}$,
-of $\nu^{-1}(1)$, where
-$1$ is  the root of $\D$.
+The root vertex of $\D^{\prime\prime}$ is the image, in
+$\D^{\prime\prime}$, of $\nu^{-1}(1)$, where $1$ is  the root of
+$\D$.
+
+
+{\ef Slightly different piece of a text suggested (including
+changes of lemma, the old version of which is commented bellow)}
+
+For $u \in V(\D^\prime_5)$ and $(u,a,v) \in E(\D^\prime_5)$ let
+$[u]$ and $[(u,a,v)]$ denote equivalence classes in
+$\D^{\prime\prime}$ with respect to this identification of
+vertices and edges respectively.
 
 \begin{lemma}\label{lem:resol-quot}
-For $u\in V(\D_5)$  and $(u,a,v) \in E(\D_5)$ let $[u]$ and
+Let $[\cdot]$ be the equivalence relation in $\D^\prime_5$
+described above. There is a morphism $\rho$ from  $\D$ to
+$\D^{\prime\prime}$ given by $\rho(z)=[\theta(\nu^{-1}(z))]$, for
+$z\in V(\D)\cup E(\D)$.
+\end{lemma}
+\begin{proof}
+First $\rho$ must be shown to be well defined. If $z \in V(\D)\cup
+E(\D)$ then either $z\in V(\D_Z)\cup E(\D_Z)$ or $z$ belongs to
+some $X_k$ component of $\D$. Hence
+ $\nu^{-1}(x)\neq \nul$. If $u$ and $v\in \D^\prime$ such that $u, v \in \nu^{-1}(z)$ then, by definition of
+$\D^{\prime\prime}$, $\theta(u)$ and $\theta(v)$ are equivalent.
+Hence $\rho$ is well-defined.
+
+To show that $\rho$ is a morphism, suppose that $(u,a,x)$ is an edge
+of $\D$. If $e=(u,a,v)$ is an edge of a component of $\D^\prime$ then
+either $e$ is an edge of an $X_k$ component of $\D$ or
+ $(u,a,v)\in E_Z=E(\D_Z)$. In either  case
+$\rho(u,a,v)=[(\theta(u),a,\theta(v))]$ is an edge of $\D^{\prime\prime}$.
+\end{proof}
+
+\begin{comment}
+\begin{lemma}\label{lem:resol-quot}
+For $u\in V(\D_5)$ and $(u,a,v) \in E(\D_5)$ let $[u]$ and
 $[(u,a,v)]$ denote equivalence classes in $\D^{\prime\prime}$.
-There is a morphism
-$\rho$ from  $\D$ to $\D^{\prime\prime}$ given by
-$\rho(z)=[\theta(\nu^{-1}(z))]$, for $z\in V(\D)\cup E(\D)$.
+There is a morphism $\rho$ from  $\D$ to $\D^{\prime\prime}$ given
+by $\rho(z)=[\theta(\nu^{-1}(z))]$, for $z\in V(\D)\cup E(\D)$.
 \end{lemma}
 \begin{proof}
 First $\rho$ must be shown to be well defined. If $x\in V(\D)\cup E(\D)$ then
@@ -1561,6 +1581,7 @@ either $e$ is an edge of an $X_k$ component of $\D$ or
  $(u,a,v)\in E_Z=E(\D_Z)$. In either  case
 $\rho(u,a,v)=[(\theta(u),a,\theta(v))]$ is an edge of $\D^{\prime\prime}$.
 \end{proof}
+\end{comment}
 
 \begin{definition}
 Let $\D$ be an inverse automaton.
@@ -1807,19 +1828,13 @@ $h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.
 
 
 \begin{lemma}\label{lem:dcfold}
-Let $\D$ be  an inverse automaton,
-with alphabet $\S$ and start state $s$,
-and let $\D^{\prime\prime}$  and
-$\Psi$ be the dc-resolution and dc-folding of $\D$,
-respectively.
-\be
-\item \label{it:dcfold1}
-$\Psi$ is
-is an inverse automaton, with unique start and  final state $\hat\rho(s)$, and
-has no more $X_1$ and $X_2$ components than $\D$.
-\item \label{it:dcfold2}
-$\pi(L(\Psi))=\pi(L(\D))$.
-\ee
+Let $\D$ be  an inverse automaton, with alphabet $\S$ and start
+state $s$, and let $\D^{\prime\prime}$  and $\Psi$ be the
+dc-resolution and dc-folding of $\D$, respectively. \be \item
+\label{it:dcfold1} $\Psi$ is an inverse automaton, with unique
+start and  final state $\hat\rho(s)$, and has no more $X_1$ and
+$X_2$ components than $\D$. \item \label{it:dcfold2}
+$\pi(L(\Psi))=\pi(L(\D))$. \ee
 \end{lemma}
 \begin{proof}
 %\be
@@ -1836,19 +1851,22 @@ Folding to form $\Psi$ cannot increase this number, so the final
 statement of \ref{it:dcfold1} follows.
 %\item
  \\[1em]
-\ref{it:dcfold2}.
-Let $w$ be a word accepted by $\Psi$. Since $\Psi$ is formed
-by a sequence of foldings of $\D^{\prime\prime}$, there is a word
-$v$ such that $v$ is accepted by $\D^{\prime\prime}$ and $\pi(v)=\pi(w)$.
-Now $v=v_1\cdots v_n$, where each $v_i$ is accepted by a connected
-component $\Xi_i$ of $\D^\prime_5$, and no two consecutive components are
-accepted by the same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} it
-follows that there are words $u_1,\ldots , u_n$, such that $\pi(u_i)=\pi(v_i)$
-and $u_i$ is accepted by the component $\theta^{-1}(\Xi_i)$ of $\D^\prime$.
-Moreover it follows that $u_1\cdots u_n$ is accepted by $\D$ and
-$\pi(u_1\cdots u_n)=\pi(v)$. Therefore $\pi(L(\Psi))\subseteq \pi(L(\D))$.
-The reverse inclusion follows from the existence of the morphism $\hat\rho$
-from $\D$ to $\Psi$.
+\ref{it:dcfold2}. Let $w$ be a word accepted by $\Psi$. Since
+$\Psi$ is formed by a sequence of foldings of $\D^{\prime\prime}$,
+there is a word $v$ such that $v$ is accepted by
+$\D^{\prime\prime}$ and $\pi(v)=\pi(w)$. Now $v=v_1\cdots v_n$,
+where each $v_i$ is accepted by a connected component $\Xi_i$ of
+$\D^\prime_5$, and no two consecutive factors are accepted by the
+same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} it
+follows that there are words $u_1,\ldots , u_n$, such that
+$\pi(u_i)=\pi(v_i)$ and $u_i$ is accepted by the component
+$\theta^{-1}(\Xi_i)$ of $\D^\prime$. Moreover it follows that
+$u_1\cdots u_n$ is accepted by $\D$ and $\pi(u_1\cdots
+u_n)=\pi(v)$. {\ef It is not completely clear why we are able to
+walk from one particular boundary vertex in one component to
+another one in the following component.} Therefore
+$\pi(L(\Psi))\subseteq \pi(L(\D))$. The reverse inclusion follows
+from the existence of the morphism $\hat\rho$ from $\D$ to $\Psi$.
 \begin{comment}
 Let $\Phi=\L_0,\L_1,\ldots, \L_n$ be a sequence of graphs such that
 $\L_{i+1}$ is obtained from $\L_i$ by and elementary folding.
@@ -1886,12 +1904,11 @@ the word $avc$, where $v$ is the normal form of $b$.
 \ee
 \end{lemma}
 \begin{proof}
-\ref{it:loopstop1}.\\
-The number of $X_k$ components is not increased by Steps 1 and 2, so
-at some point the loop must halt.
-\noindent\ref{it:loopstop2}. The word $b$ is accepted by an $X_k$ component
-of $\D_0$. By construction, the word $v$ is accepted by $\D_1$, and hence
-by $\D_n$. It follows that $\D_n$ accepts $avc$.
+\ref{it:loopstop1}. The number of $X_k$ components is not
+increased by Steps 1 and 2, so at some point the loop must halt.
+\noindent \ref{it:loopstop2}. The word $b$ is accepted by an $X_k$
+component of $\D_0$. By construction, the word $v$ is accepted by
+$\D_1$, and hence by $\D_n$. It follows that $\D_n$ accepts $avc$.
 \end{proof}
 \begin{lemma}\label{lem:nfacc}
 Let $\D_0$ be an inverse automaton with alphabet $\S$ and let
@@ -1899,17 +1916,16 @@ $\D_n$ be the output from the loop, with input $\D_0$. If $w$ is
 accepted by $\D_0$ then the normal form of $w$ is accepted by $\D_n$.
 \end{lemma}
 \begin{proof}
-Let $w$ be a word
-accepted by $\D_0$. Then $w$ factorises as  $w$ as $w=w_1\cdots w_n$,
-where $w_i$ is accepted by and $X_k$ component of $\D_0$. Thus
-$w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$. If $n=0$, then
-$w=1$ and the lemma holds. Suppose the lemma holds for all $w$ such
-that $n\le k$, where $k\ge 0$ and now suppose $n=k+1$.
-Let $v_i$ be the normal form of $w_i$.
-If $v_i\in F(Z)$, for some $i$ then there is a factorisation of
-$w$ with at most $k$ factors, and the result follows. Otherwise,
-from Lemma \ref{lem:loopstop}.\ref{it:loopstop2},  $\D_n$ accepts $v_1\cdots v_n$, which
-is the normal form of $w$.
+Let $w$ be a word accepted by $\D_0$. Then $w$ factorises as  $w$
+as $w=w_1\cdots w_n$, where $w_i$ is accepted by an $X_k$
+component of $\D_0$. Thus $w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq
+k_{i+1}$. If $n=0$, then $w=1$ and the lemma holds. Suppose the
+lemma holds for all $w$ such that $n\le k$, where $k\ge 0$ and now
+suppose $n=k+1$. Let $v_i$ be the normal form of $w_i$. If $v_i\in
+F(Z)$, for some $i$ then there is a factorisation of $w$ with at
+most $k$ factors, and the result follows. Otherwise, from Lemma
+\ref{lem:loopstop}.\ref{it:loopstop2},  $\D_n$ accepts $v_1\cdots
+v_n$, which is the normal form of $w$.
 \begin{comment}
 Let $\g$ and $\d$ be vertices of $\Phi$ which map to $\a$ and $\b$ in the
 folding of $\Phi$ to $\L$. As this folding involves only edges of type $Z$
@@ -1957,6 +1973,483 @@ Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_n)=L(\G_K)$,
 so if $w\notin K$, then
 $w\notin L(\D_n)$.
 \end{proof}
+
+\section{The computational complexity}\label{sec:TC}
+
+{\ef{Some words on time complexity needed!}}
+
+
+Let $H$ be a finitely generated subgroup of $F=\FF(X)$ and
+$Y=\{h_1,\ldots ,h_m\}$ be a generating set for $H$, where $h_i\in
+F$. Consider the Stallings automaton $\G = \G_Y(H)$ for $H$ with
+vertices $V\G$, edge set $E\G$ and the root vertex $1$. Denote by
+$N$ the total length of $Y$, i.e. $N = |h_1| + |h_2| + \ldots +
+|h_m|$. Notice that by construction of $\G$ we have $|V\G| \le N,
+|E\G| \le N$, and $|E \G| \ge |V \G|$.
+
+Given a set of generators $Y$ for $H$, one can construct the
+Stallings automaton $\G$ for $H$ in time at most $t_1(N)$, where
+\begin{equation}\label{t1} t_1(n) = O (n \cdot log^{\ast}(n)),
+\end{equation}
+where the function $log^{\ast}: \NN \rightarrow \NN$ is such that
+$log^{\ast}(2n) = log^{\ast}(n) + 1$ (we are using the base $2$
+logarithm), see \cite{touikan} for more details. For most
+practical purposes, $log^{\ast}$ can be considered a constant
+since it grows very slowly.
+
+Further, below we will use frequently the time complexity of a
+spanning subtree construction and complexity of taking graph
+products.
+
+Observe, that one can find a spanning subtree of a graph $\G$ in
+time at most $t_2(|E\G|)$ or $t^{\prime}_2(|V\G|)$, where
+\begin{equation}\label{t2}
+t_2(n) = O(n \cdot log(n)) {\textrm{ and }} t^{\prime}_2(n) =
+O(n^2),
+\end{equation}
+
+with a help of Kruskal's ($\G$ is arbitrary, and if it is not
+connected, then it founds spanning subforest of $\G$) or
+Jarnik-Prim's (the graph $\G$ supposed to be connected) algorithm,
+respectively.
+
+Computation of $\G_1 \times \G_2$ takes time at most $t_3(|V\G_1|,
+|V\G_2|)$
+
+\begin{equation}\label{t3}
+t_3(n_1, n_2) = O(n_1 \cdot n_2).
+\end{equation}
+
+We will use notations of complexity functions $t_1, t_2, t'_2$,
+and $t_3$ in what follows.
+
+We write $O(f(n_1)) \preceq O(f(n_2))$ if $n_1\le n_2$ and $f$ is
+a nondecreasing function. Observe that if $O(f(n_1)) \preceq
+O(f(n_2))$ and an algorithm solve the problem in time $O(f(n_1)$,
+then it all the more solve this problem in time $O(f(n_2))$.
+
+\subsection{The time complexity of double coset normal forms construction}\label{sub:doubleCo_nf}
+
+Recall that $F_1$, $F_2$ are free groups, and subgroups $H_1 \leq
+F_1$, $H_2 \leq F_2$ have finite bases $Y_1 = \{h_1, \ldots, h_m
+\}$ and $Y_2=\{h_1', \ldots, h_m'\}$, respectively, and there are
+maps $\phi_k$ such that $\phi_1(z_i)=h_i$ and
+$\phi_2(z_i)=h^\prime_i$, $i=1,\ldots ,m$, where $Z=\{z_1, \ldots,
+z_m\}$, $F(Z)$ is a free group and $H_1$ isomorphic to $H_2$ via
+$\phi_2 \phi_1^{-1}$, and ${G = F_1 \underset{H_1=H_2}{\ast}
+F_2}$. To distinguish the length of elements in alphabets $X_k$ or
+$Z$, we write $|\cdot|_k$ or $|\cdot|_Z$, correspondingly. Set
+$N_1 = |h_1|_1 + |h_2|_1 + \ldots + |h_m|_1$ and $N_2 = |h_1|_2 +
+|h_2|_2 + \ldots + |h_m|_2$. Let $A_k$ be the Stallings automaton
+for $H_k$ and let $T_k$ be a spanning tree for the associated
+graph $\G_{A_k}$, as above. Define $E\G_{A_k}$ to be an edge set
+of $\G_{A_k}$, and let $V\G_{A_k}$ be its vertex set; let $N_k$ be
+the total length of $Y_k$ ; definitions of $L_{Q_k}$ and $L_{T_k}$
+were given in \ref{sub:foldings}, $k=1,2$. Let $S_k$ be the set of
+double coset representatives of $H_k\le F_k$, defined by $T_k$.
+The following lemma estimates the complexity of $S_k$
+construction.
+
+\begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can rewrite $w$ in a double coset normal
+ form in time at most $O(N_k^2 + |w|_k)$.
+\end{lemma}
+
+%we can't formulate another lemma about time necessary for $S_k$ construction because we actually do not construct $S^{(1)}_k$ at all.
+
+\begin{proof}
+To rewrite an element $w$ in a double coset normal form, it is
+sufficient to compute $\G_{A_k}$, sets $\L_{T_k}$, $L_{Q_k}$ (or
+its subset $L^{\prime}_{Q_k}$, as we are doing below), and
+$S^{(2)}_k$. Given these structures, one can easily rewrite $w \in
+F_k$ in normal form, using Algorithm I.
+
+Construction of $\G_{A_k}$ takes at most $t_1(N_k)$ steps, whereas
+computation of its square
+ $\G_{A_k} \times \G_{A_k}$ can be proceeded in at most
+ $t_3(|V\G_{A_k}|,|V\G_{A_k}|) \preceq t_3(N_k,N_k)$.
+A spanning subtree $T_k$ can be found in
+$t^{\prime}_2(|V\G_{A_k}|) \preceq t^{\prime}_2(N_k)$ or $t_2(|E
+T_k|) \preceq t_2(E\G_{A_k}) \preceq t_2(N_k)$; here the best
+estimate in terms of $N_k$ is $O(N_k^2)$. Further, the time
+required for $L_{T_k}$ computation is linear on $|E T_k|$, while
+$L^{\prime}_{Q_k}$ can be computed in time linear on
+$|V\G_{A_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is a
+subset of words in $L_{Q_k}$ which have no nontrivial prefixes
+accepted by $\G_{A_k}$. To construct the set $P_0$ of $\sim$
+representatives (see definition \ref{def:repres_t2}), one should
+analyze all vertex sets of connected components of $\G_{A_k}
+\times \G_{A_k}$, and the required time for this procedure is at
+most $O(V \G_{A_k} \times \G_{A_k}) \preceq O(N^2_k)$, which
+coincide with a maximal time required for construction of double
+coset representatives of type $2$ (i.e. $S^{(2)}_k$).
+
+Given $\G_{A_k}$, $L_{T_k}$, $L^{\prime}_{Q_k}$ and $S^{(2)}_k$
+(observe that we spent at most $O(N^2_k)$ time on their
+construction), we apply Algorithm I to $w \in F_k$. The analysis
+of Algorithm I show that it take at most $O(|w|_k)$ time to obtain
+a double coset normal form of $w$. Gathering both estimates
+together, obtain $O(N^2_k + |w|_k)$, as required.
+\end{proof}
+
+\begin{corollary}\label{cor:dcnf_time} Suppose $g \in G$ and $g=g_1 \cdots g_t$ is in reduced
+form. Given $Y_1, Y_2$, one can rewrite $g$ in double coset normal
+form in time at most $O(N^2_1+ N^2_2 + |g_1|_{\e_1}+|g_2|_{\e_2}+
+\ldots +|g_t|_{\e_t})$, where $\e_i \in \{ 1, 2\}, i = 1, \ldots,
+t$, and $\e_i = k$ if $g_i \in F_k$.
+\end{corollary}
+
+\begin{proof} Notice first, that if $g = g_1 \in H_k$, then we
+only rewrite it in terms of alphabet $Z$ which takes time at most
+$O(|g_1|_k)$, and the case $g \in F_k \smallsetminus H_k$ is
+covered by lemma \ref{lem:dctransversal}, so suppose $g \notin
+F_k$, $k=1,2$.
+
+One can rewrite each syllable $g_i \in F_k$ of $g$ in normal form
+$g_i=h_{i,1}d_ih_{i,2}$, where $d_i\in S$ and $h_{i,j}\in H_1\cup
+H_2$, in time at most $O(N^2_k + |g_i|_k)$. Using $\phi_1^{-1}$ or
+$\phi_2^{-1}$, we write $h_{i,1}$ and $h_{i,2}$ as reduced words
+in $F(Z)$ (for $i=1, \ldots, t$) and find the reduced word
+$h_{i,2}h_{(i+1),1}\in F(Z)$ (for $i=1, \ldots, t-1$) in time at
+most $O(|g_i|_{\e_i}+|g_i|_{\e_{i+1}})$, so the resulting
+complexity of the process is at most $O(N^2_1+ N^2_2 +
+|g_1|_{\e_1}+|g_2|_{\e_2}+ \ldots +|g_t|_{\e_t})$. \end{proof}
+
+
+\subsection{The complexity of Algorithm II}\label{sub:resolution}
+
+Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
+written in normal form (\ref{eq:k-form}): $k_i=
+h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1}$, with
+$h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$ as in section
+\ref{sec:dca}. Recall that $\G$ is the rooted graph, associated to
+a flower automaton $\cF(K)$ of the subgroup $\hat K < F(X_1\cup
+X_2 \cup Z)$ generated by $k_1, \ldots , k_s$.
+
+Consider the Stallings folding $\G_K$ of $\G$. Clearly, one can
+construct $\G_K$ in time at most $t_1(M)$, with $M = M_Z+M_1+M_2$,
+ $M_Z =
+\mathop{\sum}\limits_{i=1}^{s}
+\mathop{\sum}\limits_{j=1}^{m_i}|h_{i,j}|_Z$, and $M_k$ is the
+total length of $t_{i,j} \in S_k$ in terms of $X_k$ for all
+appropriate $i,j$, i.e. $M_k = \mathop{\sum}\limits_{i,j:
+t_{i,j}\in S_k} |t_{i,j}|_k$, and the function $t_1$ defined by
+(\ref{t1}); $k=1,2$.
+
+Let $\D=\D_{(0)} = \G_K$ and let $\T^{(1)}, \ldots, \T^{(p_1)}$ be
+the set of all $X_1$ components of $\D$, $\Phi^{(1)}, \ldots,
+\Phi^{(p_2)}$ be the set of all $X_2$ components.
+
+We shall study first the complexity of modifications $1-5$ for an
+arbitrary $X_k$ component $\T$ of $\D$, and then apply this result
+to estimate the general complexity of the Algorithm II. Denote by
+$E_k \T$ the set of edges of type $X_k$ in $\T$, and let $E_Z \T$
+be the set of edges of type $Z$ in $\T$, while $V \T$ denote its
+vertex set.
+
+
+\begin{lemma}\label{lem:resolution} Suppose $\D = \G_K$, $\G_{A_k}$, $T_k$ and $S^{(2)}_k$ are given and
+$\T$ is an $X_k$ component of $\D$. Then one can modify $\T$ into
+$\T_5$ in time at most $O(|V \G_{A_k}|^6 \cdot
+|V\T|^{10}+R_k^8|E_Z\T|^8|V\T|^2\cdot |X_k|^{4 (|V \T|+ R_k |E_Z
+\T |)|V\G_{A_k}|})$, with constant $R_k$ depending on basis $Y_k$
+for $H_k$ .
+\end{lemma}
+
+\begin{proof} Let $R_k = max \{ |\phi_k(z_1)|_k, \ldots,
+|\phi_k(z_1)|_k\}$.
+
+{\bf 1. $\T \leadsto \T_1$.} On this stage we add at most $R_k
+\cdot |E_Z \T |$ edges of type $X_k$ and at most $(R_k-1)\cdot
+|E_Z \T |$ new vertices to obtain $\T'$. It takes at most
+$t_1(|E_k \T'|)$ time to fold $\T'$ and get $\T_1$. Clearly,
+$|E_k\T_1 | \le |E_k\T' | \le |E_k\T | +  R_k \cdot |E_Z \T |$ and
+$|V \T_1| \le |V \T' | \le |V \T|+ (R_k-1)\cdot |E_Z \T |$. The
+time $t_{\T_1}$ required for $T_1$ construction is at most
+
+\begin{equation}\label{theta1}
+t_{\T_1} \preceq t_1(|E_k \T_1|) + O(R_k \cdot |E_Z \T |).
+\end{equation}
+
+{\bf 2. $\T_1 \leadsto \T_2$.} The time required for
+$\cP_1=\T_1\times \G_{A_k}$ construction is at most $t_3(|V \T_1|,
+|V \G_{A_k}|)$. Further, one can choose a spanning subforest
+$\U_1$ of $\cP_1$ in at most $t_2(|V\cP_1|)$ steps. Without loss
+of generality one can assume that $\cP_1$ has precisely one
+connected component (which is the worst case from the algorithm's
+complexity point of view).
+
+Notice that $|V\cP_1| \le |V\T_1|\cdot |V \G_{A_k}|$.
+
+Fix a pair $(i, j)$ such that $i \le j$. We check for this pair
+whether $(\a_i,1)$ and $(\a_j,1)$ connected with some simple path
+$l_p \in F(X_k)$  or not, $\a_i, \a_j \in \T$. Since $p$ is a
+simple (reduced) path in $\cP_1$, it is no longer than $Q_k$,
+where $Q_k$ is the maximal length of a simple path in $\cP_1$ in
+terms of $X_k$, so $Q_k \le |V\cP_1|$. On this stage we are doing
+at most $B_{Q_k}$ checks, where $B_n$ is the number of elements in
+$H_k$ of length $\le n$; in turns, this number is bounded above by
+the number of such elements in $F_k$. Thus $B_{Q_k} = 1+
+\mathop{\sum}\limits_{i=0}^{Q_k} 2|X_k| \cdot (2|X_k|-1)^{i}$. In
+the worst case we have $\frac{|V\T_1|\cdot(|V\T_1|+1)}{2}$
+possible pairs $(i,j)$ to analyze. Let
+$\overline{R}_k=\mathop{max}\limits_{l_p \in
+B_{Q_k}}|\phi^{-1}_k(l_p)|_Z$.
+ Therefore, one can spend at
+most
+
+\begin{equation}\label{theta'1}
+\begin{split}
+t_{\T'_1} &\preceq O(|V\T_1|\cdot(|V\T_1|+1)\cdot B_{Q_k}\cdot (
+Q_k + \overline{R}_k))\\ &\preceq
+O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
+\G_{A_k}|}(|V \T_1|\cdot |V \G_{A_k}| + \overline{R}_k))\\
+&\preceq O(|V\T_1|^2|X_k|^{|V\T_1|\cdot |V \G_{A_k}|+1}(|V
+\T_1|\cdot |V \G_{A_k}| + \overline{R}_k))
+\end{split}
+\end{equation}
+time constructing $\T'_1$. One can fold this graph in time
+$t_1(E\T'_1)$. Now we want to evaluate the changes in edge set and
+vertex set of $\T'_1$ and $\T_2$.
+
+
+ We do not change the number of $X_k$
+edges, and
+
+\begin{equation}\label{eztheta2}
+|E_Z\T_2| \le |E_Z\T'_1| \le |E_Z\T_1|+\overline{R}_k\cdot B_{Q_k}
+\cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+\end{equation}
+
+\begin{equation}\label{vtheta2}
+|V\T_2| \le |V \T'_1| \le |V\T_1|+(\overline{R}_k-1)\cdot B_{Q_k}
+\cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+\end{equation}
+
+with constants $Q_k, B_{Q_k}, \overline{R}_k$ defined by $\T_1,
+H_k$, and $F_k$.
+
+
+The total complexity of this modification is
+
+\begin{equation}\label{theta2}
+t_{\T_2} = t_3(|V \T_1|, |V \G_{A_k}|) + t_2(|V\cP_1|)+
+t_1(|E\T'_1|) + t_{\T'_1},
+\end{equation}
+where $t_{\T'_1}$ estimated in formula (\ref{theta'2}).
+
+
+{\bf 3. $\T_2 \leadsto \T_3$.} The time required for
+$\cP_2=\T_2\times \G_{A_k}$ construction is at most $t_3(|V \T_2|,
+|V \G_{A_k}|)$. A spanning subforest $\U_2$ of $\cP_2$ can be
+constructed in time $t_2(|V\cP_2|)$. Suppose again $\cP_2$ has
+only one connected component.
+
+Notice that $|V\cP_2| \le |V\T_2|\cdot |V \G_{A_k}|$, and
+$|V\cP_2|$ without isolated vertices we denote by $|V'\cP_2|$;
+evidently, $|V'\cP_2| \le |V\T_2|\cdot |V \G_{A_k}|$.
+
+The number of all edges in $\cP_2$ can be bounded above in terms
+of vertex set of $\T_2$ and $\G_{A_k}$:
+
+$|E\cP_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
+(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|}{2}$,
+
+and the number of edges of $\cP_2 \smallsetminus \U_2$ is known to
+be equal to $|E\cP_2| - |V'\cP_2|+1$, i.e.
+
+$|E\cP_2\smallsetminus \U_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
+(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k| -2|V\T_2||V\G_{A_k}|+2
+}{2}$,
+
+while $|E \U_2| = |V'\cP_2| - 1 < |V\T_2|\cdot |V \G_{A_k}|.$
+
+Every reduced path in $\U_2$ is simple, thus no longer than
+$|E\U_2|$ (in terms of $X_k$).
+
+Fix a vertex $\a \in V\T$. For this vertex we consider vertices
+$(\a_i,\b_1)$ and $(\a_j,\b_2)$ of $\U_2$, which define the
+$h_e=l_i x l_j$ of length at most $2 |E \U_2| +1$. Let
+$\overline{Q}_k=\mathop{max}\limits_{h_e \in B_{2|E \U_2|
++1}}|\phi^{-1}_k(h_e)|_Z$.
+
+Therefore, for all $\a \in V\T$ we check at most
+$|E\cP_2\smallsetminus \U_2|$ edges in time $O(\overline{Q}_k+2 |E
+\U_2| +1)$, i.e.
+
+
+\begin{equation}\label{theta'2}
+\begin{split}
+t_{\T'_2} &\preceq O(|V\T|\cdot(|E\cP_2\smallsetminus \U_2)\cdot
+(\overline{Q}_k+2 |E \U_2| +1))\\ &\preceq O(|V\T|\cdot
+(|V\T_2|^2+|V\T_2|)\cdot (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
+\cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
+\end{split}
+\end{equation}
+One can fold this graph in time $t_1(E\T'_2)$. The number of $X_k$
+edges stays the same, and
+
+\begin{equation}\label{eztheta3}
+\begin{split}
+|E_Z\T_3| &\le |E_Z\T'_2|\le |E_Z\T_2|+\\ &+|V\T|\cdot
+\overline{Q}_k\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
+(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
+-2|V\T_2||V\G_{A_k}|+2}{2},
+\end{split}
+\end{equation}
+
+\begin{equation}\label{vtheta3}
+\begin{split}
+|V\T_3| &\le |V \T'_2|\le |V\T_2|+\\
+&+|V\T|\cdot(\overline{Q}_k-1)\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
+(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k| -2|V\T_2||V\G_{A_k}|+2
+}{2},
+\end{split}
+\end{equation}
+
+with a constant $\overline{Q}_k$ defined by $\T_2, H_k$, and
+$F_k$.
+
+
+The total complexity of this modification is
+
+\begin{equation}\label{theta3}
+t_{\T_3} = t_3(|V \T_2|, |V \G_{A_k}|) + t_2(|V\cP_2|)+
+t_1(|E\T'_2|) + t_{\T'_2},
+\end{equation}
+where $t_{\T'_2}$ given by (\ref{theta'2}).
+
+
+{\bf 4. $\T_3 \leadsto \T_4$.} We construct $\cP_3=\T_3\times
+\G_{A_k}$ in at most $t_3(|V \T_3|, |V \G_{A_k}|)$ steps. A
+spanning subforest $\U_3$ of $\cP_3$ can be constructed in time
+$t_2(|V\cP_3|)$. Suppose again $\cP_3$ has only one connected
+component.
+
+Observe that by construction $E\U_3 = E\U_2$ and $V\U_3$ coincide
+with $V\U_2$ plus some new isolated vertices; we denote by
+$V'\U_3$ the subset of $V\U_3$ which does not contain isolated
+vertices.
+
+Fix a pair $\g, \d$ in $\cP_3$; notice that the number of such
+pairs not greater than $|V\T|^2 \cdot (|V \G_{A_k}|-1)$.
+
+In the worst case $\g, \d$ is not covered, we find $h$ such that
+$|h|_k = |ab^{-1}|_k \le R_k+ | E\U_2|$ and then add to $\T_3$ a
+path of length at most $\overline{Q}'_k$, where
+$\overline{Q}'_k=\mathop{max}\limits_{h \in B_{R_k+|
+E\U_2|}}|\phi^{-1}_k(h)|_Z$.
+
+
+Thus the complexity of Algorithm II for all $\g, \d$ is
+
+\begin{equation}\label{theta'3}
+\begin{split}
+t_{\T'_3} &\preceq O(|V\T|^2 \cdot(|V \G_{A_k}|-1)(\overline{Q}'_k+R_k -1))\\
+&\preceq O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
+\end{split}
+\end{equation}
+This new graph can be folded in time $t_1(E\T'_3)$. Here
+
+\begin{equation}\label{eztheta4}
+|E_Z\T_4| \le |E_Z\T'_3| \le |E_Z\T_3|+
+\overline{Q}'_k\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
+\end{equation}
+
+\begin{equation}\label{ektheta4}
+|E_k\T_4| \le |E_k\T'_3| \le  |E_k\T_3|+ R_k\cdot|V\T|^2 \cdot(|V
+\G_{A_k}|-1),
+\end{equation}
+and
+\begin{equation}\label{vtheta4}
+|V\T_4| \le |V \T'_3| \le |V \T'_3|
++(\overline{Q}'_k+R_k-1)\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
+\end{equation}
+
+with a constant $\overline{Q}'_k$ defined by $\U_2, H_k$, and
+$F_k$.
+
+
+Therefore,
+\begin{equation}\label{theta2}
+t_{\T_4} = t_3(|V \T_3|, |V \G_{A_k}|) + t_2(|V\cP_3|)+
+t_1(|E\T'_3|) + t_{\T'_3},
+\end{equation}
+where $t_{\T'_3}$ given by (\ref{theta'2}).
+
+{\bf 5. $\T_4 \leadsto \T_5$.} The complexity of $\cP_4=\T_4\times
+\G_{A_k}$ construction is $t_3(|V \T_4|, |V \G_{A_k}|)$. Further,
+ a spanning subforest $\U_4$ of $\cP_4$ can be constructed in time
+$t_2(|V\cP_4|)$.
+
+Suppose $T_k$ and $S^{(2)}_k$ are given, and fix a pair $(\e,\xi)
+$ of vertices in non-diagonal component of in $\G_{A_k}\times
+\G_{A_k}$; notice that the number of such pairs not greater than
+$|V \G_{A_k}|^2-|V \G_{A_k}|)$. The length of connecting elements
+$c=c(\e,\xi)$ less than $2R_k$, while $|a_1|_k,|a_2|_k, |b_1|_k,
+|b_1|_k \le R_k$. Thus, $|h_i|_k = |b_ica_i^{-1}| < 4R_k$ for
+$i=1,2$. Let $\overline{Q}''_k=\mathop{max}\limits_{h \in
+B_{4R_k-1}}|\phi^{-1}_k(h)|_Z$. For every pair $(\e,\xi) $ we add
+to $\T_4$ a path $q$ of bounded length $|l_q|= |w_1 a_1a_2^{-1}
+w_2^{-1}| \le 2 \overline{Q}''_k +2 R_k$.
+
+Thus we shall spend on these transformations at most
+
+\begin{equation}\label{theta'4}
+\begin{split}
+t_{\T'_4} &\preceq O(|V \G_{A_k}|^2-|V \G_{A_k}|)\cdot(2\overline{Q}''_k+2R_k)\\
+&\preceq O(|V \G_{A_k}|^2 \cdot (2\overline{Q}''_k+2R_k)),
+\end{split}
+\end{equation}
+The graph $\T'_4$ can be folded in time $t_1(E\T'_4)$. Here we
+have
+
+\begin{equation}\label{eztheta4}
+|E_Z\T_5| \le |E_Z\T'_4| \le |E_Z\T_4|+ 2\overline{Q}''_k\cdot(|V
+\G_{A_k}|^2-|V \G_{A_k}|),
+\end{equation}
+
+\begin{equation}\label{eztheta4}
+|E_k\T_5| \le |E_k\T'_4| \le  |E_k\T_4|+ 2R_k\cdot(|V
+\G_{A_k}|^2-|V \G_{A_k}|),
+\end{equation}
+and
+\begin{equation}\label{vtheta4}
+|V\T_5| \le |V \T'_4| \le |V
+\T'_4|+(2\overline{Q}''_k+2R_k)\cdot(|V \G_{A_k}|^2-|V \G_{A_k}|),
+\end{equation}
+
+with a constant $\overline{Q}''_k$ defined by $H_k$, and $F_k$.
+
+
+Therefore,
+\begin{equation}\label{theta2}
+t_{\T_5} = t_3(|V \T_4|, |V \G_{A_k}|) + t_2(|V\cP_4|)+
+t_1(|E\T'_4|) + t_{\T'_4},
+\end{equation}
+where $t_{\T'_4}$ given by (\ref{theta'2}) and $|V\cP_4| \le |V
+\T_4|\cdot |V \G_{A_k}|$.
+
+
+{\bf The total complexity of modifications of $\T$.} The number of
+edges and vertices of graphs constructed is non-decreasing, so the
+total complexity of all modifications can be estimated as
+
+\begin{equation}\label{thetafin}
+\begin{split}
+t &\preceq t_3(|V \T_4|, |V \G_{A_k}|) + t_2(|V\cP_4|)+
+t_1(E\T'_4)+t_{\T_1} + t_{\T'_1}+t_{\T'_2}+t_{\T'_3}+t_{\T'_4}\\
+&\preceq O(|V \G_{A_k}|^6 \cdot
+|V\T|^{10}+R_k^8|E_Z\T|^8|V\T|^2\cdot |X_k|^{4 (|V \T|+ R_k |E_Z
+\T |)|V\G_{A_k}|}).
+\end{split}
+\end{equation}
+\end{proof}
+
+{\ef{Lemmas and theorems on reassembly of $\T_5$' and the
+resulting complexity of the MP needed.}}
+
+
+%\subsection{The membership problem complexity}\label{sub:mp_complexity}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
 \bibliography{membership}
