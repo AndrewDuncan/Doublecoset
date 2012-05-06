@@ -1,0 +1,16 @@
+digraph liza2 {
+"Gv1" [shape=point];
+"Gv1" -> "Gv2" [label="y"];
+"Gv1" -> "Gv6" [label="x"];
+"Gv1" -> "Gv3" [label="w"];
+"Gv2" [shape=point];
+"Gv2" -> "Gv1" [label="z"];
+"Gv3" [shape=point];
+"Gv3" -> "Gv4" [label="w"];
+"Gv4" [shape=point];
+"Gv4" -> "Gv5" [label="y"];
+"Gv5" [shape=point];
+"Gv6" [shape=point];
+"Gv6" -> "Gv1" [label="x"];
+"Gv6" -> "Gv5" [label="w"];
+}
