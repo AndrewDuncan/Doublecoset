@@ -785,63 +785,64 @@ representatives.
 \end{proof}
 
 \begin{example}\label{ex:f_1}
-Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
+Let $F_1$ be the free group on generators $x_1,y_1$ and $H_1$ its
 subgroup $H_1=\la
-h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and
-$h_3=x_1x_2x_3\ra$.
+h_1,h_2,h_3, h_4\ra$, where  $h_1= x_1^3$, $h_2=y_1^{3}$, 
+$h_3=x_1y_1^{3}x_1^{-1}$ and $h_4=x_1^{2}y_1^{3}x_1^{-2}$. 
 
 The Stallings automata, $\G_{A_1}$ for $H_1$,
 with maximal subtree $T_1$ highlighted and base vertex $1$, is shown
-in Figure \ref{fig:stall}.\ref{fig:stall1}.
+in Figure \ref{fig:bez1}.
 The set $L_{T_1}$ corresponding to the maximal subtree  $T_1$ is
- $L_{T_1}=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$.
+ $L_{T_1}=\{1,x_1,x_1^{2},y_1, y_1^2, x_1y_1, x_1y_1^2, x_1^2y_1, x_1^2y_1^2 \}$.
 
 Let the set of double coset representatives for $H_1$ be $S_1=S_1^{(1)}
 \cup S_1^{(2)}$.
 To find the double coset normal form for the element $f_1 =
-x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$: in
+y_1^6 x_1^4 y_1 x_1^4 y_1 x_1^{-2} y_1^{-3} x_1^{-1}$: 
+in
 the notation of Algorithm I, use
-${A_1}$ to read off the maximal acceptable prefix $h=x_2x_3^2x_2^{-1} x_1^3
-=h_2^2h_1$
+${A_1}$ to read off the maximal acceptable prefix 
+$h=y_1^6 x_1^3=h_2^2h_1$ 
 of $f_1$; and
-the maximal $L_{Q_1}$ prefix $p=x_1$ of the remaining part of $f_1$. Next
-$q^{-1}=x_1x_2x_3x_1^2x_3^{-3}$, which has maximal acceptable prefix
-$g=x_1x_2x_3$. The maximal $L_{Q_1}$-prefix of the remaining part of $q^{-1}$
-is then $t=x_1^2$. Setting $e=x_3$,
+the maximal $L_{Q_1}$ prefix $p=x_1y_1$, of the remaining part of $f_1$. Next
+$q^{-1}=x_1y_1^3x_1^2y_1^{-1}x_1^{-4}$, which has maximal acceptable prefix
+$g=x_1y_1^3x_1^2=h_3h_1$. The maximal $L_{Q_1}$-prefix of the remaining part of $q^{-1}$
+is then $t=y_1^{-1}$. Setting $e=x_1^4$,
 \[f_1=h\circ p\circ e\circ t^{-1}\circ g^{-1}.\]
 As $p$ is an $L_{T_1}$-prefix of $pq$ we have $y=p$. On the other hand
-$t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=2$, so $z=w(2)=x_1^{-1}$.
+$t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=5$, so $z=w(5)=y_1^{2}$.
 Now set
-\[s=p\circ e\circ z^{-1}=x_1x_3x_1^{-1}\in S_1^{(1)}.\]
-Then, writing $h^\prime=gtz^{-1}=h_3h_1$, the normal form for $f_1$ is
-\[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3x_1^{-1} (h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\]
+\[s=p\circ e\circ z^{-1}=x_1y_1x_1^4y_1^{-2}.\]
+Then, writing $h^\prime=gtz^{-1}=h_3h_1h_2^{-1}$, the normal form for $f_1$ is
+\[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1)x_1y_1x_1^4y_1^{-2} (h_2h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\]
 
 To find the double coset normal form for the element
-$f_2=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}x_1^{-1}$: use
-${A_1}$ to read off the maximal acceptable prefix $h=x_3^{-1}x_2^{-1}x_1^{-1}$
-of $f_2$;
-
-{\ef The maximal acceptable prefix $ h= h_3^{-1} h_2$. Further, $p
-= x_1^{-1}$ and since $(2,1)$ represents itself, $a = h_3^{-1}
-h_2$, $b=c = 1$ but anyway $f_2 = h_3^{-1} h_2  x_1^{-1}$.}
-
- and  the
-maximal $L_{Q_1}$-prefix $p=x_2x_3$ of the rest of $f_2$.  Next
-$q^{-1}=x_1x_2$, which is readable by ${A_1}$, so
-$t=q^{-1}=x_1x_2$ and
-\[f_2=h\circ p\circ t^{-1}.\]
-Therefore $f_2$ will be in $H_1S_1^{(2)}H_1$. To find the required
+$f_2=y_1^3x_1^2y_1^3x_1^{-2}y_1^{-1}x_1y_1^{2}x_1^5$: use
+${A_1}$ to read off the maximal acceptable prefix 
+  $h=y_1^3x_1^2y_1^3x_1^{-2}=h_2h_4$ of $f_2$;   and 
+the maximal $L_{Q_1}$-prefix 
+$p=y_1^{-1}$, 
+of the remainder of $f_2$.
+  Here 
+$q^{-1}=x_1^{-5}y_1^{-2}x_1^{-1}$, which has maximal acceptable prefix 
+$g=x_1^{-3}=h_1^{-1}$ and the maximal $L_{Q_1}$-prefix of the remainder
+ of $q^{-1}$ is then $t=x_1^{-2}y_1^{-2}x_1^{-1}$. Then $\t(p)=5$ so $y=w(5)=y_1^2$ and 
+$\t(t)=$
+\[f_2=p.\]
+Therefore $f_2$ is in $H_1S_1^{(2)}H_1$. To find the required
 double coset representative we construct $\G_{A_1}\times
-\G_{A_1}$, which has two non-diagonal components, shown in Figures
-\ref{fig:stall}\ref{fig:GxG-1} and \ref{fig:stall}\ref{fig:GxG-2},
-with the $\sim$ representatives $(3,1)$ and $(2,1)$,  shown as
-solid vertices. The connecting elements are paths in the
-highlighted subtrees.  All other non-diagonal components consist
-of isolated vertices. Now, $u=\t(p)=5$ and $v=\t(t)=4$ and $(5,4)$
-has $\sim$ representative $(1,3)$, and connecting element
-$c=c(5,4)=x_2^{-1}$. Therefore $y=w(1)=1$, $z=w(3)=x_1$,
-$yz^{-1}\in S_1^{(2)}$,
-\[a=hpcy^{-1}=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3x_2^{-1}=h_3^{-1}h_2
+\G_{A_1}$, which has two non-diagonal components of $9$ vertices, shown in Figure \ref{fig:bez1} and $18$ non-diagonal components of $3$ vertices, of
+which $3$ are shown in Figure \ref{fig:bez2}. In these figures 
+$\sim$ representatives are  
+shown as
+solid vertices and  connecting elements are the labels of paths in the
+highlighted subtrees.  
+Now, $u=\t(p)=6$ and $v=t=1$ so $\t(t)=1$ and $(6,1)$  is a 
+ $\sim$ representative. 
+ Therefore $y=p$, $z=1$,
+$p=yz^{-1}\in S_1^{(2)}$, 
+\[a=hpcy^{-1}=
 \textrm{ and } b=zc^{-1}t^{-1}g^{-1}=x_1 x_2 x_2^{-1} x_1^{-1}=1,\]
 and the normal form of $f_2$ is
 \[f_2=a yz^{-1} b=(h_3^{-1}h_2) x_1^{-1}.\]
@@ -850,36 +851,83 @@ and the normal form of $f_2$ is
 \begin{figure}
 \begin{center}
 \psfrag{x1}{$x_1$}
-\psfrag{x2}{$x_2$}
-\psfrag{x3}{$x_3$}
+\psfrag{y1}{$y_1$}
 \psfrag{1}{$1$}
 \psfrag{2}{$2$}
 \psfrag{3}{$3$}
 \psfrag{4}{$4$}
 \psfrag{5}{$5$}
+\psfrag{6}{$6$}
+\psfrag{7}{$7$}
+\psfrag{8}{$8$}
+\psfrag{9}{$9$}
 \subfigure[Stallings automaton $\G_{A_1}$ for $H_1$]{
-\includegraphics[scale=.52]{stallh1.eps}
-\label{fig:stall1}}
+\includegraphics[scale=.52]{bez1.eps}
+\label{fig:bez1}}
 \hspace{5mm}
 \subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(3,1)$.]{
-\psfrag{a}{$(1,2)$}
-\psfrag{b}{$(2,3)$}
-\psfrag{c}{$(3,1)$}
-\psfrag{d}{$(4,5)$}
-\psfrag{e}{$(1,5)$}
-\includegraphics[scale=.52]{GxG-1.eps}
+\psfrag{x1}{$x_1$}
+\psfrag{y1}{$y_1$}
+\psfrag{1}{$(1,2)$}
+\psfrag{2}{$(2,3)$}
+\psfrag{3}{$(3,1)$}
+\psfrag{4}{$(4,6)$}
+\psfrag{5}{$(5,7)$}
+\psfrag{6}{$(6,8)$}
+\psfrag{7}{$(7,9)$}
+\psfrag{8}{$(8,4)$}
+\psfrag{9}{$(9,5)$}
+\includegraphics[scale=.52]{bez1a.eps}
 \label{fig:GxG-1}}
 \hspace{5mm}
 \subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(2,1)$.]{
-\psfrag{a}{$(2,1)$}
-\psfrag{b}{$(3,2)$}
-\psfrag{c}{$(1,3)$}
-\psfrag{d}{$(5,4)$}
-\psfrag{e}{$(5,1)$}
-\includegraphics[scale=.52]{GxG-2.eps}
+\psfrag{x1}{$x_1$}
+\psfrag{y1}{$y_1$}
+\psfrag{1}{$(1,3)$}
+\psfrag{2}{$(2,1)$}
+\psfrag{3}{$(3,2)$}
+\psfrag{4}{$(4,8)$}
+\psfrag{5}{$(5,9)$}
+\psfrag{6}{$(6,4)$}
+\psfrag{7}{$(7,5)$}
+\psfrag{8}{$(8,6)$}
+\psfrag{9}{$(9,7)$}
+\includegraphics[scale=.52]{bez1b.eps}
 \label{fig:GxG-2}}
 \end{center}
-\caption{Example \ref{ex:f_1}.}\label{fig:stall}
+\caption{Example \ref{ex:f_1}.}\label{fig:bez}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(6,1)$.]{
+\psfrag{x1}{$x_1$}
+\psfrag{y1}{$y_1$}
+\psfrag{3}{$(6,1)$}
+\psfrag{8}{$(7,4)$}
+\psfrag{9}{$(2,5)$}
+\includegraphics[scale=.52]{bez1c.eps}
+\label{fig:GxG-18}}
+\hspace{5mm}
+\psfrag{x1}{$x_1$}
+\psfrag{y1}{$y_1$}
+\psfrag{3}{$(4,2)$}
+\psfrag{8}{$(5,6)$}
+\psfrag{9}{$(1,7)$}
+\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(4,2)$.]{
+\includegraphics[scale=.52]{bez1c.eps}
+\label{fig:GxG-4}}
+\hspace{5mm}
+\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(9,3)$.]{
+\psfrag{x1}{$x_1$}
+\psfrag{y1}{$y_1$}
+\psfrag{3}{$(9,3)$}
+\psfrag{8}{$(3,8)$}
+\psfrag{9}{$(8,9)$}
+\includegraphics[scale=.52]{bez1c.eps}
+\label{fig:GxG-5}}
+\end{center}
+\caption{Example \ref{ex:f_1}.}\label{fig:bez2}
 \end{figure}
 
 \begin{example}\label{ex:f_2}
