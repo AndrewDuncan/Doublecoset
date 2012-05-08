@@ -1,6 +1,7 @@
 from graph import *
 
 G=Graph()
+
 a=G.addVertex()
 b=G.addVertex()
 c=G.addVertex()

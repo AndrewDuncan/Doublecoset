@@ -210,10 +210,10 @@ class Graph:
 	def graphViz(self,name='G'):
 		out = []
 		for u in self.vertices:
-			out.append('"%s%s" [shape=point];' % (name,u))
+			out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,str(u.label)))
 			for label,vs in u.outedges.items():
 				for v in vs:
-					out.append( '"%s%s" -> "%s%s" [label="%s"];' % (name,u,name,v,label) )
+					out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
 		return '\n'.join(out)
 	
 	def __str__(self):
