@@ -1,15 +1,14 @@
 digraph liza {
-node[width=.25,height=.375,fontsize=9];
-"Gv1" [width=.25,height=.375,fontsize=9,label="v1"];
-"Gv1" -> "Gv5" [label="y"];
-"Gv1" -> "Gv3" [label="x"];
-"Gv2" [fontsize=8,label="v2"];
-"Gv2" -> "Gv1" [label="x"];
-"Gv3" [fontsize=7,label="v3"];
-"Gv3" -> "Gv4" [label="y"];
-"Gv3" -> "Gv2" [label="x"];
-"Gv4" [shape=point];
-"Gv4" -> "Gv1" [label="z"];
-"Gv5" [shape=point];
-"Gv5" -> "Gv5" [label="z"];
+"Gv1" [label="a",fontsize=7,width=.01,height=.01];
+"Gv1" -> "Gv5" [label="y",fontsize=8];
+"Gv1" -> "Gv3" [label="x",fontsize=8];
+"Gv2" [label="b",fontsize=7,width=.01,height=.01];
+"Gv2" -> "Gv1" [label="x",fontsize=8];
+"Gv3" [label="c",fontsize=7,width=.01,height=.01];
+"Gv3" -> "Gv4" [label="y",fontsize=8];
+"Gv3" -> "Gv2" [label="x",fontsize=8];
+"Gv4" [label="d",fontsize=7,width=.01,height=.01];
+"Gv4" -> "Gv1" [label="z",fontsize=8];
+"Gv5" [label="e",fontsize=7,width=.01,height=.01];
+"Gv5" -> "Gv5" [label="z",fontsize=8];
 }

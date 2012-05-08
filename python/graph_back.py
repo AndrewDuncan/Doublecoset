@@ -4,16 +4,12 @@ import os
 import itertools
 
 class Vertex:
-	def __init__(self,label,name):
+	def __init__(self,label):
 		self.label = label
 		self.outedges = {}
 		self.outedgesList = []
 		self.inedges = {}
 		self.inedgesList = []
-		if name is None:
-			self.name = label
-		else:
-			self.name = name
 
 	def __repr__(self):
 		return str(self)
@@ -96,15 +92,10 @@ class Graph:
 			self.root = self.addVertex()
 	
 	#create a new vertex in the graph and return it
-	def addVertex(self,name=None):
+	def addVertex(self):
 		self.vertexCount += 1
-		v=Vertex(self.vertexCount,name)
+		v=Vertex(self.vertexCount)
 		self.vertices.append(v)
-		#if name is None:
-		#	self.name = self.vertexCount
-		#else:
-		#	self.name = name
-#
 		return v
 	
 	#merge vertices u and v, removing v from the graph
@@ -163,14 +154,11 @@ class Graph:
 
 	#return double of this graph
 	#has a vertex labelled (u,v) for each u,v in original graph
-	#there is an edge (u,v) -> (a,b) with label x iff there is an edge u->a with label x and an edge v->b with label x in the original graph
+	#there is an edge (u,v) -> (a,b) with label x iff there are an edge u->a with label x and an edge v->b with label x in the original graph
 	def double(self):
 
-		def joinLabel(u,v):	#create a new label for vertices in the double graph so labels of original pair can be easily seen
+		def joinName(u,v):	#create a new name for vertices in the double graph so names of original pair can be easily seen
 			return str(u.label)+'-'+str(v.label)
-
-		def joinName(u,v):	#create a new name for vertices in the double graph, for display
-			return str(u.name)+'-'+str(v.name)
 
 		newverts = {}	#a dictionary to keep track of new vertices
 
@@ -178,26 +166,23 @@ class Graph:
 		g=Graph()	#g will be the double graph
 
 		for u,v in itertools.product(self.vertices,self.vertices):	#for every ordered pair of vertices
-			uv = g.addVertex(joinName(u,v))			#add a vertex
-			uv.label = joinLabel(u,v)	#give it a name created from the names of the pair of original vertices
+			uv = g.addVertex()			#add a vertex
+			uv.label = joinName(u,v)	#give it a name created from the names of the pair of original vertices
 			newverts[uv.label] = uv		#add the vertex to the dictionary
 
 		for u,v in itertools.product(self.vertices,self.vertices):	#for every ordered pair (u,v) of vertices
 			for label in u.outedges.keys():		#for each label for which u has one or more out-edges
 				if label in v.outedges.keys():	#if v has out-edges with the same label
-					uv=newverts[joinLabel(u,v)]	#get the vertex (u,v)
+					uv=newverts[joinName(u,v)]	#get the vertex (u,v)
 					for a,b in itertools.product(u.outedges[label],v.outedges[label]):	#for each vertex a such that u->a and each b such that v->b,
-						g.addEdge(uv,newverts[joinLabel(a,b)],label)						#create an edge (u,v) -> (a,b)
+						g.addEdge(uv,newverts[joinName(a,b)],label)						#create an edge (u,v) -> (a,b)
 
 		return g
 
 	#product of this graph and graph g2
 	def product(self,g2):
-		def joinLabel(u,v):	#create a new name for vertices in the double graph so names of original pair can be easily seen
+		def joinName(u,v):	#create a new name for vertices in the double graph so names of original pair can be easily seen
 			return str(u.label)+'-'+str(v.label)
-
-		def joinName(u,v):	#create a new name for vertices in the double graph, for display
-			return str(u.name)+'-'+str(v.name)
 
 		newverts = {}	#a dictionary to keep track of new vertices
 
@@ -206,17 +191,17 @@ class Graph:
 
 		for u in self.vertices:	#for every vertex in this graph
 			for v in g2.vertices:	#for every vertex in g2
-				uv = g.addVertex(joinName(u,v))			#add a vertex
-				uv.label = joinLabel(u,v)	#give it a name created from the names of the pair of original vertices
+				uv = g.addVertex()			#add a vertex
+				uv.label = joinName(u,v)	#give it a name created from the names of the pair of original vertices
 				newverts[uv.label] = uv		#add the vertex to the dictionary
 
 		for u in self.vertices:	#for every ordered pair of vertices
 			for v in g2.vertices:	#for every vertex in g2
 				for label in u.outedges.keys():		#for each label for which u has one or more out-edges
 					if label in v.outedges.keys():	#if v has out-edges with the same label
-						uv=newverts[joinLabel(u,v)]	#get the vertex (u,v)
+						uv=newverts[joinName(u,v)]	#get the vertex (u,v)
 						for a,b in itertools.product(u.outedges[label],v.outedges[label]):	#for each vertex a such that u->a and each b such that v->b,
-							g.addEdge(uv,newverts[joinLabel(a,b)],label)						#create an edge (u,v) -> (a,b)
+							g.addEdge(uv,newverts[joinName(a,b)],label)						#create an edge (u,v) -> (a,b)
 
 		return g
 
@@ -225,10 +210,10 @@ class Graph:
 	def graphViz(self,name='G'):
 		out = []
 		for u in self.vertices:
-			out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
+			out.append('"%s%s" [shape=point];' % (name,u))
 			for label,vs in u.outedges.items():
 				for v in vs:
-					out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
+					out.append( '"%s%s" -> "%s%s" [label="%s"];' % (name,u,name,v,label) )
 		return '\n'.join(out)
 	
 	def __str__(self):
