@@ -20,3 +20,15 @@ def addVertex():
     v=Vertex(vertexCount)
     vertices.append(v)
     return v
+
+word='abcde'
+lastvadded = 0
+nextlabel = word[0]
+penul = len(word)-1
+for c in word[1:penul]:				#for each letter in the word except the first and last:
+	print "letter is ", c, "prev letter is ", nextlabel, "lastvadded is ", lastvadded
+        nextlabel = c
+        lastvadded += 1
+        
+
+        

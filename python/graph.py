@@ -100,13 +100,19 @@ class Graph:
 		self.vertexCount += 1
 		v=Vertex(self.vertexCount,name)
 		self.vertices.append(v)
-		#if name is None:
-		#	self.name = self.vertexCount
-		#else:
-		#	self.name = name
-#
+
 		return v
-	
+
+
+	#remove an existing vertex from the graph 
+	def removeVertex(self,v):
+		self.vertices.remove(v)
+		for label,w in v.outedgesList:		#for each labelled edge v->w
+			w.removeInEdge(label,v)	         #remove edge from w's list of in-edges
+
+		for label,w in v.inedgesList:	        #for each labelled edge joining w->v
+			w.removeOutEdge(label,v)         #remove edge from w's list of out-edges
+		
 	#merge vertices u and v, removing v from the graph
 	def mergeVertices(self,u,v):
 		if u==v: return
@@ -143,23 +149,35 @@ class Graph:
 			u=v
 
 		self.addEdge(u,root,word[-1])	#add a final edge connecting back to the root, with label the last letter of the word
+
+	def addPath(self,u,z,word):
+		lastvadded = u         #keep track of the previous vertex
+		prevlabel = word[0]     #keep track of the previous letter
+		penul = len(word)-1    #the penultimate letter
+		for c in word[1:len(word)]: #for each letter in the word except the first and last:
+			v = self.addVertex()		#create a new vertex
+			self.addEdge(lastvadded,v,prevlabel)			#add a labelled edge connecting previous vertex to the new one, using the previous letter
+			lastvadded = v
+			prevlabel = c
+
+		self.addEdge(lastvadded,z,word[-1])	#add a final edge connecting back to the final vertex, with label the last letter of the word	
 	
 	#fold the graph once
 	#that is: any number of vertices might be merged, but each vertex will be merged at most once
 	def fold(self):
 		folds = sum([v.getFolds() for v in self.vertices],[])	#get all possible folds
-		folded = []												#keep track of which vertices have been folded
+		folded = []						#keep track of which vertices have been folded
 
-		for label,vs in folds:							#for each possible fold
+		for label,vs in folds:					#for each possible fold
 			vs = [v for v in vs if not v in folded]		#remove vertices that have been involved in a previous fold
-			if len(vs)>1:								#if there are still vertices to be folded
-				u=vs[0]									#the first vertex in the list. at the end of the loop, the node pointed to by u is the one that survived
-				folded.append(u)						#add u to the list of vertices not to merge again
-				for v in vs[1:]:						#for each other vertex v in this fold
-					self.mergeVertices(u,v)			#merge it with u, and reassign u to the surviving
-					folded.append(v)					#add v to the list of vertices not to merge again
+			if len(vs)>1:					#if there are still vertices to be folded
+				u=vs[0]					#the first vertex in the list. at the end of the loop, the node pointed to by u is the one that survived
+				folded.append(u)			#add u to the list of vertices not to merge again
+				for v in vs[1:]:			#for each other vertex v in this fold
+					self.mergeVertices(u,v)		#merge it with u, and reassign u to the surviving
+					folded.append(v)		#add v to the list of vertices not to merge again
 
-		return len(folds)>0								#return true if any folds took place
+		return len(folds)>0					#return true if any folds took place
 
 	#return double of this graph
 	#has a vertex labelled (u,v) for each u,v in original graph

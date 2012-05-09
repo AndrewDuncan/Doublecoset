@@ -14,3 +14,8 @@ G.addEdge(c,d,'y')
 G.addEdge(d,a,'z')
 G.addEdge(a,e,'y')
 G.addEdge(e,e,'z')
+G.addPath(a,e,'r')
+
+print "digraph G {"
+print (str(G))
+print "}"

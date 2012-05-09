@@ -111,3 +111,14 @@ class Graph:
 			u=v
 
 		self.addEdge(u,root,word[-1])	#add a final edge connecting back to the root, with label the last letter of the word
+def addPath(self,u,z,word):
+		lastvadded = u         #keep track of the previous vertex
+		prevlabel = word[0]     #keep track of the previous letter
+		penul = len(word)-1    #the penultimate letter
+		for c in word[1:penul]: #for each letter in the word except the first and last:
+			v = self.addVertex()		#create a new vertex
+			self.addEdge(lastvadded,v,prevlabel)			#add a labelled edge connecting previous vertex to the new one, using the previous letter
+			lastvadded = v
+			prevlabel = c
+
+		self.addEdge(lastvadded,z,word[-1])	#add a final edge connecting back to the final vertex, with label the last letter of the word	
