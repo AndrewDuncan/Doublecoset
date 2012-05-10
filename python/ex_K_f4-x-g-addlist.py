@@ -88,10 +88,13 @@ for c in plist:
 
 print  "\n --------------------------------\n"
 
+hitlist = []
 for c in plist:
     if str(c.label)[str(c.label).index('-')+1:] == '1':
-        print "(",str(c.label)[0:str(c.label).index('-')], ",", str(c.label)[str(c.label).index('-')+1:], ")",
+        hitlist.append(c)
+#        print "(",str(c.label)[0:str(c.label).index('-')], ",", str(c.label)[str(c.label).index('-')+1:], ")",
 
+print hitlist
 #for i in range(len(plist)):
 #    for j in range(i+1,len(plist)):
 #        print  i, j,
@@ -116,7 +119,7 @@ def allneighbours(v): #return all edges incident to a given vertex
         neighbourList.append((e,'out')) #append outedges
     return neighbourList
 
-v=1
+v=0
 nl = allneighbours(plist[v])
 
 print "\n and now "
@@ -152,7 +155,7 @@ print "here is "
 def indexneighbours(v): # make an index of all neighbours of a vertex
    n = str(v.label)
    nl=allneighbours(v)
-   neighbours[n]=[nl]
+   neighbours[n]=nl
 
 v=plist[1]
 indexneighbours(v)
@@ -163,7 +166,41 @@ def onelist(): #make an index of all neighbours of vertics with rhs label = 1
             indexneighbours(c)
 
 onelist()        
-print neighbours
+#print neighbours
+
+v=plist[0]
+#print v.label in neighbours
+nl = neighbours[v.label]
+#print nl
+#print nl[0]
+for i in range(len(nl)): #run through the list of neighbours of a  vertex
+    l=str(nl[i][0][1].label) #l is the label of the vertex
+#    print l
+    left = l[0:l.index('-')]            #left is the lhs of the label: from theta-n
+#    print left
+    right = l[l.index('-')+1:]          #right is the rhs of the label: from gamma-k
+#    print right
+    L=str(nl[i][0][0])       #L is the edge label
+    d=str(nl[i][1])
+    if d == 'out':
+        Q = L.capitalize()              #Q is the label taking direction into account
+#        print Q
+    else:
+        Q = L
+#        print Q
+
+    
+    for k in range(1,len(hitlist)): #run through the vertices in hitlist with bigger index than v
+        w = hitlist[k]              #w is the kth on the list
+        kl=  neighbours[w.label]    #kl is the list of vertices incident to w
+        for j in range(len(kl)): #run through the list of neighbours of   vertex w
+            kl_l = str(kl[j][0][1].label) #kl_l is the label of the jth vertex of kl
+            kleft = kl_l[0:kl_l.index('-')] #left is the lhs of the label of the jth vertex of kl
+            if left == kleft: #when left = kleft a path might be added to theta4
+                print "left is ", left, "kleft is", kleft
+#if left == 
+#       print "v is ", v.label, "l is",   l, "k is ", k, "kl is", kl
+         
 #len(Z)
 #for s in range(len(Z)):
 #    if not q in neighbours:
