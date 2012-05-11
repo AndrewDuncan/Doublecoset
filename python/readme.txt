@@ -20,3 +20,6 @@ To avoid having to run python, then neato then display use the
 script viz.sh. That is run
 
 viz.sh mygraph.py
+
+There are a couple of other scripts, eiz and pviz for postscript and 
+for printing.
