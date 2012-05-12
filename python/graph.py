@@ -90,7 +90,12 @@ class Graph:
 	#graph constructor
 	#if rooted=True, then a root node is created and added to the graph
 	#otherwise graph begins empty
-	def __init__(self,rooted=False):
+	def __init__(self,rooted=False,label='H'):
+		if label == None:
+			self.label = 'G'
+		else:
+			self.label = label
+			
 		self.vertices = []
 		if rooted:
 			self.root = self.addVertex()
@@ -250,7 +255,7 @@ class Graph:
 		return '\n'.join(out)
 	
 	def __str__(self):
-		return self.graphViz('G')
+		return self.graphViz(self.label)
 
 #little demo/test
 def _test_():

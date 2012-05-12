@@ -43,7 +43,7 @@ for i in range(-4,17):
 for v in y2list:
     Y2.removeVertex(v)
 
-print "digraph X1 {"
-print (str(X1))
+print "digraph Y1 {"
+print (str(Y1))
 #print (str(Y2))
 print "}"
