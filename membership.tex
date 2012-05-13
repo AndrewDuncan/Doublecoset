@@ -5,8 +5,9 @@
 \usepackage[mathscr]{eucal}
 \usepackage[usenames]{color}
 \usepackage{url}
+\usepackage[shortlabels]{enumitem}
 \usepackage{comment}
-%\usepackage{showkeys}
+\usepackage{showkeys}
 %%%%%%%%%
 \sloppy
 
@@ -141,107 +142,118 @@
 \maketitle
 
 \begin{abstract}
-We modify Stallings folding theory to apply it to amalgamated
-products of finite rank free groups. Using special kind of normal
-forms, we show how they can be used to decide subgroup membership
-problem for free products with amalgamation.
+Stallings folding theory is modified, using double coset representatives, and to applied 
+to the study of subgroups of  amalgamated
+products of finite rank free groups. As an application the 
+ subgroup membership
+problem for such groups is shown to be decidable. An algorithm for this
+problem is constructed and its complexity is analysed.
  \end{abstract}
 
 
 
 \section{Introduction}\label{se:global_intro}
 
-Stallings introduced his technique of foldings in his paper
-\cite{stallings83} where he applied this technique to investigate
-free groups. In his \cite{stallings88} Stallings extend ideas of
-foldings to non-free actions of groups on graphs and trees. Next
-years ideas of Stallings was widely generalised in different
-directions and applied to decide different problems in
-combinatorial group theory, see for example
-\cite{befe,BoWei,KM02,SilvaWeil08}.
+Stallings introduced his technique of subgroup foldings in 
+\cite{stallings83} where he applied it to investigate subgroups of 
+free groups. In \cite{stallings88} Stallings extended ideas of
+foldings to non-free actions of groups on graphs and trees. In the following 
+years these ideas were widely generalised, in several
+directions,  and used to solve a variety of  problems in
+combinatorial group theory: see for example
+\cite{befe,BoWei,KM02,SilvaWeil08}. 
+In this paper we consider  subgroups
+of free products with amalgamation of free groups of finite rank, using
+a language of normal forms based on double coset representatives.  We
+extend the theory  of Stallings foldings to this setting and use it to construct an
+explicit algorithm for the subgroup membership problem.
 
-Let $G = <X|R>$ be a finitely generated group. The group $G$ has
-solvable membership problem if there is an algorithm which, for
-any finite set of words $w, k_1, \ldots k_s$ in $G$ decides
-whether or not the element $w$ belongs to the subgroup $K = <k_1,
-\ldots, k_s>$. In this paper we decide the subgroup membership
-problem for amalgamated products of finite rank free groups, using
-a language of special normal forms for elements of such groups and
-extending ideas of Stallings foldings for this group construction.
-Free group constructions, in particular, free products of groups,
-with or without amalgamation, $HNN-$extensions
+Let $G = <X|R>$ be a finitely generated group. 
+A fixed subgroup $K$ of $G$ is said to have 
+\emph{solvable  membership problem} if there is an algorithm which, for
+any word $w$ in $\FF(X)$, decides
+whether or not $w$ represents an element of  the subgroup $K$. 
+The group $G$ has 
+\emph{solvable  (uniform) membership problem} if there is an algorithm which, for
+any finite set of words $w, k_1, \ldots k_s$ in $\FF(X)$, decides
+whether or not $w$ represents an element of  the subgroup $K = <k_1,
+\ldots, k_s>$ of $G$. 
+
+``Free group constructions'', in particular, free products of groups,
+with or without amalgamation, $HNN$-extensions
  and, more generally, fundamental groups
-of graphs of groups represent a subject of special interest in
-group theory from different points of view. First results here
-related to the solvability of membership problem in group
-constructions described above is due to Mihailova (see
-\cite{mi59,mi68}), who shown that the membership problem is
-decidable in free product of groups $A$ and $B$ if it is decidable
-in both factors. One should mention also another famous result of
-Mihailova \cite{mi58} which provide an important counter-example
-in this direction. Namely, she constructed a finitely generated
-subgroup of direct product of two free groups of rank two with
-unsolvable membership problem; notice also, that this direct
-product can be considered also as sequence of two $HNN-$extensions
-of rank two free group. On the other hand, it is another classical
-result that a free group of finite rank has solvable (uniform)
-membership problem. It shows, that even innocent group
-constructions can affect solvability of the membership problem
-dramatically.
+of graphs of groups constitute a subject of special significance in
+group theory, from many points of view. Initial results in this area, 
+related to the solvability of membership problem,  due to Mihailova (see
+\cite{mi59,mi68}), show that the membership problem is
+decidable in the free product of groups $A$ and $B$ if it is decidable
+in both factors. Another famous result of
+Mihailova \cite{mi58}  provides an important counter-example:
+ namely,  a finitely generated
+subgroup of a direct product of two free groups of rank two with
+unsolvable membership problem.  This direct
+product can in fact be considered as a sequence of two $HNN$-extensions
+of rank two free group. On the other hand, another classical
+result \cite[Proposition 2.21]{LS} shows that a free group of finite rank has solvable (uniform)
+membership problem. Thus,  even innocent group
+constructions can dramatically affect solvability of the membership problem.
 
 The membership problem for free products with amalgamation and
-$HNN-$extension was studied by Bezverkhnii in his papers
-\cite{bez81,bez86,bez90,bez91}, where he used combinatorial
-technique and standard normal forms in amalgamated product of
-groups. Our approach is, first of all, more geometrical, and since
-we have an eye on generalization of this result on other free
+$HNN$-extensions was studied by Bezverkhnii in papers
+\cite{bez81,bez86,bez90,bez91}, using  combinatorial
+techniques and standard normal forms for  amalgamated products of
+groups. Our approach is, first of all, more geometric, and since
+we have an eye on the generalisation of results to other free
 constructions, we were obliged to introduce another language to
-study these constructions. Another significant step in this
-direction was done by Kapovich, Miasnikov and Weidmann in their
-paper \cite{KMW03}, where authors investigated uniform membership
-problem for fundamental groups of graph of groups under certain
-assumptions on both vertices and edges groups. In particular, they
-shown that for the case where all vertices groups either locally
-quasiconvex wordhyperbolic or polycyclic-by-finite and all edges
-groups are polycyclic-by-finite the uniform membership problem for
-fundamental groups of such a graph of groups is solvable.
+study these constructions. 
+{\ajd What is the other language?} 
+Another significant step in development of the theory of foldings for  free constructions 
+ was taken by Kapovich, Miasnikov and Weidmann 
+\cite{KMW03}, where the authors investigated the uniform membership
+problem for fundamental groups of graphs of groups, under certain
+assumptions on both vertex and edge groups. In particular, they
+showed that, in the case where all vertex groups are either locally
+quasiconvex word hyperbolic or polycyclic-by-finite, and all edge 
+groups are polycyclic-by-finite; the uniform membership problem for the 
+fundamental group of the graph of groups is solvable.
 
-As it was mentioned above, we want to introduce geometric
-technique, which relies on Stallings foldings ideas and another
-type of normal forms for elements of amalgamated products of
-groups. Now, a few words on the structure of the paper. In Section
-\ref{sec:intro} we introduce the double coset normal forms for
-elements amalgamated products of finite rank free groups.
- In Section \ref{sec:dcforms} we study the structure of these double coset normal forms and describe the explicit procedure
- of their construction. Namely, we show how to obtain a unique normal form of an element in a free group of finite
- rank; these forms are based on double coset of representatives of
- two types representatives (see subsection \ref{sub:2cosetrepr}).
- Simple procedure described in the beginning of Section \ref{sec:foldings}
- shows how to rewrite arbitrary word in a reduced form into double
- coset normal form using these special representations in factors.
+As mentioned above, we  introduce a  geometric
+technique, which relies on Stallings foldings and 
+normal forms based on double cosets, for elements of amalgamated products of
+groups. 
 
-Section  \ref{sec:foldings} is the heart of the paper. Let $K$ be
-a subgroup of an amalgamated product of finite rank free groups.
-Using the notion of double coset graph (automaton), we extend
-folding procedure such the after the sequence of transformations
-of double coset graph for $K$ the resulting graph recognize
-precisely normal forms of elements of $K$.
+Now, a few words on the structure of the paper. In Section
+\ref{sec:dcforms} we introduce double coset repreesentatives for
+elements of free groups, with respect to a fixed subgroup,  
+%These representatives are used to define double coset normal forms 
+%We show that these representatives 
+%are unique 
+and  
+  describe an explicit procedure
+ for their construction. 
+These representatives are used to define unique double coset normal forms 
+for elements of 
+amalgamated products of finite rank free groups in Section  \ref{sec:foldings}, which
+ is the heart of the paper. For a subgroup $K$ of such an amalgam, we 
+describe a generalised folding process, which begins with the flower automaton
+of $K$, over an extended alphabet, and results in  
+a ``double coset graph'' for $K$, which  recognises 
+precisely the  normal forms of elements of $K$.
 
 In Section \ref{sec:TC} we estimate the time complexity of
-algorithms described in the previous part of the paper. In
-particular, we illustrate how fast one can do all preparatory
-actions on constructing double coset normal forms of generators
-for $K$, the complexity of modification of double coset graph's
-components modification, the  amount of time required for
-reassembly of these components, and the time complexity of the
-final procedure which allow us to construct the rsulting graph
-recognizing normal forms of elements of $K$.
+algorithms described in the previous parts of the paper. In
+particular, we illustrate how quickly the  preparatory
+work in construction of  double coset normal forms of generators
+for $K$  can be carried out; we calculate  the complexity of the process of modification of
+components of the flower automaton of $K$, and of the reassembly process required to 
+produce the double coset graph.
 
-Authors are grateful to Vladimir Remeslennikov for helpful
-discussions and to Christian Perfect who {\color{red}{ did
-something}}.
+The authors are grateful to Vladimir Remeslennikov for suggesting the use of double cosets and 
+for helpful
+discussions,  and to Christian Perfect who gave invaluable help with programming.
 
 
+\begin{comment}
 \section{Double coset normal form}\label{sec:intro}
 Based on notes copied (laboriously) from Christian's page
 \url{
@@ -257,10 +269,10 @@ there exists an isomorphism $\phi: H_1 \rightarrow H_2$.
 i.e. we have finite bases $\{h_1, \ldots, h_m \}$  for $H_1$ and
 $\{h_1', \ldots, h_m'\}$ for $H_2$.
 
-Consider the free group $F(Z)$, generated by $Z=\{z_1, \ldots, z_m\}$,
+Consider the free group $\FF(Z)$, generated by $Z=\{z_1, \ldots, z_m\}$,
 and the maps $\phi_1$ and $\phi_2$ such that
 $\phi_1(z_i)=h_i(X_1)  $ and  $\phi_2(z_i)=h^\prime_i(X_2)$, $i=1,\ldots ,m$.
-Thus $\phi_i$ extends to an isomorphism of $F(Z)$ to $H_i$. We choose
+Thus $\phi_i$ extends to an isomorphism of $\FF(Z)$ to $H_i$. We choose
 the $\phi_i$ so that $\phi=\phi_2\phi_1^{-1}$.
 
 Let ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$, the group with
@@ -282,16 +294,108 @@ $H_1\le F_1$ and $H_2\le F_2$, respectively. Let $g \in G$.
 A word $w$ representing $g$ is in \emph{(double coset) normal form} if
 $w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,  with
 \be
-\item $p_i \in S_1\cup S_2$  and $h_i$ is a reduced word in $F(Z)$ and
+\item $p_i \in S_1\cup S_2$  and $h_i$ is a reduced word in $\FF(Z)$ and
 \item if $p_i\in S_j$ then $p_{i+1}\notin S_j$, for $j=1$ and $2$,
 \ee
 for $i = 1, \ldots ,k$.
-
+\end{comment}
 
 \section{Constructing double coset representatives}\label{sec:dcforms}
+\subsection{Free products with amalgamation}\label{sec:intro}
 
+We denote the free group on as set $X$ by $\FF(X)$. 
+ By a {\em reduced} word in $\FF(X)$  we mean
+ a freely reduced word in $(X\cup X^{-1})^\ast$, and we write $w\in \FF(X)$
+to mean that $w$ is a reduced word. For $u,v, w\in \FF(X)$ we
+write $w=u\circ v$ if $|w|=|u|+|v|$, in which case we say that $u$ is a {\em prefix}
+of $w$.
+
+Let $X_1$ and $X_2$ be disjoint,
+finite sets and let 
+$F_1=\FF(X_1)$ and $F_2=\FF(X_2)$.
+Let $H_1 \leq F_1$ and  $H_2 \leq F_2$ be finitely generated subgroups of rank $m$,
+freely generated by $\{h_1,\ldots, h_m\}$ and  $\{h_1', \ldots, h_m'\}$, respectively. 
+Denote by $\phi$ the isomorphism of $H_1$ to $H_2$ which maps $h_i$ to  $h_i^\prime$, 
+for all $i$. 
+%Then, if $Z=\{z_1, \ldots, z_m\}$ is a set (disjoint from $X_1\cup X_2$), the maps 
+% $\phi_1$ and $\phi_2$, such that
+%$\phi_1(z_i)=h_i\in F_1$ and  $\phi_2(z_i)=h^\prime_i\in F_2$, $i=1,\ldots ,m$, 
+%determine isomoprhisms from $\FF(Z)$ to $H_1$ and $H_2$. 
+ Now let $G = F_1 \underset{H_1=H_2}{\ast} F_2$ be the free product  of $F_1$ and $F_2$, amalgamating $H_1$ and $H_2$: that is $G$ is the group 
+ with
+ presentation \[\la X_1\cup X_2 | h_i = h_i', i=1, \ldots ,m\ra.\]
+
+%%%%%%%%%%
 Given an arbitrary word $g\in F_1\ast F_2$,
-we should like an algorithm to write $g$ in double coset normal form
+we should like an algorithm to write $g$ in 
+some normal form with uniqueness. As a first attempt, 
+ we say $g$ is in \emph{reduced form} if either $g$ is the empty word $1$, or $g = g_1 \cdots g_t$, where
+\begin{itemize}
+\item 
+$g_1 \in F_1$ or $g_1 \in F_2$ and, if $t=1$ then $g_1\neq 1$,  and 
+\item 
+for
+$i > 1$,    $g_i \in (F_1 \backslash H_1)\cup (F_2\backslash H_2)$ and
+\item for $i\ge 1$,   $g_i$
+and  ${g_{i+1}}$ belong to  different factors. 
+\end{itemize}
+As the membership problem
+is solvable in $F_1$ and $F_2$ we may write elements in reduced form: for example, 
+to write $g$ in reduced form,
+we can use the following procedure. 
+First write $g$  as a reduced word in $F_1\ast F_2$, so $g=f_1\cdots f_t$, where
+each $f_i$ belongs to a factor and 
+consecutive $f_i$ come from different factors, $F_1$ or $F_2$. Then apply the
+following process. 
+\be[Step 1]
+\item\label{it:st1} For $i=1,\ldots ,t$ do the following.
+Write each $f_i$ as  a reduced word in $F_1$ or $F_2$ as appropriate.  
+If $f_i\in F_k$ then,  
+using an algorithm for the membership problem in $H_k$, check whether or not $f_i \in H_k$.
+ If none of the $f_i$'s lies in $H_1$ or $H_2$ then
+$g= f_1 \cdots f_t$ is in  reduced form.  
+\item  Now suppose that some $f_i \in H_k$,  and let  $i$ be the
+minimal index with this property. Then $\phi^{\pm 1}(f_i)=c\in H_{l}$, $l\neq k$.  
+If $i = 1$, rewrite $g$  in the
+form $g = f'_2 f_3 \cdots f_t$,  where  $f'_2 = cf_2$, an element of $F_1\cup F_2$.  
+If $i > 1$ then rewrite $g$ as
+$g = f_1 \cdots f_{i-2} f'_{i+1}f_{i+2} \cdots f_t$, where
+$f'_{i+1} = f_{i-1}c f_{i+1}\in F_1\cup F_2$. Return to 
+\ref{it:st1}.
+\ee
+
+The reduced form is easy to calculate and gives a solution to the word problem: since
+a reduced form with $t>0$ cannot represent the identity \cite[Theorem 2.6]{LS}. 
+However reduced forms do not uniquely represent  
+ elements of $G$. To resolve this non-uniqueness problem it is common to 
+chose a set of coset representatives of $H_k$ in $F_k$, $k=1,2$, and use these to rewrite
+the reduced form. If $T_k$ is a set of right coset representatives of $H_k$ then 
+ a word $g\in F_1\ast F_2$ is in \emph{single coset normal form} (or \emph{sc-normal form}) if 
+\[g=ct_1\cdots t_r,\]
+where $c\in H_1$, $t_i\in T_1\cup T_2$, $t_1\neq 1$, and consecutive $t_i$ are from 
+different factors. Every element of $G$ can be \emph{uniquely} expressed as a word in single coset
+normal form \cite[Theorem 4.4]{MKS}. 
+Coset representatives can be found using Stallings automata, which we describe below, so
+there is a procedure for writing elements in sc-normal form. Namely: 
+having written an element $g$ in reduced form, 
+working from right to left, for each $i$  
+ we express $f_i$ in the 
+form $c_it_i$, where $c_i\in H_k$ and $t_i\in T_k$. The element $f_{i-1}$ must then be replaced
+by $f_{i-1}\phi^{\pm 1}(c_i)$, before being rewritten. Continue this way till the
+left hand side of the word is reached. 
+
+In this process the coset representative of 
+$f_{i-1}$ with respect to $H_l$ will not, in general, be known 
+ until $f_i$, ..., $f_t$ have been rewritten, and moreover each step requires an application
+of the map $\phi$ or its inverse. As we shall see, when we write words in terms of 
+double
+coset normal forms the algorithm is simpler, and the coset representatives that
+occur in any reduced  form of a word are the same as 
+the double coset representatives of the final double coset normal form.
+
+To write elements in terms of single or double coset representatives we use Stallings automata, 
+which we now define. In the following subsection we shall then define double coset representatives. 
+\begin{comment}
 with respect to some choice of double coset representatives. We may
 assume (after free cancellation if necessary) that $g$ is a
 reduced word in $((X_1\cup X_2)\cup ( X_1^{-1}\cup X_2^{-1}))^\ast$.
@@ -301,7 +405,7 @@ $g_1 \in F_1$ or $g_1 \in F_2$ and
 for
 $i > 1$,    $g_i \in (F_1 \backslash H_1)\cup (F_2\backslash H_2)$ and  $g_i$
 and  ${g_{i+1}}$ belong to  different factors. As $F_1$ and
-$F_2$ have solvable subgroup membership problem we can write $g$ in
+$F_2$ have solvable membership problem we can write $g$ in
 reduced form. More precisely, we construct a Stallings automaton
 (see below) $A_k$ for
 $H_k\le F_k$, $k=1,2$. % and choose a maximal subtree $T_k$ of $A_k$.
@@ -325,24 +429,13 @@ as well). To represent element in a (non-unique) reduced form, we
 care only about factors $f_i$ which belong to a subgroup $H_k$.
 For instance, we can use the following algorithm.
 
-Step 1. Using an appropriate $A_k$, check if $g_i \in H_k$, $i =
-1, \ldots, t$ or not. If none of the $g_i$’s lies in $H_k$ then
-$g= g_1 \cdots g_t$ is reduced.
-
-Step 2. Let now some $g_i \in H_k$ and suppose that $i$ is the
-minimal index with this property. If $i = 1$, rewrite $g$ in the
-form $g = g'2 g_3 \cdots g_t$, where $ g'2 = g_1g_2 = cg_2, c \in
-H_k$, and go back to Step 1. If $i > 1$ then rewrite $g$ as
-follows $g = g_1 \cdots g_{i-2} g'_{i+1}g_{i+2} \cdots g_t$, where
-$g'_{i+1} = g_{i-1}cg_{i+1}$ in $F_1$ or in $F_2$, and go to Step
-1.}
 
 To rewrite in double coset normal form we need to
  rewrite
 each $g_i$ in double coset normal form in its factor, with respect
 to some (fixed) set of double coset representatives. We show how
 this can be done below.
-
+\end{comment}
 \subsection{Automata and Stallings Foldings}\label{sub:foldings}
 
 An {\em automaton} $A$ is  a quintuple
@@ -373,12 +466,12 @@ we
 call $s_0$ the {\em root}
 vertex of $\G_A$ and say that $A$ and $\G_A$ are {\em rooted}. We may
  write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case.  For notational simplicity we identify $\G_A$
-and $A$ whenever it is convenient and unambiguous.
+and $A$ whenever it is convenient and does no ambiguity arises.
 
 By a path $p$
 in a graph we mean a sequence $(v_0,e_1,v_1, \ldots , e_n ,v_n)$ of
  vertices $v_i$ and edges $e_i$ such that
-edges such that $e_i=(v_{i-1},\s_i,v_i)$, for $i=1,\ldots ,n$.
+ $e_i=(v_{i-1},\s_i,v_i)$, for $i=1,\ldots ,n$.
 The
 label $l(p)$ of this  path is defined to be
  the concatenation $\s_1\cdots \s_n$ of the labels of the
@@ -411,16 +504,6 @@ $G$ is denoted $\pi:L_Q(A)\maps G$.
 %%actually written this in the appropriate places.}
 %% Ok, it is written and I've checked, everything agree with given definitions.
 
-If $q\in Q$ and there are paths in $\G_A$ from a vertex of $\cS$ to $q$
-and from $q$ to a vertex of $\cF$ then $q$ is said to be \emph{trim}.
-If all vertices $q\in Q$ are trim then $A$ is called \emph{trim}.
- {\ajd For an involutive, rooted automaton $A$, being trim is equivalent
-to $\G_A$ being connected. Surely it would be easier to use
-connected instead of trim?}
- {\ef Definitely! Should we remove this definition at all then?}
-{\ajd Let's use ``connected'' and just mention somewhere that this
-is equivalent to trim in our case.}
-
 
 An {\em involutive alphabet} is a set $\S$ of the form $\{a_1, \ldots, ,
 a_r, a_1^{-1}, \ldots, a_r^{-1}\}$.
@@ -432,27 +515,35 @@ $\d(p,a)=q$ if and only if $\d(q, a^{-1})=p$ (that is $(u, a, v) \in E
 \Leftrightarrow (v, a^{-1}, u) \in E$).
 In diagrams of involutive automata an edge labelled $a$  from
 $u$ to $v$  represents
-both $(u,a,v)$ and $(u,a^{-1},v)$.  From now we will
-consider involutive automaton only.
+both $(u,a,v)$ and $(u,a^{-1},v)$.  
+
+From now on we will
+consider only involutive automata and, moreover, we always assume that $\S$ is a subset of a group.
 The automaton $A$
 is {\em deterministic}  or {\em folded} if $\d(p,a)=q$ and
 $\d(p,a)=q'$ imply $q=q'$ (that is, $(u, a, v)
 \in E$ and $(u, a, v^\prime) \in E$ imply $v=v^\prime$).
-%A rooted automaton $A= (\G_A, s_0)$ is called \emph{trim} if it has no vertices of degree $1$ except maybe $s_0$.
+We say an automaton $A$ is \emph{connected} if $\G_A$ is connected.
+(For an involutive rooted automataton being connected is equivalent to the property that 
+for every vertex $q$ there is a path from $q$ to the root and a path from the root to $q$. 
+Automata with this property are usually called \emph{trim}, but since the two properties are 
+equivalent in our setting we use the more intuitive nomenclature.)
 Finally, an involutive, rooted, connected, deterministic,
 automaton, with a single final state, is called an {\em inverse}
 automaton.
 
-Let $A=(\G_A,s_0,\cF)$ be an inverse automaton.
+Let $A=(\G_A,s_0,f_0)$ be an inverse automaton.
 If $w$ is readable by $A$ then there exists a
 unique vertex  $\t(w)$ of $\G_A$ such that $w$ is accepted by
 $(\G_A,s_0,\t(w))$: we call $\t(w)$ the {\em terminal vertex} of $w$. ($L$ is the set of words $w$ readable by $A$ with
 $\t(w)=s_0$.)
 Fix a spanning tree $T$ for $\G_A$. For each vertex $v$ of $\G_A$
-let $w(v)$ denote the label of the path from $s_0=1$ to $v$ in
-$T$.  Define
-\[L_T=\{w(v): v \textrm{ is a vertex of } A\}.\]
-If $w, s, u\in F(X)$ with $w=s\circ u$ then we say that $s$ is
+let $w(v)$ denote the label of the path in
+$T$ from $s_0$ to $v$.  Define
+\[L_T=L_T(A)=\{w(v): v \textrm{ is a vertex of } A\}.\]
+Thus $L\subseteq L_T\subseteq L_Q$. 
+
+If $w, s, u\in \FF(X)$ with $w=s\circ u$ then we say that $s$ is
 \be[(i)]
 \item
  an $L_Q${\em -prefix} of $w$ if $s\in L_Q$;
@@ -497,7 +588,7 @@ from $\G$ by a finite sequence of elementary foldings.
 
 If a rooted graph $\G$ is not folded then a folding may be applied; reducing the
 number of edges of the graph. Continuing this way a folded graph may eventually
-be produced. It follows that  folded graphs are precisely those
+be produced. It follows that  folded (i.e. deterministic) graphs are precisely those
 to which no elementary folding may be applied.
 
 A morphism of  rooted graphs $\G$ and $\G^\prime$ is a map
@@ -517,12 +608,7 @@ is a folding of $\G$ and $\theta$ is the folding morphism then
 $\pi(L(\G,s,t))= \pi(L(\G_1,\theta(s),\theta(t)))$.
 
 
-Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
-of $F$.  By a {\em reduced} word we mean
- a freely reduced word in $(X\cup X^{-1})^\ast$, and we write $w\in \FF(X)$
-to mean that $w$ is a reduced word. For $u,v, w\in F(X)$ we
-write $w=u\circ v$ if $|w|=|u|+|v|$, in which case we say that $u$ is a {\em prefix}
-of $w$.
+
 
 Let $Y=\{w_1,\ldots ,w_n\}$ be a generating set for $H$, where $w_i\in F$.
 The {\em flower automaton} $\G_Y(H)$, of $H$ (with respect to this generating set)
@@ -548,16 +634,28 @@ for a proof in terms of automata.)
 \begin{definition}
 The automaton $(\G(H),s)$ is  called the {\em Stallings automaton} of $H$.
 \end{definition}
-\subsection{Double coset representatives}\label{sub:2cosetrepr}
+\subsection{Double coset representatives in free groups}\label{sub:2cosetrepr}
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
 of $F$.
+A  set $S\subseteq F$ such that
+\be
+\item
+$F = \displaystyle{\bigcup_{s \in S} HsH}$
+and
+\item
+for all $s, s^\prime \in S$, $s\in H s^\prime H$
+implies $s=s^\prime$,
+\ee
+is called a set of \emph{double coset representatives for} $H\le F$.
+
+%%%%
 
 Let $A$ be the Stallings automaton for $H$, and let  $s_0 =
 1$ be its start state.
 We shall define a set of double coset representatives for $H$ in two parts.
 We begin with the definition of the first type of representative.
 \begin{definition}[Double coset representative, type 1]
-A word $w\in F(X)$ is a {\em (double coset) representative of
+A word $w\in \FF(X)$ is a {\em (double coset) representative of
 type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
 where $e\neq 1$, $s$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $w$,
@@ -635,7 +733,7 @@ containing $(u,v)$.
 We shall choose one double coset representative corresponding to
 each $\sim$ equivalence class. First observe that if
 $(u,v)\in P$ and $w(u)=a\circ x$, $w(v)=b\circ x$, for some
-$a,b\in F(X)$ and $x\in X^{\pm 1}$, then $(\t(a),\t(b))\in P$ and
+$a,b\in \FF(X)$ and $x\in X^{\pm 1}$, then $(\t(a),\t(b))\in P$ and
 $(u,v)\sim (\t(a),\t(b))$. It follows that every equivalence  class
 of $\sim$ contains an element $(u',v')$ such that
 $w(u')w(v')^{-1}$ is a reduced word; and representatives of each
@@ -654,7 +752,7 @@ $\pp$. %Fix one $\sim$ representative for each equivalence class of$\sim$ and
 Let $P_0$ denote the set of  all these $\sim$
 representatives.
 
-A word $w\in F(X)$ is
+A word $w\in \FF(X)$ is
  a {\em (double coset) representative of type} $2$
 if $w=w(u)w(v)^{-1}$, for some $(u,v)\in P_0$.
 Let $S^{(2)}$ denote the set of all representatives of type $2$.
@@ -676,7 +774,7 @@ Define $S=S^{(1)}\cup S^{(2)}$.
 $S$ is a set of double coset representatives for $H$.
 \end{proposition}
 \begin{proof}
-First we shall show that every element $w\in F(X)$ lies in $HdH$,
+First we shall show that every element $w\in \FF(X)$ lies in $HdH$,
 for some $d\in S$. In fact we describe an algorithm which
 rewrites a given word $w$ in this form.
 
@@ -696,16 +794,16 @@ lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
 sets $P_0$ and $S^{(2)}$ may be computed.   \\
 
 \noindent{\bf Algorithm I}.\\
-Input $w\in F(X)$.
+Input $w\in \FF(X)$.
 Let $h$ be the maximal prefix of $w$ accepted by $A$; so $h\in H$ and
-$w=h\circ f$, for some $f\in F(X)$. Now use $A$ to find the maximal
+$w=h\circ f$, for some $f\in \FF(X)$. Now use $A$ to find the maximal
 $L_Q$-prefix $p$
 of $f$ (i.e. the maximal prefix readable by $A$). Then
-  $f= p\circ q$, for some $q\in F(X)$.
+  $f= p\circ q$, for some $q\in \FF(X)$.
 
 Next find the maximal prefix $g$ of $q^{-1}$ acceptable by $A$: say
-$q^{-1}=g\circ r$, for some $r\in F(X)$, and then the maximal $L_Q$-prefix
-$t$ of $r$; say $r=t\circ e^{-1}$, for some $e\in F(X)$.
+$q^{-1}=g\circ r$, for some $r\in \FF(X)$, and then the maximal $L_Q$-prefix
+$t$ of $r$; say $r=t\circ e^{-1}$, for some $e\in \FF(X)$.
 
 If $e\neq 1$ then
 \[w=h\circ p \circ e\circ t^{-1}\circ g^{-1},\]
@@ -845,7 +943,7 @@ $p=yz^{-1}\in S_1^{(2)}$,
 \[a=hpcy^{-1}=
 \textrm{ and } b=zc^{-1}t^{-1}g^{-1}=x_1 x_2 x_2^{-1} x_1^{-1}=1,\]
 and the normal form of $f_2$ is
-\[f_2=a yz^{-1} b=(h_3^{-1}h_2) x_1^{-1}.\]
+\[f_2=a yz^{-1} b=(h_3^{-1}h_2) x_1^{-1}\in H_1S_1^{(2)}H_1.\]
 \end{example}
 
 \begin{figure}
@@ -947,10 +1045,10 @@ y_2^{-1}, y_2^{-1}y_1, y_3 \}$.
 Let the set of double coset representatives for $H_2$ be $S_2=S_2^{(1)}
 \cup S_2^{(2)}$.
 
-To find the normal form of $f_3=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2
+To find the normal form of $f_1^\prime=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2
 y_3y_4y_2^2$: use ${A_2}$ to read off the maximal acceptable
-prefix $h= y_1^2y_3y_1^{-1}y_2y_3y_4$ of $f_3$; and  the maximal
-$L_{Q_2}$-prefix $p=y_1$ of the rest of $f_3$.  Next $q^{-1}=
+prefix $h= y_1^2y_3y_1^{-1}y_2y_3y_4$ of $f_1^\prime$; and  the maximal
+$L_{Q_2}$-prefix $p=y_1$ of the rest of $f_1^\prime$.  Next $q^{-1}=
 y_2^{-2}y_4^{-1}y_3^{-1}y_2^{-1}$, so $g=y_2^{-2}y_4^{-1}y_3^{-1}$
 and $t=y_2^{-1}$. This element will be represented by an element
 of $S_2^{(2)}$, so we need to construct $\G_{A_2}\times \G_{A_2}$.
@@ -959,10 +1057,10 @@ in Figure \ref{fig:stallagain}\ref{fig:G2xG2-1} and the remaining
 six in Figure \ref{fig:G2xG2-2}. In all cases the solid vertex
 corresponds to the $\sim$ representative and connecting elements
 are paths in the highlighted trees. Following Algorithm I, the
-normal form of $f_3$ is seen to be
-\[f_3=h yz^{-1} g^{-1},\]
+normal form of $f_1^\prime$ is seen to be
+\[f_1^\prime=h yz^{-1} g^{-1},\]
 where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is
-\[f_3=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}.\]
+\[f_1^\prime=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}.\]
 \end{example}
 
 \begin{figure}
@@ -1067,9 +1165,9 @@ which is a (non-unique) double coset representative.
 %%normal form using the algorithm above. This gives
 %%$g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S$ and $h_{i,j}\in H_1\cup
 %%H_2$. Using $\phi_1^{-1}$ or $\phi_2^{-1}$, as appropriate, we now
-%%write $h_{i,1}$ and $h_{i,2}$ as reduced words in $F(Z)$. For
+%%write $h_{i,1}$ and $h_{i,2}$ as reduced words in $\FF(Z)$. For
 %%$i=1,\ldots , t-1$, we reduce the word $h_{i,2}h_{(i+1),1}\in
-%%F(Z)$ to give a reduced word $h_i\in F(Z)$ and set $h_0=h_{1,1}$
+%%\FF(Z)$ to give a reduced word $h_i\in \FF(Z)$ and set $h_0=h_{1,1}$
 %%and  $h_{t+1}=h_{t,2}$. Then $g$ has normal form $h_0d_1h_1\cdots
 %%d_th_{t+1}$.
 %%
@@ -1094,7 +1192,36 @@ which is a (non-unique) double coset representative.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The generalised folding process}\label{sec:foldings}
-The object is to construct an automaton which will accept a word
+
+Recall from above that $F_1$ and $F_2$ are free groups on finite sets
+$X_1$ and $X_2$, respectively;
+ $H_1 \leq F_1$ and $H_2 \leq F_2$ are subgroups of rank $m$, freely 
+generated by $\{h_1,\ldots, h_m\}$ and $\{h_1^\prime,\ldots ,h_m^\prime\}$, and
+$Z=\{z_1,\ldots, z_m\}$ is a set disjoint from $X_1\cup X_2$. 
+The isomorphism from $H_1$ to $H_2$ which maps $h_i$ to $h_i^\prime$ is 
+denoted $\phi$ and the isomorphisms from $\FF(Z)$ to $H_1$ and $H_2$ which
+map $z_i$ to $h_i$ and $h_i^\prime$ are denoted $\phi_1$ and $\phi_2$, respectively. 
+ We define $G$ to be the free product with amalgamation: 
+${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a 
+ presentation  
+\[\la X_1\cup X_2\cup Z  | h_i =z_i= h_i', i=1 \ldots m\ra.\] 
+
+\begin{definition}\label{def:dcnf}  
+ Let $S_1$ and $S_2$ be sets of  double coset representatives of
+$H_1\le F_1$ and $H_2\le F_2$, respectively. 
+A word $w\in \FF(X_1\cup X_2\cup Z)$ is in 
+\emph{double coset normal form} (or \emph{dc-normal form}) if
+$w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,   where for $i=1,\ldots, k$,  
+\be[(a)] 
+\item $h_i$ is a reduced word in $\FF(Z)$, for $i=0,\ldots, k$; 
+\item  $p_i  \in S_1\cup S_2$,  for $i=1,\ldots, k$,  and 
+\item if  $p_i\in S_j$ then $p_{i+1}\notin S_j$, $j\in \{1,2\}$.
+\ee
+\end{definition}
+From now on when we say ``normal form'' we mean ``double coset normal form'' unless 
+we explicitly say something to the contrary. 
+
+The object of this section is to construct an automaton which will accept a word
 $w$ in double coset normal form if and only if it belongs to a
 given subgroup $K$. The idea is to do this by starting with the
 flower automaton for the generators of $K$, written in (double
@@ -1114,20 +1241,8 @@ in normal form which represents an element of $K$ then $w$ is in $L_1$. It will
 therefore suffice to show that if $u$ is any word in $L_1$ then the
 normal form of $u$ is also in $L_1$.
 
-Recall from above that we have $F_1$, $F_2$ free groups (finitely
-generated by $X_1$ and $X_2$, respectively);
- $H_1 \leq F_1$, $H_2 \leq F_2$ such that
-there exists an isomorphism $\phi: H_1 \rightarrow H_2$; a free group
- $F(Z)$, generated by $Z=\{z_1, \ldots, z_m\}$,
-and  maps $\phi_1$ and $\phi_2$ such that $\phi_1(z_i)=h_i(X_1)  $
-and  $\phi_2(z_i)=h^\prime_i(X_2)$, $i=1,\ldots ,m$, both of which
-induce isomorphisms with $\phi=\phi_2\phi_1^{-1}$. Implicit in all
-this is that $X_1\cap X_2=X_1\cap Z = X_2\cap Z=\nul$. We define
-${G = F_1 \underset{H_1=H_2}{\ast} F_2}$, the group with
- presentation $\la X_1,X_2 | h_i = h_i', i=1 \ldots m\ra$ and
-let $S_1$ and $S_2$ be sets of  double coset representatives of
-$H_1\le F_1$ and $H_2\le F_2$, respectively, (as in Section
-\ref{sec:intro}); denote $S= S_1 \cup S_2$. Let $A_k$ be the
+
+Denote $S= S_1 \cup S_2$. Let $A_k$ be the
 Stallings automaton for $H_k$ and let $T_k$ be a spanning tree for
 the associated graph $\G_{A_k}$, $k=1,2$. The alphabet of $A_k$ is
 $X_k$ and the set of states of $A_k$ is denoted $Q_k$.
@@ -1138,15 +1253,15 @@ Write each syllable $g_i$ of $g=g_1\cdots g_t$ in normal form
 using the algorithm I above. This gives
 $g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S$ and $h_{i,j}\in H_1\cup
 H_2$. Using $\phi_1^{-1}$ or $\phi_2^{-1}$, as appropriate, we now
-write $h_{i,1}$ and $h_{i,2}$ as reduced words in $F(Z)$. For
+write $h_{i,1}$ and $h_{i,2}$ as reduced words in $\FF(Z)$. For
 $i=1,\ldots , t-1$, we reduce the word $h_{i,2}h_{(i+1),1}\in
-F(Z)$ to give a reduced word $h_i\in F(Z)$ and set $h_0=h_{1,1}$
+\FF(Z)$ to give a reduced word $h_i\in \FF(Z)$ and set $h_0=h_{1,1}$
 and  $h_{t+1}=h_{t,2}$. Then $g$ has normal form $h_0d_1h_1\cdots
 d_th_{t+1}$.
 
 
 \begin{example}\label{ex:g}
-Let $g =f_1 f_2 f_3 f_2^{-1}$ in setting  of Examples \ref{ex:f_1} and
+Let $g =f_1 f_2 f_1^\prime f_2^{-1}$ in setting  of Examples \ref{ex:f_1} and
 Examples \ref{ex:f_2}.
 Set $z_i = h_i = h_i^{\prime}$ for $i= 1,2,3$; then
 \begin{align*}
@@ -1154,7 +1269,7 @@ f_1&=(h_2^{2}h_1) x_1x_3x_1^{-1} (h_1^{-1}h_3^{-1})\\
 &=z_2^2z_1  x_1x_3x_1^{-1}z_1^{-1}z_3^{-1},\\
 f_2&=(h_3^{-1}h_2) x_1^{-1}\\
 &=z_3^{-1}z_2 x_1^{-1}\textrm{ and }\\
-f_3&=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}\\
+f_1^\prime&=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}\\
 &= z_3z_2 y_1y_2^{-1} z_1^{-1}z_2^{-1}.
 \end{align*}
 Then
@@ -1175,8 +1290,8 @@ written in normal form: say
 \begin{equation}\label{eq:k-form}
 k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
 \end{equation}
-with $h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$. Denote
-by $\hat K$ the subgroup of  $F(X_1\cup X_2 \cup Z)$ generated by
+with $h_{i,j}\in \FF(Z)$ and $t_{i,j}\in S_1\cup S_2$. Denote
+by $\hat K$ the subgroup of  $\FF(X_1\cup X_2 \cup Z)$ generated by
 $k_1, \ldots , k_s$. Let $\S=(X_1\cup X_2 \cup Z)^{\pm 1}$.
 Let $\cF(K)$ be the flower automaton of $\hat K$, and let
 $\G$ be the corresponding rooted graph. If $e$ is an edge of $\G$ then
@@ -1258,8 +1373,8 @@ we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
 \\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
-Addition of paths labeled by $X_k-$words corresponding to
-$z-$edges of an $X_k$ component.
+Addition of paths labeled by $X_k$-words corresponding to
+$z$-edges of an $X_k$ component.
 
 Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an
 edge of $\T$ labelled by an element $z\in Z$ then add a path from
@@ -1310,8 +1425,8 @@ $\T_1$: say these are $\a_0,\ldots, \a_t$, in the order written.
 
 Let $\a_i$, $\a_j$ be vertices of  $\T$  with $i\le j$. If there
 exists a simple path $p$ in $\cP_1$ from $(\a_i,1)$ to $(\a_j,1)$
-then let $l_p\in F(X_k)$ be the label of $p$ and let
-$w_p=\phi_k^{-1}(l_p)\in F(Z)$. Let $q$ be a path (disjoint from
+then let $l_p\in \FF(X_k)$ be the label of $p$ and let
+$w_p=\phi_k^{-1}(l_p)\in \FF(Z)$. Let $q$ be a path (disjoint from
 $\T_1$) of length $|w_p|$ and with label $w_p$. Identify the
 initial vertex of $q$ with $\a_i$ and the terminal vertex of $q$
 with $\a_j$. (See Figure \ref{fig:alg2-2}.)
@@ -1377,7 +1492,7 @@ and $l_j$ be the labels of $p_i$ and $p_j$, respectively. Then
 $p_i,e,p_j$ projects to a closed path in $\G_{A_k}$, based at $1$,
 with label $h_e=l_i x l_j \in H_k\subseteq F_k$. Moreover
 $p_i,e,p_j$ projects to a closed path in $\T_2$, based at $\a$,
-also with label $h_e$. Let $w_e=\phi_k^{-1}(h_e) \in F(Z)$ and let
+also with label $h_e$. Let $w_e=\phi_k^{-1}(h_e) \in \FF(Z)$ and let
 $q$ be a path (disjoint from $\T_2$) of length $|w_e|$ and with
 label $w_e$. Identify the initial and terminal vertices of $q$ to
 the vertex  $\a$ of $\Theta_2$. (See Figure \ref{fig:alg2-3}.)
@@ -1432,7 +1547,7 @@ is not covered by $\cP_3$.
 $p$ have label $a$.
 Then $ab^{-1}=h\in H_k$. Let
 $w=\phi_{k}^{-1}(ab^{-1})
-\in F(Z)$ and let $q$ be a path (disjoint from $\T_3$)
+\in \FF(Z)$ and let $q$ be a path (disjoint from $\T_3$)
 with label $wb$. Identify the initial
 and terminal vertices of $q$ with vertices $\a_i$ and $\a_j$ of $\T_3$,
 respectively, to form a new graph $\T_3^\prime$.
@@ -1480,7 +1595,7 @@ By definition of $\sim$ there are  paths in $\G_{A_k}$,
 with label
 $c=c(\e,\xi)$, from $\e$ to $\e_0$ and from $\xi$ to $\xi_0$.
 Furthermore $h_i=
-b_ica_i^{-1}\in H_k$ and $w_i=\phi_k^{-1}(h_i)\in F(Z)$, for $i=1,2$.
+b_ica_i^{-1}\in H_k$ and $w_i=\phi_k^{-1}(h_i)\in \FF(Z)$, for $i=1,2$.
 If there
 exist paths $p_1$, with label $b_1$ from $(\a_i,1)$ to $(\b,\e)$,
 and $p_2$, with label $b_2$ from
@@ -1646,6 +1761,20 @@ $\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\ma
 \Psi$ is called the \emph{dc-folding morphism}.
 \end{definition}
 
+\begin{example}\label{ex:K}
+Let $F_1=\FF(x_1,x_2,x_3)$ and $H_1=\la h_1,h_2,h_3\ra$, 
+as in Example \ref{ex:f_1}, and let $F_2=\FF(y_1,y_2,y_3,y_4)$ and 
+$H_2=\la h_1^\prime, h_2^\prime, h_3^\prime\ra$, as in Example \ref{ex:f_2}. 
+
+In Example \ref{ex:f_1} we found the double-coset normal forms of
+$f_1=y_1^6 x_1^4 y_1 x_1^4 y_1 x_1^{-2} y_1^{-3} x_1^{-1}$ and 
+$f_2= y_1^3x_1^2y_1^3x_1^{-2}y_1^{-1}x_1y_1^{2}x_1^5$, namely
+\[f_1 = (h_2^{2}h_1)x_1y_1x_1^4y_1^{-2} (h_2h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1\]
+and 
+\[f_2=(h_3^{-1}h_2) x_1^{-1}\in H_1S_1^{(2)}H_1.\]
+In Example 
+Let $f$...
+\end{example}
 \begin{lemma}\label{lem:nfcomp}
 Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of
 an inverse automaton $\D$, with alphabet $\S$.
@@ -1663,8 +1792,8 @@ II the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
 preserved. \\[1em]
 
 \ref{it:nfcomp2}.
-We may assume that $w\in F(X_k)$ (given the construction of $\T_1$).
-Let $w$ have normal form $h_1s h_2^{-1}$, where $s\in S_k$ and $h_i\in F(Z)$.
+We may assume that $w\in \FF(X_k)$ (given the construction of $\T_1$).
+Let $w$ have normal form $h_1s h_2^{-1}$, where $s\in S_k$ and $h_i\in \FF(Z)$.
 There are two cases to consider, depending on whether $s$ is a
 representative of type $1$ or type $2$.
  First consider the case where $s$ is of type $1$, say
@@ -1673,7 +1802,7 @@ $a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and
  $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ e^{-1}$.
  Then, as the normal form is the output of Algorithm I,
  there are words
-$g_1, g_2, b_1$ and $b_2\in F(X_k)$ such that
+$g_1, g_2, b_1$ and $b_2\in \FF(X_k)$ such that
 $w=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
 $g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
 $b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
@@ -1799,7 +1928,7 @@ Let $b_1^\prime$
  be the label of the simple path $p_1^\prime$ in $\U$ from
 $(\a_1,1)$ to $(\a_2,\e_1)$. By construction $\T_4$ contains a path
 from $\a_1$ to $\a_2$ with label $h_1^\prime a_1$, where
-$h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in F(Z)$.
+$h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in \FF(Z)$.
 (If $\cP$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
 $b_1^\prime=a_1$ and $h_1^\prime$ is the empty word, while there
 exists a path with label $a_1$ from $\a_1$ to $\a_2$ in $\T_3$.)
@@ -1824,10 +1953,10 @@ a path from $\a$ to $\b$ which has label the normal form of $w$.
 
 In the second case,
 let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
-$h_1$ and $h_2$ are in $F(Z)$,  $a_1$ and $a_2$ are labels
+$h_1$ and $h_2$ are in $\FF(Z)$,  $a_1$ and $a_2$ are labels
 of simple paths in the subtree $T_k$ and $s=a_1a_2^{-1}$ is a double coset
 representative of type $2$. Then there are words
-$g_1, g_2, b_1, b_2, c$  in $F(X_k)$,  such that
+$g_1, g_2, b_1, b_2, c$  in $\FF(X_k)$,  such that
 $w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$,
 $g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
 $b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in
@@ -1934,8 +2063,8 @@ in such a sequence, and the result follows.
 \end{comment}
 %\ee
 \end{proof}
-If $w$ is a word in $F(X_1\cup X_2\cup Z)$ and $w=w_1\cdots w_n$,
-where $w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$ and $n$
+If $w$ is a word in $\FF(X_1\cup X_2\cup Z)$ and $w=w_1\cdots w_n$,
+where $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$ and $n$
 minimal, then  say that each $w_i$ is a \emph {maximal} $X_{k_i}$
 \emph{factor}
 of $w$.
@@ -1966,11 +2095,11 @@ accepted by $\D_0$ then the normal form of $w$ is accepted by $\D_n$.
 \begin{proof}
 Let $w$ be a word accepted by $\D_0$. Then $w$ factorises as  $w$
 as $w=w_1\cdots w_n$, where $w_i$ is accepted by an $X_k$
-component of $\D_0$. Thus $w_i\in F(X_{k_i}\cup Z)$, with $k_i\neq
+component of $\D_0$. Thus $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq
 k_{i+1}$. If $n=0$, then $w=1$ and the lemma holds. Suppose the
 lemma holds for all $w$ such that $n\le k$, where $k\ge 0$ and now
 suppose $n=k+1$. Let $v_i$ be the normal form of $w_i$. If $v_i\in
-F(Z)$, for some $i$ then there is a factorisation of $w$ with at
+\FF(Z)$, for some $i$ then there is a factorisation of $w$ with at
 most $k$ factors, and the result follows. Otherwise, from Lemma
 \ref{lem:loopstop}.\ref{it:loopstop2},  $\D_n$ accepts $v_1\cdots
 v_n$, which is the normal form of $w$.
@@ -1999,7 +2128,7 @@ of $K$ then $w\in L(\cA)$.
 \begin{proof}
 We have $\pi(L(\cA))=\pi(L(\cF(K))=K$, by construction. If $u$ is a word
 accepted by $\cA$ then we may write $u=z_0t_1z_1\cdots z_rt_rz_{r+1}$, where
-$z_i\in F(Z)$ and $t_i$ is the label of a path between two boundary
+$z_i\in \FF(Z)$ and $t_i$ is the label of a path between two boundary
 vertices of an $X_1$ or $X_2$ component of $\L$, for all $i$. If
 $s_i$ is the normal form of $t_i$ then, from the previous lemma, it follows
 that $\cA$ also accepts the word $z_0s_1z_1\cdots z_rs_rz_{r+1}$, which
@@ -2007,13 +2136,13 @@ is the normal form of $u$.
 \end{proof}
 \end{comment}
 \begin{theorem}
-$G$ has solvable subgroup membership problem.
+$G$ has solvable membership problem.
 \end{theorem}
 \begin{proof}
 Construct the flower automaton $\cF(K)$ of $K$ and then
 its Stallings automaton $\G_K$,  as at the beginning of this Section. % \ref{sec:dca},
 Let $\D_0=\G_K$ and input this to the loop to obtain output $\D_n$.
-Given a word $w\in F(X_1\cup X_2\cup Z)$ write $w$ in normal form
+Given a word $w\in \FF(X_1\cup X_2\cup Z)$ write $w$ in normal form
 using Algorithm I. If $w\in K$ then there is a word $v$ in the generators
  of $K$ with $\pi(v)=\pi(w)$, so $v$ is accepted by $\G_K$. From
 Lemma \ref{lem:nfacc}, the word $w$ is accepted by $\D_n$. From
@@ -2083,7 +2212,7 @@ F_1$, $H_2 \leq F_2$ have finite bases $Y_1 = \{h_1, \ldots, h_m
 \}$ and $Y_2=\{h_1', \ldots, h_m'\}$, respectively, and there are
 maps $\phi_k$ such that $\phi_1(z_i)=h_i$ and
 $\phi_2(z_i)=h^\prime_i$, $i=1,\ldots ,m$, where $Z=\{z_1, \ldots,
-z_m\}$, $F(Z)$ is a free group and $H_1$ isomorphic to $H_2$ via
+z_m\}$, $\FF(Z)$ is a free group and $H_1$ isomorphic to $H_2$ via
 $\phi_2 \phi_1^{-1}$, and ${G = F_1 \underset{H_1=H_2}{\ast}
 F_2}$. To distinguish the length of elements in alphabets $X_k$ or
 $Z$, we write $|\cdot|_k$ or $|\cdot|_Z$, correspondingly. Set
@@ -2156,8 +2285,8 @@ One can rewrite each syllable $g_i \in F_k$ of $g$ in normal form
 $g_i=h_{i,1}d_ih_{i,2}$, where $d_i\in S$ and $h_{i,j}\in H_1\cup
 H_2$, in time at most $O(N^2_k + |g_i|_k)$. Using $\phi_1^{-1}$ or
 $\phi_2^{-1}$, we write $h_{i,1}$ and $h_{i,2}$ as reduced words
-in $F(Z)$ (for $i=1, \ldots, t$) and find the reduced word
-$h_{i,2}h_{(i+1),1}\in F(Z)$ (for $i=1, \ldots, t-1$) in time at
+in $\FF(Z)$ (for $i=1, \ldots, t$) and find the reduced word
+$h_{i,2}h_{(i+1),1}\in \FF(Z)$ (for $i=1, \ldots, t-1$) in time at
 most $O(|g_i|_{\e_i}+|g_i|_{\e_{i+1}})$, so the resulting
 complexity of the process is at most $O(N^2_1+ N^2_2 +
 |g_1|_{\e_1}+|g_2|_{\e_2}+ \ldots +|g_t|_{\e_t})$. \end{proof}
@@ -2168,9 +2297,9 @@ complexity of the process is at most $O(N^2_1+ N^2_2 +
 Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
 written in normal form (\ref{eq:k-form}): $k_i=
 h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1}$, with
-$h_{i,j}\in F(Z)$ and $t_{i,j}\in S_1\cup S_2$ as in section
+$h_{i,j}\in \FF(Z)$ and $t_{i,j}\in S_1\cup S_2$ as in section
 \ref{sec:dca}. Recall that $\G$ is the rooted graph, associated to
-a flower automaton $\cF(K)$ of the subgroup $\hat K < F(X_1\cup
+a flower automaton $\cF(K)$ of the subgroup $\hat K < \FF(X_1\cup
 X_2 \cup Z)$ generated by $k_1, \ldots , k_s$.
 
 Consider the Stallings folding $\G_K$ of $\G$. Clearly, one can
@@ -2230,7 +2359,7 @@ Notice that $|V\cP_1| \le |V\T_1|\cdot |V \G_{A_k}|$.
 
 Fix a pair $(i, j)$ such that $i \le j$. We check for this pair
 whether $(\a_i,1)$ and $(\a_j,1)$ connected with some simple path
-$l_p \in F(X_k)$  or not, $\a_i, \a_j \in \T$. Since $p$ is a
+$l_p \in \FF(X_k)$  or not, $\a_i, \a_j \in \T$. Since $p$ is a
 simple (reduced) path in $\cP_1$, it is no longer than $Q_k$,
 where $Q_k$ is the maximal length of a simple path in $\cP_1$ in
 terms of $X_k$, so $Q_k \le |V\cP_1|$. On this stage we are doing
