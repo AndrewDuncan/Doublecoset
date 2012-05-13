@@ -1,17 +1,14 @@
 import copy
-from graph import *
-#edge labels: a=x1, b=x2, c=x3, r=y1,s=y2, t=y3, x=z1,y=z2,z=z3
-K=Graph(rooted=True)
-K.addLoop(K.root,'bCaySrtxzAB')
-K.addLoop(K.root,'yyxacaXyrSXYZYA')
-K.addLoop(K.root,'zYY')
+import ex_K
+ex = ex_K
 
-while K.fold() is True:
-    K.fold()
 
-X1=copy.deepcopy(K)
-Y1=copy.deepcopy(K)
-Y2=copy.deepcopy(K)
+while ex.K.fold() is True:
+    ex.K.fold()
+
+X1=copy.deepcopy(ex.K)
+Y1=copy.deepcopy(ex.K)
+Y2=copy.deepcopy(ex.K)
 
 #x2=X1.vertices
 #print x2
