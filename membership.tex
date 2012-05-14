@@ -1,13 +1,15 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{amsmath,amsfonts,amsthm,amscd,amssymb,latexsym,eufrak}
 %%%%%%%%%%%%%
-\usepackage{enumerate,graphicx,psfrag,subfigure}%,jchangebar,oldgerm}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumerate,graphicx,psfrag}%,subfigure}%,jchangebar,oldgerm}
 \usepackage[mathscr]{eucal}
 \usepackage[usenames]{color}
 \usepackage{url}
 \usepackage[shortlabels]{enumitem}
 \usepackage{comment}
-\usepackage{showkeys}
+%\usepackage{showkeys}
 %%%%%%%%%
 \sloppy
 
@@ -591,11 +593,12 @@ number of edges of the graph. Continuing this way a folded graph may eventually
 be produced. It follows that  folded (i.e. deterministic) graphs are precisely those
 to which no elementary folding may be applied.
 
-A morphism of  rooted graphs $\G$ and $\G^\prime$ is a map
-$\theta: \G\maps \G^\prime$ which maps vertices to vertices and
-edges to edges in such a way that \be \item if $s$ is the root of
-$\G$ then $\theta(s)$ is the root of $\G^\prime$; \item if $t$ is
-a final state of $\G$ then $\theta(t)$ is a final state of
+A morphism of automata $\G_A$ and $\G_{A^\prime}$ is a map
+$\theta: \G_A\maps \G_{A^\prime}$ which maps vertices to vertices and
+edges to edges in such a way that 
+\be \item if $s$ is a start state  of
+$\G_A$ then $\theta(s)$ is a start state of $\G^\prime$; 
+\item if $t$ is a final state of $\G$ then $\theta(t)$ is a final state of
 $\G^\prime$ and
 \item  if
 $(u,\sigma,v)$ is an edge of $\G$ then
@@ -670,7 +673,7 @@ relation on the ordered pairs of distinct vertices of $A$. Let
 Define a relation $\sim$ on $P$ by $(u_0,u_1)\sim (v_0,v_1)$ if and only if
 there exist paths $p_0$ and $p_1$ in $A$, from $u_0$ to $v_0$ and $u_1$ to $v_1$
 respectively, such that $l(p_0)=l(p_1)$. (We allow these paths to have length $0$.)
-It is easy to verify that $\sim$ is an equivalence relation on $P$.
+Then $\sim$ is an equivalence relation on $P$.
 
 \begin{lemma}\label{lem:equiv_verts}
 Let $(u_0,u_1)$ and $(v_0,v_1)$ be elements of $P$ and let
@@ -783,7 +786,7 @@ given generators for $H$. A spanning tree $T$
 for $A$ may then be chosen and the
 set $L_T$ computed.
 To find the equivalence class of a pair $(u,v)\in P$ the
-graph $\G_A\times \G_A$ is constructed. By definition, $(u',v')\sim
+graph $\G_A\times \G_A$ is constructed. As we pointed out above, $(u',v')\sim
 (u,v)$ if and only if there is a path in $\G_A\times \G_A$ from $(u',v')$
 to $(u,v)$. Therefore the $\sim$ equivalence class of $(u,v)$ is the
 vertex set of the connected component of $\G_A\times \G_A$ containing
@@ -791,7 +794,8 @@ $(u,v)$.
 Having constructed the equivalence classes of $\sim$
  a set of $\sim$ representatives may be constructed, by considering the
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
-sets $P_0$ and $S^{(2)}$ may be computed.   \\
+set $P_0$ and the connecting element $c(u,v)$, of each element
+$(u,v)\in P$, may be computed at this stage.   \\
 
 \noindent{\bf Algorithm I}.\\
 Input $w\in \FF(X)$.
@@ -807,27 +811,27 @@ $t$ of $r$; say $r=t\circ e^{-1}$, for some $e\in \FF(X)$.
 
 If $e\neq 1$ then
 \[w=h\circ p \circ e\circ t^{-1}\circ g^{-1},\]
-with $h,g\in H$. In this case $p$ and $t$ are readable by $A$. Set $y=w(\t(p))$
-and $z=w(\t(t))$. Then $py^{-1}$ and $tz^{-1}$ belong to $H$. Moreover, as $p$
+with $h,g\in H$. In this case $p$ and $t$ are readable by $A$: 
+so are $L_Q$-maximal subwords of $f$ and $r$, respectively, but 
+may not be in $L_T$. Hence the next step is to replace $p$ and $t$ by
+products of the form $uv$, where $u\in H$ and  $v$ is in $L_T$,
+ if necessary.   
+Set $y=w(\t(p))$ and  $z=w(\t(t))$. (If $p$ is in $L_T$ then we
+merely set $y=p$; and similarly if $t$ is in $L_T$ then $z=t$.)
+Then $py^{-1}$ and $tz^{-1}$ belong to $H$. Moreover, as $p$
 is the maximal $L_Q$-prefix of $f$ it is also the maximal
 $L_Q$-prefix of $pet^{-1}$,  and so
   the
 first letter of $e$ is not readable from the vertex $\t(p)=\t(y)$
-of $A$. {\ef Is it worth saying that if $p$ and $q$ are maximal
-and $L_T$, then we do not need $y$ and $z$ (or $py^{-1}$ and
-$tz^{-1}$ are trivial. It looks confusing without it.}{\ajd yes} In
+of $A$. In
 particular $ye=y\circ e$. Similarly, the first letter of $e^{-1}$
 is not readable from the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ
 z^{-1}$. Moreover $y$ is both a maximal $L_Q$-prefix  and an
 $L_T$-prefix of $yez^{-1}$ and $z$ is a maximal $L_Q$-prefix  and
 an $L_T$-prefix of $ze^{-1}$. Thus $yez^{-1}\in S^{(1)}$ and we
 output
-\[w=(py^{-1}) (yez^{-1})(zt^{-1})\in HSH,\]
-of the required form.
-
-{\ef we output
 \[w=(h py^{-1}) (yez^{-1})(zt^{-1} g^{-1})\in HSH,\]
-don't we? }
+of the required form.
 
 On the other hand if $e=1$ then
 \[w=h\circ p\circ t^{-1}\circ g^{-1}.\]
@@ -861,18 +865,20 @@ Consider the case where both belong to $S^{(1)}$ and, in the usual notation,
 $s_i=y_i e_i z_i^{-1}$, $i=0,1$. We have $s_1=as_0b$, $a,b\in H$, and as $y_0$ has
 no left divisor in $H$, if $a\neq 1$ then $a$ does not cancel completely with
  a prefix of $y_0$. Thus, if $a\neq 1$ we may write $a=a_0\circ a_1$ and
-$y_0=a_1^{-1}\circ y_0^\prime$, where $ay_0=a_0\circ y_0^\prime$. Since
+$y_0=a_1^{-1}\circ y_0^\prime$, where $ay_0=a_0\circ y_0^\prime$ 
+and $a_0\neq 1$. Since
 $a$ is accepted by $A$ we have $\t(ay_0)=\t(a_0y_0^\prime)=\t(y_0)$. By definition
 of $s_0$ the first letter of $e_0$ is not readable from the vertex $\t(y_0)$, so
 it follows, as before that $a_0y_0^\prime e=a_0\circ y_0^\prime \circ e$. Similarly,
-if $b\neq 1$ then $b=b_0\circ b_1$ and $z_0=b_0\circ z_0^\prime$, with
+if $b\neq 1$ then $b=b_0\circ b_1$, where $b_0\neq 1$,  and $z_0=b_0\circ z_0^\prime$, with
 $z_0^{-1}b= (z_0^\prime)^{-1}\circ b_1$ and $e (z_0^\prime)^{-1}b_1=
 e\circ  (z_0^\prime)^{-1}\circ b_1$. This implies that
 $s_1=a_0\circ y_0^\prime \circ  e\circ  (z_0^\prime)^{-1}\circ b_1$ and by considering
 maximal $L_Q$-prefixes of both sides we see that $y_1=a_0\circ y_0^\prime$ and
 $z_1=b_1^{-1}\circ z_0^\prime$. We now have  $\t(y_1)=\t(a_0y_0^\prime)=\t(y_0)$ which
  means that
-$y_0=y_1$ and this in turn implies that $a=1$. Similarly $z_0=z_1$ so $b=1$.
+$y_0=y_1$ and $a_0=a_1^{-1}$,  a contradiction. Hence $a=1$. 
+Similarly $z_0=z_1$ gives rise to  a contradiction, so $b=1$.
 Hence $s_0=s_1$ in this case.
 
 Finally consider the case where $s_1$ and $s_2$ belong to
@@ -883,161 +889,116 @@ representatives.
 \end{proof}
 
 \begin{example}\label{ex:f_1}
-Let $F_1$ be the free group on generators $x_1,y_1$ and $H_1$ its
+Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
 subgroup $H_1=\la
-h_1,h_2,h_3, h_4\ra$, where  $h_1= x_1^3$, $h_2=y_1^{3}$, 
-$h_3=x_1y_1^{3}x_1^{-1}$ and $h_4=x_1^{2}y_1^{3}x_1^{-2}$. 
+h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and
+$h_3=x_1x_2x_3$.
 
 The Stallings automata, $\G_{A_1}$ for $H_1$,
 with maximal subtree $T_1$ highlighted and base vertex $1$, is shown
-in Figure \ref{fig:bez1}.
+in Figure %\ref{fig:stall}.
+ \ref{fig:stall1}.
 The set $L_{T_1}$ corresponding to the maximal subtree  $T_1$ is
- $L_{T_1}=\{1,x_1,x_1^{2},y_1, y_1^2, x_1y_1, x_1y_1^2, x_1^2y_1, x_1^2y_1^2 \}$.
+ $L_{T_1}=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$.
 
 Let the set of double coset representatives for $H_1$ be $S_1=S_1^{(1)}
 \cup S_1^{(2)}$.
 To find the double coset normal form for the element $f_1 =
-y_1^6 x_1^4 y_1 x_1^4 y_1 x_1^{-2} y_1^{-3} x_1^{-1}$: 
-in
+x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$: in
 the notation of Algorithm I, use
-${A_1}$ to read off the maximal acceptable prefix 
-$h=y_1^6 x_1^3=h_2^2h_1$ 
+${A_1}$ to read off the maximal acceptable prefix $h=x_2x_3^2x_2^{-1} x_1^3
+=h_2^2h_1$
 of $f_1$; and
-the maximal $L_{Q_1}$ prefix $p=x_1y_1$, of the remaining part of $f_1$. Next
-$q^{-1}=x_1y_1^3x_1^2y_1^{-1}x_1^{-4}$, which has maximal acceptable prefix
-$g=x_1y_1^3x_1^2=h_3h_1$. The maximal $L_{Q_1}$-prefix of the remaining part of $q^{-1}$
-is then $t=y_1^{-1}$. Setting $e=x_1^4$,
+the maximal $L_{Q_1}$ prefix $p=x_1$ of the remaining part of $f_1$. Next
+$q^{-1}=x_1x_2x_3x_1^2x_3^{-3}$, which has maximal acceptable prefix
+$g=x_1x_2x_3=h_3$. The maximal $L_{Q_1}$-prefix of the remaining part of $q^{-1}$
+is then $t=x_1^2$. Setting $e=x_3$,
 \[f_1=h\circ p\circ e\circ t^{-1}\circ g^{-1}.\]
 As $p$ is an $L_{T_1}$-prefix of $pq$ we have $y=p$. On the other hand
-$t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=5$, so $z=w(5)=y_1^{2}$.
+$t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=2$, so $z=w(2)=x_1^{-1}$.
 Now set
-\[s=p\circ e\circ z^{-1}=x_1y_1x_1^4y_1^{-2}.\]
-Then, writing $h^\prime=gtz^{-1}=h_3h_1h_2^{-1}$, the normal form for $f_1$ is
-\[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1)x_1y_1x_1^4y_1^{-2} (h_2h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\]
+\[s=p\circ e\circ z^{-1}=x_1x_3x_1\in S_1^{(1)}.\]
+Then, writing $h^\prime=gtz^{-1}=h_3h_1$, the normal form for $f_1$ is
+\[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3x_1(h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\]
 
 To find the double coset normal form for the element
-$f_2=y_1^3x_1^2y_1^3x_1^{-2}y_1^{-1}x_1y_1^{2}x_1^5$: use
+$f_2=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3^{-1}x_2^{-1}x_1^{-1}$: use
 ${A_1}$ to read off the maximal acceptable prefix 
-  $h=y_1^3x_1^2y_1^3x_1^{-2}=h_2h_4$ of $f_2$;   and 
-the maximal $L_{Q_1}$-prefix 
-$p=y_1^{-1}$, 
-of the remainder of $f_2$.
-  Here 
-$q^{-1}=x_1^{-5}y_1^{-2}x_1^{-1}$, which has maximal acceptable prefix 
-$g=x_1^{-3}=h_1^{-1}$ and the maximal $L_{Q_1}$-prefix of the remainder
- of $q^{-1}$ is then $t=x_1^{-2}y_1^{-2}x_1^{-1}$. Then $\t(p)=5$ so $y=w(5)=y_1^2$ and 
-$\t(t)=$
-\[f_2=p.\]
-Therefore $f_2$ is in $H_1S_1^{(2)}H_1$. To find the required
+$h=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3^{-1}x_2^{-1}=h_3^{-1}h_2^{-1}$
+of $f_2$; 
+and  the
+maximal $L_{Q_1}$-prefix $p=x_1^{-1}$ of the rest of $f_2$.  Here 
+$q^{-1}=1$ and so $g=t=1$, and 
+\[f_2=h\circ p.\]
+Therefore $f_2$ will be in $H_1S_1^{(2)}H_1$. To find the required
 double coset representative we construct $\G_{A_1}\times
-\G_{A_1}$, which has two non-diagonal components of $9$ vertices, shown in Figure \ref{fig:bez1} and $18$ non-diagonal components of $3$ vertices, of
-which $3$ are shown in Figure \ref{fig:bez2}. In these figures 
-$\sim$ representatives are  
-shown as
-solid vertices and  connecting elements are the labels of paths in the
-highlighted subtrees.  
-Now, $u=\t(p)=6$ and $v=t=1$ so $\t(t)=1$ and $(6,1)$  is a 
- $\sim$ representative. 
- Therefore $y=p$, $z=1$,
-$p=yz^{-1}\in S_1^{(2)}$, 
-\[a=hpcy^{-1}=
-\textrm{ and } b=zc^{-1}t^{-1}g^{-1}=x_1 x_2 x_2^{-1} x_1^{-1}=1,\]
+\G_{A_1}$, which has two non-diagonal components, shown in Figures
+\ref{fig:GxG-1} and \ref{fig:GxG-2},
+with the $\sim$ representatives $(3,1)$ and $(2,1)$,  shown as
+solid vertices. The connecting elements are labels of paths in the
+highlighted subtrees.  All other non-diagonal components consist
+of isolated vertices. Now, $u=\t(p)=2$ and $v=\t(t)=1$ and $(2,1)$
+is a $\sim$ representative. Hence the  connecting element
+$c=c(2,1)=1$. Therefore $p=y=w(2)=x_1^{-1}$, $z=t=w(1)=1$,
+$yz^{-1}=x_1^{-1}\in S_1^{(2)}$,
+\[a=hpcy^{-1}=h_3^{-1}h_2^{-1}x_1^{-1}x_1=h_3^{-1}h_2^{-1} 
+\textrm{ and } 
+b=zc^{-1}t^{-1}g^{-1}=1,\]
 and the normal form of $f_2$ is
-\[f_2=a yz^{-1} b=(h_3^{-1}h_2) x_1^{-1}\in H_1S_1^{(2)}H_1.\]
+\[f_2=a yz^{-1} b=(h_3^{-1}h_2^{-1}) x_1^{-1}.\]
 \end{example}
 
 \begin{figure}
 \begin{center}
 \psfrag{x1}{$x_1$}
-\psfrag{y1}{$y_1$}
+\psfrag{x2}{$x_2$}
+\psfrag{x3}{$x_3$}
 \psfrag{1}{$1$}
 \psfrag{2}{$2$}
 \psfrag{3}{$3$}
 \psfrag{4}{$4$}
 \psfrag{5}{$5$}
-\psfrag{6}{$6$}
-\psfrag{7}{$7$}
-\psfrag{8}{$8$}
-\psfrag{9}{$9$}
-\subfigure[Stallings automaton $\G_{A_1}$ for $H_1$]{
-\includegraphics[scale=.52]{bez1.eps}
-\label{fig:bez1}}
+\begin{subfigure}[b]{.25\columnwidth}
+\includegraphics[scale=.52]{stallh1.eps}
+\caption{Stallings automaton $\G_{A_1}$ for $H_1$}
+\label{fig:stall1}
+\end{subfigure}
 \hspace{5mm}
-\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(3,1)$.]{
-\psfrag{x1}{$x_1$}
-\psfrag{y1}{$y_1$}
-\psfrag{1}{$(1,2)$}
-\psfrag{2}{$(2,3)$}
-\psfrag{3}{$(3,1)$}
-\psfrag{4}{$(4,6)$}
-\psfrag{5}{$(5,7)$}
-\psfrag{6}{$(6,8)$}
-\psfrag{7}{$(7,9)$}
-\psfrag{8}{$(8,4)$}
-\psfrag{9}{$(9,5)$}
-\includegraphics[scale=.52]{bez1a.eps}
-\label{fig:GxG-1}}
+\begin{subfigure}[b]{.25\columnwidth}
+\psfrag{a}{$(1,2)$}
+\psfrag{b}{$(2,3)$}
+\psfrag{c}{$(3,1)$}
+\psfrag{d}{$(4,5)$}
+\psfrag{e}{$(1,5)$}
+\includegraphics[scale=.52]{GxG-1.eps}
+\caption{$\G_{A_1}\times \G_{A_1}$: connected component of $(3,1)$}
+\label{fig:GxG-1}
+\end{subfigure}
 \hspace{5mm}
-\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(2,1)$.]{
-\psfrag{x1}{$x_1$}
-\psfrag{y1}{$y_1$}
-\psfrag{1}{$(1,3)$}
-\psfrag{2}{$(2,1)$}
-\psfrag{3}{$(3,2)$}
-\psfrag{4}{$(4,8)$}
-\psfrag{5}{$(5,9)$}
-\psfrag{6}{$(6,4)$}
-\psfrag{7}{$(7,5)$}
-\psfrag{8}{$(8,6)$}
-\psfrag{9}{$(9,7)$}
-\includegraphics[scale=.52]{bez1b.eps}
-\label{fig:GxG-2}}
+\begin{subfigure}[b]{.25\columnwidth}
+\psfrag{a}{$(2,1)$}
+\psfrag{b}{$(3,2)$}
+\psfrag{c}{$(1,3)$}
+\psfrag{d}{$(5,4)$}
+\psfrag{e}{$(5,1)$}
+\includegraphics[scale=.52]{GxG-2.eps}
+\caption{$\G_{A_1}\times \G_{A_1}$: connected component of $(2,1)$}
+\label{fig:GxG-2}
+\end{subfigure}
 \end{center}
-\caption{Example \ref{ex:f_1}.}\label{fig:bez}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(6,1)$.]{
-\psfrag{x1}{$x_1$}
-\psfrag{y1}{$y_1$}
-\psfrag{3}{$(6,1)$}
-\psfrag{8}{$(7,4)$}
-\psfrag{9}{$(2,5)$}
-\includegraphics[scale=.52]{bez1c.eps}
-\label{fig:GxG-18}}
-\hspace{5mm}
-\psfrag{x1}{$x_1$}
-\psfrag{y1}{$y_1$}
-\psfrag{3}{$(4,2)$}
-\psfrag{8}{$(5,6)$}
-\psfrag{9}{$(1,7)$}
-\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(4,2)$.]{
-\includegraphics[scale=.52]{bez1c.eps}
-\label{fig:GxG-4}}
-\hspace{5mm}
-\subfigure[$\G_{A_1}\times \G_{A_1}$: connected component of $(9,3)$.]{
-\psfrag{x1}{$x_1$}
-\psfrag{y1}{$y_1$}
-\psfrag{3}{$(9,3)$}
-\psfrag{8}{$(3,8)$}
-\psfrag{9}{$(8,9)$}
-\includegraphics[scale=.52]{bez1c.eps}
-\label{fig:GxG-5}}
-\end{center}
-\caption{Example \ref{ex:f_1}.}\label{fig:bez2}
+\caption{Example \ref{ex:f_1}.}\label{fig:stall}
 \end{figure}
 
 \begin{example}\label{ex:f_2}
 Let $F_2$ be the free group on generators
-$y_1,y_2,y_3,y_4$ with a subgroup $H_2 = \la h_1^{\prime},
+$y_1,y_2,y_3,y_4$ with the subgroup $H_2 = \la h_1^{\prime},
 h_2^{\prime},h_3^{\prime}\ra$, where
 $h_1^{\prime}=y_2^2$,
 $h_2^{\prime}=y_3y_4$ and
 $h_3^{\prime}=y_1^2y_3y_1^{-1}y_2$.
 The Stallings automata, $\G_{A_2}$ for $H_2$,
 with maximal subtree $T_2$ highlighted and base vertex $1$, is shown
-in Figure \ref{fig:stallagain}.\ref{fig:stallh2}.
+in Figure \ref{fig:stallh2}.
 The set $L_{T_2}$ corresponding to the maximal subtree  $T_2$ is
  $L_{T_2}=
 \{1, y_1, y_1^2,
@@ -1047,22 +1008,22 @@ Let the set of double coset representatives for $H_2$ be $S_2=S_2^{(1)}
 
 To find the normal form of $f_1^\prime=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2
 y_3y_4y_2^2$: use ${A_2}$ to read off the maximal acceptable
-prefix $h= y_1^2y_3y_1^{-1}y_2y_3y_4$ of $f_1^\prime$; and  the maximal
+prefix $h= y_1^2y_3y_1^{-1}y_2y_3y_4=h_3^\prime h_2^\prime$ of $f_1^\prime$; and  the maximal
 $L_{Q_2}$-prefix $p=y_1$ of the rest of $f_1^\prime$.  Next $q^{-1}=
-y_2^{-2}y_4^{-1}y_3^{-1}y_2^{-1}$, so $g=y_2^{-2}y_4^{-1}y_3^{-1}$
+y_2^{-2}y_4^{-1}y_3^{-1}y_2^{-1}$, so $g=y_2^{-2}y_4^{-1}y_3^{-1}
+=h_1^{\prime -1}h_2^{\prime -1}$
 and $t=y_2^{-1}$. This element will be represented by an element
 of $S_2^{(2)}$, so we need to construct $\G_{A_2}\times \G_{A_2}$.
 There are $7$  non-trivial, non-diagonal components. One is shown
-in Figure \ref{fig:stallagain}\ref{fig:G2xG2-1} and the remaining
+in Figure \ref{fig:G2xG2-1} and the remaining
 six in Figure \ref{fig:G2xG2-2}. In all cases the solid vertex
 corresponds to the $\sim$ representative and connecting elements
 are paths in the highlighted trees. Following Algorithm I, the
-normal form of $f_1^\prime$ is seen to be
+normal form of $f_1^\prime$ is 
 \[f_1^\prime=h yz^{-1} g^{-1},\]
 where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is
 \[f_1^\prime=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}.\]
 \end{example}
-
 \begin{figure}
 \begin{center}
 
@@ -1079,22 +1040,24 @@ where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is
 \psfrag{4}{$4$}
 \psfrag{5}{$5$}
 \psfrag{6}{$6$}
-\subfigure[Stallings automaton $A_2$ for $H_2$]{
+\begin{subfigure}[b]{.3\columnwidth}
 \includegraphics[scale=.52]{stallh2.eps}
-\label{fig:stallh2}}
+\label{fig:stallh2}
+\caption{Stallings automaton $A_2$ for $H_2$}
+\end{subfigure}
 \hspace{25mm}
-\subfigure[$\G_{A_2}\times \G_{A_2}$: connected component of
-$(6,1)$.]{
+\begin{subfigure}[b]{.3\columnwidth}
 \psfrag{a}{$(5,3)$}
 \psfrag{b}{$(6,1)$}
 \psfrag{c}{$(1,6)$}
 \psfrag{d}{$(3,5)$}
 \includegraphics[scale=.52]{G2xG2-1.eps}
-\label{fig:G2xG2-1}}
+\caption{$\G_{A_2}\times \G_{A_2}$: connected component of $(6,1)$}
+\label{fig:G2xG2-1}
+\end{subfigure}
 \end{center}
 \caption{Stallings automata for Example \ref{ex:f_2}.}\label{fig:stallagain}
 \end{figure}
-
 \begin{figure}
 \begin{center}
 
@@ -1107,42 +1070,54 @@ $(6,1)$.]{
 \psfrag{y4}{$y_4$}
 \psfrag{b}{$(1,3)$}
 \psfrag{c}{$(3,4)$}
-\subfigure[$(1,3)$.]{
+\begin{subfigure}[b]{.13\columnwidth}
 \includegraphics[scale=.5]{G2xG2-2.eps}
-\label{fig:G2xG2-2-1}}
+\caption{$(1,3)$}
+\label{fig:G2xG2-2-1}
+\end{subfigure}
 \hspace{1mm}
-\subfigure[$(3,1)$.]{
+\begin{subfigure}[b]{.13\columnwidth}
 \psfrag{b}{$(3,1)$}
 \psfrag{c}{$(4,3)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
-\label{fig:G2xG2-2-2}}
+\caption{$(3,1)$}
+\label{fig:G2xG2-2-2}
+\end{subfigure}
 \hspace{1mm}
-\subfigure[$(2,5)$.]{
+\begin{subfigure}[b]{.13\columnwidth}
 \psfrag{y1}{$y_3$}
 \psfrag{b}{$(1,4)$}
 \psfrag{c}{$(2,5)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
-\label{fig:G2xG2-2-3}}
+\caption{$(2,5)$}
+\label{fig:G2xG2-2-3}
+\end{subfigure}
 \hspace{1mm}
-\subfigure[$(5,2)$.]{
+\begin{subfigure}[b]{.13\columnwidth}
 \psfrag{y1}{$y_3$}
 \psfrag{b}{$(4,1)$}
 \psfrag{c}{$(5,2)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
-\label{fig:G2xG2-2-4}}
+\caption{$(5,2)$}
+\label{fig:G2xG2-2-4}
+\end{subfigure}
 \hspace{1mm}
-\subfigure[$(4,5)$.]{
+\begin{subfigure}[b]{.13\columnwidth}
 \psfrag{y1}{$y_1$}
 \psfrag{b}{$(3,6)$}
 \psfrag{c}{$(4,5)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
-\label{fig:G2xG2-2-5}}
+\caption{$(4,5)$}
+\label{fig:G2xG2-2-5}
+\end{subfigure}
 \hspace{1mm}
-\subfigure[$(6,3)$.]{
+\begin{subfigure}[b]{.13\columnwidth}
 \psfrag{b}{$(6,3)$}
 \psfrag{c}{$(5,4)$}
 \includegraphics[scale=.5]{G2xG2-2.eps}
-\label{fig:G2xG2-2-6}}
+\caption{$(6,3)$}
+\label{fig:G2xG2-2-6}
+\end{subfigure}
 \end{center}
 \caption{Example \ref{ex:f_2}: connected components of $\G_{A_2}\times \G_{A_2}$.}\label{fig:G2xG2-2}
 \end{figure}
@@ -1196,12 +1171,16 @@ which is a (non-unique) double coset representative.
 Recall from above that $F_1$ and $F_2$ are free groups on finite sets
 $X_1$ and $X_2$, respectively;
  $H_1 \leq F_1$ and $H_2 \leq F_2$ are subgroups of rank $m$, freely 
-generated by $\{h_1,\ldots, h_m\}$ and $\{h_1^\prime,\ldots ,h_m^\prime\}$, and
-$Z=\{z_1,\ldots, z_m\}$ is a set disjoint from $X_1\cup X_2$. 
+generated by $\{h_1,\ldots, h_m\}$ and $\{h_1^\prime,\ldots ,h_m^\prime\}$. 
 The isomorphism from $H_1$ to $H_2$ which maps $h_i$ to $h_i^\prime$ is 
-denoted $\phi$ and the isomorphisms from $\FF(Z)$ to $H_1$ and $H_2$ which
-map $z_i$ to $h_i$ and $h_i^\prime$ are denoted $\phi_1$ and $\phi_2$, respectively. 
- We define $G$ to be the free product with amalgamation: 
+denoted $\phi$.
+
+Now let 
+$Z=\{z_1,\ldots, z_m\}$ be a set disjoint from $X_1\cup X_2$. Then there
+is an isomorphism $\phi_1:\FF(Z)\maps H_1$, such that $\phi_1(z_i)=h_i$,
+ and an isomorphism $\phi_2:\FF(Z)\maps H_2$, such that $\phi_2(z_i)
+=h_i^\prime$, $i=1,\ldots, m$. 
+ Let $G$ to be the free product with amalgamation: 
 ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a 
  presentation  
 \[\la X_1\cup X_2\cup Z  | h_i =z_i= h_i', i=1 \ldots m\ra.\] 
@@ -1223,7 +1202,7 @@ we explicitly say something to the contrary.
 
 The object of this section is to construct an automaton which will accept a word
 $w$ in double coset normal form if and only if it belongs to a
-given subgroup $K$. The idea is to do this by starting with the
+given subgroup $K$ of $G$. The idea is to do this by starting with the
 flower automaton for the generators of $K$, written in (double
 coset) normal form; carrying out Stallings folding as usual to
 produce an inverse automaton; and next
@@ -1236,12 +1215,14 @@ again. The result of the final folding is the candidate automaton.
 language accepted by the flower automaton of $K$. The image of $L$ under
 the canonical map to $G$ is $K$. All the stages of our generalised folding
 process will preserve this image, so our final automaton will accept a language
-$L_1$ which also maps to $K$. We must then prove that if $w$ is a word
+$L_1$ which also maps to $K$. We must then prove that, if $w$ is a word
 in normal form which represents an element of $K$ then $w$ is in $L_1$. It will
-therefore suffice to show that if $u$ is any word in $L_1$ then the
+therefore suffice to show that, if $u$ is any word in $L_1$ then the
 normal form of $u$ is also in $L_1$.
 
-
+Let $S_1$ and $S_2$ be sets of double coset representatives of 
+$H_1\le F_1$ and $H_2\le F_2$, respectively, as constructed in Section 
+\ref{sec:dcforms}. 
 Denote $S= S_1 \cup S_2$. Let $A_k$ be the
 Stallings automaton for $H_k$ and let $T_k$ be a spanning tree for
 the associated graph $\G_{A_k}$, $k=1,2$. The alphabet of $A_k$ is
@@ -1261,22 +1242,25 @@ d_th_{t+1}$.
 
 
 \begin{example}\label{ex:g}
-Let $g =f_1 f_2 f_1^\prime f_2^{-1}$ in setting  of Examples \ref{ex:f_1} and
-Examples \ref{ex:f_2}.
-Set $z_i = h_i = h_i^{\prime}$ for $i= 1,2,3$; then
+Let $F_i$ and $H_i$ be given in Examples \ref{ex:f_1} and  
+Example \ref{ex:f_2}, and  
+let $f_1$ and $f_2$ be the elements of $F_1$ in Example \ref{ex:f_1} and 
+$f_1^\prime\in F_2$ as in Example \ref{ex:f_2}. 
+Set $z_i = h_i = h_i^{\prime}$ for $i= 1,2,3$. 
+
+Let $g =f_1 f_1^\prime f_2$; then we have 
 \begin{align*}
-f_1&=(h_2^{2}h_1) x_1x_3x_1^{-1} (h_1^{-1}h_3^{-1})\\
-&=z_2^2z_1  x_1x_3x_1^{-1}z_1^{-1}z_3^{-1},\\
-f_2&=(h_3^{-1}h_2) x_1^{-1}\\
+f_1&=(h_2^{2}h_1) x_1x_3x_1 (h_1^{-1}h_3^{-1})\\
+&=z_2^2z_1  x_1x_3x_1z_1^{-1}z_3^{-1},\\
+f_2&=(h_3^{-1}h_2^{-1}) x_1^{-1}\\
 &=z_3^{-1}z_2 x_1^{-1}\textrm{ and }\\
 f_1^\prime&=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}\\
 &= z_3z_2 y_1y_2^{-1} z_1^{-1}z_2^{-1}.
 \end{align*}
-Then
-\[g=z_2^2 z_1  x_1 x_3 x_1^{-1} z_1^{-1} z_3^{-2}
-z_2 x_1^{-1}
-z_3z_2 y_1y_2^{-1} z_1^{-1}z_2^{-1}
-x_1z_2^{-1}z_3.
+Therefore the double coset normal form of $g$ is 
+\[g=z_2^2 z_1  x_1 x_3 x_1 z_1^{-1} 
+z_2y_1y_2^{-1} z_1^{-1}z_2^{-1}
+z_3^{-1}z_2^{-1} x_1^{-1}.
 \]
 \end{example}
 
@@ -1311,7 +1295,7 @@ running the loop below, on input $\G_K$,
 until it halts, at which point we shall show that we have an
 inverse automaton which accepts  normal forms of elements of $K$.
 Assume then that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
-and $\pi(L(\D_{(0)})=K$. \\[1em]
+and $\pi(L(\D_{(0)}))=K$. \\[1em]
 \textbf{Loop.}
 Set $n=0$.
 \be[Step 1.]
@@ -1324,14 +1308,15 @@ Call the result $\D_{(n)}^{\prime\prime}$.
 of $\D_{(n)}^{\prime\prime}$. If $\D_{(n+1)}$ and
 $\D_{(n)}$ have the same
  number of
-$X_1$ and $X_2$ components then output $\D_{(n+1)}$
-and stop. Otherwise add $1$ to $n$ and  repeat Step \ref{it:gf1}.
+$X_1$ and $X_2$ components (see below) then output $\D_{(n+1)}$
+and stop. Otherwise, add $1$ to $n$ and  repeat Step \ref{it:gf1}.
 \ee
 
 Algorithm II below describes exactly how to carry out Step 1 of
 this loop. Since Step 1 may run more than once,  the input to this
 algorithm is assumed to be an arbitrary inverse automaton $\D$,
-with alphabet $\S$ and $\pi(L(\D))=K$. The output is a rooted,
+with alphabet $\S$ and $\pi(L(\D))=K$. The output of Algorithm II 
+is a rooted,
 labelled, involutive automaton, with the same alphabet, which may
 fail to be deterministic. We shall show that, if we start as above
 with $\G_K=\D_{(0)}$,  the loop halts, at some $n<\infty$; at
@@ -1343,7 +1328,7 @@ normal form of every element of $K$. \\[1em]
 Let $\D$ be an inverse automaton, with alphabet $\S$ and
 start and final state $1$, such that
 $\pi(L(\D))=K$.
-Let $\D_k$ be the graph formed from $\D$ by removing all edges of
+For $k=1,2$, let $\D_k$ be the graph formed from $\D$ by removing all edges of
 type $X_{k^\prime}$, where $k\neq k^\prime$. An $X_k$ component of
 $\D_k$ is the subgraph of $\D$ formed from a connected component
 of $\D_k$ by removing all leaves which are incident to edges of
@@ -1365,15 +1350,15 @@ from $\T_{i-1}$ to $\T_i$ and,
  (writing $\T=\T_0$)
 we define the {\em boundary vertices} of $\T_{i}$ to be the vertices $\theta_{i}(v)$
 of $\T_i$, such that $v$ is a boundary vertex of $\T_{i-1}$. Moreover the
- images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ are
-called {\em vertices of} $\T$.
+ images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ 
+will be referred to as  {\em vertices of} $\T$.
 
 The modification process is followed by a ``reassembly'' phase, in which
 we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
 \\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
-Addition of paths labeled by $X_k$-words corresponding to
+This step involves th addition of paths labeled by $X_k$-words corresponding to
 $z$-edges of an $X_k$ component.
 
 Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an
@@ -1387,19 +1372,21 @@ $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \psfrag{b}{$\b$}
 \psfrag{h}{$z$}
 \psfrag{w}{$w$}
-\subfigure%[]
-{
+\begin{subfigure}[b]{.25\columnwidth}
 \includegraphics[scale=.5]{alg2-1a.eps}
-\label{fig:alg2-1a}}
+\label{fig:alg2-1a}
+%\caption{}
+\end{subfigure}
 \raisebox{3ex}{$\leadsto$}
-\subfigure%[]
-{
+\begin{subfigure}[b]{.25\columnwidth}
 \psfrag{a}{$\a$}
 \psfrag{b}{$\b$}
 \psfrag{h}{$z$}
 \psfrag{w}{$w$}
 \includegraphics[scale=.5]{alg2-1b.eps}
-\label{fig:alg2-1b}}
+\label{fig:alg2-1b}
+%\caption{}
+\end{subfigure}
 \end{center}
 \caption{$\theta$ to $\theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
 \end{figure}
@@ -1463,9 +1450,9 @@ $(\T_2,\theta_2(\a),\theta_2(\b))$, respectively, then
 by construction $\pi(L_1)=\pi(L_2)\subseteq G$.\\[1em]
 
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
-On this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
-\G_{A_k}$ related to edges of this graph which does not belong to
-its spanning subforest and projects to elements of $\G_{A_k}$.
+At this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
+\G_{A_k}$ related to edges of this graph which do not belong to
+its spanning subforest and project to paths in $\G_{A_k}$.
 
 As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements
 of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$
@@ -1692,11 +1679,6 @@ identify  $(u,a,v)$ and $(u^\prime, a, v^\prime)$.
 The root vertex of $\D^{\prime\prime}$ is the image, in
 $\D^{\prime\prime}$, of $\nu^{-1}(1)$, where $1$ is  the root of
 $\D$.
-
-
-{\ef Slightly different piece of a text suggested (including
-changes of lemma, the old version of which is commented bellow)}
-
 For $u \in V(\D^\prime_5)$ and $(u,a,v) \in E(\D^\prime_5)$ let
 $[u]$ and $[(u,a,v)]$ denote equivalence classes in
 $\D^{\prime\prime}$ with respect to this identification of
@@ -1764,20 +1746,177 @@ $\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\ma
 \begin{example}\label{ex:K}
 Let $F_1=\FF(x_1,x_2,x_3)$ and $H_1=\la h_1,h_2,h_3\ra$, 
 as in Example \ref{ex:f_1}, and let $F_2=\FF(y_1,y_2,y_3,y_4)$ and 
-$H_2=\la h_1^\prime, h_2^\prime, h_3^\prime\ra$, as in Example \ref{ex:f_2}. 
+$H_2=\la h_1^\prime, h_2^\prime, h_3^\prime\ra$, as in Example \ref{ex:f_2}.
+Let $f_1,f_2$ and $f_1^\prime$ be the elements defined in these examples
+ and let $G=F_1\ast_{H_1=H_2} F_2$.  
 
-In Example \ref{ex:f_1} we found the double-coset normal forms of
-$f_1=y_1^6 x_1^4 y_1 x_1^4 y_1 x_1^{-2} y_1^{-3} x_1^{-1}$ and 
-$f_2= y_1^3x_1^2y_1^3x_1^{-2}y_1^{-1}x_1y_1^{2}x_1^5$, namely
-\[f_1 = (h_2^{2}h_1)x_1y_1x_1^4y_1^{-2} (h_2h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1\]
+Let  
+\[f_3=x_2x_3^{-1}x_1,\, f_4= x_1^4 x_2 x_3 x_1^{-1} x_2^{-1} 
+\textrm{ and } f_5=x_1x_2x_3x_2x_3^{-2}x_2^{-1},\]  
+and let 
+\[ f_2^\prime =y_3y_4y_2^{-1}y_1y_3.\]
+Using Algorithm I, the double coset representatives of these elements are
+\begin{align*}
+f_3 & = x_2x_3^{-1}x_1,\\
+f_4 &= h_1h_3 x_1^{-1}x_2^{-1},\\
+f_5 &= h_3h_2^{-2}\textrm{ and }\\
+f_2^\prime &= h_2^\prime y_2^{-1}y_1y_3.
+\end{align*} 
+
+Let $K$ be the subgroup of $G$ generated by $k_1=f_1f_1^\prime f_2$, 
+$k_2= f_3f_2^\prime f_4$ and $k_3=f_5$. 
+In Example \ref{ex:g} we found the double-coset normal form of
+$k_1=g=f_1f_1^\prime f_2$, namely
+\[k_1=z_2^2 z_1  x_1 x_3 x_1 z_1^{-1} 
+z_2y_1y_2^{-1} z_1^{-1}z_2^{-1}
+z_3^{-1}z_2^{-1} x_1^{-1}.\]
+The double coset normal forms of $k_2$ and $k_3$ are 
+\[k_2=  x_2x_3^{-1}x_1  z_2 y_2^{-1}y_1y_3 z_1z_3 x_1^{-1}x_2^{-1}\]
 and 
-\[f_2=(h_3^{-1}h_2) x_1^{-1}\in H_1S_1^{(2)}H_1.\]
-In Example 
-Let $f$...
+\[k_3 = z_3z_2^{-2}.\]
+
+After (ordinary) folding the flower automaton of $K$ is as shown in Figure \ref{fig:Kflower}.
+There is one $X_1$ component $\Theta$ of this graph, shown in Figure \ref{fig:KX} 
+and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$, shown in Figure \ref{fig:KY}. After performing modifications these  graphs are transformed into
+ $\Theta_5$, $\Theta_5^{\prime}$ and $\Theta_5^{\prime\prime}$, shown in Figure \ref{fig:KX5}
+The reassembled graph $\Psi$ has the same number of $X_1$ and $X_2$ components as before, so 
+the algorithm halts after one iteration of the Loop, outputting the graph of Figure 
+\ref{fig:out}. 
 \end{example}
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\includegraphics[scale=0.5,bb=0 0 820 720]{python/ex_K_folded.eps}
+%\includegraphics[scale=0.4]{python/ex_K.eps}
+\caption{The folded flower automaton of $K$}
+\label{fig:Kflower}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\includegraphics[scale=0.5, angle=90,bb=0 0 300 600]{python/ex_K_X.eps}
+\caption{An $X_1$ component $\Theta$}
+\label{fig:KX}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\begin{subfigure}[b]{.3\columnwidth}
+\includegraphics[scale=0.5, angle=90, bb=0 0  82 280]{python/ex_K_Y1.eps}
+\caption{$\Theta^\prime$}
+\label{fig:KY1}
+\end{subfigure}
+\hspace*{2cm}
+\begin{subfigure}[b]{.3\columnwidth}
+\includegraphics[scale=0.5, angle=90, bb=0 0 82 210]{python/ex_K_Y2.eps}
+\caption{$\Theta^{\prime\prime}$}
+\label{fig:KY2}
+\end{subfigure}
+\end{center}
+\caption{$X_2$ components}
+\label{fig:KY}
+\end{figure}
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\includegraphics[scale=0.7,bb=0 0 820 720]{python/ex_K_f5.eps}
+\caption{$\Theta_5$}
+\label{fig:KX5}
+\end{center}
+\end{figure}
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\begin{subfigure}[b]{.3\columnwidth}
+\includegraphics[scale=0.5, angle=90, bb=0 0  82 280]{python/ex_K_i4.eps}
+\caption{$\Theta_5^\prime$}
+\label{fig:KY15}
+\end{subfigure}
+\hspace*{2cm}
+\begin{subfigure}[b]{.3\columnwidth}
+\includegraphics[scale=0.5, angle=90, bb=0 0 82 210]{python/ex_K_j4.eps}
+\caption{$\Theta_5^{\prime\prime}$}
+\label{fig:KY25}
+\end{subfigure}
+\end{center}
+\caption{Modified $X_2$ components}
+\label{fig:KY5}
+\end{figure}
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\includegraphics[scale=0.7,bb=0 0 820 720]{python/ex_K_reassembly.eps}
+\caption{$\Psi$}
+\label{fig:out}
+\end{center}
+\end{figure}
 \begin{lemma}\label{lem:nfcomp}
 Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of
-an inverse automaton $\D$, with alphabet $\S$.
+an inverse automaton $\D$, with alphabet $\S$. Then the following hold. 
 \be
 \item\label{it:nfcomp1}
   $\pi(L(\T,\a,\b))=\pi(L(\T_5),\theta(\a),\theta(\b))$.
@@ -2456,7 +2595,7 @@ $|E\cP_2\smallsetminus \U_2|$ edges in time $O(\overline{Q}_k+2 |E
 
 \begin{equation}\label{theta'2}
 \begin{split}
-t_{\T'_2} &\preceq O(|V\T|\cdot(|E\cP_2\smallsetminus \U_2)\cdot
+t_{\T'_2} &\preceq O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot
 (\overline{Q}_k+2 |E \U_2| +1))\\ &\preceq O(|V\T|\cdot
 (|V\T_2|^2+|V\T_2|)\cdot (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
 \cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
@@ -2538,7 +2677,7 @@ This new graph can be folded in time $t_1(E\T'_3)$. Here
 \end{equation}
 and
 \begin{equation}\label{vtheta4}
-|V\T_4| \le |V \T'_3| \le |V \T'_3|
+|V\T_4| \le |V \T'_3| \le |V \T_3|
 +(\overline{Q}'_k+R_k-1)\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
 \end{equation}
 

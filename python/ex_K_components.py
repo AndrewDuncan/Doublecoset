@@ -41,6 +41,7 @@ for v in y2list:
     Y2.removeVertex(v)
 
 print "digraph Y1 {"
-print (str(Y1))
-#print (str(Y2))
+#print (str(Y1))
+print (str(Y2))
+#print (str(X1))
 print "}"
