@@ -1042,8 +1042,8 @@ where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is
 \psfrag{6}{$6$}
 \begin{subfigure}[b]{.3\columnwidth}
 \includegraphics[scale=.52]{stallh2.eps}
-\label{fig:stallh2}
 \caption{Stallings automaton $A_2$ for $H_2$}
+\label{fig:stallh2}
 \end{subfigure}
 \hspace{25mm}
 \begin{subfigure}[b]{.3\columnwidth}
@@ -1186,20 +1186,43 @@ ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a
 \[\la X_1\cup X_2\cup Z  | h_i =z_i= h_i', i=1 \ldots m\ra.\] 
 
 \begin{definition}\label{def:dcnf}  
- Let $S_1$ and $S_2$ be sets of  double coset representatives of
+ Let $S_1$ and $S_2$ be sets of  double coset representatives for 
 $H_1\le F_1$ and $H_2\le F_2$, respectively. 
 A word $w\in \FF(X_1\cup X_2\cup Z)$ is in 
 \emph{double coset normal form} (or \emph{dc-normal form}) if
 $w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,   where for $i=1,\ldots, k$,  
 \be[(a)] 
 \item $h_i$ is a reduced word in $\FF(Z)$, for $i=0,\ldots, k$; 
-\item  $p_i  \in S_1\cup S_2$,  for $i=1,\ldots, k$,  and 
+\item  $p_i  \in S_1\cup S_2$ and $p_i\neq 1$, for $i=1,\ldots, k$,  and 
 \item if  $p_i\in S_j$ then $p_{i+1}\notin S_j$, $j\in \{1,2\}$.
 \ee
 \end{definition}
 From now on when we say ``normal form'' we mean ``double coset normal form'' unless 
-we explicitly say something to the contrary. 
+we explicitly say something to the contrary.
+\begin{theorem}\label{thm:dcnf}
+Every element of $G$ is represented by a unique element of 
+$\FF(X_1\cup X_2\cup Z)$ in double coset normal form.
+\end{theorem} 
+\begin{proof}
+To see that every $g\in G$ can be written in dc-normal form, first
+write $g$ in reduced form; say $g=f_1\cdots f_t$, where $f_i$ is in a
+factor. Assuming that $f_i\in F_j$, let $a_is_ib_i$ 
+be the double coset representative of $f_i$, so
+$a_i,b_i\in H_j$ and $s_i\in S_j$. Let $z^{\prime}_i=\phi_j^{-1}(a_i)$ and 
+$z^{\prime\prime}_i=\phi_j^{-1}(b_i)$. Repeat this for $i=1,\ldots ,t$ and then
+let $z_i$ be the free reduction of $z^{\prime}_iz^{\prime\prime}_{i+1}$, 
+for $i=1,\ldots ,t-1$. Setting $z_0=z^{\prime}_1$ and $z_t=
+z^{\prime\prime}_t$, it follows that 
+\[z_0s_1z_1\cdots z_{t-1}s_tz_t\]
+is a dc-normal form for $g$. 
 
+Now suppose that $w$ and $w^\prime$ are words in dc-normal form and that 
+$w_1=_G w_2$. Let $w=h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$,
+and $w^\prime =h_{0}^\prime p_1^\prime h_{1}^\prime  p_2^\prime 
+\cdots h_{k-1}^\prime p_k^\prime h_{{k^\prime}}^\prime$, where 
+$h_i, h_i^\prime\in \FF(Z)$ and $p_i,p_i^\prime\in S_1\cup S_2$.
+ ... tbc... 
+\end{proof}
 The object of this section is to construct an automaton which will accept a word
 $w$ in double coset normal form if and only if it belongs to a
 given subgroup $K$ of $G$. The idea is to do this by starting with the
