@@ -1217,11 +1217,21 @@ z^{\prime\prime}_t$, it follows that
 is a dc-normal form for $g$. 
 
 Now suppose that $w$ and $w^\prime$ are words in dc-normal form and that 
-$w_1=_G w_2$. Let $w=h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$,
+$w=_G w^\prime$. Let $w=h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$,
 and $w^\prime =h_{0}^\prime p_1^\prime h_{1}^\prime  p_2^\prime 
 \cdots h_{k-1}^\prime p_k^\prime h_{{k^\prime}}^\prime$, where 
 $h_i, h_i^\prime\in \FF(Z)$ and $p_i,p_i^\prime\in S_1\cup S_2$.
- ... tbc... 
+ For fixed $i\ge 2$, assuming that $p_i\in F_j$, let $f_i=p_i\phi_j(h_i)$. 
+Similarly let $f_1=\phi_j(h_0)p_1\phi_j(h_1)$. Then $f_1\cdots f_k$, is 
+a reduced form for the element $w_1\in G$. Similarly, we obtain a reduced
+form $f_1^\prime \cdots f_{k^\prime}^\prime$ for $w^\prime$. Hence $k=k^\prime$. 
+Moreover, $1=_G =w^\prime w^{-1}= f_1^\prime \cdots f_{k}^\prime
+f_k^{-1}\cdots f_1^{-1}$, so by the fundamental theorem for reduced forms,
+we have $ f_{k}^\prime f_k^{-1}\in H_j$, for $j=1$, or $2$. Hence, for 
+some $a, b\in H_j$ we have $p_k^\prime=a p_k b$. Therefore $p_k^\prime =p_k$,
+and now, as $p_k$ is a double coset representative and  $ f_{k}^\prime f_k^{-1}\in H_j$,
+it follows that $h_k=h_k^\prime$. 
+... tbc ...
 \end{proof}
 The object of this section is to construct an automaton which will accept a word
 $w$ in double coset normal form if and only if it belongs to a
