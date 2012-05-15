@@ -9,7 +9,7 @@
 \usepackage{url}
 \usepackage[shortlabels]{enumitem}
 \usepackage{comment}
-%\usepackage{showkeys}
+\usepackage{showkeys}
 %%%%%%%%%
 \sloppy
 
@@ -1961,7 +1961,7 @@ normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
 \begin{proof}
 \ref{it:nfcomp1}. At each stage of the modification process of Algorithm
 II the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
-preserved. \\[1em]
+preserved. 
 
 \ref{it:nfcomp2}.
 We may assume that $w\in \FF(X_k)$ (given the construction of $\T_1$).
@@ -1972,7 +1972,8 @@ representative of type $1$ or type $2$.
  $s= a_1 e a_2^{-1}$, where
 $a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and
  $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ e^{-1}$.
- Then, as the normal form is the output of Algorithm I,
+ Then, as the normal form is the result of applying $\phi_k$ to the 
+output of Algorithm I, 
  there are words
 $g_1, g_2, b_1$ and $b_2\in \FF(X_k)$ such that
 $w=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
@@ -2038,11 +2039,11 @@ Now $p_1$ may
 be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l}$,
 where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $\cP$ which does
 not belong to $\U$.  Let $e_i$ have initial and terminal vertices
-$\g_i$ and $\d_i$ and let $L_i$ and $R_i$ be the simple paths in $\U$ from
+$\g_i$ and $\d_i$, and let $L_i$ and $R_i$ be the simple paths in $\U$ from
 $(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively.
 In addition let $L_{l+1}$ be the path in $\U$ from $(\a,1)$ to
 $(\a_1,1)$.
-Then $L_1=o_0$ and, for $i=1,\ldots ,l+1$, $L_i=R_i^{-1}o_{i-1}$.
+Then $L_1=o_0$ and, for $i=1,\ldots ,l$, $L_{i+1}=R_i^{-1}o_{i}$.
 (See Figure \ref{fig:LeR}.)
 \begin{figure}
 \begin{center}
@@ -2098,7 +2099,7 @@ $(\a_2,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.
 By definition $a_1=w(\t(b_1))$ is the label of a path in $T_k$ from $1$ to $\e_1$.
 Let $b_1^\prime$
  be the label of the simple path $p_1^\prime$ in $\U$ from
-$(\a_1,1)$ to $(\a_2,\e_1)$. By construction $\T_4$ contains a path
+$(\a_1,1)$ to $(\a_2,\e_1)$ (see Figure \ref{fig:nf-1}). By construction $\T_4$ contains a path
 from $\a_1$ to $\a_2$ with label $h_1^\prime a_1$, where
 $h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in \FF(Z)$.
 (If $\cP$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
@@ -2165,7 +2166,7 @@ $\phi_k^{-1}(g_2)$ from $\a$ to $\a_1$ and $\b$ to $\b_1$, respectively.
 As $w$ is readable in $\T$ there is a path labelled $b_1b_2^{-1}$, from
 $\a_1$ to $\b_1$, in $\T_3$.
 By construction of $\T_5$ there is also a path labelled
-$\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$
+$r=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$
 from $\a_1$ to $\b_1$. As $\T_5$ is folded
 $
 \phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
@@ -2178,12 +2179,18 @@ $h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.
 
 \begin{lemma}\label{lem:dcfold}
 Let $\D$ be  an inverse automaton, with alphabet $\S$ and start
-state $s$, and let $\D^{\prime\prime}$  and $\Psi$ be the
-dc-resolution and dc-folding of $\D$, respectively. \be \item
+state $s$, let $\D^{\prime\prime}$  and $\Psi$ be the
+dc-resolution and dc-folding of $\D$, respectively, and 
+let $\hat\rho:\D\maps \Psi$ be the dc-folding morphism. 
+ Then the following hold. 
+\be 
+\item
 \label{it:dcfold1} $\Psi$ is an inverse automaton, with unique
 start and  final state $\hat\rho(s)$, and has no more $X_1$ and
-$X_2$ components than $\D$. \item \label{it:dcfold2}
-$\pi(L(\Psi))=\pi(L(\D))$. \ee
+$X_2$ components than $\D$. 
+\item \label{it:dcfold2}
+$\pi(L(\Psi))=\pi(L(\D))$. 
+\ee
 \end{lemma}
 \begin{proof}
 %\be
