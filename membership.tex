@@ -1384,7 +1384,8 @@ then the normal form  of  the label $l(p)$ of $p$ is the label of
 a path from $u$ to $v$. Throughout the modification process we
 keep track of the boundary vertices, so that once modification is
 complete the $X_k$ components can be reassembled, by attaching as
-they did in $\D$. The modification of $X_k$ components consists of
+they did in $\D$. The modification of an $X_k$ component $\Theta$
+of $\D_k$ consists of
 five steps, producing new graphs $\T_1$, $\T_2$, $\T_3$, $\T_4$
 and $\T_5$. In each case there is a canonical morphism $\theta_i$
 from $\T_{i-1}$ to $\T_i$ and,
@@ -1399,7 +1400,7 @@ we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
 \\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
-This step involves th addition of paths labeled by $X_k$-words corresponding to
+This step involves the addition of paths labeled by $X_k$-words corresponding to
 $z$-edges of an $X_k$ component.
 
 Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an
@@ -1429,7 +1430,7 @@ $\T_1$. (See Figure \ref{fig:alg2-1}.)
 %\caption{}
 \end{subfigure}
 \end{center}
-\caption{$\theta$ to $\theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
+\caption{$\Theta$ to $\Theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
 \end{figure}
 Let $\theta_1$ be the canonical morphism from $\theta$ to
 $\theta_1$ and  define the boundary vertices of $\T_1$ to be the
@@ -1438,8 +1439,9 @@ vertex of $\T$. (We shall not mention this again in later
 steps.)\\[1em]
 
 \noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
-Here we add to $\T_1$ all $\phi_k^{-1}$ images of labels of simple
-paths in $\T_1\times \G_{A_k}$ from $(\a_i,1)$ to $(\a_j,1)$.
+Here we add to $\T_1$ paths labelled by $\phi_k^{-1}$ images of labels of simple
+paths in $\T_1\times \G_{A_k}$, from $(\a_i,1)$ to $(\a_j,1)$; for 
+appropriate $i,j$. 
  Let $\cP_1=\T_1\times \G_{A_k}$. Then there is a path
  labelled $w$ from $\a$ to $\b$
 in $\T_1$ and a path labelled $w$ from $\a^\prime $
@@ -1451,8 +1453,14 @@ $\T_1$. Choose a spanning  forest $\U_1$ of  $\cP_1$. Next
  order the vertices of
 $\T_1$: say these are $\a_0,\ldots, \a_t$, in the order written.
 
-Let $\a_i$, $\a_j$ be vertices of  $\T$  with $i\le j$. If there
-exists a simple path $p$ in $\cP_1$ from $(\a_i,1)$ to $(\a_j,1)$
+Let $\a_i$, $\a_j$ be vertices of  $\T$  with $i\le j$. If
+\begin{itemize}
+\item
+ there
+exists a simple path $p$ in $\cP_1$ from $(\a_i,1)$ to $(\a_j,1)$ and
+\item 
+$p$ does not contain a vertex $(\a_k,1)$ with $k\in\{i,j\}$
+\end{itemize}
 then let $l_p\in \FF(X_k)$ be the label of $p$ and let
 $w_p=\phi_k^{-1}(l_p)\in \FF(Z)$. Let $q$ be a path (disjoint from
 $\T_1$) of length $|w_p|$ and with label $w_p$. Identify the
@@ -1472,7 +1480,7 @@ with $\a_j$. (See Figure \ref{fig:alg2-2}.)
 \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-2.eps}
 \end{center}
-\caption{$\theta_1$ to $\theta_2$: $w_p=\phi_k^{-1}(l_p)$.}\label{fig:alg2-2}
+\caption{$\Theta_1$ to $\Theta_2$: $w_p=\phi_k^{-1}(l_p)$.}\label{fig:alg2-2}
 \end{figure}
 Repeat this process for all simple paths from  $(\a_i,1)$ to
 $(\a_j,1)$, over all pairs of vertices $\a_i$, $\a_j$ of $\T$,
@@ -1493,7 +1501,8 @@ by construction $\pi(L_1)=\pi(L_2)\subseteq G$.\\[1em]
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
 At this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
 \G_{A_k}$ related to edges of this graph which do not belong to
-its spanning subforest and project to paths in $\G_{A_k}$.
+its spanning subforest and which project to closed paths,
+based at $1$, in $\G_{A_k}$.
 
 As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements
 of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$
@@ -1503,12 +1512,12 @@ choose a spanning forest $\U_2$ of $\cP_2$ consisting of the spanning
 forest $\U_1$ of $\cP_1$ with some new isolated vertices if necessary.
 If $\cP_2$ is a forest then
 $\cP_2=\U_2$, there is nothing to do at the
-next stage, and we immediately set $\T_3=\T_2$. Otherwise, suppose
+this stage, and we immediately set $\T_3=\T_2$. Otherwise, suppose
 that $e$ is an edge of $\cP_2$ which does not belong to $\U_2$ but
 which does belong to a component $\Xi$  of $\cP_2$ containing a
 vertex $(\a,1)$, for some vertex $\a$ of $\T$. Let $(\a,1)$ be
 such a vertex and let $e=((\a_i,\b_1), x, (\a_j,\b_2))$ be an edge
-in same component of $\cP_2$ as $(\a,1)$,
+in the same component of $\cP_2$ as $(\a,1)$,
  with label $x$ in $X_k$.
 %Let
 %$\a_m$ be the minimal vertex of $\T_2$ (necessarily also a vertex
@@ -1534,7 +1543,7 @@ the vertex  $\a$ of $\Theta_2$. (See Figure \ref{fig:alg2-3}.)
 \psfrag{cP}{$\cP_2$} \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-3.eps}
 \end{center}
-\caption{$\theta_2$ to $\theta_3$: $h_e=l_ixl_j$,
+\caption{$\Theta_2$ to $\Theta_3$: $h_e=l_ixl_j$,
 $w_e=\phi_k^{-1}(h_e)$.}\label{fig:alg2-3}
 \end{figure}
 Repeat this process for all such edges $e$ and vertices $(\a,1)$
@@ -1596,7 +1605,7 @@ respectively, to form a new graph $\T_3^\prime$.
 \psfrag{Tk in G_A}{$T_k\subseteq \G_{A_k}$}
 \includegraphics[scale=.5]{alg2-4.eps}
 \end{center}
-\caption{$\theta_3$ to $\theta_4$: $w=\phi_k^{-1}(ab^{-1})$.}\label{fig:alg2-4}
+\caption{$\Theta_3$ to $\Theta_4$: $w=\phi_k^{-1}(ab^{-1})$.}\label{fig:alg2-4}
 \end{figure}
 
 As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages
@@ -1661,7 +1670,7 @@ of $\T_4$, respectively.
 \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-5.eps}
 \end{center}
-\caption{$\theta_4$ to $\theta_5$:
+\caption{$\Theta_4$ to $\Theta_5$:
 $w=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
 \label{fig:alg2-5}
 \end{figure}
