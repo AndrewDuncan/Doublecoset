@@ -1393,6 +1393,8 @@ we define the {\em boundary vertices} of $\T_{i}$ to be the vertices $\theta_{i}
 of $\T_i$, such that $v$ is a boundary vertex of $\T_{i-1}$. Moreover the
  images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ 
 will be referred to as  {\em vertices of} $\T$.
+{\ajd probably this notation is now obsolete.}
+
 
 The modification process is followed by a ``reassembly'' phase, in which
 we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
@@ -1405,7 +1407,8 @@ $z$-edges of an $X_k$ component.
 Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an
 edge of $\T$ labelled by an element $z\in Z$ then add a path from
 $\a$ to $\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this
-for all such edges, fold the resulting graph and call the result
+for all such edges and call the result
+$\T_1^\prime$. Fold $\T_1^\prime$ to form the graph 
 $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \begin{figure}
 \begin{center}
@@ -1431,11 +1434,34 @@ $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \end{center}
 \caption{$\Theta$ to $\Theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
 \end{figure}
-Let $\theta_1$ be the canonical morphism from $\theta$ to
-$\theta_1$ and  define the boundary vertices of $\T_1$ to be the
+Let $\theta_1$ be the canonical morphism from $\Theta$ to
+$\Theta_1$. If $\a$ and $\b$ are vertices of $\Theta$ then, 
+since $\theta$ is a morphism 
+$\pi(L(\Theta, \a,\b))\subseteq \pi(L(\Theta_1,\theta(\a),\theta(\b)))$. 
+On the other hand if $w$ is in  $L(\Theta_1,\theta(\a),\theta(\b))$
+then, since $\Theta_1$ is a folding of $\Theta_1^\prime$,
+ there is a path labelled $w^\prime$ from $\a$ to $\b$ in $\Theta_1^\prime$,
+such that $\pi(w^\prime)=\pi(w)$. 
+By construction then there exists  a path $w^{\prime\prime}$ from
+$\a$ to $\b$ in $\Theta$, such that $\pi(w^{\prime\prime}) =
+\pi(w^\prime)$. Hence $\pi(L(\Theta_1,\theta(\a),\theta(\b)))
+= \pi(L(\Theta, \a,\b))$.  \\[1em]
+\begin{comment}
+and  define the boundary vertices of $\T_1$ to be the
 vertices $\theta_1(v)$ of $\T_1$, such that $v$ is a boundary
 vertex of $\T$. (We shall not mention this again in later
-steps.)\\[1em]
+steps.) \\[1em]
+%%%
+As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages
+accepted by $(\T_3,\a,\b)$ and $(\T_3^\prime,\a,\b)$, for some
+vertices $\a,\b$ of $\T$, then $\pi(L_3)=\pi(L_3^\prime)$.
+Repeat this process for all pairs of  vertices which are not
+covered by $\cP_3$  and fold
+the result to form the graph $\T_4$. Again there is a natural
+morphism $\theta_4$ from $\T_3$ to $\T_4$ and
+we have $\pi(L_3)=\pi(L_4)$, in the same notation as in previous cases.
+\end{comment}
+%%%
 
 \noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
 Here we add to $\T_1$ paths labelled by $\phi_k^{-1}$ images of labels of simple
@@ -1492,10 +1518,12 @@ morphism from $\T_2^\prime$ to $\T_2$ is a morphism from $\T_1$ to
 $\T_2$.
  Moreover, if $\a$ and
  $\b$ are
-boundary vertices of $\T_1$ and $L_1$ and $L_2$ are the
-languages accepted by $(\T_1,\a,\b)$ and
-$(\T_2,\theta_2(\a),\theta_2(\b))$, respectively, then
-by construction $\pi(L_1)=\pi(L_2)\subseteq G$.\\[1em]
+%boundary 
+ vertices of $\T_1$ and 
+a path $q$ from $\a$ to $\b$, with label $w_p$, is added to $\Theta_1$ 
+in forming $\Theta_2$, then there is a path $p$ in $\Theta_1$ with
+$\pi(l(p))=\pi(w_p)$. Thus the argument of the previous case shows that  
+$\pi(L(\T_1,\a,\b))=\pi(L(\T_2,\theta_2(\a),\theta_2(\b)))$.\\[1em]
 
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
 At this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
@@ -1551,10 +1579,11 @@ $\T_3$. (In practice it's not necessary to repeat this process for
 {\em all} such vertices $(\a,1)$ in $\Xi$: but it makes some
 arguments  later easier if we assume that we do so.) As in the
 previous case there is a natural morphism $\theta_3$ from $\T_2$
-to $\T_3$. If $\a$, $\b$ are boundary vertices of $\T_2$,  $L_2$
-is the language accepted by $(\T_2,\a,\b)$ and $L_3$ is the
-language accepted by $(\T_3, \theta_3(\a),\theta(\b))$ then again
-$\pi(L_3)=\pi(L_2)$.\\[1em]
+to $\T_3$. Again, if $q$ is a path added to $\Theta_2$ in forming 
+$\T_3$ then there is a path $p$ in $\T_2$, with the same end points
+as $q$, such that $\pi(l(p))=\pi(l(q))$. Hence, as before, for all
+vertices   $\a$, $\b$ of $\T_2$,  
+$\pi(L(\T_2,\a,\b))=\pi(L(\T_3, \theta_3(\a),\theta_3(\b)))$.\\[1em]
 
 \noindent\textbf{Modification 4: $\T_3\leadsto \T_4$.}\\
 Next we wish to add paths to $\T_3$ that allow us to read the normal
@@ -1609,12 +1638,14 @@ respectively, to form a new graph $\T_3^\prime$.
 
 As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages
 accepted by $(\T_3,\a,\b)$ and $(\T_3^\prime,\a,\b)$, for some
-vertices $\a,\b$ of $\T$, then $\pi(L_3)=\pi(L_3^\prime)$.
+vertices $\a,\b$ of $\T_3$, then $\pi(L_3)=\pi(L_3^\prime)$.
 Repeat this process for all pairs of  vertices which are not
 covered by $\cP_3$  and fold
 the result to form the graph $\T_4$. Again there is a natural
-morphism $\theta_4$ from $\T_3$ to $\T_4$ and
-we have $\pi(L_3)=\pi(L_4)$, in the same notation as in previous cases.\\[1em]
+morphism $\theta_4$ from $\T_3$ to $\T_4$. If $L_4$ is the 
+language accepted by $(\T_4,\theta_4(\a),(\b))$, for some 
+vertices $\a,\b$ of $\Theta_3$, then   
+we have $\pi(L_3)=\pi(L_4)$, as in previous cases.\\[1em]
 
 \noindent\textbf{Modification 5: $\T_4\leadsto \T_5$.}\\
 Finally we wish to add paths which allow double coset representatives
@@ -1682,9 +1713,12 @@ that the word $b_1b_2^{-1}$ is readable, starting at $\a_i$ and
 ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
 the addition of this new path has no effect on the image, under $\pi$, of
 the language accepted by the automaton.
- Fold the resulting graph to form $\T_5$. As before there is a natural
-morphism $\theta_5$ from $\T_4$ to $\T_5$ and in the same notation
-as previous cases $\pi(L_4)=\pi(L_5)$.\\[1em]
+ Fold the resulting graph to form $\T_5$. As before, there is 
+a natural morphism $\theta_5$ from $\Theta_4$ to $\Theta_5$ and again, 
+if $\a,\b$ are
+vertices of $\Theta_4$ and $L_4$ and $L_5$ are the languages accepted by 
+$(\Theta_4,\a,\b)$ and $(\Theta_5,\theta_4(\a),\theta_4(\b))$, 
+respectively, then $\pi(L_4)=\pi(L_5)$.\\[1em]
 
 \noindent\textbf{Reassembly.}\\
 The modification process is applied to all $X_k$ components of $\D_k$,
@@ -1946,23 +1980,73 @@ the algorithm halts after one iteration of the Loop, outputting the graph of Fig
 \label{fig:out}
 \end{center}
 \end{figure}
-\begin{lemma}\label{lem:nfcomp}
+\begin{lemma}\label{lem:nfcomp1}
 Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of
-an inverse automaton $\D$, with alphabet $\S$. Then the following hold. 
-\be
-\item\label{it:nfcomp1}
-  $\pi(L(\T,\a,\b))=\pi(L(\T_5),\theta(\a),\theta(\b))$.
-\item\label{it:nfcomp2} Let $w$ be a word
- which is accepted by the automaton $(\T, \a, \b)$. Then the
-normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
-\ee
+an inverse automaton $\D$, with alphabet $\S$. Then  
+%\be
+%\item\label{it:nfcomp1}
+  $\pi(L(\T,\a,\b))=\pi(L(\T_5,\theta(\a),\theta(\b)))$.
+%\item\label{it:nfcomp2} Let $w$ be a word
+% which is accepted by the automaton $(\T, \a, \b)$. Then the
+%normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
+%\ee
 \end{lemma}
 \begin{proof}
-\ref{it:nfcomp1}. At each stage of the modification process of Algorithm
+%\ref{it:nfcomp1}. 
+At each stage of the modification process of Algorithm
 II the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
 preserved. 
+\end{proof} 
+\begin{lemma}\label{lem:idverts}
+Let $[\cdot]$ be the equivalence relation on $V(\D^\prime_5)$ above.
+If $x$ and $y$ are vertices of $\D^\prime$, such that 
+$[\theta(x)]=[\theta(y)]$ in $\D^{\prime\prime}$, then 
+there exists a path in $\D$, from $\nu(x)$ to $\nu(y)$, with label $w$,
+such that $\pi(w)=1$. 
+\end{lemma}
+\begin{proof}
+Let $\a=\theta(x)$ and $\b=\theta(y)$. As $[\a]=[\b]$ there exists a
+sequence of vertices $\g_0,\ldots ,\g_m$ of $\D^\prime_5$ such that 
+$\a=\g_0$, $b=\g_m$ and 
+\[\nu(\theta^{-1}(\g_i))\cap \nu(\theta^{-1}(\g_{i+1}))\neq \nul,\]
+for $i=0,\ldots, m-1$. Suppose first that $m=0$. Then $\theta(x)=
+\a=\b=\theta(y)$, so $x$ and $y$ both belong to some $X_k$ component
+$\Theta$ of $\D^\prime$. As $\pi(L(\Theta,x,y))=\pi(L(\Theta_5, \a,\b)
+=\pi(L(\Theta_5,\a,\a))$, there is a path in $\Theta$, from $x$ to $y$,
+with label $w$, such that $\pi(w)=1$. $\Theta$ is embedded in $\D$ by the
+map $\nu$, so the same holds for $\nu(x)$ and $\nu(y)$ in $\D$. 
 
-\ref{it:nfcomp2}.
+Now assume that $m>0$ and that the result holds in all cases where the
+sequence of $\g_i$'s above has length at most  $m$. Let 
+$a\in  \nu(\theta^{-1}(\g_{m-1}))\cap \nu(\theta^{-1}(\g_{m}))$, and let 
+$b,g$ be vertices of $\D^\prime$ such that $\nu(b)=\nu(g)=a$,   
+$\theta(b)=g_m=\b$ and $\theta(g)=\g_{m-1}$. As $[\a]=[\g_1]=\cdots 
+=[\g_{m-1}]=[\g_m]$, it follows from the inductive hypothesis that 
+there is a path in $\D$, from $x$ to $a$, with label $w_1$, such
+that $\pi(w_1)=1$. Moreover, $\theta(b)=\b=\theta(y)$, so it follows from
+the case $m=0$, that there exists a path in $\D$, from $a$ to $y$,
+with label $w_2$, such that $\pi(w_2)=1$. Concatenating these paths we
+obtain the required result.
+\end{proof}
+\begin{lemma}\label{lem:nfcomp2}
+Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of
+an inverse automaton $\D$, with alphabet $\S$ %. Then the following hold. 
+%\be
+%\item\label{it:nfcomp1}
+%  $\pi(L(\T,\a,\b))=\pi(L(\T_5,\theta(\a),\theta(\b)))$.
+%\item\label{it:nfcomp2} Let 
+and let 
+$w$ be a word
+ which is accepted by the automaton $(\T, \a, \b)$. Then the
+normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
+%\ee
+\end{lemma}
+\begin{proof}
+%\ref{it:nfcomp1}. At each stage of the modification process of Algorithm
+%II the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
+%preserved. 
+%
+%\ref{it:nfcomp2}.
 We may assume that $w\in \FF(X_k)$ (given the construction of $\T_1$).
 Let $w$ have normal form $h_1s h_2^{-1}$, where $s\in S_k$ and $h_i\in \FF(Z)$.
 There are two cases to consider, depending on whether $s$ is a
@@ -2212,7 +2296,7 @@ there is a word $v$ such that $v$ is accepted by
 $\D^{\prime\prime}$ and $\pi(v)=\pi(w)$. Now $v=v_1\cdots v_n$,
 where each $v_i$ is accepted by a connected component $\Xi_i$ of
 $\D^\prime_5$, and no two consecutive factors are accepted by the
-same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} it
+same component. From Lemma \ref{lem:nfcomp1} it
 follows that there are words $u_1,\ldots , u_n$, such that
 $\pi(u_i)=\pi(v_i)$ and $u_i$ is accepted by the component
 $\theta^{-1}(\Xi_i)$ of $\D^\prime$. Moreover it follows that
