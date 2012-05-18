@@ -657,7 +657,7 @@ Let $A$ be the Stallings automaton for $H$, and let  $s_0 =
 1$ be its start state.
 We shall define a set of double coset representatives for $H$ in two parts.
 We begin with the definition of the first type of representative.
-\begin{definition}[Double coset representative, type 1]
+\begin{definition}[Double coset representative, type 1] \label{def:repres_t1}
 A word $w\in \FF(X)$ is a {\em (double coset) representative of
 type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
@@ -2513,98 +2513,115 @@ logarithm), see \cite{touikan06} for more details. For most
 practical purposes, $log^{\ast}$ can be considered a constant
 since it grows very slowly.
 
-Further, below we will use frequently the time complexity of a
-spanning subtree construction and complexity of taking graph
-products.
-
-Observe, that one can find a spanning subtree of a graph $\G$ in
+In what follows we will  frequently  use the time complexity of 
+ construction of a spanning subtree and of taking graph
+products. 
+Observe, that one can find a spanning forest of a graph $\G$ in
 time at most $t_2(|E\G|)$ or $t^{\prime}_2(|V\G|)$, where
 \begin{equation}\label{t2}
 t_2(n) = O(n \cdot log(n)) {\textrm{ and }} t^{\prime}_2(n) =
 O(n^2),
 \end{equation}
-
-with a help of Kruskal's ($\G$ is arbitrary, and if it is not
-connected, then it founds spanning subforest of $\G$) or
-Jarnik-Prim's (the graph $\G$ supposed to be connected) algorithm,
-respectively.
-
+with a help of Kruskal's algorithm, for an arbitrary graph $\G$, or with 
+the Jarnik-Prim  algorithm if $\G$ is connected. 
 Computation of $\G_1 \times \G_2$ takes time at most $t_3(|V\G_1|,
-|V\G_2|)$
-
+|V\G_2|)$, where 
 \begin{equation}\label{t3}
 t_3(n_1, n_2) = O(n_1 \cdot n_2).
 \end{equation}
-
-We will use notations of complexity functions $t_1, t_2, t'_2$,
+We will repeatedly use  functions $t_1, t_2, t'_2$,
 and $t_3$ in what follows.
 
 We write $O(f(n_1)) \preceq O(f(n_2))$ if $n_1\le n_2$ and $f$ is
-a nondecreasing function. Observe that if $O(f(n_1)) \preceq
-O(f(n_2))$ and an algorithm solve the problem in time $O(f(n_1)$,
-then it all the more solve this problem in time $O(f(n_2))$.
+a nondecreasing function. Observe that if 
+$O(f(n_1)) \preceq O(f(n_2))$ then a process which takes time  $O(f(n_1)$,
+certainly takes no longer than $O(f(n_2))$ (on input of size $n$).
+{\ajd I'm not sure about the sentence above. Does it really make sense? 
+$O(f(x))$ bounds a function of $x$ and the variable above changes from 
+$n_1$ to $n_2$.}
 
-\subsection{The time complexity of double coset normal forms construction}\label{sub:doubleCo_nf}
+\subsection{The time complexity of constructing double coset normal forms}\label{sub:doubleCo_nf}
 
-Recall that $F_1$, $F_2$ are free groups, and subgroups $H_1 \leq
-F_1$, $H_2 \leq F_2$ have finite bases $Y_1 = \{h_1, \ldots, h_m
-\}$ and $Y_2=\{h_1', \ldots, h_m'\}$, respectively, and there are
+Recall that $F_1$ and  $F_2$ are free groups, with subgroups $H_1 \leq
+F_1$, $H_2 \leq F_2$ which have finite bases $Y_1 = \{h_1, \ldots, h_m
+\}$ and $Y_2=\{h_1', \ldots, h_m'\}$, respectively.  $Z=\{z_1,\ldots ,z_m\}$
+is a set disjoint from $F_1\cup F_2$ and there are
 maps $\phi_k$ such that $\phi_1(z_i)=h_i$ and
-$\phi_2(z_i)=h^\prime_i$, $i=1,\ldots ,m$, where $Z=\{z_1, \ldots,
-z_m\}$, $\FF(Z)$ is a free group and $H_1$ isomorphic to $H_2$ via
-$\phi_2 \phi_1^{-1}$, and ${G = F_1 \underset{H_1=H_2}{\ast}
-F_2}$. To distinguish the length of elements in alphabets $X_k$ or
-$Z$, we write $|\cdot|_k$ or $|\cdot|_Z$, correspondingly. Set
+$\phi_2(z_i)=h^\prime_i$, $i=1,\ldots ,m$. 
+ $G = F_1 \underset{H_1=H_2}{\ast}$ is the free product of $F_1$ and $F_2$ 
+amalgamating $H_1$ and $H_2$. 
+ 
+To distinguish the length of elements in alphabets $X_k$ or
+$Z$, we write $|\cdot|_k$ or $|\cdot|_Z$, accordingly. Define  $N_1$ and $N_2$
+be the \emph{lengths} of $Y_1$ and $Y_2$, that is 
 $N_1 = |h_1|_1 + |h_2|_1 + \ldots + |h_m|_1$ and $N_2 = |h_1|_2 +
 |h_2|_2 + \ldots + |h_m|_2$. Let $A_k$ be the Stallings automaton
 for $H_k$ and let $T_k$ be a spanning tree for the associated
-graph $\G_{A_k}$, as above. Define $E\G_{A_k}$ to be an edge set
-of $\G_{A_k}$, and let $V\G_{A_k}$ be its vertex set; let $N_k$ be
-the total length of $Y_k$ ; definitions of $L_{Q_k}$ and $L_{T_k}$
-were given in \ref{sub:foldings}, $k=1,2$. Let $S_k$ be the set of
-double coset representatives of $H_k\le F_k$, defined by $T_k$.
-The following lemma estimates the complexity of $S_k$
-construction.
+graph $\G_{A_k}$, as above. Denote by $E(\G_{A_k})$ the  edge set
+of $\G_{A_k}$, and by $V\G_{A_k}$  its vertex set. 
+Recall that sets of words  $L_{Q_k}$ and $L_{T_k}$
+were defined in \ref{sub:foldings}, $k=1,2$. Let $S_k$ be the set of
+double coset representatives of $H_k\le F_k$, determined by $T_k$, and 
+recall from that $S_k=S_k^{(1)}\cup S_k^{(2)}$, where $S_k^{(i)}$ is the set
+of representatives of type $i$, as given in Definitions \ref{def:repres_t1} 
+and \ref{def:repres_t2}. 
+The following lemma estimates the complexity of the 
+construction $S_k$ and of rewriting words using double coset representatives.
 
-\begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can rewrite $w$ in a double coset normal
- form in time at most $O(N_k^2 + |w|_k)$.
+\begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can 
+\begin{itemize}
+\item construct the Stallings folding $\G_{A_k}$ for $H_k$ in time $O(N_k^2)$,
+\item and, given $\G_{A_k}$, 
+rewrite $w$ in a double coset normal 
+form in time at most $O(|w|_k)$. 
+\end{itemize}
+Therefore, given $Y_k$ and $w$ the total time required to write $w$ in dc-normal
+ form is  $O(N_k^2 + |w|_k)$.
 \end{lemma}
 
-%we can't formulate another lemma about time necessary for $S_k$ construction because we actually do not construct $S^{(1)}_k$ at all.
+{\ajd Probably the first part of this section should be written without
+the subscript $k$, which is an unecessary complication here. Do we need to worry
+about what happens if we are given a generating set for $H_k$ which is not a basis,
+or is that taken care of in some other place, e.g. \cite{touikan06}? Maybe
+we can't cope with all such eventualities.}
+
+{\ef we can't formulate another lemma about time necessary for $S_k$ construction because we actually do not construct $S^{(1)}_k$ at all.}
+{\ajd In fact I don't think that $S^{(2)}$ reps are needed either: what is constructed
+is the set $P_0$ of $\sim$ representatives, and the set of connecting elements.}
 
 \begin{proof}
 To rewrite an element $w$ in a double coset normal form, it is
-sufficient to compute $\G_{A_k}$, sets $\L_{T_k}$, $L_{Q_k}$ (or
-its subset $L^{\prime}_{Q_k}$, as we are doing below), and
-$S^{(2)}_k$. Given these structures, one can easily rewrite $w \in
+sufficient to compute $\G_{A_k}$, the sets $L_{T_k}$, $L_{Q_k}$ (or
+its subset $L^{\prime}_{Q_k}$, defined below), and
+$S^{(2)}_k$. Given these structures, one can then proceed to rewrite $w \in
 F_k$ in normal form, using Algorithm I.
 
 Construction of $\G_{A_k}$ takes at most $t_1(N_k)$ steps, whereas
 computation of its square
- $\G_{A_k} \times \G_{A_k}$ can be proceeded in at most
+ $\G_{A_k} \times \G_{A_k}$ can be completed in at most
  $t_3(|V\G_{A_k}|,|V\G_{A_k}|) \preceq t_3(N_k,N_k)$.
-A spanning subtree $T_k$ can be found in
+A spanning subtree $T_k$ for $\G_{A_k}$ can be found in
 $t^{\prime}_2(|V\G_{A_k}|) \preceq t^{\prime}_2(N_k)$ or $t_2(|E
 T_k|) \preceq t_2(E\G_{A_k}) \preceq t_2(N_k)$; here the best
-estimate in terms of $N_k$ is $O(N_k^2)$. Further, the time
-required for $L_{T_k}$ computation is linear on $|E T_k|$, while
+estimate in terms of $N_k$ is $O(N_k^2)$. Furthermore, the time
+required for computation of $L_{T_k}$ is linear in $|E T_k|$, while
 $L^{\prime}_{Q_k}$ can be computed in time linear on
-$|V\G_{A_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is a
+$|V\G_{A_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is the 
 subset of words in $L_{Q_k}$ which have no nontrivial prefixes
 accepted by $\G_{A_k}$. To construct the set $P_0$ of $\sim$
-representatives (see definition \ref{def:repres_t2}), one should
-analyze all vertex sets of connected components of $\G_{A_k}
-\times \G_{A_k}$, and the required time for this procedure is at
-most $O(V \G_{A_k} \times \G_{A_k}) \preceq O(N^2_k)$, which
-coincide with a maximal time required for construction of double
+representatives (see definition \ref{def:repres_t2}), one must 
+analyze all vertex sets of connected components of $\G_{A_k} 
+\times \G_{A_k}$, and the time  required for this procedure is at
+most $O(|V(\G_{A_k} \times \G_{A_k})|) \preceq O(N^2_k)$, which
+coincides with the maximal time required for the construction of double
 coset representatives of type $2$ (i.e. $S^{(2)}_k$).
 
 Given $\G_{A_k}$, $L_{T_k}$, $L^{\prime}_{Q_k}$ and $S^{(2)}_k$
-(observe that we spent at most $O(N^2_k)$ time on their
+(observe that we spent at most time $O(N^2_k)$ on their
 construction), we apply Algorithm I to $w \in F_k$. The analysis
-of Algorithm I show that it take at most $O(|w|_k)$ time to obtain
+of Algorithm I show that it takes time  $O(|w|_k)$  to obtain
 a double coset normal form of $w$. Gathering both estimates
-together, obtain $O(N^2_k + |w|_k)$, as required.
+together we obtain a bound of $O(N^2_k + |w|_k)$, as required.
 \end{proof}
 
 \begin{corollary}\label{cor:dcnf_time} Suppose $g \in G$ and $g=g_1 \cdots g_t$ is in reduced
@@ -2900,9 +2917,9 @@ $t_2(|V\cP_4|)$.
 Suppose $T_k$ and $S^{(2)}_k$ are given, and fix a pair $(\e,\xi)
 $ of vertices in non-diagonal component of in $\G_{A_k}\times
 \G_{A_k}$; notice that the number of such pairs not greater than
-$|V \G_{A_k}|^2-|V \G_{A_k}|)$. The length of connecting elements
+$|V \G_{A_k}|^2-|V \G_{A_k}|$. The length of connecting elements
 $c=c(\e,\xi)$ less than $2R_k$, while $|a_1|_k,|a_2|_k, |b_1|_k,
-|b_1|_k \le R_k$. Thus, $|h_i|_k = |b_ica_i^{-1}| < 4R_k$ for
+|b_2|_k \le R_k$. Thus, $|h_i|_k = |b_ica_i^{-1}| < 4R_k$ for
 $i=1,2$. Let $\overline{Q}''_k=\mathop{max}\limits_{h \in
 B_{4R_k-1}}|\phi^{-1}_k(h)|_Z$. For every pair $(\e,\xi) $ we add
 to $\T_4$ a path $q$ of bounded length $|l_q|= |w_1 a_1a_2^{-1}
