@@ -1393,7 +1393,6 @@ we define the {\em boundary vertices} of $\T_{i}$ to be the vertices $\theta_{i}
 of $\T_i$, such that $v$ is a boundary vertex of $\T_{i-1}$. Moreover the
  images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$ 
 will be referred to as  {\em vertices of} $\T$.
-{\ajd probably this notation is now obsolete.}
 
 
 The modification process is followed by a ``reassembly'' phase, in which
@@ -1841,9 +1840,23 @@ The double coset normal forms of $k_2$ and $k_3$ are
 and 
 \[k_3 = z_3z_2^{-2}.\]
 
-After (ordinary) folding the flower automaton of $K$ is as shown in Figure \ref{fig:Kflower}.
+We form the flower automaton of $K$ and then its (classical) Stallings folding,
+which is 
+shown in Figure \ref{fig:Kflower}.
 There is one $X_1$ component $\Theta$ of this graph, shown in Figure \ref{fig:KX} 
-and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$, shown in Figure \ref{fig:KY}. After performing modifications these  graphs are transformed into
+and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$, shown in Figure \ref{fig:KY}. Each of these components is input to the loop, in turn.
+
+First consider the $X_1$ component $\Theta$. Modification 1 results in the
+graph of Figure \ref{fig:K_f1}. To perform the next stages of the  modification 
+process the graph $\Theta_1 \times \G_{A_1}$ is constructed; where $\G_{A_1}$ is the
+graph of Example \ref{ex:f_1}, shown in Figure \ref{fig:stall1}. The product graph
+is 
+shown in Figure \ref{fig:K_f1-x-g}. On examination of $\Theta_1 \times \G_{A_1}$
+there is one path to add, from ... to ..., with label $x$, and this gives the
+graph $\Theta_2$, shown in Figure \ref{fig:K_f2}.
+
+
+After performing modifications these  graphs are transformed into
  $\Theta_5$, $\Theta_5^{\prime}$ and $\Theta_5^{\prime\prime}$, shown in Figure \ref{fig:KX5}
 The reassembled graph $\Psi$ has the same number of $X_1$ and $X_2$ components as before, so 
 the algorithm halts after one iteration of the Loop, outputting the graph of Figure 
@@ -1883,8 +1896,66 @@ the algorithm halts after one iteration of the Loop, outputting the graph of Fig
 \psfrag{u}{$y_4$}
 \psfrag{1}{$1$}
 \includegraphics[scale=0.5, angle=90,bb=0 0 300 600]{python/ex_K_X.eps}
-\caption{An $X_1$ component $\Theta$}
+\caption{$X_1$ component $\Theta$}
 \label{fig:KX}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\includegraphics[scale=0.5, bb=0 0 680 480]{python/ex_K_f1.eps}
+\caption{$X_1$ component $\Theta_1$}
+\label{fig:K_f1}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\includegraphics[scale=0.8, bb=0 0 500 480]{python/ex_K_f1-x-g.eps}
+\caption{$\Theta_1\times \G_{A_1}$}
+\label{fig:K_f1-x-g}
+\end{center}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\psfrag{a}{$x_1$}
+\psfrag{b}{$x_2$}
+\psfrag{c}{$x_3$}
+\psfrag{r}{$y_1$}
+\psfrag{s}{$y_2$}
+\psfrag{t}{$y_3$}
+\psfrag{x}{$z_1$}
+\psfrag{y}{$z_2$}
+\psfrag{z}{$z_3$}
+\psfrag{u}{$y_4$}
+\psfrag{1}{$1$}
+\includegraphics[scale=0.5, bb=50 200 580 580]{python/ex_K_f2.eps}
+\caption{$X_1$ component $\Theta_2$}
+\label{fig:K_f2}
 \end{center}
 \end{figure}
 
