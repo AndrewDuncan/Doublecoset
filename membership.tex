@@ -2248,17 +2248,18 @@ Let $\D$ be  an inverse automaton, with alphabet $\S$ and start
 state $s$, let $\D^{\prime\prime}$  and $\Psi$ be the
 dc-resolution and dc-folding of $\D$, respectively, and 
 let $\hat\rho:\D\maps \Psi$ be the dc-folding morphism. 
+ 
  Then the following hold. 
 \be 
 \item
 \label{it:dcfold1} $\Psi$ is an inverse automaton, with unique
-start and  final state $\hat\rho(s)$, and has no more $X_1$ and
+start and  final state $\s=\hat\rho(s)$, and has no more $X_1$ and
 $X_2$ components than $\D$. 
 \item \label{it:dcfold2}
-$\pi(L(\Psi))=\pi(L(\D))$. 
+$\pi(L(\Psi,\s))=\pi(L(\D,s))$. 
 \ee
 \end{lemma}
-\begin{proof}
+\begin{proof} ~
 %\be
 \ref{it:dcfold1}.
 %\item
@@ -2273,21 +2274,43 @@ Folding to form $\Psi$ cannot increase this number, so the final
 statement of \ref{it:dcfold1} follows.
 %\item
  \\[1em]
-\ref{it:dcfold2}. Let $w$ be a word accepted by $\Psi$. Since
+\ref{it:dcfold2}. Let $w$ be a word accepted by $\Psi=(\Psi,\s)$. Since
 $\Psi$ is formed by a sequence of foldings of $\D^{\prime\prime}$,
 there is a word $v$ such that $v$ is accepted by
-$\D^{\prime\prime}$ and $\pi(v)=\pi(w)$. Now $v=v_1\cdots v_n$,
-where each $v_i$ is accepted by a connected component $\Xi_i$ of
-$\D^\prime_5$, and no two consecutive factors are accepted by the
-same component. From Lemma \ref{lem:nfcomp}.\ref{it.comp1} it
-follows that there are words $u_1,\ldots , u_n$, such that
-$\pi(u_i)=\pi(v_i)$ and $u_i$ is accepted by the component
-$\theta^{-1}(\Xi_i)$ of $\D^\prime$. Moreover it follows that
-$u_1\cdots u_n$ is accepted by $\D$ and $\pi(u_1\cdots
-u_n)=\pi(v)$. {\ef It is not completely clear why we are able to
-walk from one particular boundary vertex in one component to
-another one in the following component.} Therefore
-$\pi(L(\Psi))\subseteq \pi(L(\D))$. The reverse inclusion follows
+$\D^{\prime\prime}$ (with root $\rho(s)$) and $\pi(v)=\pi(w)$. 
+Thus $v$ is the label of a path $q_i$ in $\D^{\prime\prime}$, from  $\rho(s)$
+to $\rho(s)$, and 
+ $v=v_1\cdots v_n$,
+where each factor $v_i$ is accepted by a connected component $\Xi_i$ of
+$\D^\prime_5$;  and no two consecutive factors are accepted by the
+same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} it
+follows that there are paths $p_1,\ldots, p_n$, in $\D^\prime$,
+with labels 
+ $u_1,\ldots , u_n$, such that
+$\pi(u_i)=\pi(v_i)$ and 
+$p_i$ is a path in the component
+$C_i=\theta^{-1}(\Xi_i)$ of $\D^\prime$.
+Let the initial and terminal vertices of $p_i$ be $x_i$ and  $y_i$. 
+As $\nu$ restricted to $C_i$ is an embedding, there is a path in $\D$,  from
+$\nu(x_i)$ to $\nu(y_i)$ with label $u_i$, for $i=1,\ldots, n$.  
+
+ Moreover, as $v$ is a path in $\D^{\prime\prime}$, based at $\rho(s)$, 
+we have
+\[[\theta(x_1)]=[\theta(y_n)]=\rho(s)\textrm{ and }[\theta(y_i)]=[\theta(x_{i+1})],\]
+for $i=1,\ldots ,n-1$. From Lemma \ref{lem:idverts}, there exist paths in 
+$\D$, 
+\begin{itemize}
+\item
+from $s$ to $\nu(x_1)$, with label $w_0$;
+\item  from $\nu(y_n)$ to $s$, with label $w_n$ and 
+\item from $\nu(y_i)$ to $\nu(x_{i+1}$, with label $w_i$, for $i=1,\ldots,
+n-1$,
+\end{itemize}
+such that $\pi(w_i)=1$, for $i=1,\ldots ,n$. Thus $l=w_0u_1\cdots w_{n-1}u_n
+w_n$ is the label of a path in $\D$, based at $s$, such that
+$\pi(l)=\pi(u_0\cdots u_n)=\pi(v)=\pi(w)$. 
+ Therefore
+$\pi(L(\Psi,\s))\subseteq \pi(L(\D,s))$. The reverse inclusion follows
 from the existence of the morphism $\hat\rho$ from $\D$ to $\Psi$.
 \begin{comment}
 Let $\Phi=\L_0,\L_1,\ldots, \L_n$ be a sequence of graphs such that
