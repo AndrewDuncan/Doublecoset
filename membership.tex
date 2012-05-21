@@ -2726,31 +2726,34 @@ $\U_1$ of $\cP_1$ in  $t_2(|V\cP_1|)$ steps. Without loss
 of generality one can assume that $\cP_1$ has precisely one
 connected component (which is the worst case from the point of view
 of the algorithm's
-complexity).
+complexity). Notice that $|V\cP_1| \le |V\T_1|\cdot |V \G_{A_k}|$. 
 
-Notice that $|V\cP_1| \le |V\T_1|\cdot |V \G_{A_k}|$. 
+
 Fix a pair $(i, j)$ such that $i \le j$ and consider the 
 corresponding pair of vertices $\a_i,\a_j$ of $\T$. For this pair, we check 
 whether or not $(\a_i,1)$ and $(\a_j,1)$ are 
-connected by a  simple path
-with label $l_p \in \FF(X_k)$. Since $p$ is a
+connected by a  simple path $p$.  
+%with label $l_p \in \FF(X_k)$. 
+Since $p$ is a
 simple (reduced) path in $\cP_1$, it can be no longer than $Q_k$,
-where $Q_k$ is the maximal length of a simple path in $\cP_1$ in
-terms of $X_k$, so $Q_k \le |V\cP_1|$. On this stage we are doing
+where $Q_k$ is the maximal (edge) length of a simple path in $\cP_1$;  
+so $Q_k \le |V\cP_1|$. 
+Moreover, each such  simple path $p$ must have a label $l_p \in \FF(X_k)$,
+accepted by $(\cP_1,(\a_i,1),(\a_j,1))$. Hence, at
+ this stage we must make 
 at most $B_{Q_k}$ checks, where $B_n$ is the number of elements in
-$H_k$ of length $\le n$; in turns, this number is bounded above by
-the number of such elements in $F_k$. Thus $B_{Q_k} = 1+
+$H_k$ of length $\le n$: so $B_{n}$ is bounded above by
+the number of such elements in $F_k$. Thus $B_{Q_k} \le 1+
 \mathop{\sum}\limits_{i=0}^{Q_k} 2|X_k| \cdot (2|X_k|-1)^{i}$. In
 the worst case we have $\frac{|V\T_1|\cdot(|V\T_1|+1)}{2}$
 possible pairs $(i,j)$ to analyze. Let
-$\overline{R}_k=\mathop{max}\limits_{l_p \in
+$\overline{R}_k=\max\limits_{l_p \in
 B_{Q_k}}|\phi^{-1}_k(l_p)|_Z$.
- Therefore, one can spend at
-most
-
-\begin{equation}\label{theta'1}
+ The time required for construction of $\T_2^\prime$ is therefore $t_{\T_2^\prime}$, 
+where  
+\begin{equation}\label{theta'2}
 \begin{split}
-t_{\T'_1} &\preceq O(|V\T_1|\cdot(|V\T_1|+1)\cdot B_{Q_k}\cdot (
+t_{\T'_2} &= O(|V\T_1|\cdot(|V\T_1|+1)\cdot B_{Q_k}\cdot (
 Q_k + \overline{R}_k))\\ &\preceq
 O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
 \G_{A_k}|}(|V \T_1|\cdot |V \G_{A_k}| + \overline{R}_k))\\
@@ -2758,36 +2761,58 @@ O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
 \T_1|\cdot |V \G_{A_k}| + \overline{R}_k))
 \end{split}
 \end{equation}
-time constructing $\T'_1$. One can fold this graph in time
-$t_1(E\T'_1)$. Now we want to evaluate the changes in edge set and
-vertex set of $\T'_1$ and $\T_2$.
+{\ajd I think this can be slightly simplified to 
+\[
+\begin{split}
+t_{\T'_2} &= O(|V\T_1|\cdot(|V\T_1|+1)\cdot B_{Q_k}
+\cdot \overline{R}_k)\\ 
+&\preceq
+O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
+\G_{A_k}|}\overline{R}_k)\\
+&\preceq O(|V\T_1|^2|X_k|^{|V\T_1|\cdot |V \G_{A_k}|+1}\overline{R}_k)
+\end{split}
+\]
+as the number edges added on each path $p$ is
+$|\phi^{-1}_k(l_p)|_Z$, so the last bracket of the first line only needs
+$\overline R_k$. In fact, in any case $(Q_k+\overline R_k)=O(\overline R_k)$, 
+doesn't it?
+}
+One can fold this graph in time
+$t_1(E\T'_2)$. 
 
-
- We do not change the number of $X_k$
-edges, and
-
+Now we estimate the numbers of  edges  and
+vertices  of $\T'_2$ and $\T_2$.
+In forming $\T_2^\prime$  we do not add any $X_k$
+edges and so 
 \begin{equation}\label{eztheta2}
-|E_Z\T_2| \le |E_Z\T'_1| \le |E_Z\T_1|+\overline{R}_k\cdot B_{Q_k}
+|E_Z\T_2| \le |E_Z\T'_2| \le |E_Z\T_1|+\overline{R}_k\cdot B_{Q_k}
 \cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
 \end{equation}
-
+{\ajd I think it's better to have $E \T'_2$ and $E \T_2$ isn't it?
+That's what appears in equation \ref{theta2}. This would mean
+replacing the above by  
+\[
+|E\T_2| \le |E\T'_2| \le |E\T_1|+\overline{R}_k\cdot B_{Q_k}
+\cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+\]
+}
 \begin{equation}\label{vtheta2}
-|V\T_2| \le |V \T'_1| \le |V\T_1|+(\overline{R}_k-1)\cdot B_{Q_k}
+|V\T_2| \le |V \T'_2| \le |V\T_1|+(\overline{R}_k-1)\cdot B_{Q_k}
 \cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
 \end{equation}
-
-with constants $Q_k, B_{Q_k}, \overline{R}_k$ defined by $\T_1,
+where the constants $Q_k, B_{Q_k}$ and  $\overline{R}_k$ are determined  by $\T_1,
 H_k$, and $F_k$.
 
 
-The total complexity of this modification is
-
+The total complexity of this stage of the modification process is
+therefore 
 \begin{equation}\label{theta2}
 t_{\T_2} = t_3(|V \T_1|, |V \G_{A_k}|) + t_2(|V\cP_1|)+
-t_1(|E\T'_1|) + t_{\T'_1},
+t_1(|E\T'_2|) + t_{\T'_2},
 \end{equation}
-where $t_{\T'_1}$ estimated in formula (\ref{theta'2}).
-
+where $t_{\T'_2}$ is estimated in formula (\ref{theta'2}).
+{\ajd Would it be better to replace $|V\cP_1|$ in the line above by 
+$|V\T_1|\cdot|V\G_{A_k}|$?}
 
 {\bf 3. $\T_2 \leadsto \T_3$.} The time required for
 $\cP_2=\T_2\times \G_{A_k}$ construction is  $t_3(|V \T_2|,
@@ -2820,7 +2845,7 @@ $|E\U_2|$ (in terms of $X_k$).
 Fix a vertex $\a \in V\T$. For this vertex we consider vertices
 $(\a_i,\b_1)$ and $(\a_j,\b_2)$ of $\U_2$, which define the
 $h_e=l_i x l_j$ of length at most  $2 |E \U_2| +1$. Let
-$\overline{Q}_k=\mathop{max}\limits_{h_e \in B_{2|E \U_2|
+$\overline{Q}_k=\max\limits_{h_e \in B_{2|E \U_2|
 +1}}|\phi^{-1}_k(h_e)|_Z$.
 
 Therefore, for all $\a \in V\T$ we check at most
@@ -2828,20 +2853,20 @@ $|E\cP_2\smallsetminus \U_2|$ edges in time $O(\overline{Q}_k+2 |E
 \U_2| +1)$, i.e.
 
 
-\begin{equation}\label{theta'2}
+\begin{equation}\label{theta'3}
 \begin{split}
-t_{\T'_2} &\preceq O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot
+t_{\T'_3} &\preceq O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot
 (\overline{Q}_k+2 |E \U_2| +1))\\ &\preceq O(|V\T|\cdot
 (|V\T_2|^2+|V\T_2|)\cdot (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
 \cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
 \end{split}
 \end{equation}
-One can fold this graph in time $t_1(E\T'_2)$. The number of $X_k$
+One can fold this graph in time $t_1(E\T'_3)$. The number of $X_k$
 edges stays the same, and
 
 \begin{equation}\label{eztheta3}
 \begin{split}
-|E_Z\T_3| &\le |E_Z\T'_2|\le |E_Z\T_2|+\\ &+|V\T|\cdot
+|E_Z\T_3| &\le |E_Z\T'_3|\le |E_Z\T_2|+\\ &+|V\T|\cdot
 \overline{Q}_k\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
 (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
 -2|V\T_2||V\G_{A_k}|+2}{2},
@@ -2850,7 +2875,7 @@ edges stays the same, and
 
 \begin{equation}\label{vtheta3}
 \begin{split}
-|V\T_3| &\le |V \T'_2|\le |V\T_2|+\\
+|V\T_3| &\le |V \T'_3|\le |V\T_2|+\\
 &+|V\T|\cdot(\overline{Q}_k-1)\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
 (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k| -2|V\T_2||V\G_{A_k}|+2
 }{2},
@@ -2865,9 +2890,9 @@ The total complexity of this modification is
 
 \begin{equation}\label{theta3}
 t_{\T_3} = t_3(|V \T_2|, |V \G_{A_k}|) + t_2(|V\cP_2|)+
-t_1(|E\T'_2|) + t_{\T'_2},
+t_1(|E\T'_3|) + t_{\T'_3},
 \end{equation}
-where $t_{\T'_2}$ given by (\ref{theta'2}).
+where $t_{\T'_3}$ given by (\ref{theta'3}).
 
 
 {\bf 4. $\T_3 \leadsto \T_4$.} We construct $\cP_3=\T_3\times
@@ -2887,32 +2912,32 @@ pairs not greater than $|V\T|^2 \cdot (|V \G_{A_k}|-1)$.
 In the worst case $\g, \d$ is not covered, we find $h$ such that
 $|h|_k = |ab^{-1}|_k \le R_k+ | E\U_2|$ and then add to $\T_3$ a
 path of length at most $\overline{Q}'_k$, where
-$\overline{Q}'_k=\mathop{max}\limits_{h \in B_{R_k+|
+$\overline{Q}'_k=\max\limits_{h \in B_{R_k+|
 E\U_2|}}|\phi^{-1}_k(h)|_Z$.
 
 
 Thus the complexity of Algorithm II for all $\g, \d$ is
 
-\begin{equation}\label{theta'3}
+\begin{equation}\label{theta'4}
 \begin{split}
-t_{\T'_3} &\preceq O(|V\T|^2 \cdot(|V \G_{A_k}|-1)(\overline{Q}'_k+R_k -1))\\
+t_{\T'_4} &\preceq O(|V\T|^2 \cdot(|V \G_{A_k}|-1)(\overline{Q}'_k+R_k -1))\\
 &\preceq O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
 \end{split}
 \end{equation}
-This new graph can be folded in time $t_1(E\T'_3)$. Here
+This new graph can be folded in time $t_1(E\T'_4)$. Here
 
 \begin{equation}\label{eztheta4}
-|E_Z\T_4| \le |E_Z\T'_3| \le |E_Z\T_3|+
+|E_Z\T_4| \le |E_Z\T'_4| \le |E_Z\T_3|+
 \overline{Q}'_k\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
 \end{equation}
 
 \begin{equation}\label{ektheta4}
-|E_k\T_4| \le |E_k\T'_3| \le  |E_k\T_3|+ R_k\cdot|V\T|^2 \cdot(|V
+|E_k\T_4| \le |E_k\T'_4| \le  |E_k\T_3|+ R_k\cdot|V\T|^2 \cdot(|V
 \G_{A_k}|-1),
 \end{equation}
 and
 \begin{equation}\label{vtheta4}
-|V\T_4| \le |V \T'_3| \le |V \T_3|
+|V\T_4| \le |V \T'_4| \le |V \T_3|
 +(\overline{Q}'_k+R_k-1)\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
 \end{equation}
 
@@ -2923,9 +2948,9 @@ $F_k$.
 Therefore,
 \begin{equation}\label{theta4}
 t_{\T_4} = t_3(|V \T_3|, |V \G_{A_k}|) + t_2(|V\cP_3|)+
-t_1(|E\T'_3|) + t_{\T'_3},
+t_1(|E\T'_4|) + t_{\T'_4},
 \end{equation}
-where $t_{\T'_3}$ given by (\ref{theta'2}).
+where $t_{\T'_4}$ given by (\ref{theta'4}).
 
 {\bf 5. $\T_4 \leadsto \T_5$.} The complexity of $\cP_4=\T_4\times
 \G_{A_k}$ construction is $t_3(|V \T_4|, |V \G_{A_k}|)$. Further,
@@ -2938,35 +2963,35 @@ $ of vertices in non-diagonal component of in $\G_{A_k}\times
 $|V \G_{A_k}|^2-|V \G_{A_k}|$. The length of connecting elements
 $c=c(\e,\xi)$ less than $2R_k$, while $|a_1|_k,|a_2|_k, |b_1|_k,
 |b_2|_k \le R_k$. Thus, $|h_i|_k = |b_ica_i^{-1}| < 4R_k$ for
-$i=1,2$. Let $\overline{Q}''_k=\mathop{max}\limits_{h \in
+$i=1,2$. Let $\overline{Q}''_k=\max\limits_{h \in
 B_{4R_k-1}}|\phi^{-1}_k(h)|_Z$. For every pair $(\e,\xi) $ we add
 to $\T_4$ a path $q$ of bounded length $|l_q|= |w_1 a_1a_2^{-1}
 w_2^{-1}| \le 2 \overline{Q}''_k +2 R_k$.
 
 Thus we shall spend on these transformations at most
 
-\begin{equation}\label{theta'4}
+\begin{equation}\label{theta'5}
 \begin{split}
-t_{\T'_4} &\preceq O(|V \G_{A_k}|^2-|V \G_{A_k}|)\cdot(2\overline{Q}''_k+2R_k)\\
+t_{\T'_5} &\preceq O(|V \G_{A_k}|^2-|V \G_{A_k}|)\cdot(2\overline{Q}''_k+2R_k)\\
 &\preceq O(|V \G_{A_k}|^2 \cdot (2\overline{Q}''_k+2R_k)),
 \end{split}
 \end{equation}
-The graph $\T'_4$ can be folded in time $t_1(E\T'_4)$. Here we
+The graph $\T'_5$ can be folded in time $t_1(E\T'_5)$. Here we
 have
 
 \begin{equation}\label{eztheta5}
-|E_Z\T_5| \le |E_Z\T'_4| \le |E_Z\T_4|+ 2\overline{Q}''_k\cdot(|V
+|E_Z\T_5| \le |E_Z\T'_5| \le |E_Z\T_4|+ 2\overline{Q}''_k\cdot(|V
 \G_{A_k}|^2-|V \G_{A_k}|),
 \end{equation}
 
 \begin{equation}\label{ektheta5}
-|E_k\T_5| \le |E_k\T'_4| \le  |E_k\T_4|+ 2R_k\cdot(|V
+|E_k\T_5| \le |E_k\T'_5| \le  |E_k\T_4|+ 2R_k\cdot(|V
 \G_{A_k}|^2-|V \G_{A_k}|),
 \end{equation}
 and
 \begin{equation}\label{vtheta5}
-|V\T_5| \le |V \T'_4| \le |V
-\T'_4|+(2\overline{Q}''_k+2R_k)\cdot(|V \G_{A_k}|^2-|V \G_{A_k}|),
+|V\T_5| \le |V \T'_5| \le |V
+\T'_5|+(2\overline{Q}''_k+2R_k)\cdot(|V \G_{A_k}|^2-|V \G_{A_k}|),
 \end{equation}
 
 with a constant $\overline{Q}''_k$ defined by $H_k$, and $F_k$.
@@ -2975,9 +3000,9 @@ with a constant $\overline{Q}''_k$ defined by $H_k$, and $F_k$.
 Therefore,
 \begin{equation}\label{theta5}
 t_{\T_5} = t_3(|V \T_4|, |V \G_{A_k}|) + t_2(|V\cP_4|)+
-t_1(|E\T'_4|) + t_{\T'_4},
+t_1(|E\T'_5|) + t_{\T'_5},
 \end{equation}
-where $t_{\T'_4}$ given by (\ref{theta'2}) and $|V\cP_4| \le |V
+where $t_{\T'_5}$ given by (\ref{theta'5}) and $|V\cP_4| \le |V
 \T_4|\cdot |V \G_{A_k}|$.
 
 
@@ -2988,7 +3013,7 @@ total complexity of all modifications can be estimated as
 \begin{equation}\label{thetafin}
 \begin{split}
 t &\preceq t_3(|V \T_4|, |V \G_{A_k}|) + t_2(|V\cP_4|)+
-t_1(E\T'_4)+t_{\T_1} + t_{\T'_1}+t_{\T'_2}+t_{\T'_3}+t_{\T'_4}\\
+t_1(E\T'_5)+t_{\T_1} + t_{\T'_2}+t_{\T'_3}+t_{\T'_4}+t_{\T'_5}\\
 &\preceq O(|V \G_{A_k}|^6 \cdot
 |V\T|^{10}+R_k^8|E_Z\T|^8|V\T|^2\cdot |X_k|^{4 (|V \T|+ R_k |E_Z
 \T |)|V\G_{A_k}|}).
