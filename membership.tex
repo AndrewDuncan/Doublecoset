@@ -2493,6 +2493,7 @@ $w\notin L(\D_n)$.
 \section{The computational complexity}\label{sec:TC}
 
 {\ef{Some words on time complexity needed!}}
+{\ajd including definition of $\log^*$}
 
 
 Let $H$ be a finitely generated subgroup of $F=\FF(X)$ and
@@ -2512,6 +2513,8 @@ $log^{\ast}(2n) = log^{\ast}(n) + 1$ (we are using the base $2$
 logarithm), see \cite{touikan06} for more details. For most
 practical purposes, $log^{\ast}$ can be considered a constant
 since it grows very slowly.
+{\ajd We often fold graphs which are not flower automaton, and 
+for these I think we need Theorem 1.6 of \cite{touikan06}.}
 
 In what follows we will  frequently  use the time complexity of 
  construction of a spanning subtree and of taking graph
@@ -2585,8 +2588,7 @@ Therefore, given $Y_k$ and $w$ the total time required to write $w$ in dc-normal
  form is  $O(N_k^2 + |w|_k)$.
 \end{lemma}
 
-{\ajd Probably the first part of this section should be written without
-the subscript $k$, which is an unecessary complication here. Do we need to worry
+{\ajd Do we need to worry
 about what happens if we are given a generating set for $H_k$ which is not a basis,
 or is that taken care of in some other place, e.g. \cite{touikan06}? Maybe
 we can't cope with all such eventualities.}
@@ -2704,20 +2706,23 @@ for $H_k$: namely
 % = \max \{ |\phi_k(z_1)|_k, \ldots,
 %|\phi_k(z_1)|_k\}$.
 
-{\bf 1. $\T \leadsto \T_1$.} At this stage we add at most $R_k
+{\bf 1. $\T \leadsto \T_1$.} At this stage we first add $X_k$-edges to
+$\T$, to form a new graph $\T^\prime_1$, and then fold $\T^\prime_1$, to 
+form $\T_1$.   We add at most $R_k
 \cdot |E_Z \T |$ edges of type $X_k$ and at most $(R_k-1)\cdot
-|E_Z \T |$ new vertices to obtain $\T'$. It takes time 
-$t_1(|E_k \T'|)$ to fold $\T'$ to  $\T_1$. Clearly,
-$|E_k\T_1 | \le |E_k\T' | \le |E_k\T | +  R_k \cdot |E_Z \T |$ and
-$|V \T_1| \le |V \T' | \le |V \T|+ (R_k-1)\cdot |E_Z \T |$. Hence the
+|E_Z \T |$ new vertices to obtain $\T'_1$. It takes time 
+$t_1(|E_k \T'_1|)$ to fold $\T'_1$ to  $\T_1$. Clearly,
+$|E_k\T_1 | \le |E_k\T'_1 | \le |E_k\T | +  R_k \cdot |E_Z \T |$ and
+$|V \T_1| \le |V \T'_1 | \le |V \T|+ (R_k-1)\cdot |E_Z \T |$. Hence the
 time $t_{\T_1}$ required for the construction of $T_1$  is
 \begin{equation}\label{theta1}
 t_{\T_1} \preceq t_1(|E_k \T_1^\prime |) + O(R_k \cdot |E_Z \T |).
 \end{equation}
-{\ajd Replaced $T_1$ with $\T_1^\prime$ in the equation above. Is that
-correct? Also I think this line could be 
-$t_{\T_1} \preceq t_1(|E_k \T_1^\prime |) + O(R_k \cdot |E_Z \T |)
-\preceq t_1(R_k|E \T|)$.}
+{\ajd Replaced $\T_1$ with $\T_1^\prime$ in the equation above. Is that
+correct? It looks as though
+ this line could be replaced by
+$t_{\T_1} \preceq t_1(R_k |E\T|) + O(R_k \cdot |E_Z \T |)
+=t_1(R_k|E \T|)$.}
 
 {\bf 2. $\T_1 \leadsto \T_2$.} The time required for the construction of 
 $\cP_1=\T_1\times \G_{A_k}$ is $t_3(|V \T_1|,
@@ -2814,34 +2819,38 @@ where $t_{\T'_2}$ is estimated in formula (\ref{theta'2}).
 {\ajd Would it be better to replace $|V\cP_1|$ in the line above by 
 $|V\T_1|\cdot|V\G_{A_k}|$?}
 
-{\bf 3. $\T_2 \leadsto \T_3$.} The time required for
-$\cP_2=\T_2\times \G_{A_k}$ construction is  $t_3(|V \T_2|,
+{\bf 3. $\T_2 \leadsto \T_3$.} The time required for  construction of 
+$\cP_2=\T_2\times \G_{A_k}$ is  $t_3(|V \T_2|,
 |V \G_{A_k}|)$. A spanning subforest $\U_2$ of $\cP_2$ can be
-constructed in time $t_2(|V\cP_2|)$. Suppose again $\cP_2$ has
-only one connected component.
-
-Notice that $|V\cP_2| \le |V\T_2|\cdot |V \G_{A_k}|$, and
-$|V\cP_2|$ without isolated vertices we denote by $|V'\cP_2|$;
-evidently, $|V'\cP_2| \le |V\T_2|\cdot |V \G_{A_k}|$.
-
-The number of all edges in $\cP_2$ can be bounded above in terms
-of vertex set of $\T_2$ and $\G_{A_k}$:
-
+constructed in time $t_2(|V\cP_2|)$, and 
+$|V\cP_2|=|V\T_2|\cdot |V \G_{A_k}|$. Suppose again $\cP_2$ has
+only one non-trivial connected component.
+ Let $V'\cP_2$ denote the set of vertices of $\cP_2$ of valency at least one
+(that is the set of non-isolated vertices). 
+Evidently, $|V'\cP_2| \le |V\T_2|\cdot |V \G_{A_k}|$.
+As $\G_{A_k}$ is folded, so is $\cP_2$, so vertices of $\cP_2$ have
+degree at most $2|X_k|$. Hence  
+the number of edges in $\cP_2$ can be bounded above, in terms
+of the numbers of vertices of set of $\T_2$ and $\G_{A_k}$, as follows.
+\[ |E\cP_2| \le |V\cP_2|\cdot |X_k|=|V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|.\]
+{\ajd I changed this from 
 $|E\cP_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
-(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|}{2}$,
-
+(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|}{2}$. My argument is that if a graph
+has E edges and V vertices, of degree at most D, then $2E\le VD$. Does it look 
+correct? } 
 and the number of edges of $\cP_2 \smallsetminus \U_2$ is known to
-be equal to $|E\cP_2| - |V'\cP_2|+1$, i.e.
-
-$|E\cP_2\smallsetminus \U_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
+be equal to $|E\cP_2| - |V'\cP_2|+1$, {\ajd I agree with the last equality} i.e.
+\[|E\cP_2\smallsetminus \U_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
 (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k| -2|V\T_2||V\G_{A_k}|+2
-}{2}$,
-
+}{2},\]
+{\ajd but don't see why the line above holds. Couldn't we have a case 
+where $|V'\cP_2|$ was much smaller than the total number of vertices of 
+$\cP_2$? Possibly even 0? I don't think it makes much difference to 
+the eventual calculation anyway.} 
 while $|E \U_2| = |V'\cP_2| - 1 < |V\T_2|\cdot |V \G_{A_k}|.$
 
 Every reduced path in $\U_2$ is simple, thus no longer than
-$|E\U_2|$ (in terms of $X_k$).
-
+$|E\U_2|$ (in terms of $X_k$). 
 Fix a vertex $\a \in V\T$. For this vertex we consider vertices
 $(\a_i,\b_1)$ and $(\a_j,\b_2)$ of $\U_2$, which define the
 $h_e=l_i x l_j$ of length at most  $2 |E \U_2| +1$. Let
