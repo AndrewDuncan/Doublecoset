@@ -2702,7 +2702,9 @@ for $H_k$: namely
 |\phi_k(z_1)|_k\}.\]
 \end{lemma}
 
-\begin{proof} Let $R_k$ be defined as above.
+\begin{proof} Let $R_k$ be defined as above and note that, from 
+standard facts about Stallings foldings,  the diameter
+of the tree $T_k$ is at most $R_k$.
 % = \max \{ |\phi_k(z_1)|_k, \ldots,
 %|\phi_k(z_1)|_k\}$.
 
@@ -2938,59 +2940,74 @@ where $t_{\T'_3}$ is given by (\ref{theta'3}).
 {\bf 4. $\T_3 \leadsto \T_4$.} We construct $\cP_3=\T_3\times
 \G_{A_k}$ in  $t_3(|V \T_3|, |V \G_{A_k}|)$ steps. A
 spanning subforest $\U_3$ of $\cP_3$ can be constructed in time
-$t_2(|V\cP_3|)$. Suppose again $\cP_3$ has only one connected
-component.
+$t_2(|V\cP_3|)$. We assume again that $\cP_3$ has at most one connected
+component containing non-isolated vertices. 
+Observe that by construction $E\U_3 = E\U_2$ and $V\cP_3$ coincides
+with $V\cP_2$ plus some new isolated vertices. %; we denote by
+%$V'\U_3$ the subset of $V\U_3$ which does not contain isolated
+%vertices.
 
-Observe that by construction $E\U_3 = E\U_2$ and $V\U_3$ coincide
-with $V\U_2$ plus some new isolated vertices; we denote by
-$V'\U_3$ the subset of $V\U_3$ which does not contain isolated
-vertices.
-
-Fix a pair $\g, \d$ in $\cP_3$; notice that the number of such
-pairs not greater than $|V\T|^2 \cdot (|V \G_{A_k}|-1)$.
-
-In the worst case $\g, \d$ is not covered, we find $h$ such that
-$|h|_k = |ab^{-1}|_k \le R_k+ | E\U_2|$ and then add to $\T_3$ a
-path of length at most $\overline{Q}'_k$, where
+As in Modification 4, fix a pair of vertices 
+$\g=(\a_i,1)$ and  $\d=(\a_j,\b)$ in $\cP_3$. Note that the number of such
+pairs is at most $|V\T|^2 \cdot (|V \G_{A_k}|-1)$. 
+In the worst case the pair $\g, \d$ is not covered by $\cP_3$, 
+and, in the notation of Modification 4, 
+we find $h=ab^{-1}$, where $a$ is the label of a simple path from
+$\g$ to $\d$ in $\U_3$ and $b$ is the label of a simple path in $T_k$.
+Thus 
+$|h|_k = |ab^{-1}|_k \le R_k+ | E\U_2|$.  Then we add, to $\T_3$, a
+path with label $wb$, where the length of $w$ is
+ at most $\overline{Q}'_k$, for 
 $\overline{Q}'_k=\max\limits_{h \in B_{R_k+|
 E\U_2|}}|\phi^{-1}_k(h)|_Z$.
-
-
-Thus the complexity of Algorithm II for all $\g, \d$ is
-
+The time $t_{\T'_4}$ required to construct $\T'_4$ is the time
+it takes to perform this process as $\g,\d$ ranges over all
+possible pairs of vertices. That is 
 \begin{equation}\label{theta'4}
 \begin{split}
-t_{\T'_4} &\preceq O(|V\T|^2 \cdot(|V \G_{A_k}|-1)(\overline{Q}'_k+R_k -1))\\
+t_{\T'_4} &= O(|V\T|^2 \cdot(|V \G_{A_k}|-1)(\overline{Q}'_k+R_k -1))\\
 &\preceq O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
 \end{split}
 \end{equation}
-This new graph can be folded in time $t_1(E\T'_4)$. Here
+{\ajd I'm not sure if I've understood correctly how this bound should 
+be calculated. I think that for each $\g,\d$ there would be at most 
+$\overline{Q}'_k+R_k$ edges added. In that case isn't the time required
+\[
+t_{\T'_4} =
+ O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
+\]
+immediately?
+}
 
+This new graph can be folded in time $t_1(E\T'_4)$. Here the 
+numbers of vertices and edges of $\T'_4$ and $\T_4$ are estimated by
 \begin{equation}\label{eztheta4}
 |E_Z\T_4| \le |E_Z\T'_4| \le |E_Z\T_3|+
 \overline{Q}'_k\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
 \end{equation}
-
 \begin{equation}\label{ektheta4}
 |E_k\T_4| \le |E_k\T'_4| \le  |E_k\T_3|+ R_k\cdot|V\T|^2 \cdot(|V
 \G_{A_k}|-1),
 \end{equation}
+{\ajd Why not just say 
+\[
+|E\T_4| \le |E\T'_4| \le |E\T_3|+
+(\overline{Q}'_k\cdot|V\T|^2 + R_k)\cdot(|V \G_{A_k}|-1),
+\]
+}
 and
 \begin{equation}\label{vtheta4}
 |V\T_4| \le |V \T'_4| \le |V \T_3|
 +(\overline{Q}'_k+R_k-1)\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
 \end{equation}
-
-with a constant $\overline{Q}'_k$ defined by $\U_2, H_k$, and
-$F_k$.
-
-
+where the constant $\overline{Q}'_k$ is determined by $\U_2, H_k$, and
+$F_k$. 
 Therefore,
 \begin{equation}\label{theta4}
 t_{\T_4} = t_3(|V \T_3|, |V \G_{A_k}|) + t_2(|V\cP_3|)+
 t_1(|E\T'_4|) + t_{\T'_4},
 \end{equation}
-where $t_{\T'_4}$ given by (\ref{theta'4}).
+where $t_{\T'_4}$ is given by (\ref{theta'4}).
 
 {\bf 5. $\T_4 \leadsto \T_5$.} The complexity of $\cP_4=\T_4\times
 \G_{A_k}$ construction is $t_3(|V \T_4|, |V \G_{A_k}|)$. Further,
