@@ -2573,10 +2573,15 @@ were defined in \ref{sub:foldings}, $k=1,2$. Let $S_k$ be the set of
 double coset representatives of $H_k\le F_k$, determined by $T_k$, and 
 recall from that $S_k=S_k^{(1)}\cup S_k^{(2)}$, where $S_k^{(i)}$ is the set
 of representatives of type $i$, as given in Definitions \ref{def:repres_t1} 
-and \ref{def:repres_t2}. 
+and \ref{def:repres_t2}.  Let $P_k^\prime$ be the set of non-diagonal
+vertices of $\G_{A_k}\times \G_{A_k}$, let $P_k$ be the set of 
+$\sim$ representatives of elements of $P_k^\prime$, and let $C_k$ be
+the set of connecting elements for elements of $P_k^\prime$, as defined in
+Definition \ref{def:repres_t2}.
+
+
 The following lemma estimates the complexity of the 
 construction $S_k$ and of rewriting words using double coset representatives.
-
 \begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can 
 \begin{itemize}
 \item construct the Stallings folding $\G_{A_k}$ for $H_k$ in time $O(N_k^2)$,
@@ -2682,14 +2687,15 @@ the set of all $X_1$ components of $\D$, and let $\Phi^{(1)}, \ldots,
 We shall first study  the complexity of modifications $1-5$ for an
 arbitrary $X_k$ component $\T$ of $\D$, and then apply this result
 to estimate the general complexity of Algorithm II. Denote by
-$E_k \T$ the set of edges of type $X_k$ of $\T$, by $E_Z \T$
-the set of edges of type $Z$,  and by $V \T$  
-vertex set of $\T$.
+$E_k \T$, $E_Z \T$ and $V\T$ the sets of edges of type $X_k$
+and of type $Z$ and the set of vertices, respectively, of  $\T$.
+Similarly, use $E_k\T_i$, $E_Z\T_i$ and $V\T_i$ to denote the
+corresponding sets for $\T_i$. 
 
 
 \begin{lemma}\label{lem:resolution} Suppose that $\D = \G_K$, 
 that $\G_{A_k}$, 
-$T_k$ and $S^{(2)}_k$ are given and that 
+$T_k$ and $P_k^\prime$, $P_k$ and $C_k$ have been constructed  and that 
 $\T$ is an $X_k$ component of $\D$. Then the time required to 
 transform $\T$ into
 $\T_5$ is  
@@ -2702,9 +2708,9 @@ for $H_k$: namely
 |\phi_k(z_1)|_k\}.\]
 \end{lemma}
 
-\begin{proof} Let $R_k$ be defined as above and note that, from 
-standard facts about Stallings foldings,  the diameter
-of the tree $T_k$ is at most $R_k$.
+\begin{proof} Let $R_k$ be defined as above and note that, as 
+$G_{A_k}$ has at most $R_k$ vertices,  the diameter
+of the tree $T_k$ is at most $R_k-1$.
 % = \max \{ |\phi_k(z_1)|_k, \ldots,
 %|\phi_k(z_1)|_k\}$.
 
@@ -3009,33 +3015,42 @@ t_1(|E\T'_4|) + t_{\T'_4},
 \end{equation}
 where $t_{\T'_4}$ is given by (\ref{theta'4}).
 
-{\bf 5. $\T_4 \leadsto \T_5$.} The complexity of $\cP_4=\T_4\times
-\G_{A_k}$ construction is $t_3(|V \T_4|, |V \G_{A_k}|)$. Further,
+{\bf 5. $\T_4 \leadsto \T_5$.} The time required to construct 
+$\cP_4=\T_4\times \G_{A_k}$ is $t_3(|V \T_4|, |V \G_{A_k}|)$. 
+Further,
  a spanning subforest $\U_4$ of $\cP_4$ can be constructed in time
 $t_2(|V\cP_4|)$.
+We are assuming that  a spanning tree $T_k$
+of $\G_{A_k}$, the set of non-diagonal elements $P_k^\prime$
+of $\G_{A_k}\times \G_{A_k}$, the set $P_k$ of $\sim$ representatives 
+elements of $P_k^\prime$,  and the set of connecting elements
+ $C_k$ have been constructed. Note that the number of elements of $P_k^\prime$ is 
+$|V \G_{A_k}|^2-|V \G_{A_k}|$ and that, as $\G_{A_k}$ has at 
+most $R_k$ vertices,  the length of a connecting
+element $c\in C_k$ is at most $2R_k$.  
 
-Suppose $T_k$ and $S^{(2)}_k$ are given, and fix a pair $(\e,\xi)
-$ of vertices in non-diagonal component of in $\G_{A_k}\times
-\G_{A_k}$; notice that the number of such pairs not greater than
-$|V \G_{A_k}|^2-|V \G_{A_k}|$. The length of connecting elements
-$c=c(\e,\xi)$ less than $2R_k$, while $|a_1|_k,|a_2|_k, |b_1|_k,
-|b_2|_k \le R_k$. Thus, $|h_i|_k = |b_ica_i^{-1}| < 4R_k$ for
+
+As in Modification 5, fix an element $(\e,\xi)\in P_k^\prime$. 
+Let $c=c(\e,\xi)$ and assume that $a_1$, $a_2$, $b_1$ 
+and $b_2$  are chosen as in Modification 5. Then $|c|_k\le 2R_k$, 
+while $|a_1|_k, |a_2|_k, |b_1|_k,|b_2|_k \le R_k$. 
+Thus, $|h_i|_k = |b_ica_i^{-1}|_k < 4R_k$ for
 $i=1,2$. Let $\overline{Q}''_k=\max\limits_{h \in
 B_{4R_k-1}}|\phi^{-1}_k(h)|_Z$. For every pair $(\e,\xi) $ we add
 to $\T_4$ a path $q$ of bounded length $|l_q|= |w_1 a_1a_2^{-1}
 w_2^{-1}| \le 2 \overline{Q}''_k +2 R_k$.
-
-Thus we shall spend on these transformations at most
-
+The time $t_{\T'_5}$ required to perform 
+these transformations for all elements of $P_k^\prime$, and 
+so construct $\T'_5$, is therefore  
 \begin{equation}\label{theta'5}
 \begin{split}
-t_{\T'_5} &\preceq O(|V \G_{A_k}|^2-|V \G_{A_k}|)\cdot(2\overline{Q}''_k+2R_k)\\
+t_{\T'_5} &= O(|V \G_{A_k}|^2-|V \G_{A_k}|)\cdot(2\overline{Q}''_k+2R_k)\\
 &\preceq O(|V \G_{A_k}|^2 \cdot (2\overline{Q}''_k+2R_k)),
 \end{split}
 \end{equation}
-The graph $\T'_5$ can be folded in time $t_1(E\T'_5)$. Here we
-have
+The graph $\T'_5$ can be folded in time $t_1(E\T'_5)$.
 
+The number of vertices and edges of $\T'_5$ and $\T_5$ are estimated as
 \begin{equation}\label{eztheta5}
 |E_Z\T_5| \le |E_Z\T'_5| \le |E_Z\T_4|+ 2\overline{Q}''_k\cdot(|V
 \G_{A_k}|^2-|V \G_{A_k}|),
@@ -3045,13 +3060,18 @@ have
 |E_k\T_5| \le |E_k\T'_5| \le  |E_k\T_4|+ 2R_k\cdot(|V
 \G_{A_k}|^2-|V \G_{A_k}|),
 \end{equation}
+{\ajd or perhaps instead 
+\[
+|E\T_5| \le |E\T'_5| \le |\T_4|+ 2(\overline{Q}''_k+ R_k)\cdot(|V
+\G_{A_k}|^2-|V \G_{A_k}|),
+\]
+}
 and
 \begin{equation}\label{vtheta5}
 |V\T_5| \le |V \T'_5| \le |V
-\T'_5|+(2\overline{Q}''_k+2R_k)\cdot(|V \G_{A_k}|^2-|V \G_{A_k}|),
+\T'_5|+2(\overline{Q}''_k+R_k)\cdot(|V \G_{A_k}|^2-|V \G_{A_k}|),
 \end{equation}
-
-with a constant $\overline{Q}''_k$ defined by $H_k$, and $F_k$.
+where the constant $\overline{Q}''_k$ is determined by $H_k$, and $F_k$.
 
 
 Therefore,
@@ -3059,12 +3079,12 @@ Therefore,
 t_{\T_5} = t_3(|V \T_4|, |V \G_{A_k}|) + t_2(|V\cP_4|)+
 t_1(|E\T'_5|) + t_{\T'_5},
 \end{equation}
-where $t_{\T'_5}$ given by (\ref{theta'5}) and $|V\cP_4| \le |V
+where $t_{\T'_5}$ is given by (\ref{theta'5}) and $|V\cP_4| \le |V
 \T_4|\cdot |V \G_{A_k}|$.
 
 
 {\bf The total complexity of modifications of $\T$.} The number of
-edges and vertices of graphs constructed is non-decreasing, so the
+edges and vertices of the graphs constructed in Modifications 1--5 is non-decreasing, so the
 total complexity of all modifications can be estimated as
 
 \begin{equation}\label{thetafin}
