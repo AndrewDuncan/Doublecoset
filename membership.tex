@@ -2847,41 +2847,56 @@ be equal to $|E\cP_2| - |V'\cP_2|+1$, {\ajd I agree with the last equality} i.e.
 where $|V'\cP_2|$ was much smaller than the total number of vertices of 
 $\cP_2$? Possibly even 0? I don't think it makes much difference to 
 the eventual calculation anyway.} 
-while $|E \U_2| = |V'\cP_2| - 1 < |V\T_2|\cdot |V \G_{A_k}|.$
-
+while $|E \U_2| = |V'\cP_2| - 1 < |V\T_2|\cdot |V \G_{A_k}|.$ 
 Every reduced path in $\U_2$ is simple, thus no longer than
 $|E\U_2|$ (in terms of $X_k$). 
-Fix a vertex $\a \in V\T$. For this vertex we consider vertices
-$(\a_i,\b_1)$ and $(\a_j,\b_2)$ of $\U_2$, which define the
-$h_e=l_i x l_j$ of length at most  $2 |E \U_2| +1$. Let
+
+Fix a vertex $\a \in V\T$. For this vertex we consider edges 
+$e=((\a_i,\b_1), x,(\a_j,\b_2) )$ of $E\cP_2\smallsetminus E\U_2$, 
+such that there 
+is a path in $\cP_2$, based at the  vertex $(\a,1)$, with label 
+$h_e=l_i x l_j$, as described in the definition of $\T_3$. Every
+such path has   length at most  $2 |E \U_2| +1$. Let
 $\overline{Q}_k=\max\limits_{h_e \in B_{2|E \U_2|
-+1}}|\phi^{-1}_k(h_e)|_Z$.
-
-Therefore, for all $\a \in V\T$ we check at most
-$|E\cP_2\smallsetminus \U_2|$ edges in time $O(\overline{Q}_k+2 |E
-\U_2| +1)$, i.e.
-
-
++1}}|\phi^{-1}_k(h_e)|_Z$. 
+Then, for all $\a \in V\T$ we must check at most
+$|E\cP_2|$ edges and add a path of length at most $\overline{Q}_k$;
+ which may be done   in time $O(\overline{Q}_k+2 |E\U_2| +1)$. 
+Thus the time $t_{\T'_3}$ required for the construction of $\T'_3$ 
+is 
 \begin{equation}\label{theta'3}
 \begin{split}
-t_{\T'_3} &\preceq O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot
+t_{\T'_3} &= O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot
 (\overline{Q}_k+2 |E \U_2| +1))\\ &\preceq O(|V\T|\cdot
 (|V\T_2|^2+|V\T_2|)\cdot (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
 \cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
 \end{split}
 \end{equation}
-One can fold this graph in time $t_1(E\T'_3)$. The number of $X_k$
-edges stays the same, and
+{\ajd If I am correct with the quantities above then \eqref{theta'3}
+should be  replaced with
+\[
+\begin{split}
+t_{\T'_3} &= O(|V\T|\cdot |E\cP_2|\cdot (\overline{Q}_k+2 |E \U_2| +1))\\ 
+&\preceq     O(|V\T|\cdot
+(|V\T_2|\cdot|V\G_{A_k}|\cdot|X_k|)
+\cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
+\end{split}
+\]
+}
+One can fold this graph in time $t_1(E\T'_3)$. 
 
+For each vertex of $V\T$ we add at most $|E\cP_2|$ paths, each
+of length at most $\overline Q_k$, so the number of 
+edges and vertices of $\T'_3$ and $\T_3$ are 
 \begin{equation}\label{eztheta3}
 \begin{split}
-|E_Z\T_3| &\le |E_Z\T'_3|\le |E_Z\T_2|+\\ &+|V\T|\cdot
+|E\T_3| &\le |E\T'_3|\le |E\T_2|+\\ &+|V\T|\cdot
 \overline{Q}_k\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
 (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
 -2|V\T_2||V\G_{A_k}|+2}{2},
 \end{split}
 \end{equation}
-
+and 
 \begin{equation}\label{vtheta3}
 \begin{split}
 |V\T_3| &\le |V \T'_3|\le |V\T_2|+\\
@@ -2890,18 +2905,34 @@ edges stays the same, and
 }{2},
 \end{split}
 \end{equation}
-
-with a constant $\overline{Q}_k$ defined by $\T_2, H_k$, and
+where the constant $\overline{Q}_k$ is determined  by $\T_2, H_k$, and
 $F_k$.
+{\ajd I would replace the last 2 expressions with
+\[
+\begin{split}
+|E\T_3| &\le |E\T'_3|\le |E\T_2|+\\ 
+        &+|V\T|\cdot
+\overline{Q}_k\cdot 
+|V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|,
+\end{split}
+\]
+and
+\[
+\begin{split}
+|V\T_3| &\le |V \T'_3|\le |V\T_2|+\\
+&+|V\T|\cdot(\overline{Q}_k-1)\cdot 
+|V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|,
+\end{split}
+\]
+}
 
 
-The total complexity of this modification is
-
+The total complexity of this stage of the modification process is
 \begin{equation}\label{theta3}
 t_{\T_3} = t_3(|V \T_2|, |V \G_{A_k}|) + t_2(|V\cP_2|)+
 t_1(|E\T'_3|) + t_{\T'_3},
 \end{equation}
-where $t_{\T'_3}$ given by (\ref{theta'3}).
+where $t_{\T'_3}$ is given by (\ref{theta'3}).
 
 
 {\bf 4. $\T_3 \leadsto \T_4$.} We construct $\cP_3=\T_3\times
