@@ -24,7 +24,7 @@ for v in y1list:
 
 vlist=I.vertices
 
-I.addPath(vlist[0],vlist[1],'s')
+I.addPath(vlist[0],vlist[1],'sX')
 
 while I.fold() is True:
    I.fold()    
