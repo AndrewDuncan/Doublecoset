@@ -9,6 +9,8 @@
 \usepackage{url}
 \usepackage[shortlabels]{enumitem}
 \usepackage{comment}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{showkeys}
 %%%%%%%%%
 \sloppy
@@ -2756,7 +2758,7 @@ $E+(V+E)\log^*(V)\le E+(2E+1)\log^*(E+1)$ and $\log^*(E+1)\le
 log^*(2^E)\le \log^*(E)+1$. Hence, for large enough $E$
 $E+(V+E)\log^*(V)\le E+(2E+1)(\log^*(E)+1)\le 7E\log^*(E)$.
 Therefore, we may construct a Stallings folding for $\D$ in time
-$O(E\log^*(E))$. Therefore we define
+$O(E\log^*(E))$. This leads us to define
 \begin{equation}\label{t1} t_1(n) = O (n \cdot log^{\ast}(n)).
 \end{equation}
 
@@ -2768,22 +2770,20 @@ $N$ the total length of $Y$, i.e. $N = |h_1| + |h_2| + \ldots +
 |h_m|$. Notice that by construction of $\G$ we have $|V\G| \le N,
 |E\G| \le N$, and $|E \G| \ge |V \G|$.
 Given a set of generators $Y$ for $H$, one can construct the
-Stallings automaton $\G$ for $H$ in time at most $t_1(N)$, as above.
+Stallings automaton $\G$ for $H$ in time $t_1(N)$, as above.
 
 In what follows we will  frequently  use the time complexity of the
- construction of a spanning subtree of a graph, and of taking graph
+ construction of a spanning subtree of a graph, and also of taking graph
 products.
 Observe, that one can find a spanning forest of a graph $\G$ in
-time at most $t_2(|E\G|)$ or $t^{\prime}_2(|V\G|)$, where
+time at most $t_2(|E\G|)$, for an arbitrary graph $\G$, 
+or $t^{\prime}_2(|V\G|)$, if $\G$ is  connected, where 
 \begin{equation}\label{t2}
 t_2(n) = O(n \cdot log(n)) {\textrm{ and }} t^{\prime}_2(n) =
 O(n^2),
 \end{equation}
-with a help of Kruskal's algorithm, for an arbitrary graph $\G$, or with
-the Jarnik-Prim  algorithm if $\G$ is connected.
-{\ajd Which is which? Can we use Tarjan's or Chazelle's algorithm instead?
-Probably it's not worth bothering as this part of the process doesn't
-take much time anyway.}
+with a help of Kruskal's algorithm, or
+the Dijkstra-Jarn\'{i}k-Prim  algorithm, respectively.
 
 Computation of $\G_1 \times \G_2$ takes time at most $t_3(|V\G_1|,
 |V\G_2|)$, where
@@ -2797,7 +2797,7 @@ If $f(x)=O(g(x))$ then we write $O(f(x))\preceq O(g(x))$. With
 this notation, if $f(x)=O(g(x))$ and $O(g(x))\preceq O(h(x))$ then
 $f(x)=O(h(x))$.  We use this notation (repeatedly) in the situation
 where $n_1$ and $n_2$ depend on $x$, with $n_1(x)\le n_2(x)$, for all $x$,
-and $f$ is a non-decreasing function, in which case
+and $f$ is a non-decreasing function. In this case
 $O(f\circ n_1(x))\preceq O(f\circ n_2(x))$, and we abuse notation by
 writing $O(f(n_1)) \preceq O(f(n_2))$.
 %We write $O(f(n_1)) \preceq O(f(n_2))$ if $n_1\le n_2$ and $f$ is
