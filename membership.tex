@@ -2829,7 +2829,7 @@ of $\G_{A_k}$, and by $V\G_{A_k}$  its vertex set.
 Recall that sets of words  $L_{Q_k}$ and $L_{T_k}$
 were defined in \ref{sub:foldings}, $k=1,2$. Let $S_k$ be the set of
 double coset representatives of $H_k\le F_k$, determined by $T_k$, and
-recall from that $S_k=S_k^{(1)}\cup S_k^{(2)}$, where $S_k^{(i)}$ is the set
+ $S_k=S_k^{(1)}\cup S_k^{(2)}$, where $S_k^{(i)}$ is the set
 of representatives of type $i$, as given in Definitions \ref{def:repres_t1}
 and \ref{def:repres_t2}.  Let $P_k^\prime$ be the set of non-diagonal
 vertices of $\G_{A_k}\times \G_{A_k}$, let $P_k$ be the set of
@@ -2838,59 +2838,69 @@ the set of connecting elements for elements of $P_k^\prime$, as defined in
 Definition \ref{def:repres_t2}.
 
 
-The following lemma estimates the complexity of the
-construction $S_k$ and of rewriting words using double coset representatives.
+The following lemma estimates the complexity of 
+construction of $A_k$ and of rewriting words using 
+double coset representatives.
 \begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can
 \begin{itemize}
 \item construct the Stallings folding $\G_{A_k}$ for $H_k$ in time $O(N_k^2)$,
 \item and, given $\G_{A_k}$,
-rewrite $w$ in a double coset normal
+rewrite $w$ in  double coset normal
 form in time  $O(|w|_k)$.
 \end{itemize}
 Therefore, given $Y_k$ and $w$ the total time required to write $w$ in dc-normal
  form is  $O(N_k^2 + |w|_k)$.
 \end{lemma}
 
-{\ajd Do we need to worry
-about what happens if we are given a generating set for $H_k$ which is not a basis,
-or is that taken care of in some other place, e.g. \cite{touikan06}? Maybe
-we can't cope with all such eventualities.}
-
-{\ef we can't formulate another lemma about time necessary for $S_k$ construction because we actually do not construct $S^{(1)}_k$ at all.}
-{\ajd In fact I don't think that $S^{(2)}$ reps are needed either: what is constructed
-is the set $P_0$ of $\sim$ representatives, and the set of connecting elements.}
+{\ajd As far as I can see, in Alg I we need $A_k$, $T_k$, $L_{T_k}$, $P_0$ and the connecting elements. If 
+ we have these then we can write a word in dc-nf. I'm hoping that's correct
+'cos I've changed the proof below on that basis.}
 
 \begin{proof}
 To rewrite an element $w$ in a double coset normal form, it is
-sufficient to compute $\G_{A_k}$, the sets $L_{T_k}$, $L_{Q_k}$ (or
-its subset $L^{\prime}_{Q_k}$, defined below), the set $P_0$  of
+sufficient to compute $\G_{A_k}$, the set $L_{T_k}$, 
+%$L_{Q_k}$ (or
+%its subset $L^{\prime}_{Q_k}$, defined below), 
+the set $P_0$  of
  representatives of the equivalence relation $\sim$, and the
 corresponding  set of connecting elements.
 %$S^{(2)}_k$.
  Given these structures, one can then proceed to rewrite $w \in
 F_k$ in normal form, using Algorithm I.
 
-Construction of $\G_{A_k}$ takes  $t_1(N_k)$ steps, whereas
+Construction of $\G_{A_k}$ takes  $t_1(N_k)$ steps, and then 
 computation of its square
- $\G_{A_k} \times \G_{A_k}$ can be completed in at most
+ $\G_{A_k} \times \G_{A_k}$ can be completed in 
  $t_3(|V\G_{A_k}|,|V\G_{A_k}|) \preceq t_3(N_k,N_k)$.
 A spanning subtree $T_k$ for $\G_{A_k}$ can be found in
 $t^{\prime}_2(|V\G_{A_k}|) \preceq t^{\prime}_2(N_k)$ or $t_2(|E
 T_k|) \preceq t_2(E\G_{A_k}) \preceq t_2(N_k)$; here the best
 estimate in terms of $N_k$ is $O(N_k^2)$. Furthermore, the time
-required for computation of $L_{T_k}$ is linear in $|E T_k|$, while
-$L^{\prime}_{Q_k}$ can be computed in time linear on
-$|V\G_{A_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is the
-subset of words in $L_{Q_k}$ which have no nontrivial prefixes
-accepted by $\G_{A_k}$. To construct the set $P_0$ of $\sim$
+required for computation of $L_{T_k}$ is linear in $|E T_k|$.
+%, while
+%$L^{\prime}_{Q_k}$ can be computed in time linear on
+%$%|V\G_{A_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is the
+%$subset of words in $L_{Q_k}$ which have no nontrivial prefixes
+% accepted by $\G_{A_k}$. 
+To construct the set $P_0$ of $\sim$
 representatives (see definition \ref{def:repres_t2}), one must
 analyze all vertex sets of connected components of $\G_{A_k}
 \times \G_{A_k}$, and the time  required for this procedure is at
-most $O(|V(\G_{A_k} \times \G_{A_k})|) \preceq O(N^2_k)$, which
-coincides with the maximal time required for the construction of double
-coset representatives of type $2$ (i.e. $S^{(2)}_k$).
+most $O(|V(\G_{A_k} \times \G_{A_k})|) \preceq O(N^2_k)$. To construct
+the set of connecting elements we construct a spanning forest for
+$\G_{A_k} \times \G_{A_k}$, which takes time $t_2(N_k^2)
+=O(N_k^2\log^*(N_k^2))$, and once this
+has been done read off the connecting elements, in time $O(N^2_k)$. 
+{\ajd I'm not sure if this is correct. If it's correct that 
+we have to construct a spanning forest for $\G_{A_k} \times \G_{A_k}$
+then the $t_2(N_k^2)$ looks right. Then 
+if the time taken to construct $L_{T_k}$ is
+linear in $|ET_k|$, then what I've said looks like it should be correct.
+However I don't really understand why "linear in$|ET_k|$" is the right bound
+for the former. Is it standard? If this is correct then the bound
+in Lemma 4.3 is going to get worse, which will be a shame!} 
 
-Given $\G_{A_k}$, $L_{T_k}$, $L^{\prime}_{Q_k}$ and $S^{(2)}_k$,
+Given $\G_{A_k}$, $L_{T_k}$, $P_0$ and the set of connecting elements, 
 the construction of which required time
  $O(N^2_k)$,
  we apply Algorithm I to $w \in F_k$. Analysis
