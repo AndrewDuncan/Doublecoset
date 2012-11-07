@@ -284,7 +284,7 @@ and final state $1$, such that $\pi(L(\D''))=K$).
 \eiz
 \noindent\textbf{Process.}\\
 Each of the following steps is executed for $k=1$ and $2$.
-\be[{A}1.]
+\be[{A}1]
 \item\label{it:A1} Construct $\D_k$ and the map $\nu$.  In more detail the steps are 
 the following. 
 \be
@@ -370,20 +370,27 @@ $(\e_0,\xi_0)$ is the $\sim$ representative of $(\e,\xi)$, $a_1=w(\e_0)$,
 $a_2=w(\xi_0)$ and $c$ is the connecting element of $(\e,\xi)$. 
 This version of $\D_k$ is referred to as $\D_{k,4}'$. 
 \item\label{it:A16} Construct the Stallings folding of $\D_k$ and update $\nu$. This version of $\D_k$ is referred to as $\D_{k,5}$. 
-\item\label{it:A17} (\textbf{Begin Reassembly}.) For each vertex $\a$ of $\D_1\cup \D_2$,
-do the following. For each vertex $\b$ of $\D_1\cup \D_2$, not 
-equal to $\a$, if 
-$\vim(\a)\cap \vim(\b)\neq \emptyset$ then set $\vim(\a)=\vim(\a)\cup
-\vim(\b)$ and  replace the link of $\a$ with the union of the 
-links of $\a$ and $\b$. Delete $\b$ and for all vertices $\g$ 
-of $\D_1\cup \D_2$, if $\b$ occurs in the link of $\g$ then delete
-it and replace it with $\a$. Continue for as long as possible. 
-\item\label{it:A18}  For each vertex $\a$ in $\D_Z$, if $\a$ is incident 
-to a vertex $\b$ of $\D$, and $\b$ is an element of $\vim(\g)$, for
-some vertex $\g$ of $\D_1\cup \D_2$, then delete $\b$ from  the link of $\a$ and
-replace it with $\g$. 
-\item\label{it:A19} Form $\D''$ from the union of $\D_1$, $\D_2$ and $\D_Z$. 
-\item\label{it:A20}  Construct $\D(II)$, the Stallings folding of $\D''$.
+\item\label{it:A17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_1\cup \D_2$,
+do the following. For each vertex $(v,k')$ of $\D_1\cup \D_2$, not 
+equal to $(u,k)$, if 
+$\vim((u,k))\cap \vim((v,k'))\neq \emptyset$ then set $\vim((u,k))=\vim((u,k))\cup
+\vim((v,k'))$. For each edge $e$ of $\D_1\cup \D_2$, if $e$ has
+initial or terminal vertex equal to $(v,k')$ then replace $e$ with
+an edge having $(u,k)$ as initial or terminal vertex, instead of $(v,k')$. 
+Delete $(v,k')$, once no more such edges exist.  
+Continue for as long as possible. The resulting graph is denoted $\D'$. 
+\item\label{it:A18}  For each vertex $\a$ of $\D_Z$, if $\a\in \vim(u,k)$,
+ for some  
+ vertex $(u,k)$ of $\D'$ then replace $\a$ with $(u,k)$. (Note that, as
+we have completed step \ref{it:A17}, there is at most one such vertex of
+$\D'$.)  
+If $\a$ has been replaced by $(u,k)$ then, for every edge $e$ of $\D_Z$,  
+ of the form $(\a,\b)$ (or its reverse), replace $e$ with 
+ the edge $((u,k), \b)$ (or its reverse). Call the resulting graph $\D_Z'$.  
+\item\label{it:A19} Form $\bar \D$ from the union of $\D'$ and $\D_Z'$:
+ by identifying vertices of $\D_Z'$ with vertices of  $\D'$
+of the same name. 
+\item\label{it:A20}  Construct $\D''$, the Stallings folding of $\bar \D$.
 \ee
 \section{Summary of the Loop}
 Here the assumptions are as for Algorithim II.
