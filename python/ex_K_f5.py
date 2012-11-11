@@ -85,7 +85,7 @@ for p in toadd:
 while ex.K.fold() is True:
    ex.K.fold()
 
-print "digraph K {"
+print "digraph K {nodesep=0.6;"
 print (str(ex.K))
 print "}"
 

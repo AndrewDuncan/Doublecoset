@@ -73,18 +73,18 @@
 \newcommand{\cF}{{\cal{F}}}
 \newcommand{\cH}{{\cal{H}}}
 \newcommand{\cJ}{{\cal{J}}}
-
 \newcommand{\cK}{{\cal{K}}}
 \newcommand{\cP}{{\cal{P}}}
+\newcommand{\cQ}{{\cal{Q}}}
 \newcommand{\cR}{{\cal{R}}}
 \newcommand{\cS}{{\cal{S}}}
+\newcommand{\cV}{{\cal{V}}}
 \newcommand{\cW}{{\cal{W}}}
-\newcommand{\cQ}{{\cal{Q}}}
 %\newcommand{\GG}{\ensuremath{\mathbb{G}}}
 \newcommand{\pp}{\mathbf{p}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\nul}{\emptyset }
-
+\newcommand{\vim}{\nu\textrm{-im}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -138,6 +138,8 @@
 \newcommand{\ee}{\end{enumerate}}
 \newcommand{\bd}{\begin{description}}
 \newcommand{\ed}{\end{description}}
+\newcommand{\biz}{\begin{itemize}}
+\newcommand{\eiz}{\end{itemize}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \newenvironment{ajd}{\noindent\color{red} AJD }{}
@@ -183,6 +185,32 @@ The group $G$ has
 any finite set of words $w, k_1, \ldots k_s$ in $\FF(X)$, decides
 whether or not $w$ represents an element of  the subgroup $K = <k_1,
 \ldots, k_s>$ of $G$.
+
+\begin{theorem}\label{thm:membership}
+Let $F_1$ and $F_2$ be finite rank free groups and let $H_1$ and $H_2$ 
+be finitely generated subgroups of $F_1$ and $F_2$, respectively, such
+that $H_1$ is isomorphic to $H_2$. Let $G=F_1 \ast_{H_1=H_2} F_2$. Then   
+$G$ has solvable membership problem.
+\end{theorem}
+
+\begin{theorem}\label{thm:uni-membership}
+Let $F_1$ and $F_2$ be finite rank free groups and let $H_1$ and $H_2$ 
+be finitely generated subgroups of $F_1$ and $F_2$, respectively, such
+that $H_1$ is isomorphic to $H_2$. Let $G=F_1 \ast_{H_1=H_2} F_2$. Then   
+$G$ has solvable uniform  membership problem.
+\end{theorem}
+
+If $\cV$ is a class of groups and there exists an algorithm to 
+solve the uniform membership problem for any element of $\cV$ then 
+we say that $\cV$ has solvable uniform  membership problem.
+Let $\cF$ be the class of free products with amalgamation, where 
+factors are free of finite rank, and the amalgamated subgroups are 
+finitely generated.  
+\begin{theorem}\label{thm:class-uni-membership}
+$\cF$ has solvable uniform  membership problem.
+\end{theorem}
+
+
 
 ``Free group constructions'', in particular, free products of groups,
 with or without amalgamation, $HNN$-extensions
@@ -1814,7 +1842,284 @@ the  morphism
 $\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\maps
 \Psi$ is called the \emph{dc-folding morphism}.
 \end{definition}
+\section{Summary of the generalised folding algorithm}
+In this section we summarise the algorithms which we have described above,
+in a form suitable for the analysis of their complexity, 
+in Section \ref{sec:TC} below. That is we summarise Algorithms I and II
+and the Loop of Section \ref{sec:dca}. The Loop, which calls Algorithm II 
+during its execution, is what we refer to as the ``Generalised Folding 
+Algorithm''.  
+\subsection{Summary of algorithm I}
+\subsubsection{Preproccessing.}
+Given $F_1*_{H_1=H_2} F_2$
+ the 
+steps in this subsection are carried out once for 
+each group $H_i$. Once these steps have been completed
+then Algorithm I can be run, as many times as necessary,
+to find double coset normal forms.
+ 
+\noindent\textbf{Input.}
+\biz
+\item generators $X$ of a free group $F(X)$.
+\item A finite set $Y$ of elements of $F(X)$.
+\eiz
+\noindent\textbf{Output.}
+\biz
+\item 
+$\G_A$, the Stallings automaton for the subgroup $H=\la Y\ra$ of $F(X)$.
+\item
+$L_T$, the set of words corresponding to a  maximal subtree $T$ of $\G_A$.
+\item The set $P$ of non-diagonal elements of $V( \G_A\times \G_A)$ 
+partitioned into equivalence classes of $\sim$ (i.e. vertices in the
+same connected components of $\G_A\times \G_A$).
+\item $P_0$ the set of representatives of equivalence classes of 
+elements of $P$.
+\item $C$ the set of connecting elements, one for each element of $P$.
+\eiz
+\noindent\textbf{Process.}
+An upper bound for each step is given in brackets.
+Let $N=\sum{y\in Y} |y|$.
+\be
+\item Construct $\G_A$. ($t_1(N)$.)
+\item Construct a spanning tree $T$ for $\G_A$ and simultaneously
+compute $L_T$. (This can easily be done if $T$ is constructed by
+BFS or DFS, so one problem I was worrying about disappears.) ($O(N^2)$.)
+\item Construct $\G_A\times \G_A$. ($t_3(N,N)$).
+\item Find connected components of $\G_A\times \G_A$. This can be
+done by doing a BFS or DFS of $\G_A\times \G_A$, which constructs
+a spanning forest $F$ at the same time as finding the set $C$ of
+connected components,
+which can be taken to be paths in the spanning forest $F$. 
+($O(N^4)$).
+\item Construct the set $P_0$. This can be done easily using $L_T(A)$ and
+the forest $F$. ($O(N^2)$).  
+\ee
+\noindent\textbf{Question.} Is it better for our algorithm
+to construct $T$ by BFS or DFS? Does it make any difference to the 
+Algorithm II? 
 
+Preprocessing time is bounded above by $O(N^4)$. 
+\subsubsection{Execution of Algorithm I}
+\noindent\textbf{Input.}
+\biz
+\item $w$, a reduced word in $F(X)$.
+\eiz
+\noindent\textbf{Output.} 
+\biz
+\item Double coset normal form of $w$. 
+\eiz
+\noindent\textbf{Process.}
+\be
+\item Use $\G_A$ to find the maximal prefix $h$ of $w$ accepted. 
+Let $w=h\circ f$. 
+\item Use $\G_A$ to find the maximal $L_Q$-prefix $p$ of $f$. 
+Let $f=p\circ q$.
+\item Use $\G_A$ to find the maximal prefix $g$ of $q^{-1}$ accepted.
+Let $q=r^{-1}\circ g^{-1}$.
+\item Use $\G_A$ to find the maximal $L_Q$-prefix $t$ of $r$. 
+Let $r=t\circ e^{-1}$. 
+\item If $e=1$ go to step \ref{it:ss}.
+\item Using $L_T$, set $y=w(\t(p))$ and $z=w(\t(t))$.
+\item Freely reduce $hpy^{-1}$, $yez^{-1}$ and $zt^{-1}g^{-1}$ and 
+call the results   $a, b$ and $c$. 
+\item Output $a,b,c$ and stop.
+\item\label{it:ss} (This step is reached only if $e= 1$.)
+ Using $P_0$ and $F$ find the representative $(u_0,v_0)$ of $(\t(p),\t(t))$.
+\item Look up the connecting element $c(u,v)$. 
+\item Let $y=w(u_0)$ and $z=w(v_0)$. 
+\item Freely reduce $hpcy^{-1}$ and $zc^{-1}t^{-1}g^{-1}$ and call the 
+results $a$ and $b$.
+\item Output $a,yz^{-1},b$.
+\ee
+The time required for these steps is $O(|w|)$. 
+
+\subsection{Summary of Algorithm II}
+Here we assume $F_1*_{H_1=H_2} F_2$
+ where $F_k$ is generated by $X_k$, $H_k$ is generated 
+by $Y_k=\{h_{k,1},\ldots, h_{k,m}\}$ 
+and the Stallings automata $\G_{A_k}$ for $H_k$ have
+been constructed. Let  $\S=(X_1\cup X_2\cup Z)^{\pm 1}$ and, for $k=1,2$,  
+assume that we have constructed, at the preprocessing stage, the following. 
+\be
+\item 
+A spanning tree  $T_k$ for $\G_{A_k}$, 
+ the set $L_{T_k}$of words corresponding to the  maximal subtree $T_k$, 
+the set $P_k$ of non-diagonal elements of 
+$V( \G_{A_k}\times \G_{A_k})$,   
+ the set of representatives  $P_{k,0}$ of equivalence classes of 
+elements of $P_k$ and the
+set $C_k$ of connecting elements, one for each element of $P_k$.
+%%%%%%%%
+\item $\phi_k:Z\maps F_k$ be a map inducing an isomorphism from $F(Z)$ to
+$H_k$. This map is encoded as part of $\G_{A_k}$. More precisely, 
+edges of $\G_{A_k}$ have two types of label; \emph{input} and \emph{output}.
+Labels we discussed above are input labels, are 
+referred to simply as \emph{labels}, and are elements of $X_1\cup X_2$. 
+Output labels are elements of  $Z\cup \{1\}$.
+ Edges of $T_k$  all have output label $1$; and each directed 
+edge of $\G_{A_k}$ not in $T_k$ has output 
+label an element of $Z$. Each such edge corresponds uniquely to
+ an element $h_{k,i}$ of the free generating set for $H_k$, and the edge
+corresponding to $h_{k,i}$ has 
+ output label  $z_i\in Z$. Moreover, in this case $\phi_k(z_i)=h_{k,i}$.  
+  This means that if a word in $H_k$ is given in terms of $Y_k$  then its
+image under $\phi_k^{-1}$ can be read off from $\G_{A_k}$ (regarded as a
+ transducer), by reading output labels. 
+\ee
+ 
+\noindent\textbf{Input.}
+\biz
+\item An inverse automaton $\D$ with alphabet $\Sigma$ and start 
+and final state $1$, such that $\pi(L(\D))=K$. Edges labelled 
+with elements of $X_k$ are said to have type $k$. Edges labelled with
+elements of $Z$ are said to have type $Z$. 
+\item Stallings automata $\G_{A_1}$ and $\G_{A_2}$ for $H_1$ and $H_2$, 
+with output labels 
+encoding $\phi_1$ and $\phi_2$, as above. 
+\item For each $z \in Z$ the images $\phi_1(z)$ and $\phi_2(z)$ of 
+as words in $Y_1^{\pm 1}$ and $Y_2^{\pm 1}$, respectively.
+\eiz
+\noindent\textbf{Output.}
+\biz
+\item An inverse automaton $\D''$ (with alphabet $\Sigma$ and start 
+and final state $1$, such that $\pi(L(\D''))=K$). 
+\eiz
+\noindent\textbf{Process.}\\
+Each of the following steps is executed for $k=1$ and $2$.
+\be[{A}1]
+\item\label{it:A1} Construct $\D_k$ and the map $\nu$.  In more detail the steps are 
+the following. 
+\be
+\item\label{it:A1a} Remove all edges of type $X_{k'}$, where $k'=1-k$, from $\D$; adding
+edges removed to  a graph $\D_Z$ (which starts off empty, when $k=1$, but
+is not reinitialised when $k$ is incremented to $2$). 
+\item\label{it:A1b} A \emph{shoot} is an edge incident to a leaf. Remove all shoots
+of type $Z$ from $\D_k$; adding edges removed to $\D_Z$. Continue
+until there are no shoots of type $Z$ in $\D_k$.
+\item\label{it:A1c} Rename vertices of $\D_k$: a vertex named $v$ in $\D$ becomes
+$(v,k)$ in $\D_k$. 
+\item\label{it:A1d} For each vertex $(v,k)$ of $\D_k$ keep a record of the image
+of $(v,k)$ in $\D$ (under $\nu$). In practice, for each $(v,k)$ keep
+ a record $\vim(v,k)$ which is initially set to $\{v\}$.     
+\ee
+\item\label{it:A2} (\textbf{Begin Modification 1}.) For all edges 
+$(\a,z,\b)$ of $\D_k$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
+$\D_k$. For later reference this version of $\D_k$ is called $\D_{k,1}'$. 
+\item\label{it:A3} Construct the Stallings folding of (each component of) 
+$\D_k$.  The result is referred to as $\D_{k,1}$. Whenever two vertices $(u,k)$ and $(v,k)$
+of $\D_k$ are identified, by the folding map, to a vertex $(w,k)$ 
+set $\vim(w,k)=\vim(u)\cup \vim(v)$. This process will be 
+called \textbf{updating} 
+$\nu$, from now on.
+\item\label{it:A4} (\textbf{Begin Modification 2}.)
+ Construct $\cP_k=\D_k\times \G_{A_k}$. 
+\item\label{it:A5} Construct a spanning forest $\U_k$ of $\cP_k$ and, simultaneously,
+the set $L_{\U_k}$ of words corresponding to paths in $\U_k$ from the root
+to each vertex. (A root of $\cP_k$ must  be chosen: 
+ to be explicit, assume the root is 
+ $((v,k), u)$, where 
+$u$ is minimal in some preassigned order on vertices of $\G_{A_k}$ and
+$v$ is minimal in some chosen order of vertices of $\D$.)
+ We refer to these versions of $\cP_k$ and $\U_k$ as
+$\cP_{k,2}$ and $\U_{k,2}$ in the calculation of complexity below. 
+\item\label{it:A6} For each vertex $\a$ of $\D_k$ do the following.
+ Let 
+$\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.  
+For each vertex $(\b,1)$ of $\theta(\a)$ and for all paths $p$ from 
+$(\a,1)$ to $(\b,1)$ add a path from $\a$ to $\b$ to the graph $\D_k$, with
+label $\phi_k^{-1}(w)$, where $w$ is the label of $p$. 
+This version of $\D_k$ is referred to as $\D_{k,2}'$. 
+\item\label{it:A7} Construct the Stallings folding of $\D_k$ and update $\nu$. 
+This version of $\D_k$ is referred to as $\D_{k,2}$. 
+\item\label{it:A8} (\textbf{Begin Modification 3}.)
+ Update $\cP_k=\D_k\times \G_{A_k}$ and $\U_k$, by adding new isolated vertices
+if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
+$\cP_{k,3}$ and $\U_{k,3}$.
+\item\label{it:A9} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
+Let $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$. 
+For each edge $e$ of $\theta(\a)\bs \U_k$: if $e=((\a_i,\b_1),x ,(\a_j,\b_2))$, where $\a_i,\a_j$ are vertices of $\D_k$ and $\b_1,\b_2$ are vertices
+of $\G_{A_k}$ and $x\in X_k$, add to $\D_k$ a path from $\a$ to $\a$ with
+label $\phi_k^{-1}(l_ixl_j)$, where $l_i$ and $l_j$ are the labels of 
+paths in $\U_k$ from $(\a,1)$ to $(\a_i,\b_1)$ and to $(a_j,\b_2)$, 
+respectively. This version of $\D_k$ is referred to as $\D_{k,3}'$. 
+\item\label{it:A10} Construct the Stallings folding of $\D_k$ and update $\nu$. This version of $\D_k$ is referred to as $\D_{k,3}$. 
+\item\label{it:A11} (\textbf{Begin Modification 4}.)
+ Update $\cP_k=\D_k\times \G_{A_k}$ and $\U_k$, by adding new isolated vertices
+if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
+$\cP_{k,4}$ and $\U_{k,4}$.
+\item\label{it:A12} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
+Let $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$. 
+For all vertices $(\a_1,\b)$ of $\theta(\a)$, with $\b\neq 1$, let 
+$b=w(\b)$, the label of the path from $1$ to $\b$ in $T_k$. If 
+$b$ is readable in the automaton $\cP_k$ with start state $(\a,1)$ and 
+the final state, after reading $b$, is $(\a_1,\b)$ there is nothing to do,
+for this vertex $(\a_1,\b)$. Otherwise, let $a$ be the label of the
+path from $(\a,1)$ to $(\a_1,\b)$ in $\U_k$. Add to $\D_k$ a path from
+$\a$ to $\a_1$ with label $(\phi_k^{-1}(ab^{-1}))b$. 
+This version of $\D_k$ is referred to as $\D_{k,4}'$. 
+\item\label{it:A13} Construct the Stallings folding of $\D_k$ and update $\nu$.
+This version of $\D_k$ is referred to as $\D_{k,4}$.  
+\item\label{it:A14} (\textbf{Begin Modification 5}.)
+Reconstruct $\cP_k=\D_k\times \G_{A_k}$, the spanning forest $\U_k$ and 
+the set $L_{\U_k}$. We refer to these versions of $\cP_k$ and $\U_k$ as
+$\cP_{k,5}$ and $\U_{k,5}$.
+\item\label{it:A15} For all $\b\in V(\D_k)$ do the following. For $(\e,\xi)\in P$, 
+if both $b_1=w(\e)$ and $b_2=w(\xi)$ are readable in $\D_k$, 
+starting from $\b$, and ending at vertices $\a_1$ and $\a_2$, then 
+add to $\D_k$ a path from $\a_1$ to $\a_2$ with label
+$\phi_k^{-1}(b_1ca_1^{-1})a_1a_2[\phi_k^{-1}(b_2ca_2^{-1})]^{-1}$, where
+$(\e_0,\xi_0)$ is the $\sim$ representative of $(\e,\xi)$, $a_1=w(\e_0)$, 
+$a_2=w(\xi_0)$ and $c$ is the connecting element of $(\e,\xi)$. 
+This version of $\D_k$ is referred to as $\D_{k,4}'$. 
+\item\label{it:A16} Construct the Stallings folding of $\D_k$ and update $\nu$. This version of $\D_k$ is referred to as $\D_{k,5}$. 
+\item\label{it:A17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_1\cup \D_2$,
+do the following. For each vertex $(v,k')$ of $\D_1\cup \D_2$, not 
+equal to $(u,k)$, if 
+$\vim((u,k))\cap \vim((v,k'))\neq \emptyset$ then set $\vim((u,k))=\vim((u,k))\cup
+\vim((v,k'))$. For each edge $e$ of $\D_1\cup \D_2$, if $e$ has
+initial or terminal vertex equal to $(v,k')$ then replace $e$ with
+an edge having $(u,k)$ as initial or terminal vertex, instead of $(v,k')$. 
+Delete $(v,k')$, once no more such edges exist.  
+Continue for as long as possible. The resulting graph is denoted $\D'$. 
+\item\label{it:A18}  For each vertex $\a$ of $\D_Z$, if $\a\in \vim(u,k)$,
+ for some  
+ vertex $(u,k)$ of $\D'$ then replace $\a$ with $(u,k)$. (Note that, as
+we have completed step \ref{it:A17}, there is at most one such vertex of
+$\D'$.)  
+If $\a$ has been replaced by $(u,k)$ then, for every edge $e$ of $\D_Z$,  
+ of the form $(\a,\b)$ (or its reverse), replace $e$ with 
+ the edge $((u,k), \b)$ (or its reverse). Call the resulting graph $\D_Z'$.  
+\item\label{it:A19} Form $\D''$ from the union of $\D'$ and $\D_Z'$:
+ by identifying vertices of $\D_Z'$ with vertices of  $\D'$
+of the same name. 
+%\item\label{it:A20}  Construct $\D''$, the Stallings folding of $\bar \D$.
+\ee
+\subsection{Summary of the Loop}
+Here the assumptions are as for Algorithim II.
+ 
+\noindent\textbf{Input.}
+\biz
+\item A tuple $k_1, \ldots ,k_s$ of elements of $F_1*_{H_1=H_2}F_2$, 
+in double coset normal form and the Stallings folding $\G_K$ of this
+tuple as a set of words in $F_1*F_2*F(Z)$. 
+\eiz
+\noindent\textbf{Output.}
+\biz
+\item An inverse automaton $\Psi$, with alphabet $\Sigma$ and start 
+and final state $1$, such that $\pi(L(\Psi))=K$ and $\Psi$ accepts the
+double coset normal form of every element of $K$. 
+\eiz
+\noindent\textbf{Process.}\\
+\be
+\item Set $n=0$ and $\D_{(0)}=\G_K$. 
+\item\label{it:loop2} Input $\D_{(n)}$ to Algorithm II. 
+Call the output $\D''_{(n+1)}$. 
+\item\label{it:loop3} Fold  $\D''_{(n+1)}$ and call the result   $\D_{(n+1)}$.
+\item If the number of $X_1$ and $X_2$ components of $\D_{(n)}$ and 
+$\D_{(n+1)}$ are the same, output $\D_{(n+1)}$ and halt. Otherwise,
+ add $1$ to $n$ and go to Step \ref{it:loop2}. 
+\ee
+\subsection{Generalised folding example}
 \begin{example}\label{ex:K}
 Let $F_1=\FF(x_1,x_2,x_3)$ and $H_1=\la h_1,h_2,h_3\ra$,
 as in Example \ref{ex:f_1}, and let $F_2=\FF(y_1,y_2,y_3,y_4)$ and
@@ -2157,18 +2462,88 @@ the algorithm halts after one iteration of the Loop, outputting $\Psi$.
 
 \begin{figure}
 \begin{center}
-\psfrag{a}{$x_1$}
-\psfrag{b}{$x_2$}
-\psfrag{c}{$x_3$}
-\psfrag{r}{$y_1$}
-\psfrag{s}{$y_2$}
-\psfrag{t}{$y_3$}
-\psfrag{x}{$z_1$}
-\psfrag{y}{$z_2$}
-\psfrag{z}{$z_3$}
-\psfrag{u}{$y_4$}
-\psfrag{1}{$1$}
-\includegraphics[scale=0.5, bb=0 0 690 500]{python/ex_K_f5.eps}
+\psfrag{a}{\hspace{2pt}\small$x_1$}
+\psfrag{a1}{\hspace*{-18pt}\small$x_1$}
+\psfrag{a2}{\hspace*{-24pt}\raisebox{2pt}{\small$x_1$}}
+\psfrag{a3}{\hspace*{2pt}\raisebox{-4pt}{\small$x_1$}}
+\psfrag{b}{\hspace{2pt}\small$x_2$}
+\psfrag{b1}{\hspace{2pt}\raisebox{-2pt}{\small$x_2$}}
+\psfrag{b2}{\hspace{-12pt}\small$x_2$}
+\psfrag{b3}{\hspace{-8pt}\raisebox{-8pt}{\small$x_2$}}
+\psfrag{b4}{\hspace{-12pt}\raisebox{6pt}{\small$x_2$}}
+\psfrag{c}{\hspace{2pt}\small$x_3$}
+\psfrag{c1}{\hspace{-14pt}\raisebox{-2pt}{\small$x_3$}}
+\psfrag{c2}{\hspace{6pt}\raisebox{-6pt}{\small$x_3$}}
+\psfrag{c3}{\hspace{2pt}\raisebox{-4pt}{\small$x_3$}}
+\psfrag{r}{\hspace{2pt}\small$y_1$}
+\psfrag{r1}{\hspace{8pt}\small$y_1$}
+\psfrag{s}{\hspace{2pt}\small$y_2$}
+\psfrag{s1}{\hspace{-12pt}\raisebox{4pt}{\small$y_2$}}
+\psfrag{t}{\hspace{2pt}\small$y_3$}
+\psfrag{t1}{\hspace{8pt}\small$y_3$}
+\psfrag{x}{\hspace{2pt}\small$z_1$}
+\psfrag{x1}{\hspace{-15pt}\small$z_1$}
+\psfrag{x2}{\hspace{-20pt}\raisebox{0pt}{\small$z_1$}}
+\psfrag{x3}{\hspace{2pt}\raisebox{6pt}{\small$z_1$}}
+\psfrag{y}{\hspace{2pt}\small$z_2$}
+\psfrag{y1}{\hspace{-18pt}\small$z_2$}
+\psfrag{y2}{\hspace{2pt}\raisebox{6pt}{\small$z_2$}}
+\psfrag{z}{\hspace{2pt}\small$z_3$}
+\psfrag{z1}{\hspace{-16pt}\small$z_3$}
+\psfrag{z2}{\hspace{-8pt}\raisebox{-6pt}{\small$z_3$}}
+\psfrag{z3}{\hspace{-30pt}\small$z_3$}
+\psfrag{u}{\hspace{2pt}\small $y_4$}
+\psfrag{1}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $1$}}
+\psfrag{2}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $2$}}
+\psfrag{3}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $3$}}
+\psfrag{4}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $4$}}
+\psfrag{5}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $5$}}
+\psfrag{6}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $6$}}
+\psfrag{7}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $7$}}
+\psfrag{8}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $8$}}
+\psfrag{9}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $9$}}
+\psfrag{10}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $10$}}
+\psfrag{11}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $11$}}
+\psfrag{12}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $12$}}
+\psfrag{13}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $13$}}
+\psfrag{14}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $14$}}
+\psfrag{15}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $15$}}
+\psfrag{16}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $16$}}
+\psfrag{17}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $17$}}
+\psfrag{18}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $18$}}
+\psfrag{19}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $19$}}
+\psfrag{20}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $20$}}
+\psfrag{21}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $21$}}
+\psfrag{22}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $22$}}
+\psfrag{23}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $23$}}
+\psfrag{24}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $24$}}
+\psfrag{25}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $25$}}
+\psfrag{26}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $26$}}
+\psfrag{27}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $27$}}
+\psfrag{28}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $28$}}
+\psfrag{29}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $29$}}
+\psfrag{30}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $30$}}
+\psfrag{31}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $31$}}
+\psfrag{32}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $32$}}
+\psfrag{33}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $33$}}
+\psfrag{34}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $34$}}
+\psfrag{35}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $35$}}
+\psfrag{36}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $36$}}
+\psfrag{37}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $37$}}
+\psfrag{38}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $38$}}
+\psfrag{39}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $39$}}
+\psfrag{40}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $40$}}
+\psfrag{41}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $41$}}
+\psfrag{42}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $42$}}
+\psfrag{43}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $43$}}
+\psfrag{44}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $44$}}
+\psfrag{45}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $45$}}
+\psfrag{46}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $46$}}
+\psfrag{47}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $47$}}
+\psfrag{48}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $48$}}
+\psfrag{49}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $49$}}
+%\includegraphics[scale=0.5]{python/ex_K_f5.eps}
+\includegraphics[scale=0.5, bb=36 36 892 854]{python/ex_K_f5.eps}
 \caption{$\Theta_5$}
 \label{fig:K_f5}
 \end{center}
@@ -2276,22 +2651,138 @@ the algorithm halts after one iteration of the Loop, outputting $\Psi$.
 
 \begin{figure}
 \begin{center}
-\psfrag{a}{$x_1$}
-\psfrag{b}{$x_2$}
-\psfrag{c}{$x_3$}
-\psfrag{r}{$y_1$}
-\psfrag{s}{$y_2$}
-\psfrag{t}{$y_3$}
-\psfrag{x}{$z_1$}
-\psfrag{y}{$z_2$}
-\psfrag{z}{$z_3$}
-\psfrag{u}{$y_4$}
-\psfrag{1}{$1$}
-\includegraphics[scale=0.48,bb=0 0 820 720]{python/ex_K_reassembly.eps}
+\psfrag{a}{\hspace{2pt}\small$x_1$}
+\psfrag{a1}{\hspace*{-18pt}\small$x_1$}
+\psfrag{a2}{\hspace*{-24pt}\raisebox{2pt}{\small$x_1$}}
+\psfrag{a3}{\hspace*{2pt}\raisebox{-4pt}{\small$x_1$}}
+\psfrag{a4}{\hspace*{10pt}\raisebox{0pt}{\small$x_1$}}
+\psfrag{a5}{\hspace*{-4pt}\raisebox{-6pt}{\small$x_1$}}
+\psfrag{a6}{\hspace*{-6pt}\raisebox{-10pt}{\small$x_1$}}
+\psfrag{a7}{\hspace*{8pt}\raisebox{8pt}{\small$x_1$}}
+\psfrag{a8}{\hspace*{-9pt}\raisebox{9pt}{\small$x_1$}}
+\psfrag{a9}{\hspace*{-7pt}\raisebox{5pt}{\small$x_1$}}
+\psfrag{a10}{\hspace*{0pt}\raisebox{-2pt}{\small$x_1$}}
+\psfrag{a11}{\hspace*{-8pt}\raisebox{-8pt}{\small$x_1$}}
+\psfrag{a12}{\hspace*{18pt}\raisebox{8pt}{\small$x_1$}}
+\psfrag{b}{\hspace{2pt}\small$x_2$}
+\psfrag{b1}{\hspace{2pt}\raisebox{-2pt}{\small$x_2$}}
+\psfrag{b2}{\hspace{-12pt}\small$x_2$}
+\psfrag{b3}{\hspace{-8pt}\raisebox{-8pt}{\small$x_2$}}
+\psfrag{b4}{\hspace{-10pt}\raisebox{4pt}{\small$x_2$}}
+\psfrag{b5}{\hspace{14pt}\raisebox{0pt}{\small$x_2$}}
+\psfrag{b6}{\hspace{6pt}\raisebox{4pt}{\small$x_2$}}
+\psfrag{b7}{\hspace{-12pt}\raisebox{-8pt}{\small$x_2$}}
+\psfrag{b8}{\hspace{-2pt}\raisebox{8pt}{\small$x_2$}}
+\psfrag{c}{\hspace{2pt}\small$x_3$}
+\psfrag{c1}{\hspace{-14pt}\raisebox{-2pt}{\small$x_3$}}
+\psfrag{c2}{\hspace{6pt}\raisebox{-6pt}{\small$x_3$}}
+\psfrag{c3}{\hspace{2pt}\raisebox{-10pt}{\small$x_3$}}
+\psfrag{c4}{\hspace{-8pt}\raisebox{0pt}{\small$x_3$}}
+\psfrag{c5}{\hspace{-2pt}\raisebox{-4pt}{\small$x_3$}}
+\psfrag{r}{\hspace{2pt}\small$y_1$}
+\psfrag{r1}{\hspace{8pt}\small$y_1$}
+\psfrag{s}{\hspace{2pt}\small$y_2$}
+\psfrag{s1}{\hspace{-10pt}\raisebox{2pt}{\small$y_2$}}
+\psfrag{t}{\hspace{2pt}\small$y_3$}
+\psfrag{t1}{\hspace{8pt}\small$y_3$}
+\psfrag{x}{\hspace{2pt}\small$z_1$}
+\psfrag{x1}{\hspace{-15pt}\small$z_1$}
+\psfrag{x2}{\hspace{-20pt}\raisebox{0pt}{\small$z_1$}}
+\psfrag{x3}{\hspace{2pt}\raisebox{6pt}{\small$z_1$}}
+\psfrag{x4}{\hspace{8pt}\raisebox{0pt}{\small$z_1$}}
+\psfrag{x5}{\hspace{-8pt}\raisebox{8pt}{\small$z_1$}}
+\psfrag{x6}{\hspace*{-7pt}\raisebox{0pt}{\small$z_1$}}
+\psfrag{x7}{\hspace*{2pt}\raisebox{0pt}{\small$z_1$}}
+\psfrag{x8}{\hspace*{4pt}\raisebox{-8pt}{\small$z_1$}}
+\psfrag{x9}{\hspace*{-12pt}\raisebox{6pt}{\small$z_1$}}
+\psfrag{x10}{\hspace*{-8pt}\raisebox{4pt}{\small$z_1$}}
+\psfrag{y}{\hspace{2pt}\small$z_2$}
+\psfrag{y1}{\hspace{-18pt}\small$z_2$}
+\psfrag{y2}{\hspace{2pt}\raisebox{6pt}{\small$z_2$}}
+\psfrag{y3}{\hspace{8pt}\raisebox{0pt}{\small$z_2$}}
+\psfrag{y4}{\hspace{2pt}\raisebox{-10pt}{\small$z_2$}}
+\psfrag{y5}{\hspace{-10pt}\raisebox{0pt}{\small$z_2$}}
+\psfrag{y6}{\hspace{-6pt}\raisebox{0pt}{\small$z_2$}}
+\psfrag{y7}{\hspace{-4pt}\raisebox{6pt}{\small$z_2$}}
+\psfrag{y8}{\hspace{-18pt}\raisebox{8pt}{\small$z_2$}}
+\psfrag{z}{\hspace{2pt}\small$z_3$}
+\psfrag{z1}{\hspace{-16pt}\small$z_3$}
+\psfrag{z2}{\hspace{-8pt}\raisebox{-6pt}{\small$z_3$}}
+\psfrag{z3}{\hspace{-30pt}\small$z_3$}
+\psfrag{z4}{\hspace{8pt}\small$z_3$}
+\psfrag{z5}{\hspace{-8pt}\raisebox{3pt}{\small$z_3$}}
+\psfrag{z6}{\hspace{6pt}\raisebox{-9pt}{\small$z_3$}}
+\psfrag{u}{\hspace{2pt}\small $y_4$}
+\psfrag{u1}{\hspace{-6pt}\raisebox{4pt}{\small $y_4$}}
+\psfrag{u2}{\hspace{2pt}\raisebox{-10pt}{\small $y_4$}}
+\psfrag{1}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $1$}}
+\psfrag{2}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $2$}}
+\psfrag{3}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $3$}}
+\psfrag{4}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $4$}}
+\psfrag{5}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $5$}}
+\psfrag{6}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $6$}}
+\psfrag{7}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $7$}}
+\psfrag{8}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $8$}}
+\psfrag{9}{\hspace{-1pt}\raisebox{-2pt}{\scriptsize $9$}}
+\psfrag{10}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $10$}}
+\psfrag{11}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $11$}}
+\psfrag{12}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $12$}}
+\psfrag{13}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $13$}}
+\psfrag{14}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $14$}}
+\psfrag{15}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $15$}}
+\psfrag{16}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $16$}}
+\psfrag{17}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $17$}}
+\psfrag{18}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $18$}}
+\psfrag{19}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $19$}}
+\psfrag{20}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $20$}}
+\psfrag{21}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $21$}}
+\psfrag{22}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $22$}}
+\psfrag{23}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $23$}}
+\psfrag{24}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $24$}}
+\psfrag{25}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $25$}}
+\psfrag{26}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $26$}}
+\psfrag{27}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $27$}}
+\psfrag{28}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $28$}}
+\psfrag{29}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $29$}}
+\psfrag{30}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $30$}}
+\psfrag{31}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $31$}}
+\psfrag{32}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $32$}}
+\psfrag{33}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $33$}}
+\psfrag{34}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $34$}}
+\psfrag{35}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $35$}}
+\psfrag{36}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $36$}}
+\psfrag{37}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $37$}}
+\psfrag{38}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $38$}}
+\psfrag{39}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $39$}}
+\psfrag{40}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $40$}}
+\psfrag{41}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $41$}}
+\psfrag{42}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $42$}}
+\psfrag{43}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $43$}}
+\psfrag{44}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $44$}}
+\psfrag{45}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $45$}}
+\psfrag{46}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $46$}}
+\psfrag{47}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $47$}}
+\psfrag{48}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $48$}}
+\psfrag{49}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $49$}}
+\psfrag{50}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $50$}}
+\psfrag{51}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $51$}}
+\psfrag{52}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $52$}}
+\psfrag{53}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $53$}}
+\psfrag{54}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $54$}}
+\psfrag{55}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $55$}}
+\psfrag{56}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $56$}}
+\psfrag{57}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $57$}}
+\psfrag{58}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $58$}}
+\psfrag{59}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $59$}}
+%\hspace*{-3em}
+\includegraphics[width=.99\textwidth, height=.8\textheight, keepaspectratio=false]{python/ex_K_reassembly.eps}
+%\hspace*{-3em}\includegraphics[scale=.5]{python/ex_K_reassembly.eps}
+%\includegraphics[scale=1.2,bb=36 36 432 370]{python/ex_K_reassembly.eps}
 \caption{$\Psi$}
 \label{fig:out}
 \end{center}
 \end{figure}
+\section{Proofs of main results}
 \begin{lemma}\label{lem:nfcomp}
 Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of
 an inverse automaton $\D$, with alphabet $\S$. Then   the following hold.
@@ -2615,7 +3106,7 @@ $\D$,
 \item
 from $s$ to $\nu(x_1)$, with label $w_0$;
 \item  from $\nu(y_n)$ to $s$, with label $w_n$ and
-\item from $\nu(y_i)$ to $\nu(x_{i+1}$, with label $w_i$, for $i=1,\ldots,
+\item from $\nu(y_i)$ to $\nu(x_{i+1})$, with label $w_i$, for $i=1,\ldots,
 n-1$,
 \end{itemize}
 such that $\pi(w_i)=1$, for $i=1,\ldots ,n$. Thus $l=w_0u_1\cdots w_{n-1}u_n
@@ -2715,10 +3206,8 @@ that $\cA$ also accepts the word $z_0s_1z_1\cdots z_rs_rz_{r+1}$, which
 is the normal form of $u$.
 \end{proof}
 \end{comment}
-\begin{theorem}
-$G$ has solvable membership problem.
-\end{theorem}
-\begin{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:membership}]
 Construct the flower automaton $\cF(K)$ of $K$ and then
 its Stallings automaton $\G_K$,  as at the beginning of this Section. % \ref{sec:dca},
 Let $\D_0=\G_K$ and input this to the loop to obtain output $\D_n$.
@@ -2730,11 +3219,76 @@ Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_n)=L(\G_K)$,
 so if $w\notin K$, then
 $w\notin L(\D_n)$.
 \end{proof}
+\begin{proof}[Proofs of Theorems \ref{thm:uni-membership} and 
+\ref{thm:class-uni-membership}]
+First run Algorithm I, then the Loop. 
+\end{proof}
 
 \section{Computational complexity}\label{sec:TC}
+The usual approach to the study of computational problems is to
+begin with Turing machines and decision
+problems, that is, computational problems whose answer is ``yes'' or
+``no''. Membership problems are usually considered as particular cases of decision problems. 
+Moreover, every decision problem can be turned into a membership
+problem, but this transformation may add complications and even
+change the nature of the problem. For example representing graphs by
+words over an alphabet is possible but inconvenient and sometimes
+misleading. Thus we are led to a more general view.
 
-{\ef{Some words on time complexity needed!}}
-We write $\log(x)$ for the logarithm to the base $2$ and make the
+A \emph{decision problem} is a pair $\Pr = (I,N)$, where $N$ is a countable
+set of inputs for $\Pr$ and $I\subset N$ is the positive part of
+$\Pr$. That is, the answer for input $w\in N$ is ``yes'' if $w\in I$
+and ``no'' otherwise. A \emph{search problem} is a pair $\Pr = (R,N\times J)$, where $N$ and $J$
+are countable sets, and $R\subset N\times J$ is a binary predicate.
+Given an element $w\in N$, one is required to find $v\in J$ such
+that $(w,v)\in R$; that is, such that $R(w,v)$ is true.
+
+
+For instance, throughout this paper we are interested in a decision version of the membership problem for a subgroup. Namely,
+for a fixed subgroup $K$ of $G$ and a word $w \in G$ written in double coset normal form we want to decide 
+whether or not $w$ represents an element of  the subgroup $K$. Here double coset normal forms of elements of $G$ form a (countable) set $N$ of inputs, and $K$ forms the positive part of the problem. Clearly, the membership problem for a subgroup can be turned into search membership problem: given a group $G$ and a subgroup $K$  generated by $<k_1, \ldots, k_l>$ and a word $w \in K$ one should find an expression of $w$ in terms of $k_1, \ldots, k_l$.
+
+When we speak of a problem $\Pr$, we mean either a decision problem
+or a search problem. These problems are solved by algorithms and partial
+algorithms. In general to study the complexity of an algorithm $A$,
+one compares the resources spent by $A$ on input $w$ to the size of
+$w$. In our case the resource is time, or more precisely, the number
+of steps required for $A$ to deal with $w$.
+
+The \emph{time consumed by an algorithm $A$} on an input $w$ is
+$T_{A}(w)$, the number of steps performed by an algorithm $A$ on
+the input $w$. 
+A \emph{size function} for a set $I$ is a map $\sigma:I\to \mathbb N$, the
+nonnegative integers, such that the preimage of each integer is
+finite.
+
+%
+%\begin{definition}\label{de:stratification}
+%A stratification for a set $I$ is an ascending sequence of finite subsets whose union is $I$.
+%\end{definition}
+
+%For each size function $\sigma$ determines a stratification with
+%subsets $\sigma\inv(\{0\})$, $\sigma\inv(\{0, 1\}), \ldots$, and
+%every stratification can be obtained from a size function. The
+%finiteness condition in Definitions~\ref{de:size}
+%and~\ref{de:stratification} will be relaxed later when we discuss
+%computational problems with a probability distribution on the set of
+%inputs.
+
+The choice of the size function depends of course on the problem at hand.
+For instance, if the input $w$ is a word in a free group, a natural choice for input size is the length of that word. And if the input is the automaton (or graph), the input size can be chosen as a number of vertices and{$\backslash$}or edges.
+
+Let $A$ be an algorithm, $T_{A}$ its time function, $I$ the set of
+inputs, and $\sigma$ a size function for $I$. The \emph{ complexity of $A$} with respect to $\sigma$ is the function
+$\cC o_{A}:\NN \to \NN$ defined by $\cC o_{A}(n)=\max_{\sigma(w)\le n}
+T_{A}(w)$. 
+
+We are usually not interested in the precise complexity
+but rather in estimating its rate of growth. We say that a problem
+$\Pr$ has the complexity $f(n)$ if it is solved by an
+algorithm $A$ for which $\cC o_{A}(n)$ is $O(f(n))$. 
+
+Further, we write $\log(x)$ for the logarithm to the base $2$ and make the
 following definition, where $log^m(x)$ denotes the $m$-fold composition
 of $\log$ with itself.
 \begin{definition}\label{def:log}
