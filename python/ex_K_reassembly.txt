@@ -1,4 +1,4 @@
-digraph R {overlap=scalexy;nodesep=0.6;rotate=270;
+digraph R {overlap=scalexy;nodesep=0.6;rotate=120;
 "Kv1" [label="1",fontsize=7,width=0.1,height=0.1];
 "Kv1" -> "Kv12" [label="y6",fontsize=8];
 "Kv1" -> "Kv25" [label="a7",fontsize=8];
@@ -89,8 +89,7 @@ digraph R {overlap=scalexy;nodesep=0.6;rotate=270;
 "Jv28" -> "Jv21" [label="t",fontsize=8];
 "Zv1" [label="51",fontsize=7,width=0.1,height=0.1];
 "Zv2" [label="52",fontsize=7,width=0.1,height=0.1];
-"Zv3" [label="53",fontsize=7,width=0.1,height=0.1];
-"Zv3" -> "Zv5" [label="z",fontsize=8];
+"Kv35" -> "Zv5" [label="z",fontsize=8];
 "Zv4" [label="54",fontsize=7,width=0.1,height=0.1];
 "Zv5" [label="55",fontsize=7,width=0.1,height=0.1];
 "Zv5" -> "Zv2" [label="y",fontsize=8];
@@ -98,7 +97,6 @@ digraph R {overlap=scalexy;nodesep=0.6;rotate=270;
 "Zv1" -> "Kv17" [label="x4",fontsize=8];
 "Zv1" -> "Jv19" [label="y",fontsize=8];
 "Zv2" -> "Jv21" [label="x",fontsize=8];
-"Kv25" -> "Zv3" [label="y",fontsize=8];
 "Iv8" -> "Zv4" [label="x3",fontsize=8];
 "Zv4" -> "Kv10" [label="z5",fontsize=8];
 }
