@@ -177,15 +177,27 @@ The group $G$ has
 \emph{solvable  (uniform) membership problem} if there is an algorithm which, for
 any finite set of words $w, k_1, \ldots k_s$ in $\FF(X)$, decides
 whether or not $w$ represents an element of  the subgroup $K = <k_1,
-\ldots, k_s>$ of $G$.
+\ldots, k_s>$ of $G$. 
+
+Associated to the membership problem for the subgroup $K$, of the group $G$
+above, is the \emph{membership search problem}: given an element $w\in \FF(X)$ such
+that $w$ represents an element of $K$, find a sequence of pairs 
+$(k_{i_j},\e_j)$, $m=1,\ldots ,t$, for some $t\in \NN$, $k_{i_j}\in \{k_1,\ldots, k_s\}$
+and $\e_j=\pm 1$,  such that 
+$w=k_{i_1}^{\e_1}\cdots k_{i_t}^{\e_t}$ in the group $G$.  The subgroup $K$ 
+is said to have
+\emph{solvable  membership search problem} if there is an algorithm which, on input 
+a word $w$ in $\FF(X)$ representing an element of $K$, will output such
+ a sequence. The  \emph{uniform membership search problem} and its solvability, 
+for a group $G$, are 
+defined
+in the obvious way.
 
 
 If $\cV$ is a class of groups and there exists an algorithm to
-solve the uniform membership problem for any element of $\cV$ then
-we say that $\cV$ has solvable uniform  membership problem.
-Let $\cF$ be the class of free products with amalgamation, where
-factors are free of finite rank, and the amalgamated subgroups are
-finitely generated.
+solve the uniform membership (search) problem for any element of $\cV$ then
+we say that $\cV$ has solvable uniform  (search) membership problem. 
+
 
 
 \begin{theorem}\label{thm:membership}
@@ -204,6 +216,8 @@ $G$ has solvable uniform  membership problem and
 \item\label{it:class-uni-membership}
 $\cF$ has solvable uniform  membership problem.
 \ee
+Moreover the same conclusions hold for the search versions of each of these
+problems. 
 \end{theorem}
 
 
@@ -222,7 +236,8 @@ subgroup of a direct product of two free groups of rank two with
 unsolvable membership problem.  This direct
 product can in fact be considered as a sequence of two $HNN$-extensions
 of rank two free group. On the other hand, another classical
-result \cite[Proposition 2.21]{LS} shows that a free group of finite rank has solvable (uniform)
+result \cite[Proposition 2.21]{LS} shows that a free group of finite rank has 
+solvable (uniform)
 membership problem. Thus,  even innocent group
 constructions can dramatically affect solvability of the membership problem.
 
@@ -236,7 +251,8 @@ constructions, we have been led to introduce alternative normal forms
  appropriate to
 study of these constructions.
 
-Another significant step in development of the theory of foldings for  free constructions
+Another significant step in development of the theory of foldings for  
+free constructions
  was taken by Kapovich, Miasnikov and Weidmann
 \cite{KMW03}, where the authors investigated the uniform membership
 problem for fundamental groups of graphs of groups, under certain
@@ -273,11 +289,13 @@ In Section \ref{sec:TC} we estimate the time complexity of
 algorithms described in the previous parts of the paper. In
 particular, we illustrate how quickly the  preparatory
 work in construction of  double coset normal forms of generators
-for $K$  can be carried out; we calculate  the complexity of the process of modification of
+for $K$  can be carried out; we calculate  the complexity of the process of 
+modification of
 components of the flower automaton of $K$, and of the reassembly process required to
 produce the double coset graph.
 
-The authors are grateful to Vladimir Remeslennikov for suggesting the use of double cosets and
+The authors are grateful to Vladimir Remeslennikov for suggesting the use of double 
+cosets and
 for helpful
 discussions,  and to Christian Perfect who gave invaluable help with programming.
 
@@ -350,7 +368,8 @@ for all $i$.
 % $\phi_1$ and $\phi_2$, such that
 %$\phi_1(z_i)=h_i\in F_1$ and  $\phi_2(z_i)=h^\prime_i\in F_2$, $i=1,\ldots ,m$,
 %determine isomoprhisms from $\FF(Z)$ to $H_1$ and $H_2$.
- Now let $G = F_1 \underset{H_1=H_2}{\ast} F_2$ be the free product  of $F_1$ and $F_2$, amalgamating $H_1$ and $H_2$: that is $G$ is the group
+ Now let $G = F_1 \underset{H_1=H_2}{\ast} F_2$ be the free product  of $F_1$ and 
+$F_2$, amalgamating $H_1$ and $H_2$: that is $G$ is the group
  with
  presentation \[\la X_1\cup X_2 | h_i = h_i', i=1, \ldots ,m\ra.\]
 
@@ -358,7 +377,8 @@ for all $i$.
 Given an arbitrary word $g\in F_1\ast F_2$,
 we should like an algorithm to write $g$ in
 some normal form with uniqueness. As a first attempt,
- we say $g$ is in \emph{reduced form} if either $g$ is the empty word $1$, or $g = g_1 \cdots g_t$, where
+ we say $g$ is in \emph{reduced form} if either $g$ is the empty word $1$, or 
+$g = g_1 \cdots g_t$, where
 \begin{itemize}
 \item
 $g_1 \in F_1$ or $g_1 \in F_2$ and, if $t=1$ then $g_1\neq 1$,  and
@@ -380,7 +400,8 @@ following process.
 \item\label{it:st1} For $i=1,\ldots ,t$ do the following.
 Write each $f_i$ as  a reduced word in $F_1$ or $F_2$ as appropriate.
 If $f_i\in F_k$ then,
-using an algorithm for the membership problem in $H_k$, check whether or not $f_i \in H_k$.
+using an algorithm for the membership problem in $H_k$, check whether or not 
+$f_i \in H_k$.
  If none of the $f_i$'s lies in $H_1$ or $H_2$ then
 $g= f_1 \cdots f_t$ is in  reduced form.
 \item  Now suppose that some $f_i \in H_k$,  and let  $i$ be the
@@ -399,31 +420,37 @@ However reduced forms do not uniquely represent
  elements of $G$. To resolve this non-uniqueness problem it is common to
 chose a set of coset representatives of $H_k$ in $F_k$, $k=1,2$, and use these to rewrite
 the reduced form. If $T_k$ is a set of right coset representatives of $H_k$ then
- a word $g\in F_1\ast F_2$ is in \emph{single coset normal form} (or \emph{sc-normal form}) if
+ a word $g\in F_1\ast F_2$ is in \emph{single coset normal form} (or \emph{sc-normal 
+form}) if
 \[g=ct_1\cdots t_r,\]
 where $c\in H_1$, $t_i\in T_1\cup T_2$, $t_1\neq 1$, and consecutive $t_i$ are from
-different factors. Every element of $G$ can be \emph{uniquely} expressed as a word in single coset
+different factors. Every element of $G$ can be \emph{uniquely} expressed as a word in 
+single coset
 normal form \cite[Theorem 4.4]{MKS}.
 Coset representatives can be found using Stallings automata, which we describe below, so
 there is a procedure for writing elements in sc-normal form. Namely:
 having written an element $g$ in reduced form,
 working from right to left, for each $i$
  we express $f_i$ in the
-form $c_it_i$, where $c_i\in H_k$ and $t_i\in T_k$. The element $f_{i-1}$ must then be replaced
+form $c_it_i$, where $c_i\in H_k$ and $t_i\in T_k$. The element $f_{i-1}$ must 
+then be replaced
 by $f_{i-1}\phi^{\pm 1}(c_i)$, before being rewritten. Continue this way till the
 left hand side of the word is reached.
 
 In this process the coset representative of
 $f_{i-1}$ with respect to $H_l$ will not, in general, be known
- until $f_i$, ..., $f_t$ have been rewritten, and moreover each step requires an application
+ until $f_i$, ..., $f_t$ have been rewritten, and moreover each step requires an 
+application
 of the map $\phi$ or its inverse. As we shall see, when we write words in terms of
 double
 coset normal forms the algorithm is simpler, and the coset representatives that
 occur in any reduced  form of a word are the same as
 the double coset representatives of the final double coset normal form.
 
-To write elements in terms of single or double coset representatives we use Stallings automata,
-which we now define. In the following subsection we shall then define double coset representatives.
+To write elements in terms of single or double coset representatives we use 
+Stallings automata,
+which we now define. In the following subsection we shall then define double 
+coset representatives.
 \begin{comment}
 with respect to some choice of double coset representatives. We may
 assume (after free cancellation if necessary) that $g$ is a
@@ -494,7 +521,8 @@ this to $(\G_A,s_0,f_0)$. If $\mathcal{S}=\{s_0\}=\mathcal{F}$
 we
 call $s_0$ the {\em root}
 vertex of $\G_A$ and say that $A$ and $\G_A$ are {\em rooted}. We may
- write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case.  For notational simplicity we identify $\G_A$
+ write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case.  
+For notational simplicity we identify $\G_A$
 and $A$ whenever it is convenient and does no ambiguity arises.
 
 By a path $p$
@@ -1160,40 +1188,6 @@ of $v^{-1}$ accepted by $A$. Setting $h_2=p^{-1}$ gives
 $w=h_1\circ d \circ h_2$, for some uniquely determined word $d$,
 which is a (non-unique) double coset representative.
 
-%%
-%%
-%%As before let $g$ be a word in $F_1\ast F_2$ and suppose that
-%%$g=g_1\cdots g_t$ in reduced form. Denote $S= S_1 \cup S_2$, where
-%%$S_1$ are sets of double coset representatives for $H_1$ and $H_2$
-%%correspondingly. Write each syllable $g_i$ of $g=g_1\cdots g_t$ in
-%%normal form using the algorithm above. This gives
-%%$g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S$ and $h_{i,j}\in H_1\cup
-%%H_2$. Using $\phi_1^{-1}$ or $\phi_2^{-1}$, as appropriate, we now
-%%write $h_{i,1}$ and $h_{i,2}$ as reduced words in $\FF(Z)$. For
-%%$i=1,\ldots , t-1$, we reduce the word $h_{i,2}h_{(i+1),1}\in
-%%\FF(Z)$ to give a reduced word $h_i\in \FF(Z)$ and set $h_0=h_{1,1}$
-%%and  $h_{t+1}=h_{t,2}$. Then $g$ has normal form $h_0d_1h_1\cdots
-%%d_th_{t+1}$.
-%%
-%%
-%%\begin{example}\label{ex:g}
-%%Let $g =f_1 f_2 f_1^{-1}$ in settings of Example \ref{ex:f_1f_2}.
-%%Set $z_i = h_i = h_i^{\prime}$ for $i= 1,2,3$; then
-%%
-%%\begin{align*}
-%%g &= (z_2^2z_1)\cdot x_1 \circ x_3^3x_1^{-1} \circ x_1^{-1}\cdot
-%%(z_3^{-1}z_3^2z_2) \cdot y_1 \circ (y_2^{-1})^{-1}\\ &\cdot(z_2 z_1 z_3)\cdot x_1\circ x_1 x_3^{-3} \circ x_1^{-1}\cdot (z_1^{-1}z_2^{-2})=\\
-%%&(z_2^2z_1)\cdot d_1(x) \cdot (z_3z_2) \cdot d_2(y) \cdot(z_2 z_1
-%%z_3) \cdot d_1(x)^{-1} (z_1^{-1}z_2^{-2}).
-%%\end{align*}
-%%
-%%
-%%
-%%\end{example}
-
-%
-%%%
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The generalised folding process}\label{sec:foldings}
 
@@ -2040,12 +2034,14 @@ if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
 $\cP_{k,3}$ and $\U_{k,3}$.
 \item\label{it:A9} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
 Let $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.
-For each edge $e$ of $\theta(\a)\bs \U_k$: if $e=((\a_i,\b_1),x ,(\a_j,\b_2))$, where $\a_i,\a_j$ are vertices of $\D_k$ and $\b_1,\b_2$ are vertices
+For each edge $e$ of $\theta(\a)\bs \U_k$: if $e=((\a_i,\b_1),x ,(\a_j,\b_2))$, 
+where $\a_i,\a_j$ are vertices of $\D_k$ and $\b_1,\b_2$ are vertices
 of $\G_{A_k}$ and $x\in X_k$, add to $\D_k$ a path from $\a$ to $\a$ with
 label $\phi_k^{-1}(l_ixl_j)$, where $l_i$ and $l_j$ are the labels of
 paths in $\U_k$ from $(\a,1)$ to $(\a_i,\b_1)$ and to $(a_j,\b_2)$,
 respectively. This version of $\D_k$ is referred to as $\D_{k,3}'$.
-\item\label{it:A10} Construct the Stallings folding of $\D_k$ and update $\nu$. This version of $\D_k$ is referred to as $\D_{k,3}$.
+\item\label{it:A10} Construct the Stallings folding of $\D_k$ and update $\nu$. 
+This version of $\D_k$ is referred to as $\D_{k,3}$.
 \item\label{it:A11} (\textbf{Begin Modification 4}.)
  Update $\cP_k=\D_k\times \G_{A_k}$ and $\U_k$, by adding new isolated vertices
 if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
@@ -2074,7 +2070,8 @@ $\phi_k^{-1}(b_1ca_1^{-1})a_1a_2[\phi_k^{-1}(b_2ca_2^{-1})]^{-1}$, where
 $(\e_0,\xi_0)$ is the $\sim$ representative of $(\e,\xi)$, $a_1=w(\e_0)$,
 $a_2=w(\xi_0)$ and $c$ is the connecting element of $(\e,\xi)$.
 This version of $\D_k$ is referred to as $\D_{k,4}'$.
-\item\label{it:A16} Construct the Stallings folding of $\D_k$ and update $\nu$. This version of $\D_k$ is referred to as $\D_{k,5}$.
+\item\label{it:A16} Construct the Stallings folding of $\D_k$ and update $\nu$. 
+This version of $\D_k$ is referred to as $\D_{k,5}$.
 \item\label{it:A17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_1\cup \D_2$,
 do the following. For each vertex $(v,k')$ of $\D_1\cup \D_2$, not
 equal to $(u,k)$, if
@@ -2159,7 +2156,8 @@ We form the flower automaton of $K$ and then its (classical) Stallings folding,
 which is
 shown in Figure \ref{fig:Kflower}.
 There is one $X_1$ component $\Theta$ of this graph, shown in Figure \ref{fig:KX}
-and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$, shown in Figure \ref{fig:KY}. Each of these components is input to the loop, in turn.
+and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$, 
+shown in Figure \ref{fig:KY}. Each of these components is input to the loop, in turn.
 
 First consider the $X_1$ component $\Theta$. Modification 1
 results in the graph of Figure \ref{fig:K_f1}. To perform the next
@@ -4642,67 +4640,82 @@ first run Algorithm I, then the Loop.
 The usual approach to the study of computational problems is to
 begin with Turing machines and decision
 problems, that is, computational problems whose answer is ``yes'' or
-``no''. Membership problems are usually considered as particular cases of decision problems.
+``no''. Membership problems are usually considered as particular 
+cases of decision problems.
 Moreover, every decision problem can be turned into a membership
 problem, but this transformation may add complications and even
 change the nature of the problem. For example representing graphs by
 words over an alphabet is possible but inconvenient and sometimes
-misleading. Thus we are led to a more general view.
+misleading. This leads us to take the following, more general, view of computational
+problems.
 
 A \emph{decision problem} is a pair $\Pr = (I,N)$, where $N$ is a countable
-set of inputs for $\Pr$ and $I\subset N$ is the positive part of
-$\Pr$. That is, the answer for input $w\in N$ is ``yes'' if $w\in I$
-and ``no'' otherwise. A \emph{search problem} is a pair $\Pr = (R,N\times J)$, where $N$ and $J$
+set of \emph{inputs} for $\Pr$ and $I\subset N$ is the \emph{positive part} of
+$\Pr$. The \emph{answer} to the problem $\Pr$ on  input $w\in N$ is ``yes'', 
+if $w\in I$, 
+and ``no'' otherwise. A \emph{search problem} is a pair 
+$\Pr = (R,N\times J)$, where $N$ and $J$
 are countable sets, and $R\subset N\times J$ is a binary predicate.
-Given an element $w\in N$, one is required to find $v\in J$ such
+Given an element $w\in N$, a \emph{solution} to the search problem 
+$\Pr$ is an element $v\in J$ such
 that $(w,v)\in R$; that is, such that $R(w,v)$ is true.
 
 
-For instance, throughout this paper we are interested in a decision version of the membership problem for a subgroup. Namely,
-for a fixed subgroup $K$ of $G$ and a word $w \in G$ written in double coset normal form we want to decide
-whether or not $w$ represents an element of  the subgroup $K$. Here double coset normal forms of elements of $G$ form a (countable) set $N$ of inputs, and $K$ forms the positive part of the problem. Clearly, the membership problem for a subgroup can be turned into search membership problem: given a group $G$ and a subgroup $K$  generated by $<k_1, \ldots, k_l>$ and a word $w \in K$ one should find an expression of $w$ in terms of $k_1, \ldots, k_l$.
+For instance, in this paper we are interested in the decision and search 
+versions of the membership problem for a subgroup of a group, as formulated
+in the Introduction, for the particular case of amalgams of free groups. 
+Given 
+ a fixed subgroup $K$ of $G$ and a word $w \in G$ written in 
+double coset normal form we want to decide
+whether or not $w$ represents an element of  the subgroup $K$. 
+Here double coset normal forms of elements of $G$ form a (countable) 
+set $N$ of inputs, and $K$ forms the positive part of the problem. 
+In  the corresponging membership search problem, if $K$ is    
+generated by $Y=<k_1, \ldots, k_l>$ then, on input word $w$ representing an element
+of $K$, a solution is an expression for $w$ in terms of $k_1, \ldots, k_l$.
+Thus, if $G$ is generated by $X$ we may formulate the problem as 
+$\Pr(R,N\times J)$, where $N$ is the set of elements $u\in \FF(X)$ such 
+that $u$ is in double coset normal form and represents an element of $K$, 
+$R\subseteq \FF(X)\times \FF(Y)$ is the set $R=\{(u,v): u=_G v\}$ and 
+$J=\FF(Y)$.
 
 When we speak of a problem $\Pr$, we mean either a decision problem
-or a search problem. These problems are solved by algorithms and partial
-algorithms. In general to study the complexity of an algorithm $A$,
+or a search problem. 
+ We say $\Pr$ is \emph{solved} by an algorithm $A$ if, for all inputs of $\Pr$ the
+algorithm $A$ outputs the answer to $\Pr$ or a solution, as appropriate.  
+The problem $\Pr$ is said to be \emph{solvable} or \emph{decidable} if it is
+solved by some algorithm.    
+ In general to study the complexity of an algorithm $A$,
 one compares the resources spent by $A$ on input $w$ to the size of
-$w$. In our case the resource is time, or more precisely, the number
+$w$. 
+
+In our case the resource is time, or more precisely, the number
 of steps required for $A$ to deal with $w$.
 
 The \emph{time consumed by an algorithm $A$} on an input $w$ is
 $T_{A}(w)$, the number of steps performed by an algorithm $A$ on
-the input $w$.
-A \emph{size function} for a set $I$ is a map $\sigma:I\to \mathbb N$, the
+the input $w$. To facilitate the measurement of inputs we define a
+ \emph{size function}, for a set $I$, to be a map $\sigma:I\to \mathbb N$, the
 nonnegative integers, such that the preimage of each integer is
-finite.
-
-%
-%\begin{definition}\label{de:stratification}
-%A stratification for a set $I$ is an ascending sequence of finite subsets whose union is $I$.
-%\end{definition}
-
-%For each size function $\sigma$ determines a stratification with
-%subsets $\sigma\inv(\{0\})$, $\sigma\inv(\{0, 1\}), \ldots$, and
-%every stratification can be obtained from a size function. The
-%finiteness condition in Definitions~\ref{de:size}
-%and~\ref{de:stratification} will be relaxed later when we discuss
-%computational problems with a probability distribution on the set of
-%inputs.
-
+finite. 
 The choice of the size function depends of course on the problem at hand.
-For instance, if the input $w$ is a word in a free group, a natural choice for input size is the length of that word. And if the input is the automaton (or graph), the input size can be chosen as a number of vertices and{$\backslash$}or edges.
+For instance, if the input $w$ is a word in a free group, a natural 
+choice for input size is the length of that word. 
+On the other hand  if the input is 
+an automaton (or graph), the input size can be chosen as the number of vertices and/or edges.
 
 Let $A$ be an algorithm, $T_{A}$ its time function, $I$ the set of
 inputs, and $\sigma$ a size function for $I$. The \emph{ complexity of $A$} with respect to $\sigma$ is the function
 $\cC o_{A}:\NN \to \NN$ defined by $\cC o_{A}(n)=\max_{\sigma(w)\le n}
 T_{A}(w)$.
 
-We are usually not interested in the precise complexity
+We are not usually interested in the precise complexity of an algorithm 
 but rather in estimating its rate of growth. We say that a problem
-$\Pr$ has the complexity $f(n)$ if it is solved by an
+$\Pr$ has  complexity $f(n)$ if it is solved by an
 algorithm $A$ for which $\cC o_{A}(n)$ is $O(f(n))$.
 
-Further, we write $\log(x)$ for the logarithm to the base $2$ and make the
+In the remainder of this secion we define some functions which are useful
+in the analysis of our algorithms. We write $\log(x)$ for the logarithm to the base $2$ and make the
 following definition, where $log^m(x)$ denotes the $m$-fold composition
 of $\log$ with itself.
 \begin{definition}\label{def:log}
