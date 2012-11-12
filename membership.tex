@@ -4927,7 +4927,7 @@ inverse automaton $\D=\D_{(n)}$.
 %the set of all $X_1$ components of $\D$, and let $\Phi^{(1)},
 %\ldots, \Phi^{(p_2)}$ be the set of all $X_2$ components.
 We shall
-first study  the complexity of modifications $1 --- 5$ for a subgraph $\D_k$ of $\D$ ($k=1,2$), and then apply this result
+first study  the complexity of modifications $1 - 5$ for a subgraph $\D_k$ of $\D$ ($k=1,2$), and then apply this result
 to estimate the general complexity of Algorithm II. Denote by $E_k
 \D$, $E_Z \T$ and $V\D$ the sets of edges of type $X_k$ and of
 type $Z$ and the set of vertices, respectively, of  $\D$.
@@ -4977,11 +4977,7 @@ $\G_{A_k}$ and the basis $Y_k$ for $H_k$.
 %
 %\[R_k = m \max \{ |\phi_k(z_1)|_k, \ldots,
 %|\phi_k(z_m)|_k\}.\]
-%{\ajd As far as I can see, $R_k$ needs to be an upper bound for the
-%number of vertices of $\G_{A_k}$. At the outset, this might be
-%the sum of lengths of all the $\phi_k(z_i)$'s (minus a small constant).
-%That in turn is bounded by $m\times M$, where $M$ is the maxl length
-%of one of these.}
+
 \end{lemma}
 
 \begin{proof} Let $R_k  = \max \{ |\phi_k(z_1)|_k, \ldots, |\phi_k(z_m)|_k\}$. Thus, as
@@ -5431,7 +5427,7 @@ where $t_{\D'_{k,5}}$ is given by (\ref{theta'5}) and $|V\cP_{k,4}| \le |V
 
 {\bf The total complexity of modifications of $\D_k$.} The number of
 edges and vertices of the graphs constructed in Modifications 1--5 is non-decreasing, so the
-total complexity $\t_{\D_k}$ of all modifications to $\D_k$ can be estimated as
+total complexity $t_{\D_k}$ of all modifications to $\D_k$ can be estimated as
 
 \begin{equation}\label{thetafin}
 \begin{split}
@@ -5449,12 +5445,10 @@ where $m_1, \ldots, m_5$ are polynomials on  $q, r,
 \D_{k,4}|$, $|E\D'_{k,5}|$ are given by (\ref{vtheta4}) and
 (\ref{etheta5}), respectively.
 
-%{\ajd I tried but I couldn't get as good an estimate. How do you
-%get from line 1 to line 2 of the expression above?}
 \end{proof}
 
 {\bf Reassembly: construction of $\D^\prime_5$.}
-Let $\D^\prime$ and $D^\prime_5$ be the graphs defined in the
+Let $\D^\prime$ and $\D^\prime_5$ be the graphs defined in the
 reassembly stage of the modification process of $\D$.
 The time  $t_{\D^\prime_5}$ required to  construct $\D^{\prime}_5$
 is %
