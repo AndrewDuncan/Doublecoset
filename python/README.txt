@@ -2,9 +2,10 @@ Graphs manually edited by outputing .txt file from the .py file,
 (i.e. run python X.py > X.txt)
 and then using .txt file to generate the .eps file, 
 (i.e. run dot -Teps X.txt > X.eps, as in edz.sh)
+(or run neato -Teps X.txt > X.eps)
 are the following.
 
-ex_K_f5
+ex_K_f5 >ex_K_f5_fix 
 (Edge labels: a=x1, b=x2, c=x3, x=z1, y=z2, z=z3, r=y1, s=y2, t=y3, )
 labels of edges adjusted
 45 > 43= a1 (moves left)
