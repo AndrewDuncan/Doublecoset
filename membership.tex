@@ -4840,10 +4840,6 @@ Therefore, given $Y_k$ and $w$ the total time required to write $w$ in dc-normal
  form is  $O(N_k^2 + |w|_k)$.
 \end{lemma}
 
-{\ajd As far as I can see, in Alg I we need $A_k$, $T_k$, $L_{T_k}$, $P_0$ and the connecting elements. If
- we have these then we can write a word in dc-nf. I'm hoping that's correct
-'cos I've changed the proof below on that basis.}
-
 \begin{proof}
 To rewrite an element $w$ in a double coset normal form, it is
 sufficient to compute $\G_{A_k}$, the set $L_{T_k}$,
@@ -4879,14 +4875,7 @@ the set of connecting elements we construct a spanning forest for
 $\G_{A_k} \times \G_{A_k}$, which takes time $t_2(N_k^2)
 =O(N_k^2\log^*(N_k^2))$, and once this
 has been done read off the connecting elements, in time $O(N^2_k)$.
-{\ajd I'm not sure if this is correct. If it's correct that
-we have to construct a spanning forest for $\G_{A_k} \times \G_{A_k}$
-then the $t_2(N_k^2)$ looks right. Then
-if the time taken to construct $L_{T_k}$ is
-linear in $|ET_k|$, then what I've said looks like it should be correct.
-However I don't really understand why "linear in$|ET_k|$" is the right bound
-for the former. Is it standard? If this is correct then the bound
-in Lemma 4.3 is going to get worse, which will be a shame!}
+
 
 Given $\G_{A_k}$, $L_{T_k}$, $P_0$ and the set of connecting elements,
 the construction of which required time
@@ -4979,7 +4968,7 @@ $R_k-1$.
 % = \max \{ |\phi_k(z_1)|_k, \ldots,
 %|\phi_k(z_1)|_k\}$.
 
-{\bf 1. $\D_k \leadsto \D_{k,1}$.}(steps \ref{it:A2}--\ref{it:A3}) At this stage we first add
+{\bf 1. $\D_k \leadsto \D_{k,1}$.}  (Steps \ref{it:A2}--\ref{it:A3}) At this stage we first add
 $X_k$-edges to $\D_k$, to form a new graph $\D^\prime_{k,1}$, and then
 fold $\D^\prime_{k,1}$, to form $\D_{k,1}$.  We add at most $R_k \cdot e$
 edges of type $X_k$ and at most $(R_k-1)\cdot e$ new vertices to
@@ -5003,7 +4992,7 @@ t_{\D_{k,1}} \preceq t_1(|E \D_{k,1}^\prime |) + O(R_k \cdot E) =t_1(R_k
 \end{equation}
 
 
-{\bf 2. $\D_{k,1} \leadsto \D_{k,2}$.} (steps \ref{it:A4}--\ref{it:A7}) The time required for the
+{\bf 2. $\D_{k,1} \leadsto \D_{k,2}$.}  (Steps \ref{it:A4}--\ref{it:A7}) The time required for the
 construction of $\cP_{k,1}=\D_{k,1}\times \G_{A_k}$ is $t_3(|V \D_{k,1}|, q_k)$.
 Further, one can choose a spanning subforest $\U_{k,1}$ of $\cP_{k,1}$ in
 $t_2(|V\cP_{k,1}|)$ steps. Without loss of generality one can assume
@@ -5084,7 +5073,7 @@ where $|E\D'_{k,2}|$ is given by (\ref{etheta2}) and $t_{\D'_{k,2}}$ is
 estimated in formula (\ref{theta'2}).
 
 
-{\bf 3. $\D_{k,2} \leadsto \D_{k,3}$.}(steps \ref{it:A8}--\ref{it:A10}) We construct both $\cP_{k,2}=\D_{k,2}\times \G_{A_k}$ and a spanning
+{\bf 3. $\D_{k,2} \leadsto \D_{k,3}$.} (Steps \ref{it:A8}--\ref{it:A10}) We construct both $\cP_{k,2}=\D_{k,2}\times \G_{A_k}$ and a spanning
 subforest $\U_{k,2}$ of $\cP_{k,2}$, using previously obtained $\cP_{k,1}$ and $\U_{k,1}$. Suppose again
 $\cP_{k,2}$ has only one non-trivial connected component.
  Let $V'\cP_{k,2}$ denote the set of vertices of $\cP_{k,2}$ of valency at least one
@@ -5162,7 +5151,7 @@ where $|E\D'_{k,3}|$, $t_{\D'_{k,3}}$ are given by (\ref{etheta3}) and
 (\ref{theta'3}), respectively.
 
 
-{\bf 4. $\D_{k,3} \leadsto \D_{k,4}$.}(steps \ref{it:A8}--\ref{it:A10})
+{\bf 4. $\D_{k,3} \leadsto \D_{k,4}$.} (Steps \ref{it:A8}--\ref{it:A10})
 We construct $\cP_{k,3}=\D_{k,3}\times
 \G_{A_k}$ and a
 spanning subforest $\U_{k,3}$ of $\cP_{k,3}$. Since $E\U_{k,3} =
@@ -5223,7 +5212,7 @@ t_{\D_{k,4}} = t_1(|E\D'_{k,4}|) + t_{\D'_{k,4}},
 \end{equation}
 where $t_{\D'_{k,4}}$ is given by (\ref{theta'4}).
 
-{\bf 5. $\D_{k,4} \leadsto \D_{k,5}$.}(steps \ref{it:A8}--\ref{it:A10}) The time required to construct
+{\bf 5. $\D_{k,4} \leadsto \D_{k,5}$.} (Steps \ref{it:A8}--\ref{it:A10}) The time required to construct
 $\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ is $t_3(|V \D_{k,4}|, q_k)$. Further,
  a spanning subforest $\U_{k,4}$ of $\cP_{k,4}$ can be constructed in time
 $t_2(|V\cP_{k,4}|)$. We are assuming that  a spanning tree $T_k$ of
@@ -5280,10 +5269,12 @@ where $t_{\D'_{k,5}}$ is given by (\ref{theta'5}) and $|V\cP_{k,4}| \le |V
 
 
 
-{\bf The total complexity of modifications of $\D_k$.} The bounds on the number of
-edges and vertices of the graphs constructed in Modifications 1--5 is non-decreasing, so the
-total complexity $t_{\D_k}$ of all modifications of $\D_k$ can be estimated as
-
+{\bf The total complexity of modifications of $\D_k$.} 
+The bounds on the number of
+edges and vertices of the graphs constructed 
+in Modifications 1--5 are non-decreasing, so the
+total complexity $t_{\D_k}$ 
+of all modifications of $\D_k$ can be estimated as
 \begin{equation}\label{thetafin}
 \begin{split}
 t_{\D_k} &\preceq t_3(|V \D_{k,4}|, q_k) + t_2(|V \D_{k,4}| q_k )+
@@ -5371,8 +5362,8 @@ most $M$ vertices, it has at most $M$  components of type $X_1$ and $X_2$.
  only if $\D_{(n+1)}$ has fewer  $X_1$ and $X_2$ components
 than $\D_{(n)}$: so there can be at most $M$ iterations of the loop.
 
-The number of vertices of $\D_{(n+1)}$ is
-\[\textrm{some function of the number of vertices of } \D_{(n)}\]
+The number of vertices of $\D_{(n+1)}$ is at most 
+$|V\D_{1,5}|+|V\D_{2,5}|$ 
 and the number of edges of     $\D_{(n+1)}$ is ...
 
 Hence the $n$th iteration of the loop takes time ... .
