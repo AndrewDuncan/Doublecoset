@@ -136,7 +136,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \newenvironment{ajd}{\noindent\color{red} AJD }{}
-\newenvironment{xxx}{\noindent\color{red}}{}
+%
+%\includecomment{comp}% to see environment comp
+\excludecomment{comp}% to hide environment comp
 %
 \begin{document}
 \maketitle
@@ -1881,26 +1883,42 @@ elements of $P$.
 \noindent\textbf{Process.}
 An upper bound for each step is given in brackets.
 Let $N=\sum{y\in Y} |y|$.
-\be
-\item Construct $\G_A$. ($t_1(N)$.)
+\be[{A}1]
+\item Construct $\G_A$. 
+\begin{comp} 
+($t_1(N)$.)
+\end{comp}
 \item Construct a spanning tree $T$ for $\G_A$ and simultaneously
-compute $L_T$. (This can easily be done if $T$ is constructed by
+compute $L_T$. 
+\begin{comp}
+(This can easily be done if $T$ is constructed by
 BFS or DFS, so one problem I was worrying about disappears.) ($O(N^2)$.)
-\item Construct $\G_A\times \G_A$. ($t_3(N,N)$).
+\end{comp}
+\item Construct $\G_A\times \G_A$. 
+\begin{comp}
+($t_3(N,N)$).
+\end{comp}
 \item Find connected components of $\G_A\times \G_A$. This can be
 done by doing a BFS or DFS of $\G_A\times \G_A$, which constructs
 a spanning forest $F$ at the same time as finding the set $C$ of
 connected components,
 which can be taken to be paths in the spanning forest $F$.
+\begin{comp}
 ($O(N^4)$).
+\end{comp}
 \item Construct the set $P_0$. This can be done easily using $L_T(A)$ and
-the forest $F$. ($O(N^2)$).
+the forest $F$. 
+\begin{comp}
+($O(N^2)$).
+\end{comp}
 \ee
 \noindent\textbf{Question.} Is it better for our algorithm
 to construct $T$ by BFS or DFS? Does it make any difference to the
 Algorithm II?
 
+\begin{comp}
 Preprocessing time is bounded above by $O(N^4)$.
+\end{comp}
 \subsubsection{Execution of Algorithm I}
 \noindent\textbf{Input.}
 \biz
@@ -1911,7 +1929,7 @@ Preprocessing time is bounded above by $O(N^4)$.
 \item Double coset normal form of $w$.
 \eiz
 \noindent\textbf{Process.}
-\be
+\be[{B}1]
 \item Use $\G_A$ to find the maximal prefix $h$ of $w$ accepted.
 Let $w=h\circ f$.
 \item Use $\G_A$ to find the maximal $L_Q$-prefix $p$ of $f$.
@@ -1933,8 +1951,10 @@ call the results   $a, b$ and $c$.
 results $a$ and $b$.
 \item Output $a,yz^{-1},b$.
 \ee
-The time required for these steps is $O(|w|)$.
 
+\begin{comp}
+The time required for these steps is $O(|w|)$.
+\end{comp}
 \subsection{Summary of Algorithm II}\label{subs_summaryII}
 
 Here we assume $F_1*_{H_1=H_2} F_2$
@@ -1989,34 +2009,34 @@ and final state $1$, such that $\pi(L(\D''))=K$).
 \eiz
 \noindent\textbf{Process.}\\
 Each of the following steps is executed for $k=1$ and $2$.
-\be[{A}1]
-\item\label{it:A1} Construct $\D_k$ and the map $\nu$.  In more detail the steps are
+\be[{C}1]
+\item\label{it:C1} Construct $\D_k$ and the map $\nu$.  In more detail the steps are
 the following.
 \be
-\item\label{it:A1a} Remove all edges of type $X_{k'}$, where $k'=1-k$, from $\D$; adding
+\item\label{it:C1a} Remove all edges of type $X_{k'}$, where $k'=1-k$, from $\D$; adding
 edges removed to  a graph $\D_Z$ (which starts off empty, when $k=1$, but
 is not reinitialised when $k$ is incremented to $2$).
-\item\label{it:A1b} A \emph{shoot} is an edge incident to a leaf. Remove all shoots
+\item\label{it:C1b} A \emph{shoot} is an edge incident to a leaf. Remove all shoots
 of type $Z$ from $\D_k$; adding edges removed to $\D_Z$. Continue
 until there are no shoots of type $Z$ in $\D_k$.
-\item\label{it:A1c} Rename vertices of $\D_k$: a vertex named $v$ in $\D$ becomes
+\item\label{it:C1c} Rename vertices of $\D_k$: a vertex named $v$ in $\D$ becomes
 $(v,k)$ in $\D_k$.
-\item\label{it:A1d} For each vertex $(v,k)$ of $\D_k$ keep a record of the image
+\item\label{it:C1d} For each vertex $(v,k)$ of $\D_k$ keep a record of the image
 of $(v,k)$ in $\D$ (under $\nu$). In practice, for each $(v,k)$ keep
  a record $\vim(v,k)$ which is initially set to $\{v\}$.
 \ee
-\item\label{it:A2} (\textbf{Begin Modification 1}.) For all edges
+\item\label{it:C2} (\textbf{Begin Modification 1}.) For all edges
 $(\a,z,\b)$ of $\D_k$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
 $\D_k$. For later reference this version of $\D_k$ is called $\D_{k,1}'$.
-\item\label{it:A3} Construct the Stallings folding of (each component of)
+\item\label{it:C3} Construct the Stallings folding of (each component of)
 $\D_k$.  The result is referred to as $\D_{k,1}$. Whenever two vertices $(u,k)$ and $(v,k)$
 of $\D_k$ are identified, by the folding map, to a vertex $(w,k)$
 set $\vim(w,k)=\vim(u)\cup \vim(v)$. This process will be
 called \textbf{updating}
 $\nu$, from now on.
-\item\label{it:A4} (\textbf{Begin Modification 2}.)
+\item\label{it:C4} (\textbf{Begin Modification 2}.)
  Construct $\cP_k=\D_k\times \G_{A_k}$.
-\item\label{it:A5} Construct a spanning forest $\U_k$ of $\cP_k$ and, simultaneously,
+\item\label{it:C5} Construct a spanning forest $\U_k$ of $\cP_k$ and, simultaneously,
 the set $L_{\U_k}$ of words corresponding to paths in $\U_k$ from the root
 to each vertex. (A root of $\cP_k$ must  be chosen:
  to be explicit, assume the root is
@@ -2025,20 +2045,20 @@ $u$ is minimal in some preassigned order on vertices of $\G_{A_k}$ and
 $v$ is minimal in some chosen order of vertices of $\D$.)
  We refer to these versions of $\cP_k$ and $\U_k$ as
 $\cP_{k,2}$ and $\U_{k,2}$ in the calculation of complexity below.
-\item\label{it:A6} For each vertex $\a$ of $\D_k$ do the following.
+\item\label{it:C6} For each vertex $\a$ of $\D_k$ do the following.
  Let
 $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.
 For each vertex $(\b,1)$ of $\theta(\a)$ and for all paths $p$ from
 $(\a,1)$ to $(\b,1)$ add a path from $\a$ to $\b$ to the graph $\D_k$, with
 label $\phi_k^{-1}(w)$, where $w$ is the label of $p$.
 This version of $\D_k$ is referred to as $\D_{k,2}'$.
-\item\label{it:A7} Construct the Stallings folding of $\D_k$ and update $\nu$.
+\item\label{it:C7} Construct the Stallings folding of $\D_k$ and update $\nu$.
 This version of $\D_k$ is referred to as $\D_{k,2}$.
-\item\label{it:A8} (\textbf{Begin Modification 3}.)
+\item\label{it:C8} (\textbf{Begin Modification 3}.)
  Update $\cP_k=\D_k\times \G_{A_k}$ and $\U_k$, by adding new isolated vertices
 if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
 $\cP_{k,3}$ and $\U_{k,3}$.
-\item\label{it:A9} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
+\item\label{it:C9} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
 Let $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.
 For each edge $e$ of $\theta(\a)\bs \U_k$: if $e=((\a_i,\b_1),x ,(\a_j,\b_2))$, 
 where $\a_i,\a_j$ are vertices of $\D_k$ and $\b_1,\b_2$ are vertices
@@ -2046,13 +2066,13 @@ of $\G_{A_k}$ and $x\in X_k$, add to $\D_k$ a path from $\a$ to $\a$ with
 label $\phi_k^{-1}(l_ixl_j)$, where $l_i$ and $l_j$ are the labels of
 paths in $\U_k$ from $(\a,1)$ to $(\a_i,\b_1)$ and to $(a_j,\b_2)$,
 respectively. This version of $\D_k$ is referred to as $\D_{k,3}'$.
-\item\label{it:A10} Construct the Stallings folding of $\D_k$ and update $\nu$. 
+\item\label{it:C10} Construct the Stallings folding of $\D_k$ and update $\nu$. 
 This version of $\D_k$ is referred to as $\D_{k,3}$.
-\item\label{it:A11} (\textbf{Begin Modification 4}.)
+\item\label{it:C11} (\textbf{Begin Modification 4}.)
  Update $\cP_k=\D_k\times \G_{A_k}$ and $\U_k$, by adding new isolated vertices
 if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
 $\cP_{k,4}$ and $\U_{k,4}$.
-\item\label{it:A12} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
+\item\label{it:C12} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
 Let $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.
 For all vertices $(\a_1,\b)$ of $\theta(\a)$, with $\b\neq 1$, let
 $b=w(\b)$, the label of the path from $1$ to $\b$ in $T_k$. If
@@ -2062,13 +2082,13 @@ for this vertex $(\a_1,\b)$. Otherwise, let $a$ be the label of the
 path from $(\a,1)$ to $(\a_1,\b)$ in $\U_k$. Add to $\D_k$ a path from
 $\a$ to $\a_1$ with label $(\phi_k^{-1}(ab^{-1}))b$.
 This version of $\D_k$ is referred to as $\D_{k,4}'$.
-\item\label{it:A13} Construct the Stallings folding of $\D_k$ and update $\nu$.
+\item\label{it:C13} Construct the Stallings folding of $\D_k$ and update $\nu$.
 This version of $\D_k$ is referred to as $\D_{k,4}$.
-\item\label{it:A14} (\textbf{Begin Modification 5}.)
+\item\label{it:C14} (\textbf{Begin Modification 5}.)
 Reconstruct $\cP_k=\D_k\times \G_{A_k}$, the spanning forest $\U_k$ and
 the set $L_{\U_k}$. We refer to these versions of $\cP_k$ and $\U_k$ as
 $\cP_{k,5}$ and $\U_{k,5}$.
-\item\label{it:A15} For all $\b\in V(\D_k)$ do the following. For $(\e,\xi)\in P$,
+\item\label{it:C15} For all $\b\in V(\D_k)$ do the following. For $(\e,\xi)\in P$,
 if both $b_1=w(\e)$ and $b_2=w(\xi)$ are readable in $\D_k$,
 starting from $\b$, and ending at vertices $\a_1$ and $\a_2$, then
 add to $\D_k$ a path from $\a_1$ to $\a_2$ with label
@@ -2076,9 +2096,9 @@ $\phi_k^{-1}(b_1ca_1^{-1})a_1a_2[\phi_k^{-1}(b_2ca_2^{-1})]^{-1}$, where
 $(\e_0,\xi_0)$ is the $\sim$ representative of $(\e,\xi)$, $a_1=w(\e_0)$,
 $a_2=w(\xi_0)$ and $c$ is the connecting element of $(\e,\xi)$.
 This version of $\D_k$ is referred to as $\D_{k,4}'$.
-\item\label{it:A16} Construct the Stallings folding of $\D_k$ and update $\nu$. 
+\item\label{it:C16} Construct the Stallings folding of $\D_k$ and update $\nu$. 
 This version of $\D_k$ is referred to as $\D_{k,5}$.
-\item\label{it:A17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
+\item\label{it:C17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
 do the following. For each vertex $(v,k')$ of $\D_{1,5}\cup \D_{2,5}$, not
 equal to $(u,k)$, if
 $\vim((u,k))\cap \vim((v,k'))\neq \emptyset$ then set $\vim((u,k))=\vim((u,k))\cup
@@ -2087,18 +2107,18 @@ initial or terminal vertex equal to $(v,k')$ then replace $e$ with
 an edge having $(u,k)$ as initial or terminal vertex, instead of $(v,k')$.
 Delete $(v,k')$, once no more such edges exist.
 Continue for as long as possible. The resulting graph is denoted $\D'_5$.
-\item\label{it:A18}  For each vertex $\a$ of $\D_Z$, if $\a\in \vim(u,k)$,
+\item\label{it:C18}  For each vertex $\a$ of $\D_Z$, if $\a\in \vim(u,k)$,
  for some
  vertex $(u,k)$ of $\D'_5$ then replace $\a$ with $(u,k)$. (Note that, as
-we have completed step \ref{it:A17}, there is at most one such vertex of
+we have completed step \ref{it:C17}, there is at most one such vertex of
 $\D'_5$.)
 If $\a$ has been replaced by $(u,k)$ then, for every edge $e$ of $\D_Z$,
  of the form $(\a,\b)$ (or its reverse), replace $e$ with
  the edge $((u,k), \b)$ (or its reverse). Call the resulting graph $\D_Z'$.
-\item\label{it:A19} Form $\D''$ from the union of $\D'_5$ and $\D_Z'$:
+\item\label{it:C19} Form $\D''$ from the union of $\D'_5$ and $\D_Z'$:
  by identifying vertices of $\D_Z'$ with vertices of  $\D'_5$
 of the same name.
-%\item\label{it:A20}  Construct $\D''$, the Stallings folding of $\bar \D$.
+%\item\label{it:C20}  Construct $\D''$, the Stallings folding of $\bar \D$.
 \ee
 \subsection{Summary of the Loop}
 Here the assumptions are as for Algorithim II.
@@ -2116,7 +2136,7 @@ and final state $1$, such that $\pi(L(\Psi))=K$ and $\Psi$ accepts the
 double coset normal form of every element of $K$.
 \eiz
 \noindent\textbf{Process.}\\
-\be
+\be[{D}1]
 \item Set $n=0$ and $\D_{(0)}=\G_K$.
 \item\label{it:loop2} Input $\D_{(n)}$ to Algorithm II.
 Call the output $\D''_{(n+1)}$.
@@ -4938,7 +4958,7 @@ inverse automaton $\D=\D_{(n)}$.
 %\ldots, \Phi^{(p_2)}$ be the set of all $X_2$ components.
 We shall
 first study  the complexity of modifications 1 --- 5 for a subgraph $\D_k$ of $\D$ ($k=1,2$), and then apply this result
-to estimate the general complexity of Algorithm II. For the sake of reader's convenience we refer to the steps \ref{it:A2} --- \ref{it:A16} of the summary of Algorithm II, Section \ref{subs_summaryII}, when appropriate. Denote by $E_k
+to estimate the general complexity of Algorithm II. For the sake of reader's convenience we refer to the steps \ref{it:C2} --- \ref{it:C16} of the summary of Algorithm II, Section \ref{subs_summaryII}, when appropriate. Denote by $E_k
 \D$, $E_Z \D$ and $V\D$ the sets of edges of type $X_k$ and of
 type $Z$ and the set of vertices, respectively, of  $\D$.
 %Similarly, use $E_k\T_i$, $E_Z\T_i$ and $V\T_i$ to denote the
@@ -4968,7 +4988,7 @@ $R_k-1$.
 % = \max \{ |\phi_k(z_1)|_k, \ldots,
 %|\phi_k(z_1)|_k\}$.
 
-{\bf 1. $\D_k \leadsto \D_{k,1}$.}  (Steps \ref{it:A2}--\ref{it:A3}) At this stage we first add
+{\bf 1. $\D_k \leadsto \D_{k,1}$.}  (Steps \ref{it:C2}--\ref{it:C3}) At this stage we first add
 $X_k$-edges to $\D_k$, to form a new graph $\D^\prime_{k,1}$, and then
 fold $\D^\prime_{k,1}$, to form $\D_{k,1}$.  We add at most $R_k \cdot e$
 edges of type $X_k$ and at most $(R_k-1)\cdot e$ new vertices to
@@ -4992,7 +5012,7 @@ t_{\D_{k,1}} \preceq t_1(|E \D_{k,1}^\prime |) + O(R_k \cdot E) =t_1(R_k
 \end{equation}
 
 
-{\bf 2. $\D_{k,1} \leadsto \D_{k,2}$.}  (Steps \ref{it:A4}--\ref{it:A7}) The time required for the
+{\bf 2. $\D_{k,1} \leadsto \D_{k,2}$.}  (Steps \ref{it:C4}--\ref{it:C7}) The time required for the
 construction of $\cP_{k,1}=\D_{k,1}\times \G_{A_k}$ is $t_3(|V \D_{k,1}|, q_k)$.
 Further, one can choose a spanning subforest $\U_{k,1}$ of $\cP_{k,1}$ in
 $t_2(|V\cP_{k,1}|)$ steps. Without loss of generality one can assume
@@ -5073,7 +5093,7 @@ where $|E\D'_{k,2}|$ is given by (\ref{etheta2}) and $t_{\D'_{k,2}}$ is
 estimated in formula (\ref{theta'2}).
 
 
-{\bf 3. $\D_{k,2} \leadsto \D_{k,3}$.} (Steps \ref{it:A8}--\ref{it:A10}) We construct both $\cP_{k,2}=\D_{k,2}\times \G_{A_k}$ and a spanning
+{\bf 3. $\D_{k,2} \leadsto \D_{k,3}$.} (Steps \ref{it:C8}--\ref{it:C10}) We construct both $\cP_{k,2}=\D_{k,2}\times \G_{A_k}$ and a spanning
 subforest $\U_{k,2}$ of $\cP_{k,2}$, using previously obtained $\cP_{k,1}$ and $\U_{k,1}$. Suppose again
 $\cP_{k,2}$ has only one non-trivial connected component.
  Let $V'\cP_{k,2}$ denote the set of vertices of $\cP_{k,2}$ of valency at least one
@@ -5151,7 +5171,7 @@ where $|E\D'_{k,3}|$, $t_{\D'_{k,3}}$ are given by (\ref{etheta3}) and
 (\ref{theta'3}), respectively.
 
 
-{\bf 4. $\D_{k,3} \leadsto \D_{k,4}$.} (Steps \ref{it:A8}--\ref{it:A10})
+{\bf 4. $\D_{k,3} \leadsto \D_{k,4}$.} (Steps \ref{it:C8}--\ref{it:C10})
 We construct $\cP_{k,3}=\D_{k,3}\times
 \G_{A_k}$ and a
 spanning subforest $\U_{k,3}$ of $\cP_{k,3}$. Since $E\U_{k,3} =
@@ -5212,7 +5232,7 @@ t_{\D_{k,4}} = t_1(|E\D'_{k,4}|) + t_{\D'_{k,4}},
 \end{equation}
 where $t_{\D'_{k,4}}$ is given by (\ref{theta'4}).
 
-{\bf 5. $\D_{k,4} \leadsto \D_{k,5}$.} (Steps \ref{it:A8}--\ref{it:A10}) The time required to construct
+{\bf 5. $\D_{k,4} \leadsto \D_{k,5}$.} (Steps \ref{it:C8}--\ref{it:C10}) The time required to construct
 $\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ is $t_3(|V \D_{k,4}|, q_k)$. Further,
  a spanning subforest $\U_{k,4}$ of $\cP_{k,4}$ can be constructed in time
 $t_2(|V\cP_{k,4}|)$. We are assuming that  a spanning tree $T_k$ of
@@ -5294,14 +5314,14 @@ where $m_1, \ldots, m_5$ are polynomials on  $q_k, r_k,
 \end{proof}
 
 \noindent{\bf Reassembly: construction of $\D^\prime_5$.}
-(Step \ref{it:A17}.) 
+(Step \ref{it:C17}.) 
 The time required to construct $\D_{1,5}\cup \D_{2,5}$ is 
 bounded above by $t_{\D_1}+ t_{\D_2}$. 
 For each vertex $(v,k)$ of $\D_k$ the set $\vim(v,k)$ has size 
 at most $V$. Therefore the time required to construct $\D'_5$ from
 $\D_{1,5}$ and  $\D_{2,5}$ is at most 
 \[V(|V\D_{1,5}|+|V\D_{2,5}|)^2.\]
-Hence the time required for Step  \ref{it:A17} is at most
+Hence the time required for Step  \ref{it:C17} is at most
 \begin{equation}\label{eq:D'_5}
  t_{\D^\prime_5}= t_{\D_1}+ t_{\D_2}+V(|V\D_{1,5}|+|V\D_{2,5}|)^2,
 \end{equation}
@@ -5309,7 +5329,7 @@ where bounds on $t_{\D_k}$ are given by \eqref{thetafin}, for $k=1,2$.
 
 
 \noindent{\bf Reassembly: construction of $\D_Z'$.}
-(Step \ref{it:A18}.) The number of vertices of  $\D_Z$ is at most $V$,
+(Step \ref{it:C18}.) The number of vertices of  $\D_Z$ is at most $V$,
 and as $\D_5'$ has at most  $|V\D_{1,5}|+|V\D_{1,5}|$ vertices the time
 taken to construct $\D_Z'$ from $\D_Z$ and $\D'_5$ is at most 
 \begin{equation}\label{eq:D'_Z}
@@ -5319,7 +5339,7 @@ where, as before $|V\D_{1,5}|$ and $|V\D_{2,5}|$ can be estimated
 using \ref{vtheta5}, \ref{etheta5}, \ref{vtheta4} and \ref{etheta4}.\\[1em]
 
 \noindent{\bf Reassembly: construction of $\D^{\prime\prime}$.}
- (Step \ref{it:A19}.)
+ (Step \ref{it:C19}.)
 The time required to construct $\D^{\prime\prime}$  from 
 $\D_5'$ and $\D_Z'$ is at most 
 \begin{equation}\label{eq:D'_Z}
