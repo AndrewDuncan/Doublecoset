@@ -23,3 +23,12 @@ viz.sh mygraph.py
 
 There are a couple of other scripts, eiz and pviz for postscript and 
 for printing.
+
+How to make fig files
+1. Run cygwin terminal
+2. Run cd ../../Documents/GitHub/Doublecoset/Python  (to copy press Shift+fn+delete(insert))
+3. Copy and run commands from figures.bat That makes "gv" files in subdirectory Figs
+4. Go to subdir Figs
+5. Run figures.bat That makes "fig" files
+6. Copy Figs subdirectory to CygWinHome
+7. Run xfig and edit files 

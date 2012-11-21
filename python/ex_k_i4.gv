@@ -1,0 +1,12 @@
+digraph I {
+"Iv5" [label="5",fontsize=7,width=.01,height=.01];
+"Iv5" -> "Iv28" [label="s",fontsize=8];
+"Iv6" [label="6",fontsize=7,width=.01,height=.01];
+"Iv6" -> "Iv28" [label="x",fontsize=8];
+"Iv6" -> "Iv5" [label="s",fontsize=8];
+"Iv6" -> "Iv7" [label="r",fontsize=8];
+"Iv7" [label="7",fontsize=7,width=.01,height=.01];
+"Iv7" -> "Iv8" [label="t",fontsize=8];
+"Iv8" [label="8",fontsize=7,width=.01,height=.01];
+"Iv28" [label="28",fontsize=7,width=.01,height=.01];
+}

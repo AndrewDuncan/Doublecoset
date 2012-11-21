@@ -84,7 +84,7 @@ digraph R {overlap=scalexy;nodesep=0.6;rotate=120;
 "Jv20" [label="20",fontsize=7,width=0.1,height=0.1];
 "Jv21" [label="21",fontsize=7,width=0.1,height=0.1];
 "Jv21" -> "Jv20" [label="u2",fontsize=8];
-"Jv28" [label="28",fontsize=7,width=0.1,height=0.1];
+"Jv28" [label="56",fontsize=7,width=0.1,height=0.1];
 "Jv28" -> "Jv20" [label="y5",fontsize=8];
 "Jv28" -> "Jv21" [label="t",fontsize=8];
 "Zv1" [label="51",fontsize=7,width=0.1,height=0.1];
