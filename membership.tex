@@ -1853,7 +1853,7 @@ in Section \ref{sec:TC} below. That is we summarise Algorithms I and II
 and the Loop of Section \ref{sec:dca}. The Loop, which calls Algorithm II
 during its execution, is what we refer to as the ``Generalised Folding
 Algorithm''.
-\subsection{Summary of algorithm I}
+\subsection{Summary of algorithm I}\label{sub:sum_algI}
 \subsubsection{Preproccessing.}
 Given $F_1*_{H_1=H_2} F_2$
  the
@@ -1901,7 +1901,7 @@ BFS or DFS, so one problem I was worrying about disappears.) ($O(N^2)$.)
 \item Find connected components of $\G_A\times \G_A$. This can be
 done by doing a BFS or DFS of $\G_A\times \G_A$, which constructs
 a spanning forest $F$ at the same time as finding the set $C$ of
-connected components,
+connecting elements,
 which can be taken to be paths in the spanning forest $F$.
 \begin{comp}
 ($O(N^4)$).
@@ -1912,9 +1912,10 @@ the forest $F$.
 ($O(N^2)$).
 \end{comp}
 \ee
-\noindent\textbf{Question.} Is it better for our algorithm
+\begin{comp}\noindent\textbf{Question.} Is it better for our algorithm
 to construct $T$ by BFS or DFS? Does it make any difference to the
 Algorithm II?
+\end{comp}
 
 \begin{comp}
 Preprocessing time is bounded above by $O(N^4)$.
@@ -4755,7 +4756,7 @@ Note that $\log^*(2^n)=\log^*(n)+1$, so $\log^*$ grows very slowly with $n$:
 so slowly in fact that for most practical purposes it can be
 considered a constant.
 We shall use the following result from \cite{touikan06}.
-\begin{theorem}[{\cite[Theorem 1.6]{touikan06}}]%[Theorem 1.6]{touikan06}]
+\begin{theorem}\label{th:toui}[{\cite[Theorem 1.6]{touikan06}}]%[Theorem 1.6]{touikan06}]
 Let $\D$ be a connected, directed, labelled graph, with $V$ vertices and
 $E$ edges. Then there is an algorithm that will produce a Stallings folding of
 $\D$ in time $O(E+(V+E)\log^*(V))$.
@@ -4853,12 +4854,14 @@ double coset representatives.
 \begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can
 \begin{itemize}
 \item construct the Stallings folding $\G_{A_k}$ for $H_k$ in time $O(N_k^2)$,
-\item and, given $\G_{A_k}$,
+\item and, given $\G_{A_k}$, $L_{T_k}$, the set $P_0$  of
+ representatives of the equivalence relation $\sim$, and the
+corresponding  set $C$ of connecting elements,
 rewrite $w$ in  double coset normal
 form in time  $O(|w|_k)$.
 \end{itemize}
 Therefore, given $Y_k$ and $w$ the total time required to write $w$ in dc-normal
- form is  $O(N_k^2 + |w|_k)$.
+ form is  $O(N_k^4 + |w|_k)$.
 \end{lemma}
 
 \begin{proof}
@@ -4866,9 +4869,8 @@ To rewrite an element $w$ in a double coset normal form, it is
 sufficient to compute $\G_{A_k}$, the set $L_{T_k}$,
 %$L_{Q_k}$ (or
 %its subset $L^{\prime}_{Q_k}$, defined below),
-the set $P_0$  of
- representatives of the equivalence relation $\sim$, and the
-corresponding  set of connecting elements.
+the set $P_0$, and the
+corresponding  set $C$ of connecting elements (see preprocessing steps, section \ref{sub:sum_algI}).
 %$S^{(2)}_k$.
  Given these structures, one can then proceed to rewrite $w \in
 F_k$ in normal form, using Algorithm I.
@@ -4879,7 +4881,7 @@ computation of its square
  $t_3(|V\G_{A_k}|,|V\G_{A_k}|) \preceq t_3(N_k,N_k)$.
 A spanning subtree $T_k$ for $\G_{A_k}$ can be found in
 $t^{\prime}_2(|V\G_{A_k}|) \preceq t^{\prime}_2(N_k)$ or $t_2(|E
-T_k|) \preceq t_2(E\G_{A_k}) \preceq t_2(N_k)$; here the best
+T_k|) \preceq t_2(|E\G_{A_k}|) \preceq t_2(N_k)$; here the best
 estimate in terms of $N_k$ is $O(N_k^2)$. Furthermore, the time
 required for computation of $L_{T_k}$ is linear in $|E T_k|$.
 %, while
@@ -4893,23 +4895,22 @@ analyze all vertex sets of connected components of $\G_{A_k}
 \times \G_{A_k}$, and the time  required for this procedure is at
 most $O(|V(\G_{A_k} \times \G_{A_k})|) \preceq O(N^2_k)$. To construct
 the set of connecting elements we construct a spanning forest for
-$\G_{A_k} \times \G_{A_k}$, which takes time $t_2(N_k^2)
-=O(N_k^2\log^*(N_k^2))$, and once this
-has been done read off the connecting elements, in time $O(N^2_k)$.
+$\G_{A_k} \times \G_{A_k}$, which takes time $t_2'(N_k^2)
+=O(N_k^4)$, and once this
+has been done read off the connecting elements.
 
-
-Given $\G_{A_k}$, $L_{T_k}$, $P_0$ and the set of connecting elements,
+Given $\G_{A_k}$, $L_{T_k}$, $P_0$ and the set $C$ of connecting elements,
 the construction of which required time
- $O(N^2_k)$,
+ $O(N^4_k)$,
  we apply Algorithm I to $w \in F_k$. Analysis
 of Algorithm I shows that it takes time  $O(|w|_k)$  to obtain
 the double coset normal form of $w$. Combining these estimates
- we obtain a total bound of $O(N^2_k + |w|_k)$, as required.
+ we obtain a total bound of $O(N^4_k + |w|_k)$, as required.
 \end{proof}
 
 \begin{corollary}\label{cor:dcnf_time} Suppose $g \in G$ and $g=g_1 \cdots g_t$ is in reduced
 form. Given $Y_1$ and $Y_2$, one can rewrite $g$ in double coset normal
-form in time  $O(N^2_1+ N^2_2 + |g_1|_{\e_1}+|g_2|_{\e_2}+
+form in time  $O(N^4_1+ N^4_2 + |g_1|_{\e_1}+|g_2|_{\e_2}+
 \ldots +|g_t|_{\e_t})$, where $\e_i \in \{ 1, 2\}, i = 1, \ldots,
 t$, and $\e_i = k$ if $g_i \in F_k$.
 \end{corollary}
@@ -4922,12 +4923,12 @@ F_k$, $k=1,2$.
 
 One can rewrite each syllable $g_i \in F_k$, of $g$, in normal form
 $g_i=h_{i,1}d_ih_{i,2}$, where $d_i\in S$ and $h_{i,j}\in H_1\cup
-H_2$, in time  $O(N^2_k + |g_i|_k)$. Using $\phi_1^{-1}$ or
+H_2$, in time  $O(N^4_k + |g_i|_k)$. Using $\phi_1^{-1}$ or
 $\phi_2^{-1}$, we write $h_{i,1}$ and $h_{i,2}$ as reduced words
 in $\FF(Z)$ (for $i=1, \ldots, t$) and find the reduced word
 $h_{i,2}h_{(i+1),1}\in \FF(Z)$ (for $i=1, \ldots, t-1$) in time at
 most $O(|g_i|_{\e_i}+|g_i|_{\e_{i+1}})$.  Thus the
-complexity of the process is $O(N^2_1+ N^2_2 +
+complexity of the process is $O(N^4_1+ N^4_2 +
 |g_1|_{\e_1}+|g_2|_{\e_2}+ \ldots +|g_t|_{\e_t})$. \end{proof}
 
 
@@ -4941,12 +4942,12 @@ $h_{i,j}\in \FF(Z)$ and $t_{i,j}\in S_1\cup S_2$ as in section
 the flower automaton $\cF(K)$ of the subgroup $\hat K < \FF(X_1\cup
 X_2 \cup Z)$ generated by $k_1, \ldots , k_s$.
 Consider the Stallings folding $\G_K$ of $\G$. Clearly, one can
-construct $\G_K$ in time  $t_1(M)$, with $M = M_Z+M_1+M_2$,
- where $M_Z =
+construct $\G_K$ in time  $t_1(W)$, with $W = W_Z+W_1+W_2$,
+ where $W_Z =
 \mathop{\sum}\limits_{i=1}^{s}
-\mathop{\sum}\limits_{j=1}^{m_i}|h_{i,j}|_Z$, and $M_k$ is the
+\mathop{\sum}\limits_{j=1}^{m_i}|h_{i,j}|_Z$, and $W_k$ is the
 total length of $t_{i,j} \in S_k$ in terms of $X_k$ for all
-appropriate $i,j$, i.e. $M_k = \mathop{\sum}\limits_{i,j:
+appropriate $i,j$, i.e. $W_k = \mathop{\sum}\limits_{i,j:
 t_{i,j}\in S_k} |t_{i,j}|_k$, with the function $t_1$ defined in
 (\ref{t1}); $k=1,2$.
 
@@ -5220,7 +5221,7 @@ and
 \begin{split}
 |V\D_{k,4}| &\le |V \D'_{k,4}| \le |V \D_{k,3}| +(\overline{Q}'_k+R_k-1)\cdot
 V^2 \cdot(q_k-1)<\\
-&< V + (\overline{Q}_k V rq +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
+&< V + (\overline{Q}_k V r_kq_k +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
  \cdot(V^2 + e^2 + V e)) +\\
 & + V^2 q_k (\overline{Q}_k r_k +\overline{Q}_k +R_k) ,
 \end{split}
@@ -5302,8 +5303,6 @@ t_{\D_k} &\preceq t_3(|V \D_{k,4}|, q_k) + t_2(|V \D_{k,4}| q_k )+
 t_1(|E\D'_{k,5}|)+t_{\D_{k,1}} + t_{\D'_{k,2}}+t_{\D'_{k,3}}+t_{\D'_{k,4}}+t_{\D'_{k,5}}\\
 &\preceq O(|V \D_{k,4}|\cdot log(q_k |V \D_{k,4}|))+O (|E\D'_{k,5}| \cdot log^{\ast}(|E\D'_{k,5}|))+\\
 &+O((V +R_k e)^2\cdot (2r_k)^{(V + R_k e) q_k +1})+\\
-&+O(m_1 V^5 + m_2V^4 e +m_3 V^3 e^2 +m_4 V^2 e^3 + m_5 V e^4)\preceq\\
-&\preceq O((V +R_k e)^2\cdot (2r_k)^{(V + R_k e) q_k +1})+ \\
 &+O(m_1 V^5 + m_2V^4 e +m_3 V^3 e^2 +m_4 V^2 e^3 + m_5 V e^4),
 \end{split}
 \end{equation}
@@ -5321,10 +5320,10 @@ bounded above by $t_{\D_1}+ t_{\D_2}$.
 For each vertex $(v,k)$ of $\D_k$ the set $\vim(v,k)$ has size
 at most $V$. Therefore the time required to construct $\D'_5$ from
 $\D_{1,5}$ and  $\D_{2,5}$ is at most
-\[V(|V\D_{1,5}|+|V\D_{2,5}|)^2.\]
+\[O(V(|V\D_{1,5}|+|V\D_{2,5}|)^2).\]
 Hence the time required for Step  \ref{it:C17} is at most
 \begin{equation}\label{eq:D'_5}
- t_{\D^\prime_5}= t_{\D_1}+ t_{\D_2}+V(|V\D_{1,5}|+|V\D_{2,5}|)^2,
+ t_{\D^\prime_5}= t_{\D_1}+ t_{\D_2}+O(V(|V\D_{1,5}|+|V\D_{2,5}|)^2),
 \end{equation}
 where bounds on $t_{\D_k}$ are given by \eqref{thetafin}, for $k=1,2$.
 
@@ -5334,63 +5333,148 @@ where bounds on $t_{\D_k}$ are given by \eqref{thetafin}, for $k=1,2$.
 and as $\D_5'$ has at most  $|V\D_{1,5}|+|V\D_{1,5}|$ vertices the time
 taken to construct $\D_Z'$ from $\D_Z$ and $\D'_5$ is at most
 \begin{equation}\label{eq:D'_Z}
- t_{\D^\prime_Z}= V^2(|V\D_{1,5}|+|V\D_{2,5}|),
+ t_{\D^\prime_Z}= O(V^2(|V\D_{1,5}|+|V\D_{2,5}|)),
 \end{equation}
 where, as before $|V\D_{1,5}|$ and $|V\D_{2,5}|$ can be estimated
-using \ref{vtheta5}, \ref{etheta5}, \ref{vtheta4} and \ref{etheta4}.\\[1em]
+using \eqref{vtheta5}, \eqref{etheta5}, \eqref{vtheta4} and \eqref{etheta4}.\\[1em]
 
 \noindent{\bf Reassembly: construction of $\D^{\prime\prime}$.}
  (Step \ref{it:C19}.)
 The time required to construct $\D^{\prime\prime}$  from
 $\D_5'$ and $\D_Z'$ is at most
-\begin{equation}\label{eq:D'_Z}
- t_{\D''}=|V\D'_5|\cdot |V\D'_Z|\le V(|V\D_{1,5}|+|V\D_{1,5}|).
+\begin{equation}\label{eq:D'}
+ t_{\D''}=O(|V\D'_5|\cdot |V\D'_Z|)\le O(V(|V\D_{1,5}|+|V\D_{1,5}|)).
 \end{equation}
 
 \noindent{\bf Total time for Algorithm II.}
 The time $t_{\D}$ required to carry out   Algorithm II, on input $\D$, is thus
 bounded by
-\begin{align*}\label{eq:alg2}
-t_{\D}&=t_{\D^\prime_5}+t_{\D'_Z}+t_{\D^{\prime\prime}}\\
-&=t_{\D_1}+ t_{\D_2}+V(|V\D_{1,5}|+|V\D_{2,5}|)^2+V^2(|V\D_{1,5}|+|V\D_{2,5}|)
-+V(|V\D_{1,5}|+|V\D_{2,5}|)
-\end{align*}
+\begin{equation}\label{eq:alg2}
+\begin{split}
+t_{\D}&=t_{\D^\prime_5}+t_{\D'_Z}+t_{\D^{\prime\prime}} = t_{\D_1}+ t_{\D_2}+\\
+&+O(V(|V\D_{1,5}|+|V\D_{2,5}|)^2)+O(V^2(|V\D_{1,5}|+|V\D_{2,5}|))+\\&+O(V(|V\D_{1,5}|+|V\D_{2,5}|))\preceq\\
+&\preceq t_{\D_1}+ t_{\D_2}+O(V(|V\D_{1,5}|+|V\D_{2,5}|)^2).
+\end{split}
+\end{equation}
 
  The numbers of vertices and edges of $\D_5^\prime$ can be estimated
-using \ref{vtheta5}, \ref{etheta5}, \ref{vtheta4} and \ref{etheta4} above.
+using \eqref{vtheta5}, \eqref{etheta5}, \eqref{vtheta4} and \eqref{etheta4} above.
 We have
-\begin{align*}
-|V\D_5'|&\le |V\D_{1,5}|+|V\D_{2,5}|\\
-&\le \sum_{k=1}^2[|V\D_{k,4}|+2(\overline{Q}''_k+R_k)\cdot(q_k^2-q_k)],\, (\textrm{from \ref{vtheta5}})\\
-&\le  \sum_{k=1}^2[V + (\overline{Q}_k V rq +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
+\begin{equation}\label{vdelta5_pr}
+\begin{split}
+|V\D_5'|&\le |V\D_{1,5}|+|V\D_{2,5}|\le\\
+&\le \sum_{k=1}^2[|V\D_{k,4}|+2(\overline{Q}''_k+R_k)\cdot(q_k^2-q_k)],\, (\textrm{from \eqref{vtheta5}})\\
+&\le  \sum_{k=1}^2[V + (\overline{Q}_k V r_k q_k +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
  \cdot(V^2 + e^2 + V e)) +\\
-& + V^2 q_k (\overline{Q}_k r_k +\overline{Q}_k +R_k)], \,(\textrm{from \ref{vtheta5}}).
-\end{align*}
+&+ V^2 q_k (\overline{Q}_k r_k +\overline{Q}_k +R_k)+2(\overline{Q}''_k+R_k)\cdot(q_k^2-q_k)], \,(\textrm{from \eqref{vtheta4}}).
+\end{split}
+\end{equation}
+We use a simplified form of the last inequality below:
+\begin{equation}\label{vdelta5_rough}
+|V\D_5'|\le C_1(V^3+V e^2 +V^2 e)+C_2,
+\end{equation}
+where $C_1$ and $C_2$ are constants determined by $H_1, H_2$ and intermediate graphs' structure.
+The time $t_{\D}$ can be estimated using \eqref{eq:alg2} and \eqref{vdelta5_pr} (or \eqref{vdelta5_rough}).
+
 
 \subsection{Complexity of the Loop}\label{sub:loop}
 Each iteration of the loop involves input $\D=\D_{(n)}$, followed by
 folding of the output $\D^{\prime\prime}$ of \ref{it:gf1}
-The folding requires time $t_1(E\D^{\prime\prime})$. Therefore the
-total time required to run the Loop once is
- $t_{\Loop}= t_{\D}+t_1(E\D^{\prime\prime})$.
+The folding requires time $t_1(|E\D^{\prime\prime}|)$. Therefore the
+total time required to run the Loop on the input $\D_{(n)}$ is
+ $t_{\Loop}(\D_{(n)})= t_{\D}+t_1(|E\D^{\prime\prime}|)$.
+ The number of edges of $\D_Z$ is $e$,
+and as $\D_5'$ has at most  $|E\D_{1,5}|+|E\D_{1,5}|$ edges the number of all edges of $\D^{\prime\prime}$ is at most
 
+\begin{equation}\label{edelta5_pr}
+\begin{split}
+|E\D^{\prime\prime}|&\le |E_Z\D| +|E\D_{1,5}|+|E\D_{2,5}|, \, (\textrm{from \eqref{etheta5}})\\
+&\le e + \sum_{k=1}^2[|E\D_{k,4}|+ 2(\overline{Q}''_k+
+R_k)\cdot(q_k^2-q_k)], \, (\textrm{from \eqref{etheta4}})\\
+&\le e + \sum_{k=1}^2[R_k(\overline{Q}_k V e r_k q_k + E_k) + q_k V^2\cdot (R_k + \overline{Q}'_k + \overline{Q}_k r_k) +\\
+&+ \overline{R}_k B_{Q_k} \cdot(V^2+ e^2 + Ve)\cdot(\overline{Q}_k
+V r_k q_k +1) + 2(\overline{Q}''_k+
+R_k)\cdot(q_k^2-q_k)]
+\end{split}
+\end{equation}
+Simplifying \eqref{edelta5_pr}, we obtain
+\begin{equation}\label{edelta5_rough}
+|E\D^{\prime\prime}|\le C_3(V^3+V e^2 +V^2 e+E_1+E_2)+C_4,
+\end{equation}
+where $C_3$ and $C_4$ are constants determined by $H_1, H_2$ and intermediate graphs' structure.
+Thus,
+\begin{equation}\label{tloop}
+\begin{split}
+t_{\Loop}(\D_{(n)}) &\preceq \sum_{k=1}^2[ O((V +R_k e)^2\cdot (2r_k)^{(V + R_k e) q_k +1})]+ \\
+&+O((V^3 + V e^2 + V^2 e)\cdot log (C'_1(V^3 + V e^2 + V^2 e)+C'_2))+ \\
+&+  \sum_{k=1}^2[ O( (V^3 + V e^2 + V^2 e +E_k)\cdot log^{\ast} (C'_{3,k}(V^3 + V e^2 + V^2 e+E_k)+C'_{4,k}))+\\ 
+&+O(c_5 V^7 + c_6 V^3 e^4 + c_7 V^5 e^2),
+%
+%O(|V \D_{k,4}|\cdot log(q_k |V \D_{k,4}|))+O (|E\D'_{k,5}| \cdot log^{\ast}(|E\D'_{k,5}|))+\\
+%&+O((V +R_k e)^2\cdot (2r_k)^{(V + R_k e) q_k +1})+\\
+%&+O(m_1 V^5 + m_2V^4 e +m_3 V^3 e^2 +m_4 V^2 e^3 + m_5 V e^4),
+\end{split} 
+\end{equation}
+where constants $C'_1, \ldots, c_7, r_k, R_k, q_k$ determined by $H_1, H_2$ and $K$.
 
 \subsection{Complexity of the membership problem}\label{sub:mp_complexity}
 
-Now assume that $\D_{(0)}=\G_K$ is input to the Loop. As $\G_K$ has at
-most $M$ vertices, it has at most $M$  components of type $X_1$ and $X_2$.
- The Loop  is repeated
+Recall that $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G = F_1 \underset{H_1=H_2}{\ast} F_2$
+written in normal form (\ref{eq:k-form}): $k_i=
+h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1}$, with
+$h_{i,j}\in \FF(Z)$ and $t_{i,j}\in S_1\cup S_2$ as in section
+\ref{sec:dca}. Let $\G$ be the rooted graph, associated to
+the flower automaton $\cF(K)$ of the subgroup $\hat K < \FF(X_1\cup
+X_2 \cup Z)$ generated by $k_1, \ldots , k_s$, and $\G_K$ be the Stallings folding  of $\G$, constructed in time  $t_1(W)$.
+Here $W = W_Z+W_1+W_2$,
+ where $W_Z =
+\mathop{\sum}\limits_{i=1}^{s}
+\mathop{\sum}\limits_{j=1}^{m_i}|h_{i,j}|_Z$, and $W_k$ is the
+total length of $t_{i,j} \in S_k$ in terms of $X_k$ for all
+appropriate $i,j$, i.e. $W_k = \mathop{\sum}\limits_{i,j:
+t_{i,j}\in S_k} |t_{i,j}|_k$, with the function $t_1$ defined in
+(\ref{t1}); $k=1,2$.
+ 
+Let $M = m_1+ \ldots + m_s$ be the total number of syllables of $k_1, \ldots, k_s$ in $F_1 \cup F_2$. If $M = 0$, then the complexity of the membership problem for $K$  can be deduced from Theorem \ref{th:toui}, so we suppose $M > 0$.
+
+
+\begin{theorem}\label{th:complexity} Let $K=\la k_1, \ldots , k_s\ra$ be a subgroup of $G = F_1 \underset{H_1=H_2}{\ast} F_2$, where $F_k$ are finite rank free groups generated by $X_k$.
+ Suppose $w \in G$ and $w=g_1 \cdots g_t$ is in reduced
+form. Given finite bases $Y_1$ and $Y_2$ of $H_1$ and $H_2$, correspondingly, one can decide whether or not $w$ represents an element of $K$ in time at most 
+\begin{equation}\label{eq:alg_compl} t_{MP} \preceq O(N_1^4 + N_2^4+ |w_1|_{\e_1}+|w_2|_{\e_2}+
+\ldots +|w_t|_{\e_t})+ t_1(W)+t_{\Loop}(\D_{(M-1)}),
+\end{equation}
+where $N_k$ is length of $Y_k$, $\e_i \in \{ 1, 2\}, i = 1, \ldots,
+t$, and $\e_i = k$ if $w_i \in F_k$, $k = 1,2$; $t_1$ defined in (\ref{t1}), $W = W_Z +W_1 +W_2$, $M = m_1 + \ldots + m_s$, and $t_{\Loop}(\D_{(n)})$ estimated in \eqref{tloop}, with $\D_{(n)}$ corresponding to the $n-$th iterate of the Loop.
+\end{theorem}
+\begin{proof}
+According to corollary \ref{cor:dcnf_time}, given $Y_1$ and $Y_2$, one can rewrite $w$ in double coset normal form in time at most 
+$O(N_1^4 + N_2^4+ |w_1|_{\e_1}+|w_2|_{\e_2}+
+\ldots +|w_t|_{\e_t}).$
+ As a ``by-product'' of this rewriting, we also obtain $\G_{A_k}$, Stallings automata for the subgroup $H_k=\la Y_k\ra$ of $F_k$,
+$L_{T_k}$, sets of words corresponding to maximal subtrees $T_k$ of $\G_{A_k}$,  sets $P_k$ of non-diagonal elements of $V( \G_{A_k}\times \G_{A_k})$
+partitioned into equivalence classes of $\sim$, and sets $P_{k,0}$ of representatives of equivalence classes of
+elements of $P_k$ with sets $C_k$ of connecting elements. 
+As it was noticed above, the Stallings folding $\G_K$ of the graph $\G$, associated to
+the flower automaton $\cF(K)$ of the subgroup generated by $k_1, \ldots , k_s$ can be constructed in time  $t_1(W)$.
+All these structures form precisely the input of Algorithm II. Having $\D_{(0)} = \G_K$, we run the Loop once, and obtain $\D_{(1)}$ in time at most $t_{\Loop}(\D_{(0)})$, as in sections \ref{sub:resolution} and \ref{sub:loop}. 
+Notice that $\G_K$ has at
+most $M$ components of type $X_1$ and $X_2$.
+ The Loop is repeated
  only if $\D_{(n+1)}$ has fewer  $X_1$ and $X_2$ components
-than $\D_{(n)}$: so there can be at most $M$ iterations of the loop.
-
-The number of vertices of $\D_{(n+1)}$ is at most
-$|V\D_{1,5}|+|V\D_{2,5}|$
-and the number of edges of     $\D_{(n+1)}$ is ...
-
-Hence the $n$th iteration of the loop takes time ... .
-
-Therefore the total time taken to produce $\Psi$ is ...
-
+than $\D_{(n)}$: so there can be at most $M$ iterations of the loop. Therefore, we can construct an inverse automaton 
+ $\Psi$, with alphabet $\Sigma$ and start
+and final state $1$, such that $\pi(L(\Psi))=K$ and $\Psi$ accepts the
+double coset normal form of every element of $K$ in time at most 
+\begin{align*}
+O(N_1^4 + N_2^4 & + |w_1|_{\e_1}+|w_2|_{\e_2}+
+\ldots +|w_t|_{\e_t})+ t_1(W) +\\ &+ t_{\Loop}(\D_{(0)}) + \ldots + t_{\Loop}(\D_{(M-1)}).
+\end{align*}
+As the bounds on the number of
+edges, vertices and intermediate steps complexity are non-decreasing, we spend at most \eqref{eq:alg_compl} to construct a double coset normal form of $w$ and $\Psi$. 
+Then by Theorem \ref{thm:membership}, \ref{it:membership} $w$ is in $K$ if and only if it accepted by $\Psi$. Clearly, this can be checked in time linear on the total length of the double coset normal form of $w$. It follows from Algorithm I and lemma \ref{lem:dctransversal} with corollary \ref{cor:dcnf_time} that it takes at most $O(|w_1|_{\e_1}+|w_2|_{\e_2}+
+\ldots +|w_t|_{\e_t})$, so \eqref{eq:alg_compl} is the complexity of the solution of the membership problem for $w$.
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
