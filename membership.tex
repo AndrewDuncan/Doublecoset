@@ -1369,7 +1369,7 @@ Assume then that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
 and $\pi(L(\D_{(0)}))=K$. \\[1em]
 \textbf{Loop.}
 Set $n=0$.
-\be[Step 1.]
+\be[Step 1]
 \item\label{it:gf1} Apply Algorithm II below to add new paths to $\D_{(n)}$ which allow normal forms of labels
 of certain paths to be read. %If at least one path has been added,
 Call the result $\D_{(n)}^{\prime\prime}$.
@@ -1380,7 +1380,7 @@ of $\D_{(n)}^{\prime\prime}$. If $\D_{(n+1)}$ and
 $\D_{(n)}$ have the same
  number of
 $X_1$ and $X_2$ components (see below) then output $\D_{(n+1)}$
-and stop. Otherwise, add $1$ to $n$ and  repeat Step \ref{it:gf1}.
+and stop. Otherwise, add $1$ to $n$ and  repeat  \ref{it:gf1}.
 \ee
 
 Algorithm II below describes exactly how to carry out Step 1 of
@@ -4653,12 +4653,15 @@ Construct the flower automaton $\cF(K)$ of $K$ and then
 its Stallings automaton $\G_K$,  as at the beginning of this Section. % \ref{sec:dca},
 Let $\D_0=\G_K$ and input this to the loop to obtain output $\D_n$.
 Given a word $w\in \FF(X_1\cup X_2\cup Z)$ write $w$ in normal form
-using Algorithm I. If $w\in K$ then there is a word $v$ in the generators
- of $K$ with $\pi(v)=\pi(w)$, so $v$ is accepted by $\G_K$. From
-Lemma \ref{lem:nfacc}, the word $w$ is accepted by $\D_n$. From
+using Algorithm I. Let $\tilde w$ be the output of Algorithm I. 
+If $w\in K$ then there is a word $v$ in the generators
+ of $K$ with $\pi(v)=\pi(w)=\pi(\tilde w)$, and $v$ is accepted by $\G_K$. 
+From Theorem \ref{thm:dcnf} the normal form of $v$ is also $\tilde w$. 
+Thus, 
+from Lemma \ref{lem:nfacc}, the word $\tilde w$ is accepted by $\D_n$. From
 Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_n)=L(\G_K)$,
 so if $w\notin K$, then
-$w\notin L(\D_n)$.
+$\tilde w\notin L(\D_n)$.
 
 Statements \ref{it:uni-membership} and \ref{it:class-uni-membership} follow
 from the observation that we may
