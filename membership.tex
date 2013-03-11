@@ -357,7 +357,7 @@ for $i = 1, \ldots ,k$.
 \section{Constructing double coset representatives}\label{sec:dcforms}
 \subsection{Free products with amalgamation}\label{sec:intro}
 
-We denote the free group on as set $X$ by $\FF(X)$.
+We denote the free group on a set $X$ by $\FF(X)$.
  By a {\em reduced} word in $\FF(X)$  we mean
  a freely reduced word in $(X\cup X^{-1})^\ast$, and we write $w\in \FF(X)$
 to mean that $w$ is a reduced word. For $u,v, w\in \FF(X)$ we
@@ -425,7 +425,7 @@ The reduced form is easy to calculate and gives a solution to the word problem: 
 a reduced form with $t>0$ cannot represent the identity \cite[Theorem 2.6]{LS}.
 However reduced forms do not uniquely represent
  elements of $G$. To resolve this non-uniqueness problem it is common to
-chose a set of coset representatives of $H_k$ in $F_k$, $k=1,2$, and use these to rewrite
+choose a set of coset representatives of $H_k$ in $F_k$, $k=1,2$, and use these to rewrite
 the reduced form. If $T_k$ is a set of right coset representatives of $H_k$ then
  a word $g\in F_1\ast F_2$ is in \emph{single coset normal form} (or \emph{sc-normal
 form}) if
@@ -530,7 +530,7 @@ call $s_0$ the {\em root}
 vertex of $\G_A$ and say that $A$ and $\G_A$ are {\em rooted}. We may
  write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case.
 For notational simplicity we identify $\G_A$
-and $A$ whenever it is convenient and does no ambiguity arises.
+and $A$ whenever it is convenient and no ambiguity arises.
 
 By a path $p$
 in a graph we mean a sequence $(v_0,e_1,v_1, \ldots , e_n ,v_n)$ of
@@ -553,20 +553,10 @@ language accepted by $(\G_A,\cS,Q)$  and define
 \[L_Q=L_Q(A)=\{w:w \textrm{ is readable by } A\}.\]
 If $\S$ is a
 subset of a group $G$ (and whenever $a,a^{-1}\in \S$ then $a^{-1}$ is
-the inverse of $a$)
- then the  natural map from $L_Q(A)$ to
-$G$ is denoted $\pi:L_Q(A)\maps G$.
-
-%%{\ef In chapter 4  we use these terms (readable and accepted) not
-%%only for initial and final states, but for arbitrary states
-%%(boundary vertices etc.). Is it better to extend the definitions
-%%here?}
-%%{\ajd I tried to set things up so the definitions cover what we
-%%do in Section 4. To change the start and final states from $s$ and $f$
-%%to $\a$ and $\b$,  change the
-%%automaton from $(\S,Q,\d,s,f)$ to $(\S,Q,\d,\a,\b)$. I may not have
-%%actually written this in the appropriate places.}
-%% Ok, it is written and I've checked, everything agree with given definitions.
+the inverse of $a$ in $G$)
+ then the map sending $a^\e\in \S\cup \S^{-1}$ to $a^\e\in G$, $\e=\pm 1$, extends to
+a monoid homomorphism $\pi: (\S\cup\S^{-1})^*\maps G$ and the images
+of $L$ and $L_Q$ are denoted $\pi(L)$ and $\pi(L_Q)$. 
 
 
 An {\em involutive alphabet} is a set $\S$ of the form $\{a_1, \ldots, ,
@@ -588,7 +578,7 @@ is {\em deterministic}  or {\em folded} if $\d(p,a)=q$ and
 $\d(p,a)=q'$ imply $q=q'$ (that is, $(u, a, v)
 \in E$ and $(u, a, v^\prime) \in E$ imply $v=v^\prime$).
 We say an automaton $A$ is \emph{connected} if $\G_A$ is connected.
-(For an involutive rooted automataton being connected is equivalent to the property that
+(For an involutive rooted automaton being connected is equivalent to the property that
 for every vertex $q$ there is a path from $q$ to the root and a path from the root to $q$.
 Automata with this property are usually called \emph{trim}, but since the two properties are
 equivalent in our setting we use the more intuitive nomenclature.)
@@ -599,13 +589,13 @@ automaton.
 Let $A=(\G_A,s_0,f_0)$ be an inverse automaton.
 If $w$ is readable by $A$ then there exists a
 unique vertex  $\t(w)$ of $\G_A$ such that $w$ is accepted by
-$(\G_A,s_0,\t(w))$: we call $\t(w)$ the {\em terminal vertex} of $w$. ($L$ is the set of words $w$ readable by $A$ with
+$(\G_A,s_0,\t(w))$: we call $\t(w)$ the {\em terminal vertex} of $w$. ($L$ is the set of words $w$ readable by $A$ which have 
 $\t(w)=s_0$.)
 Fix a spanning tree $T$ for $\G_A$. For each vertex $v$ of $\G_A$
 let $w(v)$ denote the label of the path in
 $T$ from $s_0$ to $v$.  Define
 \[L_T=L_T(A)=\{w(v): v \textrm{ is a vertex of } A\}.\]
-Thus $L\subseteq L_T\subseteq L_Q$.
+Thus $L_T\subseteq L_Q$.
 
 If $w, s, u\in \FF(X)$ with $w=s\circ u$ then we say that $s$ is
 \be[(i)]
@@ -1974,10 +1964,10 @@ $V( \G_{A_k}\times \G_{A_k})$,
 elements of $P_k$ and the
 set $C_k$ of connecting elements, one for each element of $P_k$.
 %%%%%%%%
-\item $\phi_k:Z\maps F_k$ be a map inducing an isomorphism from $F(Z)$ to
+\item A map $\phi_k:Z\maps F_k$  inducing an isomorphism from $F(Z)$ to
 $H_k$. This map is encoded as part of $\G_{A_k}$. More precisely,
 edges of $\G_{A_k}$ have two types of label; \emph{input} and \emph{output}.
-Labels we discussed above are input labels, are
+Labels discussed above are input labels, are
 referred to simply as \emph{labels}, and are elements of $X_1\cup X_2$.
 Output labels are elements of  $Z\cup \{1\}$.
  Edges of $T_k$  all have output label $1$; and each directed
@@ -2026,12 +2016,14 @@ $(v,k)$ in $\D_k$.
 of $(v,k)$ in $\D$ (under $\nu$). In practice, for each $(v,k)$ keep
  a record $\vim(v,k)$ which is initially set to $\{v\}$.
 \ee
+This original version of $\D_k$ is referred to as $\D_{k,0}$. 
 \item\label{it:C2} (\textbf{Begin Modification 1}.) For all edges
 $(\a,z,\b)$ of $\D_k$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
-$\D_k$. For later reference this version of $\D_k$ is called $\D_{k,1}'$.
+$\D_{k,0}$. The resulting version of $\D_k$ is called $\D_{k,1}'$.
 \item\label{it:C3} Construct the Stallings folding of (each component of)
-$\D_k$.  The result is referred to as $\D_{k,1}$. Whenever two vertices $(u,k)$ and $(v,k)$
-of $\D_k$ are identified, by the folding map, to a vertex $(w,k)$
+$\D_{k,1}'$.  The result is referred to as $\D_{k,1}$. 
+Whenever two vertices $(u,k)$ and $(v,k)$
+of $\D_{k,1}'$ are identified, by the folding map, to a vertex $(w,k)$
 set $\vim(w,k)=\vim(u)\cup \vim(v)$. This process will be
 called \textbf{updating}
 $\nu$, from now on.
