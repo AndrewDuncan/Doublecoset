@@ -523,9 +523,10 @@ $V=V(\G_A)=Q$; edge set
 %$(u,\s,v)$ of $Q\times \S\times Q$ such that $\d(u,\s)=v$; 
 and
 labelling function $l:E\maps \S$ given by $l(u,\s,v)=\s$, for all
-$(u,\s,v) \in E$.  Note that $\G_A$ satisfies the property  
+$(u,\s,v) \in E$.  Note that $\G_A$ satisfies the property  that 
 \be
-\item[\textbf{Aut}] that if $(u,a,v)$ and $(u,b,v)$ are edges then $a\neq b$. 
+\item[\textbf{Aut}] for all $u,v\in V$ and $\s\in \S$, there is at most one
+edge labelled $\s$ from $u$ to $v$. 
 \ee
 Conversely, given a finite, directed, edge labelled graph $\G$
  with vertex set 
@@ -732,8 +733,9 @@ is called a set of \emph{double coset representatives for} $H\le F$.
 
 %%%%
 
-Let $A$ be the Stallings automaton for $H$, and let  $s_0 =
-1$ be its start state.
+Let $A=(\G(H),s_0)$ be the Stallings automaton for $H$, let its start state 
+$s_0=1$  and let  $T$ be
+a spanning tree for $\G(H)$.
 We shall define a set of double coset representatives for $H$ in two parts.
 We begin with the definition of the first type of representative.
 \begin{definition}[Double coset representative, type 1] \label{def:repres_t1}
@@ -857,8 +859,10 @@ $S$ is a set of double coset representatives for $H$.
 \end{proposition}
 \begin{proof}
 First we shall show that every element $w\in \FF(X)$ lies in $HdH$,
-for some $d\in S$. In fact we describe an algorithm which
-rewrites a given word $w$ in this form.
+for some $d\in S$. In fact we describe an algorithm, Algorithm I, which
+rewrites a given word $w$ in this form. In the following proof each
+step of Algorithm I is justified as it is introduced. A concise 
+description of the algorithm is given later, in Section \ref{sub:sum_algI}.
 
 Assume that the Stallings automaton $A$ for $H$ has been constructed by folding from
 given generators for $H$. A spanning tree $T$
@@ -916,7 +920,8 @@ On the other hand if $e=1$ then
 \[w=h\circ p\circ t^{-1}\circ g^{-1}.\]
 In this case let $u=\t(p)$ and $v=\t(t)$,
 let $(u_0,v_0)$ be the $\sim$ representative
-of the equivalence class of $(u,v)$, $c=c(u,v)$,
+of the equivalence class of $(u,v)$, let $c=c(u,v)$ the connecting element of 
+$(u,v)$, and let 
  $y=w(u_0)$ and $z=w(v_0)$. Then,  as in the proof of Lemma
 \ref{lem:equiv_verts}, setting $h_0=w(u)cy^{-1}$ and
 $h_1=w(v)cz^{-1}$ we have
@@ -949,7 +954,7 @@ and $a_0\neq 1$. Since
 $a$ is accepted by $A$ we have $\t(ay_0)=\t(a_0y_0^\prime)=\t(y_0)$. By definition
 of $s_0$ the first letter of $e_0$ is not readable from the vertex $\t(y_0)$, so
 it follows, as before that $a_0y_0^\prime e=a_0\circ y_0^\prime \circ e$. Similarly,
-if $b\neq 1$ then $b=b_0\circ b_1$, where $b_0\neq 1$,  and $z_0=b_0\circ z_0^\prime$, with
+if $b\neq 1$ then $b=b_0\circ b_1$, where $b_1\neq 1$,  and $z_0=b_0\circ z_0^\prime$, with
 $z_0^{-1}b= (z_0^\prime)^{-1}\circ b_1$ and $e (z_0^\prime)^{-1}b_1=
 e\circ  (z_0^\prime)^{-1}\circ b_1$. This implies that
 $s_1=a_0\circ y_0^\prime \circ  e\circ  (z_0^\prime)^{-1}\circ b_1$ and by considering
