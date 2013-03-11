@@ -504,7 +504,8 @@ this can be done below.
 An {\em automaton} $A$ is  a quintuple
 $(\S,Q,\d,\mathcal{S},\mathcal{F})$, where $\S$ is finite set
 called the {\em alphabet}, $Q$ is a finite set of {\em states},
-$\d$ is a map $\d:Q\times \S\maps Q$, called the {\em transition
+$\d$ is a map $\d:Q\times \S\maps \cP(Q)$,  where $\cP(Q)$ denotes
+ the power set of $Q$, called the {\em transition
 function}, $\mathcal{S}\subset Q$ is the (non-empty) set of {\em
 start states} and $\mathcal{F}\subseteq Q$ is the set of {\em
 final states}.  If
@@ -516,10 +517,26 @@ For details of the theory of automata the reader is referred to
 By a graph we mean a finite, directed, edge labelled graph.
 We shall associate to an automaton $A$
 a graph $\G_A$ with vertices
-$V=V(\G_A)=Q$; edge set $E=E(\G_A)$ consisting of elements
-$(u,\s,v)$ of $Q\times \S\times Q$ such that $\d(u,\s)=v$; and
+$V=V(\G_A)=Q$; edge set 
+\[E=E(\G_A)=\{(u,\s,v)\in Q\times \S\times Q\,:\, v\in \d(u,\s)\};\] 
+%consisting of elements
+%$(u,\s,v)$ of $Q\times \S\times Q$ such that $\d(u,\s)=v$; 
+and
 labelling function $l:E\maps \S$ given by $l(u,\s,v)=\s$, for all
-$(u,\s,v) \in E$.  If $\mathcal{S}$ and $\mathcal{F}$ are the sets
+$(u,\s,v) \in E$.  Note that $\G_A$ satisfies the property  
+\be
+\item[\textbf{Aut}] that if $(u,a,v)$ and $(u,b,v)$ are edges then $a\neq b$. 
+\ee
+Conversely, given a finite, directed, edge labelled graph $\G$
+ with vertex set 
+$V$, edge set $E$ and edge labels from a set $\S$, which satisfies 
+property Aut then, given 
+two subsets $\cS$ and $\cF$ of $V$,  we may construct an automaton
+$(\S,V,\d,\cS,\cF)$ by taking $\d(u,\s)=\{v\in V: \textrm{ there exists an edge 
+from } u \textrm{ to } v \textrm{ with label } \s\}$.
+ 
+
+If $\mathcal{S}$ and $\mathcal{F}$ are the sets
 of start and final states of $A$ we sometimes write
 $(\G_A,\mathcal{S},\mathcal{F})$ for
 $(\S,Q,\d,\mathcal{S},\mathcal{F})$, and in addition if
@@ -530,7 +547,9 @@ call $s_0$ the {\em root}
 vertex of $\G_A$ and say that $A$ and $\G_A$ are {\em rooted}. We may
  write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case.
 For notational simplicity we identify $\G_A$
-and $A$ whenever it is convenient and no ambiguity arises.
+and $A$ whenever it is convenient and no ambiguity arises
+and we shall often refer to  graphs as automata, and
+to automata as graphs.
 
 By a path $p$
 in a graph we mean a sequence $(v_0,e_1,v_1, \ldots , e_n ,v_n)$ of
@@ -574,8 +593,9 @@ both $(u,a,v)$ and $(u,a^{-1},v)$.
 From now on we will
 consider only involutive automata and, moreover, we always assume that $\S$ is a subset of a group.
 The automaton $A$
-is {\em deterministic}  or {\em folded} if $\d(p,a)=q$ and
-$\d(p,a)=q'$ imply $q=q'$ (that is, $(u, a, v)
+is {\em deterministic}  or {\em folded} if $\d$ if $\d(u,\s)$
+ has exactly one element for all $(u,\s)\in \S\times Q$
+ (that is, $(u, a, v)
 \in E$ and $(u, a, v^\prime) \in E$ imply $v=v^\prime$).
 We say an automaton $A$ is \emph{connected} if $\G_A$ is connected.
 (For an involutive rooted automaton being connected is equivalent to the property that
@@ -640,13 +660,16 @@ $s^\prime_0=s_0$.
  A {\em folding} of a graph $\G$ is a graph obtained
 from $\G$ by a finite sequence of elementary foldings.
 
-If a rooted graph $\G$ is not folded then a folding may be applied; reducing the
-number of edges of the graph. Continuing this way a folded graph may eventually
-be produced.
-A folding of $\G$ which is folded is called a \emph{Stallings folding of}
+If $\G_A$ is an automaton and  is not folded (i.e. deterministic) 
+then a folding may be applied; reducing the
+number of edges of the graph. Continuing this way a folded graph will eventually
+be produced and this folded graph will also be an automaton. 
+A folding of $\G_A$ which is folded is called a \emph{Stallings folding of}
 $\G$.
-It follows that  folded (i.e. deterministic) graphs are precisely those
-to which no elementary folding may be applied.
+It follows that  the folded  graphs of automata are precisely those
+automata to which no elementary folding may be applied. (The graphs arising
+from a sequence of elementary foldings of an automaton are not necessarily
+all graphs of automata, as they may not safisfy Aut.)
 
 A morphism of automata $\G_A$ and $\G_{A^\prime}$ is a map
 $\theta: \G_A\maps \G_{A^\prime}$ which maps vertices to vertices and
@@ -668,8 +691,9 @@ $\pi(L(\G,s,t))= \pi(L(\G_1,\theta(s),\theta(t)))$.
 
 
 
-Let $Y=\{w_1,\ldots ,w_n\}$ be a generating set for $H$, where $w_i\in F$.
-The {\em flower automaton} $\G_Y(H)$, of $H$ (with respect to this generating set)
+Let $F$ be a finitely generated free group and let 
+$Y=\{w_1,\ldots ,w_n\}\subseteq F$ generate a subgroup $H$. 
+The {\em flower automaton} $\G_Y(H)$, of $H$ (with respect to $Y$)
 is the graph constructed as follows. For each $i$ let $C_i$ be a cycle
 graph with $|w_i|$ vertices, and choose a vertex $v_i$ as the root. Direct
 and label the edges of $C_i$, with elements of $X$,
