@@ -594,8 +594,8 @@ both $(u,a,v)$ and $(u,a^{-1},v)$.
 From now on we will
 consider only involutive automata and, moreover, we always assume that $\S$ is a subset of a group.
 The automaton $A$
-is {\em deterministic}  or {\em folded} if $\d$ if $\d(u,\s)$
- has exactly one element for all $(u,\s)\in \S\times Q$
+is {\em deterministic}  or {\em folded} if $\d(u,\s)$
+ has at most  one element for all $(u,\s)\in \S\times Q$
  (that is, $(u, a, v)
 \in E$ and $(u, a, v^\prime) \in E$ imply $v=v^\prime$).
 We say an automaton $A$ is \emph{connected} if $\G_A$ is connected.
@@ -667,10 +667,10 @@ number of edges of the graph. Continuing this way a folded graph will eventually
 be produced and this folded graph will also be an automaton. 
 A folding of $\G_A$ which is folded is called a \emph{Stallings folding of}
 $\G$.
-It follows that  the folded  graphs of automata are precisely those
+It follows that  folded  automata are precisely those
 automata to which no elementary folding may be applied. (The graphs arising
 from a sequence of elementary foldings of an automaton are not necessarily
-all graphs of automata, as they may not safisfy Aut.)
+all graphs of automata, as they may not safisty condition Aut above.)
 
 A morphism of automata $\G_A$ and $\G_{A^\prime}$ is a map
 $\theta: \G_A\maps \G_{A^\prime}$ which maps vertices to vertices and
@@ -1105,8 +1105,8 @@ corresponds to the $\sim$ representative and connecting elements
 are paths in the highlighted trees. Following Algorithm I, the
 normal form of $f_1^\prime$ is
 \[f_1^\prime=h yz^{-1} g^{-1},\]
-where $y=y_1$, $z=y_2$ and $yz^{-1}=y_1y_2^{-1}\in S_2^{(2)}$: that is
-\[f_1^\prime=h^\prime_3h_2^\prime y_1y_2^{-1} (h_1^\prime)^{-1}(h_2^\prime)^{-1}.\]
+where $y=y_1$, $z=y_2^{-1}$ and $yz^{-1}=y_1y_2\in S_2^{(2)}$: that is
+\[f_1^\prime=h^\prime_3h_2^\prime y_1y_2 (h_1^\prime)^{-1}(h_2^\prime)^{-1}.\]
 \end{example}
 \begin{figure}
 \begin{center}
