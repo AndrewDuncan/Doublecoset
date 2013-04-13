@@ -523,15 +523,25 @@ $V=V(\G_A)=Q$; edge set
 %$(u,\s,v)$ of $Q\times \S\times Q$ such that $\d(u,\s)=v$; 
 and
 labelling function $l:E\maps \S$ given by $l(u,\s,v)=\s$, for all
-$(u,\s,v) \in E$.  Note that $\G_A$ satisfies the property  that 
-\be
-\item[\textbf{Aut}] for all $u,v\in V$ and $\s\in \S$, there is at most one
-edge labelled $\s$ from $u$ to $v$. 
-\ee
-Conversely, given a finite, directed, edge labelled graph $\G$
+$(u,\s,v) \in E$.  
+
+Note that $\G_A$ satisfies the property  that 
+%\begin{align}
+%\textrm{
+there is at most one
+edge labelled $\s$ from $u$ to $v$, % } \notag \\
+%\textrm{
+for all $u,v\in V$ and $\s\in \S$.
+% }\label{eq:Aut
+%\end{align}
+We call a directed, edge labelled graph which satisfies this
+property a \emph{label-simple} graph; and a finite label-simple 
+graph an \emph{automaton} graph.  
+%We call a finite, directed, edge labelled graph which satisfies this
+%property a \emph{label-simple} graph.  
+ If $\G$ is an automaton graph,  
  with vertex set 
-$V$, edge set $E$ and edge labels from a set $\S$, which satisfies 
-property Aut then, given 
+$V$, edge set $E$ and edge labels from a set $\S$ then, given 
 two subsets $\cS$ and $\cF$ of $V$,  we may construct an automaton
 $(\S,V,\d,\cS,\cF)$ by taking $\d(u,\s)=\{v\in V: \textrm{ there exists an edge 
 from } u \textrm{ to } v \textrm{ with label } \s\}$.
@@ -549,7 +559,7 @@ vertex of $\G_A$ and say that $A$ and $\G_A$ are {\em rooted}. We may
  write $(\G_A,s_0)$ for $(\G_A,s_0,f_0)$ if this is the case.
 For notational simplicity we identify $\G_A$
 and $A$ whenever it is convenient and no ambiguity arises
-and we shall often refer to  graphs as automata, and
+and we shall often refer to  (automaton) graphs as automata, and
 to automata as graphs.
 
 By a path $p$
@@ -670,7 +680,9 @@ $\G$.
 It follows that  folded  automata are precisely those
 automata to which no elementary folding may be applied. (The graphs arising
 from a sequence of elementary foldings of an automaton are not necessarily
-all graphs of automata, as they may not safisty condition Aut above.)
+all automaton graphs, as they may not 
+be label-simple.)  
+%safisty condition \eqref{eq:Aut} above.)
 
 A morphism of automata $\G_A$ and $\G_{A^\prime}$ is a map
 $\theta: \G_A\maps \G_{A^\prime}$ which maps vertices to vertices and
@@ -720,14 +732,14 @@ The automaton $(\G(H),s)$ is  called the {\em Stallings automaton} of $H$.
 \subsection{Double coset representatives in free groups}\label{sub:2cosetrepr}
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
 of $F$.
-A  set $S\subseteq F$ such that
+A  set $D\subseteq F$ such that
 \be
 \item
-$F = \displaystyle{\bigcup_{s \in S} HsH}$
-and
+$F = \displaystyle{\bigcup_{d \in D} HdH}$, 
 \item
-for all $s, s^\prime \in S$, $s\in H s^\prime H$
-implies $s=s^\prime$,
+for all $d, d^\prime \in D$, $d\in H d^\prime H$
+implies $d=d^\prime$ and 
+\item $D\cap H=\{1\}$, 
 \ee
 is called a set of \emph{double coset representatives for} $H\le F$.
 
@@ -736,8 +748,8 @@ is called a set of \emph{double coset representatives for} $H\le F$.
 Let $A=(\G(H),s_0)$ be the Stallings automaton for $H$, let its start state 
 $s_0=1$  and let  $T$ be
 a spanning tree for $\G(H)$.
-We shall define a set of double coset representatives for $H$ in two parts.
-We begin with the definition of the first type of representative.
+We shall define the non-trivial elements of  a set of double coset representatives for $H$ in two parts.
+We begin with the definition of the first  type of representative.
 \begin{definition}[Double coset representative, type 1] \label{def:repres_t1}
 A word $w\in \FF(X)$ is a {\em (double coset) representative of
 type} $1$ if
@@ -846,6 +858,26 @@ from $(u,v)$ to the $\sim$ representative
 $(u_0,v_0)$ of $(u,v)$ and define the {\em connecting element}
 $c(u,v)$  of $(u,v)$ to be the label of this path.
 \end{definition}
+
+\begin{lemma}\label{lem:rep2}
+Let $s\in S^{(2)}$, say $s=ab^{-1}$, where $(u,v)\in P_0$, 
+$a=w(u)$ and $b=w(v)$. Then
+$s=a\circ b^{-1}$ and $s\notin H$.
+\end{lemma}
+\begin{proof}
+If there is cancellation between $a$ and $b^{-1}$ then we can
+ write $a=a'\circ d$ and $b=b'\circ d$, for some words $a',b'$ and $d$. 
+However, in this case $(\t(a'),\t(b'))\sim (u,v)$, as shown above
+Definition \ref{def:repres_t2}, and $|w(v)|>|b'|$, contrary to the
+definition of $P_0$. Hence no such cancellation occurs. Moreover, 
+if $s\in H$ then $b^{-1}$ is readable in $\G_A$, starting at $u$ 
+and ending at $1$; so
+$b$ is readable in $\G_A$, starting at $1$ and ending at $u$. It
+follows, since $\G_A$ is folded, that $u=v$, which is a contradiction, 
+as $(u,v)\in P$.  
+\end{proof}
+
+
 The  connecting elements enable systematic rewriting of certain
 elements of $\FF$ in terms of representatives of type 2, as will be
 seen below.
@@ -853,16 +885,16 @@ seen below.
 Define $S=S^{(1)}\cup S^{(2)}$.
 \end{definition}
 
-
 \begin{proposition}\label{prop:dcreps}
-$S$ is a set of double coset representatives for $H$.
+$\{1\}\cup S$ is a set of double coset representatives for $H$.
 \end{proposition}
 \begin{proof}
-First we shall show that every element $w\in \FF(X)$ lies in $HdH$,
-for some $d\in S$. In fact we describe an algorithm, Algorithm I, which
-rewrites a given word $w$ in this form. In the following proof each
-step of Algorithm I is justified as it is introduced. A concise 
-description of the algorithm is given later, in Section \ref{sub:sum_algI}.
+First we shall show that every element $w\in \FF(X)$ lies in $H$ 
+for some $d\in \{1\}\cup S$. In fact we describe an algorithm, Algorithm I, which rewrites a  given word $w$ in this form. 
+ In the following proof each
+step of Algorithm I is justified as it is introduced. A step by step
+definition 
+ of the algorithm is given later, in Section \ref{sub:sum_algI}.
 
 Assume that the Stallings automaton $A$ for $H$ has been constructed by folding from
 given generators for $H$. A spanning tree $T$
@@ -878,12 +910,17 @@ Having constructed the equivalence classes of $\sim$,
  a set of $\sim$ representatives may be constructed, by considering the
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
 set $P_0$ and the connecting element $c(u,v)$, of each element
-$(u,v)\in P$, may be computed at this stage.   \\
+$(u,v)\in P$, may be computed at this stage. Algorithm
+I will now take input a word $w\in  \FF(X)$ and give output a triple
+$(h,d,h')$ such that $w=hdh'$, where $d\in \{1\}\cup S$ and $h,h'\in H$.\\
 
 \noindent{\bf Algorithm I}.\\
 Input $w\in \FF(X)$.
 Let $h$ be the maximal prefix of $w$ accepted by $A$; so $h\in H$ and
-$w=h\circ f$, for some $f\in \FF(X)$. Now use $A$ to find the maximal
+$w=h\circ f$, for some $f\in \FF(X)$. 
+If $w=h$ (and $f=1$) then output $(w,1,1)$ and stop. 
+
+Otherwise use $A$ to find the maximal
 $L_Q$-prefix $p$
 of $f$ (i.e. the maximal prefix readable by $A$). Then
   $f= p\circ q$, for some $q\in \FF(X)$.
@@ -911,15 +948,24 @@ particular $ye=y\circ e$. Similarly, the first letter of $e^{-1}$
 is not readable from the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ
 z^{-1}$. Moreover $y$ is both a maximal $L_Q$-prefix  and an
 $L_T$-prefix of $yez^{-1}$ and $z$ is a maximal $L_Q$-prefix  and
-an $L_T$-prefix of $ze^{-1}$. Thus $yez^{-1}\in S^{(1)}$ and we
-output
+an $L_T$-prefix of $ze^{-1}$. Thus $yez^{-1}\in S^{(1)}$ and 
 \[w=(h py^{-1}) (yez^{-1})(zt^{-1} g^{-1})\in HSH,\]
-of the required form.
+is of the required form, 
+so the algorithm outputs 
+\[(h py^{-1},yez^{-1},zt^{-1} g^{-1})\]
+and stops.
 
 On the other hand if $e=1$ then
 \[w=h\circ p\circ t^{-1}\circ g^{-1}.\]
-In this case let $u=\t(p)$ and $v=\t(t)$,
-let $(u_0,v_0)$ be the $\sim$ representative
+In this case let $u=\t(p)$ and $v=\t(t)$.
+Before proceeding we must show that $(u,v)\in P$; that is, $u\neq v$. 
+To see this note that, as $p$ is the maximal $L_Q$-prefix of 
+$p\circ t^{-1}\circ g^{-1}$, the first letter of $t^{-1}$ is not
+readable from $\t(p)$. On the other hand, as $t$ is readable in $\G_A$,
+the last letter of $t^{-1}$ is readable from $\t(t)$. Hence $u=\t(p)\neq
+\t(t)=v$ and we have $(u,v)\in P$. 
+
+Now, let $(u_0,v_0)$ be the $\sim$ representative
 of the equivalence class of $(u,v)$, let $c=c(u,v)$ the connecting element of 
 $(u,v)$, and let 
  $y=w(u_0)$ and $z=w(v_0)$. Then,  as in the proof of Lemma
@@ -932,13 +978,19 @@ $h_1=w(v)cz^{-1}$ we have
 p\circ t^{-1}=( p w(u)^{-1})w(u)w(v)^{-1}( w(v)t^{-1})=( p w(u)^{-1}) h_0 yz^{-1}
 h_1^{-1}( w(v)t^{-1})
 \]
-and by definition $yz^{-1}\in S^{(2)}$. We then output
+and by definition $yz^{-1}\in S^{(2)}$. Therefore 
 \[w=a yz^{-1} b,\]
 where $a=h ( p w(u)^{-1}) h_0=hpcy^{-1}\in H$ and $b=h_1^{-1}( w(v)t^{-1})g^{-1}
-=zc^{-1}t^{-1}g^{-1}\in H$.
+=zc^{-1}t^{-1}g^{-1}\in H$. The algorithm outputs 
+\[(a, yz^{-1}, b)\]
+and stops. 
 
-It remains to show that if $s_0,s_1\in S$ with $s_1\in Hs_0H$
-then $s_1=s_0$. Suppose that $s_1=as_0b$, where $a, b\in H$. If
+It remains to show that if $s_0,s_1\in \{1\}\cup S$ with $s_1\in Hs_0H$
+then $s_1=s_0$. Suppose that $s_1=as_0b$, where $a, b\in H$.
+First note that $S\cap H=\emptyset$, so if $s_0\in H$ then $s_0=1$ and 
+$s_1\in H$, so $s_1=1$. 
+ Thus we may assume that $s_0,s_1\in S$. 
+ If
 $s_0\in S^{(1)}$, say $s_0=y_0e_0z_0^{-1}$, then, as $ay_0$ and
 $b^{-1}z_0$ are readable by $A$ and $e_0\neq 1$, it follows (as
 above) that $s_1$ cannot be factored as $s_1=yz^{-1}$, where both
@@ -968,7 +1020,7 @@ Hence $s_0=s_1$ in this case.
 Finally consider the case where $s_1$ and $s_2$ belong to
 $S^{(2)}$. As $s_1=as_0b$, with $a,b\in H$, Lemma
 \ref{lem:equiv_verts} and the definition of $S^{(2)}$ imply  that
-$s_0= s_1$. Therefore $S$ is a set of double coset
+$s_0= s_1$. Therefore $\{1\}\cup S$ is a set of double coset
 representatives.
 \end{proof}
 
