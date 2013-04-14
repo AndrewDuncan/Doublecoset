@@ -383,17 +383,18 @@ $F_2$, amalgamating $H_1$ and $H_2$: that is $G$ is the group
 %%%%%%%%%%
 Given an arbitrary word $g\in F_1\ast F_2$,
 we should like an algorithm to write $g$ in
-some normal form with uniqueness. As a first attempt,
+some normal form with uniqueness. As a first attempt, following \cite{LS}  
  we say $g$ is in \emph{reduced form} if either $g$ is the empty word $1$, or
 $g = g_1 \cdots g_t$, where
 \begin{itemize}
 \item
-$g_1 \in F_1$ or $g_1 \in F_2$ and, if $t=1$ then $g_1\neq 1$,  and
+$g_1 \in F_1$ or $g_1 \in F_2$ and $g_1\neq 1$,  
 \item
-for
-$i > 1$,    $g_i \in (F_1 \backslash H_1)\cup (F_2\backslash H_2)$ and
-\item for $i\ge 1$,   $g_i$
-and  ${g_{i+1}}$ belong to  different factors.
+if 
+$t > 1$ then   $g_i \in (F_1 \backslash H_1)\cup (F_2\backslash H_2)$,
+for $i=1,\ldots ,t$, and
+\item    $g_i$
+and  ${g_{i+1}}$ belong to  different factors, for $1\le i\le t-1$.
 \end{itemize}
 As the membership problem
 is solvable in $F_1$ and $F_2$ we may write elements in reduced form: for example,
@@ -401,10 +402,14 @@ to write $g$ in reduced form,
 we can use the following procedure.
 First write $g$  as a reduced word in $F_1\ast F_2$, so $g=f_1\cdots f_t$, where
 each $f_i$ belongs to a factor and
-consecutive $f_i$ come from different factors, $F_1$ or $F_2$. Then apply the
+consecutive $f_i$ come from different factors, $F_1$ or $F_2$. 
+If $g=f_1\in F_k$, for $k=1$ or $2$, then writing $f_1$ as a 
+reduced (possibly empty) word in $F_k$ gives the  reduced form of $g$. 
+Otherwise
+ apply the
 following process.
 \be[Step 1]
-\item\label{it:st1} For $i=1,\ldots ,t$ do the following.
+\item\label{it:st1} For $i=1,\ldots ,t$, do the following.
 Write each $f_i$ as  a reduced word in $F_1$ or $F_2$ as appropriate.
 If $f_i\in F_k$ then,
 using an algorithm for the membership problem in $H_k$, check whether or not
@@ -423,6 +428,9 @@ $f'_{i+1} = f_{i-1}c f_{i+1}\in F_1\cup F_2$. Return to
 
 The reduced form is easy to calculate and gives a solution to the word problem: since
 a reduced form with $t>0$ cannot represent the identity \cite[Theorem 2.6]{LS}.
+Moreover, it follows from the latter theorem that any two reduced 
+forms representing the same element of $G$ have the same length (where 
+$t$ is the length of the reduced form above). 
 However reduced forms do not uniquely represent
  elements of $G$. To resolve this non-uniqueness problem it is common to
 choose a set of coset representatives of $H_k$ in $F_k$, $k=1,2$, and use these to rewrite
@@ -1287,15 +1295,16 @@ ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a
 \[\la X_1\cup X_2\cup Z  | h_i =z_i= h_i', i=1 \ldots m\ra.\]
 
 \begin{definition}\label{def:dcnf}
- Let $S_1$ and $S_2$ be sets of  double coset representatives for
+ Let $D_1$ and $D_2$ be sets of  double coset representatives for
 $H_1\le F_1$ and $H_2\le F_2$, respectively.
 A word $w\in \FF(X_1\cup X_2\cup Z)$ is in
 \emph{double coset normal form} (or \emph{dc-normal form}) if
-$w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,   where for $i=1,\ldots, k$,
+$w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,   where 
 \be[(a)]
 \item $h_i$ is a reduced word in $\FF(Z)$, for $i=0,\ldots, k$;
-\item  $p_i  \in S_1\cup S_2$ and $p_i\neq 1$, for $i=1,\ldots, k$,  and
-\item if  $p_i\in S_j$ then $p_{i+1}\notin S_j$, $j\in \{1,2\}$.
+\item  $p_i  \in D_1\cup D_2$ and $p_i\neq 1$, for $i=1,\ldots, k$,  and
+\item if  $p_i\in D_j$ then $p_{i+1}\notin D_j$, for $j\in \{1,2\}$
+and $i=1,\ldots ,k-1$.
 \ee
 \end{definition}
 From now on when we say ``normal form'' we mean ``double coset normal form'' unless
@@ -1306,14 +1315,20 @@ $\FF(X_1\cup X_2\cup Z)$ in double coset normal form.
 \end{theorem}
 \begin{proof}
 To see that every $g\in G$ can be written in dc-normal form, first
-write $g$ in reduced form; say $g=f_1\cdots f_t$, where $f_i$ is in a
-factor. Assuming that $f_i\in F_j$, let $a_is_ib_i$
-be the double coset representative of $f_i$, so
-$a_i,b_i\in H_j$ and $s_i\in S_j$. Let $z^{\prime}_i=\phi_j^{-1}(a_i)$ and
-$z^{\prime\prime}_i=\phi_j^{-1}(b_i)$. Repeat this for $i=1,\ldots ,t$ and then
-let $z_i$ be the free reduction of $z^{\prime}_iz^{\prime\prime}_{i+1}$,
-for $i=1,\ldots ,t-1$. Setting $z_0=z^{\prime}_1$ and $z_t=
-z^{\prime\prime}_t$, it follows that
+write $g$ in reduced form. If the reduced form of $g$ is the empty
+word then this is also the dc-normal form; with $k=0$ and $h_0=1$. 
+Otherwise we have $g=f_1\cdots f_t$, where $f_i$ is in $F_{j_i}$, for
+$j_i\in \{1,2\}$. In this case, let $a_is_ib_i$
+be the double coset representative of $f_i$, where 
+$a_i,b_i\in H_{j_i}$ and $s_i\in D_{j_i}$. For $i=1,\ldots ,t$,
+ let $z^{\prime}_i=\phi_j^{-1}(a_i)$ and
+$z^{\prime\prime}_i=\phi_j^{-1}(b_i)$. For $i=1,\ldots ,t-1$, let 
+$z_i$ be the free reduction of $z^{\prime}_iz^{\prime\prime}_{i+1}$, 
+and let $z_0=z^{\prime}_1$ and $z_t=
+z^{\prime\prime}_t$. 
+ If $t=1$ and $f_1\in H_{j_1}$ then $a_1=f_1$, $s_1=1$, $b_1=1$ and 
+the dc-normal form of $g$ is $z_0$. Otherwise, for all $i\ge 1$, we 
+have $f_i\notin H_1\cup H_2$, so $s_i\neq 1$ and 
 \[z_0s_1z_1\cdots z_{t-1}s_tz_t\]
 is a dc-normal form for $g$.
 
