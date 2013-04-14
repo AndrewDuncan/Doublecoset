@@ -890,8 +890,8 @@ as $(u,v)\in P$.
 The  connecting elements enable systematic rewriting of certain
 elements of $\FF$ in terms of representatives of type 2, as will be
 seen below.
-\begin{definition}
-Define $S=S^{(1)}\cup S^{(2)}$.
+\begin{definition}\label{def:dcreps} 
+Define $S=S(H)=S^{(1)}\cup S^{(2)}$.
 \end{definition}
 
 \begin{proposition}\label{prop:dcreps}
@@ -1290,7 +1290,7 @@ $Z=\{z_1,\ldots, z_m\}$ be a set disjoint from $X_1\cup X_2$. Then there
 is an isomorphism $\phi_1:\FF(Z)\maps H_1$, such that $\phi_1(z_i)=h_i$,
  and an isomorphism $\phi_2:\FF(Z)\maps H_2$, such that $\phi_2(z_i)
 =h_i^\prime$, $i=1,\ldots, m$.
- Let $G$ to be the free product with amalgamation:
+ Let $G$ be the free product with amalgamation:
 ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a
  presentation
 \[\la X_1\cup X_2\cup Z  | h_i =z_i= h_i', i=1 \ldots m\ra.\]
@@ -1299,7 +1299,8 @@ ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a
  Let $D_1$ and $D_2$ be sets of  double coset representatives for
 $H_1\le F_1$ and $H_2\le F_2$, respectively.
 A word $w\in \FF(X_1\cup X_2\cup Z)$ is in
-\emph{double coset normal form} (or \emph{dc-normal form}) if
+\emph{double coset normal form}, or \emph{dc-normal form}, with
+respect to $D_1\cup D_2$, if
 $w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,   where 
 \be[(a)]
 \item $h_i$ is a reduced word in $\FF(Z)$, for $i=0,\ldots, k$;
@@ -1310,9 +1311,11 @@ and $i=1,\ldots ,k-1$.
 \end{definition}
 From now on when we say ``normal form'' we mean ``double coset normal form'' unless
 we explicitly say something to the contrary.
-\begin{theorem}\label{thm:dcnf}
-Every element of $G$ is represented by a unique element of
-$\FF(X_1\cup X_2\cup Z)$ in double coset normal form.
+\begin{theorem}\label{thm:dcnf} Let $D_1$ and $D_2$ be sets of  double coset representatives for
+$H_1\le F_1$ and $H_2\le F_2$, respectively. 
+Then every element of $G$ is represented by a unique element of
+$\FF(X_1\cup X_2\cup Z)$ in double coset normal form, with respect
+to $D_1\cup D_2$.
 \end{theorem}
 \begin{proof}
 To see that every $g\in G$ can be written in dc-normal form, first
@@ -1370,45 +1373,6 @@ it follows that $h_k=h_k^\prime$. Hence $f_1\cdots f_{k-1}=
 f_1^\prime \cdots f_{k-1}^\prime$ and, applying the inductive hypothesis,
   we see that $w=w^\prime$, as required.
 \end{proof}
-The object of this section is to construct an automaton which will accept a word
-$w$ in double coset normal form if and only if it belongs to a
-given subgroup $K$ of $G$. The idea is to do this by starting with the
-flower automaton for the generators of $K$, written in (double
-coset) normal form; carrying out Stallings folding as usual to
-produce an inverse automaton; and next
-adding some additional paths to allow normal forms to be read.
-This may introduce new non-determinism in some  states (i.e. edges
-which may be folded), so the resulting automaton must be folded
-again. The result of the final folding is the candidate automaton.
-
- Suppose $L$ is the
-language accepted by the flower automaton of $K$. The image of $L$ under
-the canonical map to $G$ is $K$. All the stages of our generalised folding
-process will preserve this image, so our final automaton will accept a language
-$L_1$ which also maps to $K$. We must then prove that, if $w$ is a word
-in normal form which represents an element of $K$ then $w$ is in $L_1$. It will
-therefore suffice to show that, if $u$ is any word in $L_1$ then the
-normal form of $u$ is also in $L_1$.
-
-Let $S_1$ and $S_2$ be sets of double coset representatives of
-$H_1\le F_1$ and $H_2\le F_2$, respectively, as constructed in Section
-\ref{sec:dcforms}.
-Denote $S= S_1 \cup S_2$. Let $A_k$ be the
-Stallings automaton for $H_k$ and let $T_k$ be a spanning tree for
-the associated graph $\G_{A_k}$, $k=1,2$. The alphabet of $A_k$ is
-$X_k$ and the set of states of $A_k$ is denoted $Q_k$.
-
-%\subsection{Construction of the double coset normal form}\label{sub:construction_dcnf}}
-Suppose that $g \in G$ and $g=g_1\cdots g_t$ is in reduced form.
-Write each syllable $g_i$ of $g=g_1\cdots g_t$ in normal form
-using the algorithm I above. This gives
-$g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S$ and $h_{i,j}\in H_1\cup
-H_2$. Using $\phi_1^{-1}$ or $\phi_2^{-1}$, as appropriate, we now
-write $h_{i,1}$ and $h_{i,2}$ as reduced words in $\FF(Z)$. For
-$i=1,\ldots , t-1$, we reduce the word $h_{i,2}h_{(i+1),1}\in
-\FF(Z)$ to give a reduced word $h_i\in \FF(Z)$ and set $h_0=h_{1,1}$
-and  $h_{t+1}=h_{t,2}$. Then $g$ has normal form $h_0d_1h_1\cdots
-d_th_{t+1}$.
 
 
 \begin{example}\label{ex:g}
@@ -1435,6 +1399,52 @@ z_3^{-1}z_2^{-1} x_1^{-1}.
 \end{example}
 
 
+The object of this section is to construct an automaton which will accept a word
+$w$ in double coset normal form if and only if it belongs to a
+given subgroup $K$ of $G$. The idea is to do this by starting with the
+flower automaton for the generators of $K$, written in (double
+coset) normal form; carrying out Stallings folding as usual to
+produce an inverse automaton; and next
+adding some additional paths to allow normal forms to be read.
+This may introduce new non-determinism in some  states (i.e. edges
+which may be folded), so the resulting automaton must be folded
+again. The result of the final folding is the candidate automaton.
+
+ Suppose $L$ is the
+language accepted by the flower automaton of $K$. The image of $L$ under
+the canonical map to $G$ is $K$. All the stages of our generalised folding
+process will preserve this image, so our final automaton will accept a language
+$L_1$ which also maps to $K$. We must then prove that, if $w$ is a word
+in normal form which represents an element of $K$ then $w$ is in $L_1$. It will
+therefore suffice to show that, if $u$ is any word in $L_1$ then the
+normal form of $u$ is also in $L_1$.
+
+\begin{comment}
+Let $S_1=S(H_1)$ and $S_2=S(H_2)$ be sets of elements of $F_1$ and 
+$F_2$ corresponding to $H_1$ and $H_2$, as in Definition \ref{def:dcreps}. 
+%Then $D_1=S_1\cup \{1\}$ and $D_2=S_2\cup \{1\}$ are sets of 
+%double coset representatives for 
+%$H_1\le F_1$ and $H_2\le F_2$, respectively. 
+Denote $S= S_1 \cup S_2\cup \{1\}$. Let $A_k$ be the
+Stallings automaton for $H_k$ and let $T_k$ be a spanning tree for
+the associated graph $\G_{A_k}$, $k=1,2$. The alphabet of $A_k$ is
+$X_k$ and the set of states of $A_k$ is denoted $Q_k$.
+
+%\subsection{Construction of the double coset normal form}\label{sub:construction_dcnf}}
+Suppose that $g \in G$ and $g=g_1\cdots g_t$ is the reduced form of $g$. 
+As in the proof of Theorem \ref{thm:dcnf} we may use the reduced form
+to construct the double coset normal form of $g$. 
+Write each syllable $g_i$ of $g=g_1\cdots g_t$ in normal form
+using the algorithm I above. This gives
+$g_i=h_{i,1}d_ih_{i,2}$, with $d_i\in S$ and $h_{i,j}\in H_1\cup
+H_2$. Using $\phi_1^{-1}$ or $\phi_2^{-1}$, as appropriate, we now
+write $h_{i,1}$ and $h_{i,2}$ as reduced words in $\FF(Z)$. For
+$i=1,\ldots , t-1$, we reduce the word $h_{i,2}h_{(i+1),1}\in
+\FF(Z)$ to give a reduced word $h_i\in \FF(Z)$ and set $h_0=h_{1,1}$
+and  $h_{t+1}=h_{t,2}$. Then $g$ has normal form $h_0d_1h_1\cdots
+d_th_{t+1}$.
+\end{comment}
+
 
 \subsection{Double coset automata}\label{sec:dca}
 %
@@ -1442,9 +1452,12 @@ z_3^{-1}z_2^{-1} x_1^{-1}.
 Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
 written in normal form: say
 \begin{equation}\label{eq:k-form}
-k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1},
+k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i},
 \end{equation}
-with $h_{i,j}\in \FF(Z)$ and $t_{i,j}\in S_1\cup S_2$. Denote
+with $m_i\ge 0$, $h_{i,j}\in \FF(Z)$, $t_{i,j}\in S_1\cup S_2$, such that
+if $m_i=0$ then
+$h_{i,0}\neq 1$ (since we may discard any generators of $K$ which equal
+the empty word). Denote
 by $\hat K$ the subgroup of  $\FF(X_1\cup X_2 \cup Z)$ generated by
 $k_1, \ldots , k_s$. Let $\S=(X_1\cup X_2 \cup Z)^{\pm 1}$.
 Let $\cF(K)$ be the flower automaton of $\hat K$, and let
@@ -1464,9 +1477,9 @@ elements of $K$. In outline this transformation process consists of
 running the loop below, on input $\G_K$,
 until it halts, at which point we shall show that we have an
 inverse automaton which accepts  normal forms of elements of $K$.
-Assume then that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
+Begin by setting $\G_K=\D_{(0)}$; so  that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
 and $\pi(L(\D_{(0)}))=K$. \\[1em]
-\textbf{Loop.}
+\textbf{Generalised Folding Loop.}
 Set $n=0$.
 \be[Step 1]
 \item\label{it:gf1} Apply Algorithm II below to add new paths to $\D_{(n)}$ which allow normal forms of labels
@@ -1479,22 +1492,25 @@ of $\D_{(n)}^{\prime\prime}$. If $\D_{(n+1)}$ and
 $\D_{(n)}$ have the same
  number of
 $X_1$ and $X_2$ components (see below) then output $\D_{(n+1)}$
-and stop. Otherwise, add $1$ to $n$ and  repeat  \ref{it:gf1}.
+and stop. Otherwise, add $1$ to $n$ and  return to   \ref{it:gf1}.
 \ee
 
 Algorithm II below describes exactly how to carry out Step 1 of
-this loop. Since Step 1 may run more than once,  the input to this
-algorithm is assumed to be an arbitrary inverse automaton $\D$,
+this loop. Since Step 1 may run more than once,  the input to 
+Algorithm II is assumed to be an arbitrary inverse automaton $\D$,
 with alphabet $\S$ and $\pi(L(\D))=K$. The output of Algorithm II
 is a rooted,
-labelled, involutive automaton, with the same alphabet, which may
-fail to be deterministic. We shall show that, if we start as above
-with $\G_K=\D_{(0)}$,  the loop halts, at some $n<\infty$; at
+labelled, involutive automaton $\D''$, with the same alphabet, which may
+fail to be deterministic. This automaton $\D''$ is input to \ref{it:gf2}, 
+where it is folded. We shall show that, if we start as above
+with $\G_K=\D_{(0)}$,  the Generalised Folding Loop halts, at some $n<\infty$; at
 which point $\D_{(n+1)}$ is an inverse automaton which accepts the
 normal form of every element of $K$. \\[1em]
 
 \noindent\textbf{Algorithm II}. \\
 
+Here each step of the algorithm is justified as it is introduced. A 
+summary of the algorithm is given in Section \ref{sub:summaryII}.  
 Let $\D$ be an inverse automaton, with alphabet $\S$ and
 start and final state $1$, such that
 $\pi(L(\D))=K$.
@@ -1526,14 +1542,15 @@ will be referred to as  {\em vertices of} $\T$.
 
 
 The modification process is followed by a ``reassembly'' phase, in which
-we reconnect the $X_k$ components of $\D$, to form the output of the algorithm.
+we reconnect the $X_k$ components of $\D$, 
+to form the output of the algorithm. Let $\T$ be an $X_k$ component of $\D_k$.
 \\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
 This step involves the addition of paths labeled by $X_k$-words corresponding to
 $z$-edges of an $X_k$ component.
 
-Let $\T$ be an $X_k$ component of $\D_k$. If $(\a,z,\b)$ is an
+ If $(\a,z,\b)$ is an
 edge of $\T$ labelled by an element $z\in Z$ then add a path from
 $\a$ to $\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this
 for all such edges and call the result
@@ -1563,33 +1580,19 @@ $\T_1$. (See Figure \ref{fig:alg2-1}.)
 \end{center}
 \caption{$\Theta$ to $\Theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
 \end{figure}
-Let $\theta_1$ be the canonical morphism from $\Theta$ to
+Let $\theta_1$ be the compostion of the inclusion map from 
+$\Theta$ to $\Theta'_1$ with the folding morphism from $\Theta'_1$ to
 $\Theta_1$. If $\a$ and $\b$ are vertices of $\Theta$ then,
-since $\theta$ is a morphism
-$\pi(L(\Theta, \a,\b))\subseteq \pi(L(\Theta_1,\theta(\a),\theta(\b)))$.
-On the other hand if $w$ is in  $L(\Theta_1,\theta(\a),\theta(\b))$
+since $\theta_1$ is a morphism
+$\pi(L(\Theta, \a,\b))\subseteq \pi(L(\Theta_1,\theta_1(\a),\theta_1(\b)))$.
+On the other hand if $w$ is in  $L(\Theta_1,\theta_1(\a),\theta_1(\b))$
 then, since $\Theta_1$ is a folding of $\Theta_1^\prime$,
  there is a path labelled $w^\prime$ from $\a$ to $\b$ in $\Theta_1^\prime$,
 such that $\pi(w^\prime)=\pi(w)$.
 By construction then there exists  a path $w^{\prime\prime}$ from
 $\a$ to $\b$ in $\Theta$, such that $\pi(w^{\prime\prime}) =
-\pi(w^\prime)$. Hence $\pi(L(\Theta_1,\theta(\a),\theta(\b)))
+\pi(w^\prime)$. Hence $\pi(L(\Theta_1,\theta_1(\a),\theta_1(\b)))
 = \pi(L(\Theta, \a,\b))$.  \\[1em]
-\begin{comment}
-and  define the boundary vertices of $\T_1$ to be the
-vertices $\theta_1(v)$ of $\T_1$, such that $v$ is a boundary
-vertex of $\T$. (We shall not mention this again in later
-steps.) \\[1em]
-%%%
-As $\pi(a)=\pi(wb)\in G$, if $L_3$ and $L_3^\prime$ are the languages
-accepted by $(\T_3,\a,\b)$ and $(\T_3^\prime,\a,\b)$, for some
-vertices $\a,\b$ of $\T$, then $\pi(L_3)=\pi(L_3^\prime)$.
-Repeat this process for all pairs of  vertices which are not
-covered by $\cP_3$  and fold
-the result to form the graph $\T_4$. Again there is a natural
-morphism $\theta_4$ from $\T_3$ to $\T_4$ and
-we have $\pi(L_3)=\pi(L_4)$, in the same notation as in previous cases.
-\end{comment}
 %%%
 
 \noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
@@ -1657,7 +1660,8 @@ $\pi(L(\T_1,\a,\b))=\pi(L(\T_2,\theta_2(\a),\theta_2(\b)))$.\\[1em]
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
 At this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
 \G_{A_k}$ related to edges of this graph which do not belong to
-its spanning subforest and which project to closed paths,
+its spanning subforest and which belong to paths which project 
+to closed paths 
 based at $1$, in $\G_{A_k}$.
 
 As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements
@@ -1800,7 +1804,8 @@ with label
 $c=c(\e,\xi)$, from $\e$ to $\e_0$ and from $\xi$ to $\xi_0$.
 Furthermore $h_i=
 b_ica_i^{-1}\in H_k$ and $w_i=\phi_k^{-1}(h_i)\in \FF(Z)$, for $i=1,2$.
-If there
+If, for some vertices $\a_i,\a_j$ of $\T_4$ and $\b$ of $\G_{A_k}$,  
+ there
 exist paths $p_1$, with label $b_1$ from $(\a_i,1)$ to $(\b,\e)$,
 and $p_2$, with label $b_2$ from
 $(\a_l,1)$ to $(\b,\xi)$, in $\U_4$,  then
@@ -1876,7 +1881,7 @@ $\T\in \cC$ there is  a morphism
 $\theta_5\circ\theta_4\circ\theta_3\circ\theta_2\circ\theta_1$
 from $\T$ to $\T_5$. Define $\theta$ to be the morphism from
 $\D^\prime$ to $\D^\prime_5$ which consists of the union of these
-morphisms with the identity morphism from $\D_Z$ to $\D_Z$. By
+morphisms with the identity morphism of $\D_Z$. By
 construction, for each connected component $\Xi$ of $\D^\prime$
 there is an embedding of $\Xi$ into $\D$. Let $\nu$ be the union
 of these embeddings over all components of $\D^\prime$.
@@ -1949,7 +1954,7 @@ $\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\ma
 In this section we summarise the algorithms which we have described above,
 in a form suitable for the analysis of their complexity,
 in Section \ref{sec:TC} below. That is we summarise Algorithms I and II
-and the Loop of Section \ref{sec:dca}. The Loop, which calls Algorithm II
+and the Generalised Folding Loop of Section \ref{sec:dca}. The Generalised Folding Loop, which calls Algorithm II
 during its execution, is what we refer to as the ``Generalised Folding
 Algorithm''.
 \subsection{Summary of algorithm I}\label{sub:sum_algI}
@@ -1958,18 +1963,18 @@ Given $F_1*_{H_1=H_2} F_2$
  the
 steps in this subsection are carried out once for
 each group $H_i$. Once these steps have been completed
-then Algorithm I can be run, as many times as necessary,
+then execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
 to find double coset normal forms.
 
 \noindent\textbf{Input.}
 \biz
-\item generators $X$ of a free group $F(X)$.
-\item A finite set $Y$ of elements of $F(X)$.
+\item generators $X$ of a free group $\FF(X)$.
+\item A finite set $Y$ of elements of $\FF(X)$.
 \eiz
 \noindent\textbf{Output.}
 \biz
 \item
-$\G_A$, the Stallings automaton for the subgroup $H=\la Y\ra$ of $F(X)$.
+$\G_A$, the Stallings automaton for the subgroup $H=\la Y\ra$ of $\FF(X)$.
 \item
 $L_T$, the set of words corresponding to a  maximal subtree $T$ of $\G_A$.
 \item The set $P$ of non-diagonal elements of $V( \G_A\times \G_A)$
@@ -1980,15 +1985,14 @@ elements of $P$.
 \item $C$ the set of connecting elements, one for each element of $P$.
 \eiz
 \noindent\textbf{Process.}
-An upper bound for each step is given in brackets.
-Let $N=\sum{y\in Y} |y|$.
+Let $N=\sum_{y\in Y} |y|$.
 \be[{A}1]
 \item Construct $\G_A$.
 \begin{comp}
 ($t_1(N)$.)
 \end{comp}
 \item Construct a spanning tree $T$ for $\G_A$ and simultaneously
-compute $L_T$.
+compute $L_T=L_T(A)$.
 \begin{comp}
 (This can easily be done if $T$ is constructed by
 BFS or DFS, so one problem I was worrying about disappears.) ($O(N^2)$.)
@@ -2001,11 +2005,11 @@ BFS or DFS, so one problem I was worrying about disappears.) ($O(N^2)$.)
 done by doing a BFS or DFS of $\G_A\times \G_A$, which constructs
 a spanning forest $F$ at the same time as finding the set $C$ of
 connecting elements,
-which can be taken to be paths in the spanning forest $F$.
+which can be taken to be labels of paths in the spanning forest $F$.
 \begin{comp}
 ($O(N^4)$).
 \end{comp}
-\item Construct the set $P_0$. This can be done easily using $L_T(A)$ and
+\item Construct the set $P_0$. This can be done using $L_T$ and
 the forest $F$.
 \begin{comp}
 ($O(N^2)$).
@@ -2019,49 +2023,53 @@ Algorithm II?
 \begin{comp}
 Preprocessing time is bounded above by $O(N^4)$.
 \end{comp}
-\subsubsection{Execution of Algorithm I}
+\subsubsection{Execution of Algorithm I}\label{sub:alg1ex}
 \noindent\textbf{Input.}
 \biz
-\item $w$, a reduced word in $F(X)$.
+\item $w$, a reduced word in $\FF(X)$.
 \eiz
 \noindent\textbf{Output.}
 \biz
-\item Double coset normal form of $w$.
+\item The double coset normal form of $w$, as an ordered triple
+$(h,s,h')$, where $h,h'\in H$ and $s$ is a double coset representative
+of $H$.
 \eiz
 \noindent\textbf{Process.}
 \be[{B}1]
-\item Use $\G_A$ to find the maximal prefix $h$ of $w$ accepted.
+\item Find the maximal prefix $h$ of $w$ accepted by $G_A$.
 Let $w=h\circ f$.
+\item If $h=w$ then output $(w,1,1)$ and stop. 
 \item Use $\G_A$ to find the maximal $L_Q$-prefix $p$ of $f$.
 Let $f=p\circ q$.
-\item Use $\G_A$ to find the maximal prefix $g$ of $q^{-1}$ accepted.
+\item Find the maximal prefix $g$ of $q^{-1}$ accepted by $\G_A$.
 Let $q=r^{-1}\circ g^{-1}$.
 \item Use $\G_A$ to find the maximal $L_Q$-prefix $t$ of $r$.
 Let $r=t\circ e^{-1}$.
 \item If $e=1$ go to step \ref{it:ss}.
 \item Using $L_T$, set $y=w(\t(p))$ and $z=w(\t(t))$.
 \item Freely reduce $hpy^{-1}$, $yez^{-1}$ and $zt^{-1}g^{-1}$ and
-call the results   $a, b$ and $c$.
+call the results   $a, b$ and $c$, respectively.
 \item Output $a,b,c$ and stop.
 \item\label{it:ss} (This step is reached only if $e= 1$.)
- Using $P_0$ and $F$ find the representative $(u_0,v_0)$ of $(\t(p),\t(t))$.
-\item Look up the connecting element $c(u,v)$.
+ Using $P_0$ and $F$ find the representative $(u_0,v_0)$ of $(u,v)$, where
+$u=\t(p)$ and $v=\t(t)$.
+\item Look up the connecting element $c=c(u,v)$.
 \item Let $y=w(u_0)$ and $z=w(v_0)$.
 \item Freely reduce $hpcy^{-1}$ and $zc^{-1}t^{-1}g^{-1}$ and call the
-results $a$ and $b$.
+results $a$ and $b$, respectively.
 \item Output $a,yz^{-1},b$.
 \ee
 
 \begin{comp}
 The time required for these steps is $O(|w|)$.
 \end{comp}
-\subsection{Summary of Algorithm II}\label{subs_summaryII}
+\subsection{Summary of Algorithm II}\label{sub:summaryII}
 
 Here we assume $F_1*_{H_1=H_2} F_2$
  where $F_k$ is generated by $X_k$, $H_k$ is generated
 by $Y_k=\{h_{k,1},\ldots, h_{k,m}\}$
 and the Stallings automata $\G_{A_k}$ for $H_k$ have
-been constructed. Let  $\S=(X_1\cup X_2\cup Z)^{\pm 1}$ and, for $k=1,2$,
+been constructed, for $k=1,2$. Let  $\S=(X_1\cup X_2\cup Z)^{\pm 1}$ and, for $k=1,2$,
 assume that we have constructed, at the preprocessing stage, the following.
 \be
 \item
@@ -2069,16 +2077,16 @@ A spanning tree  $T_k$ for $\G_{A_k}$,
  the set $L_{T_k}$of words corresponding to the  maximal subtree $T_k$,
 the set $P_k$ of non-diagonal elements of
 $V( \G_{A_k}\times \G_{A_k})$,
- the set of representatives  $P_{k,0}$ of equivalence classes of
+ the set $P_{k,0}$ of representatives  of equivalence classes of
 elements of $P_k$ and the
 set $C_k$ of connecting elements, one for each element of $P_k$.
 %%%%%%%%
-\item A map $\phi_k:Z\maps F_k$  inducing an isomorphism from $F(Z)$ to
+\item A map $\phi_k:Z\maps F_k$  inducing an isomorphism from $\FF(Z)$ to
 $H_k$. This map is encoded as part of $\G_{A_k}$. More precisely,
 edges of $\G_{A_k}$ have two types of label; \emph{input} and \emph{output}.
 Labels discussed above are input labels, are
 referred to simply as \emph{labels}, and are elements of $X_1\cup X_2$.
-Output labels are elements of  $Z\cup \{1\}$.
+\emph{Output labels} are elements of  $Z\cup \{1\}$.
  Edges of $T_k$  all have output label $1$; and each directed
 edge of $\G_{A_k}$ not in $T_k$ has output
 label an element of $Z$. Each such edge corresponds uniquely to
@@ -2110,35 +2118,40 @@ and final state $1$, such that $\pi(L(\D''))=K$).
 \noindent\textbf{Process.}\\
 Each of the following steps is executed for $k=1$ and $2$.
 \be[{C}1]
-\item\label{it:C1} Construct $\D_k$ and the map $\nu$.  In more detail the steps are
+\item\label{it:C1} Construct $\D_{k,0}$ and  
+a set $\vim(\a)$, for each vertex  $\a$ of $D_{k,0}$. These
+sets will be updated at each stage of the algorithm and will eventually
+equal the sets $\nu\theta^{-1}(v)$, for vertices of $\D'_5$.  In detail the steps are
 the following.
 \be
-\item\label{it:C1a} Remove all edges of type $X_{k'}$, where $k'=1-k$, from $\D$; adding
-edges removed to  a graph $\D_Z$ (which starts off empty, when $k=1$, but
-is not reinitialised when $k$ is incremented to $2$).
+\item\label{it:C1a} Remove all edges of type $X_{k'}$, where $k'=3-k$, from $\D$ to give a graph $\D'_{k,0}$.
 \item\label{it:C1b} A \emph{shoot} is an edge incident to a leaf. Remove all shoots
-of type $Z$ from $\D_k$; adding edges removed to $\D_Z$. Continue
-until there are no shoots of type $Z$ in $\D_k$.
-\item\label{it:C1c} Rename vertices of $\D_k$: a vertex named $v$ in $\D$ becomes
-$(v,k)$ in $\D_k$.
-\item\label{it:C1d} For each vertex $(v,k)$ of $\D_k$ keep a record of the image
-of $(v,k)$ in $\D$ (under $\nu$). In practice, for each $(v,k)$ keep
- a record $\vim(v,k)$ which is initially set to $\{v\}$.
+of type $Z$ from $\D'_{k,0}$; adding
+edges removed to  a graph $\D_Z$ (which starts off empty, when $k=1$, and 
+is not reinitialised when $k$ is incremented to $2$). Continue
+until there are no shoots of type $Z$ in $\D'_{k,0}$. The resulting graph
+is $\D_{k,0}$. 
+\item\label{it:C1c} Rename vertices of $\D_{k,0}$: 
+a vertex named $v$ in $\D$ becomes
+$(v,k)$ in $\D_{k,0}$.
+\item\label{it:C1d} For each vertex $(v,k)$ of $\D_{k,0}$,  set 
+  $\vim(v,k)$ equal to $\{v\}$.
 \ee
-This original version of $\D_k$ is referred to as $\D_{k,0}$. 
 \item\label{it:C2} (\textbf{Begin Modification 1}.) For all edges
-$(\a,z,\b)$ of $\D_k$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
-$\D_{k,0}$. The resulting version of $\D_k$ is called $\D_{k,1}'$.
-\item\label{it:C3} Construct the Stallings folding of (each component of)
-$\D_{k,1}'$.  The result is referred to as $\D_{k,1}$. 
+$(\a,z,\b)$ of $\D_{k,0}$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
+$\D_{k,0}$. The resulting graph is called $\D_{k,1}'$.
+\item\label{it:C3} Construct the Stallings folding$\D_{k,1}$  of (each component of)
+$\D_{k,1}'$.  
 Whenever two vertices $(u,k)$ and $(v,k)$
 of $\D_{k,1}'$ are identified, by the folding map, to a vertex $(w,k)$
-set $\vim(w,k)=\vim(u)\cup \vim(v)$. This process will be
-called \textbf{updating}
-$\nu$, from now on.
+set $\vim(w,k)=\vim(u,k)\cup \vim(v,k)$. This process will be
+called \emph{updating}
+$\vim$, from now on. The sets $\vim(u,k)$ and $\vim(v,k)$ may be deleted. 
 \item\label{it:C4} (\textbf{Begin Modification 2}.)
- Construct $\cP_k=\D_k\times \G_{A_k}$.
-\item\label{it:C5} Construct a spanning forest $\U_k$ of $\cP_k$ and, simultaneously,
+ Construct $\cP_{k,1}=\D_{k,1}\times \G_{A_k}$.
+\item\label{it:C5} Construct a spanning forest $\U_{k,1}$ of $\cP_{k,1}$.
+\begin{comment} and, 
+simultaneously,
 the set $L_{\U_k}$ of words corresponding to paths in $\U_k$ from the root
 to each vertex. (A root of $\cP_k$ must  be chosen:
  to be explicit, assume the root is
@@ -2147,68 +2160,79 @@ $u$ is minimal in some preassigned order on vertices of $\G_{A_k}$ and
 $v$ is minimal in some chosen order of vertices of $\D$.)
  We refer to these versions of $\cP_k$ and $\U_k$ as
 $\cP_{k,2}$ and $\U_{k,2}$ in the calculation of complexity below.
-\item\label{it:C6} For each vertex $\a$ of $\D_k$ do the following.
+\end{comment}
+\item\label{it:C6} For each vertex $\a$ of $\D_{k,1}$ do the following.
  Let
-$\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.
+$\theta(\a)$ be the component of $\cP_{k,1}$ containing $(\a,1)$.
 For each vertex $(\b,1)$ of $\theta(\a)$ and for all paths $p$ from
-$(\a,1)$ to $(\b,1)$ add a path from $\a$ to $\b$ to the graph $\D_k$, with
+$(\a,1)$ to $(\b,1)$, which do not contain  any vertex $(\g,1)$ other than
+the end points, 
+ add a path from $\a$ to $\b$ to the graph $\D_{k,1}$, with
 label $\phi_k^{-1}(w)$, where $w$ is the label of $p$.
-This version of $\D_k$ is referred to as $\D_{k,2}'$.
-\item\label{it:C7} Construct the Stallings folding of $\D_k$ and update $\nu$.
-This version of $\D_k$ is referred to as $\D_{k,2}$.
+The resulting graph is called $\D_{k,2}'$.
+\item\label{it:C7} Construct the Stallings folding $\D_{k,2}$ of $\D'_{k,2}$ and update $\vim$.
 \item\label{it:C8} (\textbf{Begin Modification 3}.)
- Update $\cP_k=\D_k\times \G_{A_k}$ and $\U_k$, by adding new isolated vertices
-if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
-$\cP_{k,3}$ and $\U_{k,3}$.
-\item\label{it:C9} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
-Let $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.
-For each edge $e$ of $\theta(\a)\bs \U_k$: if $e=((\a_i,\b_1),x ,(\a_j,\b_2))$,
-where $\a_i,\a_j$ are vertices of $\D_k$ and $\b_1,\b_2$ are vertices
-of $\G_{A_k}$ and $x\in X_k$, add to $\D_k$ a path from $\a$ to $\a$ with
+ Construct $\cP_{k,2}=\D_{k,2}\times \G_{A_k}$ and its spanning
+ forest $\U_{k,2}$, by adding new isolated vertices to $\cP_{k,1}$ and 
+$\U_{k,1}$,
+if necessary. 
+\item\label{it:C9} For all vertices of $\cP_{k,2}$ of the 
+form $(\a,1)$ do the following.
+Let $\theta(\a)$ be the component of $\cP_{k,2}$ containing $(\a,1)$.
+For each edge $e$ of $\theta(\a)\bs \U_{k,2}$: 
+if $e=((\a_i,\b_1),x ,(\a_j,\b_2))$,
+where $\a_i,\a_j$ are vertices of $\D_{k,2}$ and $\b_1,\b_2$ are vertices
+of $\G_{A_k}$ and $x\in X_k$, add to $\D_{k,2}$ a path from $\a$ to $\a$ with
 label $\phi_k^{-1}(l_ixl_j)$, where $l_i$ and $l_j$ are the labels of
-paths in $\U_k$ from $(\a,1)$ to $(\a_i,\b_1)$ and to $(a_j,\b_2)$,
-respectively. This version of $\D_k$ is referred to as $\D_{k,3}'$.
-\item\label{it:C10} Construct the Stallings folding of $\D_k$ and update $\nu$.
-This version of $\D_k$ is referred to as $\D_{k,3}$.
+paths in $\U_{k,2}$ from $(\a,1)$ to $(\a_i,\b_1)$ and from $(a_j,\b_2)$ 
+to $(\a,1)$,
+respectively. The resulting graph is called  $\D_{k,3}'$.
+\item\label{it:C10} Construct the Stallings folding $\D_{k,3}$ of 
+$\D'_{k,3}$ and update $\vim$.
 \item\label{it:C11} (\textbf{Begin Modification 4}.)
- Update $\cP_k=\D_k\times \G_{A_k}$ and $\U_k$, by adding new isolated vertices
-if necessary. We refer to these versions of $\cP_k$ and $\U_k$ as
-$\cP_{k,4}$ and $\U_{k,4}$.
-\item\label{it:C12} For all vertices of $\cP_k$ of the form $(\a,1)$ do the following.
-Let $\theta(\a)$ be the component of $\cP_k$ containing $(\a,1)$.
+ Construct  $\cP_{k,3}=\D_{k,3}\times \G_{A_k}$ and its spanning
+ forest $\U_{k,3}$, by adding new isolated vertices to $\cP_{k,2}$ and 
+$\U_{k,2}$,
+if necessary. 
+\item\label{it:C12} For all vertices of $\cP_{k,3}$ of the 
+form $(\a,1)$ do the following.
+Let $\theta(\a)$ be the component of $\cP_{k,3}$ containing $(\a,1)$.
 For all vertices $(\a_1,\b)$ of $\theta(\a)$, with $\b\neq 1$, let
 $b=w(\b)$, the label of the path from $1$ to $\b$ in $T_k$. If
-$b$ is readable in the automaton $\cP_k$ with start state $(\a,1)$ and
+$b$ is readable in the automaton $\cP_{k,3}$ with start state $(\a,1)$ and
 the final state, after reading $b$, is $(\a_1,\b)$ there is nothing to do,
 for this vertex $(\a_1,\b)$. Otherwise, let $a$ be the label of the
-path from $(\a,1)$ to $(\a_1,\b)$ in $\U_k$. Add to $\D_k$ a path from
+path from $(\a,1)$ to $(\a_1,\b)$ in $\U_{k,3}$. Add to $\D_{k,3}$ a path from
 $\a$ to $\a_1$ with label $(\phi_k^{-1}(ab^{-1}))b$.
-This version of $\D_k$ is referred to as $\D_{k,4}'$.
-\item\label{it:C13} Construct the Stallings folding of $\D_k$ and update $\nu$.
-This version of $\D_k$ is referred to as $\D_{k,4}$.
+The resulting graph is called $\D_{k,4}'$.
+\item\label{it:C13} Construct the Stallings folding $\D_{k,4}$ of $\D'_{k,4}$ 
+and update $\vim$.
 \item\label{it:C14} (\textbf{Begin Modification 5}.)
-Reconstruct $\cP_k=\D_k\times \G_{A_k}$, the spanning forest $\U_k$ and
-the set $L_{\U_k}$. We refer to these versions of $\cP_k$ and $\U_k$ as
-$\cP_{k,5}$ and $\U_{k,5}$.
-\item\label{it:C15} For all $\b\in V(\D_k)$ do the following. For $(\e,\xi)\in P$,
-if both $b_1=w(\e)$ and $b_2=w(\xi)$ are readable in $\D_k$,
+Construct  $\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ and its spanning
+ forest $\U_{k,4}$. 
+\item\label{it:C15} For all $\b\in V(\D_{k,4})$ do the following. 
+For $(\e,\xi)\in P$,
+if both $b_1^{-1}=w(\e)^{-1}$ and $b_2^{-1}=w(\xi)^{-1}$ 
+are readable in $\D_{k,4}$,
 starting from $\b$, and ending at vertices $\a_1$ and $\a_2$, then
-add to $\D_k$ a path from $\a_1$ to $\a_2$ with label
-$\phi_k^{-1}(b_1ca_1^{-1})a_1a_2[\phi_k^{-1}(b_2ca_2^{-1})]^{-1}$, where
+add to $\D_{k,4}$ a path from $\a_1$ to $\a_2$ with label
+$\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}[\phi_k^{-1}(b_2ca_2^{-1})]^{-1}$, where
 $(\e_0,\xi_0)$ is the $\sim$ representative of $(\e,\xi)$, $a_1=w(\e_0)$,
 $a_2=w(\xi_0)$ and $c$ is the connecting element of $(\e,\xi)$.
-This version of $\D_k$ is referred to as $\D_{k,4}'$.
-\item\label{it:C16} Construct the Stallings folding of $\D_k$ and update $\nu$.
-This version of $\D_k$ is referred to as $\D_{k,5}$.
+The resulting graph is called  $\D_{k,5}'$.
+\item\label{it:C16} Construct the Stallings folding $\D_{k,5}$ of $\D'_{k,5}$ 
+and update $\vim$.
 \item\label{it:C17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
 do the following. For each vertex $(v,k')$ of $\D_{1,5}\cup \D_{2,5}$, not
 equal to $(u,k)$, if
-$\vim((u,k))\cap \vim((v,k'))\neq \emptyset$ then set $\vim((u,k))=\vim((u,k))\cup
-\vim((v,k'))$. For each edge $e$ of $\D_{1,5}\cup \D_{2,5}$, if $e$ has
+$\vim((u,k))\cap \vim((v,k'))\neq \emptyset$ then replace  
+$\vim((u,k))$ with $\vim((u,k))\cup
+\vim((v,k'))$. In this case, for each edge $e$ of $\D_{1,5}\cup \D_{2,5}$, if $e$ has
 initial or terminal vertex equal to $(v,k')$ then replace $e$ with
 an edge having $(u,k)$ as initial or terminal vertex, instead of $(v,k')$.
 Delete $(v,k')$, once no more such edges exist.
-Continue for as long as possible. The resulting graph is denoted $\D'_5$.
+Continue for as long as possible: that is until 
+$\vim(u,k)\cap \vim(u',k')=\emptyset$, whenever $(u,k)\neq (u',k')$. The resulting graph is denoted $\D'_5$.
 \item\label{it:C18}  For each vertex $\a$ of $\D_Z$, if $\a\in \vim(u,k)$,
  for some
  vertex $(u,k)$ of $\D'_5$ then replace $\a$ with $(u,k)$. (Note that, as
@@ -2222,14 +2246,15 @@ If $\a$ has been replaced by $(u,k)$ then, for every edge $e$ of $\D_Z$,
 of the same name.
 %\item\label{it:C20}  Construct $\D''$, the Stallings folding of $\bar \D$.
 \ee
-\subsection{Summary of the Loop}
+\subsection{Summary of the Generalised Folding Loop}
 Here the assumptions are as for Algorithim II.
 
 \noindent\textbf{Input.}
 \biz
 \item A tuple $k_1, \ldots ,k_s$ of elements of $F_1*_{H_1=H_2}F_2$,
-in double coset normal form and the Stallings folding $\G_K$ of this
-tuple as a set of words in $F_1*F_2*F(Z)$.
+in double coset normal form.
+% and the Stallings folding $\G_K$ of this
+%tuple as a set of words in $F_1*F_2*\FF(Z)$.
 \eiz
 \noindent\textbf{Output.}
 \biz
@@ -2239,6 +2264,10 @@ double coset normal form of every element of $K$.
 \eiz
 \noindent\textbf{Process.}\\
 \be[{D}1]
+\item Form the flower automaton $\cF(K)$ of the subgroup $\hat K$ of 
+$\FF(X_1\cup X_2\cup Z)$ generated by $k_1,\ldots, k_s$, as in Section 
+\ref{sec:dca}. 
+\item Construct the Stallings folding $\G_K$ of $\cF(K)$. 
 \item Set $n=0$ and $\D_{(0)}=\G_K$.
 \item\label{it:loop2} Input $\D_{(n)}$ to Algorithm II.
 Call the output $\D''_{(n+1)}$.
@@ -2285,7 +2314,8 @@ which is
 shown in Figure \ref{fig:Kflower}.
 There is one $X_1$ component $\Theta$ of this graph, shown in Figure \ref{fig:KX}
 and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$,
-shown in Figure \ref{fig:KY}. Each of these components is input to the loop, in turn.
+shown in Figure \ref{fig:KY}. Each of these components is input to
+ the Generalised Folding Loop, in turn.
 
 First consider the $X_1$ component $\Theta$. Modification 1
 results in the graph of Figure \ref{fig:K_f1}. To perform the next
@@ -2417,7 +2447,7 @@ shown in Figure \ref{fig:K_j4-x-g}.
 
 The folding of the reassembled graph $\Psi$ is shown in  Figure
 \ref{fig:out}.  As this graph has the same number of $X_1$ and $X_2$ components as the original,
-the algorithm halts after one iteration of the Loop, outputting $\Psi$.
+the algorithm halts after one iteration of the Generalised Folding Loop, outputting $\Psi$.
 
 \end{example}
 \begin{figure}
@@ -4683,9 +4713,10 @@ of $w$.
 Let $\D_0$ be an inverse automaton with alphabet $\S$.
 \be
 \item\label{it:loopstop1}
-If $\D_0$ is input  to  the loop then the loop halts after
+If $\D_0$ is input  to  the Generalised Folding Loop then the loop halts after
 finitely many iterations and outputs an inverse automaton  $\D_n$.
-\item\label{it:loopstop2} Let $\D_n$ be the output from the loop and let $w$ be a word
+\item\label{it:loopstop2} Let $\D_n$ be the output from the Generalised 
+Folding Loop and let $w$ be a word
 accepted by $\D_0$. If $w=a\circ b \circ c$,
 where $b$ is a maximal $X_k$ factor of $w$ then $\D_n$ accepts
 the word $avc$, where $v$ is the normal form of $b$.
@@ -4694,14 +4725,15 @@ the word $avc$, where $v$ is the normal form of $b$.
 \begin{proof}
 ~
 \ref{it:loopstop1}. The number of $X_k$ components is not
-increased by Steps 1 and 2, so at some point the loop must halt.
+increased by Steps 1 and 2, so at some point the Generalised Folding 
+Loop must halt.
 \noindent \ref{it:loopstop2}. The word $b$ is accepted by an $X_k$
 component of $\D_0$. By construction, the word $v$ is accepted by
 $\D_1$, and hence by $\D_n$. It follows that $\D_n$ accepts $avc$.
 \end{proof}
 \begin{lemma}\label{lem:nfacc}
 Let $\D_0$ be an inverse automaton with alphabet $\S$ and let
-$\D_n$ be the output from the loop, with input $\D_0$. If $w$ is
+$\D_n$ be the output from the Generalised Folding Loop, with input $\D_0$. If $w$ is
 accepted by $\D_0$ then the normal form of $w$ is accepted by $\D_n$.
 \end{lemma}
 \begin{proof}
@@ -4752,7 +4784,7 @@ is the normal form of $u$.
 First we prove statement \ref{it:membership}.
 Construct the flower automaton $\cF(K)$ of $K$ and then
 its Stallings automaton $\G_K$,  as at the beginning of this Section. % \ref{sec:dca},
-Let $\D_0=\G_K$ and input this to the loop to obtain output $\D_n$.
+Let $\D_0=\G_K$ and input this to the Generalised Folding Loop to obtain output $\D_n$.
 Given a word $w\in \FF(X_1\cup X_2\cup Z)$ write $w$ in normal form
 using Algorithm I. Let $\tilde w$ be the output of Algorithm I. 
 If $w\in K$ then there is a word $v$ in the generators
@@ -4766,7 +4798,7 @@ $\tilde w\notin L(\D_n)$.
 
 Statements \ref{it:uni-membership} and \ref{it:class-uni-membership} follow
 from the observation that we may
-first run Algorithm I, then the Loop.
+first run Algorithm I, then the Generalised Folding Loop.
 \end{proof}
 
 \section{Computational complexity}\label{sec:TC}
@@ -5057,14 +5089,14 @@ t_{i,j}\in S_k} |t_{i,j}|_k$, with the function $t_1$ defined in
 
 %%%here
 Let $\D_{(0)} = \G_K$,
- and assume that the loop has been run $n$ times to produce an
+ and assume that the Generalised Folding Loop has been run $n$ times to produce an
 inverse automaton $\D=\D_{(n)}$.
  %Let $\T^{(1)}, \ldots, \T^{(p_1)}$ be
 %the set of all $X_1$ components of $\D$, and let $\Phi^{(1)},
 %\ldots, \Phi^{(p_2)}$ be the set of all $X_2$ components.
 We shall
 first study  the complexity of modifications 1 --- 5 for a subgraph $\D_k$ of $\D$ ($k=1,2$), and then apply this result
-to estimate the general complexity of Algorithm II. For the sake of reader's convenience we refer to the steps \ref{it:C2} --- \ref{it:C16} of the summary of Algorithm II, Section \ref{subs_summaryII}, when appropriate. Denote by $E_k
+to estimate the general complexity of Algorithm II. For the sake of reader's convenience we refer to the steps \ref{it:C2} --- \ref{it:C16} of the summary of Algorithm II, Section \ref{sub:summaryII}, when appropriate. Denote by $E_k
 \D$, $E_Z \D$ and $V\D$ the sets of edges of type $X_k$ and of
 type $Z$ and the set of vertices, respectively, of  $\D$.
 %Similarly, use $E_k\T_i$, $E_Z\T_i$ and $V\T_i$ to denote the
@@ -5481,11 +5513,11 @@ where $C_1$ and $C_2$ are constants determined by $H_1, H_2$ and intermediate gr
 The time $t_{\D}$ can be estimated using \eqref{eq:alg2} and \eqref{vdelta5_pr} (or \eqref{vdelta5_rough}).
 
 
-\subsection{Complexity of the Loop}\label{sub:loop}
-Each iteration of the loop involves input $\D=\D_{(n)}$, followed by
+\subsection{Complexity of the Generalised Folding Loop}\label{sub:loop}
+Each iteration of the Generalised Folding Loop involves input $\D=\D_{(n)}$, followed by
 folding of the output $\D^{\prime\prime}$ of \ref{it:gf1}
 The folding requires time $t_1(|E\D^{\prime\prime}|)$. Therefore the
-total time required to run the Loop on the input $\D_{(n)}$ is
+total time required to run the Generalised Folding Loop on the input $\D_{(n)}$ is
  $t_{\Loop}(\D_{(n)})= t_{\D}+t_1(|E\D^{\prime\prime}|)$.
  The number of edges of $\D_Z$ is $e$,
 and as $\D_5'$ has at most  $|E\D_{1,5}|+|E\D_{1,5}|$ edges the number of all edges of $\D^{\prime\prime}$ is at most
@@ -5549,7 +5581,7 @@ form. Given finite bases $Y_1$ and $Y_2$ of $H_1$ and $H_2$, correspondingly, on
 \ldots +|w_t|_{\e_t})+ t_1(W)+t_{\Loop}(\D_{(M-1)}),
 \end{equation}
 where $N_k$ is length of $Y_k$, $\e_i \in \{ 1, 2\}, i = 1, \ldots,
-t$, and $\e_i = k$ if $w_i \in F_k$, $k = 1,2$; $t_1$ defined in (\ref{t1}), $W = W_Z +W_1 +W_2$, $M = m_1 + \ldots + m_s$, and $t_{\Loop}(\D_{(n)})$ estimated in \eqref{tloop}, with $\D_{(n)}$ corresponding to the $n-$th iterate of the Loop.
+t$, and $\e_i = k$ if $w_i \in F_k$, $k = 1,2$; $t_1$ defined in (\ref{t1}), $W = W_Z +W_1 +W_2$, $M = m_1 + \ldots + m_s$, and $t_{\Loop}(\D_{(n)})$ estimated in \eqref{tloop}, with $\D_{(n)}$ corresponding to the $n-$th iterate of the Generalised Folding Loop.
 \end{theorem}
 \begin{proof}
 According to corollary \ref{cor:dcnf_time}, given $Y_1$ and $Y_2$, one can rewrite $w$ in double coset normal form in time at most 
@@ -5561,12 +5593,13 @@ partitioned into equivalence classes of $\sim$, and sets $P_{k,0}$ of representa
 elements of $P_k$ with sets $C_k$ of connecting elements. 
 As it was noticed above, the Stallings folding $\G_K$ of the graph $\G$, associated to
 the flower automaton $\cF(K)$ of the subgroup generated by $k_1, \ldots , k_s$ can be constructed in time  $t_1(W)$.
-All these structures form precisely the input of Algorithm II. Having $\D_{(0)} = \G_K$, we run the Loop once, and obtain $\D_{(1)}$ in time at most $t_{\Loop}(\D_{(0)})$, as in sections \ref{sub:resolution} and \ref{sub:loop}. 
+All these structures form precisely the input of Algorithm II. Having $\D_{(0)} = \G_K$, we run the Generalised Folding Loop once, and obtain $\D_{(1)}$ in time at most $t_{\Loop}(\D_{(0)})$, as in sections \ref{sub:resolution} and \ref{sub:loop}. 
 Notice that $\G_K$ has at
 most $M$ components of type $X_1$ and $X_2$.
- The Loop is repeated
+ The Generalised Folding Loop is repeated
  only if $\D_{(n+1)}$ has fewer  $X_1$ and $X_2$ components
-than $\D_{(n)}$: so there can be at most $M$ iterations of the loop. Therefore, we can construct an inverse automaton 
+than $\D_{(n)}$: so there can be at most $M$ iterations of the Generalised
+Folding Loop. Therefore, we can construct an inverse automaton 
  $\Psi$, with alphabet $\Sigma$ and start
 and final state $1$, such that $\pi(L(\Psi))=K$ and $\Psi$ accepts the
 double coset normal form of every element of $K$ in time at most 
