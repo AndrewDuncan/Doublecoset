@@ -135,7 +135,8 @@
 \newcommand{\eiz}{\end{itemize}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-\newenvironment{ajd}{\noindent\color{red} AJD }{}
+\newenvironment{ajd1}{\noindent\color{red} AJD }{}
+\newcommand{\ajd}[1]{\begin{ajd1} #1 \end{ajd1}}
 %
 %\includecomment{comp}% to see environment comp
 \excludecomment{comp}% to hide environment comp
@@ -1862,6 +1863,89 @@ vertices of $\Theta_4$ and $L_4$ and $L_5$ are the languages accepted by
 $(\Theta_4,\a,\b)$ and $(\Theta_5,\theta_4(\a),\theta_4(\b))$,
 respectively, then $\pi(L_4)=\pi(L_5)$.\\[1em]
 
+\ajd{
+\noindent\textbf{Modification 5 revisited: $\T_4\leadsto \T_5$.}\\
+Finally we wish to add paths which allow double coset representatives
+of type $2$ to be read.
+Let $\cP_4=\T_4\times \G_{A_k}$ and choose a spanning forest $\U_4$ for
+$\cP_4$.
+
+Let $(\e_1,\e_2)\in P\subseteq V(\G_{A_k}\times \G_{A_k})$, let 
+ the $\sim$ representative of $(\e_1,\e_2)$ be $(\xi_1,\xi_2)$ and  
+set $a_1=w(\xi_1)$ and $a_2=w(\xi_2)$.
+By definition of $\sim$ there are  paths in $\G_{A_k}$,
+with label
+$c=c(\e_1,\e_2)$, from $\e_1$ to $\xi_1$ and $\e_2$ to $\xi_2$.
+
+Assume that, for  some vertices $\a_1,\a_2, \b$ of $\T$, there exist vertices
+$(\a_1,1)$, $(\a_2,1)$, $(\b,\e_1)$ and $(\b,\e_2)$, and simple 
+paths   $p_1$, from $(\a_1,1)$ to $(\b,\e_1)$,
+and $p_2$, from
+$(\a_2,1)$ to $(\b,\e_2)$ in $\U_4$, with labels $t_1$  and  $t_2$ 
+respectively.  Then 
+ $h_i=
+t_ica_i^{-1}\in H_k$ and $w_i=\phi_k^{-1}(h_i)\in \FF(Z)$, for $i=1,2$. 
+
+In this case 
+ let $q$ be a path (disjoint from $\T_4$)
+with label $w_1 a_1a_2^{-1} w_2^{-1}$,
+and identify the initial
+and terminal vertices of $q$ with  vertices $\a_1$ and $\a_2$
+of $\T_4$, respectively.
+(See Figure \ref{fig:alg2-5}.)
+\begin{figure}
+\begin{center}
+\psfrag{1}{$1$}
+\psfrag{ai}{$\a_1$}
+\psfrag{aj}{$\b$}
+\psfrag{al}{$\a_2$}
+\psfrag{a1}{$a_1$}
+\psfrag{a2}{$a_2$}
+\psfrag{b1}{$t_1$}
+\psfrag{b2}{$t_2$}
+\psfrag{c}{$c$}
+\psfrag{w}{$w$}
+\psfrag{e}{$\e_1$}
+\psfrag{x}{$\e_2$}
+\psfrag{e0}{$\xi_1$}
+\psfrag{x0}{$\xi_2$}
+\psfrag{(ai,1)}{$(\a_1,1)$}
+\psfrag{(al,1)}{$(\a_2,1)$}
+\psfrag{(aj,e)}{$(\b,\e_1)$}
+\psfrag{(aj,x)}{$(\b,\e_2)$}
+\psfrag{1}{$1$}
+\psfrag{b}{$\b$}
+\psfrag{Th4 to Th5}{$\T_4\leadsto \T_5$}
+\psfrag{U4 in cP}{$\U_4\subseteq \cP_4$}
+\psfrag{G_A}{$\G_{A_k}$}
+\includegraphics[scale=.5]{alg2-5.eps}
+\end{center}
+\caption{$\Theta_4$ to $\Theta_5$ revisited:
+$w=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$.}
+\label{fig:alg2-5}
+\end{figure}
+
+Repeat this process for all such pairs $(\e_1,\e_2)$ 
+and all such paths $p_1$ and $p_2$.
+To see that the image of the language accepted by
+ the new graph is the same as that of the original note
+that the word $t_1t_2^{-1}$ is readable, starting at $\a_1$ and
+ending at $\a_2$, in $\T_4$. As $\pi(t_1t_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
+the addition of this new path has no effect on the image, under $\pi$, of
+the language accepted by the automaton.
+
+ Fold the resulting graph to form $\T_5$. As before, there is
+a natural morphism $\theta_5$ from $\Theta_4$ to $\Theta_5$ and again,
+if $\a,\b$ are
+vertices of $\Theta_4$ and $L_4$ and $L_5$ are the languages accepted by
+$(\Theta_4,\a,\b)$ and $(\Theta_5,\theta_4(\a),\theta_4(\b))$,
+respectively, then $\pi(L_4)=\pi(L_5)$.
+
+(There is alot of redundancy built in to this modification step. In 
+Example \ref{ex:K} below we discuss how to avoid some of the unnecessary
+ work.)\\[1em]
+}
+
 \noindent\textbf{Reassembly.}\\
 The modification process is applied to all $X_k$ components of $\D_k$,
 for $k=1$ and $2$. Roughly speaking a new graph is then constructed by
@@ -2036,7 +2120,7 @@ of $H$.
 \eiz
 \noindent\textbf{Process.}
 \be[{B}1]
-\item Find the maximal prefix $h$ of $w$ accepted by $G_A$.
+\item Find the maximal prefix $h$ of $w$ accepted by $\G_A$.
 Let $w=h\circ f$.
 \item If $h=w$ then output $(w,1,1)$ and stop. 
 \item Use $\G_A$ to find the maximal $L_Q$-prefix $p$ of $f$.
@@ -2049,7 +2133,7 @@ Let $r=t\circ e^{-1}$.
 \item Using $L_T$, set $y=w(\t(p))$ and $z=w(\t(t))$.
 \item Freely reduce $hpy^{-1}$, $yez^{-1}$ and $zt^{-1}g^{-1}$ and
 call the results   $a, b$ and $c$, respectively.
-\item Output $a,b,c$ and stop.
+\item Output $(a,b,c)$ and stop.
 \item\label{it:ss} (This step is reached only if $e= 1$.)
  Using $P_0$ and $F$ find the representative $(u_0,v_0)$ of $(u,v)$, where
 $u=\t(p)$ and $v=\t(t)$.
@@ -2057,7 +2141,7 @@ $u=\t(p)$ and $v=\t(t)$.
 \item Let $y=w(u_0)$ and $z=w(v_0)$.
 \item Freely reduce $hpcy^{-1}$ and $zc^{-1}t^{-1}g^{-1}$ and call the
 results $a$ and $b$, respectively.
-\item Output $a,yz^{-1},b$.
+\item Output $(a,yz^{-1},b)$.
 \ee
 
 \begin{comp}
@@ -2139,14 +2223,19 @@ $(v,k)$ in $\D_{k,0}$.
 \ee
 \item\label{it:C2} (\textbf{Begin Modification 1}.) For all edges
 $(\a,z,\b)$ of $\D_{k,0}$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
-$\D_{k,0}$. The resulting graph is called $\D_{k,1}'$.
+$\D_{k,0}$. The resulting graph is called $\D_{k,1}'$. 
+For each vertex $(v,k)$ in $V(\D_{k,1}')\backslash V(\D_{k,0})$ set 
+$\vim(v,k)=\emptyset$. 
 \item\label{it:C3} Construct the Stallings folding$\D_{k,1}$  of (each component of)
 $\D_{k,1}'$.  
 Whenever two vertices $(u,k)$ and $(v,k)$
 of $\D_{k,1}'$ are identified, by the folding map, to a vertex $(w,k)$
-set $\vim(w,k)=\vim(u,k)\cup \vim(v,k)$. This process will be
+set $\vim(w,k)=\vim(u,k)\cup \vim(v,k)$. 
+The sets $\vim(u,k)$ and $\vim(v,k)$ may be deleted.  This process, combined 
+with the initialisation, above, of $\vim$ (to the empty set) for new vertices
+added,  will be
 called \emph{updating}
-$\vim$, from now on. The sets $\vim(u,k)$ and $\vim(v,k)$ may be deleted. 
+$\vim$, from now on. 
 \item\label{it:C4} (\textbf{Begin Modification 2}.)
  Construct $\cP_{k,1}=\D_{k,1}\times \G_{A_k}$.
 \item\label{it:C5} Construct a spanning forest $\U_{k,1}$ of $\cP_{k,1}$.
@@ -2220,6 +2309,25 @@ $\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}[\phi_k^{-1}(b_2ca_2^{-1})]^{-1}$, where
 $(\e_0,\xi_0)$ is the $\sim$ representative of $(\e,\xi)$, $a_1=w(\e_0)$,
 $a_2=w(\xi_0)$ and $c$ is the connecting element of $(\e,\xi)$.
 The resulting graph is called  $\D_{k,5}'$.
+
+\ajd{
+\ref{it:C15} revisited.  For each element $(\e_1,\e_2)\in P$ and
+each vertex $\b\in V(\D_{k,4})$ 
+such that $\vim(\b,k)\neq \emptyset$, do the following. 
+Let $C_1$ and $C_2$ be the components of $\cP_{k,4}$ containing 
+$(\b,\e_1)$ and $(\b,\e_2)$, respectively. Assume that there are vertices
+$\a_1$ and $\a_2$ of $\D_{k,4}$ such that $\vim(\a_i)\neq \emptyset$ and 
+$(\a_i,1)\in V(C_i)$, for $i=1$ and $2$. (If any of these  conditions fail 
+ there
+is no action to be taken for this $\b$.) Let $t_i$ be the label
+of the path from $(\a_i,1)$ to $(\b,\e_i)$, in $\U_{k,4}$.  Let 
+$(\xi_1,\xi_2)$ be  the $\sim$ representative of $(\e_1,\e_2)$, let 
+$c=c(\e_1,\e_2)$ be the connecting element of $(\e_1,\e_2)$ and 
+let $a_i=w(\xi_i)$, $i=1,2$. Add  a path to $\D_{k,4}$, 
+from $\a_1$ to $\a_2$, with label
+$\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}[\phi_k^{-1}(t_2ca_2^{-1})]^{-1}$. 
+The resulting graph is called  $\D_{k,5}'$.
+}
 \item\label{it:C16} Construct the Stallings folding $\D_{k,5}$ of $\D'_{k,5}$ 
 and update $\vim$.
 \item\label{it:C17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
@@ -2299,7 +2407,7 @@ f_2^\prime &= h_2^\prime y_2^{-1}y_1y_3.
 
 Let $K$ be the subgroup of $G$ generated by $k_1=f_1f_1^\prime f_2$,
 $k_2= f_3f_2^\prime f_4$ and $k_3=f_5$.
-In Example \ref{ex:g} we found the double-coset normal form of
+In Example \ref{ex:g} we found the double coset normal form of
 $k_1=g=f_1f_1^\prime f_2$, namely
 \[k_1=z_2^2 z_1  x_1 x_3 x_1 z_1^{-1}
 z_2y_1y_2^{-1} z_1^{-1}z_2^{-1}
@@ -2314,36 +2422,41 @@ which is
 shown in Figure \ref{fig:Kflower}.
 There is one $X_1$ component $\Theta$ of this graph, shown in Figure \ref{fig:KX}
 and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$,
-shown in Figure \ref{fig:KY}. Each of these components is input to
- the Generalised Folding Loop, in turn.
+shown in Figure \ref{fig:KY}. Thus $\D_{1,0}=\Theta$ and 
+$\D_{2,0}=\T'\cup \T''$. Each of these components is input to
+ the Generalised Folding Loop, in turn.  The graph $\D_Z$ is shown
+in Figure \ref{fig:notyetdrawn}.
 
 First consider the $X_1$ component $\Theta$. Modification 1
 results in the graph of Figure \ref{fig:K_f1}. To perform the next
-stages of the  modification process the graph $\Theta_1 \times
+stages of the  modification process the graph  $\cP_{1,1}=\Theta_1 \times
 \G_{A_1}$ is constructed; where $\G_{A_1}$ is the graph of Example
-\ref{ex:f_1}, shown in Figure \ref{fig:stall1}. The product graph
-$\cP_1$ is shown in Figure \ref{fig:K_f1-x-g}. The spanning forest
-chosen for $\cP_1$ is the one obtained by removing the edge
-joining vertices $(13,1)$ and $(30,5)$. On examination of $\cP_1$
-there is one path to add: corresponding to the path in $\cP_1$,
+\ref{ex:f_1}, shown in Figure \ref{fig:stall1}. The  graph
+$\cP_{1,1}$ is shown in Figure \ref{fig:K_f1-x-g}. The spanning forest
+chosen for $\cP_{1,1}$ is the one obtained by removing the edge
+joining vertices $(13,1)$ and $(30,5)$. On examination of $\cP_{1,1}$
+there is one path to add: corresponding to the path in $\cP_{1,1}$,
 from $(15,1)$ to $(31,1)$, labelled $x_1^{-3}$. Thus a path is
 added to $\T_1$, from the vertex $15$ to the vertex $31$, with
 label $z_1^{-1}$. There are no other paths to add which do not
-already exist in $\T_1$. The result is  the graph $\Theta_2$,
-shown in Figure \ref{fig:K_f2}. The next step is to construct
-$\cP_2=\T_2\times \G_{A_1}$, but as there are no $X_1$ edges in
-$\T_2$ that are not in $\T_1$, it follows that  $\cP_2$ is the
-union of $\cP_1$ and some isolated vertices, and we may use
-$\cP_1$ instead of $\cP_2$. In this instance there is nothing to
-add at this stage and $\T_3=\T_2$.
+already exist in $\T_1$. The result is  the graph $\D_{1,2}=\Theta_2$,
+shown in Figure \ref{fig:K_f2}. 
 
-In formation of $\T_4$ paths are added to $\T_3$,
-corresponding to pairs of vertices $(\g,\d)$ of $\cP_3$($=\cP_1$), which
-are not covered by $\cP_3$.
+The next step is to construct
+$\cP_{1,2}=\T_2\times \G_{A_1}$, but as there are no $X_1$ edges in
+$\T_2$ that are not in $\T_1$, it follows that  $\cP_{1,2}$ is the
+union of $\cP_{1,1}$ and some isolated vertices, and we may use
+$\cP_{1,1}$ instead of $\cP_{1,2}$. In this instance there is nothing to
+add at this stage and $\D_{1,3}=\T_3=\T_2$.
+
+In formation of $\D_{1,4}=\T_4$ paths are added to $\T_3$,
+corresponding to pairs of vertices $(\g,\d)$ of $\cP_{1,3}$ (which 
+is the union of $\cP_{1,1}$ with some isolated vertices), that 
+are not covered by $\cP_{1,3}$.
 In the table of Figure \ref{tab:T4} the paths to be added are listed:
 each row corresponds to such a pair $(\g,\d)$. The
 label of the path from $\g=(\a_i,1)$ to $\d=(\a_j,\b)$
-in $\cP_3$ is $a$,
+in $\cP_{1,3}$ is $a$,
 the label of the path from $1$ to $\b$ in $\T_k$ is $b$, and the word
 $\phi_k^{-1}(ab^{-1})$ is $w$. For each line of the table a path,
 from $\a_i$ to $\a_j$, with label $wb$, is added to $\T_3$.
@@ -2363,6 +2476,7 @@ $(32,1)$ & $(13,3)$ & $x_1^{-2} $ & $x_1 $ & $z_1^{-1} $\\\hline
 $(32,1)$ & $(30,4)$ & $x_1^{-2}x_2$ & $x_3^{-1} $ & $z_1^{-1}z_3$\\\hline
 $(1,1)$ & $(3,5)$ & $x_2x_3^{-1} $ & $x_2 $ & $z_2^{-1} $\\\hline
 $(30,1)$ & $(12,3)$ & $x_3^{-1}x_2^{-1}$ & $x_1 $ & $z_3^{-1} $\\\hline
+$(29,1)$ & $(1,3)$ & $x_3^{-1}x_2^{-1}$ & $x_1 $ & $z_3^{-1} $\\\hline
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 \end{center}
@@ -2372,11 +2486,11 @@ $(30,1)$ & $(12,3)$ & $x_3^{-1}x_2^{-1}$ & $x_1 $ & $z_3^{-1} $\\\hline
 After adding these paths to $\T_3$ the graph is folded to
 produce the graph $\T_4$, shown in Figure \ref{fig:K_f4}.
 
-To form $\T_5$ we first construct $\cP_4=\T_4\times \G_{A_k}$,
+To form $\D_{1,5}=\T_5$ we first construct $\cP_{1,4}=\T_4\times \G_{A_k}$,
 which is shown in Figure \ref{fig:K_f4-x-g}, and choose a spanning
-subforest $\U_4$ of $\cP_4$. In this example this is done by
+subforest $\U_4$ of $\cP_{1,4}$. In this example this is done by
 removing the edge  joining vertices $(13,1)$ and $(30,5)$ from
-$\cP_4$. A path will be added to $\T_4$ whenever a pair $(\e,\xi)$
+$\cP_{1,4}$. A path will be added to $\T_4$ whenever a pair $(\e,\xi)$
 in the set $P$ of non-diagonal pairs of vertices of $\G_{A_k}$ is
 found, satisfying the conditions given in Modification 5: namely
 that
@@ -2395,7 +2509,7 @@ $c$ be the connecting element and let $a_1$ and $a_2$ be the labels of  the path
 $1$ to $\e_0$, and $1$ to $\xi_0$, in $T_k$. Then the label of any corresponding  path added to
 $\T_4$ is $w=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2cb_2^{-1})$.
 The table of Figure \ref{tab:T5} shows pairs of vertices $(\a_i,1)$, $(\b,\e)$ and $(a_l,1)$, $(\b,\xi)$,
-of $\cP_4$, for which the conditions above are satisfied.
+of $\cP_{1,4}$, for which the conditions above are satisfied.
 \begin{figure}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
@@ -4827,22 +4941,84 @@ $\phi_k^{-1}(g_2)$ from $\a$ to $\a_1$ and $\b$ to $\b_1$, respectively.
 \psfrag{w}{$r$}
 \psfrag{r1}{$g_1$}
 \psfrag{r2}{$g_2$}
+\psfrag{m}{~}
 \includegraphics[scale=.5]{nf-2.eps}
 \end{center}
-\caption{Normal form: type 2, $r=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
+\caption{Normal form: type 2, $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$.}
 \label{fig:nf-2}
 \end{figure}
 As $w$ is readable in $\T$ there is a path labelled $b_1b_2^{-1}$, from
 $\a_1$ to $\b_1$, in $\T_3$.
 By construction of $\T_5$ there is also a path labelled
 $r=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$
-from $\a_1$ to $\b_1$. As $\T_5$ is folded
+from $\a_1$ to $\b_1$.
+ As $\T_5$ is folded
 $
 \phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
  is readable in
 $\T_5$. Since the latter is in normal form we have
 $h_1 = \phi_k^{-1}(g_1 b_1ca_1^{-1})$ and
 $h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.
+
+\ajd{Last 2 paragraphs revisited. 
+In the second case,
+let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
+$h_1$ and $h_2$ are in $\FF(Z)$,  $a_1$ and $a_2$ are labels
+of simple paths in the subtree $T_k$ and $s=a_1a_2^{-1}$ is a double coset
+representative of type $2$. Then there are words
+$g_1, g_2, b_1, b_2, c$  in $\FF(X_k)$,  such that
+$w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$,
+$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
+$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in
+$L_Q$, $c=c(\t(b_1),\t(b_2))$, $a_i=w(v_i)$, where
+$(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$, 
+and $h_i=\phi_k^{-1}(g_ib_ica_i^{-1})$.
+
+Then $\T$ contains vertices $\g_1,\g_2, \a_1, \a_2$ and $\b$ and there are paths
+in $\T_1$ 
+labelled $g_i$, from $\g_i$ to $\a_i$, and labelled $b_i$ from $\a_i$ to $\b$,
+$i=1,2$. Moreover, as in the first case there are paths in $\T_3$ labelled
+$\phi_k^{-1}(g_i)$
+from $\g_i$ to $\a_i$, $i=1,2$.
+(See Figure \ref{fig:nf-2}.)
+\begin{figure}
+\begin{center}
+\psfrag{a}{$\g_1$}
+\psfrag{b}{$\g_2$}
+\psfrag{a1}{$\a_1$}
+\psfrag{a2}{$\a_2$}
+\psfrag{b1}{$\a_2$}
+\psfrag{b2}{$\b_2$}
+\psfrag{g1}{$\phi_k^{-1}(g_1)$}
+\psfrag{g2}{$\phi_k^{-1}(g_2)$}
+\psfrag{Th5}{$\T_5$}
+\psfrag{b_1}{$b_1$}
+\psfrag{b_2}{$b_2$}
+\psfrag{w}{$r$}
+\psfrag{r1}{$g_1$}
+\psfrag{r2}{$g_2$}
+\psfrag{m}{$\b$}
+\includegraphics[scale=.5]{nf-2.eps}
+\end{center}
+\caption{Normal form: type 2, $r=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
+\label{fig:nf-2}
+\end{figure}
+Let $\e_i=\t(b_i)$, $i=1,2$; so $(\e_1,\e_2)\in P$. 
+As $w$ is readable in $\T_1$ there is a path labelled 
+$b_i$ from $(\a_i,1)$ to $(\b,\e_i)$ in $\cP_{k,4}$, so there
+exists a simple path, labelled $t_i$, from $(\a_i,1)$ to $(\b,\e_i)$ in 
+$\U_{k,4}$. Then $\T_3$ contains a path from $\a_i$ to $\a_i$ with 
+label $\phi_k^{-1}(b_it_i^{-1})$. 
+By construction of $\T_5$ there is also a path labelled
+$r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$
+from $\a_1$ to $\b_1$.
+ As $\T_5$ is folded
+$
+\phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
+ is readable in
+$\T_5$, as required.
+
+}
 \end{proof}
 
 \begin{lemma}\label{lem:idverts}
