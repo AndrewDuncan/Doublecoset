@@ -275,5 +275,5 @@ def _test_():
 		os.system('neato -Tpng test%s.gv > test%s.png' % (step,step))
 		go = g.fold()
 
-if __name__=='__main__':
+if __name__ == '__main__':
 	_test_()

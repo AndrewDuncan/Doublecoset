@@ -10,3 +10,8 @@ def freelyReduce(word):
 
 def inverse(word):
 	return ''.join([c.upper() if c==c.lower() else c.lower() for c in word[::-1]])
+
+if __name__ == "__main__":
+    import sys
+    print(inverse(sys.argv[1]))
+    
