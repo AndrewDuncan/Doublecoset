@@ -49,6 +49,8 @@ class free_group(object):
         if i == 0:
             print("Warning word", word, "is not in the free group")
 
+        return(i)    
+
 class subgroup(object):
    def __init__(self, name, subgp_gens):
        self.name = name
@@ -59,9 +61,11 @@ class subgroup(object):
        for w in self.subgp_gens:
            self.flower.addLoop(self.flower.root,w)
 
-
-      #return(K)
-              
+   def stallings(self,graph):
+       go = True
+       while go:
+          go = R.flower.fold()
+                  
 F=free_group(2,"b")
 G=free_group(2,"alpha")
 w="abBbA"
@@ -70,8 +74,10 @@ v=["b1","B1","b1","B2"]
 F.make_gens()
 X=F.mongens
 print(X)
-F.is_element(v)
-F.is_element(w)
+#F.is_element(v)
+print(F.is_element(v))
+#F.is_element(w)
+print(F.is_element(w))
 print("now G\n")
 G.make_gens()
 Y=G.mongens
@@ -83,7 +89,14 @@ R.make_flower()
 print "digraph R.flower {"
 print (str(R.flower))
 print "}"
-R.flower.fold()
+#out = '';
+#step = 0
+#go = True
+#while go:
+ #step += 1
+ #print(go)
+ #go = R.flower.fold()
+R.stallings(R.flower)
 print "folded digraph R.flower {"
 print (str(R.flower))
 print "}"
