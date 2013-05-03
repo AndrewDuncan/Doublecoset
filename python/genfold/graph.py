@@ -253,6 +253,7 @@ class Graph:
 				for v in vs:
 					out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
 		return '\n'.join(out)
+
 	
 	def __str__(self):
 		return self.graphViz(self.label)

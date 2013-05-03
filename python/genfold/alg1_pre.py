@@ -1,4 +1,6 @@
 import string
+from graph import *
+
 
 class element(object):
     def __init__(self,word):
@@ -24,41 +26,64 @@ class free_group(object):
         self.alpha = alpha
         self.gens =[]
         self.GENS =[]
+        self.mongens =[]
         self.Alph =  string.ascii_lowercase
-        
+                
     def make_gens(self):
         for x in range(0, self.rank):
              if self.alpha == "alpha":
-                self.gens.append(str(self.Alph[x]))
+                self.gens.append(self.Alph[x])
                 self.GENS.append(self.Alph[x].upper())
              else:
                 self.gens.append(self.alpha.lower()+str(x+1))
                 self.GENS.append(self.alpha.upper()+str(x+1))
-             print(x)
-            
-    def is_element(self,word): 
+             
+             self.mongens = self.gens + self.GENS
+             
+    def is_element(self,word):
+        i = 1
         for c in word:
-            print(c)
-            if c in self.gens:
-              print("matched")
-            else:  
-              print("missed")
+            if not (c in self.mongens):
+              i = 0
+            
+        if i == 0:
+            print("Warning word", word, "is not in the free group")
+
+class subgroup(object):
+   def __init__(self, name, subgp_gens):
+       self.name = name
+       self.subgp_gens = subgp_gens
+       self.flower = Graph(rooted=True,label= self.name)
+
+   def make_flower(self):
+       for w in self.subgp_gens:
+           self.flower.addLoop(self.flower.root,w)
+
+
+      #return(K)
               
 F=free_group(2,"b")
 G=free_group(2,"alpha")
-w="ababa"
+w="abBbA"
+y="abbBA"
+v=["b1","B1","b1","B2"]
 F.make_gens()
-x=F.gens
-print(x)
-X=F.GENS
+X=F.mongens
 print(X)
+F.is_element(v)
 F.is_element(w)
 print("now G\n")
-v=["b1","b1","b1","B1","b1","B2"]
-F.is_element(v)
-
-print(G.make_gens())
-print(G.gens)
-print(G.GENS)
+G.make_gens()
+Y=G.mongens
+print(Y)
 G.is_element(v)
 G.is_element(w)
+R=subgroup("H1",[w,v,y])
+R.make_flower()
+print "digraph R.flower {"
+print (str(R.flower))
+print "}"
+R.flower.fold()
+print "folded digraph R.flower {"
+print (str(R.flower))
+print "}"
