@@ -2,11 +2,11 @@ import string
 from graph import *
 
 
-class element(object):
+class element(object): #reduced word 
     def __init__(self,word):
        self.word = word
        
-    def freely_reduce(self):
+    def freely_reduce(self): 
         i=0
 	while i<len(self.word)-1:
 		if (self.word[i]==self.word[i].lower() and self.word[i].upper()==self.word[i+1]) or (self.word[i]==self.word[i].upper() and self.word[i].lower()==self.word[i+1]):
@@ -16,7 +16,7 @@ class element(object):
 			i+=1
 	return self.word
     
-    def inverse(self):
+    def inverse(self): #inverse of word, not necessarily reduced
 	return ''.join([c.upper() if c==c.lower() else c.lower() for c in self.word[::-1]])
 
 
@@ -29,7 +29,7 @@ class free_group(object):
         self.mongens =[]
         self.Alph =  string.ascii_lowercase
                 
-    def make_gens(self):
+    def make_gens(self): #make generators and their inverses (a and A or x1 and X1
         for x in range(0, self.rank):
              if self.alpha == "alpha":
                 self.gens.append(self.Alph[x])
@@ -40,7 +40,7 @@ class free_group(object):
              
              self.mongens = self.gens + self.GENS
              
-    def is_element(self,word):
+    def is_element(self,word): #test is word is written in X union X^{-1}
         i = 1
         for c in word:
             if not (c in self.mongens):
@@ -49,19 +49,142 @@ class free_group(object):
         if i == 0:
             print("Warning word", word, "is not in the free group")
 
-class subgroup(object):
+        return(i) # i = 0 if word is not in given gens
+
+
+class subgroup(object): #subgroup of freegroup, given by a set of generators
    def __init__(self, name, subgp_gens):
        self.name = name
        self.subgp_gens = subgp_gens
        self.flower = Graph(rooted=True,label= self.name)
 
-   def make_flower(self):
+   def make_flower(self): #flower automaton for given generators
        for w in self.subgp_gens:
            self.flower.addLoop(self.flower.root,w)
 
+       return(self.flower)
 
-      #return(K)
+   def stallings(self): #stallings automaton for given generators
+       go = True
+       R=self.make_flower()
+       while go:
+          go = R.fold()
+
+class bfs_plain(object): # breadth first search of given connected graph to return, with each vertex its distance from the given root
+    #its parent and the time it was added to the tree
+    def  __init__(self, graph):#this must be a rooted graph
+        self.graph = graph
+        self.root = self.graph.root
+        
+    def tree(self):
+        i = 1
+        q = []
+        N = {}
+        for v in self.graph.vertices:
+            v.colour = 0
+            N[v]=[]
+            for x in itertools.chain(v.outedges.values(),v.inedges.values()):
+                for y in x:
+                    if not (y in N[v]):
+                        N[v].append(y)
+
+
+        print("Neighbour list",N)
+        
+        v =self.root    
+        v.colour = 1
+        v.length = 0
+        v.time = i
+        v.parent = v
+        q.append(v)
+        while q:
+            print("q is", q, "first item of q", q[0])
+            u=q[0]
+            for x in N[u]:
+                print("neiqhbour of ", u, "is", x)
+                print("colour of", x, "is", x.colour)
+                if x.colour == 0:
+                    i += 1
+                    x.colour = 1
+                    x.parent = u
+                    x.length = u.length + 1
+                    x.time = i
+                    q.append(x)
+                   
+                print("q is",q)
+
+            q.pop(0)
+                    
+
+class bfs(object): # breadth first search of given (possibly disconnected) graph to return, with each vertex its
+    #connected component, its distance from the root of its connected component
+    #its parent, the time it was added to the forest
+    #and the label of the path back to the root
+    #for a graph and a list of vertices L of this graph it will select the root of a conn comp C to be the
+    #first element of L which is in C
+    def  __init__(self, graph, vertices=None):#this must be a graph and a list of its vertices
+        self.graph = graph
+        self.root = self.graph.root
+        if vertices is None:
+           self.vertices = self.graph.vertices
+           self.root = self.graph.root
+        else:
+           self.vertices = vertices
+           self.root = self.vertices[0]
+        
+    def forest(self):
+        i = 0 #time a vertex is added
+        q = [] #queue of vertices to be processed within a connected component
+        N = {} #dictionary of adjacent edges to a vertex
+        for v in self.vertices:
+           v.colour = 0 #colour is synonomous with connected component. Here is is initialised
+           N[v]=[]
+           for (a,b) in v.outedgesList: 
+              N[v].append((a,b))
               
+           for (a,b) in v.inedgesList:
+              N[v].append((a.swapcase(),b))
+
+        Nout = list(self.vertices) #list of all vertices. When a vertex is added to a tree it is removed from this list
+        print("Nout", Nout)
+        c = 0
+        while Nout:
+           c += 1
+           i += 1
+           v =Nout[0]
+           Nout.remove(v)
+           print("Nout", Nout)
+           v.colour = c
+           v.length = 0
+           v.time = i
+           v.parent = v
+           v.path =""
+           q.append(v)
+           while q:
+              print("q is", q, "first item of q", q[0])
+              u=q[0]
+              print(N[u])
+              for (a,b) in N[u]:
+                 print(a,b)
+                 if b.colour == 0:
+                    i += 1
+                    b.colour = c
+                    b.parent = u
+                    b.length = u.length + 1
+                    b.time = i
+                    b.path =u.path + a
+                    q.append(b)
+                    Nout.remove(b)
+                    print("Nout", Nout)
+
+
+              q.pop(0)
+                    
+                    
+                     
+
+        
+                  
 F=free_group(2,"b")
 G=free_group(2,"alpha")
 w="abBbA"
@@ -70,20 +193,50 @@ v=["b1","B1","b1","B2"]
 F.make_gens()
 X=F.mongens
 print(X)
-F.is_element(v)
-F.is_element(w)
+#F.is_element(v)
+print(F.is_element(v))
+#F.is_element(w)
+print(F.is_element(w))
 print("now G\n")
 G.make_gens()
 Y=G.mongens
 print(Y)
 G.is_element(v)
 G.is_element(w)
-R=subgroup("H1",[w,v,y])
-R.make_flower()
-print "digraph R.flower {"
-print (str(R.flower))
+H=subgroup("H1",[w,v,y])
+H.make_flower()
+#R=H.flower
+#print "digraph H.flower {"
+#print (str(R))
+#print "}"
+#
+#go = True
+#while go:
+# go = R.fold()
+#
+#S=R
+H.stallings()
+S=H.flower
+print "digraph H.stallings {"
+print (str(S))
 print "}"
-R.flower.fold()
-print "folded digraph R.flower {"
-print (str(R.flower))
+
+
+z1=S.addVertex("z1")
+z2=S.addVertex("z2")
+S.addVertex("z3")
+#S.addVertex("z4")
+#z5=S.addVertex("z5")
+S.addEdge(z2,z1,'r')
+#S.addEdge(z2,z5,'s')
+
+T=bfs(S,)
+print(id(T))
+N=T.forest()
+for v in S.vertices:
+  print("S vertex", v, "parent", v.parent, "colour", v.colour, "len, time, path", v.length,v.time, v.path)
+
+D= S.double()
+print "digraph SxS {"
+print (str(D))
 print "}"

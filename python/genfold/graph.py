@@ -4,7 +4,7 @@ import os
 import itertools
 
 class Vertex:
-	def __init__(self,label,name):
+	def __init__(self,label,name,sortkey=0):
 		self.label = label
 		self.outedges = {}
 		self.outedgesList = []
@@ -14,6 +14,12 @@ class Vertex:
 			self.name = label
 		else:
 			self.name = name
+		if sortkey == 0:
+			self.sortkey = 0
+		else:
+			self.sortkey = sortkey
+
+			
 
 	def __repr__(self):
 		return str(self)
@@ -148,24 +154,33 @@ class Graph:
 	#add a labelled circle rooted at u, so reading round edge labels gives word
 	def addLoop(self,u,word):
 		root = u
-		for c in word[:-1]:				#for each letter in the word:
+		for c in word[:-1]:				#for each letter in the word except the last:
 			v = self.addVertex()		#create a new vertex
 			self.addEdge(u,v,c)			#add a labelled edge connecting previous vertex to the new one
 			u=v
 
 		self.addEdge(u,root,word[-1])	#add a final edge connecting back to the root, with label the last letter of the word
 
-	def addPath(self,u,z,word):
-		lastvadded = u         #keep track of the previous vertex
-		prevlabel = word[0]     #keep track of the previous letter
-		penul = len(word)-1    #the penultimate letter
-		for c in word[1:len(word)]: #for each letter in the word except the first and last:
-			v = self.addVertex()		#create a new vertex
-			self.addEdge(lastvadded,v,prevlabel)			#add a labelled edge connecting previous vertex to the new one, using the previous letter
-			lastvadded = v
-			prevlabel = c
+	#def addPath(self,u,z,word):
+		#lastvadded = u         #keep track of the previous vertex
+		#prevlabel = word[0]     #keep track of the previous letter
+		#penul = len(word)-1    #the penultimate letter
+		#for c in word[1:len(word)]: #for each letter in the word except the first and last:
+		#	v = self.addVertex()		#create a new vertex
+		#	self.addEdge(lastvadded,v,prevlabel)			#add a labelled edge connecting previous vertex to the new one, using the previous letter
+		#	lastvadded = v
+		#	prevlabel = c
+#
+#		self.addEdge(lastvadded,z,word[-1])	#add a final edge connecting back to the final vertex, with label the last letter of the word
 
-		self.addEdge(lastvadded,z,word[-1])	#add a final edge connecting back to the final vertex, with label the last letter of the word	
+	def addPath(self,u,z,word):
+		for c in word[:-1]:			#for each letter in the word except the last:
+			v = self.addVertex()		#create a new vertex
+			self.addEdge(u,v,c)		#add a labelled edge connecting previous vertex to the new one
+			u=v
+						
+		self.addEdge(u,z,word[-1])	        #add a labelled edge connecting the penultimate vertex to z, labelled by the last letter
+			
 	
 	#fold the graph once
 	#that is: any number of vertices might be merged, but each vertex will be merged at most once
@@ -195,6 +210,11 @@ class Graph:
 		def joinName(u,v):	#create a new name for vertices in the double graph, for display
 			return str(u.name)+'-'+str(v.name)
 
+		def joinKey(u,v):	#create a sort key for vertices in the double graph, for construction of spanning forest
+			return [u.label,v.label]
+
+		
+
 		newverts = {}	#a dictionary to keep track of new vertices
 
 
@@ -203,6 +223,7 @@ class Graph:
 		for u,v in itertools.product(self.vertices,self.vertices):	#for every ordered pair of vertices
 			uv = g.addVertex(joinName(u,v))			#add a vertex
 			uv.label = joinLabel(u,v)	#give it a name created from the names of the pair of original vertices
+                        uv.sortkey = joinKey(u,v)	#give it a sortkey created from the names of the pair of original vertices
 			newverts[uv.label] = uv		#add the vertex to the dictionary
 
 		for u,v in itertools.product(self.vertices,self.vertices):	#for every ordered pair (u,v) of vertices
@@ -231,6 +252,7 @@ class Graph:
 			for v in g2.vertices:	#for every vertex in g2
 				uv = g.addVertex(joinName(u,v))			#add a vertex
 				uv.label = joinLabel(u,v)	#give it a name created from the names of the pair of original vertices
+				uv.sortkey = joinKey(u,v)	#give it a sortkey created from the names of the pair of original vertices
 				newverts[uv.label] = uv		#add the vertex to the dictionary
 
 		for u in self.vertices:	#for every ordered pair of vertices
