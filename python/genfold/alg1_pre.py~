@@ -87,10 +87,7 @@ class bfs_plain(object): # breadth first search of given connected graph to retu
                 for y in x:
                     if not (y in N[v]):
                         N[v].append(y)
-
-
-        print("Neighbour list",N)
-        
+                
         v =self.root    
         v.colour = 1
         v.length = 0
@@ -98,11 +95,8 @@ class bfs_plain(object): # breadth first search of given connected graph to retu
         v.parent = v
         q.append(v)
         while q:
-            print("q is", q, "first item of q", q[0])
             u=q[0]
             for x in N[u]:
-                print("neiqhbour of ", u, "is", x)
-                print("colour of", x, "is", x.colour)
                 if x.colour == 0:
                     i += 1
                     x.colour = 1
@@ -110,9 +104,7 @@ class bfs_plain(object): # breadth first search of given connected graph to retu
                     x.length = u.length + 1
                     x.time = i
                     q.append(x)
-                   
-                print("q is",q)
-
+               
             q.pop(0)
                     
 
@@ -122,7 +114,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
     #and the label of the path back to the root
     #for a graph and a list of vertices L of this graph it will select the root of a conn comp C to be the
     #first element of L which is in C
-    def  __init__(self, graph, vertices=None):#this must be a graph and a list of its vertices
+    def  __init__(self, graph, vertices=None):#this must be a graph and a list of its vertices; so far the version with the list of vertices has not been tested
         self.graph = graph
         self.root = self.graph.root
         if vertices is None:
@@ -146,14 +138,12 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
               N[v].append((a.swapcase(),b))
 
         Nout = list(self.vertices) #list of all vertices. When a vertex is added to a tree it is removed from this list
-        print("Nout", Nout)
         c = 0
         while Nout:
            c += 1
            i += 1
            v =Nout[0]
            Nout.remove(v)
-           print("Nout", Nout)
            v.colour = c
            v.length = 0
            v.time = i
@@ -161,11 +151,8 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
            v.path =""
            q.append(v)
            while q:
-              print("q is", q, "first item of q", q[0])
               u=q[0]
-              print(N[u])
               for (a,b) in N[u]:
-                 print(a,b)
                  if b.colour == 0:
                     i += 1
                     b.colour = c
@@ -175,36 +162,77 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
                     b.path =u.path + a
                     q.append(b)
                     Nout.remove(b)
-                    print("Nout", Nout)
-
-
+                    
               q.pop(0)
-                    
-                    
-                     
 
-        
-                  
-F=free_group(2,"b")
+class normal_form(object): # write a word in double coset normal form with respect to a given folding of a subgroup
+     def  __init__(self, graph, word):#graph is a stallings folding
+        self.graph = graph
+        self.word = element(word).freely_reduce()
+
+     def acc_read_rem(self):
+        Apref=""
+        Rpref=""
+        suffix=self.word
+        u=self.graph.root
+        #print("u.out.keys", u.outedges.keys())
+        #print("suff 0", suffix[0])
+        while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):
+           if suffix[0] in u.outedges.keys():
+              #print("why", u.outedges[suffix[0]])
+              #print("u keys",u.outedges.keys())
+              #print("u oulist", u.outedgesList)
+              for x in u.outedgesList:
+                 #print x[0]
+                 #print x[1].outedgesList
+                 if suffix[0] == x[0]:
+                   u=x[1]
+                   
+           if suffix[0].swapcase() in u.inedges.keys():
+              for x in u.inedgesList:
+                 #print x[0]
+                 #print x[1].inedgesList
+                 if suffix[0].swapcase() == x[0]:
+                   u=x[1]
+
+           Rpref=Rpref+suffix[0]
+           if u==self.graph.root:
+              Apref=Apref+Rpref
+              Rpref=""
+              
+           #print("u outedges", u.outedges)
+           #print("u at end of loop", u)
+                         
+           suffix = suffix[1:]
+           #print("fff",suffix)
+               
+        return(Apref,Rpref,suffix,u)
+
+#######################################################
+                                
+F1=free_group(3,"alpha")
 G=free_group(2,"alpha")
+h1="aaa"
+h2="bcB"
+h3="abc"
 w="abBbA"
 y="abbBA"
 v=["b1","B1","b1","B2"]
-F.make_gens()
-X=F.mongens
+F1.make_gens()
+X=F1.mongens
 print(X)
 #F.is_element(v)
-print(F.is_element(v))
+print(F1.is_element(h1))
 #F.is_element(w)
-print(F.is_element(w))
+print(F1.is_element(h2))
 print("now G\n")
 G.make_gens()
 Y=G.mongens
 print(Y)
 G.is_element(v)
 G.is_element(w)
-H=subgroup("H1",[w,v,y])
-H.make_flower()
+H1=subgroup("H1",[h1,h2,h3])
+H1.make_flower()
 #R=H.flower
 #print "digraph H.flower {"
 #print (str(R))
@@ -215,19 +243,19 @@ H.make_flower()
 # go = R.fold()
 #
 #S=R
-H.stallings()
-S=H.flower
-print "digraph H.stallings {"
+H1.stallings()
+S=H1.flower
+print "digraph H1.stallings {"
 print (str(S))
 print "}"
 
 
-z1=S.addVertex("z1")
-z2=S.addVertex("z2")
-S.addVertex("z3")
+#z1=S.addVertex("z1")
+#z2=S.addVertex("z2")
+#S.addVertex("z3")
 #S.addVertex("z4")
 #z5=S.addVertex("z5")
-S.addEdge(z2,z1,'r')
+#S.addEdge(z2,z1,'r')
 #S.addEdge(z2,z5,'s')
 
 T=bfs(S,)
@@ -240,3 +268,48 @@ D= S.double()
 print "digraph SxS {"
 print (str(D))
 print "}"
+
+DB=bfs(D,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+DF=DB.forest()
+for v in D.vertices:
+  print("D vertex", v, "parent", v.parent, "colour", v.colour, "len, time, path", v.length,v.time, v.path)
+print "digraph H1.stallings {"
+print (str(S))
+print "}"
+print("h1", h1)
+NF=normal_form(S,"aaaAabcBCBaaaaCaaa")
+
+
+B3=NF.acc_read_rem()
+print("acc, read, rem, final vertex read", B3)
+q1=element(B3[2])
+q=element(q1.freely_reduce())
+Q=q.inverse()
+print(Q)
+B4=normal_form(S,Q)
+B5=B4.acc_read_rem()
+print("acc, read, rem, final vertex read", B4.acc_read_rem())
+y1=element(B3[3].path)
+y=y1.freely_reduce()
+z1=element(B5[3].path)
+z=z1.freely_reduce()
+Z=z1.inverse()
+Y=y1.inverse()
+print("y path, y inverse", y, Y)
+print("z path, z inverse", z, Z)
+a1=element(B3[0]+B3[1]+Y)
+a=a1.freely_reduce()
+print(a)
+e1=element(B5[2])
+e=e1.inverse()
+b1=element(y+e+Z)
+b=b1.freely_reduce()
+print(b)
+t1=element(B5[1])
+t=t1.freely_reduce()
+T=t1.inverse()
+g1=element(B5[0])
+G=g1.inverse()
+c1=element(z+T+G)
+c=c1.freely_reduce()
+print(c)

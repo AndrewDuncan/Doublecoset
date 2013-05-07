@@ -52,15 +52,34 @@ class free_group(object):
         return(i) # i = 0 if word is not in given gens
 
 
-class subgroup(object): #subgroup of freegroup, given by a set of generators
-   def __init__(self, name, subgp_gens):
+class subgroup(object): #subgroup of freegroup, given by a set of generators, mapped to a set of generators of a free group of rank = rank of subgroup
+   def __init__(self, name, subgp_gens, basis=None):
        self.name = name
        self.subgp_gens = subgp_gens
        self.flower = Graph(rooted=True,label= self.name)
+       self.coherent = True
+       
+       if basis is None:
+          self.basis =[]
+       else:
+          self.basis = basis
+          
+       if not self.basis == []:
+          if not len(self.basis) == len(self.subgp_gens):
+             print("number of generators of subgroup", len(self.subgp_gens),
+                   "not equal to rank of basis", len(self.basis))
+             self.coherent = False
 
    def make_flower(self): #flower automaton for given generators
        for w in self.subgp_gens:
-           self.flower.addLoop(self.flower.root,w)
+          if not self.basis ==[]:
+             i_w = self.subgp_gens.index(w)
+             v = self.basis[i_w]
+          else:
+             v = None 
+
+          print(v)
+          self.flower.addLoop(self.flower.root,w)
 
        return(self.flower)
 
@@ -69,6 +88,9 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators
        R=self.make_flower()
        while go:
           go = R.fold()
+
+   
+   
 
 class bfs_plain(object): # breadth first search of given connected graph to return, with each vertex its distance from the given root
     #its parent and the time it was added to the tree
@@ -231,8 +253,14 @@ Y=G.mongens
 print(Y)
 G.is_element(v)
 G.is_element(w)
-H1=subgroup("H1",[h1,h2,h3])
-H1.make_flower()
+H1=subgroup("H1",[h1,h2,h3],["u","v","w"])
+print(H1.coherent)
+GH=H1.make_flower()
+print(GH.vertices[0].outedgesList)
+print("now H2")
+H2=subgroup("H2",[h1,h2,h3],)
+print(H2.coherent)
+H2.make_flower()
 #R=H.flower
 #print "digraph H.flower {"
 #print (str(R))
@@ -243,6 +271,7 @@ H1.make_flower()
 # go = R.fold()
 #
 #S=R
+print("now H1 stallings")
 H1.stallings()
 S=H1.flower
 print "digraph H1.stallings {"
