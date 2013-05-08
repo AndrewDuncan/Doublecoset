@@ -18,8 +18,9 @@ class Vertex:
 			self.sortkey = 0
 		else:
 			self.sortkey = sortkey
-                self.outedges_write ={}
-		self.inedges_write = {}		
+	
+
+			
 
 	def __repr__(self):
 		return str(self)
@@ -28,12 +29,11 @@ class Vertex:
 		return 'v'+str(self.label)
 
 	#add a labelled edge from v to this vertex
-	def addInEdge(self,label,v,o=None):
+	def addInEdge(self,label,v):
 		if (label,v) in self.inedgesList:
 			return
 		else:
 			self.inedgesList.append((label,v))
-			self.inedges_write[(label,v)]=o
 
 		if not label in self.inedges:
 			self.inedges[label] = [v]
@@ -45,17 +45,13 @@ class Vertex:
 		self.inedgesList.remove((label,v))
 		if label in self.inedges:
 			self.inedges[label].remove(v)
-	        if (label,v)  in self.inedges_write:
-			del self.inedges_write[(label,v)]
 
 	#add a labelled edge from this vertex to v
-	def addOutEdge(self,label,v,o=None):
+	def addOutEdge(self,label,v):
 		if (label,v) in self.outedgesList:
 			return
 		else:
 			self.outedgesList.append((label,v))
-			self.outedges_write[(label,v)]=o
-
 
 		if not label in self.outedges:
 			self.outedges[label] = [v]
@@ -67,9 +63,7 @@ class Vertex:
 		self.outedgesList.remove((label,v))
 		if label in self.outedges:
 			self.outedges[label].remove(v)
-		if (label,v)  in self.outedges_write:
-			del self.outedges_write[(label,v)]
-			
+
 	#get all possible folds around this vertex
 	#returns a list of doubles (label,vs)
 	#where label is lower-case if outward edges, upper-case if inward edges
@@ -137,46 +131,36 @@ class Graph:
 
 		self.vertices.remove(v)
 		for label,w in v.outedgesList:		#for each labelled edge v->w
-			if (label,w) in u.outedgesList:
-				u_o=min(u.outedges_write[(label,w)],v.outedges_write[(label,w)])# if 2 edges are folded in the merge then the write label of the resulting edge should be the min of the write labels of the original edge
-			else:
-				u_o=v.outedges_write[(label,w)]
 			w.removeInEdge(label,v)			#remove edge from w's list of in-edges
-			w.addInEdge(label,u,u_o)			#add an edge u->w to w's in-edges
-			u.addOutEdge(label,w,u_o)			#add "			" to u's out-edges
+			w.addInEdge(label,u)			#add an edge u->w to w's in-edges
+			u.addOutEdge(label,w)			#add "			" to u's out-edges
 
 		for label,w in v.inedgesList:		#for each labelled edge joining w->v
-			if (label,w) in u.inedgesList:
-				u_o=min(u.inedges_write[(label,w)],v.inedges_write[(label,w)])# if 2 edges are folded in the merge then the write label of the resulting edge should be the min of the write labels of the original edge
-			else:
-				u_o=v.inedges_write[(label,w)]
 			w.removeOutEdge(label,v)		#remove edge from w's list of out-edges
-			w.addOutEdge(label,u,u_o)			#add an edge w->u to w's out-edges
-			u.addInEdge(label,w,u_o)			#add "			" to u's in-edges
+			w.addOutEdge(label,u)			#add an edge w->u to w's out-edges
+			u.addInEdge(label,w)			#add "			" to u's in-edges
 
 		return u							#return the surviving vertex
 	
 	#add a labelled edge u->v
 	#lower-case labels are forwards edges
 	#upper-case labels are backwards edges
-	def addEdge(self,u,v,label,write=None):
-		if write is None:
-			write =""
+	def addEdge(self,u,v,label):
 		if label==label.lower():		
-			u.addOutEdge(label,v,write.lower())
-			v.addInEdge(label,u,write.lower())
+			u.addOutEdge(label,v)
+			v.addInEdge(label,u)
 		else:
-			self.addEdge(v,u,label.lower(),write)	
+			self.addEdge(v,u,label.lower())	
 
 	#add a labelled circle rooted at u, so reading round edge labels gives word
-	def addLoop(self,u,word,o=None):
+	def addLoop(self,u,word):
 		root = u
 		for c in word[:-1]:				#for each letter in the word except the last:
 			v = self.addVertex()		#create a new vertex
-			self.addEdge(u,v,c,o)			#add a labelled edge connecting previous vertex to the new one
+			self.addEdge(u,v,c)			#add a labelled edge connecting previous vertex to the new one
 			u=v
 
-		self.addEdge(u,root,word[-1],o)	#add a final edge connecting back to the root, with label the last letter of the word
+		self.addEdge(u,root,word[-1])	#add a final edge connecting back to the root, with label the last letter of the word
 
 	#def addPath(self,u,z,word):
 		#lastvadded = u         #keep track of the previous vertex
@@ -190,13 +174,13 @@ class Graph:
 #
 #		self.addEdge(lastvadded,z,word[-1])	#add a final edge connecting back to the final vertex, with label the last letter of the word
 
-	def addPath(self,u,z,word,o=None):
+	def addPath(self,u,z,word):
 		for c in word[:-1]:			#for each letter in the word except the last:
 			v = self.addVertex()		#create a new vertex
-			self.addEdge(u,v,c,o)		#add a labelled edge connecting previous vertex to the new one
+			self.addEdge(u,v,c)		#add a labelled edge connecting previous vertex to the new one
 			u=v
 						
-		self.addEdge(u,z,word[-1],o)	        #add a labelled edge connecting the penultimate vertex to z, labelled by the last letter
+		self.addEdge(u,z,word[-1])	        #add a labelled edge connecting the penultimate vertex to z, labelled by the last letter
 			
 	
 	#fold the graph once

@@ -78,8 +78,8 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators, ma
           else:
              v = None 
 
-          print(v)
-          self.flower.addLoop(self.flower.root,w)
+          #print(v)
+          self.flower.addLoop(self.flower.root,w,v)
 
        return(self.flower)
 
@@ -93,7 +93,7 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators, ma
    
 
 class bfs_plain(object): # breadth first search of given connected graph to return, with each vertex its distance from the given root
-    #its parent and the time it was added to the tree
+    #its parent and the time it was added to the tree. This version is not used in the current program
     def  __init__(self, graph):#this must be a rooted graph
         self.graph = graph
         self.root = self.graph.root
@@ -136,7 +136,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
     #and the label of the path back to the root
     #for a graph and a list of vertices L of this graph it will select the root of a conn comp C to be the
     #first element of L which is in C
-    def  __init__(self, graph, vertices=None):#this must be a graph and a list of its vertices; so far the version with the list of vertices has not been tested
+    def  __init__(self, graph, vertices=None):#this must be a graph and a list of its vertices.
         self.graph = graph
         self.root = self.graph.root
         if vertices is None:
@@ -154,10 +154,10 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
            v.colour = 0 #colour is synonomous with connected component. Here is is initialised
            N[v]=[]
            for (a,b) in v.outedgesList: 
-              N[v].append((a,b))
+              N[v].append((a,b,"+")) #record + for outedges
               
            for (a,b) in v.inedgesList:
-              N[v].append((a.swapcase(),b))
+              N[v].append((a.swapcase(),b,"-"))#record - for inedges
 
         Nout = list(self.vertices) #list of all vertices. When a vertex is added to a tree it is removed from this list
         c = 0
@@ -171,33 +171,44 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
            v.time = i
            v.parent = v
            v.path =""
-           q.append(v)
+           q.append(v)# add v to the end of the queue
            while q:
-              u=q[0]
-              for (a,b) in N[u]:
-                 if b.colour == 0:
-                    i += 1
-                    b.colour = c
-                    b.parent = u
-                    b.length = u.length + 1
-                    b.time = i
-                    b.path =u.path + a
-                    q.append(b)
-                    Nout.remove(b)
+              u=q[0] # for the first element u of the queue
+              for (a,b,d) in N[u]: #and all edges incident to u, with label a to vertex b (and in/out indicator c) 
+                 if b.colour == 0: # if b is not already in a component 
+                    i += 1         #increase time by 1 
+                    b.colour = c   #put b in the current component
+                    b.parent = u   #make u the parent of b
+                    b.length = u.length + 1 #make the distance of b from the root one more than the distance of u
+                    b.time = i     # time b was added
+                    b.path =u.path + a # path from the root to b
+                    if d=="-":
+                       u.inedges_write[(a.lower(),b)]=""#make the write-label of the inedge u <- b equal to 1
+                       b.outedges_write[(a.lower(),u)]=""#and  the write-label of the outedge b-> u equal to 1
+                    else:
+                       u.outedges_write[(a.lower(),b)]=""#make the write-label of the outedge u -> b equal to 1
+                       b.inedges_write[(a.lower(),u)]=""#and  the write-label of the inedge b-> u equal to 1
+                    q.append(b)    # add b to the end of the queue 
+                    Nout.remove(b) # remove b from the list of all vertices
                     
-              q.pop(0)
+              q.pop(0) # remove the first element of the queue
 
-class normal_form(object): # write a word in double coset normal form with respect to a given folding of a subgroup
+class graph_pass(object):  #read word from left to right finding max accepted prefix, them max readable prefix and
+        #outputing these along with the remaining suffix, and the output labels of the path read
      def  __init__(self, graph, word):#graph is a stallings folding
         self.graph = graph
         self.word = element(word).freely_reduce()
+        self.vertex = None
 
-     def acc_read_rem(self):
+     def acc_read_rem(self): #read word from left to right finding max accepted prefix, them max readable prefix and
+        #outputing these along with the remaining suffix, and the output labels of the path read
         Apref=""
         Rpref=""
+        Apref_in_Z=""
         suffix=self.word
         u=self.graph.root
-        #print("u.out.keys", u.outedges.keys())
+        z=""
+        #print("u.out.keys", u,u.outedges.keys())
         #print("suff 0", suffix[0])
         while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):
            if suffix[0] in u.outedges.keys():
@@ -208,19 +219,28 @@ class normal_form(object): # write a word in double coset normal form with respe
                  #print x[0]
                  #print x[1].outedgesList
                  if suffix[0] == x[0]:
+                   z=u.outedges_write[(suffix[0].lower(),x[1])]
+                   #print("z", z)
                    u=x[1]
+                   break
+                   
                    
            if suffix[0].swapcase() in u.inedges.keys():
               for x in u.inedgesList:
                  #print x[0]
                  #print x[1].inedgesList
                  if suffix[0].swapcase() == x[0]:
+                   z=u.inedges_write[(suffix[0].lower(),x[1])].upper()
                    u=x[1]
+                   break
 
            Rpref=Rpref+suffix[0]
+           Apref_in_Z=Apref_in_Z+z
            if u==self.graph.root:
               Apref=Apref+Rpref
               Rpref=""
+              
+           #print("all stuff",Apref,Rpref,Apref_in_Z,u)
               
            #print("u outedges", u.outedges)
            #print("u at end of loop", u)
@@ -228,8 +248,68 @@ class normal_form(object): # write a word in double coset normal form with respe
            suffix = suffix[1:]
            #print("fff",suffix)
                
-        return(Apref,Rpref,suffix,u)
+        return(Apref,Rpref,suffix,u,Apref_in_Z)
 
+class   Normal_form(object): #read word forward, find acc, read, rem, as above, then read inverse to find the same
+   def  __init__(self, graph, word,double):#graph is a stallings folding
+        self.graph = graph
+        self.word = element(word).freely_reduce()
+        self.double= double
+
+   def spit_out_nf(self):
+      LHS=graph_pass(self.graph,self.word).acc_read_rem()
+      LHS_u=LHS[3].label
+      h=element(LHS[0]).freely_reduce()
+      p=element(LHS[1]).freely_reduce()
+      q=element(LHS[2]).freely_reduce()
+      Q=element(q).inverse()
+      RHS=graph_pass(self.graph,Q).acc_read_rem()
+      RHS_u=RHS[3].label
+      e=element(RHS[2]).inverse()
+      if not e=="":
+         a_Z=element(LHS[4]).freely_reduce()
+         y=element(LHS[3].path).freely_reduce()
+         z=element(RHS[3].path).freely_reduce()
+         Y=element(y).inverse()
+         Z=element(z).inverse()
+         a=element(h+p+Y).freely_reduce()
+         b=element(y+e+Z).freely_reduce()
+         t=element(RHS[1]).freely_reduce()
+         T=element(t).inverse()
+         G=element(RHS[0]).inverse()
+         c=element(z+T+G).freely_reduce()
+         C_Z=element(RHS[4]).freely_reduce()
+         c_Z=element(C_Z).inverse()
+         return([a,b,c,a_Z,c_Z])
+      else:
+         conn=""
+         repr=""
+         for x in self.double.vertices:
+            if x.label==str(LHS_u)+"-"+str(RHS_u):
+               conn=element(x.path).inverse()
+               repr=x.parent.label.partition("-")
+               break
+            
+         y=""
+         for v in self.graph.vertices:
+            if v.label == int(repr[0]):
+               y=v.path
+               break
+
+         z=""
+         for v in self.graph.vertices:
+            if v.label == int(repr[2]):
+               z=v.path
+               break
+               
+         Y=element(y).inverse()
+         a=element(h+p+conn+Y).freely_reduce()
+         a_Z=graph_pass(self.graph,a).acc_read_rem()[4]
+         Z=element(z).inverse()
+         B=element(RHS[0]+RHS[1]+conn+z).freely_reduce()
+         b=element(B).inverse()
+         b_Z=graph_pass(self.graph,b).acc_read_rem()[4]
+         return([a,y+Z, b,a_Z,b_Z])
 #######################################################
                                 
 F1=free_group(3,"alpha")
@@ -256,12 +336,10 @@ G.is_element(w)
 H1=subgroup("H1",[h1,h2,h3],["u","v","w"])
 print(H1.coherent)
 GH=H1.make_flower()
-print(GH.vertices[0].outedgesList)
-print(GH.vertices[0].outedges)
-print("now H2")
-H2=subgroup("H2",[h1,h2,h3],)
-print(H2.coherent)
-H2.make_flower()
+print "digraph H1.flower {"
+print (str(GH))
+print "}"
+
 #R=H.flower
 #print "digraph H.flower {"
 #print (str(R))
@@ -279,21 +357,12 @@ print "digraph H1.stallings {"
 print (str(S))
 print "}"
 
-
-#z1=S.addVertex("z1")
-#z2=S.addVertex("z2")
-#S.addVertex("z3")
-#S.addVertex("z4")
-#z5=S.addVertex("z5")
-#S.addEdge(z2,z1,'r')
-#S.addEdge(z2,z5,'s')
-
 T=bfs(S,)
-print(id(T))
 N=T.forest()
 for v in S.vertices:
   print("S vertex", v, "parent", v.parent, "colour", v.colour, "len, time, path", v.length,v.time, v.path)
-
+  print("S, output labels of outedges of ",v," are ", v.outedges_write)
+  print("S, output labels of inedges of ",v," are ", v.inedges_write)
 D= S.double()
 print "digraph SxS {"
 print (str(D))
@@ -306,40 +375,14 @@ for v in D.vertices:
 print "digraph H1.stallings {"
 print (str(S))
 print "}"
-print("h1", h1)
-NF=normal_form(S,"aaaAabcBCBaaaaCaaa")
+NF=Normal_form(S,"aaaAabcBCBaaaaCaaa",DB).spit_out_nf()
+print("a,b,c =", NF[0],NF[1],NF[2])
+print("or using map into Z's: a, b, c =", NF[3],NF[1],NF[4])
 
-
-B3=NF.acc_read_rem()
-print("acc, read, rem, final vertex read", B3)
-q1=element(B3[2])
-q=element(q1.freely_reduce())
-Q=q.inverse()
-print(Q)
-B4=normal_form(S,Q)
-B5=B4.acc_read_rem()
-print("acc, read, rem, final vertex read", B4.acc_read_rem())
-y1=element(B3[3].path)
-y=y1.freely_reduce()
-z1=element(B5[3].path)
-z=z1.freely_reduce()
-Z=z1.inverse()
-Y=y1.inverse()
-print("y path, y inverse", y, Y)
-print("z path, z inverse", z, Z)
-a1=element(B3[0]+B3[1]+Y)
-a=a1.freely_reduce()
-print(a)
-e1=element(B5[2])
-e=e1.inverse()
-b1=element(y+e+Z)
-b=b1.freely_reduce()
-print(b)
-t1=element(B5[1])
-t=t1.freely_reduce()
-T=t1.inverse()
-g1=element(B5[0])
-G=g1.inverse()
-c1=element(z+T+G)
-c=c1.freely_reduce()
-print(c)
+ww="aabbcAbbBaBBaCCC"
+vv=Normal_form(S,ww,DB).spit_out_nf()
+print("a,b,c =", vv[0],vv[1],vv[2])
+print("or using map into Z's: a, b, c =", vv[3],vv[1],vv[4])
+type2=Normal_form(S,"aaaaabc",DB).spit_out_nf()
+print("a,yZ,b =", type2[0],type2[1],type2[2])
+print("or using map into Z's: a, yZ, b =", type2[3],type2[1],type2[4])

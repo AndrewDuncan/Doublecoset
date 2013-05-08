@@ -48,3 +48,7 @@ def addIt(label,v,olabel):
                         #inedges_outlabels[label] = [olabel]
 
 addIt("a", 3, "z")
+
+l2=[('a', v2, "+"), ('b', v4, "+"), ('b', v5, "-"), ('a', v6, "-")]
+for (x,y,z) in l2:
+    print(x,y,z)
