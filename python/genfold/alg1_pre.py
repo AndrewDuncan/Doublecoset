@@ -253,7 +253,8 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 class   Normal_form(object): #read word forward, find acc, read, rem, as above, then read inverse to find the same
    def  __init__(self, graph, word,double):#graph is a stallings folding
         self.graph = graph
-        self.word = element(word).freely_reduce()
+        self.word = word
+        self.word = element(self.word).freely_reduce()
         self.double= double
 
    def spit_out_nf(self):
@@ -287,19 +288,35 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
          for x in self.double.vertices:
             if x.label==str(LHS_u)+"-"+str(RHS_u):
                conn=element(x.path).inverse()
-               repr=x.parent.label.partition("-")
-               break
+               child = True 
+               xc = x
+               while child:
+                  if xc.parent == xc:
+                     child = False
+                     repr = xc.parent.label.partition("-")
+                     #print("root found  and root, repr is", xc, repr)
+                  xc = xc.parent 
+               
+              # for r in self.double.vertices:
+              #    if r.colour == x.colour:
+              #       if r.parent == r:
+              #          repr = r.parent.label.partition("-")
+              #          break
+              # print("root found  and root, repr is", r, repr)
+              # break
             
          y=""
          for v in self.graph.vertices:
             if v.label == int(repr[0]):
                y=v.path
+               #print("y is", y)
                break
 
          z=""
          for v in self.graph.vertices:
             if v.label == int(repr[2]):
                z=v.path
+               #print("z is", z)
                break
                
          Y=element(y).inverse()
@@ -309,15 +326,19 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
          B=element(RHS[0]+RHS[1]+conn+z).freely_reduce()
          b=element(B).inverse()
          b_Z=graph_pass(self.graph,b).acc_read_rem()[4]
+         #print("y,z,conn,RHS[0],RHS[1]", y,z,conn,RHS[0],RHS[1])
          return([a,y+Z, b,a_Z,b_Z])
 #######################################################
                                 
-F1=free_group(3,"alpha")
+F1=free_group(2,"alpha")
 G=free_group(2,"alpha")
-h1="aaa"
-h2="bcB"
-h3="abc"
-w="abBbA"
+h1="a"
+h2="baB"
+h3="bbaBB"
+h4="Bab"
+h5="BBabb"
+h6="bbbbb"
+w="Bab"
 y="abbBA"
 v=["b1","B1","b1","B2"]
 F1.make_gens()
@@ -333,7 +354,7 @@ Y=G.mongens
 print(Y)
 G.is_element(v)
 G.is_element(w)
-H1=subgroup("H1",[h1,h2,h3],["u","v","w"])
+H1=subgroup("H1",[h1,h2,h3,h4,h5,h6],["u","v","w","x","z","t"])
 print(H1.coherent)
 GH=H1.make_flower()
 print "digraph H1.flower {"
@@ -376,8 +397,8 @@ print "digraph H1.stallings {"
 print (str(S))
 print "}"
 NF=Normal_form(S,"aaaAabcBCBaaaaCaaa",DB).spit_out_nf()
-print("a,b,c =", NF[0],NF[1],NF[2])
-print("or using map into Z's: a, b, c =", NF[3],NF[1],NF[4])
+print("NF a,b,c =", NF[0],NF[1],NF[2])
+print("or NF using map into Z's: a, b, c =", NF[3],NF[1],NF[4])
 
 ww="aabbcAbbBaBBaCCC"
 vv=Normal_form(S,ww,DB).spit_out_nf()
@@ -386,3 +407,14 @@ print("or using map into Z's: a, b, c =", vv[3],vv[1],vv[4])
 type2=Normal_form(S,"aaaaabc",DB).spit_out_nf()
 print("a,yZ,b =", type2[0],type2[1],type2[2])
 print("or using map into Z's: a, yZ, b =", type2[3],type2[1],type2[4])
+another=Normal_form(S,"aaaaaaaaadcBbCDaAAAAAAAAA",DB).spit_out_nf()
+print("another a,b,c =", another[0],another[1],another[2])
+print("or another using map into Z's: a,b, c =", another[3],another[1],another[4])
+new=Normal_form(S,"aaaabcABCBA",DB).spit_out_nf()
+print("a,b,c =", new[0],new[1],new[2])
+print("or using map into Z's: a,b, c =", new[3],new[1],new[4])
+aa="aaaaaaaaadcBbCDaAAAAAAAAA"
+print(element(aa).freely_reduce())
+cc="bbaacbbaa"
+print("a,b,c =", cc[0],cc[1],cc[2])
+print("or using map into Z's: a,b, c =", cc[3],cc[1],cc[4])
