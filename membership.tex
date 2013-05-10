@@ -899,7 +899,7 @@ Define $S=S(H)=S^{(1)}\cup S^{(2)}$.
 $\{1\}\cup S$ is a set of double coset representatives for $H$.
 \end{proposition}
 \begin{proof}
-First we shall show that every element $w\in \FF(X)$ lies in $H$ 
+First we shall show that every element $w\in \FF(X)$ lies in $HdH$ 
 for some $d\in \{1\}\cup S$. In fact we describe an algorithm, Algorithm I, which rewrites a  given word $w$ in this form. 
  In the following proof each
 step of Algorithm I is justified as it is introduced. A step by step
@@ -1544,7 +1544,15 @@ will be referred to as  {\em vertices of} $\T$.
 
 The modification process is followed by a ``reassembly'' phase, in which
 we reconnect the $X_k$ components of $\D$, 
-to form the output of the algorithm. Let $\T$ be an $X_k$ component of $\D_k$.
+to form the output of the algorithm. 
+To enable the reassembly the algorithm records, when constructing 
+$\Theta_{i}$ from $\Theta_{i-1}$, the inverse images of vertices of 
+$\Theta_{i}$ under the map $\theta_i$. We leave details of the
+construction of these inverse image sets to the the summary
+in 
+Section \ref{sub:summaryII}. 
+ 
+Let $\T$ be an $X_k$ component of $\D_k$.
 \\[1em]
 
 \noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
@@ -1789,82 +1797,8 @@ language accepted by $(\T_4,\theta_4(\a),(\b))$, for some
 vertices $\a,\b$ of $\Theta_3$, then
 we have $\pi(L_3)=\pi(L_4)$, as in previous cases.\\[1em]
 
+
 \noindent\textbf{Modification 5: $\T_4\leadsto \T_5$.}\\
-Finally we wish to add paths which allow double coset representatives
-of type $2$ to be read.
-Let $\cP_4=\T_4\times \G_{A_k}$ and choose a spanning forest $\U_4$ for
-$\cP_4$.
-
-Suppose $(\e,\xi)\in P\subseteq V(\G_{A_k}\times \G_{A_k})$ and
-that the $\sim$ representative of $(\e,\xi)$ is $(\e_0,\xi_0)$.
-Let $b_1=w(\e)$, $b_2=w(\xi)$ (the labels
-of paths from $1$ to $\e$ and $1$ to $\xi$ in the
-subtree $T_k$ of $\G_{A_k}$). Let $a_1=w(\e_0)$ and $a_2=w(\xi_0)$.
-By definition of $\sim$ there are  paths in $\G_{A_k}$,
-with label
-$c=c(\e,\xi)$, from $\e$ to $\e_0$ and from $\xi$ to $\xi_0$.
-Furthermore $h_i=
-b_ica_i^{-1}\in H_k$ and $w_i=\phi_k^{-1}(h_i)\in \FF(Z)$, for $i=1,2$.
-If, for some vertices $\a_i,\a_j$ of $\T_4$ and $\b$ of $\G_{A_k}$,  
- there
-exist paths $p_1$, with label $b_1$ from $(\a_i,1)$ to $(\b,\e)$,
-and $p_2$, with label $b_2$ from
-$(\a_l,1)$ to $(\b,\xi)$, in $\U_4$,  then
-let $q$ be a path (disjoint from $\T_4$)
-with label $w_1 a_1a_2^{-1} w_2^{-1}$,
-and identify the initial
-and terminal vertices of $q$ with  vertices $\a_i$ and $\a_l$
-of $\T_4$, respectively.
-(See Figure \ref{fig:alg2-5}.)
-\begin{figure}
-\begin{center}
-\psfrag{1}{$1$}
-\psfrag{ai}{$\a_i$}
-\psfrag{aj}{$\b$}
-\psfrag{al}{$\a_l$}
-\psfrag{a1}{$a_1$}
-\psfrag{a2}{$a_2$}
-\psfrag{b1}{$b_1$}
-\psfrag{b2}{$b_2$}
-\psfrag{c}{$c$}
-\psfrag{w}{$w$}
-\psfrag{e}{$\e$}
-\psfrag{x}{$\xi$}
-\psfrag{e0}{$\e_0$}
-\psfrag{x0}{$\xi_0$}
-\psfrag{(ai,1)}{$(\a_i,1)$}
-\psfrag{(al,1)}{$(\a_l,1)$}
-\psfrag{(aj,e)}{$(\b,\e)$}
-\psfrag{(aj,x)}{$(\b,\xi)$}
-\psfrag{1}{$1$}
-\psfrag{b}{$\b$}
-\psfrag{Th4 to Th5}{$\T_4\leadsto \T_5$}
-\psfrag{U4 in cP}{$\U_4\subseteq \cP_4$}
-\psfrag{G_A}{$\G_{A_k}$}
-\includegraphics[scale=.5]{alg2-5.eps}
-\end{center}
-\caption{$\Theta_4$ to $\Theta_5$:
-$w=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
-\label{fig:alg2-5}
-\end{figure}
-
-Repeat this process for all such paths $p_i$ and $p_j$ and all such
-pairs $(\e,\xi)$.
-To see that the image of the language accepted by
- the new graph is the same as that of the original note
-that the word $b_1b_2^{-1}$ is readable, starting at $\a_i$ and
-ending at $\a_l$, in $\T_4$. As $\pi(b_1b_2^{-1})=\pi(w_1a_1a_2^{-1}w_2^{-1})$
-the addition of this new path has no effect on the image, under $\pi$, of
-the language accepted by the automaton.
- Fold the resulting graph to form $\T_5$. As before, there is
-a natural morphism $\theta_5$ from $\Theta_4$ to $\Theta_5$ and again,
-if $\a,\b$ are
-vertices of $\Theta_4$ and $L_4$ and $L_5$ are the languages accepted by
-$(\Theta_4,\a,\b)$ and $(\Theta_5,\theta_4(\a),\theta_4(\b))$,
-respectively, then $\pi(L_4)=\pi(L_5)$.\\[1em]
-
-\ajd{
-\noindent\textbf{Modification 5 revisited: $\T_4\leadsto \T_5$.}\\
 Finally we wish to add paths which allow double coset representatives
 of type $2$ to be read.
 Let $\cP_4=\T_4\times \G_{A_k}$ and choose a spanning forest $\U_4$ for
@@ -1920,7 +1854,7 @@ of $\T_4$, respectively.
 \psfrag{G_A}{$\G_{A_k}$}
 \includegraphics[scale=.5]{alg2-5.eps}
 \end{center}
-\caption{$\Theta_4$ to $\Theta_5$ revisited:
+\caption{$\Theta_4$ to $\Theta_5$:
 $w=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$.}
 \label{fig:alg2-5}
 \end{figure}
@@ -1944,7 +1878,7 @@ respectively, then $\pi(L_4)=\pi(L_5)$.
 (There is alot of redundancy built in to this modification step. In 
 Example \ref{ex:K} below we discuss how to avoid some of the unnecessary
  work.)\\[1em]
-}
+
 
 \noindent\textbf{Reassembly.}\\
 The modification process is applied to all $X_k$ components of $\D_k$,
@@ -1970,15 +1904,16 @@ construction, for each connected component $\Xi$ of $\D^\prime$
 there is an embedding of $\Xi$ into $\D$. Let $\nu$ be the union
 of these embeddings over all components of $\D^\prime$.
 
-The output $\D^{\prime\prime}$  of Algorithm II is the quotient of
+%\noindent\textbf{Output of Algorithm II.}\\
+The output of Algorithm II is the quotient $\D''$ of
  $\D^\prime_5$ defined as follows.
 Let $u$ and $v$ be vertices
  of $\D^\prime_5$.
-\begin{itemize}
-\item If $\nu(\theta^{-1}(u))\cap \nu(\theta^{-1}(v))\neq \nul$ then
+\be[R1]
+\item\label{it:R1} If $\nu(\theta^{-1}(u))\cap \nu(\theta^{-1}(v))\neq \nul$ then
 identify vertices $u$ and $v$.
 For $u \in V(\D^\prime_5)$ let
-$[u]$  denote equivalence class of $u$ under the equivalence relation
+$[u]$  denote equivalence class of $u$ under the equivalence relation $\approx$ 
 on $V(\D^\prime_5)$ generated by this identification.
 \item
 $\D^{\prime\prime}$ has edge set
@@ -1986,7 +1921,10 @@ $\D^{\prime\prime}$ has edge set
 \item The root vertex of $\D^{\prime\prime}$ is the image, in
 $\D^{\prime\prime}$, of $\nu^{-1}(1)$, where $1$ is  the root of
 $\D$.
-\end{itemize}
+\ee
+In order to compute $\D''$, at each stage of the modification process
+we record the inverse images of vertices, under the maps $\theta_i$: these are the
+sets denoted $\vim$ in the summary of Algorithm II in Section \ref{sub:summaryII}.
 
 \begin{lemma}\label{lem:resol-quot}
 Let $[\cdot]$ be the equivalence relation on $V(\D^\prime_5)$
@@ -2219,7 +2157,8 @@ is $\D_{k,0}$.
 a vertex named $v$ in $\D$ becomes
 $(v,k)$ in $\D_{k,0}$.
 \item\label{it:C1d} For each vertex $(v,k)$ of $\D_{k,0}$,  set 
-  $\vim(v,k)$ equal to $\{v\}$.
+  $\vim(v,k)$ equal to $\{v\}$.  For each vertex $v$ of $\D_Z$, 
+set $\vim(v)=\{v\}$. 
 \ee
 \item\label{it:C2} (\textbf{Begin Modification 1}.) For all edges
 $(\a,z,\b)$ of $\D_{k,0}$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
@@ -2229,7 +2168,7 @@ $\vim(v,k)=\emptyset$.
 \item\label{it:C3} Construct the Stallings folding$\D_{k,1}$  of (each component of)
 $\D_{k,1}'$.  
 Whenever two vertices $(u,k)$ and $(v,k)$
-of $\D_{k,1}'$ are identified, by the folding map, to a vertex $(w,k)$
+of $\D_{k,1}'$ are identified, by the folding map, to a vertex $(w,k)$, 
 set $\vim(w,k)=\vim(u,k)\cup \vim(v,k)$. 
 The sets $\vim(u,k)$ and $\vim(v,k)$ may be deleted.  This process, combined 
 with the initialisation, above, of $\vim$ (to the empty set) for new vertices
@@ -2299,19 +2238,8 @@ and update $\vim$.
 \item\label{it:C14} (\textbf{Begin Modification 5}.)
 Construct  $\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ and its spanning
  forest $\U_{k,4}$. 
-\item\label{it:C15} For all $\b\in V(\D_{k,4})$ do the following. 
-For $(\e,\xi)\in P$,
-if both $b_1^{-1}=w(\e)^{-1}$ and $b_2^{-1}=w(\xi)^{-1}$ 
-are readable in $\D_{k,4}$,
-starting from $\b$, and ending at vertices $\a_1$ and $\a_2$, then
-add to $\D_{k,4}$ a path from $\a_1$ to $\a_2$ with label
-$\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}[\phi_k^{-1}(b_2ca_2^{-1})]^{-1}$, where
-$(\e_0,\xi_0)$ is the $\sim$ representative of $(\e,\xi)$, $a_1=w(\e_0)$,
-$a_2=w(\xi_0)$ and $c$ is the connecting element of $(\e,\xi)$.
-The resulting graph is called  $\D_{k,5}'$.
 
-\ajd{
-\ref{it:C15} revisited.  For each element $(\e_1,\e_2)\in P$ and
+\item\label{it:C15}   For each element $(\e_1,\e_2)\in P$ and
 each vertex $\b\in V(\D_{k,4})$ 
 such that $\vim(\b,k)\neq \emptyset$, do the following. 
 Let $C_1$ and $C_2$ be the components of $\cP_{k,4}$ containing 
@@ -2327,10 +2255,12 @@ let $a_i=w(\xi_i)$, $i=1,2$. Add  a path to $\D_{k,4}$,
 from $\a_1$ to $\a_2$, with label
 $\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}[\phi_k^{-1}(t_2ca_2^{-1})]^{-1}$. 
 The resulting graph is called  $\D_{k,5}'$.
-}
 \item\label{it:C16} Construct the Stallings folding $\D_{k,5}$ of $\D'_{k,5}$ 
 and update $\vim$.
-\item\label{it:C17} (\textbf{Begin Reassembly}.) For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
+\item\label{it:C17} (\textbf{Begin Reassembly}.) 
+Let $\D'_5$ be the graph consisting of the disjoint union
+$\D_{1,5}\cup \D_{2,5}\cup \D_Z$. 
+For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
 do the following. For each vertex $(v,k')$ of $\D_{1,5}\cup \D_{2,5}$, not
 equal to $(u,k)$, if
 $\vim((u,k))\cap \vim((v,k'))\neq \emptyset$ then replace  
@@ -2340,20 +2270,26 @@ initial or terminal vertex equal to $(v,k')$ then replace $e$ with
 an edge having $(u,k)$ as initial or terminal vertex, instead of $(v,k')$.
 Delete $(v,k')$, once no more such edges exist.
 Continue for as long as possible: that is until 
-$\vim(u,k)\cap \vim(u',k')=\emptyset$, whenever $(u,k)\neq (u',k')$. The resulting graph is denoted $\D'_5$.
-\item\label{it:C18}  For each vertex $\a$ of $\D_Z$, if $\a\in \vim(u,k)$,
+$\vim(u,k)\cap \vim(u',k')=\emptyset$, whenever $(u,k)\neq (u',k')$. The resulting graph is denoted $\D''_5$.
+\item\label{it:C18} 
+If $\vim(\a)\cap \vim(u,k)\neq \nul$,
  for some
- vertex $(u,k)$ of $\D'_5$ then replace $\a$ with $(u,k)$. (Note that, as
+ vertices $\a$ of $\D_Z$ and $(u,k)$ of $\D'_5$ then replace $\a$ 
+with $(u,k)$ and add $\a$ to $\vim(u,k)$. (Note that, as
 we have completed step \ref{it:C17}, there is at most one such vertex of
 $\D'_5$.)
 If $\a$ has been replaced by $(u,k)$ then, for every edge $e$ of $\D_Z$,
  of the form $(\a,\b)$ (or its reverse), replace $e$ with
- the edge $((u,k), \b)$ (or its reverse). Call the resulting graph $\D_Z'$.
-\item\label{it:C19} Form $\D''$ from the union of $\D'_5$ and $\D_Z'$:
- by identifying vertices of $\D_Z'$ with vertices of  $\D'_5$
+ the edge $((u,k), \b)$ (or its reverse). Call the resulting graph $\D_Z''$.
+\item\label{it:C19} Form $\D''$ from the union of $\D''_5$ and $\D_Z''$:
+ by identifying vertices of $\D_Z''$ with vertices of  $\D''_5$
 of the same name.
 %\item\label{it:C20}  Construct $\D''$, the Stallings folding of $\bar \D$.
 \ee
+In Lemma \ref{lem:idverts} below we verify that the graph output from 
+Step \ref{it:C19} is the same as the graph $\D''$ constructed in Section
+\ref{sec:dca}, using the equivalence relation $\approx$.  
+
 \subsection{Summary of the Generalised Folding Loop}
 Here the assumptions are as for Algorithim II.
 
@@ -2397,7 +2333,7 @@ Let
 \textrm{ and } f_5=x_1x_2x_3x_2x_3^{-2}x_2^{-1},\]
 and let
 \[ f_2^\prime =y_3y_4y_2^{-1}y_1y_3.\]
-Using Algorithm I, the double coset representatives of these elements are
+Using Algorithm I, the double coset normal forms of these elements are
 \begin{align*}
 f_3 & = x_2x_3^{-1}x_1,\\
 f_4 &= h_1h_3 x_1^{-1}x_2^{-1},\\
@@ -4907,60 +4843,8 @@ As $w$ is the label of a path in $\T_1$ there is a path from $\a_2$ to
 $\b_2$ in $\T_4$ with label $e$. Therefore, in this case, $\T_4$ contains
 a path from $\a$ to $\b$ which has label the normal form of $w$.
 
-In the second case,
-let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
-$h_1$ and $h_2$ are in $\FF(Z)$,  $a_1$ and $a_2$ are labels
-of simple paths in the subtree $T_k$ and $s=a_1a_2^{-1}$ is a double coset
-representative of type $2$. Then there are words
-$g_1, g_2, b_1, b_2, c$  in $\FF(X_k)$,  such that
-$w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$,
-$g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
-$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in
-$L_Q$, $c=c(\t(b_1),\t(b_2))$ and $a_i=w(v_i)$, where
-$(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$.
 
 
-
-As in the first case there are paths in $\T_3$ labelled
-$\phi_k^{-1}(g_1)$ and
-$\phi_k^{-1}(g_2)$ from $\a$ to $\a_1$ and $\b$ to $\b_1$, respectively.
-(See Figure \ref{fig:nf-2}.)
-\begin{figure}
-\begin{center}
-\psfrag{a}{$\a$}
-\psfrag{b}{$\b$}
-\psfrag{a1}{$\a_1$}
-\psfrag{a2}{$\a_2$}
-\psfrag{b1}{$\b_1$}
-\psfrag{b2}{$\b_2$}
-\psfrag{g1}{$\phi_k^{-1}(g_1)$}
-\psfrag{g2}{$\phi_k^{-1}(g_2)$}
-\psfrag{Th5}{$\T_5$}
-\psfrag{b_1}{$b_1$}
-\psfrag{b_2}{$b_2$}
-\psfrag{w}{$r$}
-\psfrag{r1}{$g_1$}
-\psfrag{r2}{$g_2$}
-\psfrag{m}{~}
-\includegraphics[scale=.5]{nf-2.eps}
-\end{center}
-\caption{Normal form: type 2, $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$.}
-\label{fig:nf-2}
-\end{figure}
-As $w$ is readable in $\T$ there is a path labelled $b_1b_2^{-1}$, from
-$\a_1$ to $\b_1$, in $\T_3$.
-By construction of $\T_5$ there is also a path labelled
-$r=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$
-from $\a_1$ to $\b_1$.
- As $\T_5$ is folded
-$
-\phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
- is readable in
-$\T_5$. Since the latter is in normal form we have
-$h_1 = \phi_k^{-1}(g_1 b_1ca_1^{-1})$ and
-$h_2= \phi_k^{-1}(g_2 b_2ca_2^{-1})$, as required.
-
-\ajd{Last 2 paragraphs revisited. 
 In the second case,
 let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
 $h_1$ and $h_2$ are in $\FF(Z)$,  $a_1$ and $a_2$ are labels
@@ -4974,17 +4858,17 @@ $L_Q$, $c=c(\t(b_1),\t(b_2))$, $a_i=w(v_i)$, where
 $(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$, 
 and $h_i=\phi_k^{-1}(g_ib_ica_i^{-1})$.
 
-Then $\T$ contains vertices $\g_1,\g_2, \a_1, \a_2$ and $\b$ and there are paths
+Then $\T$ contains vertices $\g_1=\a,\g_2=\b, \a_1, \a_2$ and $\g$ and there are paths
 in $\T_1$ 
-labelled $g_i$, from $\g_i$ to $\a_i$, and labelled $b_i$ from $\a_i$ to $\b$,
+labelled $g_i$, from $\g_i$ to $\a_i$, and labelled $b_i$ from $\a_i$ to $\g$,
 $i=1,2$. Moreover, as in the first case there are paths in $\T_3$ labelled
 $\phi_k^{-1}(g_i)$
 from $\g_i$ to $\a_i$, $i=1,2$.
 (See Figure \ref{fig:nf-2}.)
 \begin{figure}
 \begin{center}
-\psfrag{a}{$\g_1$}
-\psfrag{b}{$\g_2$}
+\psfrag{a}{$\a=\g_1$}
+\psfrag{b}{$\b=\g_2$}
 \psfrag{a1}{$\a_1$}
 \psfrag{a2}{$\a_2$}
 \psfrag{b1}{$\a_2$}
@@ -4997,38 +4881,76 @@ from $\g_i$ to $\a_i$, $i=1,2$.
 \psfrag{w}{$r$}
 \psfrag{r1}{$g_1$}
 \psfrag{r2}{$g_2$}
-\psfrag{m}{$\b$}
+\psfrag{m}{$\g$}
+\psfrag{bt1}{$\phi_k^{-1}(b_1 t_1^{-1})$}
+\psfrag{bt2}{$\phi_k^{-1}(b_2 t_2^{-1})$}
 \includegraphics[scale=.5]{nf-2.eps}
 \end{center}
-\caption{Normal form: type 2, $r=\phi_k^{-1}(b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1})$.}
+\caption{Normal form: type 2, $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$.}
 \label{fig:nf-2}
 \end{figure}
 Let $\e_i=\t(b_i)$, $i=1,2$; so $(\e_1,\e_2)\in P$. 
 As $w$ is readable in $\T_1$ there is a path labelled 
-$b_i$ from $(\a_i,1)$ to $(\b,\e_i)$ in $\cP_{k,4}$, so there
-exists a simple path, labelled $t_i$, from $(\a_i,1)$ to $(\b,\e_i)$ in 
+$b_i$ from $(\a_i,1)$ to $(\g,\e_i)$ in $\cP_{k,4}$, so there
+exists a simple path, labelled $t_i$, from $(\a_i,1)$ to $(\g,\e_i)$ in 
 $\U_{k,4}$. Then $\T_3$ contains a path from $\a_i$ to $\a_i$ with 
 label $\phi_k^{-1}(b_it_i^{-1})$. 
 By construction of $\T_5$ there is also a path labelled
 $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$
-from $\a_1$ to $\b_1$.
+from $\a_1$ to $\a_2$.
  As $\T_5$ is folded
 $
 \phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
  is readable in
 $\T_5$, as required.
 
-}
 \end{proof}
 
 \begin{lemma}\label{lem:idverts}
-Let $[\cdot]$ be the equivalence relation on $V(\D^\prime_5)$ above.
+Let $\theta$ be the map from $\D'$ to $\D'_5$ defined in the Reassembly
+phase of Algorithm II in Section \ref{sec:dca} and 
+let $\approx$ be the equivalence relation on $V(\D^\prime_5)$, defined 
+in \ref{it:R1}, above.
+\be
+\item
+The graph $\D''$ defined in Section \ref{sec:dca}, 
+using $\approx$, is isomorphic
+to the graph output by  Step \ref{it:C19} of Algorithm II as described in
+Section \ref{sub:summaryII}. 
+\item
+For $v\in V(\D^\prime_5)$, let $[v]$ denote the equivalence class of $v$ under $\approx$. 
 If $x$ and $y$ are vertices of $\D^\prime$, such that
-$[\theta(x)]=[\theta(y)]$ in $\D^{\prime\prime}$, then
+$[\theta(x)]= [\theta(y)]$ in $\D^{\prime\prime}$, then
 there exists a path in $\D$, from $\nu(x)$ to $\nu(y)$, with label $w$,
 such that $\pi(w)=1$.
+\ee
 \end{lemma}
 \begin{proof}
+\be
+\item
+The graph $\D'$ constructed in Section \ref{sec:dca} is equal to 
+the graph $\D'$ constructed at the start of Step \ref{it:C17} of 
+Section \ref{sub:summaryII}. 
+To avoid ambiguity the graph output by Step \ref{it:C19} will be
+called $\DII$ here. In the process of constructing $\DII$
+from $\D'$, two vertices $u$ and $v$ of $\D'$ are identified
+if and only if there is a sequence $u=u_0,\ldots ,u_n=v$, such 
+that $\vim(u_{i-1})\cap \vim(u_ i)\neq \emptyset$, $i=1,\ldots , n$. Moreover,
+each vertex of $\s constructed by identifying
+vertices $u$ and $v$ when the sets $\vim(u)$ and $\vim(v)$ have
+non-empty intersection. In this case a new vertex 
+ forming unions of sets $\vim$, as described
+in Steps \ref{it:C17} and \ref{it:C18} of Algorithm II.
+To show that $\D''$  and $\DII$ are isomorphic 
+we must verify that the 
+quotient of $\D'$ by the equivalence relation $\approx$ is the graph
+ To this
+end let $\bowtie$ denote the equivalence relation on vertices of $\D'$ 
+generated by setting $\a\bowtie \b$ if and only if  $\vim(\a)\cap 
+\vim(\b)\neq \nul$.  The vertices of 
+The equivalence classes of these two relations will coincide if and only
+if $\nu(\theta^{-1}(\a))=\vim(\a)$, for all $\a\in V(\D')$.  
+\item
 Let $\a=\theta(x)$ and $\b=\theta(y)$. As $[\a]=[\b]$ there exists a
 sequence of vertices $\g_0,\ldots ,\g_m$ of $\D^\prime_5$ such that
 $\a=\g_0$, $b=\g_m$ and
@@ -5051,6 +4973,7 @@ that $\pi(w_1)=1$. Moreover, $\theta(b)=\b=\theta(y)$, so it follows from
 the case $m=0$, that there exists a path in $\D$, from $a$ to $y$,
 with label $w_2$, such that $\pi(w_2)=1$. Concatenating these paths we
 obtain the required result.
+\ee
 \end{proof}
 
 

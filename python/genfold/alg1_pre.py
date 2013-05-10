@@ -415,6 +415,6 @@ print("a,b,c =", new[0],new[1],new[2])
 print("or using map into Z's: a,b, c =", new[3],new[1],new[4])
 aa="aaaaaaaaadcBbCDaAAAAAAAAA"
 print(element(aa).freely_reduce())
-cc="bbaacbbaa"
+cc=Normal_form(S,"aaaabcABCBA",DB).spit_out_nf()
 print("a,b,c =", cc[0],cc[1],cc[2])
 print("or using map into Z's: a,b, c =", cc[3],cc[1],cc[4])
