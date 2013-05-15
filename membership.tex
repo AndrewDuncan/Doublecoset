@@ -5791,18 +5791,30 @@ $q_k^2-q_k$.
 
 
 
-As in Modification 5, fix an element $(\e,\xi)\in P_k^\prime$.
-Let $c=c(\e,\xi)$ and assume that $a_1$, $a_2$, $b_1$
-and $b_2$  are chosen as in Modification 5. Then $|c|_k\le 2R_k$,
-while $|a_1|_k, |a_2|_k, |b_1|_k,|b_2|_k \le R_k$.
-Thus, $|h_i|_k = |b_ica_i^{-1}|_k < 4R_k$ for
-$i=1,2$. Let $\overline{Q}''_k=\max\limits_{h \in
-B_{4R_k-1}}|\phi^{-1}_k(h)|_Z$. For every pair $(\e,\xi) $ we add
-to $\D_{k,4}$ a path $q$ of bounded length $|l_q|= |w_1 a_1a_2^{-1}
-w_2^{-1}| \le 2 \overline{Q}''_k +2 R_k$.
+Following Step \ref{it:C15} of Modification 5, 
+fix an element $(\e_1,\e_2)\in P_k^\prime$ and a vertex $\b$ of $\D_{k,4}$.
+Let $c=c(\e_1,\e_2)$ and assume that $a_1$, $a_2$, $t_1$
+and $t_2$  are chosen as in Step \ref{it:C15}. Then $|c|_k\le 2R_k$,
+while $|a_1|_k, |a_2|_k\le R_k$ 
+and $|t_1|_k,|t_2|_k \le |E(\U_{k,4})|$. 
+Thus, $|t_ica_i^{-1}|_k <  |E(\U_{k,4})|+4R_k$, for
+$i=1,2$. Setting $w_i=\phi^{-1}_k(t_ica_i^{-1})$, we have 
+\[|w_i|_Z\le |t_ica_i^{-1}|_k <  |E(\U_{k,4})|+4R_k\le |V(\D_{k,4})|q_k+2R_k,\] for
+$i=1,2$.
+
+%Let $\overline{Q}''_k=$
+%=\max\limits_{h \in
+%B_{4R_k-1}}|\phi^{-1}_k(h)|_Z$. 
+In the worst case, for every pair $(\e_1,\e_2) $ and vertex $\b$ we add
+to $\D_{k,4}$ a path $q$ of bounded length \[|l_q|= |w_1 a_1a_2^{-1}
+w_2^{-1}| \le 2( |V(\D_{k,4})|q_k+2R_k  )+2 R_k
+=2|V(\D_{k,4})|q_k+6 R_k.\]
+Furthermore, the number of such paths added is at most
+$|P_k^\prime|\cdot|V(\D_{k,4})|\le (q_k^2-q_k)|V(\D_{k,4})|$. 
+
 The time $t_{\D'_{k,5}}$ required to perform
 these transformations for all elements of $P_k^\prime$, and
-so construct $\D'_{k,5}$, is therefore
+so construct $\D'_{k,5}$, is therefore at most
 \begin{equation}\label{theta'5}
 \begin{split}
 t_{\D'_{k,5}} &= O(q_k^2-q_k)\cdot(2\overline{Q}''_k+2R_k)\\
