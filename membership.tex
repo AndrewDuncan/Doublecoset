@@ -766,7 +766,7 @@ type} $1$ if
 \[w=s\circ e \circ t^{-1},\]
 where $e\neq 1$, $s$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $w$,
 and $t$ is a maximal $L_Q$-prefix and an
-$L_T$-prefix of $t\circ e^{-1}$. Let $S^{(1)}$ denote the set of all representatives of type $1$.
+$L_T$-prefix of $t\circ e^{-1}$. Let $S^{(1)}=S^{(1)}(H)$ denote the set of all representatives of type $1$.
 \end{definition}
 
 
@@ -861,7 +861,7 @@ representatives.
 A word $w\in \FF(X)$ is
  a {\em (double coset) representative of type} $2$
 if $w=w(u)w(v)^{-1}$, for some $(u,v)\in P_0$.
-Let $S^{(2)}$ denote the set of all representatives of type $2$.
+Let $S^{(2)}=S^{(2)}(H)$ denote the set of all representatives of type $2$.
 
 For each $(u,v)$ in $P$ choose a path in $\G_A\times \G_A$
 from $(u,v)$ to the $\sim$ representative
@@ -2164,14 +2164,14 @@ set $\vim(v)=\{v\}$.
 $(\a,z,\b)$ of $\D_{k,0}$, where $z\in Z$, add a path $(\a,\phi_k(z),\b)$ to
 $\D_{k,0}$. The resulting graph is called $\D_{k,1}'$. 
 For each vertex $(v,k)$ in $V(\D_{k,1}')\backslash V(\D_{k,0})$ set 
-$\vim(v,k)=\emptyset$. 
+$\vim(v,k)=\{v\}$. 
 \item\label{it:C3} Construct the Stallings folding$\D_{k,1}$  of (each component of)
 $\D_{k,1}'$.  
 Whenever two vertices $(u,k)$ and $(v,k)$
 of $\D_{k,1}'$ are identified, by the folding map, to a vertex $(w,k)$, 
 set $\vim(w,k)=\vim(u,k)\cup \vim(v,k)$. 
 The sets $\vim(u,k)$ and $\vim(v,k)$ may be deleted.  This process, combined 
-with the initialisation, above, of $\vim$ (to the empty set) for new vertices
+with the initialisation, above, of $\vim$ (to a single vertex) for new vertices
 added,  will be
 called \emph{updating}
 $\vim$, from now on. 
@@ -2241,10 +2241,10 @@ Construct  $\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ and its spanning
 
 \item\label{it:C15}   For each element $(\e_1,\e_2)\in P$ and
 each vertex $\b\in V(\D_{k,4})$ 
-such that $\vim(\b,k)\neq \emptyset$, do the following. 
+such that $\vim(\b)\cap V(\D')\neq \emptyset$, do the following. 
 Let $C_1$ and $C_2$ be the components of $\cP_{k,4}$ containing 
 $(\b,\e_1)$ and $(\b,\e_2)$, respectively. Assume that there are vertices
-$\a_1$ and $\a_2$ of $\D_{k,4}$ such that $\vim(\a_i)\neq \emptyset$ and 
+$\a_1$ and $\a_2$ of $\D_{k,4}$ such that $\vim(\a_i)\cap V(\D')\neq \emptyset$ and 
 $(\a_i,1)\in V(C_i)$, for $i=1$ and $2$. (If any of these  conditions fail 
  there
 is no action to be taken for this $\b$.) Let $t_i$ be the label
@@ -2257,9 +2257,9 @@ $\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}[\phi_k^{-1}(t_2ca_2^{-1})]^{-1}$.
 The resulting graph is called  $\D_{k,5}'$.
 \item\label{it:C16} Construct the Stallings folding $\D_{k,5}$ of $\D'_{k,5}$ 
 and update $\vim$.
-\item\label{it:C17} (\textbf{Begin Reassembly}.) 
-Let $\D'_5$ be the graph consisting of the disjoint union
+\item\label{it:C16.5} Set $\D'_5$ equal to the disjoint union
 $\D_{1,5}\cup \D_{2,5}\cup \D_Z$. 
+\item\label{it:C17} (\textbf{Begin Reassembly}.) 
 For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
 do the following. For each vertex $(v,k')$ of $\D_{1,5}\cup \D_{2,5}$, not
 equal to $(u,k)$, if
@@ -4907,18 +4907,17 @@ $\T_5$, as required.
 \end{proof}
 
 \begin{lemma}\label{lem:idverts}
-Let $\theta$ be the map from $\D'$ to $\D'_5$ defined in the Reassembly
-phase of Algorithm II in Section \ref{sec:dca} and 
+Let $\theta$ be the map from $\D'$ to $\D'_5$ defined in the reassembly
+phase of Algorithm II, in Section \ref{sec:dca}, and 
 let $\approx$ be the equivalence relation on $V(\D^\prime_5)$, defined 
-in \ref{it:R1}, above.
+in \ref{it:R1}, above. For $v\in V(\D^\prime_5)$, 
+let $[v]$ denote the equivalence class of $v$ under $\approx$. 
 \be
 \item
-The graph $\D''$ defined in Section \ref{sec:dca}, 
-using $\approx$, is isomorphic
+The graph $\D''$ defined in Section \ref{sec:dca} is isomorphic
 to the graph output by  Step \ref{it:C19} of Algorithm II as described in
 Section \ref{sub:summaryII}. 
 \item
-For $v\in V(\D^\prime_5)$, let $[v]$ denote the equivalence class of $v$ under $\approx$. 
 If $x$ and $y$ are vertices of $\D^\prime$, such that
 $[\theta(x)]= [\theta(y)]$ in $\D^{\prime\prime}$, then
 there exists a path in $\D$, from $\nu(x)$ to $\nu(y)$, with label $w$,
@@ -4928,51 +4927,72 @@ such that $\pi(w)=1$.
 \begin{proof}
 \be
 \item
-The graph $\D'$ constructed in Section \ref{sec:dca} is equal to 
-the graph $\D'$ constructed at the start of Step \ref{it:C17} of 
+The Steps of Algorithm II in Section \ref{sub:summaryII}, as far as 
+Step \ref{it:C16.5} carry out Modifications 1 to 5, as described in
+Section \ref{sec:dca}. Thus the 
+two versions of the graph $\D'$,
+the first defined in Section \ref{sec:dca} and the second in
+Section \ref{sub:summaryII}, are the same. 
+We need then to  show that the quotient $\D''$ of 
+ $\D'$ constructed in Section \ref{sec:dca} is isomorphic to
+the graph output by Step \ref{it:C19} of the algorithm in 
 Section \ref{sub:summaryII}. 
 To avoid ambiguity the graph output by Step \ref{it:C19} will be
-called $\DII$ here. In the process of constructing $\DII$
+called $\hat\D''$ here. In the process of constructing $\hat\D''$
 from $\D'$, two vertices $u$ and $v$ of $\D'$ are identified
 if and only if there is a sequence $u=u_0,\ldots ,u_n=v$, such 
-that $\vim(u_{i-1})\cap \vim(u_ i)\neq \emptyset$, $i=1,\ldots , n$. Moreover,
-each vertex of $\s constructed by identifying
-vertices $u$ and $v$ when the sets $\vim(u)$ and $\vim(v)$ have
-non-empty intersection. In this case a new vertex 
- forming unions of sets $\vim$, as described
-in Steps \ref{it:C17} and \ref{it:C18} of Algorithm II.
-To show that $\D''$  and $\DII$ are isomorphic 
-we must verify that the 
-quotient of $\D'$ by the equivalence relation $\approx$ is the graph
- To this
-end let $\bowtie$ denote the equivalence relation on vertices of $\D'$ 
-generated by setting $\a\bowtie \b$ if and only if  $\vim(\a)\cap 
-\vim(\b)\neq \nul$.  The vertices of 
-The equivalence classes of these two relations will coincide if and only
-if $\nu(\theta^{-1}(\a))=\vim(\a)$, for all $\a\in V(\D')$.  
+that $\vim(u_{i-1})\cap \vim(u_ i)\neq \emptyset$,  $i=1,\ldots , n$. 
+Moreover, if the vertex $w$ of $\hat\D''$ is the result of identifying 
+exactly $n$ vertices $v_1,\ldots ,v_n$ of $\D'$, then 
+$\vim(w)=\cup_{i=1}^n\vim(v_i)$ and also, if $w$ and $w'$ are distinct
+vertices of $\hat \D''$ then $\vim(w)\cap \vim(w')=\emptyset$. 
+This being the case we  
+ let  $\bowtie$ denote the equivalence relation on vertices of $\D'$ 
+generated  by setting $\a\bowtie \b$ if and only if  $\vim(\a)\cap 
+\vim(\b)\neq \nul$.  Now, from the above, we may identify vertices
+of $\hat\D''$ with equivalence classes $[\cdot]_{\bowtie}$ of $\bowtie$. 
+  With this notation, if 
+$u$ and $v$ are vertices of $\hat\D''$ then there is an edge from
+$u$ to  
+$v$, labelled $x$, if and only if there are vertices
+$u'$ and $v'$ of $\D'$ and an edge  from $u'$ to $v'$, labelled $x$,
+in $\D'$, such that  $u=[u']_{\bowtie}$  and $v=[v']_{\bowtie}$.
+Therefore $\hat\D''$ is the quotient of $\D'$ by $\bowtie$. 
+
+Thus, to see  that $\D''$  and $\hat\D''$ are isomorphic  
+we must check that $\bowtie=\approx$. As $\bowtie$ is generated by
+relating elements of $\vim(u)$, for $u\in V(\D')$ and $\approx$ is 
+generated by relating elements of the sets  $\nu(\theta^{-1}(u))$, for
+$u\in \D'$,  it 
+suffices to show that $\vim(u)=\nu(\theta^{-1}(u))$, for all $u\in \D'$. 
+However, this follows directly from the definitions of the maps $\nu$ and
+$\theta$. 
 \item
 Let $\a=\theta(x)$ and $\b=\theta(y)$. As $[\a]=[\b]$ there exists a
 sequence of vertices $\g_0,\ldots ,\g_m$ of $\D^\prime_5$ such that
-$\a=\g_0$, $b=\g_m$ and
+$\a=\g_0$, $\b=\g_m$ and
 \[\nu(\theta^{-1}(\g_i))\cap \nu(\theta^{-1}(\g_{i+1}))\neq \nul,\]
 for $i=0,\ldots, m-1$. Suppose first that $m=0$. Then $\theta(x)=
 \a=\b=\theta(y)$, so $x$ and $y$ both belong to some $X_k$ component
 $\Theta$ of $\D^\prime$. As $\pi(L(\Theta,x,y))=\pi(L(\Theta_5, \a,\b)
-=\pi(L(\Theta_5,\a,\a))$, there is a path in $\Theta$, from $x$ to $y$,
+=\pi(L(\Theta_5,\a,\a))$, there is a path in $\Theta$, from $x$ to 
+$y$,
 with label $w$, such that $\pi(w)=1$. $\Theta$ is embedded in $\D$ by the
 map $\nu$, so the same holds for $\nu(x)$ and $\nu(y)$ in $\D$.
 
 Now assume that $m>0$ and that the result holds in all cases where the
 sequence of $\g_i$'s above has length at most  $m$. Let
-$a\in  \nu(\theta^{-1}(\g_{m-1}))\cap \nu(\theta^{-1}(\g_{m}))$, and let
-$b,g$ be vertices of $\D^\prime$ such that $\nu(b)=\nu(g)=a$,
-$\theta(b)=g_m=\b$ and $\theta(g)=\g_{m-1}$. As $[\a]=[\g_1]=\cdots
-=[\g_{m-1}]=[\g_m]$, it follows from the inductive hypothesis that
-there is a path in $\D$, from $x$ to $a$, with label $w_1$, such
-that $\pi(w_1)=1$. Moreover, $\theta(b)=\b=\theta(y)$, so it follows from
-the case $m=0$, that there exists a path in $\D$, from $a$ to $y$,
-with label $w_2$, such that $\pi(w_2)=1$. Concatenating these paths we
-obtain the required result.
+$a\in  \nu(\theta^{-1}(\g_{m-1}))\cap \nu(\theta^{-1}(\g_{m}))$, and let 
+$b_{m-1},b_m$ be vertices of $\D^\prime$ such that $\nu(b_{m-1})=\nu(b_m)=a$, 
+$b_{m-1}\in \theta^{-1}(\g_{m-1})$ and  $b_{m}\in \theta^{-1}(\g_{m})$. 
+As $[\g_0]=\cdots
+=[\g_{m-1}]$, $\theta(x)=\g_0$ and $\theta(b_{m-1})=\g_{m-1}$, 
+it follows from the inductive hypothesis that
+there is a path in  $\D$, from $\nu(x)$ to $a=\nu(b_{m-1})$, with label $w_1$, such
+ that $\pi(w_1)=1$. Moreover, $\theta(b_m)=\theta(y)$, so it follows from
+ the case $m=0$, that there exists a path in $\D$, from $a=\nu(b_m)$ to $\nu(y)$,
+ with label $w_2$, such that $\pi(w_2)=1$. Concatenating these paths we
+ obtain the required result.
 \ee
 \end{proof}
 
@@ -5002,9 +5022,9 @@ The automaton $\Psi$ is involutive and folded by definition.
  the folding morphism: that is $\hat\rho(s)$.
  As
 $\D$ is connected  so is $\D^{\prime\prime}$ and therefore also
-$\Psi$. Hence $\Psi$ is inverse. The graphs $\D$ and
-$\D^{\prime\prime}$  have the same number of $X_k$ components.
-Folding to form $\Psi$ cannot increase this number, so the final
+$\Psi$. Hence $\Psi$ is inverse. The graph 
+$\D^{\prime\prime}$  has  no more $X_k$ components than $\D$, and 
+folding to form $\Psi$ cannot increase this number, so the final
 statement of \ref{it:dcfold1} follows.
 %\item
  \\[1em]
@@ -5017,7 +5037,8 @@ to $\rho(s)$, and
  $v=v_1\cdots v_n$,
 where each factor $v_i$ is accepted by a connected component $\Xi_i$ of
 $\D^\prime_5$;  and no two consecutive factors are accepted by the
-same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} it
+same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} and the 
+fact that $\D_Z$ embeds in $\D$,  it
 follows that there are paths $p_1,\ldots, p_n$, in $\D^\prime$,
 with labels
  $u_1,\ldots , u_n$, such that
@@ -5053,7 +5074,7 @@ Suppose that all these foldings except possibly the last involve only edges
 of type $Z$. Assume $\L_n$ is formed from $\L_{n-1}$ by folding edges
 $(\a,x,\b_1)$ and $(\a,x,\b_2)$ with label $x\in X_k$. Since the
 first $n-1$ foldings involve only edges of type $Z$ it follows that
-if $\g_1$ and $\g_2$ are vertices of $\Phi$ which map via these foldings
+if $\g_1$ and $\g_2$ are vertices of $\Phi$ which map via these foldings 
 to $\b_1$ and $\b_2$, then there is a path $q$ in $\Phi$ from $\g_1$ to $\g_2$
 which has label in $(Z^{\pm 1}\cup \{x^{\pm 1}\})^\ast$. Hence $\g_1$ and $\g_2$ both belong to
  the same $X_k$ component of $\Phi$, which also contains the path $q$.
@@ -5067,19 +5088,19 @@ in such a sequence, and the result follows.
 \end{proof}
 If $w$ is a word in $\FF(X_1\cup X_2\cup Z)$ and $w=w_1\cdots w_n$,
 where $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$ and $n$
-minimal, then  say that each $w_i$ is a \emph {maximal} $X_{k_i}$
+minimal, then  say that each $w_i$ is a \emph{maximal} $X_{k_i}$
 \emph{factor}
-of $w$.
+of $w$ (or, when the meaning is clear, a \emph{syllable} of $w$).
 \begin{lemma}\label{lem:loopstop}
-Let $\D_0$ be an inverse automaton with alphabet $\S$.
+Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$.
 \be
 \item\label{it:loopstop1}
-If $\D_0$ is input  to  the Generalised Folding Loop then the loop halts after
-finitely many iterations and outputs an inverse automaton  $\D_n$.
-\item\label{it:loopstop2} Let $\D_n$ be the output from the Generalised 
+If $\D_{(0)}$ is input  to  the Generalised Folding Loop then the loop halts after
+finitely many iterations and outputs an inverse automaton  $\D_{(n)}$.
+\item\label{it:loopstop2} Let $\D_{(n)}$ be the output from the Generalised 
 Folding Loop and let $w$ be a word
-accepted by $\D_0$. If $w=a\circ b \circ c$,
-where $b$ is a maximal $X_k$ factor of $w$ then $\D_n$ accepts
+accepted by $\D_{(0)}$. If $w=a\circ b \circ c$,
+where $b$ is a maximal $X_k$ factor of $w$ then $\D_{(n)}$ accepts
 the word $avc$, where $v$ is the normal form of $b$.
 \ee
 \end{lemma}
@@ -5089,24 +5110,26 @@ the word $avc$, where $v$ is the normal form of $b$.
 increased by Steps 1 and 2, so at some point the Generalised Folding 
 Loop must halt.
 \noindent \ref{it:loopstop2}. The word $b$ is accepted by an $X_k$
-component of $\D_0$. By construction, the word $v$ is accepted by
-$\D_1$, and hence by $\D_n$. It follows that $\D_n$ accepts $avc$.
+component of $\D_{(0)}$. By Lemma \ref{lem:nfcomp}.\ref{it:nfcomp2}, 
+ the word $v$ is accepted by
+$\D_{(1)}$, and hence $avc$ is accepted by $\D_{(1)}$. It follows,
+by induction, that $\D_{(n)}$ accepts $avc$.
 \end{proof}
 \begin{lemma}\label{lem:nfacc}
-Let $\D_0$ be an inverse automaton with alphabet $\S$ and let
-$\D_n$ be the output from the Generalised Folding Loop, with input $\D_0$. If $w$ is
-accepted by $\D_0$ then the normal form of $w$ is accepted by $\D_n$.
+Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$ and let
+$\D_{(n)}$ be the output from the Generalised Folding Loop, with input $\D_{(0)}$. If $w$ is
+accepted by $\D_{(0)}$ then the normal form of $w$ is accepted by $\D_{(n)}$.
 \end{lemma}
 \begin{proof}
-Let $w$ be a word accepted by $\D_0$. Then $w$ factorises as  $w$
+Let $w$ be a word accepted by $\D_{(0)}$. Then $w$ factorises as  $w$
 as $w=w_1\cdots w_n$, where $w_i$ is accepted by an $X_k$
-component of $\D_0$. Thus $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq
+component of $\D_{(0)}$. Thus $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq
 k_{i+1}$. If $n=0$, then $w=1$ and the lemma holds. Suppose the
-lemma holds for all $w$ such that $n\le k$, where $k\ge 0$ and now
+lemma holds for all $w$ such that $n\le k$, where $k\ge 0$, and now
 suppose $n=k+1$. Let $v_i$ be the normal form of $w_i$. If $v_i\in
 \FF(Z)$, for some $i$ then there is a factorisation of $w$ with at
 most $k$ factors, and the result follows. Otherwise, from Lemma
-\ref{lem:loopstop}.\ref{it:loopstop2},  $\D_n$ accepts $v_1\cdots
+\ref{lem:loopstop}.\ref{it:loopstop2},  $\D_{(n)}$ accepts $v_1\cdots
 v_n$, which is the normal form of $w$.
 \begin{comment}
 Let $\g$ and $\d$ be vertices of $\Phi$ which map to $\a$ and $\b$ in the
@@ -5145,17 +5168,22 @@ is the normal form of $u$.
 First we prove statement \ref{it:membership}.
 Construct the flower automaton $\cF(K)$ of $K$ and then
 its Stallings automaton $\G_K$,  as at the beginning of this Section. % \ref{sec:dca},
-Let $\D_0=\G_K$ and input this to the Generalised Folding Loop to obtain output $\D_n$.
-Given a word $w\in \FF(X_1\cup X_2\cup Z)$ write $w$ in normal form
-using Algorithm I. Let $\tilde w$ be the output of Algorithm I. 
+Let $\D_{(0)}=\G_K$ and input this to the Generalised Folding Loop to obtain output $\D_{(n)}$. 
+Let  $w$ be a  word in $\FF(X_1\cup X_2\cup Z)$ and let $\tilde w$ be
+its normal form. Then, on input $w$, Algorithm I will output $\tilde w$. 
+
 If $w\in K$ then there is a word $v$ in the generators
- of $K$ with $\pi(v)=\pi(w)=\pi(\tilde w)$, and $v$ is accepted by $\G_K$. 
-From Theorem \ref{thm:dcnf} the normal form of $v$ is also $\tilde w$. 
+ of $K$ with $\pi(v)=\pi(w)$, %=\pi(\tilde w)$, 
+and so $v$ is accepted by $\G_K$.  From Lemma \ref{lem:nfacc}, the
+normal form of $v$ is accepted by $\D_{(n)}$. Moreover, as 
+$\pi(v)=\pi(w)$, 
+from Theorem \ref{thm:dcnf}, the normal form of $v$ is $\tilde w$. 
 Thus, 
-from Lemma \ref{lem:nfacc}, the word $\tilde w$ is accepted by $\D_n$. From
-Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_n)=L(\G_K)$,
+the normal form  $\tilde w$ of $w$ is accepted by $\D_{(n)}$. 
+On the other hand, from
+Lemma \ref{lem:dcfold}.\ref{it:dcfold2}, $L(\D_{(n)})=L(\G_K)$,
 so if $w\notin K$, then
-$\tilde w\notin L(\D_n)$.
+$\tilde w\notin L(\D_{(n)})$.
 
 Statements \ref{it:uni-membership} and \ref{it:class-uni-membership} follow
 from the observation that we may
@@ -5179,23 +5207,31 @@ A \emph{decision problem} is a pair $\Pr = (I,N)$, where $N$ is a countable
 set of \emph{inputs} for $\Pr$ and $I\subset N$ is the \emph{positive part} of
 $\Pr$. The \emph{answer} to the problem $\Pr$ on  input $w\in N$ is ``yes'',
 if $w\in I$,
-and ``no'' otherwise. A \emph{search problem} is a pair
+and ``no'' otherwise. 
+\begin{comment}
+A \emph{search problem} is a pair
 $\Pr = (R,N\times J)$, where $N$ and $J$
 are countable sets, and $R\subset N\times J$ is a binary predicate.
 Given an element $w\in N$, a \emph{solution} to the search problem
 $\Pr$ is an element $v\in J$ such
 that $(w,v)\in R$; that is, such that $R(w,v)$ is true.
+\end{comment}
 \end{definition}
 
-For instance, in this paper we are interested in the decision and search
-versions of the membership problem for a subgroup of a group, as formulated
+For instance, in this paper we are interested in the decision
+\begin{comment}
+ and search
+\end{comment}
+version%s 
+ of the membership problem for a subgroup of a group, as formulated
 in the Introduction, for the particular case of amalgams of free groups.
 Given
- a fixed subgroup $K$ of $G$ and a word $w \in G$ written in
-double coset normal form we want to decide
+ a fixed subgroup $K$ of such an amalgam $G$ and a word $w \in G$, written in
+double coset normal form, we want to decide
 whether or not $w$ represents an element of  the subgroup $K$.
 Here double coset normal forms of elements of $G$ form a (countable)
 set $N$ of inputs, and $K$ forms the positive part of the problem.
+\begin{comment}
 In  the corresponging membership search problem, if $K$ is
 generated by $Y=<k_1, \ldots, k_l>$ then, on input word $w$ representing an element
 of $K$, a solution is an expression for $w$ in terms of $k_1, \ldots, k_l$.
@@ -5207,9 +5243,11 @@ $J=\FF(Y)$.
 
 When we speak of a problem $\Pr$, we mean either a decision problem
 or a search problem.
- We say $\Pr$ is \emph{solved} by an algorithm $A$ if, for all inputs of $\Pr$ the
-algorithm $A$ outputs the answer to $\Pr$ or a solution for $\Pr$,
-as appropriate.
+\end{comment}
+
+ We say a problem $\Pr$ is \emph{solved} by an algorithm $A$ if, for all inputs of $\Pr$ the
+algorithm $A$ outputs the answer to $\Pr$. % or a solution for $\Pr$,
+%as appropriate.
 The problem $\Pr$ is said to be \emph{solvable} or \emph{decidable} if it is
 solved by some algorithm.
 
@@ -5272,8 +5310,8 @@ $O(E\log^*(E))$. This leads us to define
 
 Let $H$ be a finitely generated subgroup of $F=\FF(X)$ and
 $Y=\{h_1,\ldots ,h_m\}$ be a generating set for $H$, where $h_i\in
-F$. Consider the Stallings automaton $\G = \G_Y(H)$ for $H$ with
-vertices $V\G$, edge set $E\G$ and the root vertex $1$. Denote by
+F$. Consider the Stallings automaton $\G = \G_Y(H)$ for $H$, with
+vertices $V\G$, edge set $E\G$ and root vertex $1$. Denote by
 $N$ the total length of $Y$, i.e. $N = |h_1| + |h_2| + \ldots +
 |h_m|$. Notice that by construction of $\G$ we have $|V\G| \le N,
 |E\G| \le N$, and $|E \G| \ge |V \G|$.
@@ -5334,11 +5372,18 @@ for $H_k$ and let $T_k$ be a spanning tree for the associated
 graph $\G_{A_k}$, as above. Denote by $E(\G_{A_k})$ the  edge set
 of $\G_{A_k}$, and by $V\G_{A_k}$  its vertex set.
 Recall that sets of words  $L_{Q_k}$ and $L_{T_k}$
-were defined in \ref{sub:foldings}, $k=1,2$. Let $S_k$ be the set of
-double coset representatives of $H_k\le F_k$, determined by $T_k$, and
- $S_k=S_k^{(1)}\cup S_k^{(2)}$, where $S_k^{(i)}$ is the set
-of representatives of type $i$, as given in Definitions \ref{def:repres_t1}
-and \ref{def:repres_t2}.  Let $P_k^\prime$ be the set of non-diagonal
+were defined in \ref{sub:foldings}, $k=1,2$. Let 
+ $S_k^{(i)}=S^{(i)}(H_k)$ be the set
+of representatives of type $i$,  for $H_k\le F_k$, as defined  in Definitions \ref{def:repres_t1}
+and \ref{def:repres_t2}: so the  
+$S_k^{(i)}$ are determined by  $T_k$, $k=1,2$. 
+Next let 
+$S_k=S_k(H_k)=S_k^{(1)}\cup S_k^{(2)}$, 
+as in Definition  \ref{def:dcreps},   and let 
+$D_k=S_k\cup\{1\}$ be the corresponding  
+ set of
+double coset representatives of $H_k$.  
+Let $P_k^\prime$ be the set of non-diagonal
 vertices of $\G_{A_k}\times \G_{A_k}$, let $P_k$ be the set of
 $\sim$ representatives of elements of $P_k^\prime$, and let $C_k$ be
 the set of connecting elements for elements of $P_k^\prime$, as defined in
@@ -5351,9 +5396,9 @@ double coset representatives.
 \begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can
 \begin{itemize}
 \item construct the Stallings folding $\G_{A_k}$ for $H_k$ in time $O(N_k^2)$,
-\item and, given $\G_{A_k}$, $L_{T_k}$, the set $P_0$  of
+\item and, given $\G_{A_k}$, $L_{T_k}$, the set $P_k$  of
  representatives of the equivalence relation $\sim$, and the
-corresponding  set $C$ of connecting elements,
+corresponding  set $C_k$ of connecting elements,
 rewrite $w$ in  double coset normal
 form in time  $O(|w|_k)$.
 \end{itemize}
@@ -5366,8 +5411,8 @@ To rewrite an element $w$ in a double coset normal form, it is
 sufficient to compute $\G_{A_k}$, the set $L_{T_k}$,
 %$L_{Q_k}$ (or
 %its subset $L^{\prime}_{Q_k}$, defined below),
-the set $P_0$, and the
-corresponding  set $C$ of connecting elements (see preprocessing steps, section \ref{sub:sum_algI}).
+the set $P_k$, and the
+corresponding  set $C_k$ of connecting elements (see preprocessing steps, section \ref{sub:sum_algI}).
 %$S^{(2)}_k$.
  Given these structures, one can then proceed to rewrite $w \in
 F_k$ in normal form, using Algorithm I.
@@ -5386,7 +5431,7 @@ required for computation of $L_{T_k}$ is linear in $|E T_k|$.
 %$%|V\G_{A_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is the
 %$subset of words in $L_{Q_k}$ which have no nontrivial prefixes
 % accepted by $\G_{A_k}$.
-To construct the set $P_0$ of $\sim$
+To construct the set $P_k$ of $\sim$
 representatives (see definition \ref{def:repres_t2}), one must
 analyze all vertex sets of connected components of $\G_{A_k}
 \times \G_{A_k}$, and the time  required for this procedure is at
@@ -5394,9 +5439,9 @@ most $O(|V(\G_{A_k} \times \G_{A_k})|) \preceq O(N^2_k)$. To construct
 the set of connecting elements we construct a spanning forest for
 $\G_{A_k} \times \G_{A_k}$, which takes time $t_2'(N_k^2)
 =O(N_k^4)$, and once this
-has been done read off the connecting elements.
+has been done, read off the connecting elements.
 
-Given $\G_{A_k}$, $L_{T_k}$, $P_0$ and the set $C$ of connecting elements,
+Given $\G_{A_k}$, $L_{T_k}$, $P_k$ and the set $C_k$ of connecting elements,
 the construction of which required time
  $O(N^4_k)$,
  we apply Algorithm I to $w \in F_k$. Analysis
@@ -5407,24 +5452,25 @@ the double coset normal form of $w$. Combining these estimates
 
 \begin{corollary}\label{cor:dcnf_time} Suppose $g \in G$ and $g=g_1 \cdots g_t$ is in reduced
 form. Given $Y_1$ and $Y_2$, one can rewrite $g$ in double coset normal
-form in time  $O(N^4_1+ N^4_2 + |g_1|_{\e_1}+|g_2|_{\e_2}+
+form, with respect to double coset represenatives $D_1\cup D_2$, for 
+$H_1=\la Y_1\ra$ and $H_2=\la Y_2\ra$, in time  $O(N^4_1+ N^4_2 + |g_1|_{\e_1}+|g_2|_{\e_2}+
 \ldots +|g_t|_{\e_t})$, where $\e_i \in \{ 1, 2\}, i = 1, \ldots,
 t$, and $\e_i = k$ if $g_i \in F_k$.
 \end{corollary}
 
 \begin{proof} Notice first, that if $g = g_1 \in H_k$, then we
-only rewrite it in terms of alphabet $Z$ which takes time at most
+only rewrite it in terms of the  alphabet $Z$ which takes time at most
 $O(|g_1|_k)$, and the case $g \in F_k \smallsetminus H_k$ is
 covered by lemma \ref{lem:dctransversal}, so suppose $g \notin
 F_k$, $k=1,2$.
 
 One can rewrite each syllable $g_i \in F_k$, of $g$, in normal form
-$g_i=h_{i,1}d_ih_{i,2}$, where $d_i\in S$ and $h_{i,j}\in H_1\cup
+$g_i=h_{i,1}d_ih_{i,2}$, where $d_i\in D_k$ and $h_{i,j}\in H_1\cup
 H_2$, in time  $O(N^4_k + |g_i|_k)$. Using $\phi_1^{-1}$ or
 $\phi_2^{-1}$, we write $h_{i,1}$ and $h_{i,2}$ as reduced words
 in $\FF(Z)$ (for $i=1, \ldots, t$) and find the reduced word
 $h_{i,2}h_{(i+1),1}\in \FF(Z)$ (for $i=1, \ldots, t-1$) in time at
-most $O(|g_i|_{\e_i}+|g_i|_{\e_{i+1}})$.  Thus the
+most $O(|g_i|_{\e_i}+|g_{i+1}|_{\e_{i+1}})$.  Thus the
 complexity of the process is $O(N^4_1+ N^4_2 +
 |g_1|_{\e_1}+|g_2|_{\e_2}+ \ldots +|g_t|_{\e_t})$. \end{proof}
 
@@ -5434,7 +5480,7 @@ complexity of the process is $O(N^4_1+ N^4_2 +
 Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
 written in normal form (\ref{eq:k-form}): $k_i=
 h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i+1}$, with
-$h_{i,j}\in \FF(Z)$ and $t_{i,j}\in S_1\cup S_2$ as in section
+$h_{i,j}\in \FF(Z)$ and $t_{i,j}\in D_1\cup D_2$ as in Section
 \ref{sec:dca}. Recall that $\G$ is the rooted graph, associated to
 the flower automaton $\cF(K)$ of the subgroup $\hat K < \FF(X_1\cup
 X_2 \cup Z)$ generated by $k_1, \ldots , k_s$.
@@ -5443,7 +5489,7 @@ construct $\G_K$ in time  $t_1(W)$, with $W = W_Z+W_1+W_2$,
  where $W_Z =
 \mathop{\sum}\limits_{i=1}^{s}
 \mathop{\sum}\limits_{j=1}^{m_i}|h_{i,j}|_Z$, and $W_k$ is the
-total length of $t_{i,j} \in S_k$ in terms of $X_k$ for all
+total length of $t_{i,j} \in D_k$ in terms of $X_k$, for all
 appropriate $i,j$, i.e. $W_k = \mathop{\sum}\limits_{i,j:
 t_{i,j}\in S_k} |t_{i,j}|_k$, with the function $t_1$ defined in
 (\ref{t1}); $k=1,2$.
@@ -5456,8 +5502,10 @@ inverse automaton $\D=\D_{(n)}$.
 %the set of all $X_1$ components of $\D$, and let $\Phi^{(1)},
 %\ldots, \Phi^{(p_2)}$ be the set of all $X_2$ components.
 We shall
-first study  the complexity of modifications 1 --- 5 for a subgraph $\D_k$ of $\D$ ($k=1,2$), and then apply this result
-to estimate the general complexity of Algorithm II. For the sake of reader's convenience we refer to the steps \ref{it:C2} --- \ref{it:C16} of the summary of Algorithm II, Section \ref{sub:summaryII}, when appropriate. Denote by $E_k
+first study  the complexity of modifications 1 -- 5, 
+Steps  \ref{it:C2} -- \ref{it:C16}, in Section \ref{sub:summaryII},
+for a subgraph $\D_k$ of $\D$ ($k=1,2$), and then apply this result
+to estimate the general complexity of Algorithm II.  Denote by $E_k
 \D$, $E_Z \D$ and $V\D$ the sets of edges of type $X_k$ and of
 type $Z$ and the set of vertices, respectively, of  $\D$.
 %Similarly, use $E_k\T_i$, $E_Z\T_i$ and $V\T_i$ to denote the
@@ -5546,7 +5594,7 @@ where
 t_{\D'_{k,2}} &= O(|V\D_{k,1}|\cdot(|V\D_{k,1}|+1)\cdot B_{Q_k}
 \cdot \overline{R}_k)\preceq\\
 &\preceq O(|V\D_{k,1}|\cdot(|V\D_{k,1}|+1)\cdot r_k \cdot
-(2r_k-1)^{|V\D_{k,1}|\cdot q_k}\overline{R}_k)
+(2r_k-1)^{|V\D_{k,1}|\cdot q_k}\overline{R}_k).
 \end{split}
 \end{equation}
 
@@ -5554,7 +5602,7 @@ Using (\ref{evth1}), obtain
 
 \begin{equation}\label{theta'2}
 t_{\D'_{k,2}} \preceq O((V + R_k e)^2\cdot (2r_k)^{(V +
-R_k e)\cdot q_k +1})
+R_k e)\cdot q_k +1}).
 \end{equation}
 
 One can fold this graph in time $t_1(|E\D'_{k,2}|)$.
@@ -5652,9 +5700,9 @@ vertices of $\D'_{k,3}$ and $\D_{k,3}$ are
 and
 \begin{equation}\label{vtheta3}
 \begin{split}
-|V\D_{k,3}| &\le |V \D'_{k,3}|\le |V\D_{k,2}|+ V \cdot(\overline{Q}_k-1)\cdot |V\D_{k,2}|\cdot rq \le\\
- &\le V + \overline{Q}_k V^2 rq + \\
-&+(\overline{Q}_k V rq +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
+|V\D_{k,3}| &\le |V \D'_{k,3}|\le |V\D_{k,2}|+ V \cdot(\overline{Q}_k-1)\cdot |V\D_{k,2}|\cdot r_kq_k \le\\
+ &\le V + \overline{Q}_k V^2 r_kq_k + \\
+&+(\overline{Q}_k V r_kq_k +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
 \cdot(V^2 + e^2 + V e)),
 \end{split}
 \end{equation}
@@ -5670,7 +5718,7 @@ where $|E\D'_{k,3}|$, $t_{\D'_{k,3}}$ are given by (\ref{etheta3}) and
 (\ref{theta'3}), respectively.
 
 
-{\bf 4. $\D_{k,3} \leadsto \D_{k,4}$.} (Steps \ref{it:C8}--\ref{it:C10})
+{\bf 4. $\D_{k,3} \leadsto \D_{k,4}$.} (Steps \ref{it:C11}--\ref{it:C13})
 We construct $\cP_{k,3}=\D_{k,3}\times
 \G_{A_k}$ and a
 spanning subforest $\U_{k,3}$ of $\cP_{k,3}$. Since $E\U_{k,3} =
@@ -5691,7 +5739,7 @@ to $\D_{k,3}$, a path with label $wb$, where the length of $w$ is
 $\overline{Q}'_k=\max\limits_{h \in B_{R_k+|
 E\U_{k,2}|}}|\phi^{-1}_k(h)|_Z$.
 The time $t_{\D'_{k,4}}$ required to construct $\D'_{k,4}$ is the time
-it takes to perform this process as $\g,\d$ ranges over all
+it takes to perform this process as $(\g,\d)$ ranges over all
 possible pairs of vertices. That is
 \begin{equation}\label{theta'4}
 \begin{split}
@@ -5731,7 +5779,7 @@ t_{\D_{k,4}} = t_1(|E\D'_{k,4}|) + t_{\D'_{k,4}},
 \end{equation}
 where $t_{\D'_{k,4}}$ is given by (\ref{theta'4}).
 
-{\bf 5. $\D_{k,4} \leadsto \D_{k,5}$.} (Steps \ref{it:C8}--\ref{it:C10}) The time required to construct
+{\bf 5. $\D_{k,4} \leadsto \D_{k,5}$.} (Steps \ref{it:C14}--\ref{it:C16.5}) The time required to construct
 $\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ is $t_3(|V \D_{k,4}|, q_k)$. Further,
  a spanning subforest $\U_{k,4}$ of $\cP_{k,4}$ can be constructed in time
 $t_2(|V\cP_{k,4}|)$. We are assuming that  a spanning tree $T_k$ of
@@ -5811,7 +5859,7 @@ where $m_1, \ldots, m_5$ are polynomials on  $q_k, r_k,
 \end{proof}
 
 \noindent{\bf Reassembly: construction of $\D^\prime_5$.}
-(Step \ref{it:C17}.)
+(Step \ref{it:C17})%--\ref{it:C19}))
 The time required to construct $\D_{1,5}\cup \D_{2,5}$ is
 bounded above by $t_{\D_1}+ t_{\D_2}$.
 For each vertex $(v,k)$ of $\D_k$ the set $\vim(v,k)$ has size
