@@ -1,0 +1,25 @@
+digraph liza {
+"Gv1" [label="a",fontsize=7,width=.01,height=.01];
+"Gv1" -> "Gv5" [label="y",fontsize=8];
+"Gv1" -> "Gv3" [label="x",fontsize=8];
+"Gv2" [label="b",fontsize=7,width=.01,height=.01];
+"Gv2" -> "Gv1" [label="x",fontsize=8];
+"Gv3" [label="c",fontsize=7,width=.01,height=.01];
+"Gv3" -> "Gv4" [label="y",fontsize=8];
+"Gv3" -> "Gv2" [label="x",fontsize=8];
+"Gv4" [label="d",fontsize=7,width=.01,height=.01];
+"Gv4" -> "Gv1" [label="z",fontsize=8];
+"Gv5" [label="5",fontsize=7,width=.01,height=.01];
+"Gv5" -> "Gv5" [label="z",fontsize=8];"Hv1" [label="a1",fontsize=7,width=.01,height=.01];
+"Hv1" -> "Hv5" [label="y1",fontsize=8];
+"Hv1" -> "Hv3" [label="x1",fontsize=8];
+"Hv2" [label="b1",fontsize=7,width=.01,height=.01];
+"Hv2" -> "Hv1" [label="x1",fontsize=8];
+"Hv3" [label="c1",fontsize=7,width=.01,height=.01];
+"Hv3" -> "Hv4" [label="y1",fontsize=8];
+"Hv3" -> "Hv2" [label="x1",fontsize=8];
+"Hv4" [label="d1",fontsize=7,width=.01,height=.01];
+"Hv4" -> "Hv1" [label="z1",fontsize=8];
+"Hv5" [label="e1",fontsize=7,width=.01,height=.01];
+"Hv5" -> "Hv5" [label="z1",fontsize=8];
+}

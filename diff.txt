@@ -1,0 +1,827 @@
+1854,1873c1854,1871
+< First consider the $X_1$ component $\Theta$. Modification 1 results in the
+< graph of Figure \ref{fig:K_f1}. To perform the next stages of the  modification 
+< process the graph $\Theta_1 \times \G_{A_1}$ is constructed; where $\G_{A_1}$ is the
+< graph of Example \ref{ex:f_1}, shown in Figure \ref{fig:stall1}. 
+< The product graph $\cP_1$ 
+< is 
+< shown in Figure \ref{fig:K_f1-x-g}. 
+< The spanning forest chosen for $\cP_1$ is the one obtained by removing the edge
+< joining vertices $(13,1)$ and $(30,5)$. 
+< On examination of $\cP_1$
+< there is one path to add: corresponding to the 
+< path in $\cP_1$, from $(15,1)$ to $(31,1)$, labelled $x_1^{-3}$. Thus a path is
+< added to $\T_1$, from the vertex $15$ to the vertex $31$, with label 
+< $z_1^{-1}$. There are no other paths to add which do not already
+< exist in $\T_1$. The result is  the
+< graph $\Theta_2$, shown in Figure \ref{fig:K_f2}. The next step is 
+< to construct $\cP_2=\T_2\times \G_{A_1}$, but as there are no 
+< $X_1$ edges in $\T_2$ that are not in $\T_1$, it follows that  $\cP_2$ 
+< is the union of $\cP_1$ and some isolated vertices, and we may 
+< use $cP_1$ instead of $\cP_2$. In this instance there is nothing to
+---
+> First consider the $X_1$ component $\Theta$. Modification 1
+> results in the graph of Figure \ref{fig:K_f1}. To perform the next
+> stages of the  modification process the graph $\Theta_1 \times
+> \G_{A_1}$ is constructed; where $\G_{A_1}$ is the graph of Example
+> \ref{ex:f_1}, shown in Figure \ref{fig:stall1}. The product graph
+> $\cP_1$ is shown in Figure \ref{fig:K_f1-x-g}. The spanning forest
+> chosen for $\cP_1$ is the one obtained by removing the edge
+> joining vertices $(13,1)$ and $(30,5)$. On examination of $\cP_1$
+> there is one path to add: corresponding to the path in $\cP_1$,
+> from $(15,1)$ to $(31,1)$, labelled $x_1^{-3}$. Thus a path is
+> added to $\T_1$, from the vertex $15$ to the vertex $31$, with
+> label $z_1^{-1}$. There are no other paths to add which do not
+> already exist in $\T_1$. The result is  the graph $\Theta_2$,
+> shown in Figure \ref{fig:K_f2}. The next step is to construct
+> $\cP_2=\T_2\times \G_{A_1}$, but as there are no $X_1$ edges in
+> $\T_2$ that are not in $\T_1$, it follows that  $\cP_2$ is the
+> union of $\cP_1$ and some isolated vertices, and we may use
+> $\cP_1$ instead of $\cP_2$. In this instance there is nothing to
+1896,1897c1894,1895
+< $(29,1)$ & $(25,2)$ & $x_3^{-1}x_2^{-1}x_1$ & $x_1^{-1}$ & $z_3^{-1}z_1$\\\hline
+< $(32,1)$ & $(15,2)$ & $x_1^2$ & $ x_1^{-1}$ & $z_1 $\\\hline
+---
+> $(29,1)$ & $(25,2)$ & $x_3^{-1}x_2^{-1}x_1^{-1}$ & $x_1^{-1}$ & $z_2$\\\hline
+> $(32,1)$ & $(15,2)$ & $x_1^2$ & $ x_1^{-1}$ & $ $\\\hline
+1911,1916c1909,1916
+< To form $\T_5$ we first construct $\cP_4=\T_4\times \G_{A_k}$, which
+< is shown in Figure \ref{fig:K_f4-x-g}, and choose a spanning subforest $\U_4$ of $\cP_4$.
+< In this example this is done by reomoving the edge  joining vertices $(13,1)$ and $(30,5)$ from $\cP_4$. 
+< A path will be added to $\T_4$ whenever
+< a pair $(\e,\xi)$ in the set $P$ of non-diagonal pairs of vertices of $\G_{A_k}$ is found,
+< satisfying the conditions given in Modification 5: namely that  
+---
+> To form $\T_5$ we first construct $\cP_4=\T_4\times \G_{A_k}$,
+> which is shown in Figure \ref{fig:K_f4-x-g}, and choose a spanning
+> subforest $\U_4$ of $\cP_4$. In this example this is done by
+> removing the edge  joining vertices $(13,1)$ and $(30,5)$ from
+> $\cP_4$. A path will be added to $\T_4$ whenever a pair $(\e,\xi)$
+> in the set $P$ of non-diagonal pairs of vertices of $\G_{A_k}$ is
+> found, satisfying the conditions given in Modification 5: namely
+> that
+1958,1963c1958,1966
+< Next consider the $X_2$ component $\T^\prime$. There is nothing to add to form $\T^prime_1$. The 
+< graph $\cP_1^\prime=\T_1^\prime \times \G_{A_2}$ is shown in Figure \ref{fig:K_i1-x-g}. There is
+< nothing to add at the next two  stages so $\T_1^prime=\T_2^prime=\T_3^prime$, so  $\cP_3^\prime=\cP_1^\prime$.
+< There is one pair of vertices not covered by $\cP_3$: namely $\g=(6,1)$ and $\d=(5,6)$. Thus a path
+< is added to $\T_3^\prime$, from $6$ to $5$, with label $z_1y_2^{-1}$, as shown in 
+< Figure \ref{fig:K_i4}. The graph 
+---
+> Next consider the $X_2$ component $\T^\prime$. There is nothing to
+> add to form $\T^prime_1$. The graph $\cP_1^\prime=\T_1^\prime
+> \times \G_{A_2}$ is shown in Figure \ref{fig:K_i1-x-g}. There is
+> nothing to add at the next two  stages so
+> $\T_1^\prime=\T_2^\prime=\T_3^\prime$, so
+> $\cP_3^\prime=\cP_1^\prime$. There is one pair of vertices not
+> covered by $\cP_3$: namely $\g=(6,1)$ and $\d=(5,6)$. Thus a path
+> is added to $\T_3^\prime$, from $6$ to $5$, with label
+> $z_1y_2^{-1}$, as shown in Figure \ref{fig:K_i4}. The graph
+2749,2755c2752,2759
+< We shall apply this theorem repeatedly below, in cases where we have 
+< an estimate for the number of edges of a graph. For a connected graph $\D$, 
+< we have $V\le E+1$, so that $E+(V+E)\log^*(V)\le E+(2E+1)\log^*(E+1)$ and 
+< $\log^*(E+1)\le log^*(2^E)\le \log^*(E)+1$. Hence, for large enough $E$
+< $E+(V+E)\log^*(V)\le E+(2E+1)(\log^*(E)+1)\le 7E\log^*(E)$. Therefore,
+< we may construct a Stallings folding for $\D$ in time $O(E\log^*(E))$.
+< Therfore we define  
+---
+> We shall apply this theorem repeatedly below, in cases where we
+> have an estimate for the number of edges of a graph. For a
+> connected graph $\D$, we have $V\le E+1$, so that
+> $E+(V+E)\log^*(V)\le E+(2E+1)\log^*(E+1)$ and $\log^*(E+1)\le
+> log^*(2^E)\le \log^*(E)+1$. Hence, for large enough $E$
+> $E+(V+E)\log^*(V)\le E+(2E+1)(\log^*(E)+1)\le 7E\log^*(E)$.
+> Therefore, we may construct a Stallings folding for $\D$ in time
+> $O(E\log^*(E))$. Therefore we define
+2804c2808
+< {\ajd I'm hoping this is what we mean, but I maybe I got it wrong?}
+---
+> %{\ajd I'm hoping this is what we mean, but I maybe I got it wrong?}
+2814c2818
+<  $G = F_1 \underset{H_1=H_2}{\ast}$ is the free product of $F_1$ and $F_2$ 
+---
+>  $G = F_1 \underset{H_1=H_2}{\ast} F_2$ is the free product of $F_1$ and $F_2$
+2945,2947c2949,2951
+< the set of all $X_1$ components of $\D$, and let $\Phi^{(1)}, \ldots,
+< \Phi^{(p_2)}$ be the set of all $X_2$ components. 
+< We shall first study  the complexity of modifications $1-5$ for an
+---
+> the set of all $X_1$ components of $\D$, and let $\Phi^{(1)},
+> \ldots, \Phi^{(p_2)}$ be the set of all $X_2$ components. We shall
+> first study  the complexity of modifications $1-5$ for an
+2949,2951c2953,2955
+< to estimate the general complexity of Algorithm II. Denote by
+< $E_k \T$, $E_Z \T$ and $V\T$ the sets of edges of type $X_k$
+< and of type $Z$ and the set of vertices, respectively, of  $\T$.
+---
+> to estimate the general complexity of Algorithm II. Denote by $E_k
+> \T$, $E_Z \T$ and $V\T$ the sets of edges of type $X_k$ and of
+> type $Z$ and the set of vertices, respectively, of  $\T$.
+2953c2957,2959
+< corresponding sets for $\T_i$. 
+---
+> corresponding sets for $\T_i$. We use the notation $E = |E \T| =
+> |E_k \T| + |E_Z \T|$, $e = |E_Z \T|$, $V = |V \T|$, and $q = |V
+> \G_{A_k}|$, $r = |X_k|$ for short.
+2957,2973c2963,3003
+< that $\G_{A_k}$, 
+< $T_k$ and $P_k^\prime$, $P_k$ and $C_k$ have been constructed  and that 
+< $\T$ is an $X_k$ component of $\D$. Then the time required to 
+< transform $\T$ into
+< $\T_5$ is  
+< \[O(|V \G_{A_k}|^6 \cdot
+< |V\T|^{10}+R_k^8|E_Z\T|^8|V\T|^2\cdot |X_k|^{4 (|V \T|+ R_k |E_Z
+< \T |)|V\G_{A_k}|}),\] 
+< where $R_k$ is a constant dependent on the basis $Y_k$
+< for $H_k$: namely 
+< \[R_k = m \max \{ |\phi_k(z_1)|_k, \ldots,
+< |\phi_k(z_m)|_k\}.\]
+< {\ajd As far as I can see, $R_k$ needs to be an upper bound for the
+< number of vertices of $\G_{A_k}$. At the outset, this might be 
+< the sum of lengths of all the $\phi_k(z_i)$'s (minus a small constant).
+< That in turn is bounded by $m\times M$, where $M$ is the maxl length
+< of one of these.}
+---
+> that $\G_{A_k}$, $T_k$ and $P_k^\prime$, $P_k$ and $C_k$ have been
+> constructed  and that $\T$ is an $X_k$ component of $\D$. Then the
+> time required to transform $\T$ into $\T_5$ is
+> \[\begin{split}
+> O(|V \T_4|\cdot log(q |V \T_4|))&+t_1(|E\T'_5|)\\
+> &+O((V +R_k e)^2\cdot (2r-1)^{(V + R_k e) q +1})+\\
+> &+O(m_1 V^5 + m_2V^4 e +m_3 V^3 e^2 +m_4 V^2 e^3 + m_5 V e^4),
+> \end{split}
+> \]
+> where
+> \[\begin{split}
+> |V\T_4| &< V + (\overline{Q}_k V rq +1)\cdot(R_k e +\overline{R}_k
+> B_{Q_k} \cdot(V^2 + e^2 + V e) +\\
+> &+ V^2 q (\overline{Q}_k r +\overline{Q}_k +R_k) ,
+> \end{split}
+> \]
+> \[\begin{split} |E\T'_5| &\le R_k(\overline{Q}_k V e r q + E) + \\
+> &+ \overline{R}_k B_{Q_k} \cdot(V^2+ e^2 + Ve)\cdot(\overline{Q}_k
+> V r q +1)\\ &+ q \cdot (V^2 \cdot (\overline{Q}'_k +
+> \overline{Q}_k r)+2q\cdot(\overline{Q}''_k-1)+R_k(2q-1)),
+> \end{split}\]
+> 
+> and $m_1, \ldots, m_5, q, r,  \overline{Q}_k, \overline{Q}'_k,
+> \overline{Q}''_k, R_k, \overline{R}_k $ are constants dependent on
+> $\G_{A_k}$ and the basis $Y_k$ for $H_k$.
+> 
+> %\[O(|V \G_{A_k}|^6 \cdot
+> %|V\T|^{10}+R_k^8|E_Z\T|^8|V\T|^2\cdot |X_k|^{4 (|V \T|+ R_k |E_Z
+> %\T |)|V\G_{A_k}|}),\]
+> %where $R_k$ is a constant dependent on the basis $Y_k$
+> %for $H_k$: namely
+> %\[R_k = \max \{ |\phi_k(z_1)|_k, \ldots,
+> %|\phi_k(z_m)|_k\}.\]
+> %
+> %\[R_k = m \max \{ |\phi_k(z_1)|_k, \ldots,
+> %|\phi_k(z_m)|_k\}.\]
+> %{\ajd As far as I can see, $R_k$ needs to be an upper bound for the
+> %number of vertices of $\G_{A_k}$. At the outset, this might be
+> %the sum of lengths of all the $\phi_k(z_i)$'s (minus a small constant).
+> %That in turn is bounded by $m\times M$, where $M$ is the maxl length
+> %of one of these.}
+2977,2978c3007,3010
+< $G_{A_k}$ has at most $R_k$ vertices,  the diameter
+< of the tree $T_k$ is at most $R_k-1$.
+---
+> every petal of the Stallings automaton $G_{A_k}$ has at most $R_k$
+> edges, the maximal length of a path starting in the root vertex
+> and terminating at arbitrary vertex of the tree $T_k$ is at most
+> $R_k-1$.
+2982,2990c3014,3032
+< {\bf 1. $\T \leadsto \T_1$.} At this stage we first add $X_k$-edges to
+< $\T$, to form a new graph $\T^\prime_1$, and then fold $\T^\prime_1$, to 
+< form $\T_1$.   We add at most $R_k
+< \cdot |E_Z \T |$ edges of type $X_k$ and at most $(R_k-1)\cdot
+< |E_Z \T |$ new vertices to obtain $\T'_1$. It takes time 
+< $t_1(|E_k \T'_1|)$ to fold $\T'_1$ to  $\T_1$. Clearly,
+< $|E_k\T_1 | \le |E_k\T'_1 | \le |E_k\T | +  R_k \cdot |E_Z \T |$ and
+< $|V \T_1| \le |V \T'_1 | \le |V \T|+ (R_k-1)\cdot |E_Z \T |$. Hence the
+< time $t_{\T_1}$ required for the construction of $T_1$  is
+---
+> {\bf 1. $\T \leadsto \T_1$.} At this stage we first add
+> $X_k$-edges to $\T$, to form a new graph $\T^\prime_1$, and then
+> fold $\T^\prime_1$, to form $\T_1$.   We add at most $R_k \cdot e$
+> edges of type $X_k$ and at most $(R_k-1)\cdot e$ new vertices to
+> obtain $\T'_1$. It takes time at most $t_1(R_k \cdot E )$ to fold
+> $\T'_1$ to  $\T_1$. Clearly,
+> \begin{equation}\label{evth1}
+> \begin{split}
+> |E\T_1 | &\le |E\T'_1 | \le |E_k\T | + R_k \cdot e \le
+> R_k \cdot E\\
+> &{\textrm{ and }}\\
+> |V \T_1| &\le |V \T'_1 | \le V + R_k\cdot e
+> \end{split}
+> \end{equation}
+> 
+> %Clearly, $|E\T_1 | \le |E\T'_1 | \le |E_k\T | + R_k \cdot e \le
+> %R_k \cdot E$ and $|V \T_1| \le |V \T'_1 | \le V + (R_k-1)\cdot e$.
+> Hence the time $t_{\T_1}$ required for the construction of $\T_1$
+> is
+2992c3034,3035
+< t_{\T_1} \preceq t_1(|E_k \T_1^\prime |) + O(R_k \cdot |E_Z \T |).
+---
+> t_{\T_1} \preceq t_1(|E \T_1^\prime |) + O(R_k \cdot E) =t_1(R_k
+> \cdot E) .
+2994,3007c3037,3049
+< {\ajd Replaced $\T_1$ with $\T_1^\prime$ in the equation above. Is that
+< correct? It looks as though
+<  this line could be replaced by
+< $t_{\T_1} \preceq t_1(R_k |E\T|) + O(R_k \cdot |E_Z \T |)
+< =t_1(R_k|E \T|)$.}
+< 
+< {\bf 2. $\T_1 \leadsto \T_2$.} The time required for the construction of 
+< $\cP_1=\T_1\times \G_{A_k}$ is $t_3(|V \T_1|,
+< |V \G_{A_k}|)$. Further, one can choose a spanning subforest
+< $\U_1$ of $\cP_1$ in  $t_2(|V\cP_1|)$ steps. Without loss
+< of generality one can assume that $\cP_1$ has precisely one
+< connected component (which is the worst case from the point of view
+< of the algorithm's
+< complexity). Notice that $|V\cP_1| \le |V\T_1|\cdot |V \G_{A_k}|$. 
+---
+> %{\ajd Replaced $\T_1$ with $\T_1^\prime$ in the equation above. Is that
+> %correct? It looks as though
+> % this line could be replaced by
+> %$t_{\T_1} \preceq t_1(R_k |E\T|) + O(R_k \cdot |E_Z \T |)
+> %=t_1(R_k|E \T|)$.}
+> 
+> {\bf 2. $\T_1 \leadsto \T_2$.} The time required for the
+> construction of $\cP_1=\T_1\times \G_{A_k}$ is $t_3(|V \T_1|, q)$.
+> Further, one can choose a spanning subforest $\U_1$ of $\cP_1$ in
+> $t_2(|V\cP_1|)$ steps. Without loss of generality one can assume
+> that $\cP_1$ has precisely one connected component (which is the
+> worst case from the point of view of the algorithm's complexity).
+> Notice that $|V\cP_1| \le |V\T_1|\cdot q$.
+3023,3028c3065,3069
+< $H_k$ of length $\le n$: so $B_{n}$ is bounded above by
+< the number of such elements in $F_k$. Thus $B_{Q_k} \le 1+
+< \mathop{\sum}\limits_{i=0}^{Q_k} 2|X_k| \cdot (2|X_k|-1)^{i}$. In
+< the worst case we have $\frac{|V\T_1|\cdot(|V\T_1|+1)}{2}$
+< possible pairs $(i,j)$ to analyze. Let
+< $\overline{R}_k=\max\limits_{l_p \in
+---
+> $H_k$ of length $\le n$: so $B_{n}$ is bounded above by the number
+> of such elements in $F_k$. Thus $B_{Q_k} \le 1+
+> \mathop{\sum}\limits_{i=0}^{Q_k} 2 r \cdot (2r-1)^{i}$. In the
+> worst case we have $\frac{|V\T_1|\cdot(|V\T_1|+1)}{2}$ possible
+> pairs $(i,j)$ to analyze. Let $\overline{R}_k=\max\limits_{l_p \in
+3032,3043c3073
+< \begin{equation}\label{theta'2}
+< \begin{split}
+< t_{\T'_2} &= O(|V\T_1|\cdot(|V\T_1|+1)\cdot B_{Q_k}\cdot (
+< Q_k + \overline{R}_k))\\ &\preceq
+< O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
+< \G_{A_k}|}(|V \T_1|\cdot |V \G_{A_k}| + \overline{R}_k))\\
+< &\preceq O(|V\T_1|^2|X_k|^{|V\T_1|\cdot |V \G_{A_k}|+1}(|V
+< \T_1|\cdot |V \G_{A_k}| + \overline{R}_k))
+< \end{split}
+< \end{equation}
+< {\ajd I think this can be slightly simplified to 
+< \[
+---
+> \begin{equation}\label{pretheta'2}
+3047,3050c3077,3080
+< &\preceq
+< O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
+< \G_{A_k}|}\overline{R}_k)\\
+< &\preceq O(|V\T_1|^2|X_k|^{|V\T_1|\cdot |V \G_{A_k}|+1}\overline{R}_k)
+---
+> &\preceq O(|V\T_1|\cdot(|V\T_1|+1)\cdot r \cdot
+> (2r-1)^{|V\T_1|\cdot q}\overline{R}_k)\\
+> &\preceq O((V + R_k\cdot e)^2\cdot (2r-1)^{(V + R_k\cdot e)\cdot q
+> +1})
+3052,3059c3082,3107
+< \]
+< as the number edges added on each path $p$ is
+< $|\phi^{-1}_k(l_p)|_Z$, so the last bracket of the first line only needs
+< $\overline R_k$. In fact, in any case $(Q_k+\overline R_k)=O(\overline R_k)$, 
+< doesn't it?
+< }
+< One can fold this graph in time
+< $t_1(E\T'_2)$. 
+---
+> %\begin{split}
+> %t_{\T'_2} &= O(|V\T_1|\cdot(|V\T_1|+1)\cdot B_{Q_k}\cdot (
+> %Q_k + \overline{R}_k))\\ &\preceq
+> %O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
+> %\G_{A_k}|}(|V \T_1|\cdot |V \G_{A_k}| + \overline{R}_k))\\
+> %&\preceq O(|V\T_1|^2|X_k|^{|V\T_1|\cdot |V \G_{A_k}|+1}(|V
+> %\T_1|\cdot |V \G_{A_k}| + \overline{R}_k))
+> %\end{split}
+> \end{equation}
+> %{\ajd I think this can be slightly simplified to
+> %\[
+> %\begin{split}
+> %t_{\T'_2} &= O(|V\T_1|\cdot(|V\T_1|+1)\cdot B_{Q_k}
+> %\cdot \overline{R}_k)\\
+> %&\preceq
+> %O(|V\T_1|\cdot(|V\T_1|+1)|X_k|(2|X_k|-1)^{|V\T_1|\cdot |V
+> %\G_{A_k}|}\overline{R}_k)\\
+> %&\preceq O(|V\T_1|^2|X_k|^{|V\T_1|\cdot |V \G_{A_k}|+1}\overline{R}_k)
+> %\end{split}
+> %\]
+> %as the number edges added on each path $p$ is
+> %$|\phi^{-1}_k(l_p)|_Z$, so the last bracket of the first line only needs
+> %$\overline R_k$. In fact, in any case $(Q_k+\overline R_k)=O(\overline R_k)$,
+> %doesn't it?
+> %}
+> Using \ref{evth1}, obtain
+3061,3076c3109,3136
+< Now we estimate the numbers of  edges  and
+< vertices  of $\T'_2$ and $\T_2$.
+< In forming $\T_2^\prime$  we do not add any $X_k$
+< edges and so 
+< \begin{equation}\label{eztheta2}
+< |E_Z\T_2| \le |E_Z\T'_2| \le |E_Z\T_1|+\overline{R}_k\cdot B_{Q_k}
+< \cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+< \end{equation}
+< {\ajd I think it's better to have $E \T'_2$ and $E \T_2$ isn't it?
+< That's what appears in equation \ref{theta2}. This would mean
+< replacing the above by  
+< \[
+< |E\T_2| \le |E\T'_2| \le |E\T_1|+\overline{R}_k\cdot B_{Q_k}
+< \cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+< \]
+< }
+---
+> \begin{equation}\label{theta'2}
+> t_{\T'_2} \preceq O((V + (R_k-1)\cdot e)^2\cdot r^{(V +
+> (R_k-1)\cdot e)\cdot q +1}\overline{R}_k)
+> \end{equation}
+> 
+> One can fold this graph in time $t_1(E\T'_2)$.
+> 
+> Now we estimate the numbers of edges  and vertices  of $\T'_2$ and
+> $\T_2$. In forming $\T_2^\prime$  we do not add any $X_k$ edges
+> and so
+> \begin{equation}\label{etheta2}
+> \begin{split}
+> |E\T_2| &\le |E\T'_2| \le |E\T_1|+\overline{R}_k\cdot B_{Q_k}
+> \cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2}\\
+> &\le R_k \cdot E +
+> \overline{R}_k\cdot B_{Q_k} \cdot (V^2 + e^2+V\cdot e),
+> \end{split}
+> %|E_Z\T_2| \le |E_Z\T'_2| \le |E_Z\T_1|+\overline{R}_k\cdot B_{Q_k}
+> %\cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+> \end{equation}
+> %{\ajd I think it's better to have $E \T'_2$ and $E \T_2$ isn't it?
+> %That's what appears in equation \ref{theta2}. This would mean
+> %replacing the above by
+> %\[
+> %|E\T_2| \le |E\T'_2| \le |E\T_1|+\overline{R}_k\cdot B_{Q_k}
+> %\cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+> %\]
+> %}
+3078,3079c3138,3142
+< |V\T_2| \le |V \T'_2| \le |V\T_1|+(\overline{R}_k-1)\cdot B_{Q_k}
+< \cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2},
+---
+> \begin{split}
+> |V\T_2| &\le |V \T'_2| \le |V\T_1|+(\overline{R}_k-1)\cdot B_{Q_k}
+> \cdot \frac{|V\T_1|\cdot(|V\T_1|+1)}{2}\\ &\le V + R_k \cdot e +
+> \overline{R}_k \cdot B_{Q_k}\cdot (V^2 + e^2+V\cdot e),
+> \end{split}
+3088,3089c3151,3152
+< t_{\T_2} = t_3(|V \T_1|, |V \G_{A_k}|) + t_2(|V\cP_1|)+
+< t_1(|E\T'_2|) + t_{\T'_2},
+---
+> t_{\T_2} = t_3(V + R_k \cdot e, q) + t_2((V + R_k \cdot e) \cdot
+> q)+ t_1(|E\T'_2|) + t_{\T'_2},
+3091,3100c3154,3163
+< where $t_{\T'_2}$ is estimated in formula (\ref{theta'2}).
+< {\ajd Would it be better to replace $|V\cP_1|$ in the line above by 
+< $|V\T_1|\cdot|V\G_{A_k}|$?}
+< 
+< {\bf 3. $\T_2 \leadsto \T_3$.} The time required for  construction of 
+< $\cP_2=\T_2\times \G_{A_k}$ is  $t_3(|V \T_2|,
+< |V \G_{A_k}|)$. A spanning subforest $\U_2$ of $\cP_2$ can be
+< constructed in time $t_2(|V\cP_2|)$, and 
+< $|V\cP_2|=|V\T_2|\cdot |V \G_{A_k}|$. Suppose again $\cP_2$ has
+< only one non-trivial connected component.
+---
+> where $|E\T'_2|$ is given by (\ref{etheta2}) and $t_{\T'_2}$ is
+> estimated in formula (\ref{theta'2}).
+> %{\ajd Would it be better to replace $|V\cP_1|$ in the line above by
+> %$|V\T_1|\cdot|V\G_{A_k}|$?}
+> 
+> {\bf 3. $\T_2 \leadsto \T_3$.} The time required for  construction
+> of $\cP_2=\T_2\times \G_{A_k}$ is  $t_3(|V \T_2|, q)$. A spanning
+> subforest $\U_2$ of $\cP_2$ can be constructed in time
+> $t_2(|V\cP_2|)$, and $|V\cP_2|=|V\T_2|\cdot q$. Suppose again
+> $\cP_2$ has only one non-trivial connected component.
+3102,3125c3165,3187
+< (that is the set of non-isolated vertices). 
+< Evidently, $|V'\cP_2| \le |V\T_2|\cdot |V \G_{A_k}|$.
+< As $\G_{A_k}$ is folded, so is $\cP_2$, so vertices of $\cP_2$ have
+< degree at most $2|X_k|$. Hence  
+< the number of edges in $\cP_2$ can be bounded above, in terms
+< of the numbers of vertices of set of $\T_2$ and $\G_{A_k}$, as follows.
+< \[ |E\cP_2| \le |V\cP_2|\cdot |X_k|=|V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|.\]
+< {\ajd I changed this from 
+< $|E\cP_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
+< (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|}{2}$. My argument is that if a graph
+< has E edges and V vertices, of degree at most D, then $2E\le VD$. Does it look 
+< correct? } 
+< and the number of edges of $\cP_2 \smallsetminus \U_2$ is known to
+< be equal to $|E\cP_2| - |V'\cP_2|+1$, {\ajd I agree with the last equality} i.e.
+< \[|E\cP_2\smallsetminus \U_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
+< (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k| -2|V\T_2||V\G_{A_k}|+2
+< }{2},\]
+< {\ajd but don't see why the line above holds. Couldn't we have a case 
+< where $|V'\cP_2|$ was much smaller than the total number of vertices of 
+< $\cP_2$? Possibly even 0? I don't think it makes much difference to 
+< the eventual calculation anyway.} 
+< while $|E \U_2| = |V'\cP_2| - 1 < |V\T_2|\cdot |V \G_{A_k}|.$ 
+< Every reduced path in $\U_2$ is simple, thus no longer than
+< $|E\U_2|$ (in terms of $X_k$). 
+---
+> (that is the set of non-isolated vertices). Evidently, $|V'\cP_2|
+> \le |V\T_2|\cdot q$. As $\G_{A_k}$ is folded, so is $\cP_2$, so
+> vertices of $\cP_2$ have degree at most $2r$. Hence the number of
+> edges in $\cP_2$ can be bounded above, in terms of the numbers of
+> vertices of set of $\T_2$ and $\G_{A_k}$, as follows.
+> \[ |E\cP_2| \le |V\cP_2|\cdot r =|V\T_2|\cdot q \cdot r.\]
+> %{\ajd I changed this from
+> %$|E\cP_2| \le \frac{(|V\T_2|^2+|V\T_2|)\cdot
+> %(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|}{2}$. My argument is that if a graph
+> %has E edges and V vertices, of degree at most D, then $2E\le VD$. Does it look
+> %correct? }
+> %and the number of edges of $\cP_2 \smallsetminus \U_2$ is known to
+> %be equal to $|E\cP_2| - |V'\cP_2|+1$, {\ajd I agree with the last equality} i.e.
+> Then
+> \[|E\cP_2\smallsetminus \U_2| \le |V\T_2|\cdot q \cdot r\]
+> % {\ajd but don't see why the
+> %line above holds. Couldn't we have a case where $|V'\cP_2|$ was
+> %much smaller than the total number of vertices of $\cP_2$?
+> %Possibly even 0? I don't think it makes much difference to the
+> %eventual calculation anyway.}
+> while $|E \U_2| = |V'\cP_2| - 1 < |V\T_2|\cdot q.$ Every reduced
+> path in $\U_2$ is simple, thus no longer than $|E\U_2|$ (in terms
+> of $X_k$).
+3142,3145c3204,3212
+< t_{\T'_3} &= O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot
+< (\overline{Q}_k+2 |E \U_2| +1))\\ &\preceq O(|V\T|\cdot
+< (|V\T_2|^2+|V\T_2|)\cdot (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
+< \cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
+---
+> t_{\T'_3} &= O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot (\overline{Q}_k+2 |E \U_2| +1))\\
+> &\preceq     O(V \cdot (|V\T_2|\cdot q \cdot r) \cdot
+> (\overline{Q}_k+|V\T_2|\cdot q))\\
+> &\preceq  O(m_1 V^5 + m_2V^4 e +m_3 V^3 e^2 +m_4 V^2 e^3 + m_5 V
+> e^4).
+> %t_{\T'_3} &= O(|V\T|\cdot |E\cP_2\smallsetminus \U_2|\cdot
+> %(\overline{Q}_k+2 |E \U_2| +1))\\ &\preceq O(|V\T|\cdot
+> %(|V\T_2|^2+|V\T_2|)\cdot (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
+> %\cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
+3148,3164c3215,3233
+< {\ajd If I am correct with the quantities above then \eqref{theta'3}
+< should be  replaced with
+< \[
+< \begin{split}
+< t_{\T'_3} &= O(|V\T|\cdot |E\cP_2|\cdot (\overline{Q}_k+2 |E \U_2| +1))\\ 
+< &\preceq     O(|V\T|\cdot
+< (|V\T_2|\cdot|V\G_{A_k}|\cdot|X_k|)
+< \cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
+< \end{split}
+< \]
+< }
+< One can fold this graph in time $t_1(E\T'_3)$. 
+< 
+< For each vertex of $V\T$ we add at most $|E\cP_2|$ paths, each
+< of length at most $\overline Q_k$, so the number of 
+< edges and vertices of $\T'_3$ and $\T_3$ are 
+< \begin{equation}\label{eztheta3}
+---
+> %{\ajd If I am correct with the quantities above then \eqref{theta'3}
+> %should be  replaced with
+> %\[
+> %\begin{split}
+> %t_{\T'_3} &= O(|V\T|\cdot |E\cP_2|\cdot (\overline{Q}_k+2 |E \U_2| +1))\\
+> %&\preceq     O(|V\T|\cdot
+> %(|V\T_2|\cdot|V\G_{A_k}|\cdot|X_k|)
+> %\cdot (\overline{Q}_k+|V\T_2|\cdot |V \G_{A_k}|)).
+> %\end{split}
+> %\]
+> %}
+> Here $m_1, \ldots, m_5$ are polynomials on $q, r, \overline{Q}_k,
+> \overline{R}_k, R_k$ and $B_{Q_k}$. One can fold this graph in
+> time $t_1(E\T'_3)$.
+> 
+> For each vertex of $V\T$ we add at most $|E\cP_2|$ paths, each of
+> length at most $\overline Q_k$, so the number of edges and
+> vertices of $\T'_3$ and $\T_3$ are
+> \begin{equation}\label{etheta3}
+3166,3169c3235,3243
+< |E\T_3| &\le |E\T'_3|\le |E\T_2|+\\ &+|V\T|\cdot
+< \overline{Q}_k\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
+< (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
+< -2|V\T_2||V\G_{A_k}|+2}{2},
+---
+> |E\T_3| &\le |E\T'_3|\le |E\T_2|+|V\T|\cdot
+> \overline{Q}_k\cdot |V\T_2| q r\\
+>  &\le R_k(\overline{Q}_k V  e r q + E) +
+>  \overline{Q}_k V^2 r q +\\
+>  &+ (V^2 +e^2+V e)\cdot(\overline{R}_k B_{Q_k}(\overline{Q}_k V r q +1)),
+> %|E\T_3| &\le |E\T'_3|\le |E\T_2|+\\ &+|V\T|\cdot
+> %\overline{Q}_k\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
+> %(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k|
+> %-2|V\T_2||V\G_{A_k}|+2}{2},
+3175,3178c3249,3256
+< |V\T_3| &\le |V \T'_3|\le |V\T_2|+\\
+< &+|V\T|\cdot(\overline{Q}_k-1)\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
+< (|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k| -2|V\T_2||V\G_{A_k}|+2
+< }{2},
+---
+> |V\T_3| &\le |V \T'_3|\le |V\T_2|+ V \cdot(\overline{Q}_k-1)\cdot |V\T_2|\cdot rq\\
+>  &\le V + \overline{Q}_k V^2 rq + \\
+> &+(\overline{Q}_k V rq +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
+> \cdot(V^2 + e^2 + V e),
+> %|V\T_3| &\le |V \T'_3|\le |V\T_2|+\\
+> %&+|V\T|\cdot(\overline{Q}_k-1)\cdot \frac{(|V\T_2|^2+|V\T_2|)\cdot
+> %(|V\G_{A_k}|^2+|V\G_{A_k}|) \cdot |X_k| -2|V\T_2||V\G_{A_k}|+2
+> %}{2},
+3183,3200c3261,3278
+< {\ajd I would replace the last 2 expressions with
+< \[
+< \begin{split}
+< |E\T_3| &\le |E\T'_3|\le |E\T_2|+\\ 
+<         &+|V\T|\cdot
+< \overline{Q}_k\cdot 
+< |V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|,
+< \end{split}
+< \]
+< and
+< \[
+< \begin{split}
+< |V\T_3| &\le |V \T'_3|\le |V\T_2|+\\
+< &+|V\T|\cdot(\overline{Q}_k-1)\cdot 
+< |V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|,
+< \end{split}
+< \]
+< }
+---
+> %{\ajd I would replace the last 2 expressions with
+> %\[
+> %\begin{split}
+> %|E\T_3| &\le |E\T'_3|\le |E\T_2|+\\
+> %        &+|V\T|\cdot
+> %\overline{Q}_k\cdot
+> %|V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|,
+> %\end{split}
+> %\]
+> %and
+> %\[
+> %\begin{split}
+> %|V\T_3| &\le |V \T'_3|\le |V\T_2|+\\
+> %&+|V\T|\cdot(\overline{Q}_k-1)\cdot
+> %|V\T_2|\cdot |V \G_{A_k}|\cdot |X_k|,
+> %\end{split}
+> %\]
+> %}
+3205,3206c3283,3284
+< t_{\T_3} = t_3(|V \T_2|, |V \G_{A_k}|) + t_2(|V\cP_2|)+
+< t_1(|E\T'_3|) + t_{\T'_3},
+---
+> t_{\T_3} = t_3(|V \T_2|, q) + t_2(|V\T_2|\cdot q|)+ t_1(|E\T'_3|)
+> + t_{\T'_3},
+3208c3286,3287
+< where $t_{\T'_3}$ is given by (\ref{theta'3}).
+---
+> where $|E\T'_3|$, $t_{\T'_3}$ are given by (\ref{etheta3}) and
+> (\ref{theta'3}), respectively.
+3212,3216c3291,3298
+< \G_{A_k}$ in  $t_3(|V \T_3|, |V \G_{A_k}|)$ steps. A
+< spanning subforest $\U_3$ of $\cP_3$ can be constructed in time
+< $t_2(|V\cP_3|)$. We assume again that $\cP_3$ has at most one connected
+< component containing non-isolated vertices. 
+< Observe that by construction $E\U_3 = E\U_2$ and $V\cP_3$ coincides
+---
+> \G_{A_k}$ in  $t_3(|V \T_3|, q)$ steps. Observe that for a
+> spanning subforest $\U_3$ of $\cP_3$ by construction $E\U_3 =
+> E\U_2$ and $V\cP_3$ coincides with $V\cP_2$ plus some new isolated
+> vertices. Therefore, $\U_3$ can be constructed in time
+> $t_2(|V\cP_2|)$.{\ef{Is that correct?}} We assume again that
+> $\cP_3$ has at most one connected component containing
+> non-isolated vertices. Observe that by construction $E\U_3 =
+> E\U_2$ and $V\cP_3$ coincides
+3221,3230c3303,3310
+< As in Modification 4, fix a pair of vertices 
+< $\g=(\a_i,1)$ and  $\d=(\a_j,\b)$ in $\cP_3$. Note that the number of such
+< pairs is at most $|V\T|^2 \cdot (|V \G_{A_k}|-1)$. 
+< In the worst case the pair $\g, \d$ is not covered by $\cP_3$, 
+< and, in the notation of Modification 4, 
+< we find $h=ab^{-1}$, where $a$ is the label of a simple path from
+< $\g$ to $\d$ in $\U_3$ and $b$ is the label of a simple path in $T_k$.
+< Thus 
+< $|h|_k = |ab^{-1}|_k \le R_k+ | E\U_2|$.  Then we add, to $\T_3$, a
+< path with label $wb$, where the length of $w$ is
+---
+> As in Modification 4, fix a pair of vertices $\g=(\a_i,1)$ and
+> $\d=(\a_j,\b)$ in $\cP_3$. Note that the number of such pairs is
+> at most $V^2 \cdot (q-1)$. In the worst case the pair $\g, \d$ is
+> not covered by $\cP_3$, and, in the notation of Modification 4, we
+> find $h=ab^{-1}$, where $a$ is the label of a simple path from
+> $\g$ to $\d$ in $\U_3$ and $b$ is the label of a simple path in
+> $T_k$. Thus $|h|_k = |ab^{-1}|_k \le R_k+ | E\U_2|$.  Then we add,
+> to $\T_3$, a path with label $wb$, where the length of $w$ is
+3239,3240c3319,3322
+< t_{\T'_4} &= O(|V\T|^2 \cdot(|V \G_{A_k}|-1)(\overline{Q}'_k+R_k -1))\\
+< &\preceq O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
+---
+> t_{\T'_4} =
+>  O(V^2 \cdot q \cdot(\overline{Q}'_k+R_k))
+> %t_{\T'_4} &= O(|V\T|^2 \cdot(|V \G_{A_k}|-1)(\overline{Q}'_k+R_k -1))\\
+> %&\preceq O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
+3243,3261c3325,3352
+< {\ajd I'm not sure if I've understood correctly how this bound should 
+< be calculated. I think that for each $\g,\d$ there would be at most 
+< $\overline{Q}'_k+R_k$ edges added. In that case isn't the time required
+< \[
+< t_{\T'_4} =
+<  O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
+< \]
+< immediately?
+< }
+< 
+< This new graph can be folded in time $t_1(E\T'_4)$. Here the 
+< numbers of vertices and edges of $\T'_4$ and $\T_4$ are estimated by
+< \begin{equation}\label{eztheta4}
+< |E_Z\T_4| \le |E_Z\T'_4| \le |E_Z\T_3|+
+< \overline{Q}'_k\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
+< \end{equation}
+< \begin{equation}\label{ektheta4}
+< |E_k\T_4| \le |E_k\T'_4| \le  |E_k\T_3|+ R_k\cdot|V\T|^2 \cdot(|V
+< \G_{A_k}|-1),
+---
+> %{\ajd I'm not sure if I've understood correctly how this bound should
+> %be calculated. I think that for each $\g,\d$ there would be at most
+> %$\overline{Q}'_k+R_k$ edges added. In that case isn't the time required
+> %\[
+> %t_{\T'_4} =
+> % O(|V\T|^2 \cdot |V \G_{A_k}|\cdot(\overline{Q}'_k+R_k))
+> %\]
+> %immediately?
+> %}
+> 
+> This new graph can be folded in time $t_1(|E\T'_4|)$. Here the
+> numbers of vertices and edges of $\T'_4$ and $\T_4$ are estimated
+> by
+> \begin{equation}\label{etheta4}
+> \begin{split}
+> |E\T_4| &\le |E\T'_4| \le |E\T_3|+ (\overline{Q}'_k\cdot V^2 +
+> R_k)\cdot(q-1)\\
+> &< R_k(\overline{Q}_k V e r q + E) + q \cdot (R_k + V^2 \cdot
+> (\overline{Q}'_k + \overline{Q}_k r)) +\\
+> &+ \overline{R}_k B_{Q_k} \cdot(V^2+ e^2 + Ve)\cdot(\overline{Q}_k
+> V r q +1),
+> %|E_Z\T_4| \le |E_Z\T'_4| \le |E_Z\T_3|+
+> %\overline{Q}'_k\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
+> %\end{equation}
+> %\begin{equation}\label{ektheta4}
+> %|E_k\T_4| \le |E_k\T'_4| \le  |E_k\T_3|+ R_k\cdot|V\T|^2 \cdot(|V
+> %\G_{A_k}|-1),
+> \end{split}
+3263,3268c3354,3359
+< {\ajd Why not just say 
+< \[
+< |E\T_4| \le |E\T'_4| \le |E\T_3|+
+< (\overline{Q}'_k\cdot|V\T|^2 + R_k)\cdot(|V \G_{A_k}|-1),
+< \]
+< }
+---
+> %{\ajd Why not just say
+> %\[
+> %|E\T_4| \le |E\T'_4| \le |E\T_3|+
+> %(\overline{Q}'_k\cdot|V\T|^2 + R_k)\cdot(|V \G_{A_k}|-1),
+> %\]
+> %}
+3271,3272c3362,3368
+< |V\T_4| \le |V \T'_4| \le |V \T_3|
+< +(\overline{Q}'_k+R_k-1)\cdot|V\T|^2 \cdot(|V \G_{A_k}|-1),
+---
+> \begin{split}
+> |V\T_4| &\le |V \T'_4| \le |V \T_3| +(\overline{Q}'_k+R_k-1)\cdot
+> V^2 \cdot(q-1)<\\
+> &< V + (\overline{Q}_k V rq +1)\cdot(R_k e +\overline{R}_k B_{Q_k}
+> \cdot(V^2 + e^2 + V e) +\\
+> &+ V^2 q (\overline{Q}_k r +\overline{Q}_k +R_k) ,
+> \end{split}
+3278,3279c3374,3375
+< t_{\T_4} = t_3(|V \T_3|, |V \G_{A_k}|) + t_2(|V\cP_3|)+
+< t_1(|E\T'_4|) + t_{\T'_4},
+---
+> t_{\T_4} = t_3(|V \T_3|, q) + t_2(|V\T_2|\cdot q)+ t_1(|E\T'_4|) +
+> t_{\T'_4},
+3284,3285c3380
+< $\cP_4=\T_4\times \G_{A_k}$ is $t_3(|V \T_4|, |V \G_{A_k}|)$. 
+< Further,
+---
+> $\cP_4=\T_4\times \G_{A_k}$ is $t_3(|V \T_4|, q)$. Further,
+3287,3290c3382,3384
+< $t_2(|V\cP_4|)$.
+< We are assuming that  a spanning tree $T_k$
+< of $\G_{A_k}$, the set of non-diagonal elements $P_k^\prime$
+< of $\G_{A_k}\times \G_{A_k}$, the set $P_k$ of $\sim$ representatives 
+---
+> $t_2(|V\cP_4|)$. We are assuming that  a spanning tree $T_k$ of
+> $\G_{A_k}$, the set of non-diagonal elements $P_k^\prime$ of
+> $\G_{A_k}\times \G_{A_k}$, the set $P_k$ of $\sim$ representatives
+3293,3295c3387,3390
+< $|V \G_{A_k}|^2-|V \G_{A_k}|$ and that, as $\G_{A_k}$ has at 
+< most $mR_k$ vertices,  the length of a connecting
+< element $c\in C_k$ is at most $2mR_k$.  
+---
+> $q^2-q$.
+> % and that, as $\G_{A_k}$ has at most
+> %$mR_k$ vertices,  the length of a connecting element $c\in C_k$ is
+> %at most $2mR_k$.
+3312,3313c3407,3408
+< t_{\T'_5} &= O(|V \G_{A_k}|^2-|V \G_{A_k}|)\cdot(2\overline{Q}''_k+2R_k)\\
+< &\preceq O(|V \G_{A_k}|^2 \cdot (2\overline{Q}''_k+2R_k)),
+---
+> t_{\T'_5} &= O(q^2-q)\cdot(2\overline{Q}''_k+2R_k)\\
+> &\preceq O(q^2 \cdot (2\overline{Q}''_k+2R_k)),
+3319,3333c3414,3430
+< \begin{equation}\label{eztheta5}
+< |E_Z\T_5| \le |E_Z\T'_5| \le |E_Z\T_4|+ 2\overline{Q}''_k\cdot(|V
+< \G_{A_k}|^2-|V \G_{A_k}|),
+< \end{equation}
+< 
+< \begin{equation}\label{ektheta5}
+< |E_k\T_5| \le |E_k\T'_5| \le  |E_k\T_4|+ 2R_k\cdot(|V
+< \G_{A_k}|^2-|V \G_{A_k}|),
+< \end{equation}
+< {\ajd or perhaps instead 
+< \[
+< |E\T_5| \le |E\T'_5| \le |\T_4|+ 2(\overline{Q}''_k+ R_k)\cdot(|V
+< \G_{A_k}|^2-|V \G_{A_k}|),
+< \]
+< }
+---
+> \begin{equation}\label{etheta5}
+> |E\T_5| \le |E\T'_5| \le |E\T_4|+ 2(\overline{Q}''_k+
+> R_k)\cdot(q^2-q),
+> %|E_Z\T_5| \le |E_Z\T'_5| \le |E_Z\T_4|+ 2\overline{Q}''_k\cdot(|V
+> %\G_{A_k}|^2-|V \G_{A_k}|),
+> %\end{equation}
+> %
+> %\begin{equation}\label{ektheta5}
+> %|E_k\T_5| \le |E_k\T'_5| \le  |E_k\T_4|+ 2R_k\cdot(|V
+> %\G_{A_k}|^2-|V \G_{A_k}|),
+> \end{equation}
+> %{\ajd or perhaps instead
+> %\[
+> %|E\T_5| \le |E\T'_5| \le |\T_4|+ 2(\overline{Q}''_k+ R_k)\cdot(|V
+> %\G_{A_k}|^2-|V \G_{A_k}|),
+> %\]
+> %}
+3337c3434
+< \T'_5|+2(\overline{Q}''_k+R_k)\cdot(|V \G_{A_k}|^2-|V \G_{A_k}|),
+---
+> \T_4|+2(\overline{Q}''_k+R_k)\cdot(q^2-q),
+3339c3436,3438
+< where the constant $\overline{Q}''_k$ is determined by $H_k$, and $F_k$.
+---
+> where the constant $\overline{Q}''_k$ is determined by $H_k$, and
+> $F_k$ and $|E \T_4|$, $|V \T_4|$ are estimated in (\ref{etheta4}),
+> (\ref{vtheta4}).
+3344,3345c3443,3444
+< t_{\T_5} = t_3(|V \T_4|, |V \G_{A_k}|) + t_2(|V\cP_4|)+
+< t_1(|E\T'_5|) + t_{\T'_5},
+---
+> t_{\T_5} = t_3(|V \T_4|, q) + t_2(|V\cP_4|)+ t_1(|E\T'_5|) +
+> t_{\T'_5},
+3348c3447
+< \T_4|\cdot |V \G_{A_k}|$.
+---
+> \T_4|\cdot q $.
+3357,3361c3456,3459
+< t_\T &\preceq t_3(|V \T_4|, |V \G_{A_k}|) + t_2(|V\cP_4|)+
+< t_1(E\T'_5)+t_{\T_1} + t_{\T'_2}+t_{\T'_3}+t_{\T'_4}+t_{\T'_5}\\
+< &\preceq O(|V \G_{A_k}|^6 \cdot
+< |V\T|^{10}+R_k^8|E_Z\T|^8|V\T|^2\cdot |X_k|^{4 (|V \T|+ R_k |E_Z
+< \T |)|V\G_{A_k}|}).
+---
+> t_\T &\preceq t_3(|V \T_4|, q) + t_2(|V \T_4| q )+
+> t_1(|E\T'_5|)+t_{\T_1} + t_{\T'_2}+t_{\T'_3}+t_{\T'_4}+t_{\T'_5}\\
+> &\preceq O(|V \T_4|\cdot log(q |V \T_4|))+t_1(|E\T'_5|)+O((V +R_k e)^2\cdot (2r-1)^{(V + R_k e) q +1})+\\
+> &+O(m_1 V^5 + m_2V^4 e +m_3 V^3 e^2 +m_4 V^2 e^3 + m_5 V e^4),
+3364,3365c3462,3468
+< {\ajd I tried but I couldn't get as good an estimate. How do you
+< get from line 1 to line 2 of the expression above?}
+---
+> where $m_1, \ldots, m_5$ are polynomials on  $q, r,
+> \overline{Q}_k, \overline{R}_k, R_k$ and $B_{Q_k}$, and $|V
+> \T_4|$, $|E\T'_5|$ are given by (\ref{vtheta4}) and
+> (\ref{etheta5}), respectively.
+> 
+> %{\ajd I tried but I couldn't get as good an estimate. How do you
+> %get from line 1 to line 2 of the expression above?}
+3369c3472
+< Let $\D^\prime$ and $\D^\prime_5$ be the graphs defined in the 
+---
+> Let $\D^\prime$ and $D^\prime_5$ be the graphs defined in the

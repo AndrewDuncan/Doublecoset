@@ -1,0 +1,7 @@
+We shall apply this theorem repeatedly below, in cases where we have 
+an estimate for the number of edges of a graph. For a connected graph $\D$, 
+we have $V\le E+1$, so that $E+(V+E)\log^*(V)\le E+(2E+1)\log^*(E+1)$ and 
+$\log^*(E+1)\le log^*(2^E)\le \log^*(E)+1$. Hence, for large enough $E$
+$E+(V+E)\log^*(V)\le E+(2E+1)(\log^*(E)+1)\le 7E\log^*(E)$. Therefore, 
+we may construct a Stallings folding for $\D$ in time $O(E\log^*(E))$. 
+Therefore we define

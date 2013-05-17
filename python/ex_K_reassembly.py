@@ -65,26 +65,32 @@ while ex.K.fold() is True:
    ex.K.fold()
 
 vlist = ex.K.vertices
-i=0
-for c in vlist:
-#    print "(", i,",",c.label, ")",
-    i +=1
-#ex.K.addPath(vlist[11],vlist[6],'yb')
-#print "digraph ex.K {"
-#print (str(ex.K))
-#print "}"
+
+#now make theta-5
+z6=ex.K.addVertex()
+z7=ex.K.addVertex()
+z8=ex.K.addVertex()
+z6.label = 48
+z6.name = 48
+z7.label = 49
+z7.name = 49
+z8.label = 45
+z8.name = 45
+
+ex.K.addEdge(z6,z7,'a')
+ex.K.addEdge(z6,z7,'a')
+vlist = ex.K.vertices
 
 
-toadd = [(2, 43, 'Za'),(13,25,'Za'),(14,31,'xa'),(15,32,'xa'),(25,36,'xa'),(31,40,'xa')]
-for p in toadd:
-    def vcatch_l(x): return x.label == p[0]
-    def vcatch_r(x): return x.label == p[1]
-    u = filter(vcatch_l,vlist)
-    v = filter(vcatch_r,vlist)
-    ex.K.addPath(u[0],v[0],p[2])
+ex.K.addEdge(z6,vlist[2],'z')
+ex.K.addEdge(z7,vlist[23],'y')
+ex.K.addEdge(z8,vlist[23],'a')
+ex.K.addEdge(z8,vlist[1],'z')
+ex.K.addEdge(vlist[11],vlist[13],'y')
 
 while ex.K.fold() is True:
    ex.K.fold()
+
 
 #Input first F_2 component
 I=Graph(rooted=True,label='I')

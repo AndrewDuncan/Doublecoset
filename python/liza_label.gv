@@ -1,0 +1,14 @@
+digraph liza {
+"Gv1" [label="1",fontsize=7,width=.01,height=.01];
+"Gv1" -> "Gv5" [label="y",fontsize=8];
+"Gv1" -> "Gv3" [label="x",fontsize=8];
+"Gv2" [label="2",fontsize=7,width=.01,height=.01];
+"Gv2" -> "Gv1" [label="x",fontsize=8];
+"Gv3" [label="3",fontsize=7,width=.01,height=.01];
+"Gv3" -> "Gv4" [label="y",fontsize=8];
+"Gv3" -> "Gv2" [label="x",fontsize=8];
+"Gv4" [label="4",fontsize=7,width=.01,height=.01];
+"Gv4" -> "Gv1" [label="z",fontsize=8];
+"Gv5" [label="5",fontsize=7,width=.01,height=.01];
+"Gv5" -> "Gv5" [label="z",fontsize=8];
+}
