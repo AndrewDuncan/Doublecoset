@@ -260,6 +260,9 @@ class Graph:
 		def joinName(u,v):	#create a new name for vertices in the double graph, for display
 			return str(u.name)+'-'+str(v.name)
 
+		def joinKey(u,v):	#create a sort key for vertices in the double graph, for construction of spanning forest
+			return [u.label,v.label]
+
 		newverts = {}	#a dictionary to keep track of new vertices
 
 
