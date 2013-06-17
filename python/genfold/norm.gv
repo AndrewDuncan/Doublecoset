@@ -1,0 +1,17 @@
+digraph N {
+"H1v1" [label="1",fontsize=7,width=.01,height=.01];
+"H1v1" -> "H1v1" [label="a",fontsize=8];
+"H1v1" -> "H1v2" [label="b",fontsize=8];
+"H1v2" [label="2",fontsize=7,width=.01,height=.01];
+"H1v2" -> "H1v2" [label="a",fontsize=8];
+"H1v2" -> "H1v5" [label="b",fontsize=8];
+"H1v5" [label="5",fontsize=7,width=.01,height=.01];
+"H1v5" -> "H1v5" [label="a",fontsize=8];
+"H1v5" -> "H1v11" [label="b",fontsize=8];
+"H1v8" [label="8",fontsize=7,width=.01,height=.01];
+"H1v8" -> "H1v8" [label="a",fontsize=8];
+"H1v8" -> "H1v1" [label="b",fontsize=8];
+"H1v11" [label="11",fontsize=7,width=.01,height=.01];
+"H1v11" -> "H1v11" [label="a",fontsize=8];
+"H1v11" -> "H1v8" [label="b",fontsize=8];
+}

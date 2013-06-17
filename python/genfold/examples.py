@@ -11,6 +11,7 @@ h4="BBaba"
 w="Bab"
 y="abbBA"
 v=["b1","B1","b1","B2"]
+
 F1.make_gens()
 X=F1.mongens
 print("generators of X are ",X)
@@ -45,7 +46,7 @@ print("now H1 stallings")
 H1.stallings()
 S=H1.flower
 print ("digraph {")
-#print (str(S))
+print (str(S))
 print ("}")
 
 T=bfs(S,)
@@ -91,6 +92,6 @@ cc=Normal_form(S,"aaaabcABCBA",DB).spit_out_nf()
 #this is the example
 
 tt=Normal_form(S,"AAAAAAAAAb",DB).spit_out_nf()
-tt
 print("a,b,c =", tt[0],tt[1],tt[2])
 
+print("tt is ", tt)
