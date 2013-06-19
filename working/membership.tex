@@ -948,16 +948,11 @@ $\{1\}\cup S$ is a set of double coset representatives for $H$.
 \end{proposition}
 \begin{proof}
 First we shall show that every element $w\in \FF(X)$ lies in $HdH$ 
-for some $d\in \{1\}\cup S$. In fact we describe an algorithm, Algorithm I, which rewrites a  given word $w$ in this form. 
- In the following proof each
-step of Algorithm I is justified as it is introduced. A step by step
-definition 
- of the algorithm is given later, in Section \ref{sub:sum_algI}.
-
-Assume that the Stallings automaton $A$ for $H$ has been constructed by folding from
-given generators for $H$. A spanning tree $T$
-for $A$ may then be chosen and the
-set $L_T$ computed.
+for some $d\in \{1\}\cup S$. 
+Let $A$ be the Stallings automaton for $H$, with the 
+given generators, let  $T$ be a spanning tree for $A$, and 
+let $L_Q$ and $L_T$ be the languages defined in Section \ref{sub:foldings} above. 
+\begin{comment}
 To find the equivalence class of a pair $(u,v)\in P$ the
 graph $\G_A\times \G_A$ is constructed. As we pointed out above, $(u',v')\sim
 (u,v)$ if and only if there is a path in $\G_A\times \G_A$ from $(u',v')$
@@ -974,18 +969,19 @@ $(h,d,h')$ such that $w=hdh'$, where $d\in \{1\}\cup S$ and $h,h'\in H$.\\
 
 \noindent{\bf Algorithm I}.\\
 Input $w\in \FF(X)$.
+\end{comment}
 Let $h$ be the maximal prefix of $w$ accepted by $A$; so $h\in H$ and
 $w=h\circ f$, for some $f\in \FF(X)$. 
-If $w=h$ (and $f=1$) then output $(w,1,1)$ and stop. 
+If $w=h$ (and $f=1$) then $w\in H\cdot 1\cdot H$, as required. 
+%output $(w,1,1)$ and stop. 
 
-Otherwise use $A$ to find the maximal
-$L_Q$-prefix $p$
+Otherwise %use $A$ to find the maximal
+let $p$ be the maximal $L_Q$-prefix 
 of $f$ (i.e. the maximal prefix readable by $A$). Then
-  $f= p\circ q$, for some $q\in \FF(X)$.
-
-Next find the maximal prefix $g$ of $q^{-1}$ acceptable by $A$: say
-$q^{-1}=g\circ r$, for some $r\in \FF(X)$, and then the maximal $L_Q$-prefix
-$t$ of $r$; say $r=t\circ e^{-1}$, for some $e\in \FF(X)$.
+  $f= p\circ q$, for some $q\in \FF(X)$. 
+Next let $g$ be  the maximal prefix of $q^{-1}$ accepted by $A$: say
+$q^{-1}=g\circ r$, for some $r\in \FF(X)$, and let $t$ be the maximal $L_Q$-prefix
+ of $r$; say $r=t\circ e^{-1}$, for some $e\in \FF(X)$.
 
 If $e\neq 1$ then
 \[w=h\circ p \circ e\circ t^{-1}\circ g^{-1},\]
@@ -1007,11 +1003,11 @@ is not readable from the vertex $\t(t)=\t(z)$, so $ez^{-1}=e\circ
 z^{-1}$. Moreover $y$ is both a maximal $L_Q$-prefix  and an
 $L_T$-prefix of $yez^{-1}$ and $z$ is a maximal $L_Q$-prefix  and
 an $L_T$-prefix of $ze^{-1}$. Thus $yez^{-1}\in S^{(1)}$ and 
-\[w=(h py^{-1}) (yez^{-1})(zt^{-1} g^{-1})\in HSH,\]
-is of the required form, 
-so the algorithm outputs 
-\[(h py^{-1},yez^{-1},zt^{-1} g^{-1})\]
-and stops.
+\[w=(h py^{-1}) (yez^{-1})(zt^{-1} g^{-1})\in HS^{(1)}H,\]
+is of the required form.%, 
+%so the algorithm outputs 
+%\[(h py^{-1},yez^{-1},zt^{-1} g^{-1})\]
+%and stops.
 
 On the other hand if $e=1$ then
 \[w=h\circ p\circ t^{-1}\circ g^{-1}.\]
@@ -1039,9 +1035,10 @@ h_1^{-1}( w(v)t^{-1})
 and by definition $yz^{-1}\in S^{(2)}$. Therefore 
 \[w=a yz^{-1} b,\]
 where $a=h ( p w(u)^{-1}) h_0=hpcy^{-1}\in H$ and $b=h_1^{-1}( w(v)t^{-1})g^{-1}
-=zc^{-1}t^{-1}g^{-1}\in H$. The algorithm outputs 
-\[(a, yz^{-1}, b)\]
-and stops. 
+=zc^{-1}t^{-1}g^{-1}\in H$. Thus $w\in HS^{(2)}H$, as required.  
+%The algorithm outputs 
+%\[(a, yz^{-1}, b)\]
+%and stops. 
 
 It remains to show that if $s_0,s_1\in \{1\}\cup S$ with $s_1\in Hs_0H$
 then $s_1=s_0$. Suppose that $s_1=as_0b$, where $a, b\in H$.
@@ -1082,6 +1079,8 @@ $S^{(2)}$. As $s_1=as_0b$, with $a,b\in H$, Lemma
 $s_0= s_1$. Therefore $\{1\}\cup S$ is a set of double coset
 representatives.
 \end{proof}
+In Section \ref{sub:sum_algI} we describe an algorithm, Algorithm I, part of 
+which rewrites a  given word $w$ as an element of $HDH$, where $D=\{1\}\cup S$.  form. 
 
 \begin{example}\label{ex:f_1}
 Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
@@ -1324,7 +1323,13 @@ $A$  and so $w=h_1\circ v$. It then finds the maximal prefix $p$
 of $v^{-1}$ accepted by $A$. Setting $h_2=p^{-1}$ gives
 $w=h_1\circ d \circ h_2$, for some uniquely determined word $d$,
 which is a (non-unique) double coset representative.
-
+\subsection{Relative transversals and unique representation of 
+double cosets}\label{sub:reltran}
+Although $D=\{1\}\cup S$ is a set of double coset representatives, the 
+representation of elements of $F$ in terms of double cosets $HDH$ is by 
+no means unique: elements of $H$ have many such repesentations, for example. 
+Following \cite{FR}, we use transversals for certain subgroups of $H$ to 
+obtain unique double coset representations of elements of $F$.   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Double coset normal forms for amalgams of free groups}\label{sec:dcnf}
 
