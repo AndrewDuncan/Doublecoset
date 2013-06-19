@@ -1080,8 +1080,7 @@ $s_0= s_1$. Therefore $\{1\}\cup S$ is a set of double coset
 representatives.
 \end{proof}
 In Section \ref{sub:sum_algI} we describe an algorithm, Algorithm I, part of 
-which rewrites a  given word $w$ as an element of $HDH$, where $D=\{1\}\cup S$.  form. 
-
+which rewrites a  given word $w$ as an element of $HDH$, where $D=\{1\}\cup S$.  
 \begin{example}\label{ex:f_1}
 Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
 subgroup $H_1=\la
@@ -1327,9 +1326,39 @@ which is a (non-unique) double coset representative.
 double cosets}\label{sub:reltran}
 Although $D=\{1\}\cup S$ is a set of double coset representatives, the 
 representation of elements of $F$ in terms of double cosets $HDH$ is by 
-no means unique: elements of $H$ have many such repesentations, for example. 
-Following \cite{FR}, we use transversals for certain subgroups of $H$ to 
-obtain unique double coset representations of elements of $F$.   
+no means unique: in particular, elements of $H$ have many such repesentations. 
+Following \cite{FrenkelRemeslennikov13}, we use transversals for certain subgroups of $H$ to 
+obtain unique double coset representations of elements of $F$. 
+First we record a general property.  
+\begin{lemma}\label{lem:dcrel}
+Let $H$ be a subgroup of a group $G$ and let $D$ be a set of
+double coset representatives for $H$. For each $d\in D$, let 
+$T_d\subseteq H$ be a right transversal for the subgroup $H\cap H^d$ of $H$.
+Then, given $g\in G$, there exist  unique $h\in H$, $d\in D$ and 
+$t\in T_d$ such that  $g=hdt$. 
+\end{lemma}
+\begin{proof}
+Let $g\in G$. As $D$ is a set of double coset representatives, there
+exists a unique $d\in D$ such that $g\in HdH$, so it suffices to
+show that there exist unique $h\in H$ and $t\in T_d$ such that 
+$g=hdt$. Let $g=h_0dh_1$, where $h_i\in H$. Then there exist $a\in H\cap H^d$ 
+and   $t\in T_d$ such that $h_1=at$. Then $a=d^{-1}bd$, for some $b\in H$,
+so $g=h_0dh_1=h_0bdt\in HdT_d$. 
+
+If $g$ can be written as  $g=h_0dt_0=h_1dt_1$, with $h_i\in H$ and 
+$t_i\in T_d$, then $t_0t_1^{-1}=d^{-1}h_0^{-1}h_1d\in H\cap H^d$. As 
+$T_d$ is a right transversal, this implies that $t_0=t_1$, so $h_0=h_1$. 
+\end{proof}
+We write  $H_d=H\cap H^d$, whenever $H$ is a subgroup of a group $G$ and
+$d\in G$. 
+\begin{remark}
+If $H^d=H$ then, in the notation of the lemma above, $T_d=1$ and 
+every element of $HdH$ can be expressed uniquely in the form $hd$, 
+with $h\in H$. In particular, if $H$ is normal in $G$ then $D$ is 
+a right transversal for $H$ in $G$. On the other hand, if $H_d=1$ then
+$T_d=H$ and $h_0dh'_0=h_1dh_1'$, with $h_i,h_i'\in H$, implies that 
+$h_i=h'_i$, $i=1,2$. 
+\end{remark}   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Double coset normal forms for amalgams of free groups}\label{sec:dcnf}
 
