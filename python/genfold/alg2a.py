@@ -94,7 +94,7 @@ def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
 			c = [c[3],c[1],c[4]]
 			s=2
 		else:
-			c = Normal_form(S1,c,DB2).spit_out_nf()
+			c = Normal_form(S2,c,DB2).spit_out_nf()
 			c = [c[3],c[1],c[4]]
 			s=1
 	print(w)
@@ -118,7 +118,7 @@ def alg2(w,f1,f2,h1,h2):
 	if w[0] in f1gens:
 		w=nf_in_list(w,f1,f2,h1,h2)
 	else:
-		w=nf_in_list(w,f1,f2,h1,h2)
+		w=nf_in_list(w,f2,f1,h2,h1)
 	w=joiner(w)
 	
 	print(w)
