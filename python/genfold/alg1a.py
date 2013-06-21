@@ -269,7 +269,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 		e=element(RHS[2]).inverse()
 		if not e=="":
 			a_Z=element(LHS[4]).freely_reduce()
-			y=element(LHS[3].path).freely_reduce()
+			y=element(LHS[3].path).freely_reduce() #problem when using this in alg2a: "AttributeError: 'Vertex' object has no attribute 'path'"
 			z=element(RHS[3].path).freely_reduce()
 			Y=element(y).inverse()
 			Z=element(z).inverse()

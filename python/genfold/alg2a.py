@@ -68,7 +68,7 @@ def reducelist(w):
 		w[c]=c.freely_reduce()
 	return(w)
 
-def nf_in_list(w,F1,F2,H1,H2):
+def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
 	H1.make_flower
 	H1.stallings
 	H2.make_flower
@@ -81,7 +81,8 @@ def nf_in_list(w,F1,F2,H1,H2):
 	S2 = H2.flower
 	D2 = S2.double()
 	DB2 = bfs(D2,sorted(D2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	
+	DB1.forest()
+	DB2.forest()
 	
 	if w[0] in f1.mongens:
 		s=1
@@ -89,7 +90,7 @@ def nf_in_list(w,F1,F2,H1,H2):
 		s=2
 	for c in w[0:len(w)]:
 		if s==1:
-			c = Normal_form(S1,c,DB1).spit_out_nf()
+			c = Normal_form(S1,c,DB1).spit_out_nf() #AttributeError:'Vertex' object has no attribute 'path'
 			c = [c[3],c[1],c[4]]
 			s=2
 		else:
