@@ -69,10 +69,10 @@ def reducelist(w):
 	return(w)
 
 def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
-	H1.make_flower
-	H1.stallings
-	H2.make_flower
-	H2.stallings
+	H1.make_flower()
+	H1.stallings()
+	H2.make_flower()
+	H2.stallings()
 	
 	
 	S1 = H1.flower
@@ -123,18 +123,18 @@ def listtest(w,F1,F2): #w is a word, F1 and F2 free groups
 			i=0
 	return(i)
 
-def alg2(w,f1,f2,h1,h2):
+def alg2_main(w,f1,f2,h1,h2):
 	f1.make_gens()
 	f2.make_gens()
 	f1gens=f1.mongens
 	f2gens=f2.mongens
 	listtest(w,f1,f2)
 	w=listsplitter(w,f1gens,f2gens,f1,f2)
-#	if w[0] in f1gens:
-#		w=nf_in_list(w,f1,f2,h1,h2)
-#	else:
-#		w=nf_in_list(w,f2,f1,h2,h1)
-	w=nf_in_list(w)
+	if w[0] in f1gens:
+		w=nf_in_list(w,f1,f2,h1,h2)
+	else:
+		w=nf_in_list(w,f2,f1,h2,h1)
+#	w=nf_in_list2(w)
 	w=joiner(w)
 	
 	print(w)
@@ -161,3 +161,5 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 				w[i]=c.freely_reduce()
 		print(w)
 		return(w)
+
+######################################
