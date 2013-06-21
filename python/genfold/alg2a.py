@@ -100,6 +100,21 @@ def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
 	print(w)
 	return(w)
 
+
+def nf_in_list2(w): #alternative function to avoid problem with the other nf_in_list function, currently untested
+	for c in w:
+		if f1.is_element(c)!=0:
+			c = Normal_form(S1,c,DB1).spit_out_nf()
+			c = [c[3],c[1],c[4]]
+		elif f2.is_element(c)!=0:
+			c = Normal_form(S2,c,DB1).spit_out_nf()
+			c=[c[3],c[1],c[4]]
+		else:
+			print(c," isn't a word in either free group")
+		print(w)
+		return(w)
+			
+
 def listtest(w,F1,F2): #w is a word, F1 and F2 free groups
 	i=1
 	for c in range(1,len(w)):
@@ -115,10 +130,11 @@ def alg2(w,f1,f2,h1,h2):
 	f2gens=f2.mongens
 	listtest(w,f1,f2)
 	w=listsplitter(w,f1gens,f2gens,f1,f2)
-	if w[0] in f1gens:
-		w=nf_in_list(w,f1,f2,h1,h2)
-	else:
-		w=nf_in_list(w,f2,f1,h2,h1)
+#	if w[0] in f1gens:
+#		w=nf_in_list(w,f1,f2,h1,h2)
+#	else:
+#		w=nf_in_list(w,f2,f1,h2,h1)
+	w=nf_in_list(w)
 	w=joiner(w)
 	
 	print(w)
