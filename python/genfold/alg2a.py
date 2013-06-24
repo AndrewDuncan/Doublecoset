@@ -103,10 +103,10 @@ def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
 
 
 def nf_in_list2(w,F1,F2,H1,H2): #alternative function to avoid problem with the other nf_in_list function, currently untested
-	H1.make_flower
-	H1.stallings
-	H2.make_flower
-	H2.stallings
+	H1.make_flower()
+	H1.stallings()
+	H2.make_flower()
+	H2.stallings()
 	S1 = H1.flower
 	D1 = S1.double()
 	DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
