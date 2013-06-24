@@ -19,7 +19,8 @@ class Vertex:
 		else:
 			self.sortkey = sortkey
 		self.outedges_write ={}
-		self.inedges_write = {}		
+		self.inedges_write = {}	
+		self.path=""
 
 	def __repr__(self):
 		return str(self)
