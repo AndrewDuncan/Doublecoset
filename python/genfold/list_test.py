@@ -22,7 +22,7 @@ from alg2a import * #alg2a imports alg1a
 #print(element(['a1','B2','d7','T19']).inverse())
 #print(element(['a1','A1','A1','A1','A1']).inverse())
 
-#inverse seems to work
+#inverse seems to work, so no problems found with any of the class element
 
 ###generators test###
 
@@ -33,6 +33,9 @@ from alg2a import * #alg2a imports alg1a
 
 ###is_element tests###
 
-print(free_group(3,'t').is_element([]))
-print(free_group(3,'t').is_element(['T2']))
-print(free_group(3,'t').is_element(['t1','t1','t2','t3','T3','t2','t2','t1']))
+#print(free_group(3,'t').is_element([]))
+#print(free_group(3,'t').is_element(['T2']))
+#print(free_group(3,'t').is_element(['t1','t1','t2','t3','T3','t2','t2','t1']))
+
+#is_element seems to work, so no problems found with any of the class free_group
+
