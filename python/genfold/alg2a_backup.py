@@ -180,8 +180,8 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 ######################################
 
 def alg2_main2(w,F1,F2,H1,H2):
-	F1.make_gens()
-	F2.make_gens()
+	F1.make_gens
+	F2.make_gens
 	f1gens=F1.mongens
 	f2gens=F2.mongens
 	print("Generators\n",f1gens,'\n',f2gens)
