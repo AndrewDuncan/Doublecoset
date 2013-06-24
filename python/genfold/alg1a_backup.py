@@ -28,6 +28,8 @@ class free_group(object):
 		self.GENS =[]
 		self.mongens =[]
 		self.Alph =  string.ascii_lowercase
+
+	def make_gens(self): #make generators and their inverses (a and A or x1 and X1
 		for x in range(0, self.rank):
 			if self.alpha == "alpha":
 				self.gens.append(self.Alph[x])
