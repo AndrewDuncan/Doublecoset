@@ -102,26 +102,32 @@ def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
 	return(w)
 
 
-def nf_in_list2(w): #alternative function to avoid problem with the other nf_in_list function, currently untested
+def nf_in_list2(w,F1,F2,H1,H2): #alternative function to avoid problem with the other nf_in_list function, currently untested
+	H1.make_flower
+	H1.stallings
+	H2.make_flower
+	H2.stallings
+	S1 = H1.flower
+	D1 = S1.double()
+	DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	S2 = H2.flower
+	D2 = S2.double()
+	DB2 = bfs(D2,sorted(D2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	DB1.forest()
+	DB2.forest()
+	new_w = []
 	for c in w:
-		S1 = H1.flower
-		D1 = S1.double()
-		DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-		S2 = H2.flower
-		D2 = S2.double()
-		DB2 = bfs(D2,sorted(D2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-		DB1.forest()
-		DB2.forest()
-		if f1.is_element(c)!=0:
+		if F1.is_element(c)!=0:
 			c = Normal_form(S1,c,DB1).spit_out_nf()
 			c = [c[3],c[1],c[4]]
-		elif f2.is_element(c)!=0:
+		elif F2.is_element(c)!=0:
 			c = Normal_form(S2,c,DB2).spit_out_nf()
 			c=[c[3],c[1],c[4]]
 		else:
 			print(c," isn't a word in either free group")
-		print(w)
-		return(w)
+		print("syllable in normal form is ",c)
+		new_w.append(c)
+	return(new_w)
 			
 
 def listtest(w,F1,F2): #w is a word, F1 and F2 free groups
@@ -172,3 +178,29 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 		return(w)
 
 ######################################
+
+def alg2_main2(w,F1,F2,H1,H2):
+	F1.make_gens
+	F2.make_gens
+	f1gens=F1.mongens
+	f2gens=F2.mongens
+	print("Generators\n",f1gens,'\n',f2gens)
+	listtest2(w,f1gens,f2gens)
+	w=listsplitter(w,f1gens,f2gens)
+	print("Syllables:",w)
+	
+	#convert to normal forms here
+	w=nf_in_list2(w,F1,F2,H1,H2)
+	print("Normal form word",w)
+	
+	#w=joiner(w)
+	#print(w)
+
+def listtest2(w,f1gens,f2gens):
+	i=1
+	for c in w:
+		if c not in f1gens and c not in f2gens:
+			print(c, ' isn\'t in either free group')
+			i=0
+	print(i)
+	return(i)

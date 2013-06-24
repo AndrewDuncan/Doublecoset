@@ -17,7 +17,7 @@ class element(object): #reduced word
 		return self.word
 
 	def inverse(self): #inverse of word, not necessarily reduced
-		return (''.join([c.upper() if c==c.lower() else c.lower() for c in self.word[::-1]]))
+		return [c.upper() if c==c.lower() else c.lower() for c in self.word[::-1]]
 
 
 class free_group(object):
