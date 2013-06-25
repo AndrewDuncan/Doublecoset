@@ -159,12 +159,12 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 
 	def acc_read_rem(self): #read word from left to right finding max accepted prefix, them max readable prefix and
         #outputing these along with the remaining suffix, and the output labels of the path read
-		Apref=[]
-		Rpref=[]
-		Apref_in_Z=[]
+		Apref=""
+		Rpref=""
+		Apref_in_Z=""
 		suffix=self.word
 		u=self.graph.root
-		z=[]
+		z=""
         #print("u.out.keys", u,u.outedges.keys())
         #print("suff 0", suffix[0])
 		while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):

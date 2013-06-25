@@ -42,9 +42,21 @@ from alg2a import * #alg2a imports alg1a
 
 ###subgroup tests###
 
-h1=['a1','a1','A2','A3','a2','a1']
-h2=['a1','a2','A3','A2','a1','a1']
-H1=subgroup('H1',[h1,h2])
-#H1.make_flower()
-type(H1.flower)
-print(H1.flower)
+#h1=['a1','a1','A2','A3','a2','a1']
+#h2=['a1','a2','A3','A2','a1','a1']
+#h3=['A1','a3','a2','A3','a2']
+#h4=['b1','b2','b3','B2','b3']
+#H1=subgroup('H1',[h1,h2,h3,h4],['u','v','w','x'])
+#print("digraph {")
+#print(H1.flower)
+#print("}")
+
+#no problems found when creating the flower automaton, this process now happens automatically when the subgroup is created
+
+#H1.stallings()
+#print("digraph {")
+#print(H1.flower)
+#print("}")
+
+#the stallings function also seems to work ok, so no problems were found in the subgroup class
+
