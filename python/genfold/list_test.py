@@ -1,4 +1,5 @@
 from alg2a import * #alg2a imports alg1a 
+#from alg1a_backup import *
 
 ###freely_reduce tests###
 #print(element([]).freely_reduce())
@@ -39,3 +40,11 @@ from alg2a import * #alg2a imports alg1a
 
 #is_element seems to work, so no problems found with any of the class free_group
 
+###subgroup tests###
+
+h1=['a1','a1','A2','A3','a2','a1']
+h2=['a1','a2','A3','A2','a1','a1']
+H1=subgroup('H1',[h1,h2])
+#H1.make_flower()
+type(H1.flower)
+print(H1.flower)

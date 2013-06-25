@@ -68,18 +68,16 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators, ma
                    "not equal to rank of basis", len(self.basis))
 				self.coherent = False
 
-		for w in self.subgp_gens: #flower automaton for given generators
+	def make_flower(self): #flower automaton for given generators
+		for w in self.subgp_gens:
 			if not self.basis ==[]:
 				i_w = self.subgp_gens.index(w)
 				v = self.basis[i_w]
 			else:
 				v = None 
 
-			print(v)
+          #print(v)
 			self.flower.addLoop(self.flower.root,w,v)
-
-	def make_flower(self): #flower automaton for given generators
-
 
 		return(self.flower)
 
