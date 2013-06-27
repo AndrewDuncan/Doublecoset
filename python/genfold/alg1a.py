@@ -165,27 +165,27 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 		suffix=self.word
 		u=self.graph.root
 		z=[]
-        #print("u.out.keys", u,u.outedges.keys())
-        #print("suff 0", suffix[0])
+        print("u.out.keys", u,u.outedges.keys())
+        print("suff 0", suffix[0])		
 		while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):
 			if suffix[0] in u.outedges.keys():
-              #print("why", u.outedges[suffix[0]])
-              #print("u keys",u.outedges.keys())
-              #print("u oulist", u.outedgesList)
+				print("u.outedges[suffix[0]] ", u.outedges[suffix[0]])
+				print("u.outedges.keys ",u.outedges.keys())
+				print("u outedgeslist ", u.outedgesList)
 				for x in u.outedgesList:
-                 #print x[0]
-                 #print x[1].outedgesList
+					print("x[0] " x[0])
+					print("x[1].outedgeslist ", x[1].outedgesList)
 					if suffix[0] == x[0]:
 						z=u.outedges_write[(suffix[0].lower(),x[1])]
-                   #print("z", z)
+						print("z ", z)
 						u=x[1]
 						break
                    
                    
 			if suffix[0].swapcase() in u.inedges.keys():
 				for x in u.inedgesList:
-                 #print x[0]
-                 #print x[1].inedgesList
+                 print("x[0] ", x[0])
+                 print("x[1].inedgeslist ",x[1].inedgesList)
 					if suffix[0].swapcase() == x[0]:
 						z=u.inedges_write[(suffix[0].lower(),x[1])].upper()
 						u=x[1]
@@ -197,13 +197,13 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 				Apref=Apref+Rpref
 				Rpref=[]
               
-           #print("all stuff",Apref,Rpref,Apref_in_Z,u)
+           print("all stuff",Apref,Rpref,Apref_in_Z,u)
               
-           #print("u outedges", u.outedges)
-           #print("u at end of loop", u)
+           print("u outedges ", u.outedges)
+           print("u at end of loop ", u)
                          
 			suffix = suffix[1:]
-           #print("fff",suffix)
+           print("suffix ",suffix)
                
 		return(Apref,Rpref,suffix,u,Apref_in_Z)
 
@@ -216,7 +216,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 
 	def spit_out_nf(self):
 		LHS=graph_pass(self.graph,self.word).acc_read_rem()
-		print(LHS)
+		print("the LHS is ",LHS)
 		LHS_u=LHS[3].label
 		h=element(LHS[0]).freely_reduce()
 		p=element(LHS[1]).freely_reduce()
