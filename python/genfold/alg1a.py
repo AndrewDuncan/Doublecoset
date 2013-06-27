@@ -194,7 +194,7 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 			Rpref=suffix[:1]
 			Apref_in_Z=[z]
 			if u==self.graph.root:
-				Apref=Apref.extend(Rpref)
+				Apref=Apref+Rpref
 				Rpref=[]
               
            #print("all stuff",Apref,Rpref,Apref_in_Z,u)

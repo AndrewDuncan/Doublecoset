@@ -42,11 +42,13 @@ from alg2a import * #alg2a imports alg1a
 
 ###subgroup tests###
 
-h1=['a1','a1','A2','A3','a2','a1']
-h2=['a1','a2','A3','A2','a1','a1']
-h3=['A1','a3','a2','A3','a2']
-h4=['b1','b2','b3','B2','b3']
-H1=subgroup('H1',[h1,h2,h3,h4],['u','v','w','x'])
+#h1=['a1','a1','A2','A3','a2','a1']
+#h2=['a1','a2','A3','A2','a1','a1']
+#h3=['A1','a3','a2','A3','a2']
+#h4=['b1','b2','b3','B2','b3']
+h1=['a1','a1','a1']
+h2=['a1','A2','a3']
+H1=subgroup('H1',[h1,h2],['u','v'])
 #print("digraph {")
 #print(H1.flower)
 #print("}")
@@ -70,5 +72,6 @@ D.forest()
 w=['a1','a1','A2','a3','a2','A3']
 #w=['a1']
 #w=[]
+w#=['a1','a1','a1']
 t=Normal_form(G,w,D).spit_out_nf()
 print(t)
