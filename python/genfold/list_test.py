@@ -63,8 +63,12 @@ H1.stallings()
 ###spit_out_nf tests###
 
 G=H1.flower
+#GG=bfs(G,sorted(G.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 D=G.double()
 D=bfs(D,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+D.forest()
 w=['a1','a1','A2','a3','a2','A3']
+#w=['a1']
+#w=[]
 t=Normal_form(G,w,D).spit_out_nf()
 print(t)

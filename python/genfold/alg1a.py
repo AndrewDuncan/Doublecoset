@@ -138,7 +138,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 						b.parent = u   #make u the parent of b
 						b.length = u.length + 1 #make the distance of b from the root one more than the distance of u
 						b.time = i     # time b was added
-						b.path =u.path + a # path from the root to b
+						b.path =u.path + [a] # path from the root to b
 						if d=="-":
 							u.inedges_write[(a.lower(),b)]=""#make the write-label of the inedge u <- b equal to 1
 							b.outedges_write[(a.lower(),u)]=""#and  the write-label of the outedge b-> u equal to 1
@@ -221,7 +221,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 		h=element(LHS[0]).freely_reduce()
 		p=element(LHS[1]).freely_reduce()
 		q=element(LHS[2]).freely_reduce()
-		print(q)
+		#print(q)
 		Q=element(q).inverse()
 		RHS=graph_pass(self.graph,Q).acc_read_rem()
 		RHS_u=RHS[3].label
