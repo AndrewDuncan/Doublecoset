@@ -42,21 +42,29 @@ from alg2a import * #alg2a imports alg1a
 
 ###subgroup tests###
 
-#h1=['a1','a1','A2','A3','a2','a1']
-#h2=['a1','a2','A3','A2','a1','a1']
-#h3=['A1','a3','a2','A3','a2']
-#h4=['b1','b2','b3','B2','b3']
-#H1=subgroup('H1',[h1,h2,h3,h4],['u','v','w','x'])
+h1=['a1','a1','A2','A3','a2','a1']
+h2=['a1','a2','A3','A2','a1','a1']
+h3=['A1','a3','a2','A3','a2']
+h4=['b1','b2','b3','B2','b3']
+H1=subgroup('H1',[h1,h2,h3,h4],['u','v','w','x'])
 #print("digraph {")
 #print(H1.flower)
 #print("}")
 
 #no problems found when creating the flower automaton, this process now happens automatically when the subgroup is created
 
-#H1.stallings()
+H1.stallings()
 #print("digraph {")
 #print(H1.flower)
 #print("}")
 
 #the stallings function also seems to work ok, so no problems were found in the subgroup class
 
+###spit_out_nf tests###
+
+G=H1.flower
+D=G.double()
+D=bfs(D,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+w=['a1','a1','A2','a3','a2','A3']
+t=Normal_form(G,w,D).spit_out_nf()
+print(t)

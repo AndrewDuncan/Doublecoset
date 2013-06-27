@@ -127,7 +127,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 			v.length = 0
 			v.time = i
 			v.parent = v
-			v.path =""
+			v.path =[]
 			q.append(v)# add v to the end of the queue
 			while q:
 				u=q[0] # for the first element u of the queue
@@ -191,11 +191,11 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 						u=x[1]
 						break
 
-			Rpref=Rpref+suffix[0]
-			Apref_in_Z=Apref_in_Z+z
+			Rpref=suffix[:1]
+			Apref_in_Z=[z]
 			if u==self.graph.root:
-				Apref=Apref+Rpref
-				Rpref=""
+				Apref=Apref.extend(Rpref)
+				Rpref=[]
               
            #print("all stuff",Apref,Rpref,Apref_in_Z,u)
               
@@ -216,15 +216,17 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 
 	def spit_out_nf(self):
 		LHS=graph_pass(self.graph,self.word).acc_read_rem()
+		print(LHS)
 		LHS_u=LHS[3].label
 		h=element(LHS[0]).freely_reduce()
 		p=element(LHS[1]).freely_reduce()
 		q=element(LHS[2]).freely_reduce()
+		print(q)
 		Q=element(q).inverse()
 		RHS=graph_pass(self.graph,Q).acc_read_rem()
 		RHS_u=RHS[3].label
 		e=element(RHS[2]).inverse()
-		if not e=="":
+		if not e==[]:
 			a_Z=element(LHS[4]).freely_reduce()
 			y=element(LHS[3].path).freely_reduce() #problem when using this in alg2a: "AttributeError: 'Vertex' object has no attribute 'path'"
 			z=element(RHS[3].path).freely_reduce()
@@ -240,8 +242,8 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 			c_Z=element(C_Z).inverse()
 			return([a,b,c,a_Z,c_Z])
 		else:
-			conn=""
-			repr=""
+			conn=[]
+			repr=[]
 			for x in self.double.vertices:
 				if x.label==str(LHS_u)+"-"+str(RHS_u):
 					conn=element(x.path).inverse()
@@ -262,14 +264,14 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
               # print("root found  and root, repr is", r, repr)
               # break
             
-			y=""
+			y=[]
 			for v in self.graph.vertices:
 				if v.label == int(repr[0]):
 					y=v.path
                #print("y is", y)
 					break
 
-			z=""
+			z=[]
 			for v in self.graph.vertices:
 				if v.label == int(repr[2]):
 					z=v.path
