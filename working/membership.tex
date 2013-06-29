@@ -1495,13 +1495,32 @@ folding for $\phi^{-1}(H_a)$. This is the conclusion that I want because now the
 tree for the Stallings folding $\G_a^Z$ of  $\phi^{-1}(H_a)$ is the image under $\pi_a$ of the 
 spanning tree $T_a$ for $\G_{H_a}$. Moreover, edges of $\G_{H_a}$ outside the spanning tree $T_a$ map to edges
 outside the spanning tree for $\G_a^Z$ (by consideration of rank).
-Thus internal representives of the  transversal $\cT_a$  
-arising from $T_a\subseteq \G_{H_a}$ map
-to internal representatives of the  Schreier transversal $\cT_a^{Z}$ arising from 
-$\pi_a(T_a)\subseteq \G_a^Z$; and a similar statement holds for external representatives.   
-Thus $\cT_a$ maps naturally to a Schreier transversal for $\phi^{-1}(H_a)$. The image
- $\phi(\cT_a^Z)$ is a transversal of $H_a$ in $H$, but not Schreier, in general.  
-\ajd{That's what I wanted to see. I haven't quite filled in all details, but it seems right. 
+This means that, if $w$ is the label of a path $p$ in $T_a$, 
+from $1$ to some vertex
+of $\G_{H_a}$, and simultaneously an element of $H$, then the path
+$p$ is mapped by $\pi_a$ to a path in $\G_a^Z$ with label $\phi^{-1}(w)$. 
+
+Now, let $\cT_a^X$ be the Schreier transversal for $H_a\le F$ obtained from
+the spanning tree $T_a$ for $\G_{H_a}$. Let $\cT_a^Y=\cT_a^X\cap H$. Then $\cT_a^Y$ is
+ a transversal for $H_a\le H$. From the above,  
+ internal representives of the  transversal $\cT_a$ are mapped 
+by $\phi^{-1}$ to labels of paths in  
+in $T_a$. As $\phi^{-1}$ is an isomorphism $\phi^{-1}(\cT_a)$ is 
+a transversal $S$ for  $\phi^{-1}(H_a)$ in $\FF(Z)$. Each exterior representative
+of $\cT_a$ is mapped by $\pi_a$ to a path which represents an element
+of this transversal $S$. Since $T_a$ is mapped by $\pi_a$ to a spanning
+tree for $\G_a^Z$ it follows that all these paths end at vertices of the
+cover of $\phi^{-1}(H_a)$ outside $\G_a^Z$. Hence exterior representatives
+of $\cT_a$ are mapped to exterior representatives of the transversal
+of $\phi^{-1}(H_a)$ corresponding to the tree $\pi_a(T_a)$. Thus $S$
+is in fact a Schreier transversal.
+ ($\cT_a^Y$ is not in general a Schreier transversal. For example
+consider the representative $xyx^{-1}y^{-1}$. This is the product
+of $xy^{-1}$ and $y^2x^{-1}y^{-1}$, which are both in $\cT_a$. However
+the cancellation in forming their product means that, even if we 
+restrict to generators $Y$ the transversal does not behave as it 
+should with respect to prefixes.)
+\ajd{I haven't quite filled in all details, but it looks about right. 
 As you say, we don't need this, but I was curious.}
   
 \begin{lemma}\label{lem:reltran}
