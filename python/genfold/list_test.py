@@ -56,9 +56,9 @@ H1=subgroup('H1',[h1,h2],['u','v'])
 #no problems found when creating the flower automaton, this process now happens automatically when the subgroup is created
 
 H1.stallings()
-print("digraph {")
-print(H1.flower)
-print("}")
+#print("digraph {")
+#print(H1.flower)
+#print("}")
 
 #the stallings function also seems to work ok, so no problems were found in the subgroup class
 
@@ -67,14 +67,16 @@ print("}")
 G=H1.flower
 #GG=bfs(G,sorted(G.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 D=G.double()
-print("digraph {")
-print(D)
-print("}")
+#print("digraph {")
+#print(D)
+#print("}")
 D=bfs(D,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 D.forest()
 w=['a1','a1','A2','a3','a2','A3']
 #w=['a1']
 #w=[]
-w#=['a1','a1','a1']
+#w=['a1','a1','a1']
+#w=['a1','a2','a3']
+#w=['a1','a1','a1']
 t=Normal_form(G,w,D).spit_out_nf()
 print(t)

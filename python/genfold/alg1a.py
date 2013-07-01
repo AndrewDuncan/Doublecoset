@@ -166,7 +166,10 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 		u=self.graph.root
 		z=[]
 		print("u.out.keys", u,u.outedges.keys())
-		print("suff 0", suffix[0])		
+		if suffix==[]:
+			print ("suffix is empty")
+		else:
+			print("suff 0", suffix[0])		
 		while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):
 			if suffix[0] in u.outedges.keys():
 				print("u.outedges[suffix[0]] ", u.outedges[suffix[0]])
@@ -191,7 +194,7 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 						u=x[1]
 						break
 
-			Rpref=suffix[:1]
+			Rpref=Rpref+[suffix[0]]
 			Apref_in_Z=[z]
 			if u==self.graph.root:
 				Apref=Apref+Rpref
@@ -221,7 +224,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 		h=element(LHS[0]).freely_reduce()
 		p=element(LHS[1]).freely_reduce()
 		q=element(LHS[2]).freely_reduce()
-		#print(q)
+		print(q)
 		Q=element(q).inverse()
 		RHS=graph_pass(self.graph,Q).acc_read_rem()
 		RHS_u=RHS[3].label
