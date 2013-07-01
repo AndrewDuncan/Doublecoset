@@ -1323,6 +1323,8 @@ $A$  and so $w=h_1\circ v$. It then finds the maximal prefix $p$
 of $v^{-1}$ accepted by $A$. Setting $h_2=p^{-1}$ gives
 $w=h_1\circ d \circ h_2$, for some uniquely determined word $d$,
 which is a (non-unique) double coset representative.
+%
+%
 \subsection{Relative transversals and unique representation of 
 double cosets}\label{sub:reltran}
 Although $D=\{1\}\cup S$ is a set of double coset representatives, the 
@@ -1387,9 +1389,9 @@ $w=hdt$, where $h\in H$, $d\in D$ and $t\in \cT_d$.
 \end{proposition}
 \begin{proof}
 \be 
-\item If $g\in \FF(Y)$ then $g\in F$ so $g=ht$,  for some $h\in H_d$ and $t\in \cT_d'$.
-As $\FF(Y)=H$ it follows that $t\in \cT_D$, so $\cT_d$ is a transversal for 
-$H_d\in \FF(Y)$.
+\item Let $g\in H$ and write $g=ht$,  where $h\in H_d$ and $t\in \cT_d'$.
+As $g,h\in H$ it follows that $t\in \cT_D$, so $\cT_d$ is a transversal for 
+$H_d$ in $H$.
 \begin{comment}
  Now let $s$ be any element of $\cT_d$ and $s=a\circ b$ be 
 a cancellation free factorisation of $s$ in the free group $\FF(Y)$ (that
@@ -1522,58 +1524,136 @@ restrict to generators $Y$ the transversal does not behave as it
 should with respect to prefixes.)
 \ajd{I haven't quite filled in all details, but it looks about right. 
 As you say, we don't need this, but I was curious.}
-  
-\begin{lemma}\label{lem:reltran}
-There is an algorithm that, given $d\in D$ and a word $w \in F$ such that 
-$w\in H$, outputs $a,t\in \FF(Y)$ such that $a\in H_d$, $t\in \cT_d$ and 
-$w=_F ht$. 
+ 
+To rewrite elements of $dH$ in the form $hdt$, where $h\in H$, 
+$d\in D$ and $t\in \cT_d$ 
+we shall fix the transversals $\cT_d$, for elements $d$ of $D$, and
+then use the algorithm implicit in the proof of Lemma \ref{lem:reltran}
+below. We shall use the following facts. \ajd{Maybe these are well
+known and we can just quote some source where they can be found. Perhaps
+1 is too trivial to write as a lemma. Perhaps we don't need 2 atall.}
+\begin{lemma}\label{lem:conjtran}
+Let $K$ be a finitely generated subgroup of $F$ and let $T$ be
+a transversal for $K$. Let $a\in F$ and let 
+$a^{-1}T=\{w\in F:w=a^{-1}t, t\in T\}$ 
+(so elements of $a^{-1}T$ are reduced words). 
+  Then 
+\be
+\item $a^{-1}T$ is a transversal for $K^a$ and 
+\item if $T$ is a Schreier transversal and $a\in T$ 
+then $a^{-1}T$ is a Schreier  transversal for $K^a$.
+\ee
 \end{lemma}
 \begin{proof}
-If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the algorithm writes 
-$w$ as a word in the generators $Y$ (using the Stallings folding $\G_H$
- for $H$) and outputs $a=w$ and $t=1$. 
+\be
+\item If $g\in F$ then $ag=kt$, for some $k\in K$ and $t\in T$, 
+so $g=(a^{-1}ka)(a^{-1}t)\in K^aa^{-1}T$. Uniqueness of this representation
+follows from the obvious computation.
+\item Let $t\in T$. 
+We may assume that we have $a=a_0\circ a_1$, $t=t_0\circ t_1$, where
+$t_0=a_0$ and $a^{-1}t=a_1^{-1}\circ t_1$ (and possibly $a_0=1$ or $a_1=1$).  
+%As $a,t\in T$ so are  $a_0$ and $t_0$.  
+Every prefix of $a^{-1}t$ then has the form $a_1^{-1}t'$, for 
+some prefix $t'$ of $t_1$, or the form $a'$, for some prefix $a'$ of 
+$a_1^{-1}$.  If $t'$ is a prefix of $t_1$ then $t_0t'\in T$ and 
+$a_1^{-1}t'=  a^{-1}t_0t'\in a^{-1}T$. If $a^{-1}=a'a''$ then 
+$(a'')^{-1}$ is a prefix of $a$, so belongs to $T$, and $a'=a^{-1}(a'')^{-1}
+\in a^{-1}T$. Hence, in all cases, every prefix of $a^{-1}t$ belongs
+to $a^{-1}T$, which is therefore Schreier.
+\ee
+\end{proof}
+\begin{lemma}\label{lem:reltran}
+There 
+are Schreier transversals $\cT_d$, for $d\in D$, and 
+ an algorithm that, given $d\in D$ and a word $w \in F$ such that 
+$w\in H$, outputs $a,t\in F$ such that $a\in H_d$, $t\in \cT_d$ and 
+$w=_F at$. 
+\end{lemma}
+\begin{proof}
+We may assume that we have constructed $\G_H$ and $\G_H\times \G_H$. 
+If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the algorithm 
+%writes 
+%$w$ as a word in the generators $Y$ (using the Stallings folding $\G_H$
+% for $H$) and 
+outputs $a=w$ and $t=1$.  
+If $d\in S^{(1)}$ then no non-trivial element of $H^d$ is accepted 
+by $\G_H$, so
+$H\cap H^d=\{1\}$ and $\cT_d=H$. In this case the algorithm 
+%writes $w$ as a word in the generators $Y$, using $\G_H$,  and 
+outputs $a=1$, $t=w$. 
 
-If $d\in S^{(1)}$ then no non-trivial element of $H^d$ is accepted by $\G_H$, so
-$H\cap H^d=\{1\}$ and $\cT_d=H$. In this case the algorithm writes
-$w$ as a word in the generators $Y$ and outputs $a=1$, $t=w$. 
-
-We may assume then that $d\in S^{(2)}$, say $d=a_0a_1^{-1}$, where 
+Assume then that $d\in S^{(2)}$, say $d=a_0a_1^{-1}$, where 
 $a_0$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $d$ and $a_1$ is in 
-$L_T$. Then $c\in H_d$ if and only if there exists $b\in H$ such that
-$a_1^{-1}ca_1=a_0^{-1}ba_0$. Let $u_i=\t(a_i)$, $i=0,1$. Then there exists
-a path labelled $a_i$ from $1$ to $u_i$, in $\G_H$, for $i=1,2$. Thus for
-all $b,c\in H$ there exists,  in $\G_H$, 
+$L_T$. Let $u_i=\t(a_i)$, $i=0,1$. Then there exists
+a path labelled $a_i$ from $1$ to $u_i$, in $\G_H$, for $i=1,2$.
+ This implies in particular that, for 
+all $b,c\in H$, there exists 
 a closed path labelled $a_0^{-1}ba_0$, based at 
 $u_0$, and  a closed path labelled $a_1^{-1}ca_1$, based at 
 $u_1$. 
 
-If $a_1^{-1}ca_1=a_0^{-1}ba_0$ then there exists a closed path
+We have $c\in H_d$ if and only if there exists $b\in H$ such that
+$a_1^{-1}ca_1=a_0^{-1}ba_0$. Thus, if $c\in H_d$ then 
+ there exists a closed path
 labelled $a_1^{-1}ca_1$ based at $(u_0,u_1)$ in $\G_H\times \G_H$. 
 Conversely, if there is a closed path labelled $s$ based at 
-$(u_0,u_1)$ then, in $\G_H$,  there are closed paths labelled 
-$s$ based at $u_0$ and $u_1$. Hence $h_i=a_isa_i^{-1}\in H$, for 
-$i=0,1$,  and so $a_1^{-1}h_1 a_1=s=a_0^{-1}h_0a_0$. Hence $h_1
-=a_1sa_1^{-1}\in H_d$. Let $\G'_d$ be the component of $\G_H\times \G_H$
+$(u_0,u_1)$ then there are closed paths labelled 
+$s$ based at $u_0$ and $u_1$ in $\G_H$. Hence 
+$b=a_0sa_0^{-1}$ and $c=a_1sa_1^{-1}$ are in $H$, 
+and satisfy $a_1^{-1}c a_1=s=a_0^{-1}ba_0$. Therefore $c \in H_d$. 
+ Let $\G'_d$ be the component of $\G_H\times \G_H$
 containing $(u_0,u_1)$. It follows from the above that the map
 from $\pi_1(\G_d', (u_0,u_1))$ to $H_d$ sending $s$ to $a_1sa_1^{-1}$, is 
-an isomorphism. Hence we may construct $\G_{H_d}$ from $\G'_d$ by
-attaching the terminal vertex of a path labelled $a_1$ to the 
-vertex $(u_0,u_1)$ and folding the result. 
+an isomorphism; and so  $\pi_1(\G_d', (u_0,u_1))\cong H^{a_1}\cap H^{a_0}\le F$.
+As $\G_d'$ is folded it is a subgraph of the cover
+$\G_d^*$ of $H^{a_1}\cap H^{a_0}$, and a spanning tree $T_d'$ for 
+$\G_d'$ embeds in a spanning tree $T_d^*$ for $\G_d^*$. (We may assume
+we have fixed a spanning tree for each component of $\G_H\times \G_H$.)
+Note that, by definition of $S^{(2)}$, no non-trivial prefix of 
+$a_1^{-1}$ is readable from $u_0$ in $\G_H$. This means no non-trivial
+prefix of $a_1^{-1}$ is readable from $(u_0,u_1)$ in $\G_d'$. Therefore
+$T_d^*$ contains a (unique) path  labelled $a_1$ ending
+at the vertex $(u_0,u_1)$ of $\G_d'$, all edges of which lie 
+outside $\G_d'$. 
+
+The labels of paths in $T_d^*$, with inital vertex $(u_0,u_1)$,
+ constitute 
+a Schreier transversal $\cT_d'$ for $H^{a_1}\cap H^{a_0}$ in  $F$.
+As $a_1^{-1}$ belongs to this Schreier transversal the set 
+$\cT_d=a_1\cT_d'$ is (according to Lemma \ref{lem:conjtran}) 
+a Schreier transversal for $a_1(H^{a_1}\cap H^{a_0})a_1^{-1}=H^d$ in $F$. 
  
-Now, given $w\in F(X)$ such that $w\in H$ we may find the maximal
-prefix $f$ of $w$ which is accepted by $\G_{H_d}$, say $w=f\circ q$.
-Now choose a spanning tree $T_d$ for $\G_{H_d}$. Let $g$ be the maximal
- prefix of $q$ which is readable by $\G_{H_d}$; say $q=g\circ r$. Let 
-$v=\t(g)$ and let $s=w(v)$, the label of the path from $1$ to $v$ in $T_d$.
-Then $w=fq=fgr=fgs^{-1}sr$, with $fgs^{-1}\in H_d$ and $sr\in \cT_d$.    
-\ajd{This isn't quite complete, as in the definition we choose $\cT_d$ to
-be the image of a Schreier transversal for $U_d\in \FF(Z)$, and this means
-that we should choose a spanning tree for $\G_{H_d}$ which is the
-image of a spanning tree for $\G_{U_d}$ and then construct the 
-transversal from this tree. I'm leaving these details for another day.}
-Then the algorithm outputs $a=fgs^{-1}$ and $t=sr$. Note that we 
-can find expressions for these in terms of generators $Y$  with the
-help of $\G_H$ and its output labels. 
+\begin{comment}
+Each element $d\in S^{(2)}$ has the form $a_0a_1^{-1}$, where 
+$(\t(a_0),\t(a_1))$ belongs to $P_0$ and 
+is a vertex of a unique (non-diagonal) component of 
+$\G_H\times \G_H$; and each such component contains exactly one 
+vertex of $P_0$ (by definition of $P_0$). Hence for each non-tree
+component $C$ of $\G_H\times \G_H$ we may assume that we have chosen a
+spanning tree $T_C$ for $C$. Moreover, if the vertex of $C$ which 
+belongs to  $P_0$ is $(\t(a_0),\t(a_1))$, as above, we may assume
+that $T_C$ has been chosen to contain the maximal possible prefix of the
+ path $a_1^{-1}$. 
+(Note that this path must be simple, as it maps to a simple 
+path in $\G_H$.)  Given $d=a_0a_1^{-1}$, call the component $C$, 
+with base point $(u_0,u_1)$,
+$\G_{H'}$. (Its core is  the Stallings folding of $H^{a_1}\cap H^{a_0}$.)
+Let $T'$ be a spanning tree for $\G_{H'}$ constructed as above, to 
+contain the maximal readable prefix of $a^{-1}$. 
+\end{comment}
+
+Given $w\in F(X)$ such that $w\in H$, set $w'=a_1^{-1}w$ (as a reduced word).  
+ Find the maximal
+prefix $f$ of $w' $ which is accepted by $\G_{d}'$ (with
+start and final state $(u_0,u_1)$) say $w'=f\circ q$.
+Let $g$ be the maximal
+ prefix of $q$ which is readable by $\G_{d}'$; say $q=g\circ r$. Let 
+$v=\t(g)$ and let $s=w(v)$, the label of the path from $(u_0,u_1)$ 
+to $v$ in $T_d'$, the chosen spanning tree for $\G_d'$. 
+Then $w'=fq=fgr=(fgs^{-1})(sr)$, with $h'=fgs^{-1}\in H^{a_1}\cap H^{a_0}$ 
+and $t'=sr\in \cT_d'$. Hence 
+$w=a_1w'=a_1 h' a_1^{-1}(a_1t')\in H_d \cT_d$. The algorithm outputs
+ $a=  a_1 h' a_1^{-1}$ and $t=a_1t'$. 
 \end{proof}
 %%%%%%%%%
 %% keeping this till the alternative is checked
@@ -1697,16 +1777,18 @@ ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a
 
 \begin{definition}\label{def:dcnf}
  Let $D_1$ and $D_2$ be sets of  double coset representatives for
-$H_1\le F_1$ and $H_2\le F_2$, respectively.
+$H_1\le F_1$ and $H_2\le F_2$, respectively. For $j=1,2$ and $d\in D_j$ let 
+$\cT_d$ be a relative transversal for $H_d=H_j\cap H_j^d$ in $H_j$. 
 A word $w\in \FF(X_1\cup X_2\cup Z)$ is in
 \emph{double coset normal form}, or \emph{dc-normal form}, with
 respect to $D_1\cup D_2$, if
 $w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,   where 
 \be[(a)]
 \item $h_i$ is a reduced word in $\FF(Z)$, for $i=0,\ldots, k$;
-\item  $p_i  \in D_1\cup D_2$ and $p_i\neq 1$, for $i=1,\ldots, k$,  and
+\item  $p_i  \in D_1\cup D_2$ and $p_i\neq 1$, for $i=1,\ldots, k$,  
 \item if  $p_i\in D_j$ then $p_{i+1}\notin D_j$, for $j\in \{1,2\}$
-and $i=1,\ldots ,k-1$.
+and $i=1,\ldots ,k-1$, and 
+\item if $p_i\in D_j$ then $\phi_j(h_i)\in \cT_{p_i}$, $i=1,\ldots ,k$.
 \ee
 \end{definition}
 From now on when we say ``normal form'' we mean ``double coset normal form'' unless
@@ -1776,8 +1858,8 @@ f_1^\prime \cdots f_{k-1}^\prime$ and, applying the inductive hypothesis,
 \end{proof}
 \end{comment} 
 \begin{theorem}\label{thm:dcnf} Let $D_1$ and $D_2$ be sets of  double coset representatives for
-$H_1\le F_1$ and $H_2\le F_2$, respectively. Assume that
-$H_i$ is malnormal in $F_i$, $i=1,2$. 
+$H_1\le F_1$ and $H_2\le F_2$, respectively.  For $j=1,2$ and $d\in D_j$ let 
+$\cT_d$ be a relative transversal for $H_d=H_j\cap H_j^d$ in $H_j$. 
 Then every element of $G$ is represented by a unique element of
 $\FF(X_1\cup X_2\cup Z)$ in double coset normal form, with respect
 to $D_1\cup D_2$.
@@ -1789,17 +1871,29 @@ word then this is also the dc-normal form; with $k=0$ and $h_0=1$.
 Otherwise we have $g=f_1\cdots f_t$, where $f_i$ is in $F_{j_i}$, for
 $j_i\in \{1,2\}$. In this case, let $a_is_ib_i$
 be the double coset representative of $f_i$, where 
-$a_i,b_i\in H_{j_i}$ and $s_i\in D_{j_i}$. For $i=1,\ldots ,t$,
- let $z^{\prime}_i=\phi_j^{-1}(a_i)$ and
-$z^{\prime\prime}_i=\phi_j^{-1}(b_i)$. For $i=1,\ldots ,t-1$, let 
-$z_i$ be the free reduction of $z^{\prime}_iz^{\prime\prime}_{i+1}$, 
-and let $z_0=z^{\prime}_1$ and $z_t=
-z^{\prime\prime}_t$. 
- If $t=1$ and $f_1\in H_{j_1}$ then $a_1=f_1$, $s_1=1$, $b_1=1$ and 
-the dc-normal form of $g$ is $z_0$. Otherwise, for all $i\ge 1$, we 
-have $f_i\notin H_1\cup H_2$, so $s_i\neq 1$ and 
-\[z_0s_1z_1\cdots z_{t-1}s_tz_t\]
-is a dc-normal form for $g$.
+$a_i,b_i\in H_{j_i}$ and $s_i\in D_{j_i}$. 
+
+Suppose that, for some $p$ such that  $1\le p\le r$ we 
+have $t_{p+1},\ldots ,t_r$, where $t_i\in \cT_{s_i}$, for $i=p+1,\ldots,
+r$, and an element $h_p\in H_{j_p}$, such that 
+\[f_{p+1}\cdots f_r=_G h_ps_{p+1}t_{p+1}\cdots s_rt_r.\]
+Then $f_p=a_ps_pb_p$, where $b_p\in H_{j_p}$, so $b_ph_p=c_pt_p$, 
+for some $c_p\in H_{j_p}\cap H_{j_p}^{s_p}$ 
+and $t_p\in \cT_{s_p}$. Therefore, for some $d_p\in H_{j_p}$,  
+\[f_p h_p=a_p s_p b_p h_p=a_p d_ps_pt_p.\]
+As $a_pd_p\in H_{j_p}$, we have $h_{p-1}=
+\phi_{j_{p-1}}\phi_{j_p}^{-1}(a_p d_p)\in H_{j_{p-1}}$. 
+Hence 
+\[f_pf_{p+1}\cdots f_r=_G f_ph_ps_{p+1}t_{p+1}\cdots s_rt_r
+=h_{p-1}s_pt_ps_{p+1}t_{p+1}\cdots s_rt_r,\]
+with $t_p\in \cT_{s_p}$ and $h_{p-1}\in H_{j_{p-1}}$. Therefore  
+\[f_1\cdots f_r=_G h_0s_1t_1\cdots s_rt_r,\]
+ where $s_i\in D_{j_i}$, $t_i\in \cT_{s_i}$ and $h_0\in H_{j_0}$. 
+To write $g$ in double coset form we replace $t_i$ 
+with $\phi_{j_i}^{-1}(t_i)$, 
+for $i=1,\ldots, r$, and $h_0$ with $\phi_{j_0}^{-1}$, in the above
+expression. 
+
 
 Now suppose that $w$ and $w^\prime$ are words in dc-normal form and that
 $w=_G w^\prime$. We show by induction on $k$ that $w=w'$. 
@@ -1816,7 +1910,7 @@ let $f_i=p_i\phi_{j_i}(h_i)$.
 a reduced form for the element $w\in G$. Similarly, we obtain a reduced
 form $f_1^\prime \cdots f_{k^\prime}^\prime$, for $w^\prime=_G w$, 
 with
-$f_i'=p'_i\phi_{j'_i}(h'_i)$, $p_i'\in H_{j'_i}$. 
+$f_i'=p'_i\phi_{j'_i}(h'_i)$, $p_i'\in F_{j'_i}$. 
 
 If $k=0$ then we have $w=_G f_1=\phi_1(h_0)\in H_{1}$, and since all 
 reduced forms representing an element have the same length, $k'=0$ or $1$. 
@@ -1840,11 +1934,16 @@ p'_k\phi_{j_k}(h'_k h_k^{-1})p_k^{-1}\in H_{j_k}$;
 so $p_k'\in H_{j_k}p_k\phi_{j_k}(h_k (h'_k)^{-1})$ and therefore, as 
 $p_k, p'_k$ are  double coset representatives,  
 $p_k'=p_k$. 
-Thus $p_k\phi_{j_k}(h'_k h_k^{-1})p_k^{-1}\in H_{j_k}$, and as 
-$H_{j_k}$ is malnormal in $F_{j_k}$, this implies that
-$\phi_{j_k}(h'_k h_k^{-1})$ and so $h_k=h'_k$.\\
-This didn't happen before because $H_{j_k}$ was not 
-necessarily malnormal.\\
+Thus $p_k\phi_{j_k}(h'_k h_k^{-1})p_k^{-1}\in H_{j_k}$, 
+and so $\phi_{j_k}(h'_k)(\phi_{j_k}(h_k))^{-1}\in H_{j_k}\cap H_{j_k}^{p_k}$.
+As $\phi_{j_k}(h'_k)$ and $\phi_{j_k}(h_k))$ both belong to the 
+transversal $\cT_{p_k}$, we have $h'_k=h_k$.
+
+%and as 
+%$H_{j_k}$ is malnormal in $F_{j_k}$, this implies that
+%$\phi_{j_k}(h'_k h_k^{-1})$ and so $h_k=h'_k$.\\
+%This didn't happen before because $H_{j_k}$ was not 
+%necessarily malnormal.\\
 Now suppose that $k=1$. Then 
 \[
 f_{1}^\prime f_1^{-1}=\phi_{j_1'}(h'_0) p'_1\phi_{j_1'}(h'_1)
@@ -1869,23 +1968,34 @@ Thus
 
 To write words in $\FF(X_1\cup X_2)$   double coset normal form  for
  the group $G$  we run the 
-following algorithm. \\[1em]
+following algorithm; the steps of which are described in detail in Section 
+\ref{sub:summaryII}. \\[1em]
 \noindent{\bf Algorithm II}.\\
 \be
 \item
 Given a word $w\in \FF(X_1\cup X_2)$, 
 using
-Steps \ref{it:st1} and \ref{it:st2}, on page \pageref{it:st1} write $w$ in reduced form, 
-$w=w_1\ldots w_t$, where $w_i\in F_{j_i}$, $j_i\in \{1,2\}$ and if $t>1$ then, 
+\ref{it:st1} and \ref{it:st2}, on page \pageref{it:st1} write $w$ in reduced form, 
+$w=w_1\ldots w_r$, where $w_i\in F_{j_i}$, $j_i\in \{1,2\}$ and if $r>1$ then, 
 for all $i>1$, we have $w_i\notin H_{j_i}$  and $j_{i-1}\neq j_i$.  
 \item
-For $i=1,\ldots ,t$, using Algorithm I,  write $w_i$ in double coset 
-normal form, with  respect to $D_{j_i}$: say $w_i=z_ip_iz_i'$, where
-$z_i,z_i'\in \FF(Z)$ and $p_i\in D_{j_i}$.  
+For $i=1,\ldots ,r$,  if $w_i\in F_{j_i}$, 
+find the double coset representative $p_i \in D_{j_i}$ such that 
+$w_i\in H_{j_i}p_iH_{j_i}$. Write $w_i=h_ip_ih_i'$, with 
+$h_i,h_i'\in D_{j_i}$. 
 \item
-For $i=2,\ldots, t$, freely reduce the word $z_{i-1}'z_i'$ to give
-a word $z_i''$. Output the  dc-normal form of $w= 
-z_1p_1z_2'' \cdots z_t''p_tz_t'$. 
+Starting on the right rewrite $w_r$ as $h_rp_rt_r$, where 
+$t_r\in \cT_{p_r}$ and $h_r\in H_{j_{r-1}}$, as in the proof of 
+Theorem \ref{thm:dcnf}. Continuing this way (as in the proof of Theorem
+\ref{thm:dcnf}) find $h_0\in H_{j_0}$, $p_i\in D_{j_i}$ and 
+$t_i\in \cT_{p_i}$, such that $w=_G h_0 p_1 t_1 \cdots p_rt_r$. 
+\item 
+For $i=1,\ldots, r$, replace $t_i$ with $v_i=\phi^{-1}_{j_i}(t_i)$ and 
+replace $h_0$ with $v_0=\phi^{-1}_{j_0}(h_0)$. 
+\item 
+Output the  dc-normal form of 
+$w= 
+v_0p_1v_1 \cdots p_rv_r$. 
 \ee
 \begin{example}\label{ex:g}
 Let $F_i$ and $H_i$ be given in Examples \ref{ex:f_1} and
