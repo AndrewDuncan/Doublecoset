@@ -1,18 +1,16 @@
 from alg1a import *
 
-F1=free_group(3,"alpha")
+F1=free_group(3,"a")
 G=free_group(2,"alpha")
-h1="aaa"
-h2="aBaa"
-h3="bbaaB"
-h4="BBaba"
-#h5="BBabb"
-#h6="bbbbb"
-w="Bab"
-y="abbBA"
-v=["b1","B1","b1","B2"]
-
-F1.make_gens()
+h1=['a1','a1','a1']
+h2=['a1','A2','a1','a1']
+h3=['a2','a2','a1','a1','A2']
+h4=['A2','A2','a1','a2','a1',]
+#h5=['A2','A2',a'a2','a2']
+#h6=['a2','a2','a2','a2','a2']
+w=['A2','a1','a2']
+y=['a1','a2','a2','A2','A1']
+v=['b1','B1','b1','B2']
 X=F1.mongens
 print("generators of X are ",X)
 #F.is_element(v)
@@ -20,14 +18,13 @@ print(F1.is_element(h1))
 #F.is_element(w)
 print(F1.is_element(h2))
 print("now G\n")
-G.make_gens()
 Y=G.mongens
 print(Y)
 G.is_element(v)
 G.is_element(w)
 H1=subgroup("H1",[h1,h2,h3,h4],["u","v","w","x"])
 print(H1.coherent)
-GH=H1.make_flower()
+GH=H1.flower
 print ("digraph {")
 #print (str(GH))
 print ("}")

@@ -18,7 +18,8 @@ class Vertex:
 			self.sortkey = 0
 		else:
 			self.sortkey = sortkey
-                self.outedges_write ={}
+		
+		self.outedges_write = {}
 		self.inedges_write = {}		
 
 	def __repr__(self):
@@ -45,7 +46,8 @@ class Vertex:
 		self.inedgesList.remove((label,v))
 		if label in self.inedges:
 			self.inedges[label].remove(v)
-	        if (label,v)  in self.inedges_write:
+			
+		if (label,v)  in self.inedges_write:
 			del self.inedges_write[(label,v)]
 
 	#add a labelled edge from this vertex to v
@@ -240,7 +242,7 @@ class Graph:
 		for u,v in itertools.product(self.vertices,self.vertices):	#for every ordered pair of vertices
 			uv = g.addVertex(joinName(u,v))			#add a vertex
 			uv.label = joinLabel(u,v)	#give it a name created from the names of the pair of original vertices
-                        uv.sortkey = joinKey(u,v)	#give it a sortkey created from the names of the pair of original vertices
+			uv.sortkey = joinKey(u,v)	#give it a sortkey created from the names of the pair of original vertices
 			newverts[uv.label] = uv		#add the vertex to the dictionary
 
 		for u,v in itertools.product(self.vertices,self.vertices):	#for every ordered pair (u,v) of vertices
