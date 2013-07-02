@@ -143,6 +143,8 @@ finitely generated free groups
 \newenvironment{ajd1}{\noindent\color{red} AJD }{}
 \newcommand{\ajd}[1]{\begin{ajd1} #1 \end{ajd1}}
 %
+\newenvironment{bl}{\noindent\color{blue} EF }{}
+\newcommand{\li}[1]{\begin{bl} #1 \end{bl}}
 %\includecomment{comp}% to see environment comp
 \excludecomment{comp}% to hide environment comp
 %
@@ -1329,14 +1331,25 @@ which is a (non-unique) double coset representative.
 double cosets}\label{sub:reltran}
 Although $D=\{1\}\cup S$ is a set of double coset representatives, the 
 representation of elements of $F$ in terms of double cosets $HDH$ is by 
-no means unique. 
+no means unique; for example an element $h$ of $H$ may be expressed in
+double coset normal form as  
+as $a\cdot 1 \cdot b$,  for any $a,b\in H$ such that $ab=h$.  
 Following \cite{FrenkelRemeslennikov13}, we use transversals for certain subgroups of $H$ to 
-obtain unique double coset representations of elements of $F$. 
+obtain unique double coset representations of elements of $F$. The subgroups
+in question are the intersection $H\cap H^d$, where $d\in D$. 
+ Using the  following lemma, and combining double coset representatives
+with right transversals for these subgroups of $H$, we obtain the unique
+representation we need. (There is no particular reason to choose right 
+transversals here, and an analagous result holds for left transversals. However
+the rewriting of elements of amalgamated products below depends on the choice
+made here.)    
+We write  $H_d=H\cap H^d$, whenever $H$ is a subgroup of a group $G$ and
+$d\in G$. 
 First we record a general property.  
 \begin{lemma}\label{lem:dcrel}
 Let $H$ be a subgroup of a group $G$ and let $D$ be a set of
 double coset representatives for $H$. For each $d\in D$, let 
-$T_d\subseteq H$ be a right transversal for the subgroup $H\cap H^d$ of $H$.
+$T_d\subseteq H$ be a right transversal for the subgroup $H_d=H\cap H^d$ of $H$.
 Then, given $g\in G$, there exist  unique $h\in H$, $d\in D$ and 
 $t\in T_d$ such that  $g=hdt$. 
 \end{lemma}
@@ -1344,23 +1357,25 @@ $t\in T_d$ such that  $g=hdt$.
 Let $g\in G$. As $D$ is a set of double coset representatives, there
 exists a unique $d\in D$ such that $g\in HdH$, so it suffices to
 show that there exist unique $h\in H$ and $t\in T_d$ such that 
-$g=hdt$. Let $g=h_0dh_1$, where $h_i\in H$. Then there exist $a\in H\cap H^d$ 
+$g=hdt$. Let $g=h_0dh_1$, where $h_i\in H$. Then there exist $a\in H_d$ 
 and   $t\in T_d$ such that $h_1=at$. Then $a=d^{-1}bd$, for some $b\in H$,
 so $g=h_0dh_1=h_0bdt\in HdT_d$. 
 
 If $g$ can be written as  $g=h_0dt_0=h_1dt_1$, with $h_i\in H$ and 
-$t_i\in T_d$, then $t_0t_1^{-1}=d^{-1}h_0^{-1}h_1d\in H\cap H^d$. As 
+$t_i\in T_d$, then $t_0t_1^{-1}=d^{-1}h_0^{-1}h_1d\in H_d$. As 
 $T_d$ is a right transversal, this implies that $t_0=t_1$, so $h_0=h_1$. 
 \end{proof}
-We write  $H_d=H\cap H^d$, whenever $H$ is a subgroup of a group $G$ and
-$d\in G$. 
+\ajd{I am leaving this remark where it is, as I think it is 
+easier to follow once the lemma has been established. What do you think?}
 \begin{remark}
 If $H^d=H$ then, in the notation of the lemma above, $T_d=1$ and 
 every element of $HdH$ can be expressed uniquely in the form $hd$, 
 with $h\in H$. In particular, if $H$ is normal in $G$ then $D$ is 
 a right transversal for $H$ in $G$. On the other hand, if $H_d=1$ then
 $T_d=H$ and $h_0dh'_0=h_1dh_1'$, with $h_i,h_i'\in H$, implies that 
-$h_i=h'_i$, $i=1,2$. 
+$h_i=h'_i$, $i=1,2$. In particular, if $H$ is malnormal in $G$ then 
+every element $g$ of $G\bs H$ can be written uniquely in the form 
+$g=h_0dh_1$, where $h_i\in H$ and $d\in D$. 
 \end{remark}   
 
 Returning to the situation of Section \ref{sub:2cosetrepr}, 
@@ -1370,10 +1385,9 @@ we require transversals for the subgroups $H_d$ of $H$, for each $d\in D$.
 \begin{definition}\label{def:reltran}
 Let $d\in D$ and let  $\cT_d'$ be a Schreier transversal for $H_d\le F$.
  Then we call $\cT_d=\cT_d'\cap H$ a 
-\emph{relative (Schreier) transversal for } $H_d$ in $H$. 
+\emph{relative  transversal for } $H_d$ in $H$. 
 \end{definition}  
-\ajd{Lisa, should the definition above contain the word ``Schreier'' and if so 
-should it be in brackets?  
+\ajd{
 Say a bit more about Stallings foldings and Schreier transversals, 
 somewhere, maybe?} 
 \begin{proposition}[\emph{cf.} {\cite[Lemma 3.9]{FrenkelRemeslennikov13}}] \label{prop:reltran}
@@ -1392,28 +1406,13 @@ $w=hdt$, where $h\in H$, $d\in D$ and $t\in \cT_d$.
 \item Let $g\in H$ and write $g=ht$,  where $h\in H_d$ and $t\in \cT_d'$.
 As $g,h\in H$ it follows that $t\in \cT_D$, so $\cT_d$ is a transversal for 
 $H_d$ in $H$.
-\begin{comment}
- Now let $s$ be any element of $\cT_d$ and $s=a\circ b$ be 
-a cancellation free factorisation of $s$ in the free group $\FF(Y)$ (that
-is $a$,$b\in \FF(Y)$ and, as elements of $\FF(Y)$ the length of $s$ is the sum of the lengths of $a$ and 
-$b$). Then 
-$g'=ut'$, where $u\in U_d$ and $t'\in \cT_d^Z$. Thus $g=\phi(u)\phi(t')
-\in H_d\cT_d$. Moreover, if $g=h_0t_0=h_1t_1$, with $h_i\in H_d$ and 
-$t_i\in \cT_d$, then $\phi^{-1}(g)=\phi^{-1}(h_i)\phi^{-1}(t_i)$, $i=0,1$,
-from which it follows that $t_0=t_1$ and $h_0=h_1$. Hence $\cT_d$ is 
-a transversal for $H_d$. 
-
-If $w\in \cT_d$ and $w=w_0\circ w_1$ then 
-$\phi^{-1}(w)=\phi^{-1}(w_0)\circ \phi^{-1}(w_1)\in \cT^d_Z$, so $\phi^{-1}(w_0)
-\in \cT_d^Z$ and hence $w_0\in \cT_d$; so $\cT_d$ is a Schreier 
-transversal.
-\end{comment}
 \item This follows from statement \ref{it:reltran1} and Lemma 
 \ref{lem:dcrel}. 
 \ee
 \end{proof}
-\ajd{Now some discussion of relative transversal, which is not necessary, but 
-I want to see if it works and it fits naturally here.}
+\ajd{Now some discussion of relative transversal, which is not necessary, 
+so should be deleted eventually or ....}
+\li{This discussion contains a nice example, and to leave it here we can (try to) show that there is something which is not unique here, but we fix this problem with a help of your magic technic}
  Let $T$ be a spanning tree for $\G_H$ and let    $Y=\{y_1,\ldots, y_m\}$  be 
 the corresponding set of  free generators for $H$. Let $Z=\{z_1,\ldots, z_m\}$ be
  a set disjoint from $F$ and let $\phi$ be the homomorphism from $\FF(Z)$ to $F$ induced by
@@ -1501,6 +1500,8 @@ This means that, if $w$ is the label of a path $p$ in $T_a$,
 from $1$ to some vertex
 of $\G_{H_a}$, and simultaneously an element of $H$, then the path
 $p$ is mapped by $\pi_a$ to a path in $\G_a^Z$ with label $\phi^{-1}(w)$. 
+\li{comprehensible but not so clearly written...}
+
 
 Now, let $\cT_a^X$ be the Schreier transversal for $H_a\le F$ obtained from
 the spanning tree $T_a$ for $\G_{H_a}$. Let $\cT_a^Y=\cT_a^X\cap H$. Then $\cT_a^Y$ is
@@ -1522,16 +1523,16 @@ of $xy^{-1}$ and $y^2x^{-1}y^{-1}$, which are both in $\cT_a$. However
 the cancellation in forming their product means that, even if we 
 restrict to generators $Y$ the transversal does not behave as it 
 should with respect to prefixes.)
-\ajd{I haven't quite filled in all details, but it looks about right. 
-As you say, we don't need this, but I was curious.}
+\ajd{End of bit about transversals -- to be deleted in due course.}
+\li{(just in case we will this piece remains, we need to say what is interior and exterior representative.) }
  
 To rewrite elements of $dH$ in the form $hdt$, where $h\in H$, 
 $d\in D$ and $t\in \cT_d$ 
 we shall fix the transversals $\cT_d$, for elements $d$ of $D$, and
 then use the algorithm implicit in the proof of Lemma \ref{lem:reltran}
-below. We shall use the following facts. \ajd{Maybe these are well
-known and we can just quote some source where they can be found. Perhaps
-1 is too trivial to write as a lemma. Perhaps we don't need 2 atall.}
+below. We shall use the following facts, the proofs of which
+are left to the reader. \ajd{At least they will probably be deleted 
+from  the final version.}
 \begin{lemma}\label{lem:conjtran}
 Let $K$ be a finitely generated subgroup of $F$ and let $T$ be
 a transversal for $K$. Let $a\in F$ and let 
@@ -1570,7 +1571,10 @@ $w\in H$, outputs $a,t\in F$ such that $a\in H_d$, $t\in \cT_d$ and
 $w=_F at$. 
 \end{lemma}
 \begin{proof}
-We may assume that we have constructed $\G_H$ and $\G_H\times \G_H$. 
+We may assume that we have constructed $\G_H$ and $\G_H\times \G_H$ and
+that we have chosen  spanning trees for $\G_H$ and for 
+each component of 
+ $\G_H\times \G_H$. 
 If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the algorithm 
 %writes 
 %$w$ as a word in the generators $Y$ (using the Stallings folding $\G_H$
@@ -1584,7 +1588,18 @@ outputs $a=1$, $t=w$.
 
 Assume then that $d\in S^{(2)}$, say $d=a_0a_1^{-1}$, where 
 $a_0$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $d$ and $a_1$ is in 
-$L_T$. Let $u_i=\t(a_i)$, $i=0,1$. Then there exists
+$L_T$. 
+%%
+In principle the algorithm  now constructs the 
+Stallings folding for $H_d$ and then uses this to 
+find the required expression for $w$ (in much the same 
+way that the Stallings folding for $H$ is used to find double
+coset representatives.) However, it turns out, as we show below, that
+$\G_H\times \G_H$ contains the Stallings folding for the 
+conjugate $H^{a_1}\cap H^{a_0}=H_d^{a_1}$ of $H_d$; and that 
+the expression for $w$ can in fact be computed using this instead. 
+
+To see this, let $u_i=\t(a_i)$, $i=0,1$. Then there exists
 a path labelled $a_i$ from $1$ to $u_i$, in $\G_H$, for $i=1,2$.
  This implies in particular that, for 
 all $b,c\in H$, there exists 
@@ -1602,13 +1617,14 @@ $s$ based at $u_0$ and $u_1$ in $\G_H$. Hence
 $b=a_0sa_0^{-1}$ and $c=a_1sa_1^{-1}$ are in $H$, 
 and satisfy $a_1^{-1}c a_1=s=a_0^{-1}ba_0$. Therefore $c \in H_d$. 
  Let $\G'_d$ be the component of $\G_H\times \G_H$
-containing $(u_0,u_1)$. It follows from the above that the map
+containing $(u_0,u_1)$ and let $T_d'$ be the spanning tree 
+chosen for $\G_d'$. It follows from the above that the map
 from $\pi_1(\G_d', (u_0,u_1))$ to $H_d$ sending $s$ to $a_1sa_1^{-1}$, is 
-an isomorphism; and so  $\pi_1(\G_d', (u_0,u_1))\cong H^{a_1}\cap H^{a_0}\le F$.
+an isomorphism; and so  
+$\pi_1(\G_d', (u_0,u_1))\cong H^{a_1}\cap H^{a_0}\le F$.
 As $\G_d'$ is folded it is a subgraph of the cover
-$\G_d^*$ of $H^{a_1}\cap H^{a_0}$, and a spanning tree $T_d'$ for 
-$\G_d'$ embeds in a spanning tree $T_d^*$ for $\G_d^*$. (We may assume
-we have fixed a spanning tree for each component of $\G_H\times \G_H$.)
+$\G_d^*$ of $H^{a_1}\cap H^{a_0}$, and the spanning tree $T_d'$ for 
+$\G_d'$ embeds in a spanning tree $T_d^*$ for $\G_d^*$. 
 Note that, by definition of $S^{(2)}$, no non-trivial prefix of 
 $a_1^{-1}$ is readable from $u_0$ in $\G_H$. This means no non-trivial
 prefix of $a_1^{-1}$ is readable from $(u_0,u_1)$ in $\G_d'$. Therefore
@@ -1623,27 +1639,14 @@ As $a_1^{-1}$ belongs to this Schreier transversal the set
 $\cT_d=a_1\cT_d'$ is (according to Lemma \ref{lem:conjtran}) 
 a Schreier transversal for $a_1(H^{a_1}\cap H^{a_0})a_1^{-1}=H^d$ in $F$. 
  
-\begin{comment}
-Each element $d\in S^{(2)}$ has the form $a_0a_1^{-1}$, where 
-$(\t(a_0),\t(a_1))$ belongs to $P_0$ and 
-is a vertex of a unique (non-diagonal) component of 
-$\G_H\times \G_H$; and each such component contains exactly one 
-vertex of $P_0$ (by definition of $P_0$). Hence for each non-tree
-component $C$ of $\G_H\times \G_H$ we may assume that we have chosen a
-spanning tree $T_C$ for $C$. Moreover, if the vertex of $C$ which 
-belongs to  $P_0$ is $(\t(a_0),\t(a_1))$, as above, we may assume
-that $T_C$ has been chosen to contain the maximal possible prefix of the
- path $a_1^{-1}$. 
-(Note that this path must be simple, as it maps to a simple 
-path in $\G_H$.)  Given $d=a_0a_1^{-1}$, call the component $C$, 
-with base point $(u_0,u_1)$,
-$\G_{H'}$. (Its core is  the Stallings folding of $H^{a_1}\cap H^{a_0}$.)
-Let $T'$ be a spanning tree for $\G_{H'}$ constructed as above, to 
-contain the maximal readable prefix of $a^{-1}$. 
-\end{comment}
-
-Given $w\in F(X)$ such that $w\in H$, set $w'=a_1^{-1}w$ (as a reduced word).  
- Find the maximal
+Given $w\in F(X)$ such that $w\in H$, we require 
+an expression $w=_F a t$, such that $a\in H_d$ and $t\in \cT_d$ 
+(in which case $t\in \cT_d\cap H$). However, the graph $\G_d'$ 
+ which we have constructed, enables us only to find an expression
+$w=a't'$, where $a\in H^{a_1}\cap H^{a_0}$ and $t'\in \cT_d'$. Therefore
+we first replace $w$ with  
+  $w'=a_1^{-1}w$ (as a reduced word).  
+ Next find the maximal
 prefix $f$ of $w' $ which is accepted by $\G_{d}'$ (with
 start and final state $(u_0,u_1)$) say $w'=f\circ q$.
 Let $g$ be the maximal
@@ -1866,21 +1869,27 @@ to $D_1\cup D_2$.
 \end{theorem}
 \begin{proof}
 To see that every $g\in G$ can be written in dc-normal form, first
-write $g$ in reduced form. If the reduced form of $g$ is the empty
+write $g$ in reduced form,
+as a word in the amalgamated product. If the reduced form of $g$ is the empty
 word then this is also the dc-normal form; with $k=0$ and $h_0=1$. 
-Otherwise we have $g=f_1\cdots f_t$, where $f_i$ is in $F_{j_i}$, for
-$j_i\in \{1,2\}$. In this case, let $a_is_ib_i$
+Otherwise we have $g=f_1\cdots f_r$, where $f_i$ is in $F_{j_i}$, for
+$j_i\in \{1,2\}$. 
+In this case, let $a_is_ib_i$
 be the double coset representative of $f_i$, where 
 $a_i,b_i\in H_{j_i}$ and $s_i\in D_{j_i}$. 
 
-Suppose that, for some $p$ such that  $1\le p\le r$ we 
+Beginning on the right, with $f_r$, we succesively 
+rewrite each syllable, using Lemma \ref{lem:reltran}, and moving
+elements of $H_1\cup H_2$ to the left. 
+In detail, suppose that, for some $p$ such that  $1\le p\le r$ we 
 have $t_{p+1},\ldots ,t_r$, where $t_i\in \cT_{s_i}$, for $i=p+1,\ldots,
 r$, and an element $h_p\in H_{j_p}$, such that 
 \[f_{p+1}\cdots f_r=_G h_ps_{p+1}t_{p+1}\cdots s_rt_r.\]
 Then $f_p=a_ps_pb_p$, where $b_p\in H_{j_p}$, so $b_ph_p=c_pt_p$, 
 for some $c_p\in H_{j_p}\cap H_{j_p}^{s_p}$ 
-and $t_p\in \cT_{s_p}$. Therefore, for some $d_p\in H_{j_p}$,  
-\[f_p h_p=a_p s_p b_p h_p=a_p d_ps_pt_p.\]
+and $t_p\in \cT_{s_p}$. Therefore, for some $d_p\in H_{j_p}$, 
+$c_p=s_p^{-1}d_ps_p$ and  
+\[f_p h_p=a_p s_p b_p h_p=a_ps_pc_pt_p=a_p d_ps_pt_p.\]
 As $a_pd_p\in H_{j_p}$, we have $h_{p-1}=
 \phi_{j_{p-1}}\phi_{j_p}^{-1}(a_p d_p)\in H_{j_{p-1}}$. 
 Hence 
