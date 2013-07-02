@@ -76,7 +76,7 @@ w=['a1','a1','A2','a3','a2','A3']
 #w=['a1']
 #w=[]
 #w=['a1','a1','a1']
-#w=['a1','a2','a3']
+w=['a1','a2','a3']
 #w=['a1','a1','a1']
 t=Normal_form(G,w,D).spit_out_nf()
 print(t)
