@@ -1,5 +1,14 @@
 from alg1 import *
 
+#def listsplitter(w,f1gens,f2gens):
+#	l=len(w)
+#	ww=[]
+#	genset=f1gens+f2gens
+#	print(genset)
+#	for c in w:
+#		if c not in genset:
+#			print(c,'isn\'t in the generating set of either free group,\nso ',w,' isn\'t a word in the free (amalgamated) product')
+
 def listsplitter(w,f1gens,f2gens): #Takes a word in F1*F2 and two sets of generators as input, the new version (below) broke things
 	l=len(w)
 	ww=[] #ww is the "list of lists"
@@ -64,17 +73,13 @@ def listsplitter(w,f1gens,f2gens): #Takes a word in F1*F2 and two sets of genera
 
 def reducelist(w):
 	for c in w: #freely reducing each fi in w
-		c = element(c)
-		w[c]=c.freely_reduce()
+		w[c]=element(c).word
 	return(w)
 
 def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
-	H1.make_flower()
 	H1.stallings()
-	H2.make_flower()
 	H2.stallings()
-	
-	
+
 	S1 = H1.flower
 	D1 = S1.double()
 	DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
@@ -103,9 +108,7 @@ def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
 
 
 def nf_in_list2(w,F1,F2,H1,H2): #alternative function to avoid problem with the other nf_in_list function, currently untested
-	H1.make_flower()
 	H1.stallings()
-	H2.make_flower()
 	H2.stallings()
 	S1 = H1.flower
 	D1 = S1.double()
@@ -130,17 +133,26 @@ def nf_in_list2(w,F1,F2,H1,H2): #alternative function to avoid problem with the 
 	return(new_w)
 			
 
-def listtest(w,F1,F2): #w is a word, F1 and F2 free groups
+#def listtest(w,F1,F2): #w is a word, F1 and F2 free groups
+#	i=1
+#	for c in w:
+#		if F1.is_element(c)==0 and F2.is_element(c)==0:
+#			print(c,' isn\'t an element of either free group')
+#			i=0
+#	return(i)
+
+def listtest(w,f1gens,f2gens):
 	i=1
+	genset=f1gens+f2gens
 	for c in w:
-		if F1.is_element(c)==0 and F2.is_element(c)==0:
+		if c not in genset:
 			print(c,' isn\'t an element of either free group')
 			i=0
+#	if i==0:
+#		print(w,' isn\'t a word in the free (amalgamated) product')
 	return(i)
 
 def alg2_main(w,F1,F2,H1,H2):
-	F1.make_gens()
-	F2.make_gens()
 	f1gens=F1.mongens
 	f2gens=F2.mongens
 	listtest(w,F1,F2)
@@ -160,8 +172,7 @@ def joiner(w):
 	for i in range(0,len(w)-1):
 		ww.append(w[i][1])
 		t = [w[i][2]] + [w[i+1][0]]
-		c = element(t)
-		t = c.freely_reduce()
+		t = element(t).word
 		ww = ww + t
 		#ww.append(t)
 	ww.append(w[-1][1])
@@ -172,16 +183,13 @@ def joiner(w):
 def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due to change to joiner function
 		for i in range(0,len(w)):
 			if w%2==0:
-				c = element(w[i])
-				w[i]=c.freely_reduce()
+				w[i]=element(w[i]).word
 		print(w)
 		return(w)
 
 ######################################
 
 def alg2_main2(w,F1,F2,H1,H2):
-	F1.make_gens()
-	F2.make_gens()
 	f1gens=F1.mongens
 	f2gens=F2.mongens
 	print("Generators\n",f1gens,'\n',f2gens)
@@ -196,11 +204,25 @@ def alg2_main2(w,F1,F2,H1,H2):
 	#w=joiner(w)
 	#print(w)
 
-def listtest2(w,f1gens,f2gens):
-	i=1
-	for c in w:
-		if c not in f1gens and c not in f2gens:
-			print(c, ' isn\'t in either free group')
-			i=0
-	print(i)
-	return(i)
+
+def alg2_pre(H1,H2):
+	H1.stallings()
+	H2.stallings()
+	flower1=H1.flower
+	flower2=H2.flower
+	double1=flower1.double()
+	double2=flower2.double()
+	forest1=bfs(double1,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest1=forest1.forest()
+	forest2=bfs(double2,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest2=forest2.forest()
+	return(flower1,flower2,double1,double2,forest1,forest2)
+
+def alg2(w,F1,F2,H1,H2):
+	listtest(w)
+	if listtest(w)==0:
+		print(w,' isn\'t a word in the free (amalgamated) product')
+	w=reducelist(w)
+	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
+	w=listsplitter(w,F1.mongens,F2.mongens)
+	
