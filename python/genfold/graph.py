@@ -18,9 +18,9 @@ class Vertex:
 			self.sortkey = 0
 		else:
 			self.sortkey = sortkey
-		
-		self.outedges_write = {}
-		self.inedges_write = {}		
+		self.outedges_write ={}
+		self.inedges_write = {}
+		self.path=[]
 
 	def __repr__(self):
 		return str(self)
@@ -46,7 +46,6 @@ class Vertex:
 		self.inedgesList.remove((label,v))
 		if label in self.inedges:
 			self.inedges[label].remove(v)
-			
 		if (label,v)  in self.inedges_write:
 			del self.inedges_write[(label,v)]
 
@@ -105,7 +104,7 @@ class Graph:
 	#graph constructor
 	#if rooted=True, then a root node is created and added to the graph
 	#otherwise graph begins empty
-	def __init__(self,rooted=False,label='H'):
+	def __init__(self,rooted=False,label='H',Olabel=0):
 		if label == None:
 			self.label = 'G'
 		else:
@@ -114,7 +113,8 @@ class Graph:
 		self.vertices = []
 		if rooted:
 			self.root = self.addVertex()
-	
+		self.Olabel=Olabel
+
 	#create a new vertex in the graph and return it
 	def addVertex(self,name=None):
 		self.vertexCount += 1
@@ -140,7 +140,7 @@ class Graph:
 		self.vertices.remove(v)
 		for label,w in v.outedgesList:		#for each labelled edge v->w
 			if (label,w) in u.outedgesList:
-				u_o=min(u.outedges_write[(label,w)],v.outedges_write[(label,w)])# if 2 edges are folded in the merge then the write label of the resulting edge should be the min of the write labels of the original edge
+				u_o=min(u.outedges_write[(label,w)],v.outedges_write[(label,w)])# if 2 edges are folded in the merge then the write label of the resulting edge should be the min of the write labels of the original edges
 			else:
 				u_o=v.outedges_write[(label,w)]
 			w.removeInEdge(label,v)			#remove edge from w's list of in-edges
@@ -149,7 +149,7 @@ class Graph:
 
 		for label,w in v.inedgesList:		#for each labelled edge joining w->v
 			if (label,w) in u.inedgesList:
-				u_o=min(u.inedges_write[(label,w)],v.inedges_write[(label,w)])# if 2 edges are folded in the merge then the write label of the resulting edge should be the min of the write labels of the original edge
+				u_o=min(u.inedges_write[(label,w)],v.inedges_write[(label,w)])# if 2 edges are folded in the merge then the write label of the resulting edge should be the min of the write labels of the original edges
 			else:
 				u_o=v.inedges_write[(label,w)]
 			w.removeOutEdge(label,v)		#remove edge from w's list of out-edges

@@ -1,5 +1,5 @@
 import string
-from graph_tabbed import *
+from graph import *
 
 
 class element(object): #reduced word 
