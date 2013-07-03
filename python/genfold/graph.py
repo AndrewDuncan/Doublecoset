@@ -289,13 +289,20 @@ class Graph:
 
 
 
-	def graphViz(self,name='G'):
+	def graphViz(self,name='G',Olabel):
 		out = []
-		for u in self.vertices:
-			out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
-			for label,vs in u.outedges.items():
-				for v in vs:
-					out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
+		if Olabel == 1:
+			for u in self.vertices:
+				out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
+				for label,vs in u.outedges.items():
+					for v in vs:
+						out.append( '"%s%s" -> "%s%s" [label="%s"|"%s",fontsize=8];' % (name,u,name,v,label,u.outedges_write[(label,v)]) )
+		else:
+			for u in self.vertices:
+				out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
+				for label,vs in u.outedges.items():
+					for v in vs:
+						out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
 		return '\n'.join(out)
 
 	

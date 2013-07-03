@@ -76,61 +76,61 @@ def reducelist(w):
 		w[c]=element(c).word
 	return(w)
 
-def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
-	H1.stallings()
-	H2.stallings()
+#def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
+#	H1.stallings()
+#	H2.stallings()
+#
+#	S1 = H1.flower
+#	D1 = S1.double()
+#	DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+#	S2 = H2.flower
+#	D2 = S2.double()
+#	DB2 = bfs(D2,sorted(D2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+#	DB1.forest()
+#	DB2.forest()
+#	
+#	if w[0] in F1.mongens:
+#		s=1
+#	else:
+#		s=2
+#	for c in w[0:len(w)]:
+#		
+#		if s==1:
+#			c = Normal_form(S1,c,DB1).spit_out_nf() #AttributeError:'Vertex' object has no attribute 'path'
+#			c = [c[3],c[1],c[4]]
+#			s=2
+#		else:
+#			c = Normal_form(S2,c,DB2).spit_out_nf()
+#			c = [c[3],c[1],c[4]]
+#			s=1
+#	print(w)
+#	return(w)
 
-	S1 = H1.flower
-	D1 = S1.double()
-	DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	S2 = H2.flower
-	D2 = S2.double()
-	DB2 = bfs(D2,sorted(D2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	DB1.forest()
-	DB2.forest()
-	
-	if w[0] in F1.mongens:
-		s=1
-	else:
-		s=2
-	for c in w[0:len(w)]:
-		
-		if s==1:
-			c = Normal_form(S1,c,DB1).spit_out_nf() #AttributeError:'Vertex' object has no attribute 'path'
-			c = [c[3],c[1],c[4]]
-			s=2
-		else:
-			c = Normal_form(S2,c,DB2).spit_out_nf()
-			c = [c[3],c[1],c[4]]
-			s=1
-	print(w)
-	return(w)
 
-
-def nf_in_list2(w,F1,F2,H1,H2): #alternative function to avoid problem with the other nf_in_list function, currently untested
-	H1.stallings()
-	H2.stallings()
-	S1 = H1.flower
-	D1 = S1.double()
-	DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	S2 = H2.flower
-	D2 = S2.double()
-	DB2 = bfs(D2,sorted(D2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	DB1.forest()
-	DB2.forest()
-	new_w = []
-	for c in w:
-		if F1.is_element(c)!=0:
-			c = Normal_form(S1,c,DB1).spit_out_nf()
-			c = [c[3],c[1],c[4]]
-		elif F2.is_element(c)!=0:
-			c = Normal_form(S2,c,DB2).spit_out_nf()
-			c=[c[3],c[1],c[4]]
-		else:
-			print(c," isn't a word in either free group")
-		print("syllable in normal form is ",c)
-		new_w.append(c)
-	return(new_w)
+#def nf_in_list2(w,F1,F2,H1,H2): #alternative function to avoid problem with the other nf_in_list function, currently untested
+#	H1.stallings()
+#	H2.stallings()
+#	S1 = H1.flower
+#	D1 = S1.double()
+#	DB1 = bfs(D1,sorted(D1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+#	S2 = H2.flower
+#	D2 = S2.double()
+#	DB2 = bfs(D2,sorted(D2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+#	DB1.forest()
+#	DB2.forest()
+#	new_w = []
+#	for c in w:
+#		if F1.is_element(c)!=0:
+#			c = Normal_form(S1,c,DB1).spit_out_nf()
+#			c = [c[3],c[1],c[4]]
+#		elif F2.is_element(c)!=0:
+#			c = Normal_form(S2,c,DB2).spit_out_nf()
+#			c=[c[3],c[1],c[4]]
+#		else:
+#			print(c," isn't a word in either free group")
+#		print("syllable in normal form is ",c)
+#		new_w.append(c)
+#	return(new_w)
 			
 
 #def listtest(w,F1,F2): #w is a word, F1 and F2 free groups
@@ -152,20 +152,20 @@ def listtest(w,f1gens,f2gens):
 #		print(w,' isn\'t a word in the free (amalgamated) product')
 	return(i)
 
-def alg2_main(w,F1,F2,H1,H2):
-	f1gens=F1.mongens
-	f2gens=F2.mongens
-	listtest(w,F1,F2)
-	w=listsplitter(w,f1gens,f2gens)
+#def alg2_main(w,F1,F2,H1,H2):
+#	f1gens=F1.mongens
+#	f2gens=F2.mongens
+#	listtest(w,F1,F2)
+#	w=listsplitter(w,f1gens,f2gens)
 #	if w[0] in f1gens:
 #		w=nf_in_list(w,F1,F2,H1,H2)
 #	else:
 #		w=nf_in_list(w,F2,F1,H2,H1)
-	w=nf_in_list2(w)
-	w=joiner(w)
-	
-	print(w)
-	return(w)
+#	w=nf_in_list2(w)
+#	w=joiner(w)
+#	
+#	print(w)
+#	return(w)
 
 def joiner(w):
 	ww=[w[0][0]]
@@ -189,17 +189,17 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 
 ######################################
 
-def alg2_main2(w,F1,F2,H1,H2):
-	f1gens=F1.mongens
-	f2gens=F2.mongens
-	print("Generators\n",f1gens,'\n',f2gens)
-	listtest2(w,f1gens,f2gens)
-	w=listsplitter(w,f1gens,f2gens)
-	print("Syllables:",w)
-	
-	#convert to normal forms here
-	w=nf_in_list2(w,F1,F2,H1,H2)
-	print("Normal form word",w)
+#def alg2_main2(w,F1,F2,H1,H2):
+#	f1gens=F1.mongens
+#	f2gens=F2.mongens
+#	print("Generators\n",f1gens,'\n',f2gens)
+#	listtest2(w,f1gens,f2gens)
+#	w=listsplitter(w,f1gens,f2gens)
+#	print("Syllables:",w)
+#	
+#	#convert to normal forms here
+#	w=nf_in_list2(w,F1,F2,H1,H2)
+#	print("Normal form word",w)
 	
 	#w=joiner(w)
 	#print(w)
@@ -222,7 +222,27 @@ def alg2(w,F1,F2,H1,H2):
 	listtest(w)
 	if listtest(w)==0:
 		print(w,' isn\'t a word in the free (amalgamated) product')
+		return
 	w=reducelist(w)
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
 	w=listsplitter(w,F1.mongens,F2.mongens)
-	
+	w=nf_in_list(w,flower1,flower2,forest1,forest2)
+	w=joiner(w)
+	w=quickreduce(w)
+	print(w)
+	return(w)
+
+def nf_in_list(w,flower1,flower2,forest1,forest2):
+	ww = []
+	for c in w:
+		if F1.is_element(c)!=0:
+			c = Normal_form(flower1,c,forest1).spit_out_nf()
+			c = [c[3],c[1],c[4]]
+		elif F2.is_element(c)!=0:
+			c = Normal_form(flower1,c,forest1).spit_out_nf()
+			c=[c[3],c[1],c[4]]
+		else:
+			print(c," isn't a word in either free group")
+		print("Syllable in normal form is ",c)
+		ww.append(c)
+	return(ww)
