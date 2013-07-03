@@ -11,7 +11,7 @@
 \usepackage{comment}
 %\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-%\usepackage{showkeys}
+\usepackage{showkeys}
 \usepackage{wrapfig}
 \usepackage{lscape}
 \usepackage{rotating}
@@ -1083,7 +1083,12 @@ $s_0= s_1$. Therefore $\{1\}\cup S$ is a set of double coset
 representatives.
 \end{proof}
 In Section \ref{sub:sum_algI} we describe an algorithm, Algorithm I, part of 
-which rewrites a  given word $w$ as an element of $HDH$, where $D=\{1\}\cup S$.  
+which finds the double coset representative of an element of $F$, and 
+rewrites it as an element of $HDH$, 
+where $D=\{1\}\cup S$: as in the next two examples. This involves
+the preprocessing stage of Algorithm I, in Section \ref{sub:sum_algI} and
+the first part of the execution stage, in Section \ref{sub:alg1ex}. 
+
 \begin{example}\label{ex:f_1}
 Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
 subgroup $H_1=\la
@@ -1097,11 +1102,13 @@ in Figure %\ref{fig:stall}.
 The set $L_{T_1}$ corresponding to the maximal subtree  $T_1$ is
  $L_{T_1}=\{1,x_1,x_1^{-1},x_2,x_3^{-1} \}$.
 
-Let the set of double coset representatives for $H_1$ be $S_1=S_1^{(1)}
+Let the set of double coset representatives for $H_1$ be $D_1=\{1\}\cup S_1$, 
+where $S_1=  
+S_1^{(1)}
 \cup S_1^{(2)}$.
-To find the double coset normal form for the element $f_1 =
+To find the double coset representative of the element $f_1 =
 x_2x_3^2x_2^{-1} x_1^4x_3^3x_1^{-2}x_3^{-1}x_2^{-1}x_1^{-1}$: in
-the notation of Algorithm I, use
+the notation of the proof of Proposition \ref{prop:dcreps}, use
 ${A_1}$ to read off the maximal acceptable prefix $h=x_2x_3^2x_2^{-1} x_1^3
 =h_2^2h_1$
 of $f_1$; and
@@ -1114,10 +1121,10 @@ As $p$ is an $L_{T_1}$-prefix of $pq$ we have $y=p$. On the other hand
 $t$ is not an $L_{T_1}$-prefix of $q^{-1}$ and $\t(t)=2$, so $z=w(2)=x_1^{-1}$.
 Now set
 \[s=p\circ e\circ z^{-1}=x_1x_3^3x_1\in S_1^{(1)}.\]
-Then, writing $h^\prime=gtz^{-1}=h_3h_1$, the normal form for $f_1$ is
+Then,  $s$ is the  double coset representative of $f_1$ and writing $h^\prime=gtz^{-1}=h_3h_1$, we have 
 \[f_1=hs(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3^3x_1(h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1.\]
 
-To find the double coset normal form for the element
+To find the double coset representative  the element
 $f_2=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3^{-1}x_2^{-1}x_1^{-1}$: use
 ${A_1}$ to read off the maximal acceptable prefix
 $h=x_3^{-1}x_2^{-1}x_1^{-1}x_2x_3^{-1}x_2^{-1}=h_3^{-1}h_2^{-1}$
@@ -1140,8 +1147,10 @@ $yz^{-1}=x_1^{-1}\in S_1^{(2)}$,
 \[a=hpcy^{-1}=h_3^{-1}h_2^{-1}x_1^{-1}x_1=h_3^{-1}h_2^{-1}
 \textrm{ and }
 b=zc^{-1}t^{-1}g^{-1}=1,\]
-and the normal form of $f_2$ is
-\[f_2=a yz^{-1} b=(h_3^{-1}h_2^{-1}) x_1^{-1}.\]
+we have 
+%and the normal form of $f_2$ is
+\[f_2=a yz^{-1} b=(h_3^{-1}h_2^{-1}) x_1^{-1}\]
+and the double coset representative of $f_2$ is $x_1^{-1}\in S_1^{(2)}$.
 \end{example}
 
 \begin{figure}
@@ -1199,10 +1208,12 @@ The set $L_{T_2}$ corresponding to the maximal subtree  $T_2$ is
  $L_{T_2}=
 \{1, y_1, y_1^2,
 y_2^{-1}, y_2^{-1}y_1, y_3 \}$.
-Let the set of double coset representatives for $H_2$ be $S_2=S_2^{(1)}
+Let the set of double coset representatives for $H_2$ be $D_2=\{1\}\cup S_2$, 
+where $S_2=S_2^{(1)}
 \cup S_2^{(2)}$.
 
-To find the normal form of $f_1^\prime=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2
+To find the double coset representative 
+of $f_1^\prime=y_1^2y_3y_1^{-1}y_2y_3y_4y_1y_2
 y_3y_4y_2^2$: use ${A_2}$ to read off the maximal acceptable
 prefix $h= y_1^2y_3y_1^{-1}y_2y_3y_4=h_3^\prime h_2^\prime$ of $f_1^\prime$; and  the maximal
 $L_{Q_2}$-prefix $p=y_1$ of the rest of $f_1^\prime$.  Next $q^{-1}=
@@ -1214,11 +1225,15 @@ There are $7$  non-trivial, non-diagonal components. One is shown
 in Figure \ref{fig:G2xG2-1} and the remaining
 six in Figure \ref{fig:G2xG2-2}. In all cases the solid vertex
 corresponds to the $\sim$ representative and connecting elements
-are paths in the highlighted trees. Following Algorithm I, the
-normal form of $f_1^\prime$ is
+are paths in the highlighted trees. Following the proof of 
+Proposition \ref{prop:dcreps}, 
+%the
+%normal form of $f_1^\prime$ is
+we write 
 \[f_1^\prime=h yz^{-1} g^{-1},\]
 where $y=y_1$, $z=y_2^{-1}$ and $yz^{-1}=y_1y_2\in S_2^{(2)}$: that is
-\[f_1^\prime=h^\prime_3h_2^\prime y_1y_2 h_2^\prime h_1^\prime.\]
+\[f_1^\prime=h^\prime_3h_2^\prime y_1y_2 h_2^\prime h_1^\prime\]
+and has double coset representative $y_1y_2\in S_2^{(2)}$. 
 \end{example}
 \begin{figure}
 \begin{center}
@@ -1318,7 +1333,7 @@ where $y=y_1$, $z=y_2^{-1}$ and $yz^{-1}=y_1y_2\in S_2^{(2)}$: that is
 \caption{Example \ref{ex:f_2}: connected components of $\G_{A_2}\times \G_{A_2}$.}\label{fig:G2xG2-2}
 \end{figure}
 
-In fact if we don't require uniqueness of representatives then
+In fact if we don't require uniqueness of double coset representatives then
 there is a much simpler algorithm to write words in normal form.
 This simply finds the maximal prefix $h_1$ of $w$  accepted  by
 $A$  and so $w=h_1\circ v$. It then finds the maximal prefix $p$
@@ -1756,8 +1771,74 @@ help of $\G_H$ and its output labels.
 %%%%%%%%%%%%%%%%%%%%
 %%delete the above once the alternative is checked
 %%%%%%%%
+\subsection{Double coset normal forms in the free group}
+If $w\in F$ then we say that a triple $(a,d,t)$ is the 
+\emph{double coset normal form} of $w$ 
+(with respect to $H$ and $D$, defined above) if $w=F adt$, 
+$a\in H$, $d \in D$ and $t\in \cT_d$, the relative transversal 
+for $H_d\le H$. From Proposition \ref{prop:reltran} every element
+of $F$ has a unique double coset normal form. When the meaning
+is clear we shall drop the triple notation and write the
+normal form $(a,d,t)$  as $adt$. 
+In the light of the proof of  Proposition \ref{prop:dcreps} and  Lemma 
+\ref{lem:reltran} there exists an
+ algorithm to find the double coset normal form of an element of $F$. 
+Algorithm I in  Sections \ref{sub:sum_algI}, \ref{sub:alg1ex} and 
+\ref{sub:alg1ex2} carries out this process. The first part of
+this  algorithm, in Section \ref{sub:sum_algI}, constructs the 
+automata necessary for processing  with respect to a chosen
+ subgroup $H$ of $F$. The next part of  the  algorithm in 
+Section \ref{sub:sum_algI},  following the proof of Proposition 
+\ref{prop:dcreps},  takes  a word  $w\in F$ and outputs an triple
+$(h,d,h')$, where $h,h'\in H$, $d\in \{1\}\cup S^{(1)}\cup S^{(2)}$
+and $w=_F hdh'$. 
+The final part of the algorithm, in Section \ref{sub:alg1ex2}, takes
+this triple $(h,d,h')$ as input.  The word $h'$ is rewritten, 
+as in   
+Lemma \ref{lem:reltran}, as $h'=gt$, where $g\in H_d$ and  $t\in \cT_d$.
+As $g\in H_d$ there exists  and $g'\in H$ such that $g'=d^{-1}gd$ 
+and so we have $w=hdh'=hdgt=hg'dt=adt$, where $a=hg'\in H$. The 
+  algorithm outputs $(a,d,t)$. 
+\begin{example}\label{ex:f_1_again}
+Consider the elements 
+$f_1$ and $f_2$ of the free group $F_1$ of Example \ref{ex:f_1}. 
+In that example we found  
+\[f_1=hs_1(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3^3x_1(h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1,\]
+with $s_1=x_1x_3^3x_1$ the double coset representative of $f_1$. 
+As $s_1\in S_1^{(1)}$, as in the proof of Lemma \ref{lem:reltran}, 
+$H_{s_1}=\{1\}$ and so $(h^\prime)^{-1}\in \cT_{s_1}$. Thus
+$f_1$ has double coset normal form $(h, s_1, (h^\prime)^{-1})$.
 
-This algorithm forms part of Algorithm I in Section \ref{sub:sum_algI}. 
+We also found 
+\[f_2=a yz^{-1} b=(h_3^{-1}h_2^{-1}) x_1^{-1}\]
+with $a=h_3^{-1}h_2^{-1}$, $b=1$ and $s_2=yz^{-1}= x_1^{-1}\in S_1^{(2)}$ 
+ the double coset representative of $f_2$. 
+In this case $z=1$, so $H^z\cap H^y=H\cap H^y=H\cap H^{s_2}=H_{s_2}$. 
+Furthermore, as $b=1$ we see immediately that $t=b=1$ and the
+double coset normal form of $f_2$ is $(h_3^{-1}h_2^{-1}, x_1^{-1}, 1)$.
+\end{example}
+
+\begin{example}\label{ex:f_2_again}
+Consider the element $f_1'$ of Example \ref{ex:f_2}. 
+We found 
+\[f_1^\prime=h yz^{-1} g^{-1},\]
+where $h=h^\prime_3h_2^\prime$, $g^{-1}=h_2^\prime h_1^\prime$,  
+$y=y_1$, $z=y_2^{-1}$ and $s_1'=yz^{-1}=y_1y_2\in S_2^{(2)}$ is the 
+double coset representative of $f_1'$. In this case $s_1'$ corresponds
+to the vertex $(3,2)$ of $\G_{H_2}\times \G_{H_2}$. As this is an 
+isolated vertex it follows, as in the proof of Lemma \ref{lem:reltran},
+that $H_{s_1'}=\{1\}$. Therefore $\cT_{s_1'}=H_2$ and the 
+double coset normal form of $f_1'$ is 
+$(h,s_1',g^{-1})$.  
+\end{example}
+\ajd{These two examples are typical, as subgroups of $F$ are generically
+malnormal, and even when they are not 
+double cosets representatives are generically of type 1 (aren't they; there
+are only finitely many of type 2). Oh, but this may not be a sensible thing
+to say, as what counts is the size of the dobule cosets $HdH$. Lisa,
+you probably know how to say this?}
+
+\ajd{Put the example above from the reltran section here?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Double coset normal forms for amalgams of free groups}\label{sec:dcnf}
 
@@ -2677,7 +2758,7 @@ Algorithm III?
 \begin{comp}
 Preprocessing time is bounded above by $O(N^4)$.
 \end{comp}
-\subsubsection{Execution of Algorithm I}\label{sub:alg1ex}
+\subsubsection{Execution of Algorithm I, Part 1}\label{sub:alg1ex}
 \noindent\textbf{Input.}
 \biz
 \item $w$, a reduced word in $\FF(X)$.
@@ -2717,6 +2798,7 @@ results $a$ and $b$, respectively.
 \begin{comp}
 The time required for these steps is $O(|w|)$.
 \end{comp}
+\subsubsection{Execution of Algorithm I, Part 2}\label{sub:alg1ex2}
 \subsubsection{Execution of Algorithm II}\label{sub:summaryII}
 \ajd{The first 2 steps below repeat p. 5 and probably don't use
 the correct conventions on  terminology for this section, and the second two
