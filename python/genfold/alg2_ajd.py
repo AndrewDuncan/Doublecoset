@@ -230,6 +230,7 @@ def alg2(w,F1,F2,H1,H2):
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
+	w=joiner(w)
 	print(w)
 	return(w)
 

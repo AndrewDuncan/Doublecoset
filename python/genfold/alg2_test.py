@@ -1,4 +1,4 @@
-from alg2 import *
+from alg2_ajd import *
 F1=free_group(3,'a')
 F2=free_group(2,'b')
 h1=['a1','a2','a3']
