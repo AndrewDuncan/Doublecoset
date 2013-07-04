@@ -198,7 +198,7 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 						break
 
 			Rpref=Rpref+[suffix[0]]
-			if z<>"":
+			if z!="":
 				Apref_in_Z.append(z)
 
 			if u==self.graph.root:

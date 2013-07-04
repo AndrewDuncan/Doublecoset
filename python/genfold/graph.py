@@ -289,7 +289,7 @@ class Graph:
 
 
 
-	def graphViz(self,name='G',Olabel):
+	def graphViz(self,name='G'):
 		out = []
 		if Olabel == 1:
 			for u in self.vertices:

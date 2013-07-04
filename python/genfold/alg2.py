@@ -34,7 +34,7 @@ def listsplitter(w,f1gens,f2gens): #Takes a word in F1*F2 and two sets of genera
 	for c in range(1,l):
 		if w[c]==[]:
 			w.remove(w[c])
-	print(ww) #likely unnecessary but makes testing a lot easier
+	#print(ww)
 	return(ww)
 
 #def listsplitter(w,f1gens,f2gens,f1,f2): #Takes a word in F1*F2 and two sets of generators as input
@@ -73,7 +73,7 @@ def listsplitter(w,f1gens,f2gens): #Takes a word in F1*F2 and two sets of genera
 
 def reducelist(w):
 	for c in w: #freely reducing each fi in w
-		w[c]=element(c).word
+		c=element(c).word
 	return(w)
 
 #def nf_in_list(w,F1,F2,H1,H2): #doesn't work, can't quite figure out why yet
@@ -144,6 +144,7 @@ def reducelist(w):
 def listtest(w,f1gens,f2gens):
 	i=1
 	genset=f1gens+f2gens
+	#print(genset)
 	for c in w:
 		if c not in genset:
 			print(c,' isn\'t an element of either free group')
@@ -212,27 +213,26 @@ def alg2_pre(H1,H2):
 	flower2=H2.flower
 	double1=flower1.double()
 	double2=flower2.double()
-	forest1=bfs(double1,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 	forest1=forest1.forest()
-	forest2=bfs(double2,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest2=bfs(double2,sorted(double2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 	forest2=forest2.forest()
 	return(flower1,flower2,double1,double2,forest1,forest2)
 
 def alg2(w,F1,F2,H1,H2):
-	listtest(w)
-	if listtest(w)==0:
+	listtest(w,F1.mongens,F2.mongens)
+	if listtest(w,F1.mongens,F2.mongens)==0:
 		print(w,' isn\'t a word in the free (amalgamated) product')
 		return
 	w=reducelist(w)
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
 	w=listsplitter(w,F1.mongens,F2.mongens)
-	w=nf_in_list(w,flower1,flower2,forest1,forest2)
+	w=nf_in_list(w,flower1,flower2,forest1,forest2,F1,F2)
 	w=joiner(w)
-	w=quickreduce(w)
 	print(w)
 	return(w)
 
-def nf_in_list(w,flower1,flower2,forest1,forest2):
+def nf_in_list(w,flower1,flower2,forest1,forest2,F1,F2):
 	ww = []
 	for c in w:
 		if F1.is_element(c)!=0:

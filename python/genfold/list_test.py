@@ -1,5 +1,4 @@
-from alg1a import * #alg2a imports alg1a 
-#from alg1a_backup import *
+from alg1 import *
 
 ###freely_reduce tests###
 #print(element([]).freely_reduce())
