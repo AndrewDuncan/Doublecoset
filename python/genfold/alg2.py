@@ -47,7 +47,7 @@ def listtest(w,f1gens,f2gens):
 
 def joiner(w):
 	ww=[w[0][0]]
-	print('ww=[w[0][0]]= ', ww)
+	#print('ww=[w[0][0]]= ', ww)
 	for i in range(0,len(w)-1):
 		#print('i is ', i)
 		ww.append(w[i][1])
@@ -66,6 +66,7 @@ def joiner(w):
 	#print('and w becomes ',w)
 	w=element(w).word
 	#print('which reduces to',w)
+	print('joiner returns\n',w)
 	return(w)
 
 def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due to change to joiner function
