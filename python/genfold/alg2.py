@@ -66,7 +66,7 @@ def joiner(w):
 	#print('and w becomes ',w)
 	w=element(w).word
 	#print('which reduces to',w)
-	print('joiner returns\n',w)
+	#print('joiner returns\n',w)
 	return(w)
 
 def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due to change to joiner function
@@ -100,6 +100,7 @@ def alg2(w,F1,F2,H1,H2):
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
+	w=joiner(w)
 	print(w)
 	return(w)
 
@@ -111,11 +112,13 @@ def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
 			print("c is ",c, "in F1", F1.is_element(c))
 			d = Normal_form(flower1,c,double1).spit_out_nf()
 			e = [d[3],d[1],d[4]]
+			#e = [d[0],d[1],d[2]]
 			print("here  2")
 		elif F2.is_element(c)!=0:
 			print("c is ",c, "in F2",F2.is_element(c))
 			d = Normal_form(flower2,c,double2).spit_out_nf()
 			e = [d[3],d[1],d[4]]
+			#e = [d[0],d[1],d[2]]
 			print("here  3")
 		else:
 			print(c," isn't a word in either free group")
