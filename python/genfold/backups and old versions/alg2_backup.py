@@ -45,27 +45,28 @@ def listtest(w,f1gens,f2gens):
 #		print(w,' isn\'t a word in the free (amalgamated) product')
 	return(i)
 
+
 def joiner(w):
 	ww=[w[0][0]]
 	print('ww=[w[0][0]]= ', ww)
 	for i in range(0,len(w)-1):
-		#print('i is ', i)
+		print('i is ', i)
 		ww.append(w[i][1])
-		#print('after appending w[i][1], ww is ', ww)
+		print('after appending w[i][1], ww is ', ww)
 		t = [w[i][2] + w[i+1][0]]
-		#print('t is ', t)
+		print('t is ', t)
 		ww = ww + t
-		#print('ww becomes', ww)
+		print('ww becomes', ww)
 		#ww.append(t)
 	ww.append(w[-1][1])
 	ww.append(w[-1][2])
-	#print('so now ww is\n',ww)
+	print('so now ww is\n',ww)
 	w=[]
 	for c in ww:
 		w.extend(c)
-	#print('and w becomes ',w)
+	print('and w becomes ',w)
 	w=element(w).word
-	#print('which reduces to',w)
+	print('which reduces to',w)
 	return(w)
 
 def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due to change to joiner function
@@ -75,13 +76,12 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 		print(w)
 		return(w)
 
+
 def alg2_pre(H1,H2):
 	H1.stallings()
 	H2.stallings()
 	flower1=H1.flower
 	flower2=H2.flower
-	bfs(flower1,)
-	bfs(flower2,)
 	double1=flower1.double()
 	double2=flower2.double()
 	forest1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
@@ -98,27 +98,22 @@ def alg2(w,F1,F2,H1,H2):
 	w=reducelist(w)
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
 	w=listsplitter(w,F1.mongens,F2.mongens)
-	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
+	w=nf_in_list(w,flower1,flower2,forest1,forest2,F1,F2)
+	w=joiner(w)
 	print(w)
 	return(w)
 
-def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
+def nf_in_list(w,flower1,flower2,forest1,forest2,F1,F2):
 	ww = []
 	for c in w:
-		#print("here  1, F1.is_element(c), F2.is_element(c)", F1.is_element(c), F2.is_element(c))
 		if F1.is_element(c)!=0:
-			print("c is ",c, "in F1", F1.is_element(c))
-			d = Normal_form(flower1,c,double1).spit_out_nf()
-			e = [d[3],d[1],d[4]]
-			print("here  2")
+			c = Normal_form(flower1,c,forest1).spit_out_nf()
+			c = [c[3],c[1],c[4]]
 		elif F2.is_element(c)!=0:
-			print("c is ",c, "in F2",F2.is_element(c))
-			d = Normal_form(flower2,c,double2).spit_out_nf()
-			e = [d[3],d[1],d[4]]
-			print("here  3")
+			c = Normal_form(flower2,c,forest2).spit_out_nf()
+			c=[c[3],c[1],c[4]]
 		else:
 			print(c," isn't a word in either free group")
-		print("Syllable in normal form is ",e)
-		ww.append(e)
-		print("here  4")
+		print("Syllable in normal form is ",c)
+		ww.append(c)
 	return(ww)
