@@ -126,3 +126,9 @@ def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
 		ww.append(e)
 		print("here  4")
 	return(ww)
+
+
+def subgroup_basis(flower): #from the stallings folding and labelled subtree for a subgroup construct a free generating set
+	fgens=[]
+	for v in flower.vertices:
+		print("I am a vertex", v)

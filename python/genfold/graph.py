@@ -291,7 +291,7 @@ class Graph:
 
 	def graphViz(self,name='G'):
 		out = []
-		if Olabel == 1:
+		if self.Olabel == 1:
 			for u in self.vertices:
 				out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
 				for label,vs in u.outedges.items():

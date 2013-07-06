@@ -1,4 +1,4 @@
-from alg1a import *
+from alg1 import *
 
 F1=free_group(3,"a")
 G=free_group(2,"alpha")
@@ -89,3 +89,13 @@ print("tt is ", element(['A1','A1','A1','A1','A1','A1','A1','A1','A1','a2']).wor
 print("normal form of tt is a,b,c =", tt[0],tt[1],tt[2]) 
 print("or using map into Z's: a,b, c =", tt[3],tt[1],tt[4])
 
+H1.subgroup_free_gens=subgroup_basis(S)[1]
+print("basis of H1",H1.subgroup_free_gens)
+print("or", subgroup_basis(S)[0])
+
+zw=['z2','z1','Z4','z1']
+print("y word is", phi(H1,zw)[0])
+print("error is", phi(H1,zw)[1])
+print(len(zw))
+print(len([]))
+print(len(['x1']))
