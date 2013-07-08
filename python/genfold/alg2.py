@@ -1,6 +1,6 @@
 from alg1 import *
 
-def listsplitter(w,f1gens,f2gens): #Takes a word in F1*F2 and two sets of generators as input, the new version (below) broke things
+def listsplitter(w,f1gens,f2gens):
 	l=len(w)
 	ww=[] #ww is the "list of lists"
 	ww.append([w[0]])
@@ -92,6 +92,7 @@ def alg2_pre(H1,H2):
 	return(flower1,flower2,double1,double2,forest1,forest2)
 
 def alg2(w,F1,F2,H1,H2):
+	w=popper(w)
 	listtest(w,F1.mongens,F2.mongens)
 	if listtest(w,F1.mongens,F2.mongens)==0:
 		print(w,' isn\'t a word in the free (amalgamated) product')
@@ -101,6 +102,8 @@ def alg2(w,F1,F2,H1,H2):
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
 	w=joiner(w)
+	w=popper(w)
+	w=element(w).word
 	print(w)
 	return(w)
 
@@ -113,22 +116,24 @@ def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
 			d = Normal_form(flower1,c,double1).spit_out_nf()
 			e = [d[3],d[1],d[4]]
 			#e = [d[0],d[1],d[2]]
-			print("here  2")
+			#print("here  2")
 		elif F2.is_element(c)!=0:
 			print("c is ",c, "in F2",F2.is_element(c))
 			d = Normal_form(flower2,c,double2).spit_out_nf()
 			e = [d[3],d[1],d[4]]
 			#e = [d[0],d[1],d[2]]
-			print("here  3")
+			#print("here  3")
 		else:
-			print(c," isn't a word in either free group")
+			sprint(c," isn't a word in either free group")
 		print("Syllable in normal form is ",e)
 		ww.append(e)
-		print("here  4")
+		#print("here  4")
 	return(ww)
-
 
 def subgroup_basis(flower): #from the stallings folding and labelled subtree for a subgroup construct a free generating set
 	fgens=[]
 	for v in flower.vertices:
 		print("I am a vertex", v)
+
+def popper(w):
+	return [e for e in w if e!=""]
