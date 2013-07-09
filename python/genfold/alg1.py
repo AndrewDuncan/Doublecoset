@@ -312,7 +312,7 @@ def subgroup_basis(folding): #Find a free generating set for the subgroup H with
 
 def phi(subgroup,zword): #map a word in the free group on the Z generators of subgroup H into a word on the free generators of H in F
 	y=[]
-   	for i in range(0,len(zword)):
+	for i in range(0,len(zword)):
 		if zword[i] in subgroup.subgroup_free_gens.keys():#if zword[i] is in the list of keys of genrs of H
 			y=y+subgroup.subgroup_free_gens[zword[i]] # append the corresponding genr to the word y
 		elif zword[i].swapcase() in subgroup.subgroup_free_gens.keys():#if zword[i]^-1 is in the list of keys of genrs of H

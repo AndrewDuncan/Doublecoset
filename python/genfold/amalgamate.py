@@ -1,6 +1,6 @@
 from alg2 import *
 
-def amalgamate(w,F1,F2):
+def amalgamate(w,F1,F2,H1,H2):
 	F=(F1.mongens,F2.mongens)
 	error=0
 	n=len(w)-1
@@ -18,8 +18,11 @@ def amalgamate(w,F1,F2):
 		return
 	H=(H1,H2)
 	for s in range(n,-1,-1):
-		if w[s] in H[f]: #need to make this work - H[f] isn't actually a list of generators here, making a new hf_test function
+		#w[s] in H[f]: #need to make this work - H[f] isn't actually a list of generators here, making a new hf_test function
 			#put w[s] in terms of H[1-f] here
+		t=hf_test(w[s],H[f])
+			if t[0]==1 #change form of w[s] below then indent everything necessary
+				w[s]=t[1]
 			if s==n:
 				w[s-1]=w[s-1]+w[s]
 				w[s]=element(w[s]).word
@@ -38,10 +41,13 @@ def amalgamate(w,F1,F2):
 					w.pop(len(w)-1)
 					w.pop(len(w)-1)
 			f=1-f
+	return(w)
 
 def hf_test(w,H):
 	t=graph_pass(H).acc_read_rem()
 	if len(t[1])==0 and len(t[2])==0
 		j=1
+		w=phi(H,t[4])
 	else:
-		(j,)=(0,)
+		(j,w)=(0,[])
+	return(j,w)

@@ -1,4 +1,5 @@
 from alg1 import *
+from amalgamate import *
 
 def listsplitter(w,f1gens,f2gens):
 	l=len(w)
@@ -89,11 +90,14 @@ def alg2_pre(H1,H2):
 	forest1=forest1.forest()
 	forest2=bfs(double2,sorted(double2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 	forest2=forest2.forest()
+	H1.subgroup_free_gens=subgroup_basis(flower1)
+	H2.subgroup_free_gens=subgroup_basis(flower2)
 	return(flower1,flower2,double1,double2,forest1,forest2)
 
 def alg2(w,F1,F2,H1,H2):
 	w=popper(w)
 	listtest(w,F1.mongens,F2.mongens)
+	w=amalgamate(w,F1,F2,H1,H2)
 	if listtest(w,F1.mongens,F2.mongens)==0:
 		print(w,' isn\'t a word in the free (amalgamated) product')
 		return
