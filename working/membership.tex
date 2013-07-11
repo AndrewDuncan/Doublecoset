@@ -2764,13 +2764,18 @@ and the Generalised Folding Loop of Section \ref{sec:dca}. The Generalised Foldi
 during its execution, is what we refer to as the ``Generalised Folding
 Algorithm''.
 \subsection{Summary of algorithms I \& II}\label{sub:sum_algI}
+\ajd{In this section the automaton for $H$ is $\G_A$ and for 
+$H_i$ is $\G_{A_i}$. This now seems a waste of letters and probably
+is not the notation used elsewhere, or is it?}
 \subsubsection{Preproccessing.}
-Given $F_1*_{H_1=H_2} F_2$
+Given $H\le F$
  the
-steps in this subsection are carried out once for
-each group $H_i$. Once these steps have been completed
-then execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
-to find double coset normal forms.
+steps in this subsection are carried out once. Subsequently  execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
+to find double coset normal forms of elements of $F$.
+\ajd{Here we are assuming that the group $H$ is already given by
+ a basis $Y$. We should not do this. The input generators $Y$ may not
+freely generate $H$ and the output should include a basis $Y'$ for 
+$H$, corresponding to the maximal subtree $T$ of $\G_A$.}
 
 \noindent\textbf{Input.}
 \biz
@@ -2871,6 +2876,16 @@ The time required for these steps is $O(|w|)$.
 \end{comp}
 \subsubsection{Execution of Algorithm I, Part 2}\label{sub:alg1ex2}
 \subsubsection{Execution of Algorithm II}\label{sub:summaryII}
+Given $F_1*_{H_1=H_2} F_2$
+ the
+steps in this Section \ref{sub:sum_algI} are carried out once for
+each group $H_i$. Once these steps have been completed
+then execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
+to find double coset normal forms for elements
+of $F_1$ or $F_2$. The following algorithm combines
+the reduction process, outlined on page \pageref{it:st1}, with Algorithm I to
+write elements in  double coset normal form in $F_1*_{H_1=H_2} F_2$.
+
 \ajd{The first 2 steps below repeat p. 5 and probably don't use
 the correct conventions on  terminology for this section, and the second two
 just repeat what's written in the previous version of alg II above, so 

@@ -17,11 +17,7 @@ set f'=f # for later
 
 for s= n to 1 # s is the current syllable
     if w[s] is not in F[f] 
-<<<<<<< HEAD
-       issue and error message, set an error flag and return        
-=======
        issue an error message, set an error flag and return        
->>>>>>> 4aeb94e86580da28b2decb0d56ed3166059ddd74
     
     f=1-f # swap f from 0 to 1 and vice-versa
 
