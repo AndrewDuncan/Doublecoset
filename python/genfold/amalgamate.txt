@@ -1,0 +1,75 @@
+Algorithm for reduced form 
+
+spse w is the word output from list splitter, so
+w=[w1,..., wn], where wi is a word in F1 or F2.
+Assume free groups F1, F2 set up, with subgroups
+H1 & H2. 
+
+First test to see that w is in the correct form
+(maybe overkill)
+
+F=[F1,F2] # so now you can refer to F1 as F[0] and F2 as F[1]
+
+if wn in F[0] set f = 0
+else set f =1          # f is the factor to which the current syllable belongs
+
+set f'=f # for later
+
+for s= n to 1 # s is the current syllable
+    if w[s] is not in F[f] 
+       issue an error message, set an error flag and return        
+    
+    f=1-f # swap f from 0 to 1 and vice-versa
+
+
+If the error flag is not set then continue
+
+H=[H1,H2] 
+
+f=f' # reset f to the factor which wn belongs to
+
+for s from n to 1 
+    if w[s] in H[f] # see below for the implementation of these two steps
+       write w[s] in terms of H[1-f] #i.e. put w[s] into the other factor               
+       #different things happen for s=n, s=1 and 1<s<n
+       if s=n # replace w[n-1], w[n] with w[n-1]+w[n] and remove w[n]
+          w[s-1]=w[s-1]+w[s] #(reduced)    
+          delete w[s]
+       elif s=1 # amalgamate the first two entries and move the rest left by one
+          w[s]=w[s]+w[s+1] #(reduced)     
+          for i from s+2 to n
+              w[i-1]=w[i]
+            
+          delete w[n]
+       else 
+          w[s-1]=w[s-1]+w[s]+w[s+1] #(reduced) in the general case amalgamate w[s] with the syllables either side
+          for i from s+2 to n # then move everything to the right of s left by 2
+              w[i-2]=w[i]
+
+          delete w[n-1] and w[n]
+     
+     f=1-f
+
+#That's it
+#Note that if w[s] turns out to be in Hj then a new w[s-1] is created; and w[s+2], which is not in either H1 or H2, 
+is moved to position s. On the next pass through the loop syllable w[s-1] is tested: thus, if it is also
+in Hj' then another amalgamation will occur. At the left hand end, if s=1 and w[1] is in Hj, and so is 
+amalgamated with w[2], then the result will not be in H1 or H2, because w[2] is not. Therefore, if I have
+made no mistake, this algorithm should do the complete reduction to reduced form. 
+
+
+***
+Now, how to test w[s] is in H[f] and to swap it if so.
+
+Use graph_pass(H[f],w[s]): if the 2nd and 3rd items in the output (Rpref and suffix)  
+both have length zero (so their lengths sum to zero) 
+then w[s] is in H[f]. In this case the word w[s] should be written as an element of H[1-f]. 
+To do that use the 5th item in the output:   Apref_in_Z, which is a Z word for w[s], as follows.
+
+There is a function phi, in alg1 to translate from Zs to gens of H. To make it work it's 
+necessary first to have run "subgroup_basis" on each subgroup. This should be done in 
+the initial processing phase of alg2. (See examples.py for how this is done - right at the end of the file).
+Then running 
+phi(H[f],Apref_in_Z) should return as output the required word in H[1-f]. 
+
+(I left two versions of output in subgroup_basis, I'm not sure which is best, but here I used the second, dgens)

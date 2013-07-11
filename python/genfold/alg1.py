@@ -50,11 +50,12 @@ class free_group(object):
 class subgroup(object): #subgroup of freegroup, given by a set of generators, mapped to a set of generators of a free group of rank = rank of subgroup
 	def __init__(self, name, subgp_gens, basis=None):
 		self.name = name
-		self.subgp_gens = subgp_gens
+		self.subgp_gens = subgp_gens# original generators 
 		self.flower = Graph(rooted=True,label= self.name)
 		self.coherent = True
-       
-		if basis is None:
+		self.subgp_free_gens=[] #free generators to be constructed from stallings folding
+
+		if basis is None: #basis of free group isomorphic to subgroup
 			self.basis =[]
 		else:
 			self.basis = basis
@@ -293,5 +294,33 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 			B=element(RHS[0]+RHS[1]+conn+z).word
 			b=element(B).inverse()
 			b_Z=graph_pass(self.graph,b).acc_read_rem()[4]
-         #print("y,z,conn,RHS[0],RHS[1]", y,z,conn,RHS[0],RHS[1])
+#print("y,z,conn,RHS[0],RHS[1]", y,z,conn,RHS[0],RHS[1])
 			return([a,y+Z, b,a_Z,b_Z])
+
+
+def subgroup_basis(folding): #Find a free generating set for the subgroup H with stallings folding "folding". For this to work a stallings() and bfs() must have been run#folding.subgp_free_gens = []
+	fgens = []
+	dgens = {}
+	for v in folding.vertices: #for each vertex v of the stallings folding of H
+		for e in v.outedgesList: #and for each edge e out of v
+			if v.outedges_write[e]!="": #if the output label of e is non-trivial (so e is not in the spanning tree) 
+				fgens.append([v.path+[e[0]]+element(e[1].path).inverse(),[v.outedges_write[e]]]) #append the generator corresponding to e and its image in Z to the list of free generators
+				dgens[v.outedges_write[e]]=v.path+[e[0]]+element(e[1].path).inverse()
+
+	return(fgens,dgens)
+
+
+def phi(subgroup,zword): #map a word in the free group on the Z generators of subgroup H into a word on the free generators of H in F
+	y=[]
+	for i in range(0,len(zword)):
+		if zword[i] in subgroup.subgroup_free_gens.keys():#if zword[i] is in the list of keys of genrs of H
+			y=y+subgroup.subgroup_free_gens[zword[i]] # append the corresponding genr to the word y
+		elif zword[i].swapcase() in subgroup.subgroup_free_gens.keys():#if zword[i]^-1 is in the list of keys of genrs of H
+			y=y+element(subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse()# append the inverse of the corresponding genr to the word y
+		else:
+			print("the word passed to phi contains a letter not in Z:", zword[i]) # otherwise set the error flag to 0 and return 
+			return([],0)
+		
+	return(element(y).word,1)
+
+	 
