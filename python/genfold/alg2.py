@@ -96,12 +96,17 @@ def alg2_pre(H1,H2):
 def alg2(w,F1,F2,H1,H2):
 	w=popper(w)
 	listtest(w,F1.mongens,F2.mongens)
-	w=amalgamate(w,F1,F2,H1,H2)
 	if listtest(w,F1.mongens,F2.mongens)==0:
 		print(w,' isn\'t a word in the free (amalgamated) product')
 		return
+	w=listsplitter(w,F1.mongens,F2.mongens)
+	w=amalgamate(w,F1,F2,H1,H2)
+	print(w)
+	listsplitter(w,F1.mongens,F2.mongens)
+	print(w)
 	w=reducelist(w)
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
+	print(w)
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
 	w=joiner(w)
@@ -144,38 +149,58 @@ def popper(w):
 from alg2 import *
 
 def amalgamate(w,F1,F2,H1,H2):
-	F=(F1.mongens,F2.mongens)
+	if w==[]:
+		#print('w is the empty word')
+		return([])
+	F=(F1,F2)
+	#Fmongens=(F1.mongens,F2.mongens)
+	#print(Fmongens)
 	error=0
 	n=len(w)-1
-	if w[n] in F[0]:
+	if F[0].is_element(w[n])==1:
 		f=0
-	else:
+		#print('f is ',f)
+	elif F[1].is_element(w[n])==1:
 		f=1
+		#print('f is ',f)
+	else:
+		print('Error: ',w[n],'not in F1 or F2')
+		return
 	ff=f
 	for s in range(n,-1,-1):
-		if w[s] not in F[f]:
-			print("error message")
+		#print('s is',s,'f is',f)
+		if F[f].is_element(w[s])==0:
+			print("Error: ",w[s],'is not in F',f)
 			error=1
+			#print('error becomes 1')
 			break
+		f=1-f
 	if error==1:
 		return
 	H=(H1,H2)
 	for s in range(n,-1,-1):
 		#w[s] in H[f]: #need to make this work - H[f] isn't actually a list of generators here, making a new hf_test function
 			#put w[s] in terms of H[1-f] here
+		#print('s is',s)
+		#print('w is',w)
 		t=hf_test(w[s],H[f])
 		if t[0]==1:
 			w[s]=t[1]
-		if s==n:
-			w[s-1]=w[s-1]+w[s]
-			w[s]=element(w[s]).word
-			w.pop(s)
-		elif s==1:
-			w[s]=w[s]+w[s+1] #(reduced)
+		elif s==0 and len(w)>1:
+			w[s]=w[s]+w[s+1]
 			w[s]=element(w[s]).word
 			for i in range(s+2,n):
 				w[i-1]=w[i]
 				w.pop(len(w)-1)
+		elif s==0:
+			break
+		end=0
+		if s==len(w)-1:
+			end=1
+		if s==n or end==1:
+			w[s-1]=w[s-1]+w[s]
+			w[s]=element(w[s]).word
+			w.pop(s)
 		else:
 			w[s-1]=w[s-1]+w[s]+w[s+1]
 			w[s-1]=element(w[s-1]).word
@@ -184,10 +209,13 @@ def amalgamate(w,F1,F2,H1,H2):
 				w.pop(len(w)-1)
 				w.pop(len(w)-1)
 		f=1-f
+		#print(w)
+		#print(len(w))
+	print(w)
 	return(w)
 
 def hf_test(w,H):
-	t=graph_pass(H).acc_read_rem()
+	t=graph_pass(H.flower,w).acc_read_rem()
 	if len(t[1])==0 and len(t[2])==0:
 		j=1
 		w=phi(H,t[4])
