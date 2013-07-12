@@ -41,8 +41,8 @@ class free_group(object):
 			if not (c in self.mongens):
 				i = 0
             
-		if i == 0:
-			print("Warning word", word, "is not in the free group")
+		#if i == 0:
+		#	print("Warning word", word, "is not in the free group")
 
 		return(i) # i = 0 if word is not in given gens
 

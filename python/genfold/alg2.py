@@ -118,7 +118,7 @@ def alg2(w,F1,F2,H1,H2):
 def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
 	ww = []
 	for c in w:
-		#print("here  1, F1.is_element(c), F2.is_element(c)", F1.is_element(c), F2.is_element(c))
+		print("here  1, F1.is_element(c), F2.is_element(c)", F1.is_element(c), F2.is_element(c))
 		if F1.is_element(c)!=0:
 			print("c is ",c, "in F1", F1.is_element(c))
 			d = Normal_form(flower1,c,double1).spit_out_nf()
