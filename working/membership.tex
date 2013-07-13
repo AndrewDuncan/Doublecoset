@@ -680,11 +680,11 @@ automaton.
 
 Let $A=(\G_A,s_0,f_0)$ be an inverse automaton.
 If $w$ is readable by $A$ then there exists a
-unique vertex  $\t(w)$ of $\G_A$ such that $w$ is accepted by
+unique vertex  $\t(w)=\t_A(w)$ of $\G_A$ such that $w$ is accepted by
 $(\G_A,s_0,\t(w))$: we call $\t(w)$ the {\em terminal vertex} of $w$. ($L$ is the set of words $w$ readable by $A$ which have 
 $\t(w)=s_0$.)
 Fix a spanning tree $T$ for $\G_A$. For each vertex $v$ of $\G_A$
-let $w(v)$ denote the label of the path in
+let $w(v)=w_A(v)$ denote the label of the path in
 $T$ from $s_0$ to $v$.  Define
 \[L_T=L_T(A)=\{w(v): v \textrm{ is a vertex of } A\}.\]
 Thus $L_T\subseteq L_Q$.
@@ -1658,7 +1658,7 @@ Given $w\in F(X)$ such that $w\in H$, we require
 an expression $w=_F a t$, such that $a\in H_d$ and $t\in \cT_d$ 
 (in which case $t\in \cT_d\cap H$). However, the graph $\G_d'$ 
  which we have constructed, enables us only to find an expression
-$w=a't'$, where $a\in H^{a_1}\cap H^{a_0}$ and $t'\in \cT_d'$. Therefore
+$w=a't'$, where $a'\in H^{a_1}\cap H^{a_0}$ and $t'\in \cT_d'$. Therefore
 we first replace $w$ with  
   $w'=a_1^{-1}w$ (as a reduced word).  
  Next find the maximal
@@ -1774,7 +1774,7 @@ help of $\G_H$ and its output labels.
 \subsection{Double coset normal forms in the free group}
 If $w\in F$ then we say that a triple $(a,d,t)$ is the 
 \emph{double coset normal form} of $w$ 
-(with respect to $H$ and $D$, defined above) if $w=F adt$, 
+(with respect to $H$ and $D$, defined above) if $w=_F adt$, 
 $a\in H$, $d \in D$ and $t\in \cT_d$, the relative transversal 
 for $H_d\le H$. From Proposition \ref{prop:reltran} every element
 of $F$ has a unique double coset normal form. When the meaning
@@ -1783,22 +1783,54 @@ normal form $(a,d,t)$  as $adt$.
 In the light of the proof of  Proposition \ref{prop:dcreps} and  Lemma 
 \ref{lem:reltran} there exists an
  algorithm to find the double coset normal form of an element of $F$. 
-Algorithm I in  Sections \ref{sub:sum_algI}, \ref{sub:alg1ex} and 
-\ref{sub:alg1ex2} carries out this process. The first part of
+Algorithm I in  Sections \ref{sub:sum_algI} and  \ref{sub:alg1ex} carries out this process. The first part of
 this  algorithm, in Section \ref{sub:sum_algI}, constructs the 
 automata necessary for processing  with respect to a chosen
  subgroup $H$ of $F$. The next part of  the  algorithm in 
-Section \ref{sub:sum_algI},  following the proof of Proposition 
-\ref{prop:dcreps},  takes  a word  $w\in F$ and outputs an triple
+Section \ref{sub:alg1ex},  Steps \ref{it:alg1_1} to \ref{it:dc1},
+following the proof of Proposition \ref{prop:dcreps},  
+  takes  a word  $w\in F$ and finds an triple
 $(h,d,h')$, where $h,h'\in H$, $d\in \{1\}\cup S^{(1)}\cup S^{(2)}$
-and $w=_F hdh'$. 
-The final part of the algorithm, in Section \ref{sub:alg1ex2}, takes
-this triple $(h,d,h')$ as input.  The word $h'$ is rewritten, 
+and $w=_F hdh'$. If $d$ is in $\{1\}\cup S^{(1)}$ the algorithm
+outputs this triple. Otherwise, the word $h'$ is rewritten, 
 as in   
 Lemma \ref{lem:reltran}, as $h'=gt$, where $g\in H_d$ and  $t\in \cT_d$.
 As $g\in H_d$ there exists  and $g'\in H$ such that $g'=d^{-1}gd$ 
 and so we have $w=hdh'=hdgt=hg'dt=adt$, where $a=hg'\in H$. The 
   algorithm outputs $(a,d,t)$. 
+
+To see that the algorithm in Section \ref{sub:sum_algI} does give the 
+required output, note first that if $w\in F$ belongs to a double
+coset $HdH$, where $d\in \{1\}\cup S^{(1)}$, then Steps \ref{it:alg1_1} to
+\ref{it:dc1} carry through the process implicit in the proof of 
+Proposition \ref{prop:dcreps} and outputs $(a,b,c)$, where $b=d$, $a,c\in H$,
+and $w=abc$. In this case the transversal $\cT_d=\{1\}$ and so 
+$(a,b,c)$ is the double coset normal form of $w$. On the other hand
+if $w=hdh'$, where $d$ is in $S^{(2)}$, then it follows from the 
+proof of Proposition \ref{prop:dcreps}, that such (unique) 
+$d$ is found in Step \ref{it:dc2}
+of the algorithm. At this point 
+$w=hpcy^{-1}\cdot yz^{-1}\cdot zc^{-1}t^{-1}g^{-1}$, with
+ $hpcy^{-1}$ and $zc^{-1}t^{-1}g^{-1}$ in $H$ and $d=yz^{-1}\in D$. 
+The next step is to find the representative of $zc^{-1}t^{-1}g^{-1}$ 
+in $\cT_d$. As in the proof of Lemma \ref{lem:reltran} to do this
+$\b'=zc^{-1}t^{-1}g^{-1}$  is replaced by $\b=z\b'= c^{-1}t^{-1}g^{-1}$.
+Here $y=w(u_0)$ and $z=w(v_0)$, where $u_0=\t(p)$ and $v_0=\t(t)$.  
+The component $\G_d$ of $\G_A\times \G_A$ 
+containing the vertex $(u_0,v_0)$ is then
+used to find an expression $\b=\b_0\circ \g_0\circ \g_1$, where $\b_0$
+is the maximal prefix of $\b$ accepted by $A_d=(\G_d,(u_0,v_0))$ and $\g_0$ is
+the maximal prefix of $\b_1$ readable by $A_d$. A spanning forest
+$F_A$ for $\G_A\times \G_A$ has been computed by the algorithm of 
+Section \ref{sub:sum_algI} and the component of this forest contained
+in $\G_d$ is denoted $T_d$. The algorithm finds the label $\d$ of a path
+from $(u_0,v_0)$ to $\t(\g_0)$ in $T_d$. As in the proof of Lemma 
+\ref{lem:reltran}, $\b=(z\b_0\g_0\d^{-1}z^{-1})(z\d\g_0)$, with
+$t=z\d\g_0\in \cT_d$ and $\b''=z\b_0\g_0\d^{-1}z^{-1}\in H_d$. The output
+from the algorithm is then $(a,yz^{-1},t)$, where 
+\[a=hpcy^{-1}(yz^{-1})\b''(yz^{-1})^{-1}
+=hpcz^{-1}(z\b_0\g_0\d^{-1}z^{-1})zy^{-1} =hpc\b_0\g_0\d^{-1}y^{-1}.\]
+
 \begin{example}\label{ex:f_1_again}
 Consider the elements 
 $f_1$ and $f_2$ of the free group $F_1$ of Example \ref{ex:f_1}. 
@@ -1934,11 +1966,13 @@ ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a
  Let $D_1$ and $D_2$ be sets of  double coset representatives for
 $H_1\le F_1$ and $H_2\le F_2$, respectively. For $j=1,2$ and $d\in D_j$ let 
 $\cT_d$ be a relative transversal for $H_d=H_j\cap H_j^d$ in $H_j$. 
-A word $w\in \FF(X_1\cup X_2\cup Z)$ is in
-\emph{double coset normal form}, or \emph{dc-normal form}, with
-respect to $D_1\cup D_2$, if
-$w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, $k\ge 0$,   where 
+The \emph{double coset normal form}, or \emph{dc-normal form, with
+respect to} $D_1\cup D_2$, of a 
+ word $w\in \FF(X_1\cup X_2\cup Z)$ is a sequence 
+\[(h_{0},p_1,h_{1},p_2, \ldots, h_{k-1},p_k,h_{{k}}),\] $k\ge 0$,
+such that  
 \be[(a)]
+\item $w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, 
 \item $h_i$ is a reduced word in $\FF(Z)$, for $i=0,\ldots, k$;
 \item  $p_i  \in D_1\cup D_2$ and $p_i\neq 1$, for $i=1,\ldots, k$,  
 \item if  $p_i\in D_j$ then $p_{i+1}\notin D_j$, for $j\in \{1,2\}$
@@ -1948,6 +1982,9 @@ and $i=1,\ldots ,k-1$, and
 \end{definition}
 From now on when we say ``normal form'' we mean ``double coset normal form'' unless
 we explicitly say something to the contrary.
+ We shall often write the normal form above as 
+$h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, instead of writing it as 
+sequence. 
 \begin{comment}
 \begin{theorem}\label{thm:dcnf} Let $D_1$ and $D_2$ be sets of  double coset representatives for
 $H_1\le F_1$ and $H_2\le F_2$, respectively. 
@@ -2128,36 +2165,42 @@ Thus
 
 
 To write words in $\FF(X_1\cup X_2)$   double coset normal form  for
- the group $G$  we run the 
-following algorithm; the steps of which are described in detail in Section 
-\ref{sub:summaryII}. \\[1em]
-\noindent{\bf Algorithm II}.\\
-\be
-\item
-Given a word $w\in \FF(X_1\cup X_2)$, 
-using
-\ref{it:st1} and \ref{it:st2}, on page \pageref{it:st1} write $w$ in reduced form, 
-$w=w_1\ldots w_r$, where $w_i\in F_{j_i}$, $j_i\in \{1,2\}$ and if $r>1$ then, 
-for all $i>1$, we have $w_i\notin H_{j_i}$  and $j_{i-1}\neq j_i$.  
-\item
-For $i=1,\ldots ,r$,  if $w_i\in F_{j_i}$, 
-find the double coset representative $p_i \in D_{j_i}$ such that 
-$w_i\in H_{j_i}p_iH_{j_i}$. Write $w_i=h_ip_ih_i'$, with 
-$h_i,h_i'\in D_{j_i}$. 
-\item
-Starting on the right rewrite $w_r$ as $h_rp_rt_r$, where 
-$t_r\in \cT_{p_r}$ and $h_r\in H_{j_{r-1}}$, as in the proof of 
-Theorem \ref{thm:dcnf}. Continuing this way (as in the proof of Theorem
-\ref{thm:dcnf}) find $h_0\in H_{j_0}$, $p_i\in D_{j_i}$ and 
-$t_i\in \cT_{p_i}$, such that $w=_G h_0 p_1 t_1 \cdots p_rt_r$. 
-\item 
-For $i=1,\ldots, r$, replace $t_i$ with $v_i=\phi^{-1}_{j_i}(t_i)$ and 
-replace $h_0$ with $v_0=\phi^{-1}_{j_0}(h_0)$. 
-\item 
-Output the  dc-normal form of 
-$w= 
-v_0p_1v_1 \cdots p_rv_r$. 
-\ee
+ the group $G$  we run 
+an algorithm which combines
+the reduction process, outlined on page \pageref{it:st1}, 
+\ajd{which needs updating to start from the rhs } with Algorithm I. 
+The following is an outline of this algorithm, which we call 
+Algorithm II. More detail is   given in 
+ Section 
+\ref{sub:summaryII}.
+ Algorithm II  writes a word $w\in \FF(X_1\cup X_2)$ as a product
+$f_1\cdots f_s$, where $f_i\in F_j$, for $j=1$ or $2$, and $f_i$ and $f_{i+1}$ are not
+both from the same $F_j$. An output list is created, initially blank. 
+Then, starting on the right with $f_t$, Algorithm
+I is applied to write each syllable in its double coset normal form 
+ $(a_i, d_i, c_i)$, with respect to the 
+ free group to which it belongs. Set 
+$a'_i= \phi_{1-j}\phi_j^{-1}(a_i)$ and $t_i=\phi_j^{-1}(c_i)$. 
+ If syllable 
+$f_i$ is not in $H_1\cup H_2$ then $(d_i,t_i)$ 
+is added to the left hand end 
+of the output list. If $i>1$ then $f_{i-1}$ is replaced with 
+$f_{i-1}a'_1$,   
+and the process continues with the new syllable $f_{i-1}$, while
+if $i=1$ then $\phi_j^{-1}(a_i)$ is added to the left of the output list and 
+the algorithm halts.  On the other hand,  
+if $f_i$ turns out to be
+in $H_j$, and $i>1$, then syllables $f_{i-1}$, $f_i$ 
+and $f_{i+1}$  are replaced by a single syllable 
+$f'_{i-1}=f_{i-1}a'_i f_{i+1}$, the pair $(d_{i+1},t_{i+1})$ 
+is deleted from the left hand end of the output list
+and the process continues, starting at the new  $(i-1)$ syllable $f_{i-1}$.
+If $f_i\in H_j$ and  
+$i=1$ then $\phi_{1-j}^{-1}(a'_i)=\phi_j^{-1}(a_i)$ 
+is appended  to the left hand end of the output list and 
+the algorithm halts.
+
+
 \begin{example}\label{ex:g}
 Let $F_i$ and $H_i$ be given in Examples \ref{ex:f_1} and
 Example \ref{ex:f_2}, and
@@ -2763,19 +2806,26 @@ in Section \ref{sec:TC} below. That is we summarise Algorithms I and III
 and the Generalised Folding Loop of Section \ref{sec:dca}. The Generalised Folding Loop, which calls Algorithm III
 during its execution, is what we refer to as the ``Generalised Folding
 Algorithm''.
-\subsection{Summary of algorithms I \& II}\label{sub:sum_algI}
+\subsection{Summary of Algorithms I}\label{sub:sum_algI}
 \ajd{In this section the automaton for $H$ is $\G_A$ and for 
 $H_i$ is $\G_{A_i}$. This now seems a waste of letters and probably
 is not the notation used elsewhere, or is it?}
-\subsubsection{Preproccessing.}
+\subsubsection{Preproccessing.}\label{sub:algIpre}
 Given $H\le F$
  the
 steps in this subsection are carried out once. Subsequently  execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
 to find double coset normal forms of elements of $F$.
 \ajd{Here we are assuming that the group $H$ is already given by
- a basis $Y$. We should not do this. The input generators $Y$ may not
-freely generate $H$ and the output should include a basis $Y'$ for 
-$H$, corresponding to the maximal subtree $T$ of $\G_A$.}
+ a basis $Y$. In principle this is the situation, as we are
+supposed to have an amalgam, which presupposes that we have
+2 isomorphic subgroups: and an isomorphism between them. When it comes
+to constructing an algorithm this is a pain. When we input generators
+we do a stallings folding and choose a spanning tree by BFS. We can
+use this to test that our generators $Y$ were free generators. However,
+we may obtain a different set of generators from the original. Then we
+have to specify the automorphism between the 2 subgroups. At present
+our programs automatically fix the automorphism (well they do if we
+are lucky.}
 
 \noindent\textbf{Input.}
 \biz
@@ -2788,12 +2838,18 @@ $H$, corresponding to the maximal subtree $T$ of $\G_A$.}
 $\G_A$, the Stallings automaton for the subgroup $H=\la Y\ra$ of $\FF(X)$.
 \item
 $L_T$, the set of words corresponding to a  maximal subtree $T$ of $\G_A$.
+\item A spanning forest $F_A$ for $\G_A\times \G_A$. 
 \item The set $P$ of non-diagonal elements of $V( \G_A\times \G_A)$
 partitioned into equivalence classes of $\sim$ (i.e. vertices in the
 same connected components of $\G_A\times \G_A$).
 \item $P_0$ the set of representatives of equivalence classes of
 elements of $P$.
 \item $C$ the set of connecting elements, one for each element of $P$.
+(Each element of $C$ is the label of a path in $F_A$.) 
+\item \ajd{(We also need to keep track of the map between the basis $B$ corresponding to the tree $T$ and the generators $Y$, assuming the later is a basis. 
+The point is we will specify an isomorphism of $H_1$ and $H_2$ in the
+next section by matching up their generators. If we change basis, then
+we need to compute the effect of this isomorphism on the new basis.)}
 \eiz
 \noindent\textbf{Process.}
 Let $N=\sum_{y\in Y} |y|$.
@@ -2814,14 +2870,14 @@ BFS or DFS, so one problem I was worrying about disappears.) ($O(N^2)$.)
 \end{comp}
 \item Find connected components of $\G_A\times \G_A$. This can be
 done by doing a BFS or DFS of $\G_A\times \G_A$, which constructs
-a spanning forest $F$ at the same time as finding the set $C$ of
+a spanning forest $F_A$ at the same time as finding the set $C$ of
 connecting elements,
-which can be taken to be labels of paths in the spanning forest $F$.
+which can be taken to be labels of paths in the spanning forest $F_A$.
 \begin{comp}
 ($O(N^4)$).
 \end{comp}
 \item Construct the set $P_0$. This can be done using $L_T$ and
-the forest $F$.
+the forest $F_A$.
 \begin{comp}
 ($O(N^2)$).
 \end{comp}
@@ -2834,7 +2890,7 @@ Algorithm III?
 \begin{comp}
 Preprocessing time is bounded above by $O(N^4)$.
 \end{comp}
-\subsubsection{Execution of Algorithm I, Part 1}\label{sub:alg1ex}
+\subsubsection{Execution of Algorithm I}\label{sub:alg1ex}
 \noindent\textbf{Input.}
 \biz
 \item $w$, a reduced word in $\FF(X)$.
@@ -2847,7 +2903,7 @@ of $H$.
 \eiz
 \noindent\textbf{Process.}
 \be[{B}1]
-\item Find the maximal prefix $h$ of $w$ accepted by $\G_A$.
+\item\label{it:alg1_1} Find the maximal prefix $h$ of $w$ accepted by $\G_A$.
 Let $w=h\circ f$.
 \item If $h=w$ then output $(w,1,1)$ and stop. 
 \item Use $\G_A$ to find the maximal $L_Q$-prefix $p$ of $f$.
@@ -2860,78 +2916,90 @@ Let $r=t\circ e^{-1}$.
 \item Using $L_T$, set $y=w(\t(p))$ and $z=w(\t(t))$.
 \item Freely reduce $hpy^{-1}$, $yez^{-1}$ and $zt^{-1}g^{-1}$ and
 call the results   $a, b$ and $c$, respectively.
-\item Output $(a,b,c)$ and stop.
+\item\label{it:dc1} Output $(a,b,c)$ and stop.
 \item\label{it:ss} (This step is reached only if $e= 1$.)
- Using $P_0$ and $F$ find the representative $(u_0,v_0)$ of $(u,v)$, where
+ Using $P_0$ and $F_A$ find the representative $(u_0,v_0)$ of $(u,v)$, where
 $u=\t(p)$ and $v=\t(t)$.
 \item Look up the connecting element $c=c(u,v)$.
-\item Let $y=w(u_0)$ and $z=w(v_0)$.
-\item Freely reduce $hpcy^{-1}$ and $zc^{-1}t^{-1}g^{-1}$ and call the
+\item\label{it:dc2} Let $y=w(u_0)$ and $z=w(v_0)$.
+\item \ajd{Now we rewrite into the normal form as in 
+Lemma \ref{lem:reltran}.}
+ Let
+$d=yz^{-1}$, let $\b=c^{-1}t^{-1}g^{-1}$ and let $\G_d$ be the component
+of $\G_A\times \G_A$ containing $(u_0,v_0)$. Let $T_d$ be the intersection
+of the spanning forest $F_A$, for $\G_A\times \G_A$, with $\G_d$ and 
+let $A_d$ be the automaton $A_d=(\G_d,(u_0,v_0))$.
+\item Find the maximal prefix $\b_0$ of $\b$ which belongs to $L(A_d)$;
+say $\b=\b_0\circ \b_1$. 
+\item Find the maximal $L_Q(A_d)$ prefix $\g_0$ of $\b_1$, say 
+$\b_1=\g_0\circ \g_1$. 
+\item Let $\tilde v=\t_{A_d}(\g_0)$ and set $\d=w_{A_d}(\tilde v)$ 
+(so $\d$ is the
+label of the path in $T_d$ from $(u_0,v_0)$ to $\tilde v$). 
+\item Freely reduce $hpc\b_0\g_0\d^{-1}y^{-1}$ 
+and $z\d\g_1$ and call the
 results $a$ and $b$, respectively.
-\item Output $(a,yz^{-1},b)$.
+\item\label{it:alg1_end} Output $(a,yz^{-1},b)$.
 \ee
 
 \begin{comp}
 The time required for these steps is $O(|w|)$.
 \end{comp}
-\subsubsection{Execution of Algorithm I, Part 2}\label{sub:alg1ex2}
-\subsubsection{Execution of Algorithm II}\label{sub:summaryII}
+
+\subsection{Summary of Algorithm II}\label{sub:summaryII}
 Given $F_1*_{H_1=H_2} F_2$
  the
-steps in this Section \ref{sub:sum_algI} are carried out once for
+steps in  Section \ref{sub:algIpre} are carried out once for
 each group $H_i$. Once these steps have been completed
 then execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
 to find double coset normal forms for elements
-of $F_1$ or $F_2$. The following algorithm combines
-the reduction process, outlined on page \pageref{it:st1}, with Algorithm I to
-write elements in  double coset normal form in $F_1*_{H_1=H_2} F_2$.
+of $F_1$ or $F_2$.
 
-\ajd{The first 2 steps below repeat p. 5 and probably don't use
-the correct conventions on  terminology for this section, and the second two
-just repeat what's written in the previous version of alg II above, so 
-all needs tidying up.}
 \noindent\textbf{Input.}
 \biz
 \item $w\in \FF(X_1\cup X_2)$.
 \eiz
 \noindent\textbf{Output.}
 \biz
-\item The dc-normal form of $w$ with respect to $D_1\cup D_2$. 
+\item The dc-normal form of $w$ with respect to $D_1\cup D_2$.
+That is  a sequence $(g_0,d_1,t_1,\ldots, d_m,t_m)$, satisfying 
+the conditions of Definition \ref{def:dcnf} for the dc-normal form of $w$. 
 \eiz
 \noindent\textbf{Process.}
 \be[{C}1]
-\item\label{it:C1} For $i=1,\ldots ,t$, do the following.
-Write each $f_i$ as  a reduced word in $F_1$ or $F_2$ as appropriate.
-If $f_i\in F_k$ then,
-using an algorithm for the membership problem in $H_k$, check whether or not
-$f_i \in H_k$.
- If none of the $f_i$'s lies in $H_1$ or $H_2$ then
-$g= f_1 \cdots f_t$ is in  reduced form.
-\item\label{it:C2}  Now suppose that some $f_i \in H_k$,  and let  $i$ be the
-minimal index with this property. Then $\phi^{\pm 1}(f_i)=c\in H_{l}$, $l\neq k$.
-If $i = 1$, rewrite $g$  in the
-form $g = f'_2 f_3 \cdots f_t$,  where  $f'_2 = cf_2$, an element of $F_1\cup F_2$.
-If $i > 1$ then rewrite $g$ as
-$g = f_1 \cdots f_{i-2} f'_{i+1}f_{i+2} \cdots f_t$, where
-$f'_{i+1} = f_{i-1}c f_{i+1}\in F_1\cup F_2$. Return to
-\ref{it:C1}.
-\item
-   write $w$ in reduced form, 
-$w=w_1\ldots w_t$, where $w_i\in F_{j_i}$, $j_i\in \{1,2\}$ and if $t>1$ then, 
-for all $i>1$, we have $w_i\notin H_{j_i}$  and $j_{i-1}\neq j_i$.  
-\item
-For $i=1,\ldots ,t$, using Algorithm I,  write $w_i$ in double coset 
-normal form, with  respect to $D_{j_i}$: say $w_i=z_ip_iz_i'$, where
-$z_i,z_i'\in \FF(Z)$ and $p_i\in D_{j_i}$.  
-\item
-For $i=2,\ldots, t$, freely reduce the word $z_{i-1}'z_i'$ to give
-a word $z_i''$. Output the  dc-normal form of $w= 
-z_1p_1z_2'' \cdots z_t''p_tz_t'$. 
+\item\label{it:alg2_start} Write $w=f_1\circ \cdots \circ f_s$, where 
+$f_i\in F_1\cup F_2$ and $s$ is as small as possible. 
+\item\label{it:C1} Let $L$ be a blank list and  set $i=s$. 
+\item\label{it:C2}  
+If $f_i\in F_j$ then 
+input $f_i$ to (Step \ref{it:alg1_1} of) Algorithm I, for the subgroup
+$H_j$ of $F_j$. Let the output be $(a_i,d_i,c_i)$ and 
+set $a'_i= \phi_{1-j}\phi_j^{-1}(a_i)$ and $t_i=\phi_j^{-1}(c_i)$.
+\item\label{it:C3}
+If $d_i\neq 1$ then append $(d_i,t_i)$ to the left hand end of $L$. 
+If $i>1$ replace $f_{i-1}$ with $f_{i-1}a'_i$, subtract $1$ from 
+$i$ and repeat from Step \ref{it:C2}. If $i=1$, append $\phi_j^{-1}(a_i)$ 
+to the 
+left hand end of $L$, output $L$ and stop. 
+\item If $d_i=1$ (so $t_i=1$) then 
+\begin{itemize}
+\item if $i=s$, replace $f_{i-1}$ with $f_{i-1}a'_i$, delete $f_i$ and subtract $1$ from $s$;
+\item if $1<i<s$, replace $f_{i-1}$ with $f_{i-1}a'_if_{i+1}$,  
+replace $f_{i+k}$ with $f_{i+k+2}$, for $k=0,\ldots, s-i-2$, delete 
+$f_{s-1}$, and $f_s$, subtract $2$ from $s$  and
+delete the first two entries (which are $d_{i+1}$ and $t_{i+1}$) from
+the left hand end of  
+$L$ and 
+\item if $i=1$, append $\phi_j^{-1}(a_i)$ to the left hand end of $L$.
+\end{itemize}
+If $i=1$ then output $L$ and stop. 
+If $i>1$ then subtract $1$ from $i$ and repeat from Step \ref{it:C2}.
 \ee
 \subsection{Summary of Algorithm III}\label{sub:summaryIII}
 
-Here we assume $F_1*_{H_1=H_2} F_2$
- where $F_k$ is generated by $X_k$, $H_k$ is generated
+In this section, we assume that 
+ %$F_1*_{H_1=H_2} F_2$ where 
+$F_k$ is generated by $X_k$, $H_k$ is generated
 by $Y_k=\{h_{k,1},\ldots, h_{k,m}\}$
 and the Stallings automata $\G_{A_k}$ for $H_k$ have
 been constructed, for $k=1,2$. Let  $\S=(X_1\cup X_2\cup Z)^{\pm 1}$ and, for $k=1,2$,
@@ -2962,6 +3030,9 @@ corresponding to $h_{k,i}$ has
 image under $\phi_k^{-1}$ can be read off from $\G_{A_k}$ (regarded as a
  transducer), by reading output labels.
 \ee
+
+
+
 
 \noindent\textbf{Input.}
 \biz
