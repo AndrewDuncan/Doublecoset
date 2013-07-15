@@ -21,7 +21,7 @@ def listsplitter(w,f1gens,f2gens):
 				else:
 					j=1
 					ww.append([w[c]])
-	print (ww)
+	#print (ww)
 	for c in range(1,l):
 		if w[c]==[]:
 			w.remove(w[c])
@@ -73,7 +73,7 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 		for i in range(0,len(w)):
 			if w%2==0:
 				w[i]=element(w[i]).word
-		print(w)
+		#print(w)
 		return(w)
 
 def alg2_pre(H1,H2):
@@ -94,19 +94,24 @@ def alg2_pre(H1,H2):
 	return(flower1,flower2,double1,double2,forest1,forest2)
 
 def alg2(w,F1,F2,H1,H2):
+	print(w)
+	w=element(w).word
 	w=popper(w)
+	if w==[]:
+		print([])
+		return []
 	listtest(w,F1.mongens,F2.mongens)
 	if listtest(w,F1.mongens,F2.mongens)==0:
 		print(w,' isn\'t a word in the free (amalgamated) product')
 		return
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=amalgamate(w,F1,F2,H1,H2)
-	print(w)
+	#print(w)
 	listsplitter(w,F1.mongens,F2.mongens)
-	print(w)
+	#print(w)
 	w=reducelist(w)
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
-	print(w)
+	#print(w)
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
 	w=joiner(w)
@@ -118,22 +123,22 @@ def alg2(w,F1,F2,H1,H2):
 def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
 	ww = []
 	for c in w:
-		print("here  1, F1.is_element(c), F2.is_element(c)", F1.is_element(c), F2.is_element(c))
+		#print("here  1, F1.is_element(c), F2.is_element(c)", F1.is_element(c), F2.is_element(c))
 		if F1.is_element(c)!=0:
-			print("c is ",c, "in F1", F1.is_element(c))
+			#print("c is ",c, "in F1", F1.is_element(c))
 			d = Normal_form(flower1,c,double1).spit_out_nf()
-			e = [d[3],d[1],d[4]]
-			#e = [d[0],d[1],d[2]]
+			#e = [d[3],d[1],d[4]]
+			e = [d[0],d[1],d[2]]
 			#print("here  2")
 		elif F2.is_element(c)!=0:
-			print("c is ",c, "in F2",F2.is_element(c))
+			#print("c is ",c, "in F2",F2.is_element(c))
 			d = Normal_form(flower2,c,double2).spit_out_nf()
-			e = [d[3],d[1],d[4]]
-			#e = [d[0],d[1],d[2]]
+			#e = [d[3],d[1],d[4]]
+			e = [d[0],d[1],d[2]]
 			#print("here  3")
 		else:
-			sprint(c," isn't a word in either free group")
-		print("Syllable in normal form is ",e)
+			print(c," isn't a word in either free group")
+		#print("Syllable in normal form is ",e)
 		ww.append(e)
 		#print("here  4")
 	return(ww)
@@ -145,8 +150,6 @@ def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
 
 def popper(w):
 	return [e for e in w if e!=""]
-
-from alg2 import *
 
 def amalgamate(w,F1,F2,H1,H2):
 	if w==[]:
