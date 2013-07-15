@@ -10,6 +10,6 @@ H2=subgroup('H2',[h3,h4],['u','v'])
 
 w=[['a1','a1'],['b2'],['a3'],['B4']]
 
-#alg2(w,F1,F2,H1,H2)
+alg2(w,F1,F2,H1,H2)
 
 amalgamate(w,F1,F2,H1,H2)

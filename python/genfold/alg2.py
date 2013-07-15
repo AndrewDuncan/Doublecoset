@@ -211,6 +211,7 @@ def amalgamate(w,F1,F2,H1,H2):
 		f=1-f
 		#print(w)
 		#print(len(w))
+	w=w[0]
 	print(w)
 	return(w)
 
