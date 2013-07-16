@@ -164,6 +164,9 @@ The Stallings folding for $H_1$ is shown in the figure.
 \end{center}
 \end{figure}
 
+$K=\la a'a,a^{-1}b\ra$. 
+
+
 Now,
 \[
 a'a (a^{-1}b) a^{-1}a'^{-1}= a'(ba^{-1})a'^{-1}= a'b'a'^{-1}a'^{-1}=a'b'a'^{-2},
@@ -174,20 +177,6 @@ a'a(a^{n-1}ba^{-n})a^{-1}a'^{-1}&=a'(a^nba^{-(n+1)})a'^{-1}\\
 &=a'(a'^nb'a'^{-(n+1)})a'^{-1}\\
 &=a'^{n+1}b'a'^{-(n+2)},
 \end{align*}
-an element of one syllable, for all $n$. 
-
-In fact, for any element $w$ of the free group on $\{a,b\}\cup \{a',b'\}$
- $w a^{n-1}ba^{-n} w^{-1}$ will be an element of one syllable. 
-Can you write a loop to input a word $w$ and test this, for values
-of $n$ from $0$ to ... n?
-\end{example}
-\begin{example}
-Take $F_i$, $H_i$ to be as in Examples 2.8 and 2.9 of the paper on the
-membership problem. Stallings foldings are shown in the paper. 
-Check the amalgamate program works with the following.\\
-$x_1x_2y_1^2x_1^2$ is already in reduced form.\\
-$x_1x_2y_1^2x_1^3$ has reduced form $x_1x_2y_1^2y_3y_4$\\
-$x_1x_2y_1^2x_1^3y_4^{-1}y_1^{-1}y_2^{-1}$ has reduced form $x_1x_2
-x_1x_2x_3x_1^{-3}$. 
+an element of one syllable.
 \end{example}
 \end{document}
