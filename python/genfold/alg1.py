@@ -311,16 +311,20 @@ def subgroup_basis(folding): #Find a free generating set for the subgroup H with
 
 
 def phi(subgroup,zword): #map a word in the free group on the Z generators of subgroup H into a word on the free generators of H in F
-	y=[]
+	#y=[]
+	yy=[]
 	for i in range(0,len(zword)):
 		if zword[i] in subgroup.subgroup_free_gens.keys():#if zword[i] is in the list of keys of genrs of H
-			y=y+subgroup.subgroup_free_gens[zword[i]] # append the corresponding genr to the word y
+			#y=y+subgroup.subgroup_free_gens[zword[i]] # append the corresponding genr to the word y
+			yy.extend(subgroup.subgroup_free_gens[zword[i]])
 		elif zword[i].swapcase() in subgroup.subgroup_free_gens.keys():#if zword[i]^-1 is in the list of keys of genrs of H
-			y=y+element(subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse()# append the inverse of the corresponding genr to the word y
+			#y=y+element(subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse()# append the inverse of the corresponding genr to the word y
+			yy.extend((subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse())
 		else:
 			print("the word passed to phi contains a letter not in Z:", zword[i]) # otherwise set the error flag to 0 and return 
 			return([],0)
-		
-	return(element(y).word,1)
+		print(yy)
+	print(yy)
+	return(element(yy).word,1)
 
 	 

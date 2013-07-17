@@ -46,6 +46,11 @@ def listtest(w,f1gens,f2gens):
 	return(i)
 
 def joiner(w):
+	if w==[[[],[],[]]]:
+		return []
+	elif len(w)==1:
+		ww=ww[0][0]+ww[0][1]+ww[0][2]
+		return ww
 	ww=[w[0][0]]
 	#print('ww=[w[0][0]]= ', ww)
 	for i in range(0,len(w)-1):
@@ -96,7 +101,9 @@ def alg2_pre(H1,H2):
 def alg2(w,F1,F2,H1,H2):
 	print(w)
 	w=element(w).word
+	print('w=element(w).word\n',w)
 	w=popper(w)
+	print('w=popper(w)\n',w)
 	if w==[]:
 		print([])
 		return []
@@ -105,18 +112,25 @@ def alg2(w,F1,F2,H1,H2):
 		print(w,' isn\'t a word in the free (amalgamated) product')
 		return
 	w=listsplitter(w,F1.mongens,F2.mongens)
+	print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
 	w=amalgamate(w,F1,F2,H1,H2)
-	#print(w)
-	listsplitter(w,F1.mongens,F2.mongens)
-	#print(w)
+	print('w=amalgamate(w,F1,F2,H1,H2)\n',w)
+	w=listsplitter(w,F1.mongens,F2.mongens)
+	print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
 	w=reducelist(w)
+	print('w=reducelist(w)\n',w)
 	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
 	#print(w)
-	w=listsplitter(w,F1.mongens,F2.mongens)
+	#w=listsplitter(w,F1.mongens,F2.mongens)
+	#print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
+	print('w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)\n',w)
 	w=joiner(w)
+	print('w=joiner(w)\n',w)
 	w=popper(w)
+	print('w=popper(w)\n',w)
 	w=element(w).word
+	print('w=element(w).word\n',w)
 	print(w)
 	return(w)
 
@@ -156,8 +170,6 @@ def amalgamate(w,F1,F2,H1,H2):
 		#print('w is the empty word')
 		return([])
 	F=(F1,F2)
-	#Fmongens=(F1.mongens,F2.mongens)
-	#print(Fmongens)
 	error=0
 	n=len(w)-1
 	if F[0].is_element(w[n])==1:
@@ -181,6 +193,7 @@ def amalgamate(w,F1,F2,H1,H2):
 	if error==1:
 		return
 	H=(H1,H2)
+	f=ff
 	for s in range(n,-1,-1):
 		#w[s] in H[f]: #need to make this work - H[f] isn't actually a list of generators here, making a new hf_test function
 			#put w[s] in terms of H[1-f] here
@@ -222,7 +235,7 @@ def hf_test(w,H):
 	t=graph_pass(H.flower,w).acc_read_rem()
 	if len(t[1])==0 and len(t[2])==0:
 		j=1
-		w=phi(H,t[4])
+		w=phi(H,t[4])[0]
 	else:
 		(j,w)=(0,[])
 	return(j,w)
