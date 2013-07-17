@@ -1580,7 +1580,7 @@ to $a^{-1}T$, which is therefore Schreier.
 \end{proof}
 \begin{lemma}\label{lem:reltran}
 For each $d\in D$, there is a 
-relative Schreier transversals $\cT_d$, for $H_d\le H$, and there is  
+relative Schreier transversal $\cT_d$, for $H_d\le H$, and there is  
  an algorithm that, given $d\in D$ and a word $w \in F$ such that 
 $w\in H$, outputs $a,t\in F$ such that $a\in H_d$, $t\in \cT_d$ and 
 $w=_F at$. 
@@ -2230,6 +2230,37 @@ Hence the  double coset normal form of $g$ is
 \[L=(z_2^2 z_1,  x_1 x_3 x_1, z_1^{-1}z_2,
 y_1y_2, z_2 z_1z_3^{-1}z_2^{-1}, x_1^{-1}).
 \]
+\end{example}
+\begin{example}\label{ex:ce}
+Let $F_1=\FF( a_1,b_1)$, $F_2=\FF(a_2, b_2)$ and $H_i=\la b_ia_i^{-1}, b_i^3, 
+b_ia_ib_i,
+a_i^{-1}b_i\ra$, $i=1,2$
+Define $\phi_i$ to map $z_1$ to $  b_ia_i^{-1}$, $z_2$ to $b_i^3$, $z_3$ to 
+ $b_ia_ib_i$ and $z_4$ to $a_i^{-1}b_i$. 
+The Stallings folding $\G_{A_i}$ for $H_i$ is shown in Figure \ref{fig:ce}.
+\begin{figure}
+\begin{center}
+\psfrag{a1}{$a|z_1^{-1}$}
+\psfrag{a2}{$a|z_3$}
+\psfrag{a3}{$a|z_4^{-1}$}
+\psfrag{b1}{$b|1$}
+\psfrag{b2}{$b|z_2$}
+\includegraphics[scale=0.6]{ce.eps}
+\caption{}\label{fig:ce}
+\end{center}
+\end{figure}
+As $H_i$ is normal in $F_i$, the connected components of $\G_{A_i}\times
+\G_{A_i}$ are all isomorphic to $\G_{A_i}$. 
+
+The normal form of $b_1$ in $F_1$ is $(1,b_1,1)$. The normal form of 
+$b_2a_2b_2^{-2}$ in $F_2$ is $( b_2a_2b_2^{-2}, 1, 1)$. Therefore the 
+dc-normal form of $ b_2a_2b_2^{-2}b_1$  is $(z_3z_2^{-1},b)$.
+
+The normal form of $a_2b_2^{-1}$ in $F_2$ is $(a_2b_2^{-1}, 1 ,1)$. 
+To compute the normal form of $b_1a_2b_2^{-1}$ we must therefore compute
+the normal form of $b_1\phi_1\phi_2^{-1}(a_2b_2^{-1})=
+b_1a_1b_1^{-1}$ in $F_1$. The latter is $( b_1a_1b_1^{-2}, b_1,1)$, so
+the dc-normal form of $b_1a_2b_2^{-1}$ is again $(z_3z_2^{-1} , b_1)$.
 \end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
