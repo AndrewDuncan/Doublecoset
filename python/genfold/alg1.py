@@ -314,10 +314,12 @@ def phi(subgroup,zword): #map a word in the free group on the Z generators of su
 	#y=[]
 	yy=[]
 	for i in range(0,len(zword)):
-		if zword[i] in subgroup.subgroup_free_gens.keys():#if zword[i] is in the list of keys of genrs of H
+		#if zword[i] in subgroup.subgroup_free_gens.keys():#if zword[i] is in the list of keys of genrs of H
+		if zword[i] in subgroup.subgroup_free_gens:#a replacement of the above line to try to fix an error
 			#y=y+subgroup.subgroup_free_gens[zword[i]] # append the corresponding genr to the word y
 			yy.extend(subgroup.subgroup_free_gens[zword[i]])
-		elif zword[i].swapcase() in subgroup.subgroup_free_gens.keys():#if zword[i]^-1 is in the list of keys of genrs of H
+		#elif zword[i].swapcase() in subgroup.subgroup_free_gens.keys():#if zword[i]^-1 is in the list of keys of genrs of H
+		elif zword[i].swapcase() in subgroup.subgroup_free_gens:#a replacement of the above line to try to fix an error
 			#y=y+element(subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse()# append the inverse of the corresponding genr to the word y
 			yy.extend((subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse())
 		else:
