@@ -100,6 +100,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 		else:
 			self.vertices = vertices
 			self.root = self.vertices[0]
+		self.components=self.graph.components
         
 	def forest(self):
 		i = 0 #time a vertex is added
@@ -126,6 +127,8 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 			v.time = i
 			v.parent = v
 			v.path =[]
+			self.graph.components[c]=v
+			print("components are now", self.graph.components)
 			q.append(v)# add v to the end of the queue
 			while q:
 				u=q[0] # for the first element u of the queue
@@ -162,6 +165,7 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 		Apref_in_Z=[]
 		suffix=self.word
 		u=self.graph.root
+		print("u is the root of the graph passed to acc_read_rem and is ",u)
 		z=""
 		#print("u, u.out.keys, u.outedges", u,u.outedges.keys(),u.outedges)
 		#print("u, u.in.keys, u.inedges", u,u.inedges.keys(),u.inedges)
@@ -225,7 +229,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 
 	def spit_out_nf(self):
 		LHS=graph_pass(self.graph,self.word).acc_read_rem()
-		#print("the LHS is ",LHS)
+		print("the LHS is ",LHS)
 		LHS_u=LHS[3].label
 		h=element(LHS[0]).word
 		p=element(LHS[1]).word
@@ -233,11 +237,12 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 		#print(q)
 		Q=element(q).inverse()
 		RHS=graph_pass(self.graph,Q).acc_read_rem()
+		print("the RHS is ",RHS)
 		RHS_u=RHS[3].label
 		e=element(RHS[2]).inverse()
 		if not e==[]:
 			a_Z=element(LHS[4]).word
-			y=element(LHS[3].path).word #problem when using this in alg2a: "AttributeError: 'Vertex' object has no attribute 'path'"
+			y=element(LHS[3].path).word 
 			z=element(RHS[3].path).word
 			Y=element(y).inverse()
 			Z=element(z).inverse()
@@ -249,53 +254,61 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 			c=element(z+T+G).word
 			C_Z=element(RHS[4]).word
 			c_Z=element(C_Z).inverse()
+			print("type 1 nf")
 			return([a,b,c,a_Z,c_Z])
 		else:
 			conn=[]
 			repr=[]
 			for x in self.double.vertices:
+				print("vertex x of double is ", x)
+				print("LHS_u-RHS_u is ",str(LHS_u)+"-"+str(RHS_u))
 				if x.label==str(LHS_u)+"-"+str(RHS_u):
 					conn=element(x.path).inverse()
-					child = True 
-					xc = x
-					while child:
-						if xc.parent == xc:
-							child = False
-							repr = xc.parent.label.partition("-")
-                     #print("root found  and root, repr is", xc, repr)
-						xc = xc.parent 
+					#child = True 
+					#xc = x
+					print("colour of x is ",x.colour)
+					xroot=self.double.components[x.colour]
+					print("root of comp of x is ", xroot)
+					repr = xroot.parent.label.partition("-")
+					#while child:
+					#	if xc.parent == xc:
+					#		child = False
+					#		repr = xc.parent.label.partition("-")
+					#		print("root found  and root, repr is", xc, repr)
+					#	xc = xc.parent 
                
-              # for r in self.double.vertices:
-              #    if r.colour == x.colour:
-              #       if r.parent == r:
-              #          repr = r.parent.label.partition("-")
-              #          break
-              # print("root found  and root, repr is", r, repr)
-              # break
+						# for r in self.double.vertices:
+						#    if r.colour == x.colour:
+						#       if r.parent == r:
+						#          repr = r.parent.label.partition("-")
+						#          break
+						# print("root found  and root, repr is", r, repr)
+						# break
             
-			y=[]
-			for v in self.graph.vertices:
-				if v.label == int(repr[0]):
-					y=v.path
-               #print("y is", y)
-					break
+					y=[]
+					for v in self.graph.vertices:
+						if v.label == int(repr[0]):
+							y=v.path    
+							#print("y is", y)
+							break
 
-			z=[]
-			for v in self.graph.vertices:
-				if v.label == int(repr[2]):
-					z=v.path
-               #print("z is", z)
-					break
+					z=[]
+					for v in self.graph.vertices:
+						if v.label == int(repr[2]):
+							z=v.path
+							#print("z is", z)
+							break
                
-			Y=element(y).inverse()
-			a=element(h+p+conn+Y).word
-			a_Z=graph_pass(self.graph,a).acc_read_rem()[4]
-			Z=element(z).inverse()
-			B=element(RHS[0]+RHS[1]+conn+z).word
-			b=element(B).inverse()
-			b_Z=graph_pass(self.graph,b).acc_read_rem()[4]
-#print("y,z,conn,RHS[0],RHS[1]", y,z,conn,RHS[0],RHS[1])
-			return([a,y+Z, b,a_Z,b_Z])
+					Y=element(y).inverse()
+					a=element(h+p+conn+Y).word
+					a_Z=graph_pass(self.graph,a).acc_read_rem()[4]
+					Z=element(z).inverse()
+					B=element(RHS[0]+RHS[1]+conn+z).word
+					b=element(B).inverse()
+					b_Z=graph_pass(self.graph,b).acc_read_rem()[4]
+					#print("y,z,conn,RHS[0],RHS[1]", y,z,conn,RHS[0],RHS[1])
+					print("type 2 nf", [a,y+Z, b,a_Z,b_Z])
+					return([a,y+Z, b,a_Z,b_Z])
 
 
 def subgroup_basis(folding): #Find a free generating set for the subgroup H with stallings folding "folding". For this to work a stallings() and bfs() must have been run#folding.subgp_free_gens = []
@@ -311,17 +324,12 @@ def subgroup_basis(folding): #Find a free generating set for the subgroup H with
 
 
 def phi(subgroup,zword): #map a word in the free group on the Z generators of subgroup H into a word on the free generators of H in F
-	#y=[]
 	yy=[]
 	for i in range(0,len(zword)):
-		#if zword[i] in subgroup.subgroup_free_gens.keys():#if zword[i] is in the list of keys of genrs of H
-		if zword[i] in subgroup.subgroup_free_gens:#a replacement of the above line to try to fix an error
-			#y=y+subgroup.subgroup_free_gens[zword[i]] # append the corresponding genr to the word y
+		if zword[i] in subgroup.subgroup_free_gens.keys():#if zword[i] is in the list of keys of genrs of H
 			yy.extend(subgroup.subgroup_free_gens[zword[i]])
-		#elif zword[i].swapcase() in subgroup.subgroup_free_gens.keys():#if zword[i]^-1 is in the list of keys of genrs of H
-		elif zword[i].swapcase() in subgroup.subgroup_free_gens:#a replacement of the above line to try to fix an error
-			#y=y+element(subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse()# append the inverse of the corresponding genr to the word y
-			yy.extend((subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse())
+		elif zword[i].swapcase() in subgroup.subgroup_free_gens.keys():#if zword[i]^-1 is in the list of keys of genrs of H
+			yy.extend(element(subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse())
 		else:
 			print("the word passed to phi contains a letter not in Z:", zword[i]) # otherwise set the error flag to 0 and return 
 			return([],0)

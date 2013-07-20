@@ -114,6 +114,7 @@ class Graph:
 		if rooted:
 			self.root = self.addVertex()
 		self.Olabel=Olabel
+		self.components={}
 
 	#create a new vertex in the graph and return it
 	def addVertex(self,name=None):
@@ -210,13 +211,17 @@ class Graph:
 		for label,vs in folds:					#for each possible fold
 			vs = [v for v in vs if not v in folded]		#remove vertices that have been involved in a previous fold
 			if len(vs)>1:					#if there are still vertices to be folded
-				u=vs[0]					#the first vertex in the list. at the end of the loop, the node pointed to by u is the one that survived
+				if self.root in vs:    #the first vertex in the list - or the root, if that's in the list. At the end of the loop, the node pointed to by u is the one that survived
+					u=self.root
+				else:
+					u=vs[0]					
 				folded.append(u)			#add u to the list of vertices not to merge again
-				for v in vs[1:]:			#for each other vertex v in this fold
-					self.mergeVertices(u,v)		#merge it with u, and reassign u to the surviving
-					folded.append(v)		#add v to the list of vertices not to merge again
+				for v in vs:			#for each other vertex v in this fold
+					if v!=u:
+						self.mergeVertices(u,v)		#merge it with u, and reassign u to the surviving
+						folded.append(v)		#add v to the list of vertices not to merge again
 
-		return len(folds)>0					#return true if any folds took place
+		return len(folds)>0		
 
 	#return double of this graph
 	#has a vertex labelled (u,v) for each u,v in original graph

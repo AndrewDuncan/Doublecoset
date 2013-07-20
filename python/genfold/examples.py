@@ -2,10 +2,10 @@ from alg1 import *
 
 F1=free_group(3,"a")
 G=free_group(2,"alpha")
-h1=['a1','a1','a1']
+h1=['a1','a1','a1',]
 h2=['a1','A2','a1','a1']
 h3=['a2','a2','a1','a1','A2']
-h4=['A2','A2','a1','a2','a1',]
+h4=['A2','A2','a1','a2','a2']
 #h5=['A2','A2',a'a2','a2']
 #h6=['a2','a2','a2','a2','a2']
 w=['A2','a1','a2']
@@ -26,6 +26,7 @@ FZ=free_group(4,"z")
 H1=subgroup("H1",[h1,h2,h3,h4],FZ.gens)
 #print(H1.coherent)
 GH=H1.flower
+print("root of GH", GH.root)
 
 H1.stallings()
 S=H1.flower
@@ -40,9 +41,9 @@ N=T.forest()
 #	print("S, output labels of outedges of ",v," are ", v.outedges_write)
 #	print("S, output labels of inedges of ",v," are ", v.inedges_write)
 D= S.double()
-#print ("digraph {")
-#print (str(D))
-#print ("}")
+print ("digraph {")
+print (str(D))
+print ("}")
 
 DB=bfs(D,sorted(D.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 DF=DB.forest()
@@ -61,6 +62,7 @@ print("a,b,c =", vv[0],vv[1],vv[2])
 print("or using map into Z's: a, b, c =", vv[3],vv[1],vv[4])
 type2=Normal_form(S,['a1','a1','a1','a1','a2','a1','a2','a2'],DB).spit_out_nf() 
 print("type 2 is ", element(['a1','a1','a1','a1','a2','a1','a2','a2']).word)
+print("nf type 2",type2)
 print("a,b,c =", type2[0],type2[1],type2[2])
 print("or using map into Z's: a, yZ, b =", type2[3],type2[1],type2[4])
 another=Normal_form(S,['a1','a1','a1','a1','a1','a1','a1','a1','a1','a4','a3','A2','a2','A3','A4','a1','A1','A1','A1','A1','A1','A1','A1','A1','A1'],DB).spit_out_nf()
