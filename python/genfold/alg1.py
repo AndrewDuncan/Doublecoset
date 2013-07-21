@@ -128,7 +128,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 			v.parent = v
 			v.path =[]
 			self.graph.components[c]=v
-			print("components are now", self.graph.components)
+			#print("components are now", self.graph.components)
 			q.append(v)# add v to the end of the queue
 			while q:
 				u=q[0] # for the first element u of the queue
@@ -165,7 +165,7 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 		Apref_in_Z=[]
 		suffix=self.word
 		u=self.graph.root
-		print("u is the root of the graph passed to acc_read_rem and is ",u)
+		#print("u is the root of the graph passed to acc_read_rem and is ",u)
 		z=""
 		#print("u, u.out.keys, u.outedges", u,u.outedges.keys(),u.outedges)
 		#print("u, u.in.keys, u.inedges", u,u.inedges.keys(),u.inedges)
@@ -229,7 +229,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 
 	def spit_out_nf(self):
 		LHS=graph_pass(self.graph,self.word).acc_read_rem()
-		print("the LHS is ",LHS)
+		#print("the LHS is ",LHS)
 		LHS_u=LHS[3].label
 		h=element(LHS[0]).word
 		p=element(LHS[1]).word
@@ -237,7 +237,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 		#print(q)
 		Q=element(q).inverse()
 		RHS=graph_pass(self.graph,Q).acc_read_rem()
-		print("the RHS is ",RHS)
+		#print("the RHS is ",RHS)
 		RHS_u=RHS[3].label
 		e=element(RHS[2]).inverse()
 		if not e==[]:
@@ -254,21 +254,21 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 			c=element(z+T+G).word
 			C_Z=element(RHS[4]).word
 			c_Z=element(C_Z).inverse()
-			print("type 1 nf")
+			#print("type 1 nf")
 			return([a,b,c,a_Z,c_Z])
 		else:
 			conn=[]
 			repr=[]
 			for x in self.double.vertices:
-				print("vertex x of double is ", x)
-				print("LHS_u-RHS_u is ",str(LHS_u)+"-"+str(RHS_u))
+				#print("vertex x of double is ", x)
+				#print("LHS_u-RHS_u is ",str(LHS_u)+"-"+str(RHS_u))
 				if x.label==str(LHS_u)+"-"+str(RHS_u):
 					conn=element(x.path).inverse()
 					#child = True 
 					#xc = x
-					print("colour of x is ",x.colour)
+					#print("colour of x is ",x.colour)
 					xroot=self.double.components[x.colour]
-					print("root of comp of x is ", xroot)
+					#print("root of comp of x is ", xroot)
 					repr = xroot.parent.label.partition("-")
 					#while child:
 					#	if xc.parent == xc:
@@ -307,7 +307,7 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 					b=element(B).inverse()
 					b_Z=graph_pass(self.graph,b).acc_read_rem()[4]
 					#print("y,z,conn,RHS[0],RHS[1]", y,z,conn,RHS[0],RHS[1])
-					print("type 2 nf", [a,y+Z, b,a_Z,b_Z])
+					#print("type 2 nf", [a,y+Z, b,a_Z,b_Z])
 					return([a,y+Z, b,a_Z,b_Z])
 
 
@@ -333,8 +333,8 @@ def phi(subgroup,zword): #map a word in the free group on the Z generators of su
 		else:
 			print("the word passed to phi contains a letter not in Z:", zword[i]) # otherwise set the error flag to 0 and return 
 			return([],0)
-		print(yy)
-	print(yy)
+		print("in phi for loop with i =", i, "yy is ",yy)
+	print("at end of phi yy is", yy)
 	return(element(yy).word,1)
 
 	 

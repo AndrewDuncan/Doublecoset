@@ -86,16 +86,22 @@ def alg2_pre(H1,H2):
 	H2.stallings()
 	flower1=H1.flower
 	flower2=H2.flower
-	bfs(flower1,)
-	bfs(flower2,)
+	T1=bfs(flower1,)
+	T1.forest()
+	T2=bfs(flower2,)
+	T2.forest()
 	double1=flower1.double()
 	double2=flower2.double()
-	forest1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	forest1=forest1.forest()
-	forest2=bfs(double2,sorted(double2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	forest2=forest2.forest()
-	H1.subgroup_free_gens=subgroup_basis(flower1)
-	H2.subgroup_free_gens=subgroup_basis(flower2)
+	bfs1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest1=bfs1.forest()
+	bfs2=bfs(double2,sorted(double2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest2=bfs2.forest()
+	H1.subgroup_free_gens=subgroup_basis(flower1)[1]
+	H2.subgroup_free_gens=subgroup_basis(flower2)[1]
+	#print("basis of H1",H1.subgroup_free_gens)
+	#print("or", subgroup_basis(flower1)[0])
+	#print("basis of H2",H2.subgroup_free_gens)
+	#print("or", subgroup_basis(flower2)[0])
 	return(flower1,flower2,double1,double2,forest1,forest2)
 
 def alg2(w,F1,F2,H1,H2):
@@ -167,7 +173,7 @@ def popper(w):
 
 def amalgamate(w,F1,F2,H1,H2):
 	if w==[]:
-		#print('w is the empty word')
+		print('w is the empty word')
 		return([])
 	F=(F1,F2)
 	error=0
@@ -196,46 +202,53 @@ def amalgamate(w,F1,F2,H1,H2):
 	f=ff
 	for s in range(n,-1,-1):
 		#w[s] in H[f]: #need to make this work - H[f] isn't actually a list of generators here, making a new hf_test function
-			#put w[s] in terms of H[1-f] here
-		#print('s is',s)
-		#print('w is',w)
+		#put w[s] in terms of H[1-f] here
+		print('Start of loop. w is', w)	
+		print('s is',s)
+		print('w[s] is',w[s])
+		print("H[f] is ", H[f].name)
 		t=hf_test(w[s],H[f])
-		if t[0]==1:
-			w[s]=t[1]
-		elif s==0 and len(w)>1:
-			w[s]=w[s]+w[s+1]
-			w[s]=element(w[s]).word
-			for i in range(s+2,n):
-				w[i-1]=w[i]
+		if t[0]==1: #if w[s] is in H[f]
+			w[s]=phi(H[1-f],t[1])[0] #swap w[s] from H[f] to H[1-f]
+			if s==0:#  if the first syllable is in H[f]
+				if len(w)>1:# if w has already been reduced to a single syllable there is no need to do anything more
+					w[s]=w[s]+w[s+1]
+					w[s]=element(w[s]).word
+					for i in range(s+2,len(w)):
+						w[i-1]=w[i]
+					print("a,len(w)", len(w))
+					w.pop(len(w)-1)
+					print("b, len(w)", len(w))
+			elif s==len(w)-1:# when the amalgamated syllable is the last one
+				w[s-1]=w[s-1]+w[s]
+				w[s-1]=element(w[s-1]).word
+				print("c, len(w)",len(w))
+				w.pop(s)
+				print("d,len(w)", len(w))
+			else: # the general case
+				w[s-1]=w[s-1]+w[s]+w[s+1]
+				w[s-1]=element(w[s-1]).word
+				for i in range(s+2,len(w)):
+					w[i-2]=w[i]
+					print("len(w)", len(w)," and i,w[i-2], w[i]", i,w[i-2],w[i])
+				print("e,len(w)", len(w))
 				w.pop(len(w)-1)
-		elif s==0:
-			break
-		end=0
-		if s==len(w)-1:
-			end=1
-		if s==n or end==1:
-			w[s-1]=w[s-1]+w[s]
-			w[s]=element(w[s]).word
-			w.pop(s)
-		else:
-			w[s-1]=w[s-1]+w[s]+w[s+1]
-			w[s-1]=element(w[s-1]).word
-			for i in range(s+2,n):
-				w[i-2]=w[i]
+				print("f,len(w)", len(w))
 				w.pop(len(w)-1)
-				w.pop(len(w)-1)
+				print("g,len(w)", len(w))
+
 		f=1-f
-		#print(w)
-		#print(len(w))
-	w=w[0]
-	print(w)
+
 	return(w)
 
 def hf_test(w,H):
 	t=graph_pass(H.flower,w).acc_read_rem()
-	if len(t[1])==0 and len(t[2])==0:
+	print("in hf_test t is ", t)
+	#print("H name, gens, free_gens", H.name, H.subgp_gens, H.subgroup_free_gens, "and t[4] is ", t[4])
+	if len(t[1])==0 and len(t[2])==0:# in this case w[s] is in H[f]
 		j=1
-		w=phi(H,t[4])[0]
+		#w=phi(H[1-k],t[4])[0]
 	else:
-		(j,w)=(0,[])
-	return(j,w)
+		j=0
+	print("after hf_test j is",j)
+	return(j,t[4])
