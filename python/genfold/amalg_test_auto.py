@@ -25,17 +25,17 @@ def amalg_test(w,n):
 		W=[]
 		for c in w:
 			W.append(c.swapcase())
-		word.append(W)
+		word.extend(W)
 		word=listsplitter(word,F1.mongens,F2.mongens)
 		amalg_word=amalgamate(word,F1,F2,H1,H2)
-		print('n=',n,'\n',amalg_word)
+		print('n=',n,'\n',amalg_word,'\n\n\n\n')
 		word=w
 	return
 
 n=input('Enter n:')
 n=int(n)
-w=input('Enter w:')
-w=list(w)
+#w=input('Enter w:')
+#w=list(w)
 w=['b1','a1']
 
 amalg_test(w,n)
