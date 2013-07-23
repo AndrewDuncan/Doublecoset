@@ -49,18 +49,18 @@ def confirm():
 	k=2
 	while k==2:
 		ok=input('Is this ok? y/n: ')
-			if ok=='y':
-				return(1)
-			elif ok=='n':
-				return(0)
-			else:
-				print('Please respond by entering \'y\' or \'n\'')
-				ok=input('Is this ok? y/n: ')
+		if ok=='y':
+			return(1)
+		elif ok=='n':
+			return(0)
+		else:
+			print('Please respond by entering \'y\' or \'n\'')
+			ok=input('Is this ok? y/n: ')
 
 def enter_subgroup():
 	t=0
-	while t=0:
-		subgroup_input()
+	while t==0:
+		t=subgroup_input()
 	return
 
 enter_subgroup()
