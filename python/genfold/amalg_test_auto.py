@@ -33,7 +33,7 @@ def amalg_test(w,n):
 		print(word)
 		word=listsplitter(word,F1.mongens,F2.mongens)
 		amalg_word=amalgamate(word,F1,F2,H1,H2)
-		print('n=',n,'\n',word,'becomes\n',amalg_word,'\n\n\n\n')
+		print('n=',i,'\n',word,'becomes\n',amalg_word,'\n\n\n\n')
 	return
 
 n=input('Enter n:')

@@ -6,11 +6,12 @@ def subgroup_input():
 	n=int(n)
 	Hgens=[]
 	for i in range(1,n+1):
-		w=input('Enter the %s generator: ' % (i,))
-		w.split(",")
+		w=input('Enter generator number %s: ' % (i,))
+		w=w.split(",")
 		print('w is ',w)
 		Hgens.append(w)
 	FZ=free_group(len(Hgens),"z")
+	print(FZ.gens)
 	H=subgroup(Hname,Hgens,FZ.gens)
 	H.stallings()
 	flower=H.flower
