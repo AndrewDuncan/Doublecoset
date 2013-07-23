@@ -42,12 +42,12 @@ def subgroup_input():
 	print('The generators of H are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
 	for i in range(0,len(H.subgp_free_gens)):
 		print(H.subgp_free_gens[i],FZ.gens[i])
-	ok=confirm()
-	return ok
+	k=confirm()
+	return k
 	
 def confirm():
-	ok=2
-	while ok==2:
+	k=2
+	while k==2:
 		ok=input('Is this ok? y/n: ')
 			if ok=='y':
 				return(1)
@@ -57,4 +57,10 @@ def confirm():
 				print('Please respond by entering \'y\' or \'n\'')
 				ok=input('Is this ok? y/n: ')
 
-subgroup_input()
+def enter_subgroup():
+	t=0
+	while t=0:
+		subgroup_input()
+	return
+
+enter_subgroup()
