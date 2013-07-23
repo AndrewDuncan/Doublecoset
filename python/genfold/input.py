@@ -1,25 +1,47 @@
-r1=input("Enter the rank of the first free group: ")
-l1=input("Enter the letter to represent the first free group: ")
-r2=input("Enter the rank of the second free group: ")
-l2=input("Enter the letter to represent the second free group: ")
-F1=free_group(r1,l1)
-F2=free_group(r2,l2)
+from alg2 import *
 
-c=input("How many generators do the subgroups have? ")
-h1=[]
-h2=[]
+def subgroup_input():
+	Hname=input('Enter the name of the subgroup: ')
+	n=input('How many generators does this subgroup have? ')
+	n=int(n)
+	Hgens=[]
+	for i in range(1,n+1):
+		w=input('Enter the %s generator: ' % (i,))
+		w.split(",")
+		print('w is ',w)
+		Hgens.append(w)
+	FZ=free_group(len(Hgens),"z")
+	H=subgroup(Hname,Hgens,FZ.gens)
+	H.stallings()
+	flower=H.flower
+	T=bfs(flower,)
+	T.forest()
+	H.subgroup_free_gens=subgroup_basis(flower)[0]
+	test=0
+	while test==0:
+		if len(Hgens)>len(H.subgp_free_gens):
+			print('There are more elements in the generators than there are in the basis computed.')
+			print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgp_free_gens)
+			n=len(H.subgp_free_gens)
+			Hgens=[]
+			print('Please input %s generators for H' % (n,))
+			for i in range(1,n+1):
+				w=input('Enter the %s generator: ' % (i,))
+				w.split(",")
+				print('w is ',w)
+				Hgens.append(w)
+				FZ=free_group(len(Hgens),"z")
+			H=subgroup(Hname,Hgens,FZ.gens)
+			H.stallings()
+			flower=H.flower
+			T=bfs(flower,)
+			T.forest()
+			H.subgroup_free_gens=subgroup_basis(flower)[0]
+		else:
+			test=1
+	print('The generators of H are:\n',Hgens,)
+	#output a message reporting this fact,
+	#list both Hgens and the free_gens found
+	#tell the user to input len(H.subgroup_free_gens) generators for H
 
-print("Enter the generators of the first subgroup, pressing enter after each one:")
-for i in range(0,c):
-	c=input("Enter generator ",i+1,":/n")
-	c.split(",")
-	h1.append(c)
-
-print("Now enter the generators for the second subgroup:")
-for i in range(0,c):
-	c=input("Enter generator ",i+1,":/n")
-	c.split(",")
-	h2.append(c)
-
-H1=subgroup("H1",h1,)
-H2=subgroup("H2",h2,)
+subgroup_input()
