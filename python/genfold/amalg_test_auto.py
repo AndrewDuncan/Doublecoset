@@ -15,8 +15,8 @@ H2=subgroup('H2',[h5,h6,h7,h8],['z1','z2','z3','z4'])
 alg2_pre(H1,H2)
 
 def amalg_test(w,n):
-	word=w
 	for i in range(0,n+1):
+		word=w
 		for j in range (1,n):
 			word.append('a1')
 		word.append('a2')
@@ -28,8 +28,7 @@ def amalg_test(w,n):
 		word.extend(W)
 		word=listsplitter(word,F1.mongens,F2.mongens)
 		amalg_word=amalgamate(word,F1,F2,H1,H2)
-		print('n=',n,'\n',amalg_word,'\n\n\n\n')
-		word=w
+		print('n=',n,'\n',word,'becomes\n',amalg_word,'\n\n\n\n')
 	return
 
 n=input('Enter n:')
