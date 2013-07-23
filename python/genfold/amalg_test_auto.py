@@ -16,16 +16,21 @@ alg2_pre(H1,H2)
 
 def amalg_test(w,n):
 	for i in range(0,n+1):
-		word=w
+		word=[]
+		word.extend(w)
 		for j in range (1,n):
 			word.append('a1')
+		print(word)
 		word.append('a2')
+		print(word)
 		for j in range (1,n+1):
 			word.append('A1')
+		print(word)
 		W=[]
 		for c in w:
 			W.append(c.swapcase())
 		word.extend(W)
+		print(word)
 		word=listsplitter(word,F1.mongens,F2.mongens)
 		amalg_word=amalgamate(word,F1,F2,H1,H2)
 		print('n=',n,'\n',word,'becomes\n',amalg_word,'\n\n\n\n')
