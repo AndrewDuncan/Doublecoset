@@ -176,6 +176,8 @@ def amalgamate(w,F1,F2,H1,H2):
 		print('w is the empty word')
 		return([])
 	F=(F1,F2)
+	#print('F[0] alpha', F[0].alpha)
+	#print('F[1] alpha', F[1].alpha)
 	error=0
 	n=len(w)-1
 	if F[0].is_element(w[n])==1:
@@ -185,7 +187,7 @@ def amalgamate(w,F1,F2,H1,H2):
 		f=1
 		#print('f is ',f)
 	else:
-		print('Error: ',w[n],'not in F1 or F2')
+		print('Error: ',w[n],'not in free group on', F[0].alpha, 'or', F[1].alpha)
 		return
 	ff=f
 	for s in range(n,-1,-1):
@@ -201,7 +203,6 @@ def amalgamate(w,F1,F2,H1,H2):
 	H=(H1,H2)
 	f=ff
 	for s in range(n,-1,-1):
-		#w[s] in H[f]: #need to make this work - H[f] isn't actually a list of generators here, making a new hf_test function
 		#put w[s] in terms of H[1-f] here
 		print('Start of loop. w is', w)	
 		print('s is',s)
@@ -209,9 +210,9 @@ def amalgamate(w,F1,F2,H1,H2):
 		print("H[f] is ", H[f].name)
 		t=hf_test(w[s],H[f])
 		if t[0]==1: #if w[s] is in H[f]
-			w[s]=phi(H[1-f],t[1])[0] #swap w[s] from H[f] to H[1-f]
-			if s==0:#  if the first syllable is in H[f]
-				if len(w)>1:# if w has already been reduced to a single syllable there is no need to do anything more
+			if len(w)>1:# if w has already been reduced to a single syllable there is no need to do anything more
+				w[s]=phi(H[1-f],t[1])[0] #swap w[s] from H[f] to H[1-f]
+				if s==0:#  if the first syllable is in H[f]
 					w[s]=w[s]+w[s+1]
 					w[s]=element(w[s]).word
 					for i in range(s+2,len(w)):
@@ -219,23 +220,23 @@ def amalgamate(w,F1,F2,H1,H2):
 					print("a,len(w)", len(w))
 					w.pop(len(w)-1)
 					print("b, len(w)", len(w))
-			elif s==len(w)-1:# when the amalgamated syllable is the last one
-				w[s-1]=w[s-1]+w[s]
-				w[s-1]=element(w[s-1]).word
-				print("c, len(w)",len(w))
-				w.pop(s)
-				print("d,len(w)", len(w))
-			else: # the general case
-				w[s-1]=w[s-1]+w[s]+w[s+1]
-				w[s-1]=element(w[s-1]).word
-				for i in range(s+2,len(w)):
-					w[i-2]=w[i]
-					print("len(w)", len(w)," and i,w[i-2], w[i]", i,w[i-2],w[i])
-				print("e,len(w)", len(w))
-				w.pop(len(w)-1)
-				print("f,len(w)", len(w))
-				w.pop(len(w)-1)
-				print("g,len(w)", len(w))
+				elif s==len(w)-1:# when the amalgamated syllable is the last one
+					w[s-1]=w[s-1]+w[s]
+					w[s-1]=element(w[s-1]).word
+					print("c, len(w)",len(w))
+					w.pop(s)
+					print("d,len(w)", len(w))
+				else: # the general case
+					w[s-1]=w[s-1]+w[s]+w[s+1]
+					w[s-1]=element(w[s-1]).word
+					for i in range(s+2,len(w)):
+						w[i-2]=w[i]
+						print("len(w)", len(w)," and i,w[i-2], w[i]", i,w[i-2],w[i])
+					print("e,len(w)", len(w))
+					w.pop(len(w)-1)
+					print("f,len(w)", len(w))
+					w.pop(len(w)-1)
+					print("g,len(w)", len(w))
 
 		f=1-f
 

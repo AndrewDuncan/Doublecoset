@@ -40,4 +40,3 @@ w=listsplitter(w,F1.mongens,F2.mongens)
 w=amalgamate(w,F1,F2,H1,H2)
 print("after amalgamate", w,'\n')
 #print('expected output:[\'x1\', \'x2\', \'x1\', \'x2\', \'x3\', \'X1\', \'X1\', \'X1\']')
-
