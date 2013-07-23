@@ -39,9 +39,22 @@ def subgroup_input():
 			H.subgroup_free_gens=subgroup_basis(flower)[0]
 		else:
 			test=1
-	print('The generators of H are:\n',Hgens,)
-	#output a message reporting this fact,
-	#list both Hgens and the free_gens found
-	#tell the user to input len(H.subgroup_free_gens) generators for H
+	print('The generators of H are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
+	for i in range(0,len(H.subgp_free_gens)):
+		print(H.subgp_free_gens[i],FZ.gens[i])
+	ok=confirm()
+	return ok
+	
+def confirm():
+	ok=2
+	while ok==2:
+		ok=input('Is this ok? y/n: ')
+			if ok=='y':
+				return(1)
+			elif ok=='n':
+				return(0)
+			else:
+				print('Please respond by entering \'y\' or \'n\'')
+				ok=input('Is this ok? y/n: ')
 
 subgroup_input()
