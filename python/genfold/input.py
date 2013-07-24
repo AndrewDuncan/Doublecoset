@@ -2,8 +2,16 @@ from alg2 import *
 
 def subgroup_input():
 	Hname=input('Enter the name of the subgroup: ')
-	n=input('How many generators does this subgroup have? ')
-	n=int(n)
+	while True:
+		try:
+			n=input('How many generators does this subgroup have? ')
+			n=int(n)
+			if n < 0:
+				n=''
+			int(n)
+			break
+		except ValueError:
+			print('The number of generators must be a non-negative integer.')
 	Hgens=[]
 	for i in range(1,n+1):
 		w=input('Enter generator number %s: ' % (i,))
@@ -18,9 +26,9 @@ def subgroup_input():
 	T=bfs(flower,)
 	T.forest()
 	double=flower.double()
-	bfs=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	forest=bfs.forest()
-	H.subgroup_free_gens=subgroup_basis(flower)[0]
+	bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest=bfs1.forest()
+	H.subgroup_free_gens=subgroup_basis(flower)[1]
 	test=0
 	while test==0:
 		if len(Hgens)>len(H.subgp_free_gens):
@@ -41,8 +49,8 @@ def subgroup_input():
 			T=bfs(flower,)
 			T.forest()
 			double=flower.double()
-			bfs=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-			forest=bfs.forest()
+			bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+			forest=bfs1.forest()
 			H.subgroup_free_gens=subgroup_basis(flower)[0]
 		else:
 			test=1
