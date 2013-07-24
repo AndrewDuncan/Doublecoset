@@ -12,51 +12,38 @@ def subgroup_input():
 			break
 		except ValueError:
 			print('The number of generators must be a non-negative integer.')
-	Hgens=[]
-	for i in range(1,n+1):
-		w=input('Enter generator number %s: ' % (i,))
-		w=w.split(",")
-		print('w is ',w)
-		Hgens=Hgens+w
+	Hgens=genr_input(n)
 	FZ=free_group(len(Hgens),"z")
-	print(FZ.gens)
+	#print(FZ.gens)
 	H=subgroup(Hname,Hgens,FZ.gens)
-	H.stallings()
-	flower=H.flower
-	T=bfs(flower,)
-	T.forest()
-	#double=flower.double()
-	#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	#forest=bfs1.forest()
-	H.subgroup_free_gens=subgroup_basis(flower)[0]
+	(flower1,forest1)=setup_subgroup(H)
+	H.subgroup_free_gens=subgroup_basis(flower1)[0]
 	test=0
 	while test==0:
 		if len(Hgens)>len(H.subgroup_free_gens):
-			print('There are more elements in the generators than there are in the basis computed.')
 			print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgroup_free_gens)
-			n=len(H.subgroup_free_gens)
-			Hgens=[]
-			print('Please input %s generators for H' % (n,))
-			for i in range(1,n+1):
-				w=input('Enter the %s generator: ' % (i,))
-				w.split(",")
-				print('w is ',w)
-				Hgens=Hgens+w
-				FZ=free_group(len(Hgens),"z")
+			print('There are more elements in the generators than the rank computed.')
+			print('Please enter a free generating set of size %s' % (n,))
+			#n=len(H.subgroup_free_gens)
+			#Hgens=[]
+			#print('Please input %s generators for H' % (n,))
+			Hgens=genr_input(n)
 			H=subgroup(Hname,Hgens,FZ.gens)
-			H.stallings()
-			flower=H.flower
-			T=bfs(flower,)
-			T.forest()
+			(flower1,forest1)=setup_subgroup(H)
+			#H.stallings()
+			#flower=H.flower
+			#T=bfs(flower,)
+			#T.forest()
 			#double=flower.double()
 			#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 			#forest=bfs1.forest()
-			H.subgroup_free_gens=subgroup_basis(flower)[0]
+			H.subgroup_free_gens=subgroup_basis(flower1)[0]
 		else:
 			test=1
-	print('The generators of the subgroup are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
-	for i in range(0,len(H.subgroup_free_gens)):
-		print(H.subgroup_free_gens[i][0],FZ.gens[i])
+	#print('The generators of the subgroup are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
+	#for i in range(0,len(H.subgroup_free_gens)):
+	#	print(H.subgroup_free_gens[i][0],FZ.gens[i])
+	print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgroup_free_gens)
 	k=confirm()
 	return (k,H)
 	
@@ -78,7 +65,22 @@ def enter_subgroup():
 		t=tt[0]
 	return tt[1]
 
+def genr_input(n):
+	nn=int(n)
+	Hgens=[]
+	for i in range(1,nn+1):
+		w=input('Enter generator number %s: ' % (i,))
+		w=w.split(",")
+		print('w is ',w)
+		Hgens=Hgens+w
+	return(Hgens)
 
+def setup_subgroup(H1):
+	H1.stallings()
+	flower1=H1.flower
+	T1=bfs(flower1,)
+	T1.forest()
+	return(flower1,T1)
 
 enter_subgroup()
 

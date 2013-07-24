@@ -81,28 +81,39 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 		#print(w)
 		return(w)
 
-def alg2_pre(H1,H2):
+#def alg2_pre(H1,H2):
+#	H1.stallings()
+#	H2.stallings()
+#	flower1=H1.flower
+#	flower2=H2.flower
+#	T1=bfs(flower1,)
+#	T1.forest()
+#	T2=bfs(flower2,)
+#	T2.forest()
+#	double1=flower1.double()
+#	double2=flower2.double()
+#	bfs1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+#	forest1=bfs1.forest()
+#	bfs2=bfs(double2,sorted(double2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+#	forest2=bfs2.forest()
+#	H1.subgroup_free_gens=subgroup_basis(flower1)[1]
+#	H2.subgroup_free_gens=subgroup_basis(flower2)[1]
+#	#print("basis of H1",H1.subgroup_free_gens)
+#	#print("or", subgroup_basis(flower1)[0])
+#	#print("basis of H2",H2.subgroup_free_gens)
+#	#print("or", subgroup_basis(flower2)[0])
+#	return(flower1,flower2,double1,double2,forest1,forest2)
+
+def alg2_pre(H1):
 	H1.stallings()
-	H2.stallings()
 	flower1=H1.flower
-	flower2=H2.flower
 	T1=bfs(flower1,)
 	T1.forest()
-	T2=bfs(flower2,)
-	T2.forest()
 	double1=flower1.double()
-	double2=flower2.double()
 	bfs1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 	forest1=bfs1.forest()
-	bfs2=bfs(double2,sorted(double2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	forest2=bfs2.forest()
 	H1.subgroup_free_gens=subgroup_basis(flower1)[1]
-	H2.subgroup_free_gens=subgroup_basis(flower2)[1]
-	#print("basis of H1",H1.subgroup_free_gens)
-	#print("or", subgroup_basis(flower1)[0])
-	#print("basis of H2",H2.subgroup_free_gens)
-	#print("or", subgroup_basis(flower2)[0])
-	return(flower1,flower2,double1,double2,forest1,forest2)
+	return(flower1,double1,forest1)
 
 def alg2(w,F1,F2,H1,H2):
 	print(w)
@@ -125,7 +136,9 @@ def alg2(w,F1,F2,H1,H2):
 	print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
 	w=reducelist(w)
 	print('w=reducelist(w)\n',w)
-	(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
+	(flower1,double1,forest1)=alg2_pre(H1)
+	(flower2,double2,forest2)=alg2_pre(H2)
+	#(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
 	#print(w)
 	#w=listsplitter(w,F1.mongens,F2.mongens)
 	#print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)

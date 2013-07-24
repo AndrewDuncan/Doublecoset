@@ -6,7 +6,8 @@ FZ=free_group(3,'z')
 H1=subgroup('H1',[['x1','x1','x1'],['x2','x3','X2'],['x1','x2','x3']],FZ.gens)
 H2=subgroup('H2',[['y2','y2'],['y3','y4'],['y1','y1','y3','Y1','y2']],FZ.gens)
 
-alg2_pre(H1,H2)
+alg2_pre(H1)
+alg2_pre(H2)
 #
 #print("H1 name, gens, free_gens", H1.name, H1.subgp_gens, H1.subgroup_free_gens)
 #print("H2 name, gens, free_gens", H2.name, H2.subgp_gens, H2.subgroup_free_gens)
