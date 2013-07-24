@@ -15,6 +15,7 @@ def subgroup_input():
 	Hgens=[]
 	for i in range(1,n+1):
 		w=input('Enter generator number %s: ' % (i,))
+		w=w.replace(' ','')
 		w=w.split(",")
 		print('w is ',w)
 		Hgens=Hgens+w
@@ -25,9 +26,9 @@ def subgroup_input():
 	flower=H.flower
 	T=bfs(flower,)
 	T.forest()
-	#double=flower.double()
-	#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	#forest=bfs1.forest()
+	double=flower.double()
+	bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest=bfs1.forest()
 	H.subgroup_free_gens=subgroup_basis(flower)[0]
 	test=0
 	while test==0:
@@ -39,7 +40,8 @@ def subgroup_input():
 			print('Please input %s generators for H' % (n,))
 			for i in range(1,n+1):
 				w=input('Enter the %s generator: ' % (i,))
-				w.split(",")
+				w=w.replace(' ','')
+				w=w.split(",")
 				print('w is ',w)
 				Hgens=Hgens+w
 				FZ=free_group(len(Hgens),"z")
@@ -48,13 +50,15 @@ def subgroup_input():
 			flower=H.flower
 			T=bfs(flower,)
 			T.forest()
-			#double=flower.double()
-			#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-			#forest=bfs1.forest()
+			double=flower.double()
+			bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+			forest=bfs1.forest()
 			H.subgroup_free_gens=subgroup_basis(flower)[0]
 		else:
 			test=1
+
 	print('The generators of the subgroup are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
+
 	for i in range(0,len(H.subgroup_free_gens)):
 		print(H.subgroup_free_gens[i][0],FZ.gens[i])
 	k=confirm()
@@ -79,10 +83,7 @@ def enter_subgroup():
 	return tt[1]
 
 
-
-enter_subgroup()
-
-def enter_free_group():
+def free_group_input():
 	r=input('Enter the letter to represent the free group: ')
 	while True:
 		try:
@@ -98,4 +99,14 @@ def enter_free_group():
 	return F
 
 
-enter_free_group()
+def enter_free_group():
+	ok=''
+	while True:
+		F=free_group_input()
+		print('This free group has the generators\n',F.gens)
+		ok=input('Is this ok? y/n: ')
+		if ok=='y':
+			return F
+		elif ok!='n':
+			print('Please respond by entering \'y\' or \'n\'')
+
