@@ -25,9 +25,9 @@ def subgroup_input():
 	flower=H.flower
 	T=bfs(flower,)
 	T.forest()
-	double=flower.double()
-	bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	forest=bfs1.forest()
+	#double=flower.double()
+	#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	#forest=bfs1.forest()
 	H.subgroup_free_gens=subgroup_basis(flower)[0]
 	test=0
 	while test==0:
@@ -48,9 +48,9 @@ def subgroup_input():
 			flower=H.flower
 			T=bfs(flower,)
 			T.forest()
-			double=flower.double()
-			bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-			forest=bfs1.forest()
+			#double=flower.double()
+			#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+			#forest=bfs1.forest()
 			H.subgroup_free_gens=subgroup_basis(flower)[0]
 		else:
 			test=1
@@ -78,3 +78,18 @@ def enter_subgroup():
 	return
 
 enter_subgroup()
+
+def enter_free_group():
+	r=input('Enter the letter to represent the free group: ')
+	while True:
+		try:
+			n=input('Enter the rank of the free group: ')
+			n=int(n)
+			if n < 1:
+				n=''
+			int(n)
+			break
+		except ValueError:
+			print('The number of generating elements must be a positive integer.')
+	F=free_group(r,n)
+	return F
