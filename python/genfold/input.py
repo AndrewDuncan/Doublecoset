@@ -17,6 +17,9 @@ def subgroup_input():
 	flower=H.flower
 	T=bfs(flower,)
 	T.forest()
+	double=flower.double()
+	bfs=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest=bfs.forest()
 	H.subgroup_free_gens=subgroup_basis(flower)[0]
 	test=0
 	while test==0:
@@ -37,6 +40,9 @@ def subgroup_input():
 			flower=H.flower
 			T=bfs(flower,)
 			T.forest()
+			double=flower.double()
+			bfs=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+			forest=bfs.forest()
 			H.subgroup_free_gens=subgroup_basis(flower)[0]
 		else:
 			test=1
