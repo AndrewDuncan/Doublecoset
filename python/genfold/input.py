@@ -2,8 +2,16 @@ from alg2 import *
 
 def subgroup_input():
 	Hname=input('Enter the name of the subgroup: ')
-	n=input('How many generators does this subgroup have? ')
-	n=int(n)
+	while True:
+		try:
+			n=input('How many generators does this subgroup have? ')
+			n=int(n)
+			if n < 0:
+				n=''
+			int(n)
+			break
+		except ValueError:
+			print('The number of generators must be a non-negative integer.')
 	Hgens=[]
 	for i in range(1,n+1):
 		w=input('Enter generator number %s: ' % (i,))
@@ -17,16 +25,16 @@ def subgroup_input():
 	flower=H.flower
 	T=bfs(flower,)
 	T.forest()
-	double=flower.double()
-	bfs=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	forest=bfs.forest()
+	#double=flower.double()
+	#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	#forest=bfs1.forest()
 	H.subgroup_free_gens=subgroup_basis(flower)[0]
 	test=0
 	while test==0:
-		if len(Hgens)>len(H.subgp_free_gens):
+		if len(Hgens)>len(H.subgroup_free_gens):
 			print('There are more elements in the generators than there are in the basis computed.')
-			print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgp_free_gens)
-			n=len(H.subgp_free_gens)
+			print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgroup_free_gens)
+			n=len(H.subgroup_free_gens)
 			Hgens=[]
 			print('Please input %s generators for H' % (n,))
 			for i in range(1,n+1):
@@ -40,21 +48,21 @@ def subgroup_input():
 			flower=H.flower
 			T=bfs(flower,)
 			T.forest()
-			double=flower.double()
-			bfs=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-			forest=bfs.forest()
+			#double=flower.double()
+			#bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+			#forest=bfs1.forest()
 			H.subgroup_free_gens=subgroup_basis(flower)[0]
 		else:
 			test=1
 	print('The generators of H are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
-	for i in range(0,len(H.subgp_free_gens)):
-		print(H.subgp_free_gens[i],FZ.gens[i])
+	for i in range(0,len(H.subgroup_free_gens)):
+		print(H.subgroup_free_gens[i][0],FZ.gens[i])
 	k=confirm()
-	return k
+	return (k,H)
 	
 def confirm():
-	k=2
-	while k==2:
+	ok=''
+	while True:
 		ok=input('Is this ok? y/n: ')
 		if ok=='y':
 			return(1)
@@ -62,12 +70,29 @@ def confirm():
 			return(0)
 		else:
 			print('Please respond by entering \'y\' or \'n\'')
-			ok=input('Is this ok? y/n: ')
 
 def enter_subgroup():
 	t=0
 	while t==0:
-		t=subgroup_input()
-	return
+		tt=subgroup_input()
+		t=tt[0]
+	return tt[1]
 
 enter_subgroup()
+
+def enter_free_group():
+	r=input('Enter the letter to represent the free group: ')
+	while True:
+		try:
+			n=input('Enter the rank of the free group: ')
+			n=int(n)
+			if n < 1:
+				n=''
+			int(n)
+			break
+		except ValueError:
+			print('The number of generating elements must be a positive integer.')
+	F=free_group(n,r)
+	return F
+
+enter_free_group()
