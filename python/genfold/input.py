@@ -61,8 +61,8 @@ def subgroup_input():
 	return k
 	
 def confirm():
-	k=2
-	while k==2:
+	ok=''
+	while True:
 		ok=input('Is this ok? y/n: ')
 		if ok=='y':
 			return(1)
@@ -70,7 +70,6 @@ def confirm():
 			return(0)
 		else:
 			print('Please respond by entering \'y\' or \'n\'')
-			ok=input('Is this ok? y/n: ')
 
 def enter_subgroup():
 	t=0
