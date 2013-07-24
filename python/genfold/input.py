@@ -58,7 +58,7 @@ def subgroup_input():
 	for i in range(0,len(H.subgroup_free_gens)):
 		print(H.subgroup_free_gens[i][0],FZ.gens[i])
 	k=confirm()
-	return k
+	return (k,H)
 	
 def confirm():
 	ok=''
@@ -74,8 +74,9 @@ def confirm():
 def enter_subgroup():
 	t=0
 	while t==0:
-		t=subgroup_input()
-	return
+		tt=subgroup_input()
+		t=tt[0]
+	return tt[1]
 
 enter_subgroup()
 
@@ -91,5 +92,7 @@ def enter_free_group():
 			break
 		except ValueError:
 			print('The number of generating elements must be a positive integer.')
-	F=free_group(r,n)
+	F=free_group(n,r)
 	return F
+
+enter_free_group()
