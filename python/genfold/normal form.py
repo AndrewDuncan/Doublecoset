@@ -1,5 +1,5 @@
 from alg1 import *
-from input import * #this is temporary until input is incorporated into alg1
+from input_ajd import * #this is temporary until input is incorporated into alg1
 
 #F=enter_free_group()
 H=enter_subgroup()

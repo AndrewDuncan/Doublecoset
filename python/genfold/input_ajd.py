@@ -1,7 +1,7 @@
 from alg2 import *
 
-Hname=input('Enter the name of the subgroup: ')
 def subgroup_input():
+	Hname=input('Enter the name of the subgroup: ')
 	while True:
 		try:
 			n=input('How many generators does this subgroup have? ')
@@ -70,9 +70,10 @@ def genr_input(n):
 	Hgens=[]
 	for i in range(1,nn+1):
 		w=input('Enter generator number %s: ' % (i,))
+		w=w.replace(' ','')
 		w=w.split(",")
 		print('w is ',w)
-		Hgens=Hgens+w
+		Hgens.append(w)
 	return(Hgens)
 
 def setup_subgroup(H1):
@@ -82,9 +83,9 @@ def setup_subgroup(H1):
 	T1.forest()
 	return(flower1,T1)
 
-enter_subgroup()
+#enter_subgroup()
 
-def enter_free_group():
+def free_group_input():
 	r=input('Enter the letter to represent the free group: ')
 	while True:
 		try:
@@ -100,4 +101,15 @@ def enter_free_group():
 	return F
 
 
-enter_free_group()
+def enter_free_group():
+	ok=''
+	while True:
+		F=free_group_input()
+		print('This free group has the generators\n',F.gens)
+		ok=input('Is this ok? y/n: ')
+		if ok=='y':
+			return F
+		elif ok!='n':
+			print('Please respond by entering \'y\' or \'n\'')
+
+#enter_free_group()
