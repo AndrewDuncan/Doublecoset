@@ -28,13 +28,13 @@ def subgroup_input():
 	double=flower.double()
 	bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
 	forest=bfs1.forest()
-	H.subgroup_free_gens=subgroup_basis(flower)[1]
+	H.subgroup_free_gens=subgroup_basis(flower)[0]
 	test=0
 	while test==0:
-		if len(Hgens)>len(H.subgp_free_gens):
+		if len(Hgens)>len(H.subgroup_free_gens):
 			print('There are more elements in the generators than there are in the basis computed.')
-			print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgp_free_gens)
-			n=len(H.subgp_free_gens)
+			print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgroup_free_gens)
+			n=len(H.subgroup_free_gens)
 			Hgens=[]
 			print('Please input %s generators for H' % (n,))
 			for i in range(1,n+1):
@@ -55,8 +55,8 @@ def subgroup_input():
 		else:
 			test=1
 	print('The generators of H are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
-	for i in range(0,len(H.subgp_free_gens)):
-		print(H.subgp_free_gens[i],FZ.gens[i])
+	for i in range(0,len(H.subgroup_free_gens)):
+		print(H.subgroup_free_gens[i][0],FZ.gens[i])
 	k=confirm()
 	return k
 	
