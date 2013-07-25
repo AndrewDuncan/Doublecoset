@@ -1,9 +1,13 @@
 from alg1 import *
 from input_ajd import * #this is temporary until input is incorporated into alg1
 
+print('First, enter the details of the first free group')
 F1=enter_free_group()
-F2=enter_free_group()
+print('Now enter the details of the second free group')
+F2=enter_free_group() #need a check somewhere to make sure the same letter isn't used for both free groups
+print('Enter the details of the first subgroup')
 H1=enter_subgroup()
+print('Now enter the details of the second subgroup')
 H2=enter_subgroup()
 
 (flower1,double1,forest1)=alg2_pre(H1)
