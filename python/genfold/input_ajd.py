@@ -1,7 +1,7 @@
 from alg2 import *
 
-def subgroup_input():
-	Hname=input('Enter the name of the subgroup: ')
+def subgroup_input(Hname):
+	
 	while True:
 		try:
 			n=input('How many generators does this subgroup have? ')
@@ -61,9 +61,10 @@ def confirm():
 			print('Please respond by entering \'y\' or \'n\'')
 
 def enter_subgroup():
+	Hname=input('Enter the name of the subgroup: ')
 	t=0
 	while t==0:
-		tt=subgroup_input()
+		tt=subgroup_input(Hname)
 		t=tt[0]
 	return tt[1]
 
@@ -117,3 +118,4 @@ def enter_free_group():
 			print('Please respond by entering \'y\' or \'n\'')
 
 #enter_free_group()
+enter_subgroup()
