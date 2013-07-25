@@ -111,7 +111,7 @@ def enter_free_group():
 			return F
 		elif ok=='n':
 			F=free_group_input()
-		else ok!='n':
+		else:
 			print('Please respond by entering \'y\' or \'n\'')
 
 #enter_free_group()

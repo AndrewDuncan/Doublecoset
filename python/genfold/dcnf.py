@@ -15,7 +15,7 @@ while True:
 		break
 	w=w.replace(' ','')
 	w=w.split(',')
-	w=listsplitter(w)
+	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=amalgamate(w)
 	w=reducelist(w)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
