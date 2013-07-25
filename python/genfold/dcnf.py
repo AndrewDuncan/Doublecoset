@@ -8,6 +8,7 @@ F2=enter_free_group() #need a check somewhere to make sure the same letter isn't
 while F1.alpha.lower()==F2.alpha.lower():
 	print('The two free groups are both represented by the letter',F1.alpha)
 	print('Please re-enter the details of the second free group')
+	F2=enter_free_group()
 print('Enter the details of the first subgroup')
 H1=enter_subgroup()
 print('Now enter the details of the second subgroup')
