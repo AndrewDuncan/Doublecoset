@@ -49,7 +49,7 @@ def joiner(w):
 	if w==[[[],[],[]]]:
 		return []
 	elif len(w)==1:
-		ww=ww[0][0]+ww[0][1]+ww[0][2]
+		ww=w[0][0]+w[0][1]+w[0][2]
 		return ww
 	ww=[w[0][0]]
 	#print('ww=[w[0][0]]= ', ww)

@@ -4,15 +4,17 @@ from input_ajd import * #this is temporary until input is incorporated into alg1
 print('First, enter the details of the first free group')
 F1=enter_free_group()
 print('Now enter the details of the second free group')
-F2=enter_free_group() #need a check somewhere to make sure the same letter isn't used for both free groups
+F2=enter_free_group()
+#could potentially replace this with a test in the enter_free_group function,
 while F1.alpha.lower()==F2.alpha.lower():
 	print('The two free groups are both represented by the letter',F1.alpha)
 	print('Please re-enter the details of the second free group')
 	F2=enter_free_group()
+#would require adding an extra variable showing if a free group already existed and tracking it's name
 print('Enter the details of the first subgroup')
 H1=enter_subgroup()
 print('Now enter the details of the second subgroup')
-H2=enter_subgroup()
+H2=enter_subgroup() #need to test whether both subgroups have the same number of generators
 
 (flower1,double1,forest1)=alg2_pre(H1)
 (flower2,double2,forest2)=alg2_pre(H2)
@@ -24,7 +26,7 @@ while True:
 	w=w.replace(' ','')
 	w=w.split(',')
 	w=listsplitter(w,F1.mongens,F2.mongens)
-	w=amalgamate(w)
+	w=amalgamate(w,F1,F2,H1,H2)
 	w=reducelist(w)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
 	print('The word in double coset normal form is:',w)
