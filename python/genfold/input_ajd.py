@@ -103,13 +103,15 @@ def free_group_input():
 
 def enter_free_group():
 	ok=''
+	F=free_group_input()
 	while True:
-		F=free_group_input()
 		print('This free group has the generators\n',F.gens)
 		ok=input('Is this ok? y/n: ')
 		if ok=='y':
 			return F
-		elif ok!='n':
+		elif ok=='n':
+			F=free_group_input()
+		else ok!='n':
 			print('Please respond by entering \'y\' or \'n\'')
 
 #enter_free_group()
