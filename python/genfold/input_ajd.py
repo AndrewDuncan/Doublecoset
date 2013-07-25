@@ -43,7 +43,9 @@ def subgroup_input():
 	#print('The generators of the subgroup are:\n',Hgens,'\nThe free generators and their corresponding \'z\' generators are:\n')
 	#for i in range(0,len(H.subgroup_free_gens)):
 	#	print(H.subgroup_free_gens[i][0],FZ.gens[i])
-	print('The generators are:\n',Hgens,'\nand the basis is:\n',H.subgroup_free_gens)
+	print('The generators are:\n',Hgens,'The free generators and their corresponding \'z\' generators are:')
+	for i in range(0,len(H.subgroup_free_gens)):
+		print(H.subgroup_free_gens[i][0],FZ.gens[i])
 	k=confirm()
 	return (k,H)
 	
