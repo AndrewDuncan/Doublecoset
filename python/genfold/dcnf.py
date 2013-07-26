@@ -27,6 +27,7 @@ while True:
 	w=w.split(',')
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=amalgamate(w,F1,F2,H1,H2)
+	print('After amalgamation the word is:',w)
 	w=reducelist(w)
 	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
 	print('The word in double coset normal form is:',w)

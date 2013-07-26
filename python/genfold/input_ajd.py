@@ -53,9 +53,9 @@ def confirm():
 	ok=''
 	while True:
 		ok=input('Is this ok? y/n: ')
-		if ok=='y':
+		if ok.lower()=='y':
 			return(1)
-		elif ok=='n':
+		elif ok.lower()=='n':
 			return(0)
 		else:
 			print('Please respond by entering \'y\' or \'n\'')
@@ -110,9 +110,9 @@ def enter_free_group():
 	while True:
 		print('This free group has the generators\n',F.gens)
 		ok=input('Is this ok? y/n: ')
-		if ok=='y':
+		if ok.lower()=='y':
 			return F
-		elif ok=='n':
+		elif ok.lower()=='n':
 			F=free_group_input()
 		else:
 			print('Please respond by entering \'y\' or \'n\'')
