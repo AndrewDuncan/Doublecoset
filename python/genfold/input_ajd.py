@@ -86,8 +86,6 @@ def setup_subgroup(H1):
 	T1.forest()
 	return(flower1,T1)
 
-#enter_subgroup()
-
 def free_group_input():
 	r=input('Enter the letter to represent the free group: ')
 	while True:
@@ -118,4 +116,4 @@ def enter_free_group():
 			print('Please respond by entering \'y\' or \'n\'')
 
 #enter_free_group()
-enter_subgroup()
+#enter_subgroup()

@@ -1,4 +1,4 @@
-from alg1 import *
+from alg2 import *
 from input_ajd import * #this is temporary until input is incorporated into alg1
 
 print('First, enter the details of the first free group')
@@ -28,10 +28,10 @@ while True:
 	w=listsplitter(w,F1.mongens,F2.mongens)
 	w=amalgamate(w,F1,F2,H1,H2)
 	print('After amalgamation the word is:',w)
-	w=reducelist(w)
-	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
-	print('The word in double coset normal form is:',w)
-	w=joiner(w)
-	w=popper(w)
-	w=element(w).word
-	print('which is the same as:',w)
+#	w=reducelist(w)
+#	w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
+#	print('The word in double coset normal form is:',w)
+#	w=joiner(w)
+#	w=popper(w)
+#	w=element(w).word
+#	print('which is the same as:',w)
