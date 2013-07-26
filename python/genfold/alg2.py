@@ -230,13 +230,13 @@ def amalgamate(w,F1,F2,H1,H2):
 					w[s]=element(w[s]).word
 					for i in range(s+2,len(w)):
 						w[i-1]=w[i]
-					print("a,len(w)", len(w))
+					#print("a,len(w)", len(w))
 					w.pop(len(w)-1)
-					print("b, len(w)", len(w))
+					#print("b, len(w)", len(w))
 				elif s==len(w)-1:# when the amalgamated syllable is the last one
 					w[s-1]=w[s-1]+w[s]
 					w[s-1]=element(w[s-1]).word
-					print("c, len(w)",len(w))
+					#print("c, len(w)",len(w))
 					w.pop(s)
 					print("d,len(w)", len(w))
 				else: # the general case
@@ -244,12 +244,12 @@ def amalgamate(w,F1,F2,H1,H2):
 					w[s-1]=element(w[s-1]).word
 					for i in range(s+2,len(w)):
 						w[i-2]=w[i]
-						print("len(w)", len(w)," and i,w[i-2], w[i]", i,w[i-2],w[i])
-					print("e,len(w)", len(w))
+						#print("len(w)", len(w)," and i,w[i-2], w[i]", i,w[i-2],w[i])
+					#print("e,len(w)", len(w))
 					w.pop(len(w)-1)
-					print("f,len(w)", len(w))
+					#print("f,len(w)", len(w))
 					w.pop(len(w)-1)
-					print("g,len(w)", len(w))
+					#print("g,len(w)", len(w))
 
 		f=1-f
 

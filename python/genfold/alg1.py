@@ -333,8 +333,8 @@ def phi(subgroup,zword): #map a word in the free group on the Z generators of su
 		else:
 			print("the word passed to phi contains a letter not in Z:", zword[i]) # otherwise set the error flag to 0 and return 
 			return([],0)
-		print("in phi for loop with i =", i, "yy is ",yy)
-	print("at end of phi yy is", yy)
+		#print("in phi for loop with i =", i, "yy is ",yy)
+	#print("at end of phi yy is", yy)
 	return(element(yy).word,1)
 
 	 
