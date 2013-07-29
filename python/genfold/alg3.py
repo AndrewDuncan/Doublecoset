@@ -35,6 +35,6 @@ def d1(delta,F1,F2,Z):
 					remove edge from F[k-1]
 		if k==1:
 			delta_k0[1]=delta_k0[0]
-		for all vertices in delta_k0[k-1]:
-			set v.nu_im=('v') #part d
-			rename from 'v' to '(v,k)' #part c
+		for v in delta_k0[k-1]:
+			v.nu_im=('v') #part d
+			v.label='({0},{1})'.format(v.label,k) #part c
