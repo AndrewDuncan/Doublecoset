@@ -1,7 +1,6 @@
 from alg2 import *
 
 def subgroup_input(Hname):
-	
 	while True:
 		try:
 			n=input('How many generators does this subgroup have? ')
