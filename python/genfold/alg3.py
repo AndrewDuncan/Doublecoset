@@ -23,16 +23,18 @@ def d1(delta,F1,F2,Z):
 		delta_k0[k-1]=delta
 		for v in delta_k0[k-1].vertices: #part a
 			for outedges in v.outedgesList:
-				if the edge has a label in F[2-k]: ###
+				if outedges[0] in F[2-k].mongens:
 					remove the outedge from the vertex ###
 			for inedges in v.inedgesList:
-				if the edge has a label in F[2-k]: ###
+				if inedges[0] in F[2-k].mongens:
 					remove the inedge from the vertex ###
 		for v in delta_k0[k-1]: #part b
-			if len(v.inedgesList)+len(v.outedgesList)==1:
-				if the edge has a label from Z: ###
-					add edge to delta z ###
-					remove edge from F[k-1] ###
+			edgesList=inedgesList+outedgesList
+			if len(edgesList)==1:
+				for edge in edgeslist:
+					if edge in Z:
+						add edge to delta z ###
+						remove edge from F[k-1] ###
 		if k==1:
 			delta_k0[1]=delta_k0[0]
 		for v in delta_k0[k-1]:
