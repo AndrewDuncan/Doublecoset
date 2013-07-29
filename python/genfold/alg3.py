@@ -22,9 +22,9 @@ def d1(delta,F1,F2,Z):
 	for k in (1,2):
 		delta_k0[k-1]=delta
 		#pseudocode starts here
-		for all edges in delta_k0[k]: #part a
+		for all_edges in delta_k0[k-1]: #part a
 			if the edge has a label in F[2-k]:
-				remove edge from delta
+				remove all_edges from delta_k0[k-1]
 		for all vertices in delta_k0[k-1]: #part b
 			if the vertex has only one edge:
 				if the edge has a label from Z:
