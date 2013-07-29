@@ -12,10 +12,7 @@ def alg3_pre():
 		Z=free_group(F1.rank,'z')
 	else:
 		Z=free_group(F2.rank,'z')
-	delta_10=Graph(False,'Delta\' 1,0')
-	delta_20=Graph(False,'Delta\' 2,0')
-	delta_z=Graph(False,'Delta Z')
-	nu_im=[]
 
-def d1(delta,F1,F2,Z,):
-	
+def d1(delta,k,F1,F2,Z):
+	delta_k0=Graph(False,'Delta\' %s,0' % k)
+	delta_z=Graph(False,'Delta Z')
