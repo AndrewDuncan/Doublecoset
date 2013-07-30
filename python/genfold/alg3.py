@@ -33,13 +33,14 @@ def d1(delta,F,Z):
 			if len(edgesList)==1:
 				for edge in edgeslist:
 					if edge in Z:
-						#if k==1:
-						add edge to delta z ###
 						delta_z.addVertex(v.name)
 						if edge in v.inedgesList:
+							delta_z.addEdge(u,edge[0],edge[1]) ###
 							v.removeOutEdge(edge[0],edge[1])
 							#add inedge to z
+							
 						elif edge in v.outedgesList:
+							addOutEdge(edge[0],v,edge[1]) ###
 							v.removeInEdge(edge[0],edge[1])
 							#add outedge to z
 						
@@ -53,6 +54,6 @@ def d1(delta,F,Z):
 
 def d2(delta_k0):
 	for k in delta_k0:
-		
+		addPath(u,z,word,o=None)
 
 #lines labeled with ### need to be rewritten
