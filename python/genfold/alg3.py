@@ -24,19 +24,23 @@ def d1(delta,F1,F2,Z):
 		for v in delta_k0[k-1].vertices: #part a
 			for outedges in v.outedgesList:
 				if outedges[0] in F[2-k].mongens:
-					remove the outedge from the vertex ###
+					v.removeOutEdge(outedges[0],outedges[1])
 			for inedges in v.inedgesList:
 				if inedges[0] in F[2-k].mongens:
-					remove the inedge from the vertex ###
+					v.removeInEdge(inedges[0],inedges[1])
 		for v in delta_k0[k-1]: #part b
-			edgesList=inedgesList+outedgesList
+			edgesList=v.inedgesList+v.outedgesList
 			if len(edgesList)==1:
 				for edge in edgeslist:
 					if edge in Z:
+						#if k==1:
 						add edge to delta z ###
-						remove edge from F[k-1] ###
-		if k==1:
-			delta_k0[1]=delta_k0[0]
+						if edge in v.inedgesList:
+							v.removeOutEdge(edge[0],edge[1])
+						elif edge in v.outedgesList:
+							v.removeInEdge(edge[0],edge[1])
+#		if k==1:
+#			delta_k0[1]=delta_k0[0]
 		for v in delta_k0[k-1]:
 			v.nu_im=('v') #part d
 			v.label='({0},{1})'.format(v.label,k) #part c
