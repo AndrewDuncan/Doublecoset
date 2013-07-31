@@ -46,14 +46,19 @@ def d1(delta,F,Z):
 		for v in delta_k0[k-1]:
 			v.nu_im=('{v}') #part d
 			v.label='({0},{1})'.format(v.label,k) #part c
+	print('digraph H {')
 	print(delta_k0[0].graphViz('Delta 1,0'))
+	print('}')
+	print('digraph H {')
 	print(delta_k0[1].graphViz('Delta 2,0'))
+	print('}')
+	print('digraph H {')
 	print(delta_z.graphViz('Delta Z'))
+	print('}')
 	return delta_k0, delta_z
 
 def d2(delta_k0):
-	(deltap_11,deltap_21)=delta_k0
-	deltap_k1=[deltap_11,deltap_21]
+	deltap_k1=[delta_k0[0],delta_k0[1]]
 	for k in (1,2):
 		for v in delta_k0[k-1].vertices:
 			for outedges in v.outedgesList:
