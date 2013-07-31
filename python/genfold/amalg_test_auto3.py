@@ -14,8 +14,8 @@ v4=['B1','b2']
 G1=subgroup('G1',[u1,u2,u3,u4],FZ.gens)
 G2=subgroup('G2',[v1,v2,v3,v4],FZ.gens)
 
-alg2_pre(G1)
-alg2_pre(G2)
+(flower1,double1,forest1,bfs1)=alg2_pre(G1)
+(flower2,double2,forest2,bfs2)=alg2_pre(G2)
 
 w=['b1', 'a1', 'a1', 'a1', 'a2', 'A1', 'A1', 'A1', 'B1', 'A1'] 
 print('\n\n\n',w,' becomes')
