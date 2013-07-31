@@ -17,7 +17,7 @@ def alg3_pre():
 def d1(delta,F,Z):
 	delta_10=Graph(False,'Delta\' 1,0')
 	delta_20=Graph(False,'Delta\' 2,0')
-	delta_k0=[delta_10,delta_20)]
+	delta_k0=[delta_10,delta_20]
 	delta_z=Graph(False,'Delta Z')
 	for k in (1,2):
 		delta_k0[k-1]=delta
@@ -32,33 +32,34 @@ def d1(delta,F,Z):
 			edgesList=v.inedgesList+v.outedgesList
 			if len(edgesList)==1:
 				for edge in edgeslist:
-					if edge in Z:
+					if edge in Z.mongens:
 						delta_z.addVertex(v.name)
 						if edge in v.inedgesList:
-							delta_z.addEdge(u,edge[0],edge[1]) ###
+							delta_z.addEdge(edge[0],v,edge[1])
 							v.removeOutEdge(edge[0],edge[1])
-							
 						elif edge in v.outedgesList:
-							addOutEdge(edge[0],v,edge[1]) ###
+							addOutEdge(v,edge[0],edge[1])
 							v.removeInEdge(edge[0],edge[1])
-						
-						
 #		if k==1:
 #			delta_k0[1]=delta_k0[0]
 		for v in delta_k0[k-1]:
-			v.nu_im=('v') #part d
+			v.nu_im=('{v}') #part d
 			v.label='({0},{1})'.format(v.label,k) #part c
 	return delta_k0, delta_z
 
 def d2(delta_k0):
-	delta`_10=Graph(False,'Delta` 1,0')
-	delta`_20=Graph(False,'Delta` 2,0')
-	delta`_k0[delta`_10,delta`_20]
-	for k in delta_k0:
-		for v in k.vertices:
+	[delta`_11,delta`_21]=delta_k0
+	delta`_k1=[delta`_11,delta`_21]
+	for k in (1,2):
+		for v in delta_k0[k-1].vertices:
 			for outedges in v.outedgesList
-				addPath(u,outedges[1],phi(outedges[0]))
-	return delta`_k0
-				
+				delta`_k1[k-1].addPath(v,outedges[1],phi(outedges[0]))
+		for v in delta`_k1[k-1].vertices:
+			if v not in delta_k0[k-1]:
+				v.nu_im=('{v}')
+	return delta`_k1
 
-#lines labeled with ### need to be rewritten
+def d3(delta`_k1):
+	for k in (1,2):
+		
+	return delta_k1
