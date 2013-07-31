@@ -8,11 +8,12 @@ def alg3_pre():
 	H1=enter_subgroup()
 	H2=enter_subgroup()
 	(flower1,double1,forest1)=alg2_pre(H1)
-	(flower1,double1,forest1)=alg2_pre(H2)
+	(flower2,double2,forest2)=alg2_pre(H2)
 	if F1.rank>F2.rank:
 		Z=free_group(F1.rank,'z')
 	else:
 		Z=free_group(F2.rank,'z')
+	return F1,F2,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
 
 def d1(delta,F,Z):
 	delta_10=Graph(False,'Delta\' 1,0')
