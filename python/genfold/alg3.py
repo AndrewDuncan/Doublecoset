@@ -8,11 +8,12 @@ def alg3_pre():
 	H1=enter_subgroup()
 	H2=enter_subgroup()
 	(flower1,double1,forest1)=alg2_pre(H1)
-	(flower1,double1,forest1)=alg2_pre(H2)
+	(flower2,double2,forest2)=alg2_pre(H2)
 	if F1.rank>F2.rank:
 		Z=free_group(F1.rank,'z')
 	else:
 		Z=free_group(F2.rank,'z')
+	return F1,F2,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
 
 def d1(delta,F,Z):
 	delta_10=Graph(False,'Delta\' 1,0')
@@ -45,21 +46,33 @@ def d1(delta,F,Z):
 		for v in delta_k0[k-1]:
 			v.nu_im=('{v}') #part d
 			v.label='({0},{1})'.format(v.label,k) #part c
+	print('digraph H {')
+	print(delta_k0[0].graphViz('Delta 1,0'))
+	print('}')
+	print('digraph H {')
+	print(delta_k0[1].graphViz('Delta 2,0'))
+	print('}')
+	print('digraph H {')
+	print(delta_z.graphViz('Delta Z'))
+	print('}')
 	return delta_k0, delta_z
 
 def d2(delta_k0):
-	[delta`_11,delta`_21]=delta_k0
-	delta`_k1=[delta`_11,delta`_21]
+	deltap_k1=[delta_k0[0],delta_k0[1]]
 	for k in (1,2):
 		for v in delta_k0[k-1].vertices:
-			for outedges in v.outedgesList
-				delta`_k1[k-1].addPath(v,outedges[1],phi(outedges[0]))
-		for v in delta`_k1[k-1].vertices:
+			for outedges in v.outedgesList:
+				deltap_k1[k-1].addPath(v,outedges[1],phi(outedges[0]))
+		for v in deltap_k1[k-1].vertices:
 			if v not in delta_k0[k-1]:
 				v.nu_im=('{v}')
-	return delta`_k1
+	return deltap_k1
 
-def d3(delta`_k1):
+def d3(deltap_k1):
+	delta_k1=[]
 	for k in (1,2):
-		
+		delta_k1.append(bfs(deltap_k1[k-1],sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]])))
+		delta_k1[k-1].forest
+		for g in bfs[k-1].graph.components:
+			g.stallings()
 	return delta_k1
