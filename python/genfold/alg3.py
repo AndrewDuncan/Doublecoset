@@ -37,12 +37,10 @@ def d1(delta,F,Z):
 						if edge in v.inedgesList:
 							delta_z.addEdge(u,edge[0],edge[1]) ###
 							v.removeOutEdge(edge[0],edge[1])
-							#add inedge to z
 							
 						elif edge in v.outedgesList:
 							addOutEdge(edge[0],v,edge[1]) ###
 							v.removeInEdge(edge[0],edge[1])
-							#add outedge to z
 						
 						
 #		if k==1:
@@ -53,7 +51,14 @@ def d1(delta,F,Z):
 	return delta_k0, delta_z
 
 def d2(delta_k0):
+	delta`_10=Graph(False,'Delta` 1,0')
+	delta`_20=Graph(False,'Delta` 2,0')
+	delta`_k0[delta`_10,delta`_20]
 	for k in delta_k0:
-		addPath(u,z,word,o=None)
+		for v in k.vertices:
+			for outedges in v.outedgesList
+				addPath(u,outedges[1],phi(outedges[0]))
+	return delta`_k0
+				
 
 #lines labeled with ### need to be rewritten
