@@ -295,27 +295,30 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
 	v=['']*len(w) # initialise a list which will eventually contain the normal form
 	print("v, len(v), len(w)",v,len(v), len(w))
 	for s in range(n,-1,-1):
-		#put w[s] in terms of H[1-f] here
 		print('Start of a_n_f loop. w is', w)	
 		print('s is',s)
 		print('w[s] is',w[s])
 		print("H[f] is ", H[f].name)
-		t=hf_test(w[s],H[f])
+		t=hf_test(w[s],H[f])# test to see if w[s] is in H[f] or not
 		if t[0]==1: #if w[s] is in H[f]
-			if len(w)==1:# if w is a single syllable then output the free group normal form of w, in terms of genrs Z
-				#	
-				v=[t[1],[],[]] # the second argument of hf_test(w[s],H[f]) is the word w[s] written in F(Z) (+ 2 trivial words)
+			print("w[s] is in ", H[f].name)
+			if len(w)==1:# if w is a single syllable then output the free group normal form of w
+				print(" and len(w)==1, here it is", len(w))
+				v[0]=[t[1],[],[]] # the second argument of hf_test(w[s],H[f]) is the word w[s] written in F(Z) (+ 2 trivial words)
 			else:# if w has more than one syllable then amalgamate with neighbouring syllables 
 				w[s]=phi(H[1-f],t[1])[0] #swap w[s] from H[f] to H[1-f]
 				if s==0:#  if s is pointing at the first syllable and this is in H[f]
 					w[s]=w[s]+w[s+1]
 					w[s]=element(w[s]).word
+					print("pre shuffle: a,len(w), len(v), w, v", len(w), len(v), w,v)
 					for i in range(s+2,len(w)):
 						w[i-1]=w[i]
 						v[i-1]=v[i]
-					#print("a,len(w)", len(w))
-					w.pop(len(w)-1)
-					v.pop(len(w)-1)
+					print("pre pop: a,len(w), len(v), w, v", len(w), len(v), w,v)
+					v[s]=v[s+1].insert(0,t[1])# as s points at the first syllable, the left hand part is non-trivial
+					w.pop(len(w)-1)#remove the last syllable of w 
+					v.pop(len(w)-1)#remove the last syllable of v
+					print("post pop: a,len(w), len(v), w, v", len(w), len(v), w,v)
 					#print("b, len(w)", len(w))
 				elif s==len(w)-1:# if s is pointing at the last syllable, and this is in H[f]
 					w[s-1]=w[s-1]+w[s]
@@ -324,7 +327,7 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
 					w.pop(s)
 					v.pop(s)
 					print("d,len(w)", len(w))
-				else: # the general case
+				else: # the general case: s is pointing at a syllable which is in H[f], but not the 1st or last syll
 					w[s-1]=w[s-1]+w[s]+w[s+1]
 					w[s-1]=element(w[s-1]).word
 					for i in range(s+2,len(w)):
@@ -338,28 +341,28 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
 					w.pop(len(w)-1)
 					v.pop(len(w)-1)
 					#print("g,len(w)", len(w))
-		else:				
+		else:	#if w[s] is not in H[f]			
 			(left,Drep, right,left_Z,right_Z)=Normal_form(G[f][0],w[s],G[f][3]).spit_out_nf()#get the normal form of w[s]
-			
-			if s>0:
-				v[s]=(Drep,right_Z)
+			print("in amal_n_f left,Drep, right,left_Z,right_Z is", left,Drep, right,left_Z,right_Z)
+			if s>0:# if w[s] is not the first syllable of w 
+				v[s]=[Drep,right_Z]#syllable s of the normal form is (dc-repr, transversal element)
 				swap=phi(H[1-f],left_Z)[0] #swap left hand part of w[s] from H[f] to H[1-f]
-				w[s-1]=element(w[s-1]+swap).word
+				w[s-1]=element(w[s-1]+swap).word #right multiply w[s-1] by swap
+				w[s]=element(Drep+right).word# left multiply w[s] by the inverse of it's left part
 			else:
-				v[s]=(left_Z,Drep,right_Z)
+				v[s]=[left_Z,Drep,right_Z] #when s points at the 1st syllable the left hand part of w[s] becomes part of the normal form
 
-		f=1-f
-
+		f=1-f # swap from group 1 to 2 or vice-versa
+	
 	return(w,v)
 #######
 
 def hf_test(w,H):
 	t=graph_pass(H.flower,w).acc_read_rem()
 	print("in hf_test t is ", t)
-	#print("H name, gens, free_gens", H.name, H.subgp_gens, H.subgroup_free_gens, "and t[4] is ", t[4])
+	print("H name, gens, free_gens", H.name, H.subgp_gens, H.subgroup_free_gens, "and t[4] is ", t[4])
 	if len(t[1])==0 and len(t[2])==0:# in this case w[s] is in H[f]
 		j=1
-		#w=phi(H[1-k],t[4])[0]
 	else:
 		j=0
 	print("after hf_test j is",j)
