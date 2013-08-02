@@ -9,11 +9,12 @@ def alg3_pre():
 	H2=enter_subgroup()
 	(flower1,double1,forest1)=alg2_pre(H1)
 	(flower2,double2,forest2)=alg2_pre(H2)
+	H=(H1,H2)
 	if F1.rank>F2.rank:
 		Z=free_group(F1.rank,'z')
 	else:
 		Z=free_group(F2.rank,'z')
-	return F1,F2,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
+	return F,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
 
 def d1(delta,F,Z):
 	delta_10=Graph(False,'Delta\' 1,0')
@@ -29,23 +30,28 @@ def d1(delta,F,Z):
 			for inedges in v.inedgesList:
 				if inedges[0] in F[2-k].mongens:
 					v.removeInEdge(inedges[0],inedges[1])
-		for v in delta_k0[k-1]: #part b
+		for v in delta_k0[k-1].vertices: #part b
 			edgesList=v.inedgesList+v.outedgesList
 			if len(edgesList)==1:
-				for edge in edgeslist:
+				for edge in edgesList:
 					if edge in Z.mongens:
 						delta_z.addVertex(v.name)
 						if edge in v.inedgesList:
-							delta_z.addEdge(edge[0],v,edge[1])
+							if v not in delta_z.vertices:
+								vv=delta_z.addVertex(v.label)
+							delta_z.vv.addInEdge(edge[0],v,edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
 							v.removeOutEdge(edge[0],edge[1])
 						elif edge in v.outedgesList:
-							addOutEdge(v,edge[0],edge[1])
+							if v not in delta_z.vertices:
+								vv=delta_z.addVertex(v.label)
+							delta_z.vv.addOutEdge(v,edge[0],edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
 							v.removeInEdge(edge[0],edge[1])
 #		if k==1:
 #			delta_k0[1]=delta_k0[0]
-		for v in delta_k0[k-1]:
+		for v in delta_k0[k-1].vertices:
 			v.nu_im=('{v}') #part d
 			v.label='({0},{1})'.format(v.label,k) #part c
+	print(delta_z.vertices)
 	print('digraph H {')
 	print(delta_k0[0].graphViz('Delta 1,0'))
 	print('}')

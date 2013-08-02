@@ -38,6 +38,6 @@ H.addEdge(a14,a15,'x')
 H.addEdge(a15,a16,'z')
 H.addEdge(a16,a17,'x')
 
-print "digraph H {"
+print ("digraph H {")
 print (str(H))
-print "}"
+print ("}")
