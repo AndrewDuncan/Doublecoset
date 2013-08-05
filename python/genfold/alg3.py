@@ -2,10 +2,14 @@ from alg2 import *
 from input_ajd import * #temporary, will eventually be included in the above import
 
 def alg3_pre():
+	print('For the first free group:')
 	F1=enter_free_group()
+	print('For the second free group:')
 	F2=enter_free_group()
 	F=(F1,F2)
+	print('For the first subgroup:')
 	H1=enter_subgroup()
+	print('For the second subgroup:')
 	H2=enter_subgroup()
 	(flower1,double1,forest1)=alg2_pre(H1)
 	(flower2,double2,forest2)=alg2_pre(H2)
@@ -32,20 +36,32 @@ def d1(delta,F,Z):
 					v.removeInEdge(inedges[0],inedges[1])
 		for v in delta_k0[k-1].vertices: #part b
 			edgesList=v.inedgesList+v.outedgesList
+			print(v,edgesList)
 			if len(edgesList)==1:
 				for edge in edgesList:
-					if edge in Z.mongens:
+					if edge[0] in Z.mongens:
 						delta_z.addVertex(v.name)
 						if edge in v.inedgesList:
 							if v not in delta_z.vertices:
 								vv=delta_z.addVertex(v.label)
-							delta_z.vv.addInEdge(edge[0],v,edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
+							else:
+								vv=v
+							if edge[1] not in delta_z.vertices:
+								delta_z.addVertex(edge[1])
+							#vv.addInEdge(edge[0],v,edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
+							vv.addInEdge(edge[0],v,edge[1])
 							v.removeOutEdge(edge[0],edge[1])
 						elif edge in v.outedgesList:
 							if v not in delta_z.vertices:
 								vv=delta_z.addVertex(v.label)
-							delta_z.vv.addOutEdge(v,edge[0],edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
+							else:
+								vv=v
+							if edge[1] not in delta_z.vertices:
+								delta_z.addVertex(edge[1])
+							#vv.addOutEdge(v,edge[0],edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
+							vv.addOutEdge(v,edge[0],edge[1])
 							v.removeInEdge(edge[0],edge[1])
+		print(str(delta_z))
 #		if k==1:
 #			delta_k0[1]=delta_k0[0]
 		for v in delta_k0[k-1].vertices:
