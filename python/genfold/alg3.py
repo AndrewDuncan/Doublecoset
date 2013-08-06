@@ -50,7 +50,8 @@ def d1(delta,F,Z):
 								delta_z.addVertex(edge[1])
 							#vv.addInEdge(edge[0],v,edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
 							vv.addInEdge(edge[0],v,edge[1])
-							v.removeOutEdge(edge[0],edge[1])
+							if edge in v.outedgesList:
+								v.removeOutEdge(edge[0],edge[1])
 						elif edge in v.outedgesList:
 							if v not in delta_z.vertices:
 								vv=delta_z.addVertex(v.label)
@@ -60,7 +61,8 @@ def d1(delta,F,Z):
 								delta_z.addVertex(edge[1])
 							#vv.addOutEdge(v,edge[0],edge[1],v.inedges_write['({0},{1})'.format(v.label,edge[1])])
 							vv.addOutEdge(v,edge[0],edge[1])
-							v.removeInEdge(edge[0],edge[1])
+							if edge in v.inedgesList:
+								v.removeInEdge(edge[0],edge[1])
 		print(str(delta_z))
 #		if k==1:
 #			delta_k0[1]=delta_k0[0]
