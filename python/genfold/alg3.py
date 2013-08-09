@@ -82,7 +82,7 @@ def d1(delta,F,Z):
 	print('}')
 	return delta_k0, delta_z
 
-def d1_alt(delta,F,Z):
+def d1_alt(delta,F,Z): #still has a few problems, but is in general nicer code than d1 and should work better once completed
 	delta_10=Graph(False,'Delta\' 1,0')
 	delta_20=Graph(False,'Delta\' 2,0')
 	delta_k0=[delta_10,delta_20]

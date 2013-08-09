@@ -171,7 +171,7 @@ class Graph:
 		else:
 			self.addEdge(v,u,label.lower(),write)
 
-	def removeEdge(self,u,v,label):
+	def removeEdge(self,u,v,label): #this isn't recognised as a class attribute for some reason, causes problems with alg3
 		if label==label.lower():
 			u.removeOutEdge(label,v)
 			v.removeInEdge(label,u)
