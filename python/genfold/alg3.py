@@ -113,7 +113,7 @@ def d1_alt(delta,F,Z):
 					delta_z.addEdge(v,edgesList[0][1],edgesList[0][0])
 					#delta_z.addEdge(edgesList[0][0],edgesList[0][1],edgesList[0][2],edgesList[0][3])
 					#problems start here
-					delta_k0[k-1].removeEdge(edgesList[0][1],v,edgesList[0][0])
+					delta_k0[k-1].removeEdge(v,edgesList[0][1],edgesList[0][0])
 				shoots=ind
 	for k in (1,2):
 		for v in delta_k0[k-1].vertices:
