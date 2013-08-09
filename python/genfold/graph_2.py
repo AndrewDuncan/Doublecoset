@@ -169,7 +169,7 @@ class Graph:
 			u.addOutEdge(label,v,write.lower())
 			v.addInEdge(label,u,write.lower())
 		else:
-			self.addEdge(v,u,label.lower(),write)	
+			self.addEdge(v,u,label.lower(),write)
 
 	def removeEdge(self,u,v,label):
 		if label==label.lower():
