@@ -101,17 +101,17 @@ def d1_alt(delta,F,Z):
 			for inedges in v.inedgesList:
 				if inedges[0] in F[2-k].mongens:
 					v.removeInEdge(inedges[0],inedges[1])
+		shoots=1
 		for v in delta_k0[k-1].vertices: #part b
-			shoots=1
+			ind=0
 			while shoots!=0:
-				ind=0
 				edgesList=v.inedgesList+v.outedgesList
 				if len(edgesList)==1:
 					print(edgesList)
 					ind+=1
 					print(ind)
 					#problems start here
-					delta_k0[k-1].addEdge(edgesList[0][0],edgesList[0][1],edgesList[0][2],edgesList[0][3])
+					delta_z.addEdge(edgesList[0][0],edgesList[0][1],edgesList[0][2],edgesList[0][3])
 					delta_k0[k-1].removeEdge(edgesList[0][0],edgesList[0][1],edgesList[0][2])
 				shoots=ind
 	for k in (1,2):
