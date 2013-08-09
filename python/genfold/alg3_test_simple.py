@@ -16,4 +16,5 @@ g.addEdge(a6,a5,'z1')
 g.addEdge(a7,a5,'y1')
 
 (F,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2)=alg3_pre()
-d1(g,F,Z)
+#d1(g,F,Z)
+d1_alt(g,F,Z)

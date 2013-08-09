@@ -1,4 +1,4 @@
-from alg2 import *
+from alg2_2 import * #names and imports changed to remove dependency issues, will be returned to normal later
 from input_ajd import * #temporary, will eventually be included in the above import
 
 def alg3_pre():
@@ -21,9 +21,10 @@ def alg3_pre():
 	return F,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
 
 def d1(delta,F,Z):
-	delta_10=Graph(False,'Delta\' 1,0')
-	delta_20=Graph(False,'Delta\' 2,0')
-	delta_k0=[delta_10,delta_20]
+#	delta_10=Graph(False,'Delta\' 1,0')
+#	delta_20=Graph(False,'Delta\' 2,0')
+#	delta_k0=[delta_10,delta_20]
+	delta_k0=[0,0]
 	delta_z=Graph(False,'Delta Z')
 	for k in (1,2):
 		delta_k0[k-1]=delta
@@ -87,12 +88,37 @@ def d1_alt(delta,F,Z):
 	delta_k0=[delta_10,delta_20]
 	delta_z=Graph(False,'Delta Z')
 	vlabs=[]
-	for i in range(0,len(delta.vertices)):
-		j='vz'+str(i)
-		vlabs.append(j)
-	for v in 
-		=delta_z.addVertex()###
+	delta_z.vertices=delta.vertices
+#	for i in range(0,len(delta.vertices)):
+#		j='vz'+str(i)
+#		vlabs.append(j)
 	for k in (1,2):
+		delta_k0[k-1]=delta
+		for v in delta_k0[k-1].vertices: #part a
+			for outedges in v.outedgesList:
+				if outedges[0] in F[2-k].mongens:
+					v.removeOutEdge(outedges[0],outedges[1])
+			for inedges in v.inedgesList:
+				if inedges[0] in F[2-k].mongens:
+					v.removeInEdge(inedges[0],inedges[1])
+		for v in delta_k0[k-1].vertices: #part b
+			shoots=1
+			while shoots!=0:
+				ind=0
+				edgesList=v.inedgesList+v.outedgesList
+				if len(edgesList)==1:
+					print(edgesList)
+					ind+=1
+					print(ind)
+					#problems start here
+					delta_k0[k-1].addEdge(edgesList[0][0],edgesList[0][1],edgesList[0][2],edgesList[0][3])
+					delta_k0[k-1].removeEdge(edgesList[0][0],edgesList[0][1],edgesList[0][2])
+				shoots=ind
+	for k in (1,2):
+		for v in delta_k0[k-1].vertices:
+			v.nu_im=('{v}') #part d
+			v.label='({0},{1})'.format(v.label,k) #part c
+	return delta_k0,delta_z
 
 def d2(delta_k0):
 	deltap_k1=[delta_k0[0],delta_k0[1]]
