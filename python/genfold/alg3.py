@@ -107,10 +107,11 @@ def d1_alt(delta,F,Z): #still has problems, but is in general nicer code than d1
 				ind=0
 				edgesList=v.inedgesList+v.outedgesList
 				if len(edgesList)==1:
-					print(edgesList)
-					print(ind)
+					#print(edgesList)
 					if edgesList[0][0] in Z.mongens:
 						ind+=1
+						print(ind)
+						print(edgesList[0])
 						delta_z.addEdge(v,edgesList[0][1],edgesList[0][0])
 						#problems start here
 						#delta_k0[k-1].removeEdge(v,edgesList[0][1],edgesList[0][0])
