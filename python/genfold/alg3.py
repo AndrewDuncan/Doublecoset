@@ -102,23 +102,28 @@ def d1_alt(delta,F,Z): #still has problems, but is in general nicer code than d1
 				if inedges[0] in F[2-k].mongens:
 					v.removeInEdge(inedges[0],inedges[1])
 		shoots=1
-		for v in delta_k0[k-1].vertices: #part b
-			while shoots!=0:
+		while shoots!=0:
+			for v in delta_k0[k-1].vertices: #part b
 				ind=0
 				edgesList=v.inedgesList+v.outedgesList
 				if len(edgesList)==1:
-					print(edgesList)
-					ind+=1
-					print(ind)
-					delta_z.addEdge(v,edgesList[0][1],edgesList[0][0])
-					#problems start here
-					#delta_k0[k-1].removeEdge(v,edgesList[0][1],edgesList[0][0])
-					removeEdge(delta_k0[k-1],v,edgesList[0][1],edgesList[0][0])
+					#print(edgesList)
+					if edgesList[0][0] in Z.mongens:
+						ind+=1
+						print(ind)
+						print(edgesList[0])
+						delta_z.addEdge(v,edgesList[0][1],edgesList[0][0])
+						#problems start here
+						#delta_k0[k-1].removeEdge(v,edgesList[0][1],edgesList[0][0])
+						removeEdge(delta_k0[k-1],v,edgesList[0][1],edgesList[0][0])
 				shoots=ind
 	for k in (1,2):
 		for v in delta_k0[k-1].vertices:
 			v.nu_im=('{v}') #part d
 			v.label='({0},{1})'.format(v.label,k) #part c
+	print('digraph H {')
+	print(str(delta_z))
+	print('}')
 	return delta_k0,delta_z
 
 def d2(delta_k0):
