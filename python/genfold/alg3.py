@@ -103,17 +103,17 @@ def d1_alt(delta,F,Z): #still has problems, but is in general nicer code than d1
 					v.removeInEdge(inedges[0],inedges[1])
 		shoots=1
 		for v in delta_k0[k-1].vertices: #part b
-			ind=0
 			while shoots!=0:
+				ind=0
 				edgesList=v.inedgesList+v.outedgesList
 				if len(edgesList)==1:
 					print(edgesList)
 					ind+=1
 					print(ind)
 					delta_z.addEdge(v,edgesList[0][1],edgesList[0][0])
-					#delta_z.addEdge(edgesList[0][0],edgesList[0][1],edgesList[0][2],edgesList[0][3])
 					#problems start here
-					delta_k0[k-1].removeEdge(v,edgesList[0][1],edgesList[0][0])
+					#delta_k0[k-1].removeEdge(v,edgesList[0][1],edgesList[0][0])
+					removeEdge(delta_k0[k-1],v,edgesList[0][1],edgesList[0][0])
 				shoots=ind
 	for k in (1,2):
 		for v in delta_k0[k-1].vertices:
@@ -126,7 +126,8 @@ def d2(delta_k0):
 	for k in (1,2):
 		for v in delta_k0[k-1].vertices:
 			for outedges in v.outedgesList:
-				deltap_k1[k-1].addPath(v,outedges[1],phi(outedges[0]))
+				if edge[0] in Z.mongens:
+					deltap_k1[k-1].addPath(v,outedges[1],phi(outedges[0]))
 		for v in deltap_k1[k-1].vertices:
 			if v not in delta_k0[k-1]:
 				v.nu_im=('{v}')
@@ -140,3 +141,10 @@ def d3(deltap_k1):
 		for g in bfs[k-1].graph.components:
 			g.stallings()
 	return delta_k1
+
+def removeEdge(graph,u,v,label): #to replace the non-working class attribute, at least temporarily
+	if label==label.lower():
+		u.removeOutEdge(label,v)
+		v.removeInEdge(label,u)
+	else:
+		self.removeEdge(v,u,label.lower())
