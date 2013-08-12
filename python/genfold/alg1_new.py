@@ -128,7 +128,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 			v.parent = v
 			v.path =[]
 			self.graph.components[c]=v
-			print("components are now", self.graph.components)
+			#print("components are now", self.graph.components)
 			q.append(v)# add v to the end of the queue
 			while q:
 				u=q[0] # for the first element u of the queue
@@ -308,20 +308,26 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 							break
                
 					Y=element(y).inverse()
-					a1=element(h+p+conn+Y).word
+					a1=element(h+p+conn).word #lhs of normal form if nothing passed right to left
 					#a_Z=graph_pass(self.graph,a).acc_read_rem()[4]
-					Z=element(z).inverse()
+					Z=element(z).inverse() 
 					#B=element(RHS[0]+RHS[1]+conn+z).word
-					B1=element(RHS[0]+RHS[1]+conn).word
+					B1=element(RHS[0]+RHS[1]+conn).word 
 					b1=element(B1).inverse()
-					RHS_d=graph_pass(self.double,b1,xroot).acc_read_rem()
-					t=[]
+					RHS_d=graph_pass(self.double,b1,xroot).acc_read_rem()#to find transversal element
+					#t=[]
 					v1=RHS_d[3]
 					t1=v1.path
 					T1=element(t1).inverse()
 					#print("t1 is ", t1)
-					b2=z+RHS_d[0]+RHS_d[1]+T1+Z
+					b2=RHS_d[0]+RHS_d[1]+T1+Y
 					t=element(z+t1+RHS_d[2]).word
+					Query=element(RHS[0]+RHS[1]+conn+Z).word # this line and the next 5 are for testing only
+					query=element(Query).inverse()
+					if t!=query:
+						print("**************************************************")
+						print("found a difference")
+						print("**************************************************")
 					a=element(a1+b2).word
 					a_Z=graph_pass(self.graph,a).acc_read_rem()[4]
 					t_Z=graph_pass(self.graph,t).acc_read_rem()[4]

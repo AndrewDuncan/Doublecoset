@@ -1344,6 +1344,120 @@ which is a (non-unique) double coset representative.
 %
 \subsection{Relative transversals and unique representation of 
 double cosets}\label{sub:reltran}
+\ajd{{\large \textbf{Alternative text for this section}}\\[1em]
+In this section we show that the representation of elements of
+$F$ in terms of double cosets of $H$ as described in the proof of 
+Proposition \ref{prop:dcreps} and Algorithm I in Section \ref{sub:sum_algI}, is unique. 
+Following \cite{FrenkelRemeslennikov13}, we use transversals for certain subgroups of $H$ to 
+demonstrate uniqueness of these double coset representations. 
+\begin{lemma}\label{lem:dcrel}
+Let $H$ be a subgroup of a group $G$ and let $D$ be a set of
+double coset representatives for $H$. For each $d\in D$, let 
+$T_d\subseteq H$ be a right transversal for the subgroup $H_d=H\cap H^d$ of $H$.
+Then, given $g\in G$, there exist  unique $h\in H$, $d\in D$ and 
+$t\in T_d$ such that  $g=hdt$. 
+\end{lemma}
+\begin{proof}
+Let $g\in G$. As $D$ is a set of double coset representatives, there
+exists a unique $d\in D$ such that $g\in HdH$, so it suffices to
+show that there exist unique $h\in H$ and $t\in T_d$ such that 
+$g=hdt$. Let $g=h_0dh_1$, where $h_i\in H$. Then there exist $a\in H_d$ 
+and   $t\in T_d$ such that $h_1=at$. Then $a=d^{-1}bd$, for some $b\in H$,
+so $g=h_0dh_1=h_0bdt\in HdT_d$. 
+
+If $g$ can be written as  $g=h_0dt_0=h_1dt_1$, with $h_i\in H$ and 
+$t_i\in T_d$, then $t_0t_1^{-1}=d^{-1}h_0^{-1}h_1d\in H_d$. As 
+$T_d$ is a right transversal, this implies that $t_0=t_1$, so $h_0=h_1$. 
+\end{proof}
+\ajd{I am leaving this remark where it is, as I think it is 
+easier to follow once the lemma has been established. What do you think?}
+\begin{remark}
+If $H^d=H$ then, in the notation of the lemma above, $T_d=1$ and 
+every element of $HdH$ can be expressed uniquely in the form $hd$, 
+with $h\in H$. In particular, if $H$ is normal in $G$ then $D$ is 
+a right transversal for $H$ in $G$. On the other hand, if $H_d=1$ then
+$T_d=H$ and $h_0dh'_0=h_1dh_1'$, with $h_i,h_i'\in H$, implies that 
+$h_i=h'_i$, $i=1,2$. In particular, if $H$ is malnormal in $G$ then 
+every element $g$ of $G\bs H$ can be written uniquely in the form 
+$g=h_0dh_1$, where $h_i\in H$ and $d\in D$. 
+\end{remark}   
+
+The next definition makes explicit the form of representatives of elements of
+$F$ which emerges from the proof of Proposition \ref{prop:dcreps}.
+\begin{definition}\label{def:free_dc_nf}
+Let $S=S(H)$ and $D=\{1\}\cup S$. Let $w,a,b,d\in F$ such that $w=a\circ d\circ b$, 
+$a,b\in H$ and $d\in D$. Then the triple $(a,d,b)$ is called a \emph{double coset normal form for}
+$w\in F$ if (exactly) one of \ref{it:d=1}, \ref{it:u_Type1} or  \ref{it:u_Type2}  below holds.
+\be
+\item\label{it:d=1} $d=b=1$.
+\item\label{it:d!=1} $w=h\circ p\circ e\circ t^{-1}\circ g^{-1}$ where
+\biz  
+\item $h$ is the maximal prefix of $w$ accepted by $A$, $p$ is the maximal $L_Q$-prefix of $p\circ e\circ t^{-1}\circ g^{-1}$,
+\item  $g$ the is maximal prefix of $g\circ t\circ e^{-1}$ accepted by $A$, $t$ is the maximal $L_Q$-prefix of $t\circ e^{-1}$
+ and 
+\eiz 
+either  
+\be
+\item \label{it:u_Type1}  $e\neq 1$, $a=hpy^{-1}$, $b=zt^{-1}g^{-1}$ and  $d=y\circ e \circ z^{-1}$ is of Type 1, where  
+ $y=\w(\t(p))$ and 
+ $z=\w(\t(t))$; 
+or 
+\item\label{it:u_Type2}    $e= 1$,  $a=hpcy^{-1}$, $b=zc^{-1}t^{-1}g^{-1}$ and  $d=y\circ z^{-1}$ is of Type 2, where 
+$(u_0,v_0)$ is the representative of $(\t(p),\t(t))$, $y=\w(u_0)$, 
+ $z=\w(v_0)$ and $c=c(u,v)$.
+\ee
+\ee  
+\end{definition} 
+\begin{definition}\label{def:dc_trans}
+With the notation of Definition \ref{def:free_dc_nf}, let $d\in D$, 
+%let $N_d=\{(a,d,b): (a,d,b) \textrm{ is a  double
+%coset normal form for some} w\in F\}$ 
+and let 
+$\cT_d=\{b\in H:(a,d,b)\textrm{ is a  double
+coset normal form for some } w\in F\}$.
+\end{definition} 
+\begin{lemma}\label{lem:dc_trans}
+Let $d\in D$. Then $\cT_d$ is a right transversal for $H_d$ in $H$. 
+\end{lemma}
+\begin{proof}
+In fact we only need the fact that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$, and 
+this is all I'm going to prove here. That $\cT_d$ is a transversal is almost certainly true as well, but 
+we can sort this out later if we want to. To see that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$
+we must show that if $(a_1,d,b_1)$ and $(a_2,d,b_2)$ are normal forms for elements of $F$, such that $b_2b_1^{-1}\in H_d$,
+then $b_1=b_2$. If $d=1$ then $b_1=b_2$, by definition of normal form, so we may assume that $d$ is in $S$. If 
+$d$ is of Type 1, that is $d\in S^{(1)}$, then no non-trivial element of $H^d$ is accepted by $\G_A$, so $H_d=\{1\}$ and 
+the result holds. Therefore we assume that $d\in S^{(2)}$; say $d=yz^{-1}$ with $y,z$ as in Definition 
+\ref{def:free_dc_nf}.\ref{it:u_Type2}.  
+
+Let $a_i=h_ip_ic_iy^{-1}$ and $b_i=zc_i^{-1}t_i^{-1}g_i^{-1}$, where $u_i=\t(p_i)$,  $v_i=\t(t_i)$, $c_i=c(u_i,v_i)$, $i=1,2$, 
+$(u_0,v_0)$ is the $\sim$ representative of $(u_1,v_1)$ and $(u_2,v_2)$, $y=\w(u_0)$ and 
+ $z=\w(v_0)$. Let $r=b_2b_1^{-1}=zc_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1z^{-1}$. Note that if $t_ic_i$ is not reduced as written
+then the first letter of $t_i^{-1}$ is equal to the first letter of $c_i$ and so is readable, in $\G_A$, from $\t(p_i)$. As
+$p_i$ is the maximal $L_Q$-prefix of $p_i\circ t_i^{-1}\circ g_i^{-1}$, this is a contradiction. Similarly, suppose there
+is $x\in X\cup X^{-1}$ such that $z=z'x$ and 
+$c_i=c_i'x$. As $c_i$ is a path in $\G_A\times \G_A$ with end point $(u_0,v_0)$, it follows that  that $yc_i^{-1}$ is in $L_Q$, 
+so the letter $x^{-1}$ is readable from $\t(y)$. However  this means that 
+$(\t(yx^{-1}),\t(z'))\sim (\t(y),\t(z))=(u_0,v_0)$ and $\w(\t(z'))=z'$ so $|\w(\t(z'))|\le |z|$, contrary to the definition
+of $(u_0,v_0)$.  Thus $zc^{-1}$ is reduced as written and 
+$zc_i^{-1}t_i^{-1}g_i^{-1}=z\circ c_i^{-1}\circ t_i^{-1}\circ g_i^{-1}$, $i=1,2$. 
+
+We have $r=zc_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1z^{-1}\in H_{yz^{-1}}$ so $r^z=c_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1 \in H^y\cap H^z$. 
+We claim that  a reduced word $q$ in $F$ belongs to $H_{yz^{-1}}$ if and only if $q$ is accepted by $\G_A\times \G_A$,
+with base point $(u_0,v_0)$. Let us denote the latter graph (or automaton) with base point $(u_0,v_0)$ by $\G_d$. 
+If $q$ is accepted by $\G_{d}$ then $q_y=yqy^{-1}$ and 
+$q_z=zqz^{-1}$ are both words in $L(\G_A)$, that is they belong to $H$. Thus $q=q_y^y=q_z^z\in H^y\cap H^z$. On the other
+hand if $s\in H^y\cap H^z$ then $s'=ysy^{-1}$ and $s''=zsz^{-1}$ belong to $H$. As $y\in L_Q(\G_A)$ it follows that 
+$s$ labels a closed path in $\G_A$, based at $\t(y)=u_0$. Similarly, $s$ labels a closed path in $\G_A$, based at $v_0$. 
+Hence $s$ labels a closed path in  $\G_d$, as required to complete the proof of the claim. 
+Now let $r'$ be the reduced word representing $r^z$; so $r'$ labels a closed path in $\G_d$. If the first letter of $t_1^{-1}$
+survives in $r'$ then, since $c_1$ is the label of a path in $\G_d$, from $(\t(p_1),\t(t_1))$ to $(u_0,v_0)$, it follows that
+the first letter of $t_1^{-1}$ is readable from $\t(p_i)$ in $\G_A$, contrary to the definition of $p_i$ as a 
+maximal $L_Q$-prefix. Hence the first letter of $t_1^{-1}$ must cancel in reducing $r^z$ to $r'$. Similarly, the last letter
+of $t_2$ cancels in reducing $r^z$ to $r'$. 
+     
+\end{proof}
+~\\[1em]}
+
 Although $D=\{1\}\cup S$ is a set of double coset representatives, the 
 representation of elements of $F$ in terms of double cosets $HDH$ is by 
 no means unique; for example an element $h$ of $H$ may be expressed in
@@ -2975,7 +3089,7 @@ $\b_1=\g_0\circ \g_1$.
 \item Let $\tilde v=\t_{A_d}(\g_0)$ and set $\d=w_{A_d}(\tilde v)$ 
 (so $\d$ is the
 label of the path in $T_d$ from $(u_0,v_0)$ to $\tilde v$). 
-\item Freely reduce $hpc\b_0\g_0\d^{-1}z^{-1}$ 
+\item Freely reduce $hpc\b_0\g_0\d^{-1}y^{-1}$ 
 and $z\d\g_1$ and call the
 results $a$ and $b$, respectively.
 \item\label{it:alg1_end} Output $(a,yz^{-1},b)$.
