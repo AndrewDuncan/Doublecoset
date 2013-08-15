@@ -1420,9 +1420,19 @@ coset normal form for some } w\in F\}$.
 Let $d\in D$. Then $\cT_d$ is a right transversal for $H_d$ in $H$. 
 \end{lemma}
 \begin{proof}
-In fact we only need the fact that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$, and 
-this is all I'm going to prove here. That $\cT_d$ is a transversal is almost certainly true as well, but 
-we can sort this out later if we want to. To see that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$
+If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the result holds in this case. If $d$ is of Type 1 then no non-trivial element
+of $H$ is accepted by $\G_A$, so $H_d=\{1\}$ and $H$ itself is a transversal for $H_d$; and by definition  $\cT_d\subseteq H$. 
+Moreover, if $d=yez^{-1}$ and $h\in H$ then $yez^{-1}h$ has double coset normal form $(1,yez^{-1},h)$, so $H\subseteq \cT_d$.
+It remains to show that the lemma holds when $d$ is of Type 2.
+
+Assume then that $d$ is of Type 2, say $d=yz^{-1}$ as in Definition \ref{def:free_dc_nf}.\ref{it:u_Type2} above. In fact we only need the fact that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$. That $\cT_d$ is a transversal can then be proved as follows. Let $h\in H$; so
+we need to show that there is some normal form $(a,d,b)$ with $h^{-1}b\in H_d$. Set  
+$q=zh^{-1}z^{-1}$ and then write $q=\a\circ u\circ v$, where $\a$ is the maximal prefix of $q$ in $H_d$ and $u$ is the maximal prefix of $a^{-1}q$ which is readable in $\G_A\times \G_A$, starting
+at $(u_0,v_0)$. Now verify that the normal form of $yuvz^{-1}$ is $(yucy^{-1}, d, zc^{-1}vz^{-1})$ and that 
+$h^{-1}zc^{-1}vz^{-1}\in H_d$. 
+We can sort this out later if we want to. 
+
+To see that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$
 we must show that if $(a_1,d,b_1)$ and $(a_2,d,b_2)$ are normal forms for elements of $F$, such that $b_2b_1^{-1}\in H_d$,
 then $b_1=b_2$. If $d=1$ then $b_1=b_2$, by definition of normal form, so we may assume that $d$ is in $S$. If 
 $d$ is of Type 1, that is $d\in S^{(1)}$, then no non-trivial element of $H^d$ is accepted by $\G_A$, so $H_d=\{1\}$ and 
@@ -1442,9 +1452,10 @@ of $(u_0,v_0)$.  Thus $zc^{-1}$ is reduced as written and
 $zc_i^{-1}t_i^{-1}g_i^{-1}=z\circ c_i^{-1}\circ t_i^{-1}\circ g_i^{-1}$, $i=1,2$. 
 
 We have $r=zc_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1z^{-1}\in H_{yz^{-1}}$ so $r^z=c_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1 \in H^y\cap H^z$. 
-We claim that  a reduced word $q$ in $F$ belongs to $H_{yz^{-1}}$ if and only if $q$ is accepted by $\G_A\times \G_A$,
-with base point $(u_0,v_0)$. Let us denote the latter graph (or automaton) with base point $(u_0,v_0)$ by $\G_d$. 
-If $q$ is accepted by $\G_{d}$ then $q_y=yqy^{-1}$ and 
+With $d=yz^{-1}$, denote by $\G_d$ the component of $\G_A\times \G_A$ containing $(u_0,v_0)$. We regard $\G_d$ as an automaton
+with start and final state the vertex $(u_0,v_0)$. 
+Our claim is that  a reduced word $q$ in $F$ belongs to $H^y\cap H^z$ if and only if $q$ is accepted by $\G_d$. 
+Indeed if $q$ is accepted by $\G_{d}$ then $q_y=yqy^{-1}$ and 
 $q_z=zqz^{-1}$ are both words in $L(\G_A)$, that is they belong to $H$. Thus $q=q_y^y=q_z^z\in H^y\cap H^z$. On the other
 hand if $s\in H^y\cap H^z$ then $s'=ysy^{-1}$ and $s''=zsz^{-1}$ belong to $H$. As $y\in L_Q(\G_A)$ it follows that 
 $s$ labels a closed path in $\G_A$, based at $\t(y)=u_0$. Similarly, $s$ labels a closed path in $\G_A$, based at $v_0$. 
@@ -1453,9 +1464,72 @@ Now let $r'$ be the reduced word representing $r^z$; so $r'$ labels a closed pat
 survives in $r'$ then, since $c_1$ is the label of a path in $\G_d$, from $(\t(p_1),\t(t_1))$ to $(u_0,v_0)$, it follows that
 the first letter of $t_1^{-1}$ is readable from $\t(p_i)$ in $\G_A$, contrary to the definition of $p_i$ as a 
 maximal $L_Q$-prefix. Hence the first letter of $t_1^{-1}$ must cancel in reducing $r^z$ to $r'$. Similarly, the last letter
-of $t_2$ cancels in reducing $r^z$ to $r'$. 
-     
+of $t_2$ cancels in reducing $r^z$ to $r'$. As    $c_i^{-1}t_i^{-1}g_i^{-1}$ is reduced as written this means that 
+\begin{equation}\label{eq:findtr}
+c_i=c_{i1}\circ c_{i2},  \textrm{ with }g_1\circ t_1\circ c_{11}=g_2\circ t_2\circ c_{21}\textrm{ and }r'=c_{12}^{-1}\circ c_{22}\in H^y\cap H^z.
+\end{equation}
+
+Assume first that $g_1=g_2$, so $t_1c_{11}=t_2c_{21}$. Without loss of generality we may assume that $|t_1|\le |t_2|$ and
+$t_2=t_1t_{22}$. Then $c_{11}=t_{22}c_{21}$ so $c_1=t_{22}c_{21}c_{12}$ and as $c_{12}^{-1}c_{22}\in H^y\cap H^z$ 
+it follows that the graph shown in Figure \ref{fig:transv1} folds to 
+a subgraph of $\G_A$. 
+\begin{figure}
+\begin{center}
+\psfrag{c12}{$c_{12}$}
+\psfrag{c21}{$c_{21}$}
+\psfrag{c22}{$c_{22}$}
+\psfrag{t1}{$t_1$}
+\psfrag{t22}{$t_{22}$}
+\psfrag{p1}{$p_1$}
+\psfrag{p2}{$p_2$}
+\psfrag{p22}{$p_{22}$}
+\psfrag{y}{$y$}
+\psfrag{z}{$z$}
+\includegraphics[scale=0.6]{transv1.eps}
+\caption{$t_2=t_1t_{22}$, $c_1=t_{22}c_{21}c_{12}$ and $c_2=c_{21}c_{22}$}\label{fig:transv1}
+\end{center}
+\end{figure}
+However, this means that the prefix $t_{22}^{-1}$ of $t_2^{-1}$ is readable from $\t(p_2)$. By defintion
+of $p_2$, therefore $t_{22}=1$. Hence $t_1=t_2$. Moreover  
+ paths labelled $c_{21}c_{12}$ and $c_{21}c_{22}$ are both paths in the chosen spanning tree 
+for $\G_d$, by definition of $c_1$ and $c_2$, and so we see that $c_{12}=c_{22}$; and $c_1=c_2$. Thus, in this case,
+$b_1=zc_1^{-1}t_1^{-1}=zc_2^{-1}t_2^{-1}=b_2$. 
+
+Now suppose that $g_1\neq g_2$. We may assume that $|g_1|\le |g_2|$ in which case $g_2=g_1\circ g_{22}$, and $g_{22}\in H$ . 
+From \eqref{eq:findtr}, then $t_1c_{11}=g_{22}t_2c_{21}$. As the left and right hand sides of the
+latter are reduced as written and $t_1$ has no non-trivial prefix which is in $H$ it follows that
+$g_{22}=t_1g_{222}$, so $c_{11}=g_{222}t_2c_{21}$. Hence the graph shown in Figure \ref{fig:transv2} folds to 
+a subgraph of $\G_A$. 
+\begin{figure}
+\begin{center}
+\psfrag{c12}{$c_{12}$}
+\psfrag{c21}{$c_{21}$}
+\psfrag{c22}{$c_{22}$}
+\psfrag{t1}{$t_1$}
+\psfrag{t2}{$t_{22}$}
+\psfrag{p1}{$p_1$}
+\psfrag{g1}{$g_1$}
+\psfrag{p2}{$p_2$}
+\psfrag{g222}{$g_{222}$}
+\psfrag{y}{$y$}
+\psfrag{z}{$z$}
+\includegraphics[scale=0.6]{transv2.eps}
+\caption{$g_2=g_1t_1g_{222}$, $c_1=g_{222}t_2c_{21}c_{12}$ and $c_2=c_{21}c_{22}$}\label{fig:transv2}
+\end{center}
+\end{figure}
+However, this means that $t_2^{-1}\circ g_{222}^{-1}$ is readable in $\G_A$ from $\t(p_2)$ and, by definition of $p_2$,
+ hence $t_2^{-1}\circ g_{222}^{-1}=1$. Thus $g_{222}=1$ and $g_1=g_2$, a contradiction.
+Therefore $b_1=b_2$ and the proof is complete.
 \end{proof}
+\begin{proposition}\label{prop:dctotrans}
+Every element of $F$ has a unique double coset normal form. 
+\end{proposition}
+\begin{proof}
+This follows from Proposition \ref{prop:dcreps}, Lemma \ref{lem:dc_trans} and Lemma \ref{lem:dcrel}.
+\end{proof}
+~\\[1em]
+\textbf{\large Now go straight to Section \ref{sec:dcnf}, which needs to revert to it's form before
+it started using transversals for $H_d$. I'm not doing that till we agree that this section is correct!!!}
 ~\\[1em]}
 
 Although $D=\{1\}\cup S$ is a set of double coset representatives, the 
