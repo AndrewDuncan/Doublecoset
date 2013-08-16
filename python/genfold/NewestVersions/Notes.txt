@@ -1,0 +1,13 @@
+This folder should contain the most up-to-date versions of the files as of Friday 16/08/13
+
+The files alg1, alg2 and alg3 are the main code for the first, second and the first part of the third algorithm respectively.
+
+The file input is used by other files to allow the user to input the details of free groups and subgroups.
+
+The files normal form and dcnf take the input of free and subgroup/s and a word in the groups and put it into normal form or double coset normal form respectively.
+
+At some point in the future input will be incorporated into alg1 and then the imports in alg3, dcnf and normal form will be removed.
+
+The file alg3_other contains functions that were originally written for alg3 but either didn't work correctly or weren't needed.
+
+The file alg3_test1 is the file currently being used to test the functions in alg3, once they're confirmed to work the graph will need to be made more complex to test the folding of the components etc.
