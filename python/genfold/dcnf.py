@@ -1,16 +1,14 @@
 from alg2 import *
-from input_ajd import * #this is temporary until input is incorporated into alg1
+from input import * #this is temporary until input is incorporated into alg1
 
 print('First, enter the details of the first free group')
 F1=enter_free_group()
 print('Now enter the details of the second free group')
 F2=enter_free_group()
-#could potentially replace this with a test in the enter_free_group function,
 while F1.alpha.lower()==F2.alpha.lower():
 	print('The two free groups are both represented by the letter',F1.alpha)
 	print('Please re-enter the details of the second free group')
 	F2=enter_free_group()
-#would require adding an extra variable showing if a free group already existed and tracking it's name
 print('Enter the details of the first subgroup')
 H1=enter_subgroup()
 print('Now enter the details of the second subgroup')

@@ -153,42 +153,50 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 
 class graph_pass(object):  #read word from left to right finding max accepted prefix, them max readable prefix and
         #outputing these along with the remaining suffix, and the output labels of the path read
-	def  __init__(self, graph, word):#graph is a stallings folding
+	def  __init__(self, graph, word,root=None):#graph is a stallings folding
 		self.graph = graph
 		self.word = element(word).word
 		self.vertex = None
+		if root is None:
+			self.root = self.graph.root
+		else:
+			self.root = root
 
 	def acc_read_rem(self): #read word from left to right finding max accepted prefix, them max readable prefix and
         #outputing these along with the remaining suffix, and the output labels of the path read
-		Apref=[]
-		Rpref=[]
-		Apref_in_Z=[]
-		suffix=self.word
-		u=self.graph.root
+		Apref=[] #this will be the max accepted prefix
+		Rpref=[] #this will be the max readable prefix following Apref
+		Apref_in_Z=[] #this will be Apref written in Z generators instead of X generators
+		suffix=self.word # this will be the remainder of the word
+		#if self.root is None:
+		#	u=self.graph.root
+		#else:
+		u=self.root # the vertex to start reading from
 		#print("u is the root of the graph passed to acc_read_rem and is ",u)
-		z=""
+		z="" 
 		#print("u, u.out.keys, u.outedges", u,u.outedges.keys(),u.outedges)
 		#print("u, u.in.keys, u.inedges", u,u.inedges.keys(),u.inedges)
 		#if suffix==[]:
 			#print ("suffix is empty")
 		#else:
-			#print("suff 0 and swapcase", suffix[0], suffix[0].swapcase())		
+			#print("suff 0 and swapcase", suffix[0], suffix[0].swapcase())	
+		#if the word has not all been read, and the next letter is the label of an edge incident to the current vertex u then continue
 		while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):
 			#print("suff 0 and swapcase", suffix[0], suffix[0].swapcase())
 			#print("u, u.out.keys, u.outedges", u,u.outedges.keys(),u.outedges)
 			#print("u, u.in.keys, u.inedges", u,u.inedges.keys(),u.inedges)
-			if suffix[0] in u.outedges.keys():
+			if suffix[0] in u.outedges.keys(): # if the next letter is the label of an outedge u
 				#print("u.outedges[suffix[0]] ", u.outedges[suffix[0]])
 				#print("u.outedges.keys ",u.outedges.keys())
 				#print("u outedgeslist ", u.outedgesList)
 				#print("u outedges_write", u.outedges_write)
-				for x in u.outedgesList:
+				for x in u.outedgesList: 
 					#print("x[0] ", x[0])
 					#print("x[1].outedgeslist ", x[1].outedgesList)
 					if suffix[0] == x[0]:
-						z=u.outedges_write[(suffix[0].lower(),x[1])]
+						z=u.outedges_write[(suffix[0].lower(),x[1])] #the z label of the next edge read
 						#print("suffix[0]==x[0] and z=", z)
-						u=x[1]
+						u=x[1] # set u equal to the terminal vertex of the edge read
 						break
                    
                    
@@ -196,24 +204,24 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
 				for x in u.inedgesList:
 					#print("x[0] ", x[0])
 					#print("x[1].inedgeslist ",x[1].inedgesList)
-					if suffix[0].swapcase() == x[0]:
-						z=u.inedges_write[(suffix[0].lower(),x[1])].upper()
+					if suffix[0].swapcase() == x[0]: 
+						z=u.inedges_write[(suffix[0].lower(),x[1])].upper()  #the z label of the next edge read
 						#print("suffix[0].swapcase()==x[0] and z=", z)	
-						u=x[1]
+						u=x[1] # u is the initial vertex of the edge read (in reverse)
 						break
 
-			Rpref=Rpref+[suffix[0]]
+			Rpref=Rpref+[suffix[0]] #if an edge has been read, append the next letter to Rpref
 			if z!="":
-				Apref_in_Z.append(z)
+				Apref_in_Z.append(z) #if the z label was non-trivial, append it to Apref_in_Z
 
 			if u==self.graph.root:
-				Apref=Apref+Rpref
-				Rpref=[]
+				Apref=Apref+Rpref #if the path read so far has returned to the root then append Rpref to Apref
+				Rpref=[]          #and initialise Rpref
               
 			#print("all stuff",Apref,Rpref,Apref_in_Z,u)
               
 			#print("u outedges ", u.outedges)
-			#print("u at end of loop ", u)
+			#print("u at end of acc_read_rem loop ", u)
                          
 			suffix = suffix[1:]
 			#print("suffix ",suffix)
@@ -228,18 +236,18 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 		self.double= double
 
 	def spit_out_nf(self):
-		LHS=graph_pass(self.graph,self.word).acc_read_rem()
+		LHS=graph_pass(self.graph,self.word).acc_read_rem() #find the left hand maxl readable prefix
 		#print("the LHS is ",LHS)
-		LHS_u=LHS[3].label
-		h=element(LHS[0]).word
-		p=element(LHS[1]).word
-		q=element(LHS[2]).word
+		LHS_u=LHS[3].label #the last vertex on the maxl readable path, (from the lhs)
+		h=element(LHS[0]).word #the maximal acceptable prefix
+		p=element(LHS[1]).word #the max readabl prefix following h
+		q=element(LHS[2]).word #the remainder of the word
 		#print(q)
-		Q=element(q).inverse()
-		RHS=graph_pass(self.graph,Q).acc_read_rem()
+		Q=element(q).inverse() #now read  from the rhs
+		RHS=graph_pass(self.graph,Q).acc_read_rem() #find the rh hand maxl readable prefix
 		#print("the RHS is ",RHS)
-		RHS_u=RHS[3].label
-		e=element(RHS[2]).inverse()
+		RHS_u=RHS[3].label #the last vertex on the maxl readable path, (from the rhs)
+		e=element(RHS[2]).inverse()  #the middle part of the word, which could not be read from either end
 		if not e==[]:
 			a_Z=element(LHS[4]).word
 			y=element(LHS[3].path).word 
@@ -256,20 +264,20 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 			c_Z=element(C_Z).inverse()
 			#print("type 1 nf")
 			return([a,b,c,a_Z,c_Z])
-		else:
-			conn=[]
-			repr=[]
-			for x in self.double.vertices:
+		else:                               #when e =""
+			conn=[]                     #the connecting element
+			repr=[]                     #the repr of (LHS_u,RHS_u)
+			for x in self.double.vertices: 
 				#print("vertex x of double is ", x)
 				#print("LHS_u-RHS_u is ",str(LHS_u)+"-"+str(RHS_u))
-				if x.label==str(LHS_u)+"-"+str(RHS_u):
-					conn=element(x.path).inverse()
+				if x.label==str(LHS_u)+"-"+str(RHS_u): #find the vertex (LHS_u,RHS_u)
+					conn=element(x.path).inverse() #then the connecting element
 					#child = True 
 					#xc = x
 					#print("colour of x is ",x.colour)
-					xroot=self.double.components[x.colour]
-					#print("root of comp of x is ", xroot)
-					repr = xroot.parent.label.partition("-")
+					xroot=self.double.components[x.colour] #the root of the double, containing (LHS_u,RHS_u)
+					#print("root of comp of x is xroot", xroot)
+					repr = xroot.parent.label.partition("-") # this root is equal to the representative
 					#while child:
 					#	if xc.parent == xc:
 					#		child = False
@@ -284,31 +292,48 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 						#          break
 						# print("root found  and root, repr is", r, repr)
 						# break
-            
+					
 					y=[]
 					for v in self.graph.vertices:
 						if v.label == int(repr[0]):
-							y=v.path    
+							y=v.path    #the path in the tree of the Stallings folding to LHS_u
 							#print("y is", y)
 							break
 
 					z=[]
 					for v in self.graph.vertices:
 						if v.label == int(repr[2]):
-							z=v.path
+							z=v.path  #the path in the tree of the Stallings folding to RHS_u
 							#print("z is", z)
 							break
                
 					Y=element(y).inverse()
-					a=element(h+p+conn+Y).word
-					a_Z=graph_pass(self.graph,a).acc_read_rem()[3]
-					Z=element(z).inverse()
-					B=element(RHS[0]+RHS[1]+conn+z).word
-					b=element(B).inverse()
-					b_Z=graph_pass(self.graph,b).acc_read_rem()[4]
+					a1=element(h+p+conn).word #lhs of normal form if nothing passed right to left
+					#a_Z=graph_pass(self.graph,a).acc_read_rem()[4]
+					Z=element(z).inverse() 
+					#B=element(RHS[0]+RHS[1]+conn+z).word
+					B1=element(RHS[0]+RHS[1]+conn).word 
+					b1=element(B1).inverse()
+					RHS_d=graph_pass(self.double,b1,xroot).acc_read_rem()#to find transversal element
+					#t=[]
+					v1=RHS_d[3]
+					t1=v1.path
+					T1=element(t1).inverse()
+					#print("t1 is ", t1)
+					b2=RHS_d[0]+RHS_d[1]+T1+Y
+					t=element(z+t1+RHS_d[2]).word
+					Query=element(RHS[0]+RHS[1]+conn+Z).word # this line and the next 5 are for testing only
+					query=element(Query).inverse()
+					if t!=query:
+						print("**************************************************")
+						print("found a difference")
+						print("**************************************************")
+					a=element(a1+b2).word
+					a_Z=graph_pass(self.graph,a).acc_read_rem()[4]
+					t_Z=graph_pass(self.graph,t).acc_read_rem()[4]
 					#print("y,z,conn,RHS[0],RHS[1]", y,z,conn,RHS[0],RHS[1])
 					#print("type 2 nf", [a,y+Z, b,a_Z,b_Z])
-					return([a,y+Z, b,a_Z,b_Z])
+					return([a,y+Z, t,a_Z,t_Z])
 
 
 def subgroup_basis(folding): #Find a free generating set for the subgroup H with stallings folding "folding". For this to work a stallings() and bfs() must have been run#folding.subgp_free_gens = []

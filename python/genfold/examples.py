@@ -101,3 +101,10 @@ print("error is", phi(H1,zw)[1])
 print(len(zw))
 print(len([]))
 print(len(['x1']))
+
+zw=['z4']
+print("y word is", phi(H1,zw)[0])
+print("error is", phi(H1,zw)[1])
+print(len(zw))
+print(len([]))
+print(len(['x1']))

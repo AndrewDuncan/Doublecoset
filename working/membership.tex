@@ -1423,14 +1423,9 @@ Let $d\in D$. Then $\cT_d$ is a right transversal for $H_d$ in $H$.
 If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the result holds in this case. If $d$ is of Type 1 then no non-trivial element
 of $H$ is accepted by $\G_A$, so $H_d=\{1\}$ and $H$ itself is a transversal for $H_d$; and by definition  $\cT_d\subseteq H$. 
 Moreover, if $d=yez^{-1}$ and $h\in H$ then $yez^{-1}h$ has double coset normal form $(1,yez^{-1},h)$, so $H\subseteq \cT_d$.
-It remains to show that the lemma holds when $d$ is of Type 2.
+It remains to show that the lemma holds when $d$ is of Type 2. 
+Assume then that $d$ is of Type 2, say $d=yz^{-1}$ as in Definition \ref{def:free_dc_nf}.\ref{it:u_Type2} above. 
 
-Assume then that $d$ is of Type 2, say $d=yz^{-1}$ as in Definition \ref{def:free_dc_nf}.\ref{it:u_Type2} above. In fact we only need the fact that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$. That $\cT_d$ is a transversal can then be proved as follows. Let $h\in H$; so
-we need to show that there is some normal form $(a,d,b)$ with $h^{-1}b\in H_d$. Set  
-$q=zh^{-1}z^{-1}$ and then write $q=\a\circ u\circ v$, where $\a$ is the maximal prefix of $q$ in $H_d$ and $u$ is the maximal prefix of $a^{-1}q$ which is readable in $\G_A\times \G_A$, starting
-at $(u_0,v_0)$. Now verify that the normal form of $yuvz^{-1}$ is $(yucy^{-1}, d, zc^{-1}vz^{-1})$ and that 
-$h^{-1}zc^{-1}vz^{-1}\in H_d$. 
-We can sort this out later if we want to. 
 
 To see that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$
 we must show that if $(a_1,d,b_1)$ and $(a_2,d,b_2)$ are normal forms for elements of $F$, such that $b_2b_1^{-1}\in H_d$,
@@ -1519,7 +1514,15 @@ a subgraph of $\G_A$.
 \end{figure}
 However, this means that $t_2^{-1}\circ g_{222}^{-1}$ is readable in $\G_A$ from $\t(p_2)$ and, by definition of $p_2$,
  hence $t_2^{-1}\circ g_{222}^{-1}=1$. Thus $g_{222}=1$ and $g_1=g_2$, a contradiction.
-Therefore $b_1=b_2$ and the proof is complete.
+Therefore $b_1=b_2$ and we infer that $\cT_d$ is contained in a transversal of $H_d$ in $H$.
+
+To show that every element of $H$ belongs to a coset $H_db$, with $b\in \cT_d$, we show that for  $h\in H$ 
+there is some normal form $(a,d,b)$ with $h\in H_db$. Set  
+$s=z^{-1}hz$ and then write $s=\a\circ u\circ v$, where $\a$ is the maximal prefix of $s$ in $H_d$ and $u$ is the maximal prefix of $a^{-1}s$ which is readable in $\G_d$.
+We shall compute the normal form of  $yuvz^{-1}$ and then show that it has the required right hand component. 
+ Now verify that the normal form of $yuvz^{-1}$ is $(yucy^{-1}, d, zc^{-1}vz^{-1})$ and that 
+$h^{-1}zc^{-1}vz^{-1}\in H_d$. ...
+ 
 \end{proof}
 \begin{proposition}\label{prop:dctotrans}
 Every element of $F$ has a unique double coset normal form. 

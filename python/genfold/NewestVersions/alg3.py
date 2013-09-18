@@ -47,7 +47,7 @@ def d1(delta,F,Z): #still has problems, but is in general nicer code than d1 and
 					v.removeInEdge(label,w)
 					w.removeOutEdge(label,v)
 		#print("vertices of delta k0k", delta_k0k.vertices)
-		shoots=1
+		shoots=1#part b
 		while shoots!=0:
 			ind=0
 			for v in delta_k0k.vertices[::-1]: #part b
@@ -140,7 +140,8 @@ def d1(delta,F,Z): #still has problems, but is in general nicer code than d1 and
 		for v in delta_k0k.vertices:
 			v.nu_im=('{v}') #part d
 			v.name='({0},{1})'.format(v.label,k) #part c
-			v.label='({0},{1})'.format(v.label,k) #part c		
+			v.label='({0},{1})'.format(v.label,k) #part c
+		
 		delta_k0.append(delta_k0k)
 	#for v in delta_z.vertices[::-1]:
 	#	if len(v.inedgesList)+len(v.outedgesList)==0:
@@ -156,22 +157,35 @@ def d1(delta,F,Z): #still has problems, but is in general nicer code than d1 and
 	print('}')
 	return delta_k0[0],delta_k0[1],delta_z
 
-def d2(delta_k0,Z):
+def d2(delta_k0,Z,H,flower):
 	deltap_k1=[]
 	for k in (1,2):
 		deltap_k1k=copy.deepcopy(delta_k0[k-1])
 		for v in deltap_k1k.vertices:
 			for outedges in v.outedgesList:
 				if outedges[0] in Z.mongens:
-					deltap_k1k.addpath(v,outedges[1],phi(outedges[0]))
+					H[k-1].subgroup_free_gens=subgroup_basis(flower[k-1])[1]
+					print("v", v, "outedges [1]", outedges[1], "outedges [0]", [outedges[0]], "H[k-1]", H[k-1])
+					deltap_k1k.addPath(v,outedges[1],phi(H[k-1],[outedges[0]])[0])
 		for v in deltap_k1k.vertices:
-			if v not in delta_k0[k-1].vertices: ###
+			foundv=0
+			for u in delta_k0[k-1].vertices:
+				if v.label==u.label:
+					foundv=1
+					break
+			if foundv==0:
+				print(" a vertex in k1k not in k0[k-1]", v)
 				v.nu_im='{v}'
+				v.name='({0},{1})'.format(v.label,k) 
+				v.label='({0},{1})'.format(v.label,k)
+		go = True
+		while go:
+			go = deltap_k1k.fold()
 		deltap_k1.append(deltap_k1k)
-	print('digraph 1,0 {')
+	print('digraph 1x0 {')
 	print(str(deltap_k1[0]))
 	print('}')
-	print('digraph 1,1 {')
+	print('digraph 1x1 {')
 	print(str(deltap_k1[1]))
 	print('}')
 	return deltap_k1[0],deltap_k1[1]
