@@ -1,0 +1,11 @@
+digraph {
+"G2v1" [label="1",fontsize=7,width=.01,height=.01];
+"G2v1" -> "G2v2" [label="b1",fontsize=8];
+"G2v1" -> "G2v2" [label="b2",fontsize=8];
+"G2v2" [label="2",fontsize=7,width=.01,height=.01];
+"G2v2" -> "G2v4" [label="b1",fontsize=8];
+"G2v2" -> "G2v4" [label="b2",fontsize=8];
+"G2v4" [label="4",fontsize=7,width=.01,height=.01];
+"G2v4" -> "G2v1" [label="b1",fontsize=8];
+"G2v4" -> "G2v1" [label="b2",fontsize=8];
+}
