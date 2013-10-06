@@ -120,4 +120,5 @@ for v in D.vertices:
     elif not hasattr(v, 'original') and hasattr(v,'nu_im'):
         print((v.name,v.label)," original and nu_im are",  " unset and ", v.nu_im)
     else: 
-        print((v.name,v.label)," original and nu_im are both unset")
+        print((v.name,v.label)," original and nu_im are both unset", v.outedges)
+

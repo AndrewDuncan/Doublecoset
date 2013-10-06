@@ -165,14 +165,14 @@ class Graph:
 				u.nu_im=u.nu_im.union(v.nu_im)
 		#there is nothing to do in any of the other cases
 		
-		#in some cases v.original is 1 if v is the image of an original vertex, and 0 or unset otherwise
-		#if either u or v has "original" set then u inherits the max of these values 
+		#in some cases v.original is 0 if v is the image of an original vertex, and >0 or unset otherwise
+		#if either u or v has "original" set then u inherits the min of these values 
 		#(as if either u or v is the image of an original vertex then the survivor is also the image of an original vertex)
 		if hasattr(u,'original') or hasattr(v,'original'):
 			if not hasattr(u,'original') and hasattr(v,'original'):
 				u.original=v.original
 			elif  hasattr(u,'original') and hasattr(v,'original'):
-				u.original=max(u.original,v.original)
+				u.original=min(u.original,v.original)
 		#there is nothing to do in any of the other cases
 
 		return u							#return the surviving vertex

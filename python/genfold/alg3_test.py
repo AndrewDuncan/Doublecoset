@@ -40,7 +40,7 @@ D.addEdge(a16,a17,'z1')
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 testfile='alg3_test_'
-print("name will be", testfile+"Delta")
+#print("name will be", testfile+"Delta")
 # Open alg3_test_Delta_in.gv in write mode: this will be the graph above
 with open(testfile+"Delta_in.gv", "w") as Del:
     Del.write("digraph D {\n") #and write to it
@@ -50,7 +50,7 @@ with open(testfile+"Delta_in.gv", "a") as Del: #then open it in append mode
 Del.close()
 
 #(F,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2)=alg3_pre()
-#d1(D,F,Z)
+#MakeComps(D,F,Z)
 F1=free_group(2,"x")
 F2=free_group(2,"y")
 Z=free_group(4,"z")
@@ -68,16 +68,34 @@ H2=subgroup('H2',[g1,g2,g3,g4],['z1','z2','z3','z4'])
 #	F=(F1,F2)
 (flower1,double1,forest1,bfs1)=alg2_pre(H1)
 (flower2,double2,forest2,bfs2)=alg2_pre(H2)
+
+# Open alg3_test_flower1.gv in write mode: this will be the graph above
+with open(testfile+"flower1.gv", "w") as flo1:
+    flo1.write("digraph S1 {\n") #and write to it
+with open(testfile+"flower1.gv", "a") as flo1: #then open it in append mode
+    flo1.write(str(flower1)) #and continue to write to it
+    flo1.write("}")
+flo1.close()
+
+# Open alg3_test_flower2.gv in write mode: this will be the graph above
+with open(testfile+"flower2.gv", "w") as flo2:
+    flo2.write("digraph S2 {\n") #and write to it
+with open(testfile+"flower2.gv", "a") as flo2: #then open it in append mode
+    flo2.write(str(flower2)) #and continue to write to it
+    flo2.write("}")
+flo2.close()
+
+
 #print("H1.subgroup_free_gens are ", H1.subgroup_free_gens)
 H=(H1,H2)
 #	return F,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
-D1=d1(D,F,Z) # returnsdelta_k0[0],delta_k0[1],delta_z
+D0=MakeComps(D,F,Z) # returnsdelta_k0[0],delta_k0[1],delta_z
 
 # Open alg3_test_D0_1.gv in write mode
 with open(testfile+"D0_1.gv", "w") as D01:
     D01.write("digraph D1_1 {\n") #and write to it
 with open(testfile+"D0_1.gv", "a") as D01: #then open it in append mode
-    D01.write(str(D1[0])) #and continue to write to it
+    D01.write(str(D0[0])) #and continue to write to it
     D01.write("}")
 D01.close()
 #print ("digraph D1_1 {")
@@ -88,7 +106,7 @@ D01.close()
 with open(testfile+"D0_2.gv", "w") as D02:
     D02.write("digraph D1_2 {\n") #and write to it
 with open(testfile+"D0_2.gv", "a") as D02: #then open it in append mode
-    D02.write(str(D1[1])) #and continue to write to it
+    D02.write(str(D0[1])) #and continue to write to it
     D02.write("}")
 D02.close()
 #print ("digraph D1_2 {")
@@ -99,21 +117,69 @@ D02.close()
 with open(testfile+"D0_Z.gv", "w") as D0Z:
     D0Z.write("digraph D1_Z {\n") #and write to it
 with open(testfile+"D0_Z.gv", "a") as D0Z: #then open it in append mode
-    D0Z.write(str(D1[2])) #and continue to write to it
+    D0Z.write(str(D0[2])) #and continue to write to it
     D0Z.write("}")
 D0Z.close()
 #print ("digraph D1_Z {")
 #print (str(D1[2]))
 #print ("}")
-delta_0=[D1[0],D1[1]]
-flower=[flower1,flower2]
-D2=d2(delta_0,Z,H,flower)
 
+delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and X2 components
+flower=[flower1,flower2]
+D1=Mod1(delta_0,Z,H,flower)
+
+
+# Open alg3_test_D1_1.gv in write mode
+with open(testfile+"D1_1.gv", "w") as D11:
+    D11.write("digraph D1_1 {\n") #and write to it
+with open(testfile+"D1_1.gv", "a") as D11: #then open it in append mode
+    D11.write(str(D1[0])) #and continue to write to it
+    D11.write("}")
+D11.close()
+
+# Open alg3_test_D1_2.gv in write mode
+with open(testfile+"D1_2.gv", "w") as D12:
+    D12.write("digraph D1_2 {\n") #and write to it
+with open(testfile+"D1_2.gv", "a") as D12: #then open it in append mode
+    D12.write(str(D1[1])) #and continue to write to it
+    D12.write("}")
+D12.close()
+#print('digraph D1_1 {')
+#print(str(D1[0]))
+#print('}')
+#print('digraph D1_2 {')
+#print(str(D1[1]))
+#print('}')
+
+print("D1 is", D1)
+#print(flower[0])
+D2=Mod2(D1,flower)
+# Open alg3_test_P_1_1.gv in write mode
+with open(testfile+"P_1_1.gv", "w") as P11:
+    P11.write("digraph P11 {\n") #and write to it
+with open(testfile+"P_1_1.gv", "a") as P11: #then open it in append mode
+    P11.write(str(D2[0][0])) #and continue to write to it
+    P11.write("}")
+P11.close()
+# Open alg3_test_P_1_2.gv in write mode
+with open(testfile+"P_1_2.gv", "w") as P12:
+    P12.write("digraph P12 {\n") #and write to it
+with open(testfile+"P_1_2.gv", "a") as P12: #then open it in append mode
+    P12.write(str(D2[0][1])) #and continue to write to it
+    P12.write("}")
+P12.close()
+for v in D2[0][1].vertices:
+    #print(v.label,v.name, "colour, length, time, parent, path", v.colour, v.length, v.time, v.parent,v.path)
+    if v.length==0:
+        print("colour ", v.colour," has root ", v.label, v.outedges, v.outedgesList)
+    
+print("components", D2[1][0],"\n",D2[1][1])
+#print("deltas", D2[2][0],"\n",D2[2][1])
 # Open alg3_test_D2_1.gv in write mode
 with open(testfile+"D2_1.gv", "w") as D21:
     D21.write("digraph D2_1 {\n") #and write to it
 with open(testfile+"D2_1.gv", "a") as D21: #then open it in append mode
-    D21.write(str(D2[0])) #and continue to write to it
+    D21.write(str(D2[2][0])) #and continue to write to it
     D21.write("}")
 D21.close()
 
@@ -121,12 +187,6 @@ D21.close()
 with open(testfile+"D2_2.gv", "w") as D22:
     D22.write("digraph D2_2 {\n") #and write to it
 with open(testfile+"D2_2.gv", "a") as D22: #then open it in append mode
-    D22.write(str(D2[1])) #and continue to write to it
+    D22.write(str(D2[2][1])) #and continue to write to it
     D22.write("}")
 D22.close()
-#print('digraph D2_1 {')
-#print(str(D2[0]))
-#print('}')
-#print('digraph D2_2 {')
-#print(str(D2[1]))
-#print('}')
