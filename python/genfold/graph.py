@@ -156,6 +156,24 @@ class Graph:
 			w.removeOutEdge(label,v)		#remove edge from w's list of out-edges
 			w.addOutEdge(label,u,u_o)			#add an edge w->u to w's out-edges
 			u.addInEdge(label,w,u_o)			#add "			" to u's in-edges
+		
+		#if it's necessary to keep track of the folding map nu_im is set and consists of a list of original vertices folded together
+		if hasattr(u,'nu_im') or hasattr(v,'nu_im'): #if either u or v has nu_im set then u inherits the union of the 2 nu_im's
+			if not hasattr(u,'nu_im') and hasattr(v,'nu_im'): 
+				u.nu_im=v.nu_im
+			elif  hasattr(u,'nu_im') and hasattr(v,'nu_im'):
+				u.nu_im=u.nu_im.union(v.nu_im)
+		#there is nothing to do in any of the other cases
+		
+		#in some cases v.original is 1 if v is the image of an original vertex, and 0 or unset otherwise
+		#if either u or v has "original" set then u inherits the max of these values 
+		#(as if either u or v is the image of an original vertex then the survivor is also the image of an original vertex)
+		if hasattr(u,'original') or hasattr(v,'original'):
+			if not hasattr(u,'original') and hasattr(v,'original'):
+				u.original=v.original
+			elif  hasattr(u,'original') and hasattr(v,'original'):
+				u.original=max(u.original,v.original)
+		#there is nothing to do in any of the other cases
 
 		return u							#return the surviving vertex
 	
