@@ -51,7 +51,7 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators, ma
 	def __init__(self, name, subgp_gens, basis=None):
 		self.name = name
 		self.subgp_gens = subgp_gens# original generators 
-		self.flower = Graph(rooted=True,label= self.name)
+		self.flower = Graph(rooted=True,label= self.name,Olabel=1)
 		self.coherent = True
 		self.subgp_free_gens=[] #free generators to be constructed from stallings folding
 
@@ -67,7 +67,7 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators, ma
 				self.coherent = False
 
 		for w in self.subgp_gens: # creates flower automaton for given generators
-			if not self.basis ==[]:
+			if not self.basis ==[]: #if a basis (a set of Z generators) has been given set this up to pass to the flower function as output labels
 				i_w = self.subgp_gens.index(w)
 				v = self.basis[i_w]
 			else:
@@ -108,7 +108,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 		N = {} #dictionary of adjacent edges to a vertex
 		for v in self.vertices:
 			v.colour = 0 #colour is synonomous with connected component. Here is is initialised
-			N[v]=[]
+			N[v]=[] #will be a list of all edges incident to v
 			for (a,b) in v.outedgesList: 
 				N[v].append((a,b,"+")) #record + for outedges
               
@@ -132,7 +132,7 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 			q.append(v)# add v to the end of the queue
 			while q:
 				u=q[0] # for the first element u of the queue
-				for (a,b,d) in N[u]: #and all edges incident to u, with label a to vertex b (and in/out indicator c) 
+				for (a,b,d) in N[u]: #and all edges incident to u, with label a to vertex b (and in/out indicator d) 
 					if b.colour == 0: # if b is not already in a component 
 						i += 1         #increase time by 1 
 						b.colour = c   #put b in the current component
@@ -141,14 +141,22 @@ class bfs(object): # breadth first search of given (possibly disconnected) graph
 						b.time = i     # time b was added
 						b.path =u.path + [a] # path from the root to b
 						if d=="-":
-							u.inedges_write[(a.lower(),b)]=""#make the write-label of the inedge u <- b equal to 1
-							b.outedges_write[(a.lower(),u)]=""#and  the write-label of the outedge b-> u equal to 1
+							u.inedges_write[(a.lower(),b)]=""#make the write-label of the inedge u <- b equal to ""
+							b.outedges_write[(a.lower(),u)]=""#and  the write-label of the outedge b-> u equal to ""
 						else:
-							u.outedges_write[(a.lower(),b)]=""#make the write-label of the outedge u -> b equal to 1
-							b.inedges_write[(a.lower(),u)]=""#and  the write-label of the inedge b-> u equal to 1
+							u.outedges_write[(a.lower(),b)]=""#make the write-label of the outedge u -> b equal to ""
+							b.inedges_write[(a.lower(),u)]=""#and  the write-label of the inedge b-> u equal to ""
 						q.append(b)    # add b to the end of the queue 
 						Nout.remove(b) # remove b from the list of all vertices
-                    
+					elif self.graph.Olabel!=1 and u.parent!=b: #if the vertex b is in the component already, and is the parent of u, and output labels are not being written then flag the connecting edge as not in the tree
+						if d=="-":
+							if u.inedges_write[(a.lower(),b)] is None or len(u.inedges_write[(a.lower(),b)])==0:
+								u.inedges_write[(a.lower(),b)]="-"
+								b.outedges_write[(a.lower(),u)]="-"
+						else:
+							if u.outedges_write[(a.lower(),b)] is None or len(u.outedges_write[(a.lower(),b)])==0:
+								u.outedges_write[(a.lower(),b)]="-"
+								b.inedges_write[(a.lower(),u)]="-"
 				q.pop(0) # remove the first element of the queue
 
 class graph_pass(object):  #read word from left to right finding max accepted prefix, them max readable prefix and

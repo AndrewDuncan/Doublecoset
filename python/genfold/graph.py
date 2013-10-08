@@ -216,7 +216,7 @@ class Graph:
 			v = self.addVertex()		#create a new vertex
 			self.addEdge(u,v,c,o)		#add a labelled edge connecting previous vertex to the new one
 			u=v
-						
+
 		self.addEdge(u,z,word[-1],o)	        #add a labelled edge connecting the penultimate vertex to z, labelled by the last letter
 			
 	
@@ -278,7 +278,7 @@ class Graph:
 		return g
 
 	#product of this graph and graph g2
-	def product(self,g2):
+	def product(self,g2,Memory=None):
 		def joinLabel(u,v):	#create a new name for vertices in the double graph so names of original pair can be easily seen
 			return str(u.label)+'-'+str(v.label)
 
@@ -288,10 +288,16 @@ class Graph:
 		def joinKey(u,v):	#create a sort key for vertices in the double graph, for construction of spanning forest
 			return [u.label,v.label]
 
+		def joinMemory(u,v): #if required (i.e. Memory = 1 in the input to product) then create a pair [u,v] consisting of the original vertices
+			return [u,v]
+
 		newverts = {}	#a dictionary to keep track of new vertices
 
 
 		g=Graph()	#g will be the double graph
+
+		if Memory is None: #initialise "Memory" if it has not been passed to the function
+			Memory=0
 
 		for u in self.vertices:	#for every vertex in this graph
 			for v in g2.vertices:	#for every vertex in g2
@@ -299,8 +305,10 @@ class Graph:
 				uv.label = joinLabel(u,v)	#give it a name created from the names of the pair of original vertices
 				uv.sortkey = joinKey(u,v)	#give it a sortkey created from the names of the pair of original vertices
 				newverts[uv.label] = uv		#add the vertex to the dictionary
+				if Memory==1: #if it's required
+					uv.memory=joinMemory(u,v) #keep a record of the original vertices from which uv was made
 
-		for u in self.vertices:	#for every ordered pair of vertices
+		for u in self.vertices:	#for every vertex in this graph 
 			for v in g2.vertices:	#for every vertex in g2
 				for label in u.outedges.keys():		#for each label for which u has one or more out-edges
 					if label in v.outedges.keys():	#if v has out-edges with the same label
@@ -319,7 +327,10 @@ class Graph:
 				out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
 				for label,vs in u.outedges.items():
 					for v in vs:
-						out.append( '"%s%s" -> "%s%s" [label="%s"|"%s",fontsize=8];' % (name,u,name,v,label,u.outedges_write[(label,v)]) )
+						if u.outedges_write[(label,v)]=="":
+							out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
+						else:
+							out.append( '"%s%s" -> "%s%s" [label="%s|%s",fontsize=8];' % (name,u,name,v,label,u.outedges_write[(label,v)]) )
 		else:
 			for u in self.vertices:
 				out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))

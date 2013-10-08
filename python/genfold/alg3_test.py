@@ -66,7 +66,9 @@ g4=['Y2','y1']
 H1=subgroup('H1',[h1,h2,h3,h4],['z1','z2','z3','z4'])
 H2=subgroup('H2',[g1,g2,g3,g4],['z1','z2','z3','z4'])
 #	F=(F1,F2)
+print("flower1")
 (flower1,double1,forest1,bfs1)=alg2_pre(H1)
+print("flower2")
 (flower2,double2,forest2,bfs2)=alg2_pre(H2)
 
 # Open alg3_test_flower1.gv in write mode: this will be the graph above
@@ -89,6 +91,7 @@ flo2.close()
 #print("H1.subgroup_free_gens are ", H1.subgroup_free_gens)
 H=(H1,H2)
 #	return F,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
+print("now D0")
 D0=MakeComps(D,F,Z) # returnsdelta_k0[0],delta_k0[1],delta_z
 
 # Open alg3_test_D0_1.gv in write mode
@@ -126,6 +129,7 @@ D0Z.close()
 
 delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and X2 components
 flower=[flower1,flower2]
+print("now D1")
 D1=Mod1(delta_0,Z,H,flower)
 
 
@@ -151,8 +155,9 @@ D12.close()
 #print(str(D1[1]))
 #print('}')
 
-print("D1 is", D1)
+#print("D1 is", D1)
 #print(flower[0])
+print("now D2")
 D2=Mod2(D1,flower)
 # Open alg3_test_P_1_1.gv in write mode
 with open(testfile+"P_1_1.gv", "w") as P11:
@@ -168,12 +173,12 @@ with open(testfile+"P_1_2.gv", "a") as P12: #then open it in append mode
     P12.write(str(D2[0][1])) #and continue to write to it
     P12.write("}")
 P12.close()
-for v in D2[0][1].vertices:
-    #print(v.label,v.name, "colour, length, time, parent, path", v.colour, v.length, v.time, v.parent,v.path)
-    if v.length==0:
-        print("colour ", v.colour," has root ", v.label, v.outedges, v.outedgesList)
+#for v in D2[0][1].vertices:
+#print(v.label,v.name, "colour, length, time, parent, path", v.colour, v.length, v.time, v.parent,v.path)
+#if v.length==0:
+#   print("colour ", v.colour," has root ", v.label, v.outedges, v.outedgesList)
     
-print("components", D2[1][0],"\n",D2[1][1])
+#print("components", D2[1][0],"\n",D2[1][1])
 #print("deltas", D2[2][0],"\n",D2[2][1])
 # Open alg3_test_D2_1.gv in write mode
 with open(testfile+"D2_1.gv", "w") as D21:
@@ -190,3 +195,32 @@ with open(testfile+"D2_2.gv", "a") as D22: #then open it in append mode
     D22.write(str(D2[2][1])) #and continue to write to it
     D22.write("}")
 D22.close()
+
+#for v in D2[0][0].vertices:
+#    print(v.label, "inedges", v.inedges, " outedges ", v.outedges)
+
+#
+#for v in D2[0][1].vertices:
+#    print(v.label, "colour", v.colour, "length", v.length, "time ", v.time, "parent", v.parent, "path", v.path)
+#    for (a,b) in v.inedgesList:
+#        print((a,b),"out label inedge",v.inedges_write[a,b])
+#    for (a,b) in v.outedgesList:
+#        print((a,b),"out label outedge",v.outedges_write[a,b])
+print("now D3")
+D3=Mod3(D2[2],flower,D2[0])
+
+# Open alg3_test_D3_1.gv in write mode
+with open(testfile+"D3_1.gv", "w") as D31:
+    D31.write("digraph D3_1 {\n") #and write to it
+with open(testfile+"D3_1.gv", "a") as D31: #then open it in append mode
+    D31.write(str(D3[0][0])) #and continue to write to it
+    D31.write("}")
+D31.close()
+
+# Open alg3_test_D3_2.gv in write mode
+with open(testfile+"D3_2.gv", "w") as D32:
+    D32.write("digraph D3_2 {\n") #and write to it
+with open(testfile+"D3_2.gv", "a") as D32: #then open it in append mode
+    D32.write(str(D3[0][1])) #and continue to write to it
+    D32.write("}")
+D32.close()
