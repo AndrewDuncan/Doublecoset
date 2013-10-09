@@ -207,13 +207,13 @@ D22.close()
 #    for (a,b) in v.outedgesList:
 #        print((a,b),"out label outedge",v.outedges_write[a,b])
 print("now D3")
-D3=Mod3(D2[2],flower,D2[0])
+D3=Mod3(D2[2],flower,D2[0],D2[1])
 
 # Open alg3_test_D3_1.gv in write mode
 with open(testfile+"D3_1.gv", "w") as D31:
     D31.write("digraph D3_1 {\n") #and write to it
 with open(testfile+"D3_1.gv", "a") as D31: #then open it in append mode
-    D31.write(str(D3[0][0])) #and continue to write to it
+    D31.write(str(D3[0])) #and continue to write to it
     D31.write("}")
 D31.close()
 
@@ -221,6 +221,6 @@ D31.close()
 with open(testfile+"D3_2.gv", "w") as D32:
     D32.write("digraph D3_2 {\n") #and write to it
 with open(testfile+"D3_2.gv", "a") as D32: #then open it in append mode
-    D32.write(str(D3[0][1])) #and continue to write to it
+    D32.write(str(D3[1])) #and continue to write to it
     D32.write("}")
 D32.close()

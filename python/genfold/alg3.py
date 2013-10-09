@@ -164,33 +164,43 @@ def Mod2(delta1,flower): #each of delta1 and flower is a pair (delta1_1,delta1_2
 		Pcomponents={}
 		#construct a dictionary with key the components of the product P_k and for such key a value list of vertices of form (a,1) in that component
 		for u in  Prod[k].vertices:
-			if str(u.label).endswith('1'): #if the right hand label is 1, add this vertex to the dictionary entry for its component
-				if str(u.colour) in Pcomponents:
-					L=Pcomponents[str(u.colour)]
-					L.append(u)
-					L.sort(key=lambda x: x.length)
-					Pcomponents[str(u.colour)]=L
-				else:
-					Pcomponents[str(u.colour)]=[u]
-		
+			if str(u.colour) in Pcomponents:
+				L=Pcomponents[str(u.colour)]
+				L.append(u)
+				L.sort(key=lambda x: x.length)
+				Pcomponents[str(u.colour)]=L
+			else:
+				Pcomponents[str(u.colour)]=[u]
+
+				
+#if str(u.label).endswith('1'): #if the right hand label is 1, add this vertex to the dictionary entry for its component
 		for col in Pcomponents:
-			col_root=Pcomponents[col][0]#the first element of the list of vertices (a,k)-1, in this component
-			delta_root=col_root.memory[0] #this is the left hand component of the vertex col_root (i.e. u, where col_root =(u,v)
-			for v in Pcomponents[col][1:]:
-				if len(v.path)>0:
-					Xword=element(v.path).word
-					Gword=graph_pass(flower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
-					#print("Gword is ",Gword)
-					#print("Gword[4] is ", Gword[4])
-					if len(Gword[1])>0 or len(Gword[2])>0:
-						print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)
-						print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
+			#for v in Pcomponents[col]:
+			#	if v.parent=v:
+			#		col_root=v #find the root of this component (as determined by the bfs function of alg1)
+			#	break
+			#delta_root=col_root.memory[0] #this is the left hand component of the vertex col_root (i.e. u, where col_root =(u,v)
+			i=0
+			for v in Pcomponents[col]:
+				if str(v.label).endswith('1'): #if the right hand label is 1, 
+					if i==0:
+						v_base=v # this is the first vertex of type (*,*)-1 found in this component
+						delta_base=v.memory[0]#the left hand (delta) part of v_base
+						a=element(v.path).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
+						i=1 
 					else:
-						Zword=Gword[4]
-						delta_v=v.memory[0] # the left hand (delta) part of the vertex v of the product Prod[k]
-						delta2k.addPath(delta_root,delta_v,Zword)# add  a path of Z's from the root of component col to v 
+						b=element(v.path).word # the path from the root of this component to the next vertex of type (*,*)-1
+						Xword=element(a+b).word # the path from v_base to v, in the spanning forest for Prod[k]
+						Gword=graph_pass(flower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
+						if len(Gword[1])>0 or len(Gword[2])>0:
+							print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)
+							print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
+							return
+						else:
+							Zword=Gword[4]
+							delta_v=v.memory[0] # the left hand (delta) part of the vertex v of the product Prod[k]
+							delta2k.addPath(delta_base,delta_v,Zword)# add  a path of Z's from the root of component col to v 
 					
-						
 		for v in delta2k.vertices:# for each v in k1k
 			#print("k is", k, "v is", v.label, "and hasattr orig is", hasattr(v,'original'))
 			if not hasattr(v,'original'): #these are the vertices added in Modification 2
@@ -210,61 +220,49 @@ def Mod2(delta1,flower): #each of delta1 and flower is a pair (delta1_1,delta1_2
 	
 	return(Prod,Prod_components,delta2)
 
-def Mod3(delta2,flower,Prod): #each of delta2 and flower is a pair (delta2_1,delta2_2) and (flower1,flower2) as in Mod2.
-#Mod3 uses the product graph Prod=(Prod[0],Prod[k]) of delta_k and flowerk, and its spanning forest, from Mod2, as these are essentially the same, then finds conn components of Prod[k] and carries out Algorithm III steps D8 and D10 -- relying on the root of each comp of  Prod[k] being the first vertex with a 1 on its rhs
+
+def Mod3(delta2,flower,Prod,Prod_components): #each of delta2 and flower is a pair (delta2_1,delta2_2) and (flower1,flower2) as in Mod2.
+#Mod3 uses the product graph Prod[k] and its components Prod_components[k] from Mod2, as these are essentially the same, and carries out Algorithm III steps D8 and D10 
 	delta3=[]
-	Prod_components=[]
 	for k in (0,1):
 		delta3k=delta2[k]# the new component to be constructed
 		Prodk=Prod[k]
+		Pcomponents=Prod_components[k]
 		flowerk=flower[k]
 		
-
-
-		Pcomponents={}
-		#construct a dictionary with key the components of the product P_k and for such key a value list of all vertices  in that component
-		for u in  Prod[k].vertices:
-			if str(u.colour) in Pcomponents:
-				L=Pcomponents[str(u.colour)]
-				L.append(u)
-				L.sort(key=lambda x: x.length)
-				Pcomponents[str(u.colour)]=L
-			else:
-				Pcomponents[str(u.colour)]=[u]
-		
-
-
-
 		for col in Pcomponents:	
+			print("col is", col)
+			i=0
 			for v in Pcomponents[col]:
-			#next(v for v in Pcomponents[col] if str(v.label).endswith('1'))#if the right hand label is 1, add this vertex to the dictionary entry for its component
 				if str(v.label).endswith('1'):#find the first vertex with right hand label 1 in component col 
-					col_root=v
-					if col_root.parent!=col_root:
-						print("something bad has happened, the root was not found in Mod3")
-						return
+					v_base=v # this is the first vertex of type (*,*)-1 found in this component
+					delta_base=v.memory[0]#the left hand (delta) part of v_base
+					a=element(v.path).word
+					A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
+					i=1 #set this to 1 to show we found a vertex of type (*,*)-1
+					print("first (*,*)-1 is", v_base)
 					break
-			for v in Pcomponents[col]:
-				for e in v.outedgesList:
-					if len(v.outedges_write[e])!=0:
-						#print("an edge ", e,"with out lab",v.outedges_write[e])
-						delta_root=col_root.memory[0]
-						#delta_v1=v.memory[0]
-						#delta_v2=e[1].memory[0]
-						#print("in delta, v, v1, v2", delta_root, delta_v1, delta_v2)
-						a=element(v.path).word
-						b=element([e[0]]).word
-						c=element(e[1].path).inverse()
-						Xword=element(a+b+c).word
-						#print("Xword", Xword)
-						Gword=graph_pass(flower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
-						if len(Gword[1])>0 or len(Gword[2])>0:
-							print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)						
-							print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
-						else:
-							Zword=Gword[4]
-						#print("Zword")
-						delta3k.addPath(delta_root,delta_root,Zword)# add  a path of Z's from the root of component col to v 					
+			if i==1: # if there are no vertices of form (*,*)-1 in this component; go to the next component (col)
+				for v in Pcomponents[col]:
+					print("v is ", v)
+					for e in v.outedgesList:
+						print("e is", e)
+						if len(v.outedges_write[e])!=0:
+							print("an edge ", e,"with out lab",v.outedges_write[e])
+							#delta_root=col_root.memory[0]
+							b=element(v.path).word # path from root to v, the initial end of edge e
+							c=element([e[0]]).word # label of e
+							d=element(e[1].path).inverse() #path from terminal end of edge e to the root
+							Xword=element(a+b+c+d+A).word #loop in forest, based at v_base passing over edge e
+							print("Xword", Xword)
+							Gword=graph_pass(flower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
+							if len(Gword[1])>0 or len(Gword[2])>0:
+								print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)						
+								print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
+							else:
+								Zword=Gword[4]
+								print("Zword", Zword, "added at", delta_base," \n\n")
+								delta3k.addPath(delta_base,delta_base,Zword)# add  a path of Z's from the root of component col to itself				
 				
 		for v in delta3k.vertices:# for each v in k1k
 			#print("k is", k, "v is", v.label, "and hasattr orig is", hasattr(v,'original'))
@@ -278,9 +276,10 @@ def Mod3(delta2,flower,Prod): #each of delta2 and flower is a pair (delta2_1,del
 		go = True
 		while go: #fold delta3k, updating of v.nu_im in the process
 			go = delta3k.fold()
-		Prod_components.append(Pcomponents)
+		
+
 		delta3.append(delta3k)
 		
 			
 	
-	return(delta3,Prod_components)
+	return(delta3)
