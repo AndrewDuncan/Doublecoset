@@ -1,4 +1,5 @@
 from alg3 import *
+from adjust_generators import *
 
 D=Graph()
 a1=D.addVertex(1)
@@ -224,3 +225,5 @@ with open(testfile+"D3_2.gv", "a") as D32: #then open it in append mode
     D32.write(str(D3[1])) #and continue to write to it
     D32.write("}")
 D32.close()
+
+adjust_gens(F,H,flower)
