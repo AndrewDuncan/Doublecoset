@@ -226,4 +226,4 @@ with open(testfile+"D3_2.gv", "a") as D32: #then open it in append mode
     D32.write("}")
 D32.close()
 
-adjust_gens(F,H,flower)
+
