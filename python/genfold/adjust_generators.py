@@ -4,12 +4,17 @@ from alg3 import *
 #import copy
 F1=free_group(4,"x")
 F2=free_group(2,"y")
-Z=free_group(4,"z")
+FZ=free_group(4,"z")
 F=(F1,F2)
-h1=['X1','x3','x4','X2']
-h2=['x2','X1','x3','x4','x2']
+#h1=['X1','x3','x4','X2']
+#h2=['x2','X1','x3','x4','x2']
+#h3=['x2','x2','x2']
+#h4=['X2','x1','x3','x2']
+#
+h1=['x1','X2']
+h2=['x2','x1','x2']
 h3=['x2','x2','x2']
-h4=['X2','x1','x3','x2']
+h4=['X2','x1']
 g1=['y1','Y2']
 g2=['y2','y1','y2']
 g3=['y2','y2','y2']
@@ -24,10 +29,25 @@ print("flower2")
 H=(H1,H2)
 flower=(flower1,flower2)
 
+for u in flower1.vertices:
+    print(u, "out_write", u.outedges_write,"\n in_write", u.inedges_write)
+    print(u,"inedgeslist", u.inedgesList)
+    print(u, "outedgeslist", u.outedgesList,"\n\n")
+
+
+#So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
+testfile='adjust_generators/'
+# Open alg3_test_Delta_in.gv in write mode: this will be the graph above
+with open(testfile+"flower1.gv", "w") as f1:
+    f1.write("digraph D {\n") #and write to it
+with open(testfile+"flower1.gv", "a") as f1: #then open it in append mode
+    f1.write(str(flower1)) #and continue to write to it
+    f1.write("}")
+f1.close()
 
 def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones found by the Stallings folding
     all_clean=0
-    print("H gens",H.subgroup_free_gens)
+    print("H free gens",H.subgroup_free_gens)
     print("sub gens 1", Hgens)
     print("input gens",Hgens)
     for i in range(len(H.subgroup_free_gens)):
@@ -35,9 +55,9 @@ def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones fou
         print("free gens",H.subgroup_free_gens[H.basis[i]])
         if  Hgens[i]!=H.subgroup_free_gens[H.basis[i]]:
             all_clean=1
-            print("hoo")
+            print("hoo unequal at", i," Hgens[i] =", Hgens[i],"H.basis[i]=", H.basis[i],"H.subgroup_free_gens[H.basis[i]]=", H.subgroup_free_gens[H.basis[i]])
         else:
-            print("agast")
+            print("Hgens equal to free gens at ",i)
 
 
     if all_clean==1:
@@ -145,26 +165,137 @@ def check_neilsen_reduced(stall):
             
     return(edgecover,edgerep)
 
-def check_edges_covered(stall):
-    edgecover=0
-    for u in stall.vertices:
-        for e in u.inedgesList:
-            if len(u.inedges_write[e])==0:
-                print("at vertex ", u, "inedge", e,"is not read: there is nothing in u.inedges_write:", u.inedges_write)
-                edgecover=1
-                break
-
-    return(edgecover,edgerep)
 
 #once generators have been read and all edges labelled with Zs, find, for each letter z in Z an edge which is labelled only with  z, and put this edge outside the (potential) tree. Assumes check_neilsen_reduced has run with output 0,0.
 def build_new_labelling(stall):
     gen_found={} #dictionary with entries (z:i) where z is in Z and i is 0 to start with and becomes 1 once an edge labelled only with z has been found and put outside the candidate tree
-    for z in Z:
+    for z in FZ.gens:
+        print("z is",z)
         gen_found[z]=0
 
     for u in stall.vertices:
         for e in u.inedgesList:
-            a=b
+            print(" in edge e is ", e)
+            if len(u.inedges_write[e])>1:
+                print("write written to space as len >1")
+                u.inedges_write[e]=""
+            elif len(u.inedges_write[e])==1:
+                #if u.inedges_write[e][0]==u.inedges_write[e][0].lower():
+                zlab=u.inedges_write[e][0].lower()
+                print("zlab is ", zlab, "u.inedges_write[e][0]", u.inedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
+                if gen_found[zlab]==0: 
+                    newlab=u.inedges_write[e][0].lower()
+                    u.inedges_write[e]=newlab
+                    print("in edge ", e,"given write label", u.inedges_write[e])
+                    gen_found[zlab]=1
+                else:
+                    u.inedges_write[e]=""
+            else:
+                print("fouled up in build_new_labelling: there's an in edge with no write_label: e is ", e)
+                return
+        for e in u.outedgesList:
+            print(" in edge e is ", e)
+            if len(u.outedges_write[e])>1:
+                u.outedges_write[e]=""
+                print("write written to space as len >1")
+            elif len(u.outedges_write[e])==1:
+                zlab=u.outedges_write[e][0].lower()
+                print("zlab is ", zlab, "u.outedges_write[e][0]", u.outedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
+                if gen_found[zlab]==0: 
+                    u.outedges_write[e]=u.outedges_write[e][0].lower()
+                    print("out edge ", e,"given write label", u.outedges_write[e])
+                    gen_found[zlab]=1
+                else:
+                    u.outedges_write[e]=""
+            else:
+                print("fouled up in build_new_labelling: there's an out edge with no write_label: e is ", e)
+                return
+
+    #now match up in and out edges --- above only one of the pair was given the correct z label. 
+    for z in FZ.gens:
+        print("z is",z)
+        gen_found[z]=0
+
+    for u in stall.vertices:
+        for e in u.inedgesList:
+            if u.inedges_write[e]!="":
+                (l,v)=e
+                v.outedges_write[(l,u)]=u.inedges_write[e]
+                gen_found[u.inedges_write[e]]=1
+
+
+        for e in u.outedgesList:
+            if u.outedges_write[e]!="" and gen_found[u.outedges_write[e]]==0:
+                (l,v)=e
+                v.inedges_write[(l,u)]=u.outedges_write[e]
+                gen_found[u.outedges_write[e]]=1
+
+ #   return(stall)
+
+def reverse_a_z(stall,z):
+    for u in stall.vertices:
+        for e in u.inedgesList:
+            if u.inedges_write[e].lower()==z.lower():
+                u.inedges_write[e]=u.inedges_write[e].swapcase()
+                break
+
+        for e in u.outedgesList:
+            if u.outedges_write[e].lower()==z.lower():
+                u.outedges_write[e]=u.outedges_write[e].swapcase()
+                break
+
+def forced_bfs(stall): #must be a rooted graph, with output labels corresponding to edges outside a spanning forest
+
+    #initialise attributes used to define spanning tree
+    stall.components={}
+    i = 0 #time a vertex is added
+    q = [] #queue of vertices to be processed within a connected component
+    N = {} #dictionary of adjacent edges to a vertex
+    for v in stall.vertices:
+        v.colour = 0 #colour is synonomous with connected component. Here is is initialised
+        v.length = 0#distance from root
+        v.time = 0 #time added
+        v.parent=None
+        v.path=[]
+        N[v]=[] #will be a list of all edges incident to v, except those which have Z labels (so are designated outside the tree)
+        for (a,b) in v.outedgesList: 
+            if v.outedges_write[(a,b)]=="":
+                N[v].append((a,b,"+")) #record + for outedges
+            
+        for (a,b) in v.inedgesList:
+            if v.inedges_write[(a,b)]=="":
+                N[v].append((a.swapcase(),b,"-"))#record - for inedges
+                
+    Nout = list(stall.vertices) #list of all vertices. When a vertex is added to a tree it is removed from this list
+    c = 0
+    while Nout:
+        c += 1
+        i += 1
+        v =Nout[0]
+        Nout.remove(v)
+        v.colour = c
+        v.length = 0
+        v.time = i
+        v.parent = v
+        v.path =[]
+        stall.components[c]=v #print("components are now", stall.components)
+        q.append(v)# add v to the end of the queue
+        while q:
+            u=q[0] # for the first element u of the queue
+            for (a,b,d) in N[u]: #and all edges incident to u, with label a to vertex b (and in/out indicator d) 
+                if b.colour == 0: # if b is not already in a component 
+                    i += 1         #increase time by 1 
+                    b.colour = c   #put b in the current component
+                    b.parent = u   #make u the parent of b
+                    b.length = u.length + 1 #make the distance of b from the root one more than the distance of u
+                    b.time = i     # time b was added
+                    b.path =u.path + [a] # path from the root to b
+                    q.append(b)    # add b to the end of the queue 
+                    Nout.remove(b) # remove b from the list of all vertices
+                
+            q.pop(0) # remove the first element of the queue
+
+#def set_new_subgroup_generators(stall,H)
 
 
 ############################
@@ -174,24 +305,75 @@ ac=check_gens(H1,Hgens)
 print("if the input generators equal the basis found by folding the next digit will be 0", ac)
 stall=label_with_Zs(H1,flower1,Hgens)
 for u in stall.vertices:
-            print(u, "out_write", u.outedges_write,"\n in_write", u.inedges_write)
-            print(u,"inedgeslist", u.inedgesList)
-            print(u, "outedgeslist", u.outedgesList,"\n\n")
-<<<<<<< HEAD
+    print(u, "out_write", u.outedges_write,"\n in_write", u.inedges_write)
+    print(u,"inedgeslist", u.inedgesList)
+    print(u, "outedgeslist", u.outedgesList,"\n\n")
+
 ec,cn=check_neilsen_reduced(stall)
 print( "edges covered", ec,"neilsen reduced =", cn)
 
-#ec=check_edges_covered(stall)
-#print("edges_covered =", ec)
-=======
-#So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
-testfile='adjust_generators/'
-#print("name will be", testfile+"Delta")
-# Open alg3_test_Delta_in.gv in write mode: this will be the graph above
-with open(testfile+"flower1.gv", "w") as f1:
+#stall=
+build_new_labelling(stall)
+
+reverse_a_z(stall,'z1')
+reverse_a_z(stall,'z1')
+
+# Open  new file to see effect of relabelling
+with open(testfile+"stall1.gv", "w") as f1:
     f1.write("digraph D {\n") #and write to it
-with open(testfile+"flower1.gv", "a") as f1: #then open it in append mode
-    f1.write(str(flower1)) #and continue to write to it
+with open(testfile+"stall1.gv", "a") as f1: #then open it in append mode
+    f1.write(str(stall)) #and continue to write to it
     f1.write("}")
 f1.close()
->>>>>>> 988ba9931489038ab437f9590a159db9a7586ed1
+
+print(stall.root)
+forced_bfs(stall)
+print("stall components", stall.components)
+
+for v in stall.vertices:
+    print("vertex ", v,"colour, length, time, parent, path",v.colour,v.length,v.time, v.parent,v.path)
+
+
+print("stall components",stall.components)
+print("H subgroup_free_gens", H1.subgroup_free_gens, "H1.subgp_gens", H1.subgp_gens)
+
+
+for u in stall.vertices:
+    print(u, "out_write", u.outedges_write,"\n in_write", u.inedges_write)
+    print(u,"inedgeslist", u.inedgesList)
+    print(u, "outedgeslist", u.outedgesList,"\n\n")
+
+ec,cn=check_neilsen_reduced(stall)
+print( "edges covered", ec,"neilsen reduced =", cn)
+
+#stall=
+build_new_labelling(stall)
+
+reverse_a_z(stall,'z1')
+reverse_a_z(stall,'z1')
+
+# Open  new file to see effect of relabelling
+with open(testfile+"stall1.gv", "w") as f1:
+    f1.write("digraph D {\n") #and write to it
+with open(testfile+"stall1.gv", "a") as f1: #then open it in append mode
+    f1.write(str(stall)) #and continue to write to it
+    f1.write("}")
+f1.close()
+
+print(stall.root)
+forced_bfs(stall)
+print("stall components", stall.components)
+
+for v in stall.vertices:
+    print("vertex ", v,"colour, length, time, parent, path",v.colour,v.length,v.time, v.parent,v.path)
+
+
+print("stall components",stall.components)
+print("H subgroup_free_gens", H1.subgroup_free_gens, "H1.subgp_gens", H1.subgp_gens)
+
+
+for u in stall.vertices:
+    print(u, "out_write", u.outedges_write,"\n in_write", u.inedges_write,"\n")
+    print(u,"inedgeslist", u.inedgesList,"\n")
+    print(u, "outedgeslist", u.outedgesList,"\n\n")
+
