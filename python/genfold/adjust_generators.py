@@ -1,14 +1,6 @@
 from alg3 import *
 import sys
-# Open testfile/flower[k].gv in write mode: this will be the graph above
-#with open(testfile+"flower1.gv", "w") as f1:
-#    f1.write("digraph D {\n") #and write to it
-#with open(testfile+"flower1.gv", "a") as f1: #then open it in append mode
-#    f1.write(str(flower1)) #and continue to write to it
-#    f1.write("}")
-#f1.close()
 
- 
 def output_graph_file(graph,filename,graphname):  
     # Open testfile/graph.gv in write mode
     with open(filename, "w") as go:
@@ -21,11 +13,10 @@ def output_graph_file(graph,filename,graphname):
 def numbers_of_gens_of_subgroup(Hgens,FZ): #check the number of H gens input against the rank of the Z basis, altering the latter if necessary
     while len(Hgens)!=len(FZ.gens):
         print("the number of generators of subgroup is", len(Hgens), "and is not equal to rank of the FZ which is: ", len(FZ.gens))
-        resp = input("Either 1) enter q to quit or \n 2)  enter c to continue and re-enter the definition of FZ: ")
-        while str(resp)!='q' and str(resp)!='c':
+        resp = input("Either 1) enter q to quit or \n 2)  enter i to continue and re-enter the definition of FZ: ")
+        while str(resp)!='q' and str(resp)!='i':
             print("resp is", resp)
-            resp = input("Please enter q or c: ")
-            
+            resp = input("Please enter q or i: ")
         if str(resp)=='q':
             sys.exit("The rank of FZ should equal the number of generators entered for each subgroup")
         else:
@@ -35,24 +26,23 @@ def numbers_of_gens_of_subgroup(Hgens,FZ): #check the number of H gens input aga
     
     return(FZ)
 
-def check_Hgens_against_computed_basis(H,FZ):
+def align_Hgens_with_computed_basis(H,FZ):
     Hname=H.name
     Hgens=H.subgp_gens
     test=0
     n=len(H.subgroup_free_gens)
+    print("n ",n)
     while test==0:
         if len(Hgens)>len(H.subgroup_free_gens):
             print('The generators are:\n',Hgens,'\n and the basis found by folding is:\n',H.subgroup_free_gens)
             print('There are more elements in the generators than the rank computed.')
             print('Please enter a free generating set of size %s' % (n,))
-            Hgens=genr_input(n)
-            FZ=free_group(len(Hgens),"z")
-            H=subgroup(Hname,Hgens,FZ.gens)
-            (flower,double,forest,bfs)=alg2_pre(H)
+            (H,FZ)=subgroup_input_and_compute(Hname,n)
         else:
             test=1
+
     return (H,FZ)
-	
+    
 
 
 def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones found by the Stallings folding
@@ -75,8 +65,9 @@ def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones fou
     
     return(all_clean)    
 
-def label_with_Zs(H,flower,Hgens): 
 #this should only be done if the number of gens input is the same as the rank of the subgroup
+def label_with_Zs(H,flower,Hgens): 
+
     if len(Hgens)!=len(H.subgroup_free_gens):
         print("The generators are: ",Hgens," and the basis is:",H.subgroup_free_gens)
         print("There are different numbers of  elements in the generators than the rank computed.")
@@ -240,7 +231,6 @@ def build_new_labelling(stall,FZ):
                 v.inedges_write[(l,u)]=u.outedges_write[e]
                 gen_found[u.outedges_write[e]]=1
 
- #   return(stall)
 
 def reverse_a_z(stall,z):
     for u in stall.vertices:
@@ -335,3 +325,12 @@ def genr_input(n):
         print('w is ',w)
         Hgens.append(w)
     return(Hgens)
+
+def subgroup_input_and_compute(Hname,n):
+    
+    Hgens=genr_input(n)
+    FZ=free_group(len(Hgens),"z")
+    H=subgroup(Hname,Hgens,FZ.gens)
+    #(flower,double,forest,bfs)=alg2_pre(H)
+    alg2_pre_alt(H)
+    return(H,FZ)
