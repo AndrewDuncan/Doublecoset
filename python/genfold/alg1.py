@@ -62,9 +62,8 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators, ma
           
 		if not self.basis == []:
 			if not len(self.basis) == len(self.subgp_gens):
-				print("number of generators of subgroup", len(self.subgp_gens),
-                   "not equal to rank of basis", len(self.basis))
-				self.coherent = False
+				self.coherent = False #set this attribute of self, if the two sets of generators do not have equal rank
+			
 
 		for w in self.subgp_gens: # creates flower automaton for given generators
 			if not self.basis ==[]: #if a basis (a set of Z generators) has been given set this up to pass to the flower function as output labels

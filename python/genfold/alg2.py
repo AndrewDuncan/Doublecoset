@@ -105,16 +105,16 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 #	#print("or", subgroup_basis(flower2)[0])
 #	return(flower1,flower2,double1,double2,forest1,forest2)
 
-def alg2_pre(H1):
-	H1.stallings()
-	flower1=H1.flower
-	T1=bfs(flower1,)
+def alg2_pre(H):
+	H.stallings()
+	flower=H.flower
+	T1=bfs(flower,)
 	T1.forest()
-	double1=flower1.double()
-	bfs1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-	forest1=bfs1.forest()
-	H1.subgroup_free_gens=subgroup_basis(flower1)[1]
-	return(flower1,double1,forest1,bfs1)
+	double=flower.double()
+	bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+	forest=bfs1.forest()
+	H.subgroup_free_gens=subgroup_basis(flower)[1]
+	return(flower,double,forest,bfs1)
 
 def alg2(w,F1,F2,H1,H2):
 	print(w)

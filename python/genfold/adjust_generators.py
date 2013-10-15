@@ -1,5 +1,5 @@
 from alg3 import *
-
+import sys
 # Open testfile/flower[k].gv in write mode: this will be the graph above
 #with open(testfile+"flower1.gv", "w") as f1:
 #    f1.write("digraph D {\n") #and write to it
@@ -18,13 +18,41 @@ def output_graph_file(graph,filename,graphname):
         go.write("}")
     go.close()   
 
-def output_graph_pair(graphpair,basename,testfile):
-    for k in (0,1):
-        n=str(k+1)
-        filename=testfile+basename+n+".gv"
-        graphname=basename+n
-        output_graph_file(graphpair[k],filename,graphname)
- 
+def numbers_of_gens_of_subgroup(Hgens,FZ): #check the number of H gens input against the rank of the Z basis, altering the latter if necessary
+    while len(Hgens)!=len(FZ.gens):
+        print("the number of generators of subgroup is", len(Hgens), "and is not equal to rank of the FZ which is: ", len(FZ.gens))
+        resp = input("Either 1) enter q to quit or \n 2)  enter c to continue and re-enter the definition of FZ: ")
+        while str(resp)!='q' and str(resp)!='c':
+            print("resp is", resp)
+            resp = input("Please enter q or c: ")
+            
+        if str(resp)=='q':
+            sys.exit("The rank of FZ should equal the number of generators entered for each subgroup")
+        else:
+            FZrank=enter_positive_integer("enter the rank of FZ: ")
+
+        FZ=free_group(int(FZrank),"z")
+    
+    return(FZ)
+
+def check_Hgens_against_computed_basis(H,FZ):
+    Hname=H.name
+    Hgens=H.subgp_gens
+    test=0
+    n=len(H.subgroup_free_gens)
+    while test==0:
+        if len(Hgens)>len(H.subgroup_free_gens):
+            print('The generators are:\n',Hgens,'\n and the basis found by folding is:\n',H.subgroup_free_gens)
+            print('There are more elements in the generators than the rank computed.')
+            print('Please enter a free generating set of size %s' % (n,))
+            Hgens=genr_input(n)
+            FZ=free_group(len(Hgens),"z")
+            H=subgroup(Hname,Hgens,FZ.gens)
+            (flower,double,forest,bfs)=alg2_pre(H)
+        else:
+            test=1
+    return (H,FZ)
+	
 
 
 def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones found by the Stallings folding
@@ -276,3 +304,34 @@ def forced_bfs(stall): #must be a rooted graph, with output labels corresponding
                     Nout.remove(b) # remove b from the list of all vertices
                 
             q.pop(0) # remove the first element of the queue
+
+#a function to check is s is an integer or not
+def RepresentsInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+#a function to enter a positive integer
+def enter_positive_integer(caption):
+    n = input("enter "+caption)
+    while not RepresentsInt(n):
+        n = input("Please enter a positive integer "+caption)
+        if RepresentsInt(n):
+            if int(n)< 0:
+                n=''
+
+    return(n)
+
+
+def genr_input(n):
+    nn=int(n)
+    Hgens=[]
+    for i in range(1,nn+1):
+        w=input('Enter generator number %s: ' % (i,))
+        w=w.replace(' ','')
+        w=w.split(",")
+        print('w is ',w)
+        Hgens.append(w)
+    return(Hgens)
