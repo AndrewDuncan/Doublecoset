@@ -123,12 +123,19 @@ def alg2_pre(H):
     bfs(H.double,sorted(H.double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]])).forest()
     H.subgroup_free_gens=subgroup_basis(H.flower)[1]
 
-def alg2(w,F1,F2,H1,H2):
-    print(w)
+def alg2(w,F1,F2,H1,H2,test=None):
+    if test is None:
+        test=0
+    else:
+        test=1
+    if test==1:
+        print(w)
     w=element(w).word
-    print('w=element(w).word\n',w)
+    if test==1:
+        print('w=element(w).word\n',w)
     w=popper(w)
-    print('w=popper(w)\n',w)
+    if test==1:
+        print('w=popper(w)\n',w)
     if w==[]:
         print([])
         return []
@@ -137,13 +144,16 @@ def alg2(w,F1,F2,H1,H2):
         print(w,' isn\'t a word in the free (amalgamated) product')
         return
     w=listsplitter(w,F1.mongens,F2.mongens)
-    print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
+    if test==1:
+        print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
     w=amalgamate(w,F1,F2,H1,H2)
-    print('w=amalgamate(w,F1,F2,H1,H2)\n',w)
+    if test==1:
+        print('w=amalgamate(w,F1,F2,H1,H2)\n',w)
     #w=listsplitter(w,F1.mongens,F2.mongens)
     #print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
     w=reducelist(w)
-    print('w=reducelist(w)\n',w)
+    if test==1:
+        print('w=reducelist(w)\n',w)
     alg2_pre(H1)
     (flower1,double1)=(H1.flower,H1.double)
     #(flower1,double1,forest1,bfs1)=alg2_pre(H1)
@@ -155,14 +165,17 @@ def alg2(w,F1,F2,H1,H2):
     #w=listsplitter(w,F1.mongens,F2.mongens)
     #print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
     w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
-    print('w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)\n',w)
+    if test==1:
+        print('w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)\n',w)
     w=joiner(w)
-    print('w=joiner(w)\n',w)
+    if test==1:
+        print('w=joiner(w)\n',w)
     w=popper(w)
-    print('w=popper(w)\n',w)
-    w=element(w).word
-    print('w=element(w).word\n',w)
-    print(w)
+    if test==1:
+        print('w=popper(w)\n',w)
+        w=element(w).word
+        print('w=element(w).word\n',w)
+        print(w)
     return(w)
 
 def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):

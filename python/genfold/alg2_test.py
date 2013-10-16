@@ -10,4 +10,5 @@ H2=subgroup('H2',[h3,h4],['u','v'])
 
 w=['a1','a1','a2','B2','A3','b2','a1','a2']
 
-alg2(w,F1,F2,H1,H2)
+#to remove print output leave last argument blank; otherwise set it to 1
+alg2(w,F1,F2,H1,H2,1)
