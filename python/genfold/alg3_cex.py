@@ -1,4 +1,5 @@
-from alg3 import *
+#from alg3 import *
+from adjust_generators import *
 
 D=Graph()
 a1=D.addVertex(1)
@@ -21,51 +22,71 @@ with open(testfile+"Delta_in.gv", "a") as Del: #then open it in append mode
     Del.write(str(D)) #and continue to write to it
     Del.write("}")
 Del.close()
+##############Dothisfor 1,2
+testfile='cex/H1/'
 
+#define the free group F, by giving the number of generators, and letter for the generators
 F1=free_group(2,"x")
-F2=free_group(2,"y")
-Z=free_group(4,"z")
-F=(F1,F2)
+#
+#Choose the subgroup name
+Hname='H1'
+# Enter a free generating set for the subgroup
+#
 h1=['x1','X2']
 h2=['x2','x1','x2']
 h3=['x2','x2','x2']
 h4=['X2','x1']
+h5=['x2','x1','x1']
+
+#make the generators into a list
+Hgens=[h1,h2,h3,h4]
+
+#check that the elements of Hgens are in the free group F
+generators_in_free_group(F1,Hgens)
+
+#find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
+(H1,FZ)=construct_required_folding(Hname,Hgens,testfile)
+#################
+rankZ=len(FZ.gens)
+##################
+testfile='cex/H2/'
+
+#define the free group F, by giving the number of generators, and letter for the generators
+F2=free_group(2,"y")
+#
+#Choose the subgroup name
+Hname='H2'
+# Enter a free generating set for the subgroup
+#
 g1=['y1','Y2']
 g2=['y2','y1','y2']
 g3=['y2','y2','y2']
 g4=['Y2','y1']
-H1=subgroup('H1',[h1,h2,h3,h4],['z1','z2','z3','z4'])
-H2=subgroup('H2',[g1,g2,g3,g4],['z1','z2','z3','z4'])
-print("flower1")
-alg2_pre(H1)
-(flower1,double1)=(H1.flower,H1.double)
-print("flower2")
-alg2_pre(H2)
-(flower2,double2)=(H2.flower,H2.double)
+#make the generators into a list
+Hgens=[g1,g2,g3,g4]
 
-# Open alg3_test_flower1.gv in write mode: this will be the graph above
-with open(testfile+"flower1.gv", "w") as flo1:
-    flo1.write("digraph S1 {\n") #and write to it
-with open(testfile+"flower1.gv", "a") as flo1: #then open it in append mode
-    flo1.write(str(flower1)) #and continue to write to it
-    flo1.write("}")
-flo1.close()
+#check that the elements of Hgens are in the free group F
+generators_in_free_group(F2,Hgens)
 
-# Open alg3_test_flower2.gv in write mode: this will be the graph above
-with open(testfile+"flower2.gv", "w") as flo2:
-    flo2.write("digraph S2 {\n") #and write to it
-with open(testfile+"flower2.gv", "a") as flo2: #then open it in append mode
-    flo2.write(str(flower2)) #and continue to write to it
-    flo2.write("}")
-flo2.close()
+#find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
+(H2,FZ)=construct_required_folding(Hname,Hgens,testfile)
+####################
+#make sure both subgroups have the same rank
+if rankZ!=len(FZ.gens):
+    error_message="Exiting: the two subgroups entered must have the same rank"
+    sys.exit(error_message)
+##################
 
-
-#print("H1.subgroup_free_gens are ", H1.subgroup_free_gens)
+F=(F1,F2)
 H=(H1,H2)
-#   return F,Z,H1,H2,flower1,double1,forest1,flower2,double2,forest2
+flower1=H1.flower
+flower2=H2.flower
+flower=(flower1,flower2)
+#
 print("now D0")
-D0=MakeComps(D,F,Z) # returnsdelta_k0[0],delta_k0[1],delta_z
+D0=MakeComps(D,F,FZ) # returnsdelta_k0[0],delta_k0[1],delta_z
 
+testfile='cex'
 # Open alg3_test_D0_1.gv in write mode
 with open(testfile+"D0_1.gv", "w") as D01:
     D01.write("digraph D1_1 {\n") #and write to it
@@ -73,9 +94,6 @@ with open(testfile+"D0_1.gv", "a") as D01: #then open it in append mode
     D01.write(str(D0[0])) #and continue to write to it
     D01.write("}")
 D01.close()
-#print ("digraph D1_1 {")
-#print (str(D1[0]))
-#print ("}")
 
 # Open alg3_test_D0_2.gv in write mode
 with open(testfile+"D0_2.gv", "w") as D02:
@@ -96,7 +114,7 @@ D0Z.close()
 delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and X2 components
 flower=[flower1,flower2]
 print("now D1")
-D1=Mod1(delta_0,Z,H,flower)
+D1=Mod1(delta_0,FZ,H,flower)
 
 
 # Open alg3_test_D1_1.gv in write mode

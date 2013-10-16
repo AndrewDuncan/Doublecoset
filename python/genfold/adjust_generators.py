@@ -390,14 +390,14 @@ def subgroup_input_and_compute(Hname,n):
     Hgens=genr_input(n)
     FZ=free_group(len(Hgens),"z")
     H=subgroup(Hname,Hgens,FZ.gens)
-    alg2_pre_alt(H)
+    alg2_pre(H)
     return(H,FZ)
 
 def subgroup_compute(Hname,Hgens):
 
     FZ=free_group(len(Hgens),"z")
     H=subgroup(Hname,Hgens,FZ.gens)
-    alg2_pre_alt(H)
+    alg2_pre(H)
     return(H,FZ)
 
 def construct_required_folding(Hname,Hgens,testfile):
