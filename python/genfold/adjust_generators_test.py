@@ -4,12 +4,12 @@ from adjust_generators import *
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 testfile='adjust_generators/'
 
-#define the free group F1, by giving the number of generators, and letter for the generators
-F1=free_group(4,"x")
+#define the free group F, by giving the number of generators, and letter for the generators
+F=free_group(4,"x")
 #
 #Choose the subgroup name
 Hname='H'
-# Enter a free generating set for H
+# Enter a free generating set for the subgroup
 #h1=['X1','x3','x4','X2']
 #h2=['x2','X1','x3','x4','x2']
 #h3=['x2','x2','x2']
@@ -22,7 +22,10 @@ h4=['X2','x1']
 h5=['x2','x1','x1']
 
 #make the generators into a list
-Hgens=[h1,h2,h3,h4,h5]
+Hgens=[h1,h2,h3,h4]#,h5]
+
+#check that the elements of Hgens are in the free group F
+generators_in_free_group(F,Hgens)
 
 #find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
 (H,FZ)=construct_required_folding(Hname,Hgens,testfile)

@@ -105,7 +105,7 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
 #   #print("or", subgroup_basis(flower2)[0])
 #   return(flower1,flower2,double1,double2,forest1,forest2)
 
-def alg2_pre(H):
+def alg2_pre_old(H):
     H.stallings()
     flower=H.flower
     T1=bfs(flower,)
@@ -116,7 +116,7 @@ def alg2_pre(H):
     H.subgroup_free_gens=subgroup_basis(flower)[1]
     return(flower,double,forest,bfs1)
 
-def alg2_pre_alt(H):
+def alg2_pre(H):
     H.stallings()
     bfs(H.flower,).forest()
     H.double=H.flower.double()
@@ -144,8 +144,12 @@ def alg2(w,F1,F2,H1,H2):
     #print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
     w=reducelist(w)
     print('w=reducelist(w)\n',w)
-    (flower1,double1,forest1,bfs1)=alg2_pre(H1)
-    (flower2,double2,forest2,bfs2)=alg2_pre(H2)
+    alg2_pre(H1)
+    (flower1,double1)=(H1.flower,H1.double)
+    #(flower1,double1,forest1,bfs1)=alg2_pre(H1)
+    alg2_pre(H2)
+    (flower2,double2)=(H2.flower,H2.double)
+    #(flower2,double2,forest2,bfs2)=alg2_pre(H2)
     #(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
     #print(w)
     #w=listsplitter(w,F1.mongens,F2.mongens)
@@ -269,9 +273,9 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
         print('w is the empty word')
         return([])
     F=(F1,F2)
-    print('F[0] alpha', F[0].alpha)
-    print('F[1] alpha', F[1].alpha)
-    print('F[0] mongens', F[0].mongens)
+    #print('F[0] alpha', F[0].alpha)
+    #print('F[1] alpha', F[1].alpha)
+    #print('F[0] mongens', F[0].mongens)
     error=0
     n=len(w)-1
     if F[0].is_element(w[n])==1:
@@ -295,8 +299,12 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
     if error==1:
         return
     H=(H1,H2)
-    (flower1,double1,forest1,bfs1)=alg2_pre(H[0])
-    (flower2,double2,forest2,bfs2)=alg2_pre(H[1])
+    alg2_pre(H1)
+    (flower1,double1)=(H1.flower,H1.double)
+    #(flower1,double1,forest1,bfs1)=alg2_pre(H[0])
+    alg2_pre(H2)
+    (flower2,double2)=(H2.flower,H2.double)
+    #(flower2,double2,forest2,bfs2)=alg2_pre(H[1])
     G=((flower1,double1,forest1,bfs1),(flower2,double2,forest2,bfs2))
     #
     f=ff

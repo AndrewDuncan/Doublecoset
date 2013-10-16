@@ -29,15 +29,17 @@ def numbers_of_gens_of_subgroup(Hgens,FZ): #check the number of H gens input aga
 
 def align_Hgens_with_computed_basis(H,FZ):
     Hname=H.name
-    Hgens=H.subgp_gens
+    #Hgens=H.subgp_gens
     test=0
-    n=len(H.subgroup_free_gens)
-    print("n ",n)
+    #n=len(H.subgroup_free_gens)
+    #print("n ",n)
     while test==0:
-        if len(Hgens)>len(H.subgroup_free_gens):
+        n=len(H.subgroup_free_gens)
+        Hgens=H.subgp_gens
+        if len(Hgens)>n:
             print('The generators are:\n',Hgens,'\n and the basis found by folding is:\n',H.subgroup_free_gens)
             print('There are more elements in the generators than the rank computed.')
-            print('Please enter a free generating set of size %s' % (n,))
+            print('Please enter a Nielsen reduced free generating set of size %s ' % (n,),'as a comma separated list, e.g. x1,x2,X1')
             (H,FZ)=subgroup_input_and_compute(Hname,n)
         else:
             test=1
@@ -48,21 +50,21 @@ def align_Hgens_with_computed_basis(H,FZ):
 
 def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones found by the Stallings folding
     all_clean=0
-    print("H free gens",H.subgroup_free_gens)
-    print("sub gens 1", Hgens)
-    print("input gens",Hgens)
+    #print("H free gens",H.subgroup_free_gens)
+    #print("sub gens 1", Hgens)
+    #print("input gens",Hgens)
     for i in range(len(H.subgroup_free_gens)):
-        print("i", i, Hgens[i], "z", H.basis[i])
-        print("free gens",H.subgroup_free_gens[H.basis[i]])
+        #print("i", i, Hgens[i], "z", H.basis[i])
+        #print("free gens",H.subgroup_free_gens[H.basis[i]])
         if  Hgens[i]!=H.subgroup_free_gens[H.basis[i]]:
             all_clean=1
-            print("hoo unequal at", i," Hgens[i] =", Hgens[i],"H.basis[i]=", H.basis[i],"H.subgroup_free_gens[H.basis[i]]=", H.subgroup_free_gens[H.basis[i]])
-        else:
-            print("Hgens equal to free gens at ",i)
+            #print("hoo unequal at", i," Hgens[i] =", Hgens[i],"H.basis[i]=", H.basis[i],"H.subgroup_free_gens[H.basis[i]]=", H.subgroup_free_gens[H.basis[i]])
+        #else:
+            #print("Hgens equal to free gens at ",i)
 
 
-    if all_clean==1:
-        print("o o")
+    #if all_clean==1:
+        #print("o o")
     
     return(all_clean)    
 
@@ -81,13 +83,13 @@ def label_with_Zs(H,flower,Hgens):
         u.outedges_write ={}# initialise the output labels of the copy of the folding of H
         u.inedges_write = {}
     
-    print("len subgp_gens", len(Hgens))
+    #print("len subgp_gens", len(Hgens))
     for i in range(len(Hgens)): # for each of the input generators
-        print("i is ", i)
+        #print("i is ", i)
         suffix=Hgens[i]
         u=stall.root
         while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):
-            print("suffix", suffix)
+            #print("suffix", suffix)
             l=suffix[0]
             if l in u.outedges.keys(): # if the current letter is the label of an outedge u
                 for x in u.outedgesList: 
@@ -106,7 +108,7 @@ def label_with_Zs(H,flower,Hgens):
                         else:
                             x[1].inedges_write[(l,u)]=[H.basis[i]]  
                            
-                        print("read edge ", x, "and set out label to ", H.basis[i])
+                        #print("read edge ", x, "and set out label to ", H.basis[i])
                         u=x[1] # set u equal to the terminal vertex of the edge read
                         break
 
@@ -126,7 +128,7 @@ def label_with_Zs(H,flower,Hgens):
                             x[1].outedges_write[(l.swapcase(),u)]=L
                         else:
                             x[1].outedges_write[(l.swapcase(),u)]=[H.basis[i].swapcase()]
-                        print("read edge ", x, "and set out label to ", H.basis[i])
+                        #print("read edge ", x, "and set out label to ", H.basis[i])
                         u=x[1] # u is the initial vertex of the edge read (in reverse)
                         break
 
@@ -144,51 +146,51 @@ def anydup(thelist):
     return False
 
 #check that when the (original or current) input generators are read in the stallings folding (labelled with Zs) there are no repeated edges
-def check_neilsen_reduced(stall): 
+def check_nielsen_reduced(stall): 
     edgerep=0
     edgecover=0
     for u in stall.vertices:
         for e in u.inedgesList:
             if e not in u.inedges_write:
-                print("at vertex ", u, "inedge", e,"is not read: there is nothing in u.inedges_write:", u.inedges_write)
+                #print("at vertex ", u, "inedge", e,"is not read: there is nothing in u.inedges_write:", u.inedges_write)
                 edgecover=1
                 return(edgecover,edgerep)
 
             if anydup(u.inedges_write[e]):
-                print("at vertex ", u, "inedge", e,"is read twice: there is repetition in u.inedges_write:", u.inedges_write)
+                #print("at vertex ", u, "inedge", e,"is read twice: there is repetition in u.inedges_write:", u.inedges_write)
                 edgerep=1
                 break
         
         for e in u.outedgesList:
             if anydup(u.outedges_write[e]):
-                print("at vertex ", u, "outedge",e, "is read twice: there is repetition in u.outedges_write:", u.outedges_write)
+                #print("at vertex ", u, "outedge",e, "is read twice: there is repetition in u.outedges_write:", u.outedges_write)
                 edgerep=1
                 break
             
     return(edgecover,edgerep)
 
 
-#once generators have been read and all edges labelled with Zs, find, for each letter z in Z an edge which is labelled only with  z, and put this edge outside the (potential) tree. Assumes check_neilsen_reduced has run with output 0,0.
+#once generators have been read and all edges labelled with Zs, find, for each letter z in Z an edge which is labelled only with  z, and put this edge outside the (potential) tree. Assumes check_nielsen_reduced has run with output 0,0.
 def build_new_labelling(stall,FZ):
     gen_found={} #dictionary with entries (z:i) where z is in Z and i is 0 to start with and becomes 1 once an edge labelled only with z has been found and put outside the candidate tree
     for z in FZ.gens:
-        print("z is",z)
+        #print("z is",z)
         gen_found[z]=0
 
     for u in stall.vertices:
         for e in u.inedgesList:
-            print(" in edge e is ", e)
+            #print(" in edge e is ", e)
             if len(u.inedges_write[e])>1:
-                print("write written to space as len >1")
+                #print("write written to space as len >1")
                 u.inedges_write[e]=""
             elif len(u.inedges_write[e])==1:
                 #if u.inedges_write[e][0]==u.inedges_write[e][0].lower():
                 zlab=u.inedges_write[e][0].lower()
-                print("zlab is ", zlab, "u.inedges_write[e][0]", u.inedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
+                #print("zlab is ", zlab, "u.inedges_write[e][0]", u.inedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
                 if gen_found[zlab]==0: 
                     newlab=u.inedges_write[e][0].lower()
                     u.inedges_write[e]=newlab
-                    print("in edge ", e,"given write label", u.inedges_write[e])
+                    #print("in edge ", e,"given write label", u.inedges_write[e])
                     gen_found[zlab]=1
                 else:
                     u.inedges_write[e]=""
@@ -196,16 +198,16 @@ def build_new_labelling(stall,FZ):
                 print("fouled up in build_new_labelling: there's an in edge with no write_label: e is ", e)
                 return
         for e in u.outedgesList:
-            print(" in edge e is ", e)
+            #print(" in edge e is ", e)
             if len(u.outedges_write[e])>1:
                 u.outedges_write[e]=""
-                print("write written to space as len >1")
+                #print("write written to space as len >1")
             elif len(u.outedges_write[e])==1:
                 zlab=u.outedges_write[e][0].lower()
-                print("zlab is ", zlab, "u.outedges_write[e][0]", u.outedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
+                #print("zlab is ", zlab, "u.outedges_write[e][0]", u.outedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
                 if gen_found[zlab]==0: 
                     u.outedges_write[e]=u.outedges_write[e][0].lower()
-                    print("out edge ", e,"given write label", u.outedges_write[e])
+                    #print("out edge ", e,"given write label", u.outedges_write[e])
                     gen_found[zlab]=1
                 else:
                     u.outedges_write[e]=""
@@ -215,7 +217,7 @@ def build_new_labelling(stall,FZ):
 
     #now match up in and out edges --- above only one of the pair was given the correct z label. 
     for z in FZ.gens:
-        print("z is",z)
+        #print("z is",z)
         gen_found[z]=0
 
     for u in stall.vertices:
@@ -300,21 +302,23 @@ def forced_bfs(stall): #must be a rooted graph, with output labels corresponding
 
 def recompute_free_basis(H,FZ):
     Hname=H.name
-    Hgens=H.subgp_gens
-    flower=H.flower
+    #Hgens=H.subgp_gens
+    #flower=H.flower
     while True: #this is a loop that executes till it's broken out of
         #check to see if the generators input are the same as the generators found by Stallings folding
+        Hgens=H.subgp_gens
         ac=check_gens(H,Hgens)
-        print("if the input generators equal the basis found by folding the next digit will be 0:", ac)
+        #print("if the input generators equal the basis found by folding the next digit will be 0:", ac)
         if ac==0:
             break
         else:
             while True: #this is a(nother) loop that executes till it's broken out of
+                flower=H.flower
                 stall=label_with_Zs(H,flower,Hgens) #relabel Stallings folding with given gens/ Z labels - to set up search for required gens
                 
                 #check to see that the new graph is connected and all edges have been used in reading gens
-                ec,cn=check_neilsen_reduced(stall)
-                print("edges covered", ec,"neilsen reduced =", cn)#
+                ec,cn=check_nielsen_reduced(stall)
+                #print("edges covered", ec,"nielsen reduced =", cn)#
                 if ec==0 and cn==0:
                     break
                 else:
@@ -377,7 +381,7 @@ def genr_input(n):
         w=input('Enter generator number %s: ' % (i,))
         w=w.replace(' ','')
         w=w.split(",")
-        print('w is ',w)
+        #print('w is ',w)
         Hgens.append(w)
     return(Hgens)
 
@@ -402,7 +406,7 @@ def construct_required_folding(Hname,Hgens,testfile):
 
     #output a graph of the Stallings folding in GraphViz format
     output_graph_file(H.flower,testfile+"flower.gv","flower")
-    print("Initial H subgroup_free_gens", H.subgroup_free_gens, " and H.subgp_gens", H.subgp_gens,"H.subgp_free_gens ", H.subgp_free_gens)
+    #print("Initial H subgroup_free_gens", H.subgroup_free_gens, " and H.subgp_gens", H.subgp_gens,"H.subgp_free_gens ", H.subgp_free_gens)
 
 
     #check that the basis computed by the Stallings folding has the same number of elements as the generators input
@@ -414,6 +418,15 @@ def construct_required_folding(Hname,Hgens,testfile):
     recompute_free_basis(H,FZ)
     #output a graph of the final Stallings folding in GraphViz format
     output_graph_file(H.flower,testfile+"stallings.gv","stallings")
-    print("New H subgroup_free_gens", H.subgroup_free_gens, " and H.subgp_gens", H.subgp_gens,"H.subgp_free_gens ", H.subgp_free_gens)
+    #print("New H subgroup_free_gens", H.subgroup_free_gens, " and H.subgp_gens", H.subgp_gens,"H.subgp_free_gens ", H.subgp_free_gens)
 
     return(H,FZ)
+
+
+
+def generators_in_free_group(F,Hgens):
+    for w in Hgens:
+        if not F.is_element(w):
+            #print(F.gens)
+            error_message="Exiting: the generator "+ str(w)+" does not belong to the free group with generators "+str(list(F.gens))
+            sys.exit(error_message)

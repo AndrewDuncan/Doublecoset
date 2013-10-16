@@ -68,9 +68,11 @@ H1=subgroup('H1',[h1,h2,h3,h4],['z1','z2','z3','z4'])
 H2=subgroup('H2',[g1,g2,g3,g4],['z1','z2','z3','z4'])
 #	F=(F1,F2)
 print("flower1")
-(flower1,double1,forest1,bfs1)=alg2_pre(H1)
+alg2_pre(H1)
+(flower1,double1)=(H1.flower,H1.double)
 print("flower2")
-(flower2,double2,forest2,bfs2)=alg2_pre(H2)
+alg2_pre(H2)
+(flower2,double2)=(H2.flower,H2.double)
 
 # Open alg3_test_flower1.gv in write mode: this will be the graph above
 with open(testfile+"flower1.gv", "w") as flo1:

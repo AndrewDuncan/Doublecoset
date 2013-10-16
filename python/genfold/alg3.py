@@ -12,14 +12,17 @@ def alg3_pre():
     H1=enter_subgroup()
     print('For the second subgroup:')
     H2=enter_subgroup()
-    (flower1,double1,forest1,bfs1)=alg2_pre(H1)
-    (flower2,double2,forest2,bfs2)=alg2_pre(H2)
+    #(flower1,double1,forest1,bfs1)=
+    alg2_pre(H1)
+    #(flower1,double1)=(H1.flower,H1.double)#this line probably not needed
+    alg2_pre(H2)
+    #(flower2,double2)=(H2.flower,H2.double)#this line probably not needed
     H=(H1,H2)
     if F1.rank>F2.rank:
         Z=free_group(F1.rank,'z')
     else:
         Z=free_group(F2.rank,'z')
-    return F,Z,H1,H2,flower1,double1,forest1,bfs1,flower2,double2,forest2,bfs2# this should return in a more systematic fashion
+    return F,Z,H1,H2#,flower1,double1# this should return in a more systematic fashion
 
 
 def MakeComps(delta,F,Z): #input Delta, free groups F=(F1,F2) and Z generators
@@ -118,7 +121,7 @@ def MakeComps(delta,F,Z): #input Delta, free groups F=(F1,F2) and Z generators
         delta_k0.append(delta_k0k) #append k0k to the list of delta1 and delta2
     return delta_k0[0],delta_k0[1],delta_z #these are distinct graphs built from copies of delta
 
-def Mod1(delta_k0,Z,H,flower):#input delta_k0(X1 and X2 components), Z gens, H subgroup and its folding. For each Z edge, add a corresponding path in X_k generators
+def Mod1(delta_k0,Z,H,flower):#input delta_k0(X1 and X2 components), Z gens, H subgroup and its folding. For each Z edge, add a corresponding path in X_k generators- probably don't need to input flower - it comes with H now
     delta_k1=[]
     for k in (1,2):
         delta_k1k=delta_k0[k-1]# copy.deepcopy(delta_k0[k-1])# make a copy, k1k of delta_k0 - but why - should use copy already made
