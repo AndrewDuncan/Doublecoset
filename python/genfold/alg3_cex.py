@@ -115,13 +115,13 @@ delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and 
 #flower=[flower1,flower2]
 print("now D1")
 #D1=Mod1(delta_0,FZ,H,flower)
-D1=Mod1(delta_0,FZ,H)
+delta_1=Mod1(delta_0,FZ,H)
 
 # Open alg3_test_D1_1.gv in write mode
 with open(testfile+"D1_1.gv", "w") as D11:
     D11.write("digraph D1_1 {\n") #and write to it
 with open(testfile+"D1_1.gv", "a") as D11: #then open it in append mode
-    D11.write(str(D1[0])) #and continue to write to it
+    D11.write(str(delta_1[0])) #and continue to write to it
     D11.write("}")
 D11.close()
 
@@ -129,25 +129,25 @@ D11.close()
 with open(testfile+"D1_2.gv", "w") as D12:
     D12.write("digraph D1_2 {\n") #and write to it
 with open(testfile+"D1_2.gv", "a") as D12: #then open it in append mode
-    D12.write(str(D1[1])) #and continue to write to it
+    D12.write(str(delta_1[1])) #and continue to write to it
     D12.write("}")
 D12.close()
 
 print("now D2")
-D2=Mod2(D1,flower)
-
+(delta_2,Prod)=Mod2(delta_1,H)
+ 
 # Open alg3_test_P_1_1.gv in write mode
 with open(testfile+"P_1_1.gv", "w") as P11:
     P11.write("digraph P11 {\n") #and write to it
 with open(testfile+"P_1_1.gv", "a") as P11: #then open it in append mode
-    P11.write(str(D2[0][0])) #and continue to write to it
+    P11.write(str(Prod[0])) #and continue to write to it
     P11.write("}")
 P11.close()
 # Open alg3_test_P_1_2.gv in write mode
 with open(testfile+"P_1_2.gv", "w") as P12:
     P12.write("digraph P12 {\n") #and write to it
 with open(testfile+"P_1_2.gv", "a") as P12: #then open it in append mode
-    P12.write(str(D2[0][1])) #and continue to write to it
+    P12.write(str(Prod[1])) #and continue to write to it
     P12.write("}")
 P12.close()
 
@@ -155,7 +155,7 @@ P12.close()
 with open(testfile+"D2_1.gv", "w") as D21:
     D21.write("digraph D2_1 {\n") #and write to it
 with open(testfile+"D2_1.gv", "a") as D21: #then open it in append mode
-    D21.write(str(D2[2][0])) #and continue to write to it
+    D21.write(str(delta_2[0])) #and continue to write to it
     D21.write("}")
 D21.close()
 
@@ -163,18 +163,19 @@ D21.close()
 with open(testfile+"D2_2.gv", "w") as D22:
     D22.write("digraph D2_2 {\n") #and write to it
 with open(testfile+"D2_2.gv", "a") as D22: #then open it in append mode
-    D22.write(str(D2[2][1])) #and continue to write to it
+    D22.write(str(delta_2[1])) #and continue to write to it
     D22.write("}")
 D22.close()
 
 print("now D3")
-D3=Mod3(D2[2],flower,D2[0],D2[1])
+#D3=Mod3(D2[2],flower,D2[0],D2[1])
+(delta_3,Prod)=Mod3(delta_2,H)
 
 # Open alg3_test_D3_1.gv in write mode
 with open(testfile+"D3_1.gv", "w") as D31:
     D31.write("digraph D3_1 {\n") #and write to it
 with open(testfile+"D3_1.gv", "a") as D31: #then open it in append mode
-    D31.write(str(D3[0])) #and continue to write to it
+    D31.write(str(delta_3[0])) #and continue to write to it
     D31.write("}")
 D31.close()
 
@@ -182,6 +183,21 @@ D31.close()
 with open(testfile+"D3_2.gv", "w") as D32:
     D32.write("digraph D3_2 {\n") #and write to it
 with open(testfile+"D3_2.gv", "a") as D32: #then open it in append mode
-    D32.write(str(D3[1])) #and continue to write to it
+    D32.write(str(delta_3[1])) #and continue to write to it
     D32.write("}")
 D32.close()
+# Open alg3_test_P_2_1.gv in write mode
+with open(testfile+"P_2_1.gv", "w") as P1:
+    P1.write("digraph P21 {\n") #and write to it
+with open(testfile+"P_2_1.gv", "a") as P1: #then open it in append mode
+    P1.write(str(Prod[0])) #and continue to write to it
+    P1.write("}")
+P1.close()
+#
+# Open alg3_test_P_2_2.gv in write mode
+with open(testfile+"P_2_2.gv", "w") as P2:
+    P2.write("digraph P22 {\n") #and write to it
+with open(testfile+"P_2_2.gv", "a") as P2: #then open it in append mode
+    P2.write(str(Prod[1])) #and continue to write to it
+    P2.write("}")
+P2.close()

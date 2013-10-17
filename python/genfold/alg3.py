@@ -155,23 +155,25 @@ def Mod1(delta_k0,Z,H):#input delta_k0(X1 and X2 components), Z gens, H subgroup
         while go: #fold k1k, updating of v.nu_im in the process
             go = delta_k1k.fold()
         delta_k1.append(delta_k1k)#add k1k to delta_k1
-    return delta_k1[0],delta_k1[1] #return delta_k1, both components
+    return (delta_k1[0],delta_k1[1]) #return delta_k1, both components
 
 
-def Mod2(delta1,flower): #each of delta1 and flower is a pair (delta1_1,delta1_2) and (flower1,flower2); the latter of Stallings foldings
+def Mod2(delta1,H): #each of delta1 and flower is a pair (delta1_1,delta1_2) and (flower1,flower2); the latter of Stallings foldings
 #Mod2 constructs the product of delta_k and flowerk, then a spanning forest for this graph, then carries out Algorithm III steps D6 and D7
+    Hflower1=H[0].flower
+    Hflower2=H[1].flower
+    Hflower=(Hflower1,Hflower2)
     delta2=[]
     Prod=[]
-    Prod_Forest=[]# probably don't need this to be returned
     Prod_components=[]# probably don't need this to be returned
     for k in (0,1):
         delta2k=delta1[k]# the new component to be constructed
-        Prod.append(delta1[k].product(flower[k],1))# form the product  delat1_k x \Gamma_k; the 2nd arguement of 1 forces the function to record the left and right compents u and v of the vertex with label (u,v) (otherwise we have only vertex-labels, not the vertices themselves) 
+        Prod.append(delta1[k].product(Hflower[k],1))
         Prod_bfs=bfs(Prod[k],sorted(Prod[k].vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
         Prod_bfs.forest()#assigns properties, like distance from root, path from root in forest, etc. to vertices of product
 
         Pcomponents={}
-        #construct a dictionary with key the components of the product P_k and for such key a value list of vertices of form (a,1) in that component
+        #construct a dictionary with key the components of the product P_k and for such key a value list of vertices in that component
         for u in  Prod[k].vertices:
             if str(u.colour) in Pcomponents:
                 L=Pcomponents[str(u.colour)]
@@ -195,12 +197,14 @@ def Mod2(delta1,flower): #each of delta1 and flower is a pair (delta1_1,delta1_2
                     if i==0:
                         v_base=v # this is the first vertex of type (*,*)-1 found in this component
                         delta_base=v.memory[0]#the left hand (delta) part of v_base
+                        #print("In mod 2, k is", k, "v_base is ", v," v_base.path is ", v.path)
                         a=element(v.path).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
                         i=1 
                     else:
                         b=element(v.path).word # the path from the root of this component to the next vertex of type (*,*)-1
                         Xword=element(a+b).word # the path from v_base to v, in the spanning forest for Prod[k]
-                        Gword=graph_pass(flower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
+                        Gword=graph_pass(Hflower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
+                        #print("In mod 2, still, v is ", v," v.path is ", v.path, "Xword is",Xword,"Gword is ",Gword[4])
                         if len(Gword[1])>0 or len(Gword[2])>0:
                             print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)
                             print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
@@ -215,29 +219,49 @@ def Mod2(delta1,flower): #each of delta1 and flower is a pair (delta1_1,delta1_2
             if not hasattr(v,'original'): #these are the vertices added in Modification 2
                 v.original=2 # 
                 v.nu_im={v.label}
-                v.name='({0},{1})'.format(v.label,k) 
-                v.label='({0},{1})'.format(v.label,k)
+                v.name='({0},{1})'.format(v.label,k+1) 
+                v.label='({0},{1})'.format(v.label,k+1)
                 #print("v is", v," v.nu_im is", v.nu_im)
         
         go = True
         while go: #fold k1k, updating of v.nu_im in the process
             go = delta2k.fold()
-        Prod_components.append(Pcomponents)
+        Prod_components.append(Pcomponents)#probably don't need this
         delta2.append(delta2k)
         
             
-    
-    return(Prod,Prod_components,delta2)
+    #print("in md2",Prod)
+    return(delta2,Prod)
 
 
-def Mod3(delta2,flower,Prod,Prod_components): #each of delta2 and flower is a pair (delta2_1,delta2_2) and (flower1,flower2) as in Mod2.
-#Mod3 uses the product graph Prod[k] and its components Prod_components[k] from Mod2, as these are essentially the same, and carries out Algorithm III steps D8 and D10 
+def Mod3(delta2,H): #each of delta2 and flower is a pair (delta2_1,delta2_2) and (flower1,flower2) as in Mod2.
+    #Mod3 uses the product graph Prod[k] and its components Prod_components[k] from Mod2, as these are essentially the same, and carries out Algorithm III steps D8 and D10
+    Hflower1=H[0].flower
+    Hflower2=H[1].flower
+    Hflower=(Hflower1,Hflower2)
     delta3=[]
+    Prod=[]
     for k in (0,1):
         delta3k=delta2[k]# the new component to be constructed
-        Prodk=Prod[k]
-        Pcomponents=Prod_components[k]
-        flowerk=flower[k]
+        Prod.append(delta2[k].product(Hflower[k],1))
+        Prod_bfs=bfs(Prod[k],sorted(Prod[k].vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+        Prod_bfs.forest()#assigns properties, like distance from root, path from root in forest, etc. to vertices of product
+
+        Pcomponents={}
+        #construct a dictionary with key the components of the product P_k and for such key a value list of vertices in that component
+        for u in  Prod[k].vertices:
+            if str(u.colour) in Pcomponents:
+                L=Pcomponents[str(u.colour)]
+                L.append(u)
+                L.sort(key=lambda x: x.length)
+                Pcomponents[str(u.colour)]=L
+            else:
+                Pcomponents[str(u.colour)]=[u]
+
+               
+        #Prodk=Prod[k]
+        #Pcomponents=Prod_components[k]
+        #flowerk=flower[k]
         
         for col in Pcomponents: 
             print("col is", col)
@@ -264,7 +288,7 @@ def Mod3(delta2,flower,Prod,Prod_components): #each of delta2 and flower is a pa
                             d=element(e[1].path).inverse() #path from terminal end of edge e to the root
                             Xword=element(a+b+c+d+A).word #loop in forest, based at v_base passing over edge e
                             print("Xword", Xword)
-                            Gword=graph_pass(flower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
+                            Gword=graph_pass(Hflower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
                             if len(Gword[1])>0 or len(Gword[2])>0:
                                 print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)                       
                                 print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
@@ -278,8 +302,8 @@ def Mod3(delta2,flower,Prod,Prod_components): #each of delta2 and flower is a pa
             if not hasattr(v,'original'): #these are the vertices added in Modification 3
                 v.original=3 # 
                 v.nu_im={v.label}
-                v.name='({0},{1})'.format(v.label,k) 
-                v.label='({0},{1})'.format(v.label,k)
+                v.name='({0},{1})'.format(v.label,k+1) 
+                v.label='({0},{1})'.format(v.label,k+1)
                 #print("v is", v," v.nu_im is", v.nu_im)
         
         go = True
@@ -291,4 +315,4 @@ def Mod3(delta2,flower,Prod,Prod_components): #each of delta2 and flower is a pa
         
             
     
-    return(delta3)
+    return(delta3,Prod)
