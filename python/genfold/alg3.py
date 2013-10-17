@@ -121,7 +121,10 @@ def MakeComps(delta,F,Z): #input Delta, free groups F=(F1,F2) and Z generators
         delta_k0.append(delta_k0k) #append k0k to the list of delta1 and delta2
     return delta_k0[0],delta_k0[1],delta_z #these are distinct graphs built from copies of delta
 
-def Mod1(delta_k0,Z,H,flower):#input delta_k0(X1 and X2 components), Z gens, H subgroup and its folding. For each Z edge, add a corresponding path in X_k generators- probably don't need to input flower - it comes with H now
+def Mod1(delta_k0,Z,H):#input delta_k0(X1 and X2 components), Z gens, H subgroup and its folding. For each Z edge, add a corresponding path in X_k generators- probably don't need to input flower - it comes with H now
+    flower1=H[0].flower
+    flower2=H[1].flower
+    flower=(flower1,flower2)
     delta_k1=[]
     for k in (1,2):
         delta_k1k=delta_k0[k-1]# copy.deepcopy(delta_k0[k-1])# make a copy, k1k of delta_k0 - but why - should use copy already made
@@ -130,12 +133,15 @@ def Mod1(delta_k0,Z,H,flower):#input delta_k0(X1 and X2 components), Z gens, H s
         for v in delta_k1k.vertices: #for each vertex v of k1k  
             for outedges in v.outedgesList:# for each outedge e incident to v
                 if outedges[0] in Z.mongens: #with a Z label
+                    #print("H",k, "free gens", H[k-1].subgroup_free_gens)
                     #print("v", v, "outedges [1]", outedges[1], "outedges [0]", [outedges[0]], "k", k)
-                    Xword=phi(H[k-1],[outedges[0]])[0]
+                    #Xword=phi(H[k-1],[outedges[0]])[0]
+                    xword=H[k-1].subgroup_free_gens[outedges[0]]
                     #print("Xword is ", Xword)
-                    Try_to_read_Xword=graph_pass(delta_k1k,Xword,v).acc_read_rem()
+                    #print("xword is ", xword)
+                    #Try_to_read_Xword=graph_pass(delta_k1k,Xword,v).acc_read_rem()
                     #print("output of try to read", Try_to_read_Xword)
-                    delta_k1k.addPath(v,outedges[1],phi(H[k-1],[outedges[0]])[0])# add  a path of x's with the same end points as e
+                    delta_k1k.addPath(v,outedges[1],xword)# add  a path of x's with the same end points as e
         for v in delta_k1k.vertices:# for each v in k1k
             #foundv=0
             if not hasattr(v,'original'):

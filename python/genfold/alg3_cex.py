@@ -86,10 +86,10 @@ flower=(flower1,flower2)
 print("now D0")
 D0=MakeComps(D,F,FZ) # returnsdelta_k0[0],delta_k0[1],delta_z
 
-testfile='cex'
+testfile='cex/'
 # Open alg3_test_D0_1.gv in write mode
 with open(testfile+"D0_1.gv", "w") as D01:
-    D01.write("digraph D1_1 {\n") #and write to it
+    D01.write("digraph D0_1 {\n") #and write to it
 with open(testfile+"D0_1.gv", "a") as D01: #then open it in append mode
     D01.write(str(D0[0])) #and continue to write to it
     D01.write("}")
@@ -97,7 +97,7 @@ D01.close()
 
 # Open alg3_test_D0_2.gv in write mode
 with open(testfile+"D0_2.gv", "w") as D02:
-    D02.write("digraph D1_2 {\n") #and write to it
+    D02.write("digraph D0_2 {\n") #and write to it
 with open(testfile+"D0_2.gv", "a") as D02: #then open it in append mode
     D02.write(str(D0[1])) #and continue to write to it
     D02.write("}")
@@ -105,17 +105,17 @@ D02.close()
 
 # Open alg3_test_D0_Z.gv in write mode
 with open(testfile+"D0_Z.gv", "w") as D0Z:
-    D0Z.write("digraph D1_Z {\n") #and write to it
+    D0Z.write("digraph D0_Z {\n") #and write to it
 with open(testfile+"D0_Z.gv", "a") as D0Z: #then open it in append mode
     D0Z.write(str(D0[2])) #and continue to write to it
     D0Z.write("}")
 D0Z.close()
 
 delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and X2 components
-flower=[flower1,flower2]
+#flower=[flower1,flower2]
 print("now D1")
-D1=Mod1(delta_0,FZ,H,flower)
-
+#D1=Mod1(delta_0,FZ,H,flower)
+D1=Mod1(delta_0,FZ,H)
 
 # Open alg3_test_D1_1.gv in write mode
 with open(testfile+"D1_1.gv", "w") as D11:
