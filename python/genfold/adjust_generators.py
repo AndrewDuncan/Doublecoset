@@ -1,5 +1,6 @@
-from alg3 import *
+from alg2 import *
 import sys
+import copy
 
 def output_graph_file(graph,filename,graphname):  
     # Open testfile/graph.gv in write mode
@@ -12,6 +13,7 @@ def output_graph_file(graph,filename,graphname):
     go.close()   
 
 def numbers_of_gens_of_subgroup(Hgens,FZ): #check the number of H gens input against the rank of the Z basis, altering the latter if necessary
+    print("into numbers_of_gens_of_subgroup")
     while len(Hgens)!=len(FZ.gens):
         print("the number of generators of subgroup is", len(Hgens), "and is not equal to rank of the FZ which is: ", len(FZ.gens))
         resp = input("Either 1) enter q to quit or \n 2)  enter i to continue and re-enter the definition of FZ: ")
@@ -28,6 +30,7 @@ def numbers_of_gens_of_subgroup(Hgens,FZ): #check the number of H gens input aga
     return(FZ)
 
 def align_Hgens_with_computed_basis(H,FZ):
+    print("into align_Hgens_with_computed_basis")
     Hname=H.name
     #Hgens=H.subgp_gens
     test=0
@@ -49,13 +52,13 @@ def align_Hgens_with_computed_basis(H,FZ):
 
 
 def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones found by the Stallings folding
+    print("into check_gens")
     all_clean=0
-    #print("H free gens",H.subgroup_free_gens)
-    #print("sub gens 1", Hgens)
-    #print("input gens",Hgens)
+    print("H free gens",H.subgroup_free_gens)
+    print("subgroup genrs input", Hgens)
     for i in range(len(H.subgroup_free_gens)):
-        #print("i", i, Hgens[i], "z", H.basis[i])
-        #print("free gens",H.subgroup_free_gens[H.basis[i]])
+        print("i", i, Hgens[i], "z", H.basis[i])
+        print("free gens",H.subgroup_free_gens[H.basis[i]])
         if  Hgens[i]!=H.subgroup_free_gens[H.basis[i]]:
             all_clean=1
             #print("hoo unequal at", i," Hgens[i] =", Hgens[i],"H.basis[i]=", H.basis[i],"H.subgroup_free_gens[H.basis[i]]=", H.subgroup_free_gens[H.basis[i]])
@@ -71,6 +74,7 @@ def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones fou
 #this should only be done if the number of gens input is the same as the rank of the subgroup
 def label_with_Zs(H,flower,Hgens): 
 
+    print("into label_with_Zs")
     if len(Hgens)!=len(H.subgroup_free_gens):
         print("The generators are: ",Hgens," and the basis is:",H.subgroup_free_gens)
         print("There are different numbers of  elements in the generators than the rank computed.")
@@ -146,7 +150,8 @@ def anydup(thelist):
     return False
 
 #check that when the (original or current) input generators are read in the stallings folding (labelled with Zs) there are no repeated edges
-def check_nielsen_reduced(stall): 
+def check_nielsen_reduced(stall):
+    print("into check_nielsen_reduced")
     edgerep=0
     edgecover=0
     for u in stall.vertices:
@@ -172,6 +177,7 @@ def check_nielsen_reduced(stall):
 
 #once generators have been read and all edges labelled with Zs, find, for each letter z in Z an edge which is labelled only with  z, and put this edge outside the (potential) tree. Assumes check_nielsen_reduced has run with output 0,0.
 def build_new_labelling(stall,FZ):
+    print("into build_new_labelling")
     gen_found={} #dictionary with entries (z:i) where z is in Z and i is 0 to start with and becomes 1 once an edge labelled only with z has been found and put outside the candidate tree
     for z in FZ.gens:
         #print("z is",z)
@@ -247,7 +253,9 @@ def reverse_a_z(stall,z):
                 u.outedges_write[e]=u.outedges_write[e].swapcase()
                 break
 
-def forced_bfs(stall): #must be a rooted graph, with output labels corresponding to edges outside a spanning forest
+def forced_bfs(stall):
+    print("into forced_bfs")
+    #must be a rooted graph, with output labels corresponding to edges outside a spanning forest
 
     #initialise attributes used to define spanning tree
     stall.components={}
@@ -301,6 +309,8 @@ def forced_bfs(stall): #must be a rooted graph, with output labels corresponding
 
 
 def recompute_free_basis(H,FZ):
+
+    print("into recompute_free_basis")
     Hname=H.name
     #Hgens=H.subgp_gens
     #flower=H.flower
@@ -375,6 +385,8 @@ def enter_positive_integer(caption):
 
 
 def genr_input(n):
+
+    print("into genr_input")
     nn=int(n)
     Hgens=[]
     for i in range(1,nn+1):
@@ -386,7 +398,8 @@ def genr_input(n):
     return(Hgens)
 
 def subgroup_input_and_compute(Hname,n):
-    
+
+    print("into subgroup_input_and_compute")
     Hgens=genr_input(n)
     FZ=free_group(len(Hgens),"z")
     H=subgroup(Hname,Hgens,FZ.gens)
@@ -395,25 +408,28 @@ def subgroup_input_and_compute(Hname,n):
 
 def subgroup_compute(Hname,Hgens):
 
+    print("into subgroup_compute")
     FZ=free_group(len(Hgens),"z")
     H=subgroup(Hname,Hgens,FZ.gens)
     alg2_pre(H)
     return(H,FZ)
 
 def construct_required_folding(Hname,Hgens,testfile):
+
+    print("into construct_required_folding")
     #construct the Stallings folding of H and the group FZ
     (H,FZ)=subgroup_compute(Hname,Hgens)
 
     #output a graph of the Stallings folding in GraphViz format
     output_graph_file(H.flower,testfile+"flower.gv","flower")
-    #print("Initial H subgroup_free_gens", H.subgroup_free_gens, " and H.subgp_gens", H.subgp_gens,"H.subgp_free_gens ", H.subgp_free_gens)
+    print("Initial H subgroup_free_gens", H.subgroup_free_gens, " and H.subgp_gens", H.subgp_gens,"H.subgp_free_gens ", H.subgp_free_gens)
 
 
     #check that the basis computed by the Stallings folding has the same number of elements as the generators input
     #and if not re-input the generators for H, and recompute the Stallings folding
     (H,FZ)=align_Hgens_with_computed_basis(H,FZ)
 
-
+    print("Aligned H subgroup_free_gens", H.subgroup_free_gens, " and H.subgp_gens", H.subgp_gens,"H.subgp_free_gens ", H.subgp_free_gens)
     #recompute the free basis (if necessary)
     recompute_free_basis(H,FZ)
     #output a graph of the final Stallings folding in GraphViz format
