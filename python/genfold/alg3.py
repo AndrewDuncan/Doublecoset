@@ -262,40 +262,44 @@ def Mod3(delta2,H): #each of delta2 and flower is a pair (delta2_1,delta2_2) and
         #Prodk=Prod[k]
         #Pcomponents=Prod_components[k]
         #flowerk=flower[k]
+        print("Pcomponents ", Pcomponents, "\n")
         
         for col in Pcomponents: 
             print("col is", col)
             i=0
-            for v in Pcomponents[col]:
-                if str(v.label).endswith('1'):#find the first vertex with right hand label 1 in component col 
-                    v_base=v # this is the first vertex of type (*,*)-1 found in this component
-                    delta_base=v.memory[0]#the left hand (delta) part of v_base
-                    a=element(v.path).word
-                    A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
-                    i=1 #set this to 1 to show we found a vertex of type (*,*)-1
-                    print("first (*,*)-1 is", v_base)
-                    break
-            if i==1: # if there are no vertices of form (*,*)-1 in this component; go to the next component (col)
+            if len(Pcomponents[col])==1: # if there is only one vertex in a component, go to the next component
+                print("Pcomponent", col,"can be missed as it is ",Pcomponents[col])
+            else:
                 for v in Pcomponents[col]:
-                    print("v is ", v)
-                    for e in v.outedgesList:
-                        print("e is", e)
-                        if len(v.outedges_write[e])!=0:
-                            print("an edge ", e,"with out lab",v.outedges_write[e])
-                            #delta_root=col_root.memory[0]
-                            b=element(v.path).word # path from root to v, the initial end of edge e
-                            c=element([e[0]]).word # label of e
-                            d=element(e[1].path).inverse() #path from terminal end of edge e to the root
-                            Xword=element(a+b+c+d+A).word #loop in forest, based at v_base passing over edge e
-                            print("Xword", Xword)
-                            Gword=graph_pass(Hflower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
-                            if len(Gword[1])>0 or len(Gword[2])>0:
-                                print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)                       
-                                print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
-                            else:
-                                Zword=Gword[4]
-                                print("Zword", Zword, "added at", delta_base," \n\n")
-                                delta3k.addPath(delta_base,delta_base,Zword)# add  a path of Z's from the root of component col to itself               
+                    if str(v.label).endswith('1'):#find the first vertex with right hand label 1 in component col 
+                        v_base=v # this is the first vertex of type (*,*)-1 found in this component
+                        delta_base=v.memory[0]#the left hand (delta) part of v_base
+                        a=element(v.path).word
+                        A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
+                        i=1 #set this to 1 to show we found a vertex of type (*,*)-1
+                        print("first (*,*)-1 is", v_base)
+                        break
+                if i==1: # if there are no vertices of form (*,*)-1 in this component; go to the next component (col)
+                    for v in Pcomponents[col]:
+                        print("v is ", v)
+                        for e in v.outedgesList:
+                            print("e is", e)
+                            if len(v.outedges_write[e])!=0:
+                                print("an edge ", e,"with out lab",v.outedges_write[e])
+                                #delta_root=col_root.memory[0]
+                                b=element(v.path).word # path from root to v, the initial end of edge e
+                                c=element([e[0]]).word # label of e
+                                d=element(e[1].path).inverse() #path from terminal end of edge e to the root
+                                Xword=element(a+b+c+d+A).word #loop in forest, based at v_base passing over edge e
+                                print("Xword", Xword)
+                                Gword=graph_pass(Hflower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
+                                if len(Gword[1])>0 or len(Gword[2])>0:
+                                    print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)                       
+                                    print("and k is ", k, "colour is ", col," v is ",v.label,"path is ", v.path)
+                                else:
+                                    Zword=Gword[4]
+                                    print("Zword", Zword, "added at", delta_base," \n\n")
+                                    delta3k.addPath(delta_base,delta_base,Zword)# add  a path of Z's from the root of component col to itself               
                 
         for v in delta3k.vertices:# for each v in k1k
             #print("k is", k, "v is", v.label, "and hasattr orig is", hasattr(v,'original'))

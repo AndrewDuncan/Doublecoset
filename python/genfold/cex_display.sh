@@ -12,6 +12,8 @@ dot -Tpng cex/P_1_1.gv |display &
 dot -Tpng cex/P_1_2.gv|display & 
 dot -Tpng cex/D2_1.gv  |display & 
 dot -Tpng cex/D2_2.gv  |display & 
+dot -Tpng cex/P_2_1.gv |display & 
+dot -Tpng cex/P_2_2.gv|display & 
 dot -Tpng cex/D3_1.gv |display &   
 dot -Tpng cex/D3_2.gv |display &       
 
