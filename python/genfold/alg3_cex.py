@@ -42,10 +42,10 @@ h5=['x2','x1','x1']
 Hgens=[h1,h2,h3,h4]
 
 #check that the elements of Hgens are in the free group F
-generators_in_free_group(F1,Hgens)
+#generators_in_free_group(F1,Hgens)
 
 #find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
-(H1,FZ)=construct_required_folding(Hname,Hgens,testfile)
+(H1,FZ)=construct_required_folding(Hname,Hgens,testfile,F1)
 #################
 rankZ=len(FZ.gens)
 ##################
@@ -66,10 +66,10 @@ g4=['Y2','y1']
 Hgens=[g1,g2,g3,g4]
 
 #check that the elements of Hgens are in the free group F
-generators_in_free_group(F2,Hgens)
+#generators_in_free_group(F2,Hgens)
 
 #find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
-(H2,FZ)=construct_required_folding(Hname,Hgens,testfile)
+(H2,FZ)=construct_required_folding(Hname,Hgens,testfile,F2)
 ####################
 #make sure both subgroups have the same rank
 if rankZ!=len(FZ.gens):
