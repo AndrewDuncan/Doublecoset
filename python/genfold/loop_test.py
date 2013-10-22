@@ -13,13 +13,13 @@ while A==1:
             a=int(str(input("please enter a number a bigger than 20: ")))
 
     #while A==0 and B==1:
-    if A==0:# and B==1:       
-        if b>30 and a<40:
-            B=0
-        else:
-            a=int(str(input("please enter a number a bigger than 20 and less than 40: ")))
-            b=int(str(input("please enter a number b bigger than 30: ")))
-            A=1
+    #if A==0:# and B==1:       
+    if b>30 and a<40:
+        B=0
+    else:
+        a=int(str(input("please enter a number a bigger than 20 and less than 40: ")))
+        b=int(str(input("please enter a number b bigger than 30: ")))
+        A=1
 
     #while A==0 and B==0 and C==1:
     if A==0 and B==0:# and C==1:
