@@ -24,17 +24,20 @@ h1=['x1','X2']
 h2=['x2','x1','x2']
 h3=['x2','x2','x2']
 h4=['X2','x1']
-h5=['x2','x1','x1']
+#h5=['x2','x1','x1']
 
 #make the generators into a list
-Hgens=[h1,h2,h3,h4,h5]
+Hgens=[h1,h2,h3,h4]#,h5]
 
-#check that the elements of Hgens are in the free group F(move this into adj gens)
-#generators_in_free_group(F,Hgens)
+#find the folding corresponding to the generators entered
+#
+(H,FZ)=construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose)
 
-#find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
-#(H,FZ)=
-construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose)
+#write the final folding as a graph
+filename=testfile+"stallings.gv"
+output_graph_file(H.flower,filename,"stallings",verbose)
+
 
 #The original folding can be seen by running dot -Tpng on testfile+flower.gv and the final folding, by running dot on testfile+stallings.gv
 #other properties of H can be seen by printing H.property, where property is something like subgroup_free_gens
+ 
