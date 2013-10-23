@@ -1,10 +1,16 @@
-from adjust_generators1 import *
+from adjust_generators import *
 
 #set verbose =1 to see lots of information and to 0 for a quiet run
-verbose =1
+verbose =0
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 testfile='adjust_generators/'
+
+#Enter the rank of the subgroup
+Hrank=4
+
+#construct the group FZ
+FZ=free_group(int(Hrank),"z")        
 
 #define the free group F, by giving the number of generators, and letter for the generators
 F=free_group(4,"x")
@@ -12,8 +18,6 @@ F=free_group(4,"x")
 #Choose the subgroup name
 Hname='H'
 
-#Enter the rank of the subgroup
-Hrank=4
 # Enter a free generating set for the subgroup
 #h1=['X1','x3','x4','X2']
 #h2=['x2','X1','x3','x4','x2']
@@ -31,7 +35,7 @@ Hgens=[h1,h2,h3,h4]#,h5]
 
 #find the folding corresponding to the generators entered
 #
-(H,FZ)=construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose)
+H=construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ)
 
 #write the final folding as a graph
 filename=testfile+"stallings.gv"

@@ -1,6 +1,9 @@
 #from alg3 import *
 from adjust_generators import *
 
+#set verbose =1 to see lots of information and to 0 for a quiet run
+verbose =0
+
 D=Graph()
 a1=D.addVertex(1)
 a2=D.addVertex(2)
@@ -22,15 +25,23 @@ with open(testfile+"Delta_in.gv", "a") as Del: #then open it in append mode
     Del.write(str(D)) #and continue to write to it
     Del.write("}")
 Del.close()
+#################
+#Choose the rank of the amalgamated subgroups
+Hrank=4
+
+#construct the group FZ
+FZ=free_group(int(Hrank),"z")        
+
+
 ##############Dothisfor 1,2
 testfile='cex/H1/'
 
-#define the free group F, by giving the number of generators, and letter for the generators
+#define the free group F1, by giving the number of generators, and letter for the generators
 F1=free_group(2,"x")
 #
-#Choose the subgroup name
+#Choose the subgroup 1 name
 Hname='H1'
-# Enter a free generating set for the subgroup
+# Enter a free generating set for subgroup 1
 #
 h1=['x1','X2']
 h2=['x2','x1','x2']
@@ -41,17 +52,14 @@ h5=['x2','x1','x1']
 #make the generators into a list
 Hgens=[h1,h2,h3,h4]
 
-#check that the elements of Hgens are in the free group F
-#generators_in_free_group(F1,Hgens)
 
 #find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
-(H1,FZ)=construct_required_folding(Hname,Hgens,testfile,F1)
+H1=construct_required_folding(Hname,Hgens,testfile,F1,Hrank,verbose,FZ)
 #################
-rankZ=len(FZ.gens)
-##################
+################## now the second subgroup
 testfile='cex/H2/'
 
-#define the free group F, by giving the number of generators, and letter for the generators
+#define the free group F2, by giving the number of generators, and letter for the generators(probably should test this is different from F1)
 F2=free_group(2,"y")
 #
 #Choose the subgroup name
@@ -65,16 +73,9 @@ g4=['Y2','y1']
 #make the generators into a list
 Hgens=[g1,g2,g3,g4]
 
-#check that the elements of Hgens are in the free group F
-#generators_in_free_group(F2,Hgens)
-
 #find the folding corresponding to the generators entered(testfile here is needed only for testing and can be removed later)
-(H2,FZ)=construct_required_folding(Hname,Hgens,testfile,F2)
+H2=construct_required_folding(Hname,Hgens,testfile,F2,Hrank,verbose,FZ)
 ####################
-#make sure both subgroups have the same rank
-if rankZ!=len(FZ.gens):
-    error_message="Exiting: the two subgroups entered must have the same rank"
-    sys.exit(error_message)
 ##################
 
 F=(F1,F2)

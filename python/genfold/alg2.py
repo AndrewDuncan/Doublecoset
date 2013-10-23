@@ -318,7 +318,7 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
     alg2_pre(H2)
     (flower2,double2)=(H2.flower,H2.double)
     #(flower2,double2,forest2,bfs2)=alg2_pre(H[1])
-    G=((flower1,double1,forest1,bfs1),(flower2,double2,forest2,bfs2))
+    G=((flower1,double1),(flower2,double2))
     #
     f=ff
     #
@@ -372,7 +372,7 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
                     v.pop(len(w)-1)
                     #print("g,len(w)", len(w))
         else:   #if w[s] is not in H[f]         
-            (left,Drep, right,left_Z,right_Z)=Normal_form(G[f][0],w[s],G[f][3]).spit_out_nf()#get the normal form of w[s]
+            (left,Drep, right,left_Z,right_Z)=Normal_form(G[f][0],w[s],G[f][1]).spit_out_nf()#get the normal form of w[s]
             #print("in amal_n_f left,Drep, right,left_Z,right_Z is", left,Drep, right,left_Z,right_Z)
             if s>0:# if w[s] is not the first syllable of w 
                 v[s]=[Drep,right_Z]#syllable s of the normal form is (dc-repr, transversal element)

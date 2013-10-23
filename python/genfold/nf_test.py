@@ -1,4 +1,4 @@
-from alg2_new import *
+from alg2 import *
 
 F3=free_group(3,'a')
 F4=free_group(2,'b')
@@ -14,10 +14,14 @@ v4=['B1','b2']
 G1=subgroup('G1',[u1,u2,u3,u4],FZ.gens)
 G2=subgroup('G2',[v1,v2,v3,v4],FZ.gens)
 
-(flower1,double1,forest1,bfs1)=alg2_pre(G1)
-(flower2,double2,forest2,bfs2)=alg2_pre(G2)
+alg2_pre(G1)
+(flower1,double1)=(G1.flower,G1.double)
 
-NF=Normal_form(flower1,['a1','a1','a1','A1','a1','a2','a3','A2','A3','A2','a1','a1','a1','a1','A3','a1','a1','a1'],bfs1).spit_out_nf()
+alg2_pre(G2)
+(flower2,double2)=(G2.flower,G2.double)
+
+
+NF=Normal_form(flower1,['a1','a1','a1','A1','a1','a2','a3','A2','A3','A2','a1','a1','a1','a1','A3','a1','a1','a1'],double1).spit_out_nf()
 print("NF =", element(['a1','a1','a1','A1','a1','a2','a3','A2','A3','A2','a1','a1','a1','a1','A3','a1','a1','a1']).word)
 print("NF a,b,c =", NF[0],NF[1],NF[2]) 
 print("or NF using map into Z's: a, b, c =", NF[3],NF[1],NF[4])

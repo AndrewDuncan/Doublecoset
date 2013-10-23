@@ -1,15 +1,12 @@
-from alg2 import *
+from alg3 import *
 import sys
 import copy
 
-def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose):
+def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ):
      
     if verbose==1:
         print("into construct_required_folding")
 
-    #construct the group FZ
-    FZ=free_group(int(Hrank),"z")
-        
     #set flags for testing subgroup generators
     num_H_gens=1 # set to 0 if Hrank = number of Hgens
     H_gens_in_F=1 # set to 0 if Hgens belong to F
@@ -149,7 +146,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose):
             #set H.flower equal to stall
             H.flower=stall
 
-    return(H,FZ)
+    return(H)
 
 #################################end of construct_required_folding
 #################################
