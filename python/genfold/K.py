@@ -5,7 +5,7 @@ verbose =1
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
-change_tree=0
+change_tree=1
 
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
