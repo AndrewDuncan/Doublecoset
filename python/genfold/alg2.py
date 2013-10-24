@@ -286,9 +286,6 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
         print('w is the empty word')
         return([])
     F=(F1,F2)
-    #print('F[0] alpha', F[0].alpha)
-    #print('F[1] alpha', F[1].alpha)
-    #print('F[0] mongens', F[0].mongens)
     error=0
     n=len(w)-1
     if F[0].is_element(w[n])==1:
@@ -312,10 +309,10 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
     if error==1:
         return
     H=(H1,H2)
-    alg2_pre(H1)
+    #alg2_pre(H1)
     (flower1,double1)=(H1.flower,H1.double)
     #(flower1,double1,forest1,bfs1)=alg2_pre(H[0])
-    alg2_pre(H2)
+    #alg2_pre(H2)
     (flower2,double2)=(H2.flower,H2.double)
     #(flower2,double2,forest2,bfs2)=alg2_pre(H[1])
     G=((flower1,double1),(flower2,double2))

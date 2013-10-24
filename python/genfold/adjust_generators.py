@@ -2,7 +2,7 @@ from alg3 import *
 import sys
 import copy
 
-def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ):
+def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tree):
      
     if verbose==1:
         print("into construct_required_folding")
@@ -15,7 +15,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ):
     edges_rept=1 #set to 0 if new Hgens are input and do not cause loops in Stallings folding of H
     edges_miss=1 #set to 0 if new Hgens are input and do (possibly) genr H
     nielsen_red=1#set to 0 if Hgens are Nielsen reduced
-    
+   
 
     while num_H_gens==1:
         while True: # a loop that runs till it's broken out of (i.e. until len(Hgens)=Hrank)
@@ -91,13 +91,29 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ):
                 print("calling check_gens")
             H_gens_basis=check_gens(H,Hgens)
             if H_gens_basis==0: #if H_gens_basis=0 the basis computed is equal to the input generators and the main loop is broken out of
-                break
+                if change_tree==1:#this is only 1 if the user has asked to adjust a spanning tree (of one or other subgroup)
+                    want_to_alter='n'#this indicator is set to 'y' by the user if they want to alter this particular spanning tree
+                    while True:
+                        query="Do you want to adjust the spanning tree of the folding of "+Hname+"? 'y' or 'n': "
+                        want_to_alter=input(query)
+                        #want_to_alter=input("Do you want to adjust the spanning tree of the folding of ", Hname," y or n")
+                        if want_to_alter=='y' or want_to_alter=='n':
+                            break
+ 
+                    #if the user wants to alter the spanning tree then behave as though the basis is not equal to the input gens 
+                    if want_to_alter=='n':
+                        #H_gens_basis=1
+                        #else:
+                        break
+
+                else:
+                    break
 
             if verbose==1:
                 print("H free gens",H.subgroup_free_gens)
                 print("subgroup genrs input", Hgens)
 
-        #this point is reached only if all tests above are passed except the last - in which case it is necessary to find a different spanning tree for the stallings folding of H
+        #this point is reached only if all tests above are passed except the last - in which case it is necessary to find a different spanning tree for the stallings folding of H - or if all including the last were passed and the user wants to alter the spanning tree
 
        
         stall=label_with_Zs(H,Hgens,verbose) #relabel Stallings folding with given gens/ Z labels - to set up search for required gens
@@ -118,7 +134,28 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ):
             Hgens=genr_input(Hrank)
 
         if (H_gens_in_F,num_H_gens,H_rank,edges_rept)==(0,0,0,0):#if the tests above were passed (but the basis calculated needs adjusting) ...
-            nielsen_red=build_new_labelling(stall,FZ,verbose)
+            
+            #if the user wants to change the automatically generated spanning tree, intervention occurs at this point to mark edges which should be deliberately left out of the tree
+            if change_tree==1:#this is only 1 if the user has asked to adjust a spanning tree (of one or other subgroup)
+                if H_gens_basis!=0: # if H_gens_basis=0 the  user has already answered the following question
+                    while True:
+                        query="Do you want to adjust the spanning tree of the folding of "+Hname+"? 'y' or 'n': "
+                        want_to_alter=input(query)
+                        if want_to_alter=='y' or want_to_alter=='n':#once valid input is received exit the loop
+                            break
+                
+                if want_to_alter=='y':#for test only, remove later
+                    print("allow user to edit output edge labels of folding of: ", Hname)
+                    for v in stall.vertices:
+                        print("vertex ", v)
+                        
+                else:
+                    print("user wants to change a different spanning tree")
+
+            if change_tree==1 and want_to_alter=='y':
+                 nielsen_red=build_new_labelling_with_user_input(stall,FZ,verbose,Hname)
+            else:
+                nielsen_red=build_new_labelling(stall,FZ,verbose)
             if nielsen_red!=0:
                 H_gens_in_F=1 #reset all flags to skip all further tests and return to start of loop
                 num_H_gens=1
@@ -132,6 +169,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ):
                 Hgens=genr_input(Hrank)
 
         if (H_gens_in_F,num_H_gens,H_rank,edges_rept,nielsen_red)==(0,0,0,0,0):#if the tests above were passed (but the basis calculated needs adjusting) ...
+            
 
             #using the new labellings construct a spanning tree for the stallings folding
             forced_bfs(stall,verbose)# use the new labels to make a new tree
@@ -300,9 +338,11 @@ def build_new_labelling(stall,FZ,verbose):
         gen_found[z]=0
     
     for u in stall.vertices:
+        if verbose==1:
+            print("vertex ", u)
         for e in u.inedgesList:
             if verbose==1:
-                print(" in edge e is ", e)
+                print(" in-edge e is ", e)
             if len(u.inedges_write[e])>1:
                 if verbose==1:
                     print("write-label written to space as len >1")
@@ -310,12 +350,12 @@ def build_new_labelling(stall,FZ,verbose):
             elif len(u.inedges_write[e])==1:
                 zlab=u.inedges_write[e][0].lower()
                 if verbose==1:
-                    print("zlab is ", zlab, "u.inedges_write[e][0]", u.inedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
+                    print("zlab is ", zlab, "u.inedges_write[e]", u.inedges_write[e],"gen_found[zlab] is ",gen_found[zlab])
                 if gen_found[zlab]==0: 
                     newlab=u.inedges_write[e][0].lower()
                     u.inedges_write[e]=newlab
                     if verbose==1:
-                        print("in edge ", e,"has been given write label", u.inedges_write[e])
+                        print("in-edge ", e,"has been given write label", u.inedges_write[e])
                     gen_found[zlab]=1
                 else:
                     u.inedges_write[e]=""
@@ -325,7 +365,7 @@ def build_new_labelling(stall,FZ,verbose):
                 
         for e in u.outedgesList:
             if verbose==1:
-                print(" in edge e is ", e)
+                print(" out-edge e is ", e)
             if len(u.outedges_write[e])>1:
                 u.outedges_write[e]=""
                 if verbose==1:
@@ -333,11 +373,11 @@ def build_new_labelling(stall,FZ,verbose):
             elif len(u.outedges_write[e])==1:
                 zlab=u.outedges_write[e][0].lower()
                 if verbose==1:
-                    print("zlab is ", zlab, "u.outedges_write[e][0]", u.outedges_write[e][0],"gen_found[zlab] is ",gen_found[zlab])
+                    print("zlab is ", zlab, "u.outedges_write[e]", u.outedges_write[e],"gen_found[zlab] is ",gen_found[zlab])
                 if gen_found[zlab]==0: 
                     u.outedges_write[e]=u.outedges_write[e][0].lower()
                     if verbose==1:
-                        print("out edge ", e,"has been given write label", u.outedges_write[e])
+                        print("out-edge ", e,"has been given write label", u.outedges_write[e])
                     gen_found[zlab]=1
                 else:
                     u.outedges_write[e]=""
@@ -376,7 +416,106 @@ def build_new_labelling(stall,FZ,verbose):
         nr=1
     
     return(nr)
+##############################################################
+#once generators have been read and all edges labelled with Zs, find, for each letter z in Z an edge which is labelled only with  z, and put this edge outside the (potential) tree. Assumes check_nielsen_reduced has run with output 0.
+def build_new_labelling_with_user_input(stall,FZ,verbose,Hname):
+    if verbose==1:
+        print("into build_new_labelling_with_user_input")
+    #gen_found={} #dictionary with entries (z:i) where z is in Z and i is 0 to start with and becomes 1 once an edge labelled only with z has been allocated to be put outside the candidate tree
+    gen_potential={}#dictionary with entries (z:[[v1,e1,x1,d1],...,[v1,en,xn,d1]]) where z is in Z and ei is one of the in or out edges of vi that can be left out of the tree and labelled with z, and xi will be 0 if the edge is to be left out, and 1 otherwise and di=0 for out-edges and 1 for in-edges
+    for z in FZ.gens:
+        if verbose==1:
+            print("z is",z)
+        #gen_found[z]=0
+        gen_potential[z]=[]
 
+    for u in stall.vertices:
+        if verbose==1:
+            print("vertex ", u)
+        for e in u.inedgesList:
+            if verbose==1:
+                print(" in-edge e is ", e)
+            if len(u.inedges_write[e])>1:#for in-edges with multiple z labels - set out-label to ""
+                if verbose==1:
+                    print("in manual constr of tree: write-label written to space as len >1")
+                u.inedges_write[e]=""
+            elif len(u.inedges_write[e])==1:
+                zlab=u.inedges_write[e][0].lower()
+                if verbose==1:
+                    print("in-edge that could be left out found -- ", e)
+                    print("zlab is ", zlab, "u.inedges_write[e]", u.inedges_write[e])#,"gen_found[zlab] is ",gen_found[zlab])
+                gen_potential[zlab].append([u,e,1,1])# add this edge to the list of possible egdes; mark in-edges with 1 in 3rd posn(outedges will be 0)
+                u.inedges_write[e]=""#temporarily make the out-label of this edge blank - it will be reinstated if chosen below
+            else:
+                error_message="fouled up in build_new_labelling_with_user_input: there's an in edge with no write_label: e is "+str(e)
+                sys.exit(error_message)
+                
+
+    print("Next, choose precisely one edge with output label z to  be omitted from the spanning tree for the folding of ", Hname, "for each z in Z. ")
+    for z in FZ.gens:
+        if z in gen_potential.keys():
+            print("\n list of edges that could be left out for ", z," is\n ", gen_potential[z])
+            input_message="an integer n between 1 and "+str(len(gen_potential[z]))+" to select the nth of these to be left out of the tree: "
+            zindex=len(gen_potential[z])+1
+            while int(zindex)>len(gen_potential[z]):
+                zindex=enter_positive_integer(input_message)
+
+            gen_potential[z][int(zindex)-1][2]=0
+            print("zindex is ",zindex," and the corresponding edge is ", gen_potential[z][int(zindex)-1])
+            
+        else:
+            error_message="disaster in manual construction of spanning tree. Generator "+z+" is not the out-label of any edge"
+            sys.exit(error_message)
+
+    #now use these settings to construct output labels consisting of "" or one z letter, for each edge
+    for z in FZ.gens:
+        if verbose==1:
+            print("z is ",z)
+        for l in gen_potential[z]:
+            if verbose==1:
+                print("l is ",l)
+            if l[2]==0:
+                print("l is ",l," and its label is ",z)
+                l[0].inedges_write[l[1]]=z
+            else:
+                print("l is ",l," and its label is blank")
+
+    #by now all in-edges have their out-labels set, and we transfer these to out-edges
+    for u in stall.vertices:
+        if verbose==1:
+            print("vertex ", u)
+
+        for e in u.outedgesList:
+            if verbose==1:
+                print(" out-edge e is ", e)
+            if len(u.outedges_write[e])>1:
+                u.outedges_write[e]=""
+                if verbose==1:
+                    print("write-label written to space as len >1")
+            elif len(u.outedges_write[e])==1:
+                (l,v)=e
+                u.outedges_write[e]=v.inedges_write[(l,u)]
+                if verbose==1:
+                    print(e,"write-label written to ",v.inedges_write[(l,u)])
+            else:
+                error_message="fouled up in build_new_labelling_with_user_input: there's an out edge with no write_label: e is "+str(e)
+                sys.exit(error_message)
+
+
+    #now check we have a tree (assuming the graph is connected)
+    number_of_edges_of_tree=0
+    nr=0
+    for u in stall.vertices:
+        for e in u.outedgesList:
+            if u.outedges_write[e]=="":
+                number_of_edges_of_tree += 1
+                
+    if len(stall.vertices)-number_of_edges_of_tree!=1:
+        nr=1
+    
+    return(nr)
+
+###############################################################
 def forced_bfs(stall,verbose):
     if verbose==1:
         print("into forced_bfs")
@@ -452,3 +591,23 @@ def anydup(thelist):
             return True
         seen.add(x)
     return False
+
+#a function to check is s is an integer or not
+def RepresentsInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+#a function to enter a positive integer
+def enter_positive_integer(caption):
+    n = input("enter "+caption)
+    while not RepresentsInt(n):
+        n = input("Please enter a positive integer "+caption)
+        if RepresentsInt(n):
+            if int(n)< 0:
+                n=''
+
+    return(n)
+

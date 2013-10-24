@@ -364,6 +364,7 @@ def phi(subgroup,zword): #map a word in the free group on the Z generators of su
             yy.extend(element(subgroup.subgroup_free_gens[zword[i].swapcase()]).inverse())
         else:
             print("the word passed to phi contains a letter not in Z:", zword[i]) # otherwise set the error flag to 0 and return 
+            print("and subgroup.subgroup_free_gens: ", subgroup.subgroup_free_gens) #
             return([],0)
         #print("in phi for loop with i =", i, "yy is ",yy)
     #print("at end of phi yy is", yy)
