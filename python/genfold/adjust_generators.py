@@ -1,4 +1,4 @@
-from alg3 import *
+from alg1 import *
 import sys
 import copy
 
@@ -213,7 +213,7 @@ def generators_in_free_group(F,Hgens):
 def subgroup_compute(Hname,Hgens,FZ):
 
     H=subgroup(Hname,Hgens,FZ.gens)
-    alg2_pre(H)
+    fold_and_double(H)
     return(H)
 
 def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones found by the Stallings folding
@@ -569,7 +569,12 @@ def forced_bfs(stall,verbose):
                     Nout.remove(b) # remove b from the list of all vertices
                 
             q.pop(0) # remove the first element of the queue
-
+def fold_and_double(H):
+    H.stallings()
+    bfs(H.flower,).forest()
+    H.double=H.flower.double()
+    bfs(H.double,sorted(H.double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]])).forest()
+    H.subgroup_free_gens=subgroup_basis(H.flower)[1]
 
 def output_graph_file(graph,filename,graphname,verbose):  
 

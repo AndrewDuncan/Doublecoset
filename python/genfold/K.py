@@ -1,5 +1,9 @@
-from adjust_generators import *
-
+from alg3 import *
+###################
+## To get the spanning trees for H1 and H2 as in the paper
+## when this program is run answer the questions with the
+## sequence of answers: n, y, 1, 1, 3
+###################
 #set verbose =1 to see lots of information and to 0 for a quiet run
 verbose =1
 
@@ -158,13 +162,12 @@ print("k3 = ",k3)
 Kname='K'
 #enter list of generators for K
 Kgens=[k1,k2,k3]
-#H=subgroup(Hname,Hgens,FZ.gens)
-#    H.stallings()
-#    bfs(H.flower,).forest()
-#    H.double=H.flower.double()
-#    bfs(H.double,sorted(H.double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]])).forest()
-#    H.subgroup_free_gens=subgroup_basis(H.flower)[1]
 
+#enter name of subgroup K
+Kname='K'
+#enter list of generators for K
+Kgens=[k1,k2,k3]
+#extract the normal form version of these
 v=[]
 g=[]
 for q in Kgens:
@@ -176,7 +179,12 @@ for q in Kgens:
     v=[]
 
 Kgens=g
+
+#form the subgroup K
 K=subgroup(Kname,Kgens)
+#make the Stallings folding of the gens of K
 K.stallings()
+#and a spanning tree
 bfs(K.flower,).forest()
+#output the folding to a file
 output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose)

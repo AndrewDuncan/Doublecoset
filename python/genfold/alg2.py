@@ -1,4 +1,4 @@
-from alg1 import *
+from adjust_generators import *
 
 def listsplitter(w,f1gens,f2gens):
     w=element(w).word #freely reduce w
@@ -82,101 +82,7 @@ def quickreduce(w): #reduces only the necessary elements in dcnf, not needed due
         #print(w)
         return(w)
 
-#def alg2_pre(H1,H2):
-#   H1.stallings()
-#   H2.stallings()
-#   flower1=H1.flower
-#   flower2=H2.flower
-#   T1=bfs(flower1,)
-#   T1.forest()
-#   T2=bfs(flower2,)
-#   T2.forest()
-#   double1=flower1.double()
-#   double2=flower2.double()
-#   bfs1=bfs(double1,sorted(double1.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-#   forest1=bfs1.forest()
-#   bfs2=bfs(double2,sorted(double2.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-#   forest2=bfs2.forest()
-#   H1.subgroup_free_gens=subgroup_basis(flower1)[1]
-#   H2.subgroup_free_gens=subgroup_basis(flower2)[1]
-#   #print("basis of H1",H1.subgroup_free_gens)
-#   #print("or", subgroup_basis(flower1)[0])
-#   #print("basis of H2",H2.subgroup_free_gens)
-#   #print("or", subgroup_basis(flower2)[0])
-#   return(flower1,flower2,double1,double2,forest1,forest2)
 
-def alg2_pre_old(H):
-    H.stallings()
-    flower=H.flower
-    T1=bfs(flower,)
-    T1.forest()
-    double=flower.double()
-    bfs1=bfs(double,sorted(double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
-    forest=bfs1.forest()
-    H.subgroup_free_gens=subgroup_basis(flower)[1]
-    return(flower,double,forest,bfs1)
-
-def alg2_pre(H):
-    H.stallings()
-    bfs(H.flower,).forest()
-    H.double=H.flower.double()
-    bfs(H.double,sorted(H.double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]])).forest()
-    H.subgroup_free_gens=subgroup_basis(H.flower)[1]
-
-def alg2(w,F1,F2,H1,H2,test=None):
-    if test is None:
-        test=0
-    else:
-        test=1
-    if test==1:
-        print(w)
-    w=element(w).word
-    if test==1:
-        print('w=element(w).word\n',w)
-    w=popper(w)
-    if test==1:
-        print('w=popper(w)\n',w)
-    if w==[]:
-        print([])
-        return []
-    listtest(w,F1.mongens,F2.mongens)
-    if listtest(w,F1.mongens,F2.mongens)==0:
-        print(w,' isn\'t a word in the free (amalgamated) product')
-        return
-    w=listsplitter(w,F1.mongens,F2.mongens)
-    if test==1:
-        print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
-    w=amalgamate(w,F1,F2,H1,H2)
-    if test==1:
-        print('w=amalgamate(w,F1,F2,H1,H2)\n',w)
-    #w=listsplitter(w,F1.mongens,F2.mongens)
-    #print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
-    w=reducelist(w)
-    if test==1:
-        print('w=reducelist(w)\n',w)
-    alg2_pre(H1)
-    (flower1,double1)=(H1.flower,H1.double)
-    #(flower1,double1,forest1,bfs1)=alg2_pre(H1)
-    alg2_pre(H2)
-    (flower2,double2)=(H2.flower,H2.double)
-    #(flower2,double2,forest2,bfs2)=alg2_pre(H2)
-    #(flower1,flower2,double1,double2,forest1,forest2)=alg2_pre(H1,H2)
-    #print(w)
-    #w=listsplitter(w,F1.mongens,F2.mongens)
-    #print('w=listsplitter(w,F1.mongens,F2.mongens)\n',w)
-    w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)
-    if test==1:
-        print('w=nf_in_list(w,flower1,flower2,double1,double2,F1,F2)\n',w)
-    w=joiner(w)
-    if test==1:
-        print('w=joiner(w)\n',w)
-    w=popper(w)
-    if test==1:
-        print('w=popper(w)\n',w)
-        w=element(w).word
-        print('w=element(w).word\n',w)
-        print(w)
-    return(w)
 
 def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
     ww = []
@@ -201,84 +107,10 @@ def nf_in_list(w,flower1,flower2,double1,double2,F1,F2):
         #print("here  4")
     return(ww)
 
-#def subgroup_basis(flower): #from the stallings folding and labelled subtree for a subgroup construct a free generating set
-#   fgens=[]
-#   for v in flower.vertices:
-#       print("I am a vertex", v)
-
 def popper(w):
     return [e for e in w if e!=""]
 
-def amalgamate(w,F1,F2,H1,H2):
-    if w==[]:
-        print('w is the empty word')
-        return([])
-    F=(F1,F2)
-    #print('F[0] alpha', F[0].alpha)
-    #print('F[1] alpha', F[1].alpha)
-    error=0
-    n=len(w)-1
-    if F[0].is_element(w[n])==1:
-        f=0
-        #print('f is ',f)
-    elif F[1].is_element(w[n])==1:
-        f=1
-        #print('f is ',f)
-    else:
-        print('Error: ',w[n],'not in free group on', F[0].alpha, 'or', F[1].alpha)
-        return
-    ff=f
-    for s in range(n,-1,-1):
-        #print('s is',s,'f is',f)
-        if F[f].is_element(w[s])==0:
-            print("Error: ",w[s],'is not in F',f)
-            error=1
-            #print('error becomes 1')
-            break
-        f=1-f
-    if error==1:
-        return
-    H=(H1,H2)
-    f=ff
-    for s in range(n,-1,-1):
-        #put w[s] in terms of H[1-f] here
-        #print('Start of loop. w is', w)    
-        #print('s is',s)
-        #print('w[s] is',w[s])
-        #print("H[f] is ", H[f].name)
-        t=hf_test(w[s],H[f])
-        if t[0]==1: #if w[s] is in H[f]
-            if len(w)>1:# if w has already been reduced to a single syllable there is no need to do anything more
-                w[s]=phi(H[1-f],t[1])[0] #swap w[s] from H[f] to H[1-f]
-                if s==0:#  if the first syllable is in H[f]
-                    w[s]=w[s]+w[s+1]
-                    w[s]=element(w[s]).word
-                    for i in range(s+2,len(w)):
-                        w[i-1]=w[i]
-                    #print("a,len(w)", len(w))
-                    w.pop(len(w)-1)
-                    #print("b, len(w)", len(w))
-                elif s==len(w)-1:# when the amalgamated syllable is the last one
-                    w[s-1]=w[s-1]+w[s]
-                    w[s-1]=element(w[s-1]).word
-                    #print("c, len(w)",len(w))
-                    w.pop(s)
-                    #print("d,len(w)", len(w))
-                else: # the general case
-                    w[s-1]=w[s-1]+w[s]+w[s+1]
-                    w[s-1]=element(w[s-1]).word
-                    for i in range(s+2,len(w)):
-                        w[i-2]=w[i]
-                        #print("len(w)", len(w)," and i,w[i-2], w[i]", i,w[i-2],w[i])
-                    #print("e,len(w)", len(w))
-                    w.pop(len(w)-1)
-                    #print("f,len(w)", len(w))
-                    w.pop(len(w)-1)
-                    #print("g,len(w)", len(w))
 
-        f=1-f
-
-    return(w)
 ##############
 
 def amalgam_normal_form(w,F1,F2,H1,H2):
