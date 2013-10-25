@@ -106,6 +106,7 @@ if words_in_F!=0: #if some of words2 are not in F2: halt with an error message
     sys.exit(error_message)
 
 
+Kl=[]
 kfs=[kf1,kf2,kf3,kf4,kf5]
 for w in kfs:
     print('\n',w,' becomes \n')
@@ -113,7 +114,12 @@ for w in kfs:
     print(w, "\n after listsplitter and then \n")
     w=amalgam_normal_form(w,F1,F2,H1,H2)
     print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
+    Kl.append(w[1])
 
+for w in Kl:
+    print("w is ", w)
+
+Kr=[]
 kgs=[kg1,kg2]
 for w in kgs:
     print('\n',w,' becomes \n')
@@ -121,6 +127,11 @@ for w in kgs:
     print(w, "\n after listsplitter and then \n")
     w=amalgam_normal_form(w,F1,F2,H1,H2)
     print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
+    Kr.append(w[1])
+
+for w in Kr:
+    print("w is ", w)
+
 
 k1=kf1+kg1+kf2
 print('\n\n\n',k1,' becomes')
@@ -128,3 +139,44 @@ k1=listsplitter(k1,F1.mongens,F2.mongens)
 print(k1, "after listsplitter and then")
 k1=amalgam_normal_form(k1,F1,F2,H1,H2)
 print(" and after amalgam_normal_form k1 and k1v are", k1[0], "and ", k1[1],'\n')
+
+k2=kf3+kg2+kf4
+print('\n\n\n',k2,' becomes')
+k2=listsplitter(k2,F1.mongens,F2.mongens)
+print(k2, "after listsplitter and then")
+k2=amalgam_normal_form(k2,F1,F2,H1,H2)
+print(" and after amalgam_normal_form k2 and k2v are", k2[0], "and ", k2[1],'\n')
+
+k1=k1[1]
+k2=k2[1]
+k3=Kl[4]
+print("k1 = ",k1)
+print("k2 = ",k2)
+print("k3 = ",k3)
+
+#enter name of subgroup K
+Kname='K'
+#enter list of generators for K
+Kgens=[k1,k2,k3]
+#H=subgroup(Hname,Hgens,FZ.gens)
+#    H.stallings()
+#    bfs(H.flower,).forest()
+#    H.double=H.flower.double()
+#    bfs(H.double,sorted(H.double.vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]])).forest()
+#    H.subgroup_free_gens=subgroup_basis(H.flower)[1]
+
+v=[]
+g=[]
+for q in Kgens:
+    for r in q:
+        for s in r:
+            for t in s:
+                v.append(t)
+    g.append(v)
+    v=[]
+
+Kgens=g
+K=subgroup(Kname,Kgens)
+K.stallings()
+bfs(K.flower,).forest()
+output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose)
