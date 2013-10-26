@@ -1,6 +1,7 @@
 from alg3 import *
 ###################
 ## To get the spanning trees for H1 and H2 as in the paper
+## set change_tree = 1 and then 
 ## when this program is run answer the questions with the
 ## sequence of answers: n, y, 1, 1, 3
 ###################

@@ -118,6 +118,48 @@ def MakeComps(delta,F,Z): #input Delta, free groups F=(F1,F2) and Z generators
             v.name='({0},{1})'.format(v.label,k) #part c
             v.label='({0},{1})'.format(v.label,k) #part c
             #print("here we are in MakeComps and vertex v =", v.label, "has v-im set to", v.nu_im)
+
+        #Next remove components of delta_k1k which have only edges of type Z
+        #First construct the spanning forest, which also finds connected components (identified by col)
+        bfs(delta_k0k,).forest()
+        Dcomponents={}
+        #construct a dictionary with key the components of delta_k0k and for such key a value list of vertices in that component
+        #this should be made into a function
+        for u in  delta_k0k.vertices:
+            if str(u.colour) in Dcomponents:
+                L=Dcomponents[str(u.colour)]
+                L.append(u)
+                L.sort(key=lambda x: x.length)
+                Dcomponents[str(u.colour)]=L
+            else:
+                Dcomponents[str(u.colour)]=[u]
+
+        for col in Dcomponents:
+            col_edge_found=0
+            #for each component check each vertex to see if it is incident to an edge of type X_k. If one such is found break out of this loop
+            while True:
+                for v in Dcomponents[col]:
+                    for e in v.inedgesList:
+                        if e[0] not in Z.mongens:
+                            col_edge_found=1
+                            break
+
+                    for e in v.outedgesList:
+                        if e[0] not in Z.mongens:
+                            col_edge_found=1
+                            break
+                    
+                break
+            
+            if col_edge_found==0: # if no edges of type X_k are found remove all vertices of this component
+                for v in Dcomponents[col]:
+                    delta_k0k.removeVertex(v)
+
+                        
+
+
+
+
         delta_k0.append(delta_k0k) #append k0k to the list of delta1 and delta2
     return delta_k0[0],delta_k0[1],delta_z #these are distinct graphs built from copies of delta
 
@@ -127,7 +169,7 @@ def Mod1(delta_k0,Z,H):#input delta_k0(X1 and X2 components), Z gens, H subgroup
     flower=(flower1,flower2)
     delta_k1=[]
     for k in (1,2):
-        delta_k1k=delta_k0[k-1]# copy.deepcopy(delta_k0[k-1])# make a copy, k1k of delta_k0 - but why - should use copy already made
+        delta_k1k=delta_k0[k-1]# 
         for v in delta_k1k.vertices: #for each vertex v of delta_k0, set original to 0
             v.original=0
         for v in delta_k1k.vertices: #for each vertex v of k1k  
@@ -142,6 +184,8 @@ def Mod1(delta_k0,Z,H):#input delta_k0(X1 and X2 components), Z gens, H subgroup
                     #Try_to_read_Xword=graph_pass(delta_k1k,Xword,v).acc_read_rem()
                     #print("output of try to read", Try_to_read_Xword)
                     delta_k1k.addPath(v,outedges[1],xword)# add  a path of x's with the same end points as e
+
+        
         for v in delta_k1k.vertices:# for each v in k1k
             #foundv=0
             if not hasattr(v,'original'):
@@ -154,6 +198,7 @@ def Mod1(delta_k0,Z,H):#input delta_k0(X1 and X2 components), Z gens, H subgroup
         go = True
         while go: #fold k1k, updating of v.nu_im in the process
             go = delta_k1k.fold()
+
         delta_k1.append(delta_k1k)#add k1k to delta_k1
     return (delta_k1[0],delta_k1[1]) #return delta_k1, both components
 
@@ -184,7 +229,7 @@ def Mod2(delta1,H): #each of delta1 and flower is a pair (delta1_1,delta1_2) and
                 Pcomponents[str(u.colour)]=[u]
 
                 
-#if str(u.label).endswith('1'): #if the right hand label is 1, add this vertex to the dictionary entry for its component
+        #if str(u.label).endswith('1'): #if the right hand label is 1, add this vertex to the dictionary entry for its component
         for col in Pcomponents:
             #for v in Pcomponents[col]:
             #   if v.parent=v:

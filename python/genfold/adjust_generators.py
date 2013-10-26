@@ -582,9 +582,11 @@ def output_graph_file(graph,filename,graphname,verbose):
         print("into output_graph_file")
         print("opening file ",filename)
     with open(filename, "w") as go:
-        go.write("digraph graphname {\n") #and write to it
+        go.write("digraph "+graphname+" {\n") #and write to it
     with open(filename, "a") as go: #then open it in append mode
         go.write(str(graph)) #and continue to write to it
+        label='labelloc="t";fontsize=8;label= "'+graphname+'" ;'#make a label
+        go.write(label) #give the graph a label
         go.write("}")
     go.close()   
 
