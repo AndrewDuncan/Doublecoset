@@ -1,3 +1,9 @@
+Current versions: 
+K_fix.py
+(K.py corresponds to the orignal words in the paper, K_fix attempts
+to get nearer the diagrams in the paper.)
+alg3_cex.py
+
 26/10/13
 Today I ran the program on the example in our paper (as far as Mod 3).
 
@@ -8,3 +14,6 @@ then it has to be removed. I added this to the appropriate part of the
 algorithm. (In the more or less  certain knowledge that in fact the
 algorithm will have to be changed a bit and then this won't be
 necessary.) 
+
+The Z edges removed must all belong to and X_k' component, so don't need
+to be added to delta_Z.
