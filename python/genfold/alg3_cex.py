@@ -1,7 +1,7 @@
 from alg3 import *
 
 #set verbose =1 to see lots of information and to 0 for a quiet run
-verbose =0
+verbose =1
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
@@ -181,7 +181,7 @@ flower2=H2.flower
 flower=(flower1,flower2)
 #
 print("now D0")
-D0=MakeComps(K.flower,F,FZ) # returnsdelta_k0[0],delta_k0[1],delta_z
+D0=MakeComps(K.flower,F,FZ,verbose) # returnsdelta_k0[0],delta_k0[1],delta_z
 
 # Open alg3_test_D0_1.gv in write mode
 output_graph_file(D0[0],testfile+"D0_1.gv","D0_1",verbose)
@@ -196,7 +196,7 @@ delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and 
 #
 print("now D1")
 #D1=Mod1(delta_0,FZ,H,flower)
-delta_1=Mod1(delta_0,FZ,H)
+delta_1=Mod1(delta_0,FZ,H,verbose)
 
 # Open alg3_test_D1_1.gv in write mode
 output_graph_file(delta_1[0],testfile+"D1_1.gv","D1_1",verbose)
@@ -205,7 +205,7 @@ output_graph_file(delta_1[0],testfile+"D1_1.gv","D1_1",verbose)
 output_graph_file(delta_1[1],testfile+"D1_2.gv","D1_2",verbose)
 
 print("now D2")
-(delta_2,Prod)=Mod2(delta_1,H)
+(delta_2,Prod)=Mod2(delta_1,H,verbose)
 
 # Open alg3_test_P_1_1.gv in write mode
 output_graph_file(Prod[0],testfile+"P_1_1.gv","P11",verbose)
@@ -222,7 +222,7 @@ output_graph_file(delta_2[1],testfile+"D2_2.gv","D2_2",verbose)
 
 print("now D3")
 #D3=Mod3(D2[2],flower,D2[0],D2[1])
-(delta_3,Prod)=Mod3(delta_2,H)
+(delta_3,Prod)=Mod3(delta_2,H,verbose)
 
 # Open alg3_test_D3_1.gv in write mode
 output_graph_file(delta_3[0],testfile+"D3_1.gv","D3_1",verbose)
@@ -235,3 +235,8 @@ output_graph_file(Prod[0],testfile+"P_2_1.gv","P21",verbose)
 
 # Open alg3_test_P_2_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_2_2.gv","P22",verbose)
+
+for k in (0,1):
+    print("k is ", k)
+    for v in delta_3[k].vertices:
+        print("v is ", v," nu_im is ", v.nu_im)

@@ -2,12 +2,15 @@ Current versions:
 K_fix.py
 (K.py corresponds to the orignal words in the paper, K_fix attempts
 to get nearer the diagrams in the paper.)
-alg3_cex.py
+
+alg3_cex.py - the example with 2 identical normal subgroups amalgamated.
+cex_checked directory has output up to Mod 3 as it should be: for comparison after future changes
+(dir cex receives output from alg3_cex.py)
 
 26/10/13
-Today I ran the program on the example in our paper (as far as Mod 3).
+Ran the program on the example in our paper (as far as Mod 3).
 
-I found one thing that had to be changed.
+One thing had to be changed.
 Namely, when making X_1 and X_2 components, right at the start,
 if there is a component that turns out to have only edges of type Z,
 then it has to be removed. I added this to the appropriate part of the
@@ -17,3 +20,23 @@ necessary.)
 
 The Z edges removed must all belong to and X_k' component, so don't need
 to be added to delta_Z.
+
+27/10/13
+Checked output of K_fix.py against the graphs in the paper (as far as Modif 3). 
+All agree (modulo the necessary differences caused by mistakes in the paper).
+
+Checked output of alg3_cex.py as far as Mod 3. Agrees with hand calculations made in Moscow.
+
+
+==================================================================================
+Notes
+The proof that the algorithm works starts with the claim that a word w, which is
+to be tested to see if it represents an element of K, can be written in terms
+of X1 and X2 alone. However, we have not allowed for this in the algorithm, 
+as we have only added Xk words to the Xk components. This means that if there
+are edges in Delta_Z which are not in either an X1 or an X2 component, then
+these edges cannot be read as X1 or X2 words. 
+Possibly this does not matter, as, if w belongs to K then it is equal in G to 
+a word formed from a product of generators of K, written in dc normal form: 
+so it is this kind of word we need to cope with. It would then be possible
+to read such a word in the flower automaton for K. 
