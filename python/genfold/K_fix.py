@@ -186,9 +186,7 @@ K.stallings()
 bfs(K.flower,).forest()
 #output the folding to a file
 output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose)
-
-####################
-##################
+#########################
 
 F=(F1,F2)
 H=(H1,H2)
@@ -199,55 +197,69 @@ flower=(flower1,flower2)
 print("now D0")
 D0=MakeComps(K.flower,F,FZ,verbose) # returnsdelta_k0[0],delta_k0[1],delta_z
 
-# Open alg3_test_D0_1.gv in write mode
+# Open D0_1.gv in write mode
 output_graph_file(D0[0],testfile+"D0_1.gv","D0_1",verbose)
 
-# Open alg3_test_D0_2.gv in write mode
+# Open D0_2.gv in write mode
 output_graph_file(D0[1],testfile+"D0_2.gv","D0_2",verbose)
 
-# Open alg3_test_D0_Z.gv in write mode
+# Open D0_Z.gv in write mode
 output_graph_file(D0[2],testfile+"D0_Z.gv","D0_Z",verbose)
 
 delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and X2 components
 #
 print("now D1")
-#D1=Mod1(delta_0,FZ,H,flower)
 delta_1=Mod1(delta_0,FZ,H,verbose)
 
-# Open alg3_test_D1_1.gv in write mode
+# Open D1_1.gv in write mode
 output_graph_file(delta_1[0],testfile+"D1_1.gv","D1_1",verbose)
 
-# Open alg3_test_D1_2.gv in write mode
+# Open D1_2.gv in write mode
 output_graph_file(delta_1[1],testfile+"D1_2.gv","D1_2",verbose)
 
 print("now D2")
 (delta_2,Prod)=Mod2(delta_1,H,verbose)
 
-# Open alg3_test_P_1_1.gv in write mode
+# Open P_1_1.gv in write mode
 output_graph_file(Prod[0],testfile+"P_1_1.gv","P11",verbose)
 
-# Open alg3_test_P_1_2.gv in write mode
+# Open P_1_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_1_2.gv","P12",verbose)
 
-# Open alg3_test_D2_1.gv in write mode
+# Open D2_1.gv in write mode
 output_graph_file(delta_2[0],testfile+"D2_1.gv","D2_1",verbose)
 
-# Open alg3_test_D2_2.gv in write mode
+# Open D2_2.gv in write mode
 output_graph_file(delta_2[1],testfile+"D2_2.gv","D2_2",verbose)
 
 
 print("now D3")
-#D3=Mod3(D2[2],flower,D2[0],D2[1])
 (delta_3,Prod)=Mod3(delta_2,H,verbose)
 
-# Open alg3_test_D3_1.gv in write mode
+# Open D3_1.gv in write mode
 output_graph_file(delta_3[0],testfile+"D3_1.gv","D3_1",verbose)
 
-# Open alg3_test_D3_2.gv in write mode
+# Open D3_2.gv in write mode
 output_graph_file(delta_3[1],testfile+"D3_2.gv","D3_2",verbose)
 
-# Open alg3_test_P_2_1.gv in write mode
+# Open P_2_1.gv in write mode
 output_graph_file(Prod[0],testfile+"P_2_1.gv","P21",verbose)
 
-# Open alg3_test_P_2_2.gv in write mode
+# Open P_2_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_2_2.gv","P22",verbose)
+
+
+print("now D4")
+(delta_4,Prod)=Mod4(delta_3,H,verbose)
+
+# Open D4_1.gv in write mode
+output_graph_file(delta_4[0],testfile+"D4_1.gv","D4_1",verbose)
+
+# Open D4_2.gv in write mode
+output_graph_file(delta_4[1],testfile+"D4_2.gv","D4_2",verbose)
+
+# Open P_3_1.gv in write mode
+output_graph_file(Prod[0],testfile+"P_3_1.gv","P31",verbose)
+
+# Open P_3_2.gv in write mode
+output_graph_file(Prod[1],testfile+"P_3_2.gv","P32",verbose)

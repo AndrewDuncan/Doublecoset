@@ -307,7 +307,7 @@ def Mod3(delta2,H,verbose): #each of delta2 and flower is a pair (delta2_1,delta
         #Prodk=Prod[k]
         #Pcomponents=Prod_components[k]
         #flowerk=flower[k]
-        print("Pcomponents ", Pcomponents, "\n")
+        #print("Pcomponents ", Pcomponents, "\n")
         
         for col in Pcomponents: 
             if verbose==1:
@@ -321,7 +321,8 @@ def Mod3(delta2,H,verbose): #each of delta2 and flower is a pair (delta2_1,delta
                         a=element(v.path).word
                         A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
                         i=1 #set this to 1 to show we found a vertex of type (*,*)-1
-                        print("first (*,*)-1 is", v_base, " for col ", col)
+                        if verbose==1:
+                            print("first (*,*)-1 is", v_base, " for col ", col)
                         break
                 if i==1: # if there are no vertices of form (*,*)-1 in this component; go to the next component (col)
                     for v in Pcomponents[col]:
@@ -350,10 +351,10 @@ def Mod3(delta2,H,verbose): #each of delta2 and flower is a pair (delta2_1,delta
                                     if verbose==1:
                                         print("Zword", Zword, "added at", delta_base," \n\n")
                                     delta3k.addPath(delta_base,delta_base,Zword)# add  a path of Z's from the root of component col to itself      
-                else:
-                    print("Pcomponent ", col," has no (*,1) ", Pcomponents[col])
-            else:
-                print("Pcomponent", col,"can be missed as it is ",Pcomponents[col])
+                #else:
+                    #print("Pcomponent ", col," has no (*,1) ", Pcomponents[col])
+            #else:
+                #print("Pcomponent", col,"can be missed as it is ",Pcomponents[col])
                 
         for v in delta3k.vertices:# for each v in k1k
             #print("k is", k, "v is", v.label, "and hasattr orig is", hasattr(v,'original'))
@@ -374,3 +375,93 @@ def Mod3(delta2,H,verbose): #each of delta2 and flower is a pair (delta2_1,delta
             
     
     return(delta3,Prod)
+#################################
+#########
+###########################
+#Modification 4
+def Mod4(delta3,H,verbose): #each of delta3 and H is a pair (delta2_1,delta2_2) and (H1,H2) as in Mod1, 2, 3.
+    #Mod4 constructs  the product graph Prod[k] and its components Prod_components[k] as before, and carries out Algorithm III steps D12 and D13
+    #The following should be made into a function, which can be used in each modification    
+    Hflower1=H[0].flower
+    Hflower2=H[1].flower
+    Hflower=(Hflower1,Hflower2)
+    delta4=[]
+    Prod=[]
+    for k in (0,1):
+        delta4k=delta3[k]# the new component to be constructed
+        Prod.append(delta3[k].product(Hflower[k],1))
+        Prod_bfs=bfs(Prod[k],sorted(Prod[k].vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+        Prod_bfs.forest()#assigns properties, like distance from root, path from root in forest, etc. to vertices of product
+
+        Pcomponents={}
+        #construct a dictionary with key the components of the product P_k and for such key a value list of vertices in that component
+        for u in  Prod[k].vertices:
+            if str(u.colour) in Pcomponents:
+                L=Pcomponents[str(u.colour)]
+                L.append(u)
+                L.sort(key=lambda x: x.length)
+                Pcomponents[str(u.colour)]=L
+            else:
+                Pcomponents[str(u.colour)]=[u]
+
+               
+        #Prodk=Prod[k]
+        #Pcomponents=Prod_components[k]
+        #flowerk=flower[k]
+        #print("Pcomponents ", Pcomponents, "\n")
+        
+        for col in Pcomponents: 
+            if verbose==1:
+                print("col is", col)
+            i=0
+            if len(Pcomponents[col])!=1: # if there is only one vertex in a component, go to the next component
+                for v in Pcomponents[col]:
+                    #find the next vertex with right hand label 1, which is a vertex of delta_0, and in component col 
+                    if str(v.label).endswith('1') and v.memory[0].original==0:
+                        v_base=v # this is the current orginal vertex of type (*,*)-1 found in this component
+                        delta_base=v.memory[0]#the left hand (delta) part of v_base
+                        a=element(v.path).word
+                        A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
+                        if verbose==1:
+                            print("current  (*,*)-1 is  ", v_base, " in component ", col)
+                        for u in Pcomponents[col]:
+                            #find the next vertex with right hand label not 1, which is a vertex of delta_0, and  in component col 
+                            if u.memory[0].original==0 and not str(u.label).endswith('1'):
+                                u_goal=u # this is the current orginal vertex of type (*,*)-b found in this component
+                                u_L=u.memory[0]#the left hand (delta) part of u_goal
+                                u_R=u.memory[1]#the right hand (Hk) part of u_goal
+                                b=element(u_R.path).word# path from the root of folding of Hk to u_R
+                                b_test=graph_pass(Prod[k],b,v_base).acc_read_rem() 
+                                if len(b_test[2])!=0 or b_test[3]!=u_R:
+                                    if verbose==1:
+                                        print("something to add in Mod 4 at base ", v," goal ", u)
+                                    p=element(u.path).word# path from the root to u_goal
+                                    vu_word=element(A+p).word # path from v_base to u_goal, in tree,
+                                    B=element(b).inverse()
+                                    HX_word=element(vu_word+B).word # element of H, in terms of Xk
+                                    HZ_word=graph_pass(Hflower[k],HX_word).acc_read_rem()[4] #the Z word corresponding to HX_word
+                                    word=HZ_word+b
+                                    
+                                    if verbose==1:
+                                        print("path", word, "added from", delta_base," to ", u_L, "\n\n")
+                                    delta4k.addPath(delta_base,delta_base,word)# add  a path with label word from delta_base to u_L of 
+                               
+        for v in delta4k.vertices:# for each v in k1k
+            #print("k is", k, "v is", v.label, "and hasattr orig is", hasattr(v,'original'))
+            if not hasattr(v,'original'): #these are the vertices added in Modification 4
+                v.original=4 # 
+                v.nu_im={v.label}
+                v.name='({0},{1})'.format(v.label,k+1) 
+                v.label='({0},{1})'.format(v.label,k+1)
+                #print("v is", v," v.nu_im is", v.nu_im)
+        
+        go = True
+        while go: #fold delta4k, updating of v.nu_im in the process
+            go = delta4k.fold()
+        
+
+        delta4.append(delta4k)
+        
+            
+    
+    return(delta4,Prod)

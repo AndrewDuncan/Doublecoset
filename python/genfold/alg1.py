@@ -170,7 +170,7 @@ class graph_pass(object):  #read word from left to right finding max accepted pr
             self.root = root
 
     def acc_read_rem(self): #read word from left to right finding max accepted prefix, them max readable prefix and
-        #outputing these along with the remaining suffix, and the output labels of the path read
+        #outputing these along with the remaining suffix, termial vertex, and the Z-word corresponding to the max acc prefix
         Apref=[] #this will be the max accepted prefix
         Rpref=[] #this will be the max readable prefix following Apref
         Apref_in_Z=[] #this will be Apref written in Z generators instead of X generators

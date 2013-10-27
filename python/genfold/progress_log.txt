@@ -2,6 +2,8 @@ Current versions:
 K_fix.py
 (K.py corresponds to the orignal words in the paper, K_fix attempts
 to get nearer the diagrams in the paper.)
+directory input_K_checked has output up to Mod 3 as it should be: for comparison after future changes
+(dir input_K receives output from K_fix.py and K.py)
 
 alg3_cex.py - the example with 2 identical normal subgroups amalgamated.
 cex_checked directory has output up to Mod 3 as it should be: for comparison after future changes
@@ -22,11 +24,12 @@ The Z edges removed must all belong to and X_k' component, so don't need
 to be added to delta_Z.
 
 27/10/13
-Checked output of K_fix.py against the graphs in the paper (as far as Modif 3). 
+Checked output of K_fix.py against the graphs in the paper (as far as Modification 3). 
 All agree (modulo the necessary differences caused by mistakes in the paper).
 
 Checked output of alg3_cex.py as far as Mod 3. Agrees with hand calculations made in Moscow.
 
+First attempt at mod 4; runs but outputs rubbish.
 
 ==================================================================================
 Notes
@@ -40,3 +43,18 @@ Possibly this does not matter, as, if w belongs to K then it is equal in G to
 a word formed from a product of generators of K, written in dc normal form: 
 so it is this kind of word we need to cope with. It would then be possible
 to read such a word in the flower automaton for K. 
+
+The criteria used to halt the main loop seem suspect. 
+The idea is to make modifications that allow words readable in the flower
+automaton of K to be put into normal form. Paths are found which need to
+have nf analogues added. However, the process of putting words into normal
+form may go through several iterations -- reducing 3 (or 2) syllables to 
+1 syllable, then rewriting the word, then starting again. To allow
+the starting again bit we need to regard paths added at the first pass 
+through the loop as "original" paths in the second pass through the loop.
+Therefore it may not be enough to continue till the number of X_1 and X_2
+components of Delta_5 is no fewer than the number for Delta. What we should
+ask is if any edges were added to form Delta_5 from Delta. If so then we
+should repeat. The process should stop when the number of edges of Delta 
+and Delta_5 are the same. (This is an unprocessed notion, not something thought
+through carefully.)
