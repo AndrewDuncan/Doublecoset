@@ -90,7 +90,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
             if verbose==1:
                 print("calling check_gens")
             H_gens_basis=check_gens(H,Hgens)
-            if H_gens_basis==0: #if H_gens_basis=0 the basis computed is equal to the input generators and the main loop is broken out of
+            if H_gens_basis==0: #if H_gens_basis=0 the basis computed is equal to the input generators and the main loop is broken out of unless the user wants to alter the tree 
                 if change_tree==1:#this is only 1 if the user has asked to adjust a spanning tree (of one or other subgroup)
                     want_to_alter='n'#this indicator is set to 'y' by the user if they want to alter this particular spanning tree
                     while True:

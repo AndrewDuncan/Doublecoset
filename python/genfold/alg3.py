@@ -413,11 +413,13 @@ def Mod4(delta3,H,verbose): #each of delta3 and H is a pair (delta2_1,delta2_2) 
         for col in Pcomponents: 
             if verbose==1:
                 print("col is", col)
-            i=0
+            #i=0
             if len(Pcomponents[col])!=1: # if there is only one vertex in a component, go to the next component
                 for v in Pcomponents[col]:
+                    print("component, vertex, v.label, lhs-original ",col, v, str(v.label),v.memory[0].original)
                     #find the next vertex with right hand label 1, which is a vertex of delta_0, and in component col 
                     if str(v.label).endswith('1') and v.memory[0].original==0:
+                        print(v, " ends with 1 and original")
                         v_base=v # this is the current orginal vertex of type (*,*)-1 found in this component
                         delta_base=v.memory[0]#the left hand (delta) part of v_base
                         a=element(v.path).word
@@ -425,8 +427,10 @@ def Mod4(delta3,H,verbose): #each of delta3 and H is a pair (delta2_1,delta2_2) 
                         if verbose==1:
                             print("current  (*,*)-1 is  ", v_base, " in component ", col)
                         for u in Pcomponents[col]:
+                            print("u vertex, u.label, lhs-original ",u, str(u.label),u.memory[0].original)
                             #find the next vertex with right hand label not 1, which is a vertex of delta_0, and  in component col 
                             if u.memory[0].original==0 and not str(u.label).endswith('1'):
+                                print(u, " does not end with 1, and original")
                                 u_goal=u # this is the current orginal vertex of type (*,*)-b found in this component
                                 u_L=u.memory[0]#the left hand (delta) part of u_goal
                                 u_R=u.memory[1]#the right hand (Hk) part of u_goal
