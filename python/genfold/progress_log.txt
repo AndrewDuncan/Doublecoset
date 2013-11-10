@@ -34,6 +34,7 @@ First attempt at mod 4; runs but outputs rubbish.
 10/11/13
 Mod 4 running ok on example in paper.
 
+Delta_Z does not look right.
 ==================================================================================
 Notes
 The proof that the algorithm works starts with the claim that a word w, which is

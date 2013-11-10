@@ -236,7 +236,18 @@ output_graph_file(Prod[0],testfile+"P_2_1.gv","P21",verbose)
 # Open alg3_test_P_2_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_2_2.gv","P22",verbose)
 
-for k in (0,1):
-    print("k is ", k)
-    for v in delta_3[k].vertices:
-        print("v is ", v," nu_im is ", v.nu_im)
+
+print("now D4")
+(delta_4,Prod)=Mod4(delta_3,H,verbose)
+
+# Open D4_1.gv in write mode
+output_graph_file(delta_4[0],testfile+"D4_1.gv","D4_1",verbose)
+
+# Open D4_2.gv in write mode
+output_graph_file(delta_4[1],testfile+"D4_2.gv","D4_2",verbose)
+
+# Open P_3_1.gv in write mode
+output_graph_file(Prod[0],testfile+"P_3_1.gv","P31",verbose)
+
+# Open P_3_2.gv in write mode
+output_graph_file(Prod[1],testfile+"P_3_2.gv","P32",verbose)
