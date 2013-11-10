@@ -31,6 +31,9 @@ Checked output of alg3_cex.py as far as Mod 3. Agrees with hand calculations mad
 
 First attempt at mod 4; runs but outputs rubbish.
 
+10/11/13
+Mod 4 running ok on example in paper.
+
 ==================================================================================
 Notes
 The proof that the algorithm works starts with the claim that a word w, which is

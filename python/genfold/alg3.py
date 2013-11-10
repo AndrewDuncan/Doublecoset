@@ -381,7 +381,8 @@ def Mod3(delta2,H,verbose): #each of delta2 and flower is a pair (delta2_1,delta
 #Modification 4
 def Mod4(delta3,H,verbose): #each of delta3 and H is a pair (delta2_1,delta2_2) and (H1,H2) as in Mod1, 2, 3.
     #Mod4 constructs  the product graph Prod[k] and its components Prod_components[k] as before, and carries out Algorithm III steps D12 and D13
-    #The following should be made into a function, which can be used in each modification    
+    #The following should be made into a function, which can be used in each modification   
+    nerbose=1
     Hflower1=H[0].flower
     Hflower2=H[1].flower
     Hflower=(Hflower1,Hflower2)
@@ -411,7 +412,7 @@ def Mod4(delta3,H,verbose): #each of delta3 and H is a pair (delta2_1,delta2_2) 
         #print("Pcomponents ", Pcomponents, "\n")
         
         for col in Pcomponents: 
-            if verbose==1:
+            if nerbose==1:
                 print("col is", col)
             #i=0
             if len(Pcomponents[col])!=1: # if there is only one vertex in a component, go to the next component
@@ -424,7 +425,7 @@ def Mod4(delta3,H,verbose): #each of delta3 and H is a pair (delta2_1,delta2_2) 
                         delta_base=v.memory[0]#the left hand (delta) part of v_base
                         a=element(v.path).word
                         A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
-                        if verbose==1:
+                        if nerbose==1:
                             print("current  (*,*)-1 is  ", v_base, " in component ", col)
                         for u in Pcomponents[col]:
                             print("u vertex, u.label, lhs-original ",u, str(u.label),u.memory[0].original)
@@ -435,21 +436,26 @@ def Mod4(delta3,H,verbose): #each of delta3 and H is a pair (delta2_1,delta2_2) 
                                 u_L=u.memory[0]#the left hand (delta) part of u_goal
                                 u_R=u.memory[1]#the right hand (Hk) part of u_goal
                                 b=element(u_R.path).word# path from the root of folding of Hk to u_R
+                                print("path b in delta", b, " and u_R ", u_R)
                                 b_test=graph_pass(Prod[k],b,v_base).acc_read_rem() 
-                                if len(b_test[2])!=0 or b_test[3]!=u_R:
-                                    if verbose==1:
+                                print("b_test in prod", b_test)
+                                if len(b_test[2])!=0 or b_test[3]!=u:
+                                    if nerbose==1:
                                         print("something to add in Mod 4 at base ", v," goal ", u)
                                     p=element(u.path).word# path from the root to u_goal
+                                    print("in delta, path p ",p)
                                     vu_word=element(A+p).word # path from v_base to u_goal, in tree,
+                                    print("and path in gamma ",vu_word)
                                     B=element(b).inverse()
                                     HX_word=element(vu_word+B).word # element of H, in terms of Xk
                                     HZ_word=graph_pass(Hflower[k],HX_word).acc_read_rem()[4] #the Z word corresponding to HX_word
                                     word=HZ_word+b
                                     
-                                    if verbose==1:
+                                    if nerbose==1:
                                         print("path", word, "added from", delta_base," to ", u_L, "\n\n")
-                                    delta4k.addPath(delta_base,delta_base,word)# add  a path with label word from delta_base to u_L of 
-                               
+                                    delta4k.addPath(delta_base,u_L,word)# add  a path with label word from delta_base to u_L of 
+            else:#delete this after testing
+                print("only one tea in typhoo",col, Pcomponents[col])
         for v in delta4k.vertices:# for each v in k1k
             #print("k is", k, "v is", v.label, "and hasattr orig is", hasattr(v,'original'))
             if not hasattr(v,'original'): #these are the vertices added in Modification 4

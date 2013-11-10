@@ -8,7 +8,7 @@ from alg3 import *
 ###################
 
 #set verbose =1 to see lots of information and to 0 for a quiet run
-verbose =1
+verbose =0
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
