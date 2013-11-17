@@ -371,3 +371,9 @@ def phi(subgroup,zword): #map a word in the free group on the Z generators of su
     return(element(yy).word,1)
 
      
+def output_log_file(filename,text):  
+
+    #print("opening log file again")
+    with open(filename, "a") as log: #otherwise open it in append mode
+        log.write(text+"\n") #and  write text to it
+    log.close()
