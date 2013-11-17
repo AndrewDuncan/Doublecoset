@@ -34,6 +34,10 @@ First attempt at mod 4; runs but outputs rubbish.
 10/11/13
 Mod 4 running ok on example in paper.
 
+17/11/13
+Added log file to take output from test run
+
+
 Delta_Z does not look right.
 ==================================================================================
 Notes
