@@ -460,3 +460,49 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
             
     
     return(delta4,Prod)
+#######################################
+#Modification 5
+def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,delta4_2) and (H1,H2) as in Mod1, 2, 3, 4.
+    #Mod5 constructs  the product graph Prod[k] and its components Prod_components[k] as before, and carries out Algorithm III steps D14 and D17
+    #The following should be made into a function, which can be used in each modification   
+    Hflower1=H[0].flower
+    Hflower2=H[1].flower
+    Hflower=(Hflower1,Hflower2)
+    delta5=[]
+    Prod=[]
+    for k in (0,1):
+        delta5k=delta4[k]# the new component to be constructed
+        Prod.append(delta4[k].product(Hflower[k],1))
+        Prod_bfs=bfs(Prod[k],sorted(Prod[k].vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
+        Prod_bfs.forest()#assigns properties, like distance from root, path from root in forest, etc. to vertices of product
+
+        Pcomponents={}
+        #construct a dictionary with key the components of the product P_k and for such key a value list of vertices in that component
+        for u in  Prod[k].vertices:
+            if str(u.colour) in Pcomponents:
+                L=Pcomponents[str(u.colour)]
+                L.append(u)
+                L.sort(key=lambda x: x.length)
+                Pcomponents[str(u.colour)]=L
+            else:
+                Pcomponents[str(u.colour)]=[u]
+
+        for v in H[k].double.vertices:
+            v_pair=v.label.split("-",1)#get hold of the left and right parts of the vertex label 
+            v_list=v.label.partition("-")
+            print("partition ",v_list)
+            v_l=int(v_pair[0])#left part of v
+            v_r=int(v_pair[1])#right part of v
+            if v_l!=v_r: #do not consider diagonal elements (v,v) of the double
+                print(v," ",v_pair," ",v_l,v_r)
+                c=element(v.path).inverse()
+                print("path 2",c)
+                v_root=H[k].double.components[v.colour] #the root of the double, containing (LHS_u,RHS_u)
+                print("root ", v_root)
+                #print("root of comp of x is xroot", xroot)
+                #repr = xroot.parent.label.partition("-") # this root is equal to the representative
+
+        #add newly constructed k component as kth element of delta5       
+        delta5.append(delta5k)
+            
+    return(delta5,Prod)

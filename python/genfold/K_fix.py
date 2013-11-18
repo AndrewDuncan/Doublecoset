@@ -24,7 +24,7 @@ from alg3 import *
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9
-verbose =[1,1,1,1,1,1,1,1,1,1]
+verbose =[0,0,0,0,0,0,0,0,0,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
 logfile='tmp.txt'
@@ -301,3 +301,6 @@ output_graph_file(Prod[0],testfile+"P_3_1.gv","P31",verbose,logfile)
 # Open P_3_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_3_2.gv","P32",verbose,logfile)
 
+
+print("now D5")
+(delta_5,Prod)=Mod5(delta_4,H,verbose,logfile)
