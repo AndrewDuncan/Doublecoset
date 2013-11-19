@@ -324,19 +324,32 @@ class Graph:
         out = []
         if self.Olabel == 1:
             for u in self.vertices:
-                out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
+                u_description='fontsize=7,width=.01,height=.01'
+                if hasattr(u,'parent'):
+                    if u.parent==u:
+                        u_description='fontsize=7,width=.01,height=.01,style="bold"'
+   
+                out.append('"%s%s" [label="%s",%s];' % (name,u,u.name,u_description))
                 for label,vs in u.outedges.items():
                     for v in vs:
                         if u.outedges_write[(label,v)]=="":
-                            out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
+                            out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8,style="bold"];' % (name,u,name,v,label) )
                         else:
                             out.append( '"%s%s" -> "%s%s" [label="%s|%s",fontsize=8];' % (name,u,name,v,label,u.outedges_write[(label,v)]) )
         else:
             for u in self.vertices:
-                out.append('"%s%s" [label="%s",fontsize=7,width=.01,height=.01];' % (name,u,u.name))
+                u_description='fontsize=7,width=.01,height=.01'
+                if hasattr(u,'parent'):
+                    if u.parent==u:
+                        u_description='fontsize=7,width=.01,height=.01,style="bold"'
+   
+                out.append('"%s%s" [label="%s",%s];' % (name,u,u.name,u_description))
                 for label,vs in u.outedges.items():
                     for v in vs:
-                        out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
+                        if u.outedges_write[(label,v)]=="-" or  u.outedges_write[(label,v)] is None:
+                            out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
+                        else:
+                            out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8,style="bold"];' % (name,u,name,v,label) )
         return '\n'.join(out)
 
     

@@ -80,6 +80,10 @@ H1=construct_required_folding(Hname1,Hgens1,testfile,F1,Hrank,verbose,FZ,change_
 #write the final folding as a graph
 filename=testfile+"stallings1.gv"
 output_graph_file(H1.flower,filename,"stallings1",verbose,logfile)
+#write the double of the folding as a graph
+filename=testfile+"double1.gv"
+output_graph_file(H1.double,filename,"double1",verbose,logfile)
+#    for e in v.out
 ################
 ### enter H2
 ##############
@@ -101,7 +105,9 @@ H2=construct_required_folding(Hname2,Hgens2,testfile,F2,Hrank,verbose,FZ,change_
 #write the final folding as a graph
 filename=testfile+"stallings2.gv"
 output_graph_file(H2.flower,filename,"stallings2",verbose,logfile)
-
+#write the double of the folding as a graph
+filename=testfile+"double2.gv"
+output_graph_file(H2.double,filename,"double2",verbose,logfile)
 #########################################################
 #########  now enter K
 ######################

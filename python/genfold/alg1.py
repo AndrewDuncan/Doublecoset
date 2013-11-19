@@ -51,7 +51,10 @@ class subgroup(object): #subgroup of freegroup, given by a set of generators, ma
     def __init__(self, name, subgp_gens, basis=None):
         self.name = name
         self.subgp_gens = subgp_gens# original generators 
-        self.flower = Graph(rooted=True,label= self.name,Olabel=1)
+        if basis is None:
+            self.flower = Graph(rooted=True,label= self.name,Olabel=0)
+        else:
+            self.flower = Graph(rooted=True,label= self.name,Olabel=1)
         self.coherent = True
         self.subgp_free_gens=[] #free generators to be constructed from stallings folding
 

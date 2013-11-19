@@ -163,7 +163,7 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
         delta_k0.append(delta_k0k) #append k0k to the list of delta1 and delta2
     return delta_k0[0],delta_k0[1],delta_z #these are distinct graphs built from copies of delta
 
-def Mod1(delta_k0,Z,H,verbose,logfile):#input delta_k0(X1 and X2 components), Z gens, H subgroup and its folding. For each Z edge, add a corresponding path in X_k generators- probably don't need to input flower - it comes with H now
+def Mod1(delta_k0,Z,H,verbose,logfile):#input delta_k0(X1 and X2 components), Z gens, H subgroup and its folding. For each Z edge, add a corresponding path in X_k generators 
     flower1=H[0].flower
     flower2=H[1].flower
     flower=(flower1,flower2)
@@ -487,6 +487,14 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
             else:
                 Pcomponents[str(u.colour)]=[u]
 
+        #make a list of vertices of the original - delta0
+        original_vertices=[]
+        for v in delta5k.vertices:
+            if v.original==0:
+                original_vertices.append(v)
+
+        print("list of originals", original_vertices)
+                
         for v in H[k].double.vertices:
             v_pair=v.label.split("-",1)#get hold of the left and right parts of the vertex label 
             v_list=v.label.partition("-")
@@ -494,14 +502,47 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
             v_l=int(v_pair[0])#left part of v
             v_r=int(v_pair[1])#right part of v
             if v_l!=v_r: #do not consider diagonal elements (v,v) of the double
-                print(v," ",v_pair," ",v_l,v_r)
+                #print("pair (e1,e2) ", v," ",v_pair," ",v_l,v_r)
                 c=element(v.path).inverse()
-                print("path 2",c)
+                #print("path to root ",c)
                 v_root=H[k].double.components[v.colour] #the root of the double, containing (LHS_u,RHS_u)
-                print("root ", v_root)
-                #print("root of comp of x is xroot", xroot)
-                #repr = xroot.parent.label.partition("-") # this root is equal to the representative
+                #print("root ", v_root)
+                v_root_pair=v_root.label.split("-",1)#get hold of the left and right parts of the vertex label 
+                v_root_list=v_root.label.partition("-")
+                #print("root partition ",v_root_list)
+                v_root_l=int(v_root_pair[0])#left part of v
+                v_root_r=int(v_root_pair[1])#right part of v
+                #print("root of comp of x ", v_root_l,v_root_r)
+                for y in Hflower[k].vertices:
+                    if y.label==v_root_l:
+                        #print("here's y ", y, "with path ", y.path)
+                        a_l=y.path
+                    elif y.label==v_root_r:
+                        a_r=y.path
+                if a_l is None or a_r is None:
+                    error_message="Exiting from Mod 5. Path a_l or a_r was not set at vertex "+str(v)+" with root "+str(v_root)+" a_l is "+str(a_l)+" a_r is "+str(a_r)
+                    sys.exit(error_message)
 
+                for m in original_vertices:
+                    v1=m.label+"-"+str(v_l)
+                    v2=m.label+"-"+str(v_r)
+                    print("m is ", m, " v1 and v2 ", v1, " and ", v2)
+                    w1_found=0
+                    w2_found=0
+                    for w in Prod[k].vertices:
+                        if w1_found==0 and w.label==v1:
+                            w1_found=1
+                            w1=w
+                            print("found w1 ", w)
+                        elif w2_found==0 and w.label==v2:
+                            w2_found=1
+                            w2=w
+                            print("found w2 ", w)
+                        if w1_found==1 and w2_found==1:
+                            break
+                    col1=w1.colour
+                    col2=w2.colour
+                    print("w1 colour, w2 colour ", w1, ": " ,col1, " and ", w2, ": ", col2)
         #add newly constructed k component as kth element of delta5       
         delta5.append(delta5k)
             
