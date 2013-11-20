@@ -4,7 +4,7 @@ import copy
 
 def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tree,logfile):
      
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"into construct_required_folding")
         
     #set flags for testing subgroup generators
@@ -28,19 +28,19 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
             else:
                 print('Please enter a Nielsen reduced free generating set of size %s ' % (Hrank,),'as a comma separated list, e.g. x1,x2,X1')
                 
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"calling genr_input")
                 Hgens=genr_input(Hrank)
 
             
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"after 1st test Hgens is "+str(Hgens))
             output_log_file(logfile,"Hrank is "+str(Hrank)+ "len(Hgens) is "+str(len(Hgens)))
 
         #if we reach here, then num_H_gens=0
         
         #check that the elements of Hgens are in the free group F
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"calling generators_in_free_group")
         H_gens_in_F=generators_in_free_group(F,Hgens)# this will be 0 if all elements of Hgens are in F, and 1 otherwise
         if H_gens_in_F!=0: #if some Hgens are not in F, input new Hgens and reset num_H_gens, so no further tests are applied and the loop repeats from the start
@@ -48,11 +48,11 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
             num_H_gens=1
             print('Please enter a Nielsen reduced free generating set of size %s ' % (Hrank,),'as a comma separated list, e.g. x1,x2,X1, of elements of the free group on generators ', F.gens)
             
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile,"calling genr_input")
             Hgens=genr_input(Hrank)
 
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"after 2nd test Hgens is "+str(Hgens))
             output_log_file(logfile,"Hrank is "+str(Hrank)+ "len(Hgens) is "+str(len(Hgens)))
 
@@ -60,7 +60,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
         if (H_gens_in_F,num_H_gens)==(0,0):#if the tests above were passed ...
 
             #construct the Stallings folding of H
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile,"calling subgroup_compute")
             H=subgroup_compute(Hname,Hgens,FZ)
             
@@ -70,13 +70,13 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
                 #and enter new generators
                 print('The basis computed has ', len(H.subgroup_free_gens),' elements, but the required subgroup rank is ',Hrank)
                 print('Please enter a Nielsen reduced free generating set of size %s ' % (Hrank,),'as a comma separated list, e.g. x1,x2,X1, of elements of the free group on generators ', F.gens)
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"calling genr_input")
                 Hgens=genr_input(Hrank)
             else:
                 H_rank=0
 
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"after 3rd test Hgens is "+str(Hgens))
             output_log_file(logfile,"H.subgroup_free_gens is "+str(H.subgroup_free_gens))
 
@@ -87,7 +87,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
         if (H_gens_in_F,num_H_gens,H_rank)==(0,0,0):#if the tests above were passed ...
             
             #check to see if the generators input are the same as the generators found by Stallings folding
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile,"calling check_gens")
             H_gens_basis=check_gens(H,Hgens)
             if H_gens_basis==0: #if H_gens_basis=0 the basis computed is equal to the input generators and the main loop is broken out of unless the user wants to alter the tree 
@@ -109,9 +109,9 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
                 else:
                     break
 
-            if verbose[2]==1:
-                output_log_file(logfile,"H free gens"+str(H.subgroup_free_gens))
-                output_log_file(logfile,"subgroup genrs input"+str(Hgens))
+            if verbose[2]>=1:
+                output_log_file(logfile,"H free gens "+str(H.subgroup_free_gens))
+                output_log_file(logfile,"subgroup genrs input "+str(Hgens))
 
         #this point is reached only if all tests above are passed except the last - in which case it is necessary to find a different spanning tree for the stallings folding of H - or if all including the last were passed and the user wants to alter the spanning tree
 
@@ -129,7 +129,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
             #and enter new generators
             print("The generators entered ", Hgens, " are not Nielsen reduced")
             print('Please enter a Nielsen reduced free generating set of size %s ' % (Hrank,),'as a comma separated list, e.g. x1,x2,X1, of elements of the free group on generators ', F.gens)
-            if verbose[2]==1:
+            if verbose[2]>1:
                     output_log_file(logfile,"calling genr_input")
             Hgens=genr_input(Hrank)
 
@@ -156,7 +156,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
                 #and enter new generators
                 print("No rept edges found BUT the generators entered ", Hgens, " are not Nielsen reduced")
                 print('Please enter a Nielsen reduced free generating set of size %s ' % (Hrank,),'as a comma separated list, e.g. x1,x2,X1, of elements of the free group on generators ', F.gens)
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"calling genr_input")
                 Hgens=genr_input(Hrank)
 
@@ -220,7 +220,7 @@ def check_gens(H,Hgens):  #check to see if the generators Hgens are the ones fou
     return(all_clean)   
 
 def label_with_Zs(H,Hgens,verbose,logfile): 
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"calling label_with_Zs")
         
     stall=copy.deepcopy(H.flower)#not sure if needed
@@ -229,15 +229,15 @@ def label_with_Zs(H,Hgens,verbose,logfile):
         u.outedges_write ={}# initialise the output labels of the copy of the folding of H
         u.inedges_write = {}
     
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"len subgp_gens"+str(len(Hgens)))
     for i in range(len(Hgens)): # for each of the input generators
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"i is "+str(i))
         suffix=Hgens[i]
         u=stall.root
         while len(suffix)>0 and (suffix[0] in u.outedges.keys() or suffix[0].swapcase() in u.inedges.keys()):
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile,"suffix"+str(suffix))
             l=suffix[0]
             if l in u.outedges.keys(): # if the current letter is the label of an outedge u
@@ -257,8 +257,8 @@ def label_with_Zs(H,Hgens,verbose,logfile):
                         else:
                             x[1].inedges_write[(l,u)]=[H.basis[i]]  
                            
-                        if verbose[2]==1:
-                            output_log_file(logfile,"read edge "+str(x)+ "and set out label to "+str(H.basis[i]))
+                        if verbose[2]>=1:
+                            output_log_file(logfile,"read edge "+str(x)+ " and set out label to "+str(H.basis[i]))
                         u=x[1] # set u equal to the terminal vertex of the edge read
                         break
 
@@ -278,8 +278,8 @@ def label_with_Zs(H,Hgens,verbose,logfile):
                             x[1].outedges_write[(l.swapcase(),u)]=L
                         else:
                             x[1].outedges_write[(l.swapcase(),u)]=[H.basis[i].swapcase()]
-                        if verbose[2]==1:
-                            output_log_file(logfile,"read edge "+str(x)+ "and set out label to "+str(H.basis[i]))
+                        if verbose[2]>=1:
+                            output_log_file(logfile,"read edge "+str(x)+ " and set out label to "+str(H.basis[i]))
                         u=x[1] # u is the initial vertex of the edge read (in reverse)
                         break
 
@@ -289,27 +289,27 @@ def label_with_Zs(H,Hgens,verbose,logfile):
 
 #check that when the (original or current) input generators are read in the stallings folding (labelled with Zs) there are no repeated edges or missed edges (if there are missed edges something has gone badly wrong).
 def check_nielsen_reduced(stall,verbose,logfile):
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"into check_nielsen_reduced")
     edgerep=0
     for u in stall.vertices:
         for e in u.inedgesList:
             if e not in u.inedges_write:
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"at vertex "+str(u)+ "inedge"+str(e)+"is not read: there is nothing in u.inedges_write:"+str(u.inedges_write))
                 error_message="Exiting: the subgroup of the stallings folding is not generated by "+list(Hgens)
                 sys.exit(error_message)
 
             if anydup(u.inedges_write[e]):
-                if verbose[2]==1:
-                    output_log_file(logfile,"at vertex "+str(u)+ "inedge"+str(e)+"is read twice: there is repetition in u.inedges_write:"+str(u.inedges_write))
+                if verbose[2]>=1:
+                    output_log_file(logfile,"at vertex "+str(u)+ " inedge "+str(e)+" is read twice: there is repetition in u.inedges_write: "+str(u.inedges_write))
                 edgerep=1
                 break
         
         for e in u.outedgesList:
             if anydup(u.outedges_write[e]):
-                if verbose[2]==1:
-                    output_log_file(logfile,"at vertex "+str(u)+ "outedge"+str(e)+ "is read twice: there is repetition in u.outedges_write:"+str(u.outedges_write))
+                if verbose[2]>=1:
+                    output_log_file(logfile,"at vertex "+str(u)+ " outedge"+str(e)+ " is read twice: there is repetition in u.outedges_write: "+str(u.outedges_write))
                 edgerep=1
                 break
             
@@ -319,33 +319,33 @@ def check_nielsen_reduced(stall,verbose,logfile):
 
 #once generators have been read and all edges labelled with Zs, find, for each letter z in Z an edge which is labelled only with  z, and put this edge outside the (potential) tree. Assumes check_nielsen_reduced has run with output 0,0.
 def build_new_labelling(stall,FZ,verbose,logfile):
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"into build_new_labelling")
     gen_found={} #dictionary with entries (z:i) where z is in Z and i is 0 to start with and becomes 1 once an edge labelled only with z has been found and put outside the candidate tree
     for z in FZ.gens:
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"z is"+str(z))
         gen_found[z]=0
     
     for u in stall.vertices:
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"vertex "+str(u))
         for e in u.inedgesList:
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile," in-edge e is "+str(e))
             if len(u.inedges_write[e])>1:
-                if verbose[2]==1:
-                    output_log_file(logfile,"write-label written to space as len >1")
+                if verbose[2]>=1:
+                    output_log_file(logfile," in-edge e "+str(e)+" write-label written to space as len >1")
                 u.inedges_write[e]=""
             elif len(u.inedges_write[e])==1:
                 zlab=u.inedges_write[e][0].lower()
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"zlab is "+str(zlab)+ "u.inedges_write[e]"+str(u.inedges_write[e])+"gen_found[zlab] is "+str(gen_found[zlab]))
                 if gen_found[zlab]==0: 
                     newlab=u.inedges_write[e][0].lower()
                     u.inedges_write[e]=newlab
-                    if verbose[2]==1:
-                        output_log_file(logfile,"in-edge "+str(e)+"has been given write label"+str(u.inedges_write[e]))
+                    if verbose[2]>=1:
+                        output_log_file(logfile,"in-edge "+str(e)+" has been given write label "+str(u.inedges_write[e]))
                     gen_found[zlab]=1
                 else:
                     u.inedges_write[e]=""
@@ -354,20 +354,20 @@ def build_new_labelling(stall,FZ,verbose,logfile):
                 sys.exit(error_message)
                 
         for e in u.outedgesList:
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile," out-edge e is "+str(e))
             if len(u.outedges_write[e])>1:
                 u.outedges_write[e]=""
-                if verbose[2]==1:
-                    output_log_file(logfile,"write-label written to space as len >1")
+                if verbose[2]>=1:
+                    output_log_file(logfile," out-edge e is "+str(e)+" write-label written to space as len >1")
             elif len(u.outedges_write[e])==1:
                 zlab=u.outedges_write[e][0].lower()
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"zlab is "+str(zlab)+ "u.outedges_write[e]"+str(u.outedges_write[e])+"gen_found[zlab] is "+str(gen_found[zlab]))
                 if gen_found[zlab]==0: 
                     u.outedges_write[e]=u.outedges_write[e][0].lower()
-                    if verbose[2]==1:
-                        output_log_file(logfile,"out-edge "+str(e)+"has been given write label"+str(u.outedges_write[e]))
+                    if verbose[2]>=1:
+                        output_log_file(logfile,"out-edge "+str(e)+" has been given write label "+str(u.outedges_write[e]))
                     gen_found[zlab]=1
                 else:
                     u.outedges_write[e]=""
@@ -408,29 +408,29 @@ def build_new_labelling(stall,FZ,verbose,logfile):
 ##############################################################
 #once generators have been read and all edges labelled with Zs, find, for each letter z in Z an edge which is labelled only with  z, and put this edge outside the (potential) tree. Assumes check_nielsen_reduced has run with output 0.
 def build_new_labelling_with_user_input(stall,FZ,verbose,Hname,logfile):
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"into build_new_labelling_with_user_input")
     #gen_found={} #dictionary with entries (z:i) where z is in Z and i is 0 to start with and becomes 1 once an edge labelled only with z has been allocated to be put outside the candidate tree
     gen_potential={}#dictionary with entries (z:[[v1,e1,x1,d1],...,[v1,en,xn,d1]]) where z is in Z and ei is one of the in or out edges of vi that can be left out of the tree and labelled with z, and xi will be 0 if the edge is to be left out, and 1 otherwise and di=0 for out-edges and 1 for in-edges
     for z in FZ.gens:
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"z is"+str(z))
         #gen_found[z]=0
         gen_potential[z]=[]
 
     for u in stall.vertices:
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"vertex "+str(u))
         for e in u.inedgesList:
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile," in-edge e is "+str(e))
             if len(u.inedges_write[e])>1:#for in-edges with multiple z labels - set out-label to ""
-                if verbose[2]==1:
-                    output_log_file(logfile,"in manual constr of tree: write-label written to space as len >1")
+                if verbose[2]>=1:
+                    output_log_file(logfile,"vertex "+str(u)+" in manual constr of tree: write-label written to space as len >1")
                 u.inedges_write[e]=""
             elif len(u.inedges_write[e])==1:
                 zlab=u.inedges_write[e][0].lower()
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"in-edge that could be left out found -- "+str(e))
                     output_log_file(logfile,"zlab is "+str(zlab)+ "u.inedges_write[e]"+str(u.inedges_write[e]))#,"gen_found[zlab] is ",gen_found[zlab])
                 gen_potential[zlab].append([u,e,1,1])# add this edge to the list of possible egdes; mark in-edges with 1 in 3rd posn(outedges will be 0)
@@ -450,7 +450,7 @@ def build_new_labelling_with_user_input(stall,FZ,verbose,Hname,logfile):
                 zindex=enter_positive_integer(input_message)
 
             gen_potential[z][int(zindex)-1][2]=0
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile,"zindex is "+str(zindex)+" and the corresponding edge is "+str(gen_potential[z][int(zindex)-1]))
             
         else:
@@ -459,36 +459,36 @@ def build_new_labelling_with_user_input(stall,FZ,verbose,Hname,logfile):
 
     #now use these settings to construct output labels consisting of "" or one z letter, for each edge
     for z in FZ.gens:
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"z is "+str(z))
         for l in gen_potential[z]:
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile,"l is "+str(l))
             if l[2]==0:
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"l is "+str(l)+" and its label is "+str(z))
                 l[0].inedges_write[l[1]]=z
             else:
-                if verbose[2]==1:
+                if verbose[2]>1:
                     output_log_file(logfile,"l is "+str(l)+" and its label is blank")
 
     #by now all in-edges have their out-labels set, and we transfer these to out-edges
     for u in stall.vertices:
-        if verbose[2]==1:
+        if verbose[2]>1:
             output_log_file(logfile,"vertex "+str(u))
 
         for e in u.outedgesList:
-            if verbose[2]==1:
+            if verbose[2]>1:
                 output_log_file(logfile," out-edge e is "+str(e))
             if len(u.outedges_write[e])>1:
                 u.outedges_write[e]=""
-                if verbose[2]==1:
-                    output_log_file(logfile,"write-label written to space as len >1")
+                if verbose[2]>=1:
+                    output_log_file(logfile," out-edge e "+str(e)+" write-label written to space as len >1")
             elif len(u.outedges_write[e])==1:
                 (l,v)=e
                 u.outedges_write[e]=v.inedges_write[(l,u)]
-                if verbose[2]==1:
-                    output_log_file(logfile,str(e)+"write-label written to "+str(v.inedges_write[(l,u)]))
+                if verbose[2]>=1:
+                    output_log_file(logfile,str(e)+" write-label written to "+str(v.inedges_write[(l,u)]))
             else:
                 error_message="fouled up in build_new_labelling_with_user_input: there's an out edge with no write_label: e is "+str(e)
                 sys.exit(error_message)
@@ -509,7 +509,7 @@ def build_new_labelling_with_user_input(stall,FZ,verbose,Hname,logfile):
 
 ###############################################################
 def forced_bfs(stall,verbose,logfile):
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"into forced_bfs")
     #must be a rooted graph, with output labels corresponding to edges outside a spanning forest
 
@@ -570,7 +570,7 @@ def fold_and_double(H):
 
 def output_graph_file(graph,filename,graphname,verbose,logfile):  
 
-    if verbose[2]==1:
+    if verbose[2]>1:
         output_log_file(logfile,"into output_graph_file")
         output_log_file(logfile,"opening file "+str(filename))
     with open(filename, "w") as go:

@@ -43,7 +43,7 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
         while shoots!=0:
             ind=0
             for v in delta_k0k.vertices[::-1]: #for each vertex of k0k
-                if verbose[3]==1:
+                if verbose[3]>1:
                     output_log_file(logfile,"k is "+ str(k)+" v name, v label "+str(v.name)+str(v.label))
                 edgesList=v.inedgesList+v.outedgesList # make a list of all edges incident to v
                 v_in_delta_z=0
@@ -54,52 +54,53 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                 if len(edgesList)==1: # if we have a shoot with leaf v
                      if edgesList[0][0] in Z.mongens: # and the shoot has a label in Z
                         ind+=1
-                        if verbose[3]==1:
+                        if verbose[3]>1:
                             output_log_file(logfile,"ind is "+ str(ind))
                             output_log_file(logfile,"we found an edge to remove:"+ str(edgesList[0]))
                         vv_in_delta_z=0
                         for u in delta_z.vertices:
-                            if verbose[3]==1:
+                            if verbose[3]>1:
                                 output_log_file(logfile,"u is"+ str(u)+ " and edgesList[0] is "+ str(edgesList[0]))
                             if edgesList[0][1].label==u.label: 
                                 vv_in_delta_z=1# set this flag to 1 if the other end of this edge is already in delta_z
                                 vvcopy=u # and in this case keep track of the vertex of delta_z at the other end of the shoot with leaf v
-                                if verbose[3]==1:
+                                if verbose[3]>1:
                                     output_log_file(logfile,"found that vertex "+ str(edgesList[0][0])+ "is already in delta_z")
                                 break
                         if v_in_delta_z==0: # v is not already in delta_z
                             vcopy=delta_z.addVertex(v.name) # add a new vertex to delta_z with same descr as v
                             vcopy.label=v.label
                             v_in_delta_z=1 # record that v is now in delta_z
-                            if verbose[3]==1:
-                                output_log_file(logfile,"k is"+ str(k)+ " added vertex v"+ str(vcopy.label))
+                            if verbose[3]>=1:
+                                output_log_file(logfile,"D0 (MakeComps): k is "+ str(k)+ ", added vertex v  to delta_z with label: "+ str(vcopy.label))
                         if vv_in_delta_z==0: #if the other end of the shoot is not in delta_z
                             vv=edgesList[0][1]
                             vvcopy=delta_z.addVertex(vv.name)# add it to delta_z
                             vvcopy.label=vv.label
-                            if verbose[3]==1:
-                                output_log_file(logfile,"k is"+ str(k)+ " added vertex to delta_z vv with label and name"+ str(vvcopy.label)+ str(vvcopy.label))
+                            if verbose[3]>=1:
+                                output_log_file(logfile,"D0 (MakeComps): k is "+ str(k)+ ", added vertex vv to  delta_z with label "+ str(vvcopy.label))
                             vv_in_delta_z=1 #record that this vertex is now in delta_z
                     
                         if len(v.inedgesList)==1: #if the shoot is an inedge at v
-                            if verbose[3]==1:
+                            if verbose[3]>1:
                                 output_log_file(logfile,"k is "+str(k)+"v is "+ str(v)+" inedges are"+ str(v.inedgesList)+ "outedges are "+ str(v.outedgesList))
                             #if the edge is already incident to vcopy in delta_z, do nothing
                             if (edgesList[0][0],edgesList[0][1]) not in vcopy.inedgesList:  
                                 delta_z.addEdge(vvcopy,vcopy,edgesList[0][0])
-                                if verbose[3]==1:
-                                    output_log_file(logfile,"adding edge + edgesList[0] is "+ str(edgesList[0]))
-                                    output_log_file(logfile,"k is"+ str(k)+ "vcopy,vvcopy="+ str(vcopy)+ str(vvcopy)+ " added edge vv to v with label"+ str(edgesList[0][0]))
+                                if verbose[3]>=1:
+                                    output_log_file(logfile,"D0 (MakeComps): adding edge, edgesList[0] is "+ str(edgesList[0]))
+                                    output_log_file(logfile,"k is "+ str(k)+ ", v, vv = "+ str(vcopy)+", "+ str(vvcopy)+ "; added edge from vv to v with label "+ str(edgesList[0][0]))
 
                         elif len(v.outedgesList)==1:#if the shoot is an outedge at v
                             #if the edge is already incident to vcopy in delta_z, do nothing
                             if (edgesList[0][0],edgesList[0],[1]) not in vcopy.outedgesList:
                                 delta_z.addEdge(vvcopy,vcopy,edgesList[0][0]) 
-                                if verbose[3]==1:
-                                    output_log_file(logfile,"adding edge , edgesList[0] is "+ str(edgesList[0]))
-                                    output_log_file(logfile,"k is"+ str(k)+ "vcopy,vvcopy="+ str(vcopy)+ str(vvcopy)+ " added edge vv to v with label"+ str(edgesList[0][0]))
+                                if verbose[3]>=1:
+                                    output_log_file(logfile,"D0 (MakeComps):adding edge , edgesList[0] is "+ str(edgesList[0]))
+                                    output_log_file(logfile,"k is "+ str(k)+ " v, vv = "+ str(vcopy)+ ", "+str(vvcopy)+ "; added edge from vv to v with label "+ str(edgesList[0][0]))
                         else:
-                            print("something is wrong in alg3_alt2 at vertex v", v)
+                            error_message="Exiting from Makecomps: something is wrong at vertex v "+str(v)
+                            sys.exit(error_message)
  
                         label=edgesList[0][0]
                         w=edgesList[0][1]
@@ -175,16 +176,21 @@ def Mod1(delta_k0,Z,H,verbose,logfile):#input delta_k0(X1 and X2 components), Z 
         for v in delta_k1k.vertices: #for each vertex v of k1k  
             for outedges in v.outedgesList:# for each outedge e incident to v
                 if outedges[0] in Z.mongens: #with a Z label
-                    if verbose[4]==1:
+                    if verbose[4]>1:
                         output_log_file(logfile,"H"+ str(k)+ "free gens"+ str(H[k-1].subgroup_free_gens))
                         output_log_file(logfile,"v"+ str(v)+ "outedges [1]"+ str(outedges[1])+ "outedges [0]"+ str([outedges[0]])+ "k"+ str(k))
                         Xword=phi(H[k-1],[outedges[0]])[0]
                     xword=H[k-1].subgroup_free_gens[outedges[0]]
-                    if verbose[4]==1:
+                    if verbose[4]>1:
                         output_log_file(logfile,"Xword is "+ str(Xword))
                         output_log_file(logfile,"xword is "+ str(xword))
-                    delta_k1k.addPath(v,outedges[1],xword)# add  a path of x's with the same end points as e
 
+                    test_for_path=graph_pass(delta_k1k,xword,v).acc_read_rem()
+                    if test_for_path[2]!=[] or  test_for_path[3]!=outedges[1]:#if this path already exists -- do nothing
+                        delta_k1k.addPath(v,outedges[1],xword)# add  a path of x's with the same end points as e
+                        if verbose[4]>=1:
+                            output_log_file(logfile,"Mod 1: new path "+str(xword)+" added from "+str(v)+" to "+str(outedges[1])+"\n")
+                            
         
         for v in delta_k1k.vertices:# for each v in k1k
             if not hasattr(v,'original'):
@@ -234,7 +240,7 @@ def Mod2(delta1,H,verbose,logfile): #each of delta1 and flower is a pair (delta1
                     if i==0:
                         v_base=v # this is the first vertex of type (*,*)-1 found in this component
                         delta_base=v.memory[0]#the left hand (delta) part of v_base
-                        if verbose[5]==1:
+                        if verbose[5]>1:
                             output_log_file(logfile,"In mod 2, k is"+str(k)+ "v_base is "+ str(v)+" v_base.path is "+ str(v.path))
                         a=element(v.path).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
                         i=1 
@@ -242,7 +248,7 @@ def Mod2(delta1,H,verbose,logfile): #each of delta1 and flower is a pair (delta1
                         b=element(v.path).word # the path from the root of this component to the next vertex of type (*,*)-1
                         Xword=element(a+b).word # the path from v_base to v, in the spanning forest for Prod[k]
                         Gword=graph_pass(Hflower[k],Xword).acc_read_rem() #find the Z word corresponding to Xword
-                        if verbose[5]==1:
+                        if verbose[5]>1:
                             output_log_file(logfile,"In mod 2, still, v is "+ str(v)+" v.path is "+ str(v.path)+ "Xword is"+ str(Xword)+"Gword is "+ str(Gword[4]))
                         if len(Gword[1])>0 or len(Gword[2])>0:
                             print("Something bad happened in Modification 2: tried to add a path not in H. Here is the output of graph_pass:", Gword)
@@ -251,7 +257,11 @@ def Mod2(delta1,H,verbose,logfile): #each of delta1 and flower is a pair (delta1
                         else:
                             Zword=Gword[4]
                             delta_v=v.memory[0] # the left hand (delta) part of the vertex v of the product Prod[k]
-                            delta2k.addPath(delta_base,delta_v,Zword)# add  a path of Z's from the root of component col to v 
+                            test_for_path=graph_pass(delta2k,Zword,delta_base).acc_read_rem()
+                            if test_for_path[2]!=[] or  test_for_path[3]!=delta_v:#if this path already exists -- do nothing
+                                delta2k.addPath(delta_base,delta_v,Zword)# add  a path of Z's from the root of component col to v
+                                if verbose[5]>=1:
+                                    output_log_file(logfile,"Mod 2: new path "+str(Zword)+" added from "+str(delta_base)+" to "+str(delta_v)+"\n")
                     
         for v in delta2k.vertices:# for each v in k1k
              if not hasattr(v,'original'): #these are the vertices added in Modification 2
@@ -296,7 +306,7 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
                 Pcomponents[str(u.colour)]=[u]
 
         for col in Pcomponents: 
-            if verbose[6]==1:
+            if verbose[6]>1:
                 output_log_file(logfile,"col is"+ str(col))
             i=0
             if len(Pcomponents[col])!=1: # if there is only one vertex in a component, go to the next component
@@ -307,15 +317,15 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
                         a=element(v.path).word
                         A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
                         i=1 #set this to 1 to show we found a vertex of type (*,*)-1
-                        if verbose[6]==1:
+                        if verbose[6]>1:
                             output_log_file(logfile,"first (*,*)-1 is"+ str(v_base)+ " for col "+ str(col))
                         break
                 if i==1: # if there are no vertices of form (*,*)-1 in this component; go to the next component (col)
                     for v in Pcomponents[col]:
-                        if verbose[6]==1:
+                        if verbose[6]>1:
                             output_log_file(logfile,"v is "+ str(v))
                         for e in v.outedgesList:
-                            if verbose[6]==1:
+                            if verbose[6]>1:
                                 output_log_file(logfile,"e is"+ str(e))
                                 output_log_file(logfile,"an edge "+ str(e)+"with out lab"+ str(v.outedges_write[e]))
                             if len(v.outedges_write[e])!=0:
@@ -330,10 +340,11 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
                                     sys.exit("Exiting from Mod 3 for the reason above")
                                 else:
                                     Zword=Gword[4]
-                                    if verbose[6]==1:
-                                        output_log_file(logfile,"Zword"+ str(Zword)+ "added at"+ str(delta_base)+" \n\n")
-                                    delta3k.addPath(delta_base,delta_base,Zword)# add  a path of Z's from the root of component col to itself      
-                
+                                    test_for_path=graph_pass(delta3k,Zword,delta_base).acc_read_rem()
+                                    if test_for_path[2]!=[] or  test_for_path[3]!=delta_base:#if this path already exists -- do nothing
+                                        if verbose[6]>=1:
+                                            output_log_file(logfile,"Zword"+ str(Zword)+ "added at"+ str(delta_base)+" \n")
+               
         for v in delta3k.vertices:# for each v in k1k
             if not hasattr(v,'original'): #these are the vertices added in Modification 3
                 v.original=3 # 
@@ -388,58 +399,61 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
         #print("Pcomponents ", Pcomponents, "\n")
         
         for col in Pcomponents: 
-            if verbose[7]==1:
+            if verbose[7]>1:
                 output_log_file(logfile,"col is"+ str(col))
             #i=0
             if len(Pcomponents[col])!=1: # if there is only one vertex in a component, go to the next component
                 for v in Pcomponents[col]:
-                    if verbose[7]==1:
+                    if verbose[7]>1:
                         output_log_file(logfile,"component, vertex, v.label, lhs-original "+ str(col)+ str(v)+ str(v.label)+ str(v.memory[0].original))
                     #find the next vertex with right hand label 1, which is a vertex of delta_0, and in component col 
                     if str(v.label).endswith('1') and v.memory[0].original==0:
-                        if verbose[7]==1:
+                        if verbose[7]>1:
                             output_log_file(logfile,str(v)+ " ends with 1 and original")
                         v_base=v # this is the current orginal vertex of type (*,*)-1 found in this component
                         delta_base=v.memory[0]#the left hand (delta) part of v_base
                         a=element(v.path).word
                         A=element(a).inverse() # the path from v_base to the root of this component (which is usually trivial, as v_base is usually the root)
-                        if verbose[7]==1:
+                        if verbose[7]>1:
                             output_log_file(logfile,"current  (*,*)-1 is  "+ str(v_base)+ " in component "+ str(col))
                         for u in Pcomponents[col]:
-                            if verbose[7]==1:
+                            if verbose[7]>1:
                                 output_log_file(logfile,"u vertex, u.label, lhs-original "+str(u)+ str(u.label)+ str(u.memory[0].original))
                             #find the next vertex with right hand label not 1, which is a vertex of delta_0, and  in component col 
                             if u.memory[0].original==0 and not str(u.label).endswith('1'):
-                                if verbose[7]==1:
+                                if verbose[7]>1:
                                     output_log_file(logfile,str(u)+ " does not end with 1, and original")
                                 u_goal=u # this is the current original vertex of type (*,*)-b found in this component
                                 u_L=u.memory[0]#the left hand (delta) part of u_goal
                                 u_R=u.memory[1]#the right hand (Hk) part of u_goal
                                 b=element(u_R.path).word# path from the root of folding of Hk to u_R
-                                if verbose[7]==1:
+                                if verbose[7]>1:
                                     output_log_file(logfile,"path b in delta"+ str(b)+ " and u_R "+ str(u_R))
                                 b_test=graph_pass(Prod[k],b,v_base).acc_read_rem()
-                                if verbose[7]==1:
+                                if verbose[7]>1:
                                     output_log_file(logfile,"b_test in prod"+ str(b_test))
                                 if len(b_test[2])!=0 or b_test[3]!=u:
-                                    if verbose[7]==1:
+                                    if verbose[7]>1:
                                         output_log_file(logfile,"something to add in Mod 4 at base "+ str(v)+" goal "+ str(u))
                                     p=element(u.path).word# path from the root to u_goal
-                                    if verbose[7]==1:
+                                    if verbose[7]>1:
                                         output_log_file(logfile,"in delta, path p "+ str(p))
                                     vu_word=element(A+p).word # path from v_base to u_goal, in tree,
-                                    if verbose[7]==1:
+                                    if verbose[7]>1:
                                         output_log_file(logfile,"and path in gamma "+ str(vu_word))
                                     B=element(b).inverse()
                                     HX_word=element(vu_word+B).word # element of H, in terms of Xk
                                     HZ_word=graph_pass(Hflower[k],HX_word).acc_read_rem()[4] #the Z word corresponding to HX_word
                                     word=HZ_word+b
+
+                                    test_for_path=graph_pass(delta4k,word,delta_base).acc_read_rem()
+                                    if test_for_path[2]!=[] or  test_for_path[3]!=u_L:#if this path already exists -- do nothing
+                                        if verbose[7]>=1:
+                                            output_log_file(logfile,"path "+str(word)+" added from "+str(delta_base)+" to "+str(u_L)+"\n")
+                                        delta4k.addPath(delta_base,u_L,word)# add  a path with label word from delta_base to u_L of
                                     
-                                    if verbose[7]==1:
-                                        output_log_file(logfile,"path "+str(word)+" added from "+str(delta_base)+" to "+str(u_L)+"\n\n")
-                                    delta4k.addPath(delta_base,u_L,word)# add  a path with label word from delta_base to u_L of 
             else:#delete this after testing
-                if verbose[7]==1:
+                if verbose[7]>1:
                     text="only one tea in typhoo "+str(col)+" "+str(Pcomponents[col])
                     output_log_file(logfile,text)
         for v in delta4k.vertices:# for each v in k1k
@@ -509,28 +523,23 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                             Pcomp_1[str(u.colour)]=[(u,l)]
                         break
 
-        print("Pcomp_1", Pcomp_1)
-        print("list of originals", original_vertices)
-                
         for v in H[k].double.vertices:
             v_pair=v.label.split("-",1)#get hold of the left and right parts of the vertex label 
             v_l=int(v_pair[0])#left part of v
             v_r=int(v_pair[1])#right part of v
             if v_l!=v_r: #do not consider diagonal elements (v,v) of the double
-                print("pair (e1,e2) ", v," ",v_pair," ",v_l,v_r)
+                if verbose[8]>1:
+                    output_log_file(logfile,"pair (e1,e2) "+str(v)+" "+str(v_pair)+" "+str(v_l)+str(v_r))
                 c=element(v.path).inverse()
-                #print("path to root ",c)
                 v_root=H[k].double.components[v.colour] #the root of the double, containing (LHS_u,RHS_u)
-                #print("root ", v_root)
+                if verbose[8]>1:
+                    output_log_file(logfile,"root "+str(v_root))
                 v_root_pair=v_root.label.split("-",1)#get hold of the left and right parts of the vertex label 
                 v_root_list=v_root.label.partition("-")
-                #print("root partition ",v_root_list)
                 v_root_l=int(v_root_pair[0])#left part of v
                 v_root_r=int(v_root_pair[1])#right part of v
-                #print("root of comp of x ", v_root_l,v_root_r)
                 for y in Hflower[k].vertices:
                     if y.label==v_root_l:
-                        #print("here's y ", y, "with path ", y.path)
                         a_l=element(y.path).word
                         A_l=element(y.path).inverse()
                     elif y.label==v_root_r:
@@ -543,28 +552,29 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                 for m in original_vertices:
                     v1=m.label+"-"+str(v_l)
                     v2=m.label+"-"+str(v_r)
-                    print("m is ", m, " v1 and v2 ", v1, " and ", v2)
+                    if verbose[8]>1:
+                        output_log_file(logfile,"m is "+ str(m)+ " v1 and v2 "+str(v1)+ " and "+ str(v2))
                     w1_found=0
                     w2_found=0
                     for w in Prod[k].vertices:
                         if w1_found==0 and w.label==v1:
                             w1_found=1
                             w1=w
-                            #print("found w1 ", w)
                         elif w2_found==0 and w.label==v2:
                             w2_found=1
                             w2=w
-                            #print("found w2 ", w)
                         if w1_found==1 and w2_found==1:
                             break
                     col1=str(w1.colour)
                     col2=str(w2.colour)
-                    print("w1 colour, w2 colour ", w1, ": " ,col1, " and ", w2, ": ", col2)
+                    if verbose[8]>1:
+                        output_log_file(logfile,"w1 colour, w2 colour "+str(w1)+ ": " +str(col1)+ " and "+str(w)+ ": "+str(col2))
                     #find vertices u-1 and v-1 in the components col1 and col2 
                     if col1 in Pcomp_1 and col2 in Pcomp_1:
                         for (a_1,l_1) in Pcomp_1[col1]: #a_1 has format l_1-1
                             for (a_2,l_2) in Pcomp_1[col2]:#a_2 has format l_2-1
-                                print("a_1,a_2 is ", a_1, " ", a_2)
+                                if verbose[8]>1:
+                                    output_log_file(logfile,"a_1,a_2 is "+str(a_1)+" "+str(a_2))
                                 t_1a=element(a_1.path).inverse()#path from a_1 to root
                                 t_2a=element(a_2.path).inverse()#path from a_2 to root
                                 t_1b=element(w1.path).word#path from root to w1
@@ -577,10 +587,15 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                                 Zright=graph_pass(Hflower[k],Xright).acc_read_rem()[4] #the Z word corresponding to Xright
                                 word=Zleft+a_l+A_r+Zright
                                     
-                                if verbose[8]==1:
-                                    output_log_file(logfile,"path "+str(word)+" added from "+str(l_1)+" to "+str(l_2)+"\n\n")
+                                test_for_path=graph_pass(delta5k,word,l_1).acc_read_rem()
+                                if test_for_path[2]!=[] or  test_for_path[3]!=l_2:#if this path already exists -- do nothing
+                                    delta5k.addPath(l_1,l_2,word)# add  a path with label word from l_1 to l_2 of delta5k 
+                                    if verbose[8]>=1:
+                                        output_log_file(logfile,"Mod 5:new path "+str(word)+" added from "+str(l_1)+" to "+str(l_2)+"\n")
+                                #else:
+                                #    if verbose[8]>=1:
+                                #        output_log_file(logfile,"existing path not added "+str(word)+" from "+str(l_1)+" to "+str(l_2)+"\n\n")
                                 
-                                delta5k.addPath(l_1,l_2,word)# add  a path with label word from l_1 to l_2 of delta5k 
        
         for v in delta5k.vertices:# for each v in k1k
             if not hasattr(v,'original'): #these are the vertices added in Modification 5

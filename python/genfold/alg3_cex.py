@@ -30,7 +30,7 @@ verbose =[0,0,0,0,0,0,0,0,0,0]
 logfile='tmp.txt'
 with open(logfile, "w") as log: #create logfile 
     log.write("log file K_fix \n\n") #and write text to it
-log.close()
+
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
@@ -303,3 +303,6 @@ output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
 
 # Open P_4_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)
+
+### at the end close the log file
+log.close()

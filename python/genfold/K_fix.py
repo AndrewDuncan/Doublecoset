@@ -7,9 +7,10 @@ from alg3 import *
 ## sequence of answers: n, y, 1, 1, 3
 ###################
 
-#verbose is a list (currently of length 10) of 0's and 1's. List entries correspond to 
+#verbose is a list (currently of length 10) of integers. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
-#produce "helpful" output. When it is set to 0 nothin unecessary is output.
+#produce "helpful" output. When it is set to 0 nothing unecessary is output. When it's more than 1
+#alot of lines, designed to keep track of the program flow, are output to the log file
 #Entries correspond to files or functions as follows
 #0 graph.py
 #1 alg1.py
@@ -24,13 +25,13 @@ from alg3 import *
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9
-verbose =[0,0,0,0,0,0,0,0,0,0]
+verbose =[0,0,0,0,0,0,0,0,2,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
 logfile='tmp.txt'
 with open(logfile, "w") as log: #create logfile 
     log.write("log file K_fix \n\n") #and write text to it
-log.close()
+#log.close()
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
@@ -144,62 +145,62 @@ if words_in_F!=0: #if some of words2 are not in F2: halt with an error message
 Kl=[]
 kfs=[kf1,kf2,kf3,kf4,kf5]
 for w in kfs:
-    if verbose[-1]==1:
+    if verbose[-1]>1:
         print('\n',w,' becomes \n')
     w=listsplitter(w,F1.mongens,F2.mongens)
-    if verbose[-1]==1:
+    if verbose[-1]>1:
         print(w, "\n after listsplitter and then \n")
     w=amalgam_normal_form(w,F1,F2,H1,H2)
-    if verbose[-1]==1:
+    if verbose[-1]>1:
         print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
     Kl.append(w[1])
 
-if verbose[-1]==1:
+if verbose[-1]>1:
     for w in Kl:
         print("w is ", w)
 
 Kr=[]
 kgs=[kg1,kg2]
 for w in kgs:
-    if verbose[-1]==1:
+    if verbose[-1]>1:
         print('\n',w,' becomes \n')
     w=listsplitter(w,F1.mongens,F2.mongens)
-    if verbose[-1]==1:
+    if verbose[-1]>1:
         print(w, "\n after listsplitter and then \n")
     w=amalgam_normal_form(w,F1,F2,H1,H2)
-    if verbose[-1]==1:
+    if verbose[-1]>1:
         print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
     Kr.append(w[1])
 
-if verbose[-1]==1:
+if verbose[-1]>1:
     for w in Kr:
         print("w is ", w)
 
 #Now form some generators for K
 k1=kf1+kg1+kf2
-if verbose[-1]==1:
+if verbose[-1]>1:
     print('\n\n\n',k1,' becomes')
 k1=listsplitter(k1,F1.mongens,F2.mongens)
-if verbose[-1]==1:
+if verbose[-1]>1:
     print(k1, "after listsplitter and then")
 k1=amalgam_normal_form(k1,F1,F2,H1,H2)
-if verbose[-1]==1:
+if verbose[-1]>1:
     print(" and after amalgam_normal_form k1 and k1v are", k1[0], "and ", k1[1],'\n')
 
 k2=kf3+kg2+kf4
-if verbose[-1]==1:
+if verbose[-1]>1:
     print('\n\n\n',k2,' becomes')
 k2=listsplitter(k2,F1.mongens,F2.mongens)
-if verbose[-1]==1:
+if verbose[-1]>1:
     print(k2, "after listsplitter and then")
 k2=amalgam_normal_form(k2,F1,F2,H1,H2)
-if verbose[-1]==1:
+if verbose[-1]>1:
     print(" and after amalgam_normal_form k2 and k2v are", k2[0], "and ", k2[1],'\n')
 
 k1=k1[1]
 k2=k2[1]
 k3=Kl[4]
-if verbose[-1]==1:
+if verbose[-1]>=1:
     print("k1 = ",k1)
     print("k2 = ",k2)
     print("k3 = ",k3)
@@ -322,3 +323,6 @@ output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
 
 # Open P_4_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)
+
+### at the end close the log file
+log.close()
