@@ -310,3 +310,15 @@ output_graph_file(Prod[1],testfile+"P_3_2.gv","P32",verbose,logfile)
 
 print("now D5")
 (delta_5,Prod)=Mod5(delta_4,H,verbose,logfile)
+
+# Open D5_1.gv in write mode
+output_graph_file(delta_5[0],testfile+"D5_1.gv","D5_1",verbose,logfile)
+
+# Open D5_2.gv in write mode
+output_graph_file(delta_5[1],testfile+"D5_2.gv","D5_2",verbose,logfile)
+
+# Open P_4_1.gv in write mode
+output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
+
+# Open P_4_2.gv in write mode
+output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)

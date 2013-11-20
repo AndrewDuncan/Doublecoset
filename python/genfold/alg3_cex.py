@@ -1,11 +1,40 @@
 from alg3 import *
 
-#set verbose =1 to see lots of information and to 0 for a quiet run
-verbose =1
+###################
+## To get the spanning trees for H1 and H2 as in the paper (as near as possible)
+## set change_tree = 1 and then 
+## when this program is run answer the questions with the
+## sequence of answers: n, y, 1, 1, 3
+###################
+
+#verbose is a list (currently of length 10) of 0's and 1's. List entries correspond to 
+#functions or files as below. When the corresponding entry is set to one the program (or file) will
+#produce "helpful" output. When it is set to 0 nothin unecessary is output.
+#Entries correspond to files or functions as follows
+#0 graph.py
+#1 alg1.py
+#2 adjust_generators.py
+#3 alg3.py all functions except Modx, x=1,2,3,4,5
+#4 Mod1 (alg3.py)
+#5 Mod2 (alg3.py)
+#6 Mod3 (alg3.py)
+#7 Mod4 (alg3.py)
+#8 Mod5 (alg3.py)
+#
+#  
+#last entry --- this file
+##########0,1,2,3,4,5,6,7,8,9
+verbose =[0,0,0,0,0,0,0,0,0,0]
+
+#if any of the entries of verbose are equal 1, set the name of  the log file
+logfile='tmp.txt'
+with open(logfile, "w") as log: #create logfile 
+    log.write("log file K_fix \n\n") #and write text to it
+log.close()
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
-change_tree=0
+change_tree=1
 
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
@@ -44,11 +73,14 @@ Hgens1=[h1,h2,h3,h4]
 
 #find the folding corresponding to the generators entered
 #
-H1=construct_required_folding(Hname1,Hgens1,testfile,F1,Hrank,verbose,FZ,change_tree)
+H1=construct_required_folding(Hname1,Hgens1,testfile,F1,Hrank,verbose,FZ,change_tree,logfile)
 
 #write the final folding as a graph
 filename=testfile+"stallings1.gv"
-output_graph_file(H1.flower,filename,"stallings1",verbose)
+output_graph_file(H1.flower,filename,"stallings1",verbose,logfile)
+#write the double of the folding as a graph
+filename=testfile+"double1.gv"
+output_graph_file(H1.double,filename,"double1",verbose,logfile)
 ################
 ### enter H2
 ##############
@@ -67,12 +99,14 @@ Hgens2=[g1,g2,g3,g4]
 
 #find the folding corresponding to the generators entered
 #
-H2=construct_required_folding(Hname2,Hgens2,testfile,F2,Hrank,verbose,FZ,change_tree)
+H2=construct_required_folding(Hname2,Hgens2,testfile,F2,Hrank,verbose,FZ,change_tree,logfile)
 
 #write the final folding as a graph
 filename=testfile+"stallings2.gv"
-output_graph_file(H2.flower,filename,"stallings2",verbose)
-
+output_graph_file(H2.flower,filename,"stallings2",verbose,logfile)
+#write the double of the folding as a graph
+filename=testfile+"double2.gv"
+output_graph_file(H2.double,filename,"double2",verbose,logfile)
 #########################################################
 #########  now enter K
 ######################
@@ -142,8 +176,9 @@ k1=amalgam_normal_form(k1,F1,F2,H1,H2)
 
 k1=k1[1]
 k2=Kl[1]
-print("k1 = ",k1)
-print("k2 = ",k2)
+if verbose[-1]==1:
+    print("k1 = ",k1)
+    print("k2 = ",k2)
 
 #enter name of subgroup K
 Kname='K'
@@ -169,7 +204,7 @@ K.stallings()
 #and a spanning tree
 bfs(K.flower,).forest()
 #output the folding to a file
-output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose)
+output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose,logfile)
 
 ####################
 ##################
@@ -181,73 +216,90 @@ flower2=H2.flower
 flower=(flower1,flower2)
 #
 print("now D0")
-D0=MakeComps(K.flower,F,FZ,verbose) # returnsdelta_k0[0],delta_k0[1],delta_z
+D0=MakeComps(K.flower,F,FZ,verbose,logfile) # returnsdelta_k0[0],delta_k0[1],delta_z
 
 # Open alg3_test_D0_1.gv in write mode
-output_graph_file(D0[0],testfile+"D0_1.gv","D0_1",verbose)
+output_graph_file(D0[0],testfile+"D0_1.gv","D0_1",verbose,logfile)
 
 # Open alg3_test_D0_2.gv in write mode
-output_graph_file(D0[1],testfile+"D0_2.gv","D0_2",verbose)
+output_graph_file(D0[1],testfile+"D0_2.gv","D0_2",verbose,logfile)
 
 # Open alg3_test_D0_Z.gv in write mode
-output_graph_file(D0[2],testfile+"D0_Z.gv","D0_Z",verbose)
+output_graph_file(D0[2],testfile+"D0_Z.gv","D0_Z",verbose,logfile)
 
 delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and X2 components
 #
 print("now D1")
 #D1=Mod1(delta_0,FZ,H,flower)
-delta_1=Mod1(delta_0,FZ,H,verbose)
+delta_1=Mod1(delta_0,FZ,H,verbose,logfile)
 
 # Open alg3_test_D1_1.gv in write mode
-output_graph_file(delta_1[0],testfile+"D1_1.gv","D1_1",verbose)
+output_graph_file(delta_1[0],testfile+"D1_1.gv","D1_1",verbose,logfile)
 
 # Open alg3_test_D1_2.gv in write mode
-output_graph_file(delta_1[1],testfile+"D1_2.gv","D1_2",verbose)
+output_graph_file(delta_1[1],testfile+"D1_2.gv","D1_2",verbose,logfile)
 
 print("now D2")
-(delta_2,Prod)=Mod2(delta_1,H,verbose)
+(delta_2,Prod)=Mod2(delta_1,H,verbose,logfile)
 
 # Open alg3_test_P_1_1.gv in write mode
-output_graph_file(Prod[0],testfile+"P_1_1.gv","P11",verbose)
+output_graph_file(Prod[0],testfile+"P_1_1.gv","P11",verbose,logfile)
 
 # Open alg3_test_P_1_2.gv in write mode
-output_graph_file(Prod[1],testfile+"P_1_2.gv","P12",verbose)
+output_graph_file(Prod[1],testfile+"P_1_2.gv","P12",verbose,logfile)
 
 # Open alg3_test_D2_1.gv in write mode
-output_graph_file(delta_2[0],testfile+"D2_1.gv","D2_1",verbose)
+output_graph_file(delta_2[0],testfile+"D2_1.gv","D2_1",verbose,logfile)
 
 # Open alg3_test_D2_2.gv in write mode
-output_graph_file(delta_2[1],testfile+"D2_2.gv","D2_2",verbose)
+output_graph_file(delta_2[1],testfile+"D2_2.gv","D2_2",verbose,logfile)
 
 
 print("now D3")
 #D3=Mod3(D2[2],flower,D2[0],D2[1])
-(delta_3,Prod)=Mod3(delta_2,H,verbose)
+(delta_3,Prod)=Mod3(delta_2,H,verbose,logfile)
 
 # Open alg3_test_D3_1.gv in write mode
-output_graph_file(delta_3[0],testfile+"D3_1.gv","D3_1",verbose)
+output_graph_file(delta_3[0],testfile+"D3_1.gv","D3_1",verbose,logfile)
 
 # Open alg3_test_D3_2.gv in write mode
-output_graph_file(delta_3[1],testfile+"D3_2.gv","D3_2",verbose)
+output_graph_file(delta_3[1],testfile+"D3_2.gv","D3_2",verbose,logfile)
 
 # Open alg3_test_P_2_1.gv in write mode
-output_graph_file(Prod[0],testfile+"P_2_1.gv","P21",verbose)
+output_graph_file(Prod[0],testfile+"P_2_1.gv","P21",verbose,logfile)
 
 # Open alg3_test_P_2_2.gv in write mode
-output_graph_file(Prod[1],testfile+"P_2_2.gv","P22",verbose)
+output_graph_file(Prod[1],testfile+"P_2_2.gv","P22",verbose,logfile)
 
 
 print("now D4")
-(delta_4,Prod)=Mod4(delta_3,H,verbose)
+(delta_4,Prod)=Mod4(delta_3,H,verbose,logfile)
 
 # Open D4_1.gv in write mode
-output_graph_file(delta_4[0],testfile+"D4_1.gv","D4_1",verbose)
+output_graph_file(delta_4[0],testfile+"D4_1.gv","D4_1",verbose,logfile)
 
 # Open D4_2.gv in write mode
-output_graph_file(delta_4[1],testfile+"D4_2.gv","D4_2",verbose)
+output_graph_file(delta_4[1],testfile+"D4_2.gv","D4_2",verbose,logfile)
 
 # Open P_3_1.gv in write mode
-output_graph_file(Prod[0],testfile+"P_3_1.gv","P31",verbose)
+output_graph_file(Prod[0],testfile+"P_3_1.gv","P31",verbose,logfile)
 
 # Open P_3_2.gv in write mode
-output_graph_file(Prod[1],testfile+"P_3_2.gv","P32",verbose)
+output_graph_file(Prod[1],testfile+"P_3_2.gv","P32",verbose,logfile)
+
+
+
+print("now D5")
+(delta_5,Prod)=Mod5(delta_4,H,verbose,logfile)
+
+# Open D5_1.gv in write mode
+output_graph_file(delta_5[0],testfile+"D5_1.gv","D5_1",verbose,logfile)
+
+# Open D5_2.gv in write mode
+output_graph_file(delta_5[1],testfile+"D5_2.gv","D5_2",verbose,logfile)
+
+# Open P_4_1.gv in write mode
+output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
+
+# Open P_4_2.gv in write mode
+output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)

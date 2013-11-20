@@ -412,7 +412,7 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
                             if u.memory[0].original==0 and not str(u.label).endswith('1'):
                                 if verbose[7]==1:
                                     output_log_file(logfile,str(u)+ " does not end with 1, and original")
-                                u_goal=u # this is the current orginal vertex of type (*,*)-b found in this component
+                                u_goal=u # this is the current original vertex of type (*,*)-b found in this component
                                 u_L=u.memory[0]#the left hand (delta) part of u_goal
                                 u_R=u.memory[1]#the right hand (Hk) part of u_goal
                                 b=element(u_R.path).word# path from the root of folding of Hk to u_R
@@ -471,13 +471,22 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
     delta5=[]
     Prod=[]
     for k in (0,1):
+
         delta5k=delta4[k]# the new component to be constructed
         Prod.append(delta4[k].product(Hflower[k],1))
         Prod_bfs=bfs(Prod[k],sorted(Prod[k].vertices, key=lambda pairs: [pairs.sortkey[1],pairs.sortkey[0]]))
         Prod_bfs.forest()#assigns properties, like distance from root, path from root in forest, etc. to vertices of product
-
+        
+        #make a list of vertices of the original - delta0
+        original_vertices=[]
+        for v in delta5k.vertices:
+            if v.original==0:
+                original_vertices.append(v)
+                
         Pcomponents={}
+        Pcomp_1={}
         #construct a dictionary with key the components of the product P_k and for such key a value list of vertices in that component
+        #simultaneously construct a dictionary with the same keys and value list vertices of the form v-1, where v is a vertex of delta0
         for u in  Prod[k].vertices:
             if str(u.colour) in Pcomponents:
                 L=Pcomponents[str(u.colour)]
@@ -486,23 +495,29 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                 Pcomponents[str(u.colour)]=L
             else:
                 Pcomponents[str(u.colour)]=[u]
+                
+            if str(u.label).endswith('1'):#for vertices with right hand label 1 
+                u_pair=u.label.split("-",1)#get hold of the left and right parts of the vertex label 
+                for l in original_vertices:
+                    if str(u_pair[0])==l.label:# if left part of u is original add u to the dictionary
+                        if str(u.colour) in Pcomp_1:
+                            L=Pcomp_1[str(u.colour)]
+                            L.append((u,l))
+                            #L.sort(key=lambda x: x.length)
+                            Pcomp_1[str(u.colour)]=L
+                        else:
+                            Pcomp_1[str(u.colour)]=[(u,l)]
+                        break
 
-        #make a list of vertices of the original - delta0
-        original_vertices=[]
-        for v in delta5k.vertices:
-            if v.original==0:
-                original_vertices.append(v)
-
+        print("Pcomp_1", Pcomp_1)
         print("list of originals", original_vertices)
                 
         for v in H[k].double.vertices:
             v_pair=v.label.split("-",1)#get hold of the left and right parts of the vertex label 
-            v_list=v.label.partition("-")
-            print("partition ",v_list)
             v_l=int(v_pair[0])#left part of v
             v_r=int(v_pair[1])#right part of v
             if v_l!=v_r: #do not consider diagonal elements (v,v) of the double
-                #print("pair (e1,e2) ", v," ",v_pair," ",v_l,v_r)
+                print("pair (e1,e2) ", v," ",v_pair," ",v_l,v_r)
                 c=element(v.path).inverse()
                 #print("path to root ",c)
                 v_root=H[k].double.components[v.colour] #the root of the double, containing (LHS_u,RHS_u)
@@ -516,9 +531,11 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                 for y in Hflower[k].vertices:
                     if y.label==v_root_l:
                         #print("here's y ", y, "with path ", y.path)
-                        a_l=y.path
+                        a_l=element(y.path).word
+                        A_l=element(y.path).inverse()
                     elif y.label==v_root_r:
-                        a_r=y.path
+                        a_r=element(y.path).word
+                        A_r=element(y.path).inverse()
                 if a_l is None or a_r is None:
                     error_message="Exiting from Mod 5. Path a_l or a_r was not set at vertex "+str(v)+" with root "+str(v_root)+" a_l is "+str(a_l)+" a_r is "+str(a_r)
                     sys.exit(error_message)
@@ -533,16 +550,50 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                         if w1_found==0 and w.label==v1:
                             w1_found=1
                             w1=w
-                            print("found w1 ", w)
+                            #print("found w1 ", w)
                         elif w2_found==0 and w.label==v2:
                             w2_found=1
                             w2=w
-                            print("found w2 ", w)
+                            #print("found w2 ", w)
                         if w1_found==1 and w2_found==1:
                             break
-                    col1=w1.colour
-                    col2=w2.colour
+                    col1=str(w1.colour)
+                    col2=str(w2.colour)
                     print("w1 colour, w2 colour ", w1, ": " ,col1, " and ", w2, ": ", col2)
+                    #find vertices u-1 and v-1 in the components col1 and col2 
+                    if col1 in Pcomp_1 and col2 in Pcomp_1:
+                        for (a_1,l_1) in Pcomp_1[col1]: #a_1 has format l_1-1
+                            for (a_2,l_2) in Pcomp_1[col2]:#a_2 has format l_2-1
+                                print("a_1,a_2 is ", a_1, " ", a_2)
+                                t_1a=element(a_1.path).inverse()#path from a_1 to root
+                                t_2a=element(a_2.path).inverse()#path from a_2 to root
+                                t_1b=element(w1.path).word#path from root to w1
+                                t_2b=element(w2.path).word#path from root to w2
+                                t_1=element(t_1a+t_1b).word#path from a_1 to w1
+                                t_2=element(t_2a+t_2b).word#path from a_2 to w2
+                                Xleft=element(t_1+c+A_l).word
+                                Zleft=graph_pass(Hflower[k],Xleft).acc_read_rem()[4] #the Z word corresponding to Xleft
+                                Xright=element(t_2+c+A_r).inverse()
+                                Zright=graph_pass(Hflower[k],Xright).acc_read_rem()[4] #the Z word corresponding to Xright
+                                word=Zleft+a_l+A_r+Zright
+                                    
+                                if verbose[8]==1:
+                                    output_log_file(logfile,"path "+str(word)+" added from "+str(l_1)+" to "+str(l_2)+"\n\n")
+                                
+                                delta5k.addPath(l_1,l_2,word)# add  a path with label word from l_1 to l_2 of delta5k 
+       
+        for v in delta5k.vertices:# for each v in k1k
+            if not hasattr(v,'original'): #these are the vertices added in Modification 5
+                v.original=5 # 
+                v.nu_im={v.label}
+                v.name='({0},{1})'.format(v.label,k+1) 
+                v.label='({0},{1})'.format(v.label,k+1)
+ 
+        
+        go = True
+        while go: #fold delta5k, updating of v.nu_im in the process
+            go = delta5k.fold()
+                                
         #add newly constructed k component as kth element of delta5       
         delta5.append(delta5k)
             
