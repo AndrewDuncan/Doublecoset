@@ -346,7 +346,6 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
                                             output_log_file(logfile,"Zword"+ str(Zword)+ "added at"+ str(delta_base)+" \n")
                                         delta3k.addPath(delta_base,delta_base,Zword,"-")# add  a path of Z's from the root of component col to itself 
 
-                                    
         for v in delta3k.vertices:# for each v in k1k
             if not hasattr(v,'original'): #these are the vertices added in Modification 3
                 v.original=3 # 
