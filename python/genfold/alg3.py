@@ -45,27 +45,35 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
             for v in delta_k0k.vertices[::-1]: #for each vertex of k0k
                 if verbose[3]>1:
                     output_log_file(logfile,"k is "+ str(k)+" v name, v label "+str(v.name)+str(v.label))
+                print("v ", v," inedgesList ", v.inedgesList, " outedgesList ", v.outedgesList)
                 edgesList=v.inedgesList+v.outedgesList # make a list of all edges incident to v
                 v_in_delta_z=0
                 for u in delta_z.vertices: #now test to see if this vertex v is in the Z component, delta_z
                             if v.label==u.label:
                                 v_in_delta_z=1# set this flag to 1 if v is already in delta_z
                                 vcopy=u # keep track of which vertex of delta_z is equal to v
-                if len(edgesList)==1: # if we have a shoot with leaf v
-                     if edgesList[0][0] in Z.mongens: # and the shoot has a label in Z
+                #if len(edgesList)==1: # if we have a shoot with leaf v
+                if len(v.inedgesList)+len(v.outedgesList)==1:
+                    if len(v.inedgesList)==1:
+                        edge_found=v.inedgesList[0]
+                        edge_dir='in'
+                    else:
+                        edge_found=v.outedgesList[0]
+                        edge_dir='out'
+                    if edge_found[0] in Z.mongens: # and the shoot has a label in Z
                         ind+=1
                         if verbose[3]>1:
                             output_log_file(logfile,"ind is "+ str(ind))
-                            output_log_file(logfile,"we found an edge to remove:"+ str(edgesList[0]))
+                            output_log_file(logfile,"we found an ", edge_dir, " edge to remove:"+ str(edge_found))
                         vv_in_delta_z=0
                         for u in delta_z.vertices:
                             if verbose[3]>1:
-                                output_log_file(logfile,"u is"+ str(u)+ " and edgesList[0] is "+ str(edgesList[0]))
-                            if edgesList[0][1].label==u.label: 
+                                output_log_file(logfile,"u is"+ str(u)+ " and edge_found is "+ str(edge_found))
+                            if edge_found[1].label==u.label: 
                                 vv_in_delta_z=1# set this flag to 1 if the other end of this edge is already in delta_z
                                 vvcopy=u # and in this case keep track of the vertex of delta_z at the other end of the shoot with leaf v
                                 if verbose[3]>1:
-                                    output_log_file(logfile,"found that vertex "+ str(edgesList[0][0])+ "is already in delta_z")
+                                    output_log_file(logfile,"found that vertex "+ str(edge_found[0])+ "is already in delta_z")
                                 break
                         if v_in_delta_z==0: # v is not already in delta_z
                             vcopy=delta_z.addVertex(v.name) # add a new vertex to delta_z with same descr as v
@@ -81,35 +89,41 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                                 output_log_file(logfile,"D0 (MakeComps): k is "+ str(k)+ ", added vertex vv to  delta_z with label "+ str(vvcopy.label))
                             vv_in_delta_z=1 #record that this vertex is now in delta_z
                     
-                        if len(v.inedgesList)==1: #if the shoot is an inedge at v
+                        #if len(v.inedgesList)==1: #if the shoot is an inedge at v
+                        if edge_dir=='in':
                             if verbose[3]>1:
                                 output_log_file(logfile,"k is "+str(k)+"v is "+ str(v)+" inedges are"+ str(v.inedgesList)+ "outedges are "+ str(v.outedgesList))
                             #if the edge is already incident to vcopy in delta_z, do nothing
-                            if (edgesList[0][0],edgesList[0][1]) not in vcopy.inedgesList:  
-                                delta_z.addEdge(vvcopy,vcopy,edgesList[0][0])
+                            if (edge_found[0],edge_found[1]) not in vcopy.inedgesList:  
+                                delta_z.addEdge(vvcopy,vcopy,edge_found[0])
                                 if verbose[3]>=1:
-                                    output_log_file(logfile,"D0 (MakeComps): adding edge, edgesList[0] is "+ str(edgesList[0]))
-                                    output_log_file(logfile,"k is "+ str(k)+ ", v, vv = "+ str(vcopy)+", "+ str(vvcopy)+ "; added edge from vv to v with label "+ str(edgesList[0][0]))
+                                    output_log_file(logfile,"D0 (MakeComps): adding edge to delta_z, edge_found is "+ str(edge_found))
+                                    output_log_file(logfile,"k is "+ str(k)+ ", vv, v = "+ str(vcopy)+", "+ str(vvcopy)+ "; added edge from vv to v with label "+ str(edge_found[0]))
 
-                        elif len(v.outedgesList)==1:#if the shoot is an outedge at v
+                        #elif len(v.outedgesList)==1:#if the shoot is an outedge at v
+                        elif edge_dir=='out':#if the shoot is an outedge at v
                             #if the edge is already incident to vcopy in delta_z, do nothing
-                            if (edgesList[0][0],edgesList[0],[1]) not in vcopy.outedgesList:
-                                delta_z.addEdge(vvcopy,vcopy,edgesList[0][0]) 
+                            if (edge_found[0],edge_found[1]) not in vcopy.outedgesList:
+                                delta_z.addEdge(vcopy,vvcopy,edge_found[0]) 
                                 if verbose[3]>=1:
-                                    output_log_file(logfile,"D0 (MakeComps):adding edge , edgesList[0] is "+ str(edgesList[0]))
-                                    output_log_file(logfile,"k is "+ str(k)+ " v, vv = "+ str(vcopy)+ ", "+str(vvcopy)+ "; added edge from vv to v with label "+ str(edgesList[0][0]))
+                                    output_log_file(logfile,"D0 (MakeComps):adding edge to delta_z, edge_found is "+ str(edge_found))
+                                    output_log_file(logfile,"k is "+ str(k)+ " v, vv = "+ str(vcopy)+ ", "+str(vvcopy)+ "; added edge from v to vv with label "+ str(edge_found[0]))
                         else:
                             error_message="Exiting from Makecomps: something is wrong at vertex v "+str(v)
                             sys.exit(error_message)
  
-                        label=edgesList[0][0]
-                        w=edgesList[0][1]
+                        label=edge_found[0]
+                        w=edge_found[1]
                         if (label,w) in v.inedgesList: #now remove the shoot from the in or out edges of the non-leaf end
                             v.removeInEdge(label,w)
                             w.removeOutEdge(label,v)
-                        else:
+                        elif (label,w) in v.outedgesList:
                             v.removeOutEdge(label,w)
                             w.removeInEdge(label,v)
+                        else:
+                            error_message="Exiting from Makecomps: something is wrong at vertex v "+str(v)+" shoot "+str(edge_found)+" an "+edge_dir+" edge"
+                            sys.exit(error_message)
+ 
 
             shoots=ind
         for v in delta_k0k.vertices[::-1]:
