@@ -211,7 +211,7 @@ class Graph:
 #
 #       self.addEdge(lastvadded,z,word[-1]) #add a final edge connecting back to the final vertex, with label the last letter of the word
 
-    def addPath(self,u,z,word,o=None):
+    def addPath(self,u,z,word,o=None): #add a path from u to z with label word. Every edge has output label o
         for c in word[:-1]:         #for each letter in the word except the last:
             v = self.addVertex()        #create a new vertex
             self.addEdge(u,v,c,o)       #add a labelled edge connecting previous vertex to the new one
@@ -346,7 +346,7 @@ class Graph:
                 out.append('"%s%s" [label="%s",%s];' % (name,u,u.name,u_description))
                 for label,vs in u.outedges.items():
                     for v in vs:
-                        if u.outedges_write[(label,v)]=="-" or  u.outedges_write[(label,v)] is None:
+                        if u.outedges_write[(label,v)]=="-" or  (u.outedges_write[(label,v)] is None) or (not  hasattr(u,'parent')):
                             out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8];' % (name,u,name,v,label) )
                         else:
                             out.append( '"%s%s" -> "%s%s" [label="%s",fontsize=8,style="bold"];' % (name,u,name,v,label) )

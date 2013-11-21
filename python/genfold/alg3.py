@@ -187,7 +187,7 @@ def Mod1(delta_k0,Z,H,verbose,logfile):#input delta_k0(X1 and X2 components), Z 
 
                     test_for_path=graph_pass(delta_k1k,xword,v).acc_read_rem()
                     if test_for_path[2]!=[] or  test_for_path[3]!=outedges[1]:#if this path already exists -- do nothing
-                        delta_k1k.addPath(v,outedges[1],xword)# add  a path of x's with the same end points as e
+                        delta_k1k.addPath(v,outedges[1],xword,"-")# add  a path of x's with the same end points as e
                         if verbose[4]>=1:
                             output_log_file(logfile,"Mod 1: new path "+str(xword)+" added from "+str(v)+" to "+str(outedges[1])+"\n")
                             
@@ -259,7 +259,7 @@ def Mod2(delta1,H,verbose,logfile): #each of delta1 and flower is a pair (delta1
                             delta_v=v.memory[0] # the left hand (delta) part of the vertex v of the product Prod[k]
                             test_for_path=graph_pass(delta2k,Zword,delta_base).acc_read_rem()
                             if test_for_path[2]!=[] or  test_for_path[3]!=delta_v:#if this path already exists -- do nothing
-                                delta2k.addPath(delta_base,delta_v,Zword)# add  a path of Z's from the root of component col to v
+                                delta2k.addPath(delta_base,delta_v,Zword,"-")# add  a path of Z's from the root of component col to v
                                 if verbose[5]>=1:
                                     output_log_file(logfile,"Mod 2: new path "+str(Zword)+" added from "+str(delta_base)+" to "+str(delta_v)+"\n")
                     
@@ -344,7 +344,9 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
                                     if test_for_path[2]!=[] or  test_for_path[3]!=delta_base:#if this path already exists -- do nothing
                                         if verbose[6]>=1:
                                             output_log_file(logfile,"Zword"+ str(Zword)+ "added at"+ str(delta_base)+" \n")
-               
+                                        delta3k.addPath(delta_base,delta_base,Zword,"-")# add  a path of Z's from the root of component col to itself 
+
+                                    
         for v in delta3k.vertices:# for each v in k1k
             if not hasattr(v,'original'): #these are the vertices added in Modification 3
                 v.original=3 # 
@@ -450,7 +452,7 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
                                     if test_for_path[2]!=[] or  test_for_path[3]!=u_L:#if this path already exists -- do nothing
                                         if verbose[7]>=1:
                                             output_log_file(logfile,"path "+str(word)+" added from "+str(delta_base)+" to "+str(u_L)+"\n")
-                                        delta4k.addPath(delta_base,u_L,word)# add  a path with label word from delta_base to u_L of
+                                        delta4k.addPath(delta_base,u_L,word,"-")# add  a path with label word from delta_base to u_L of
                                     
             else:#delete this after testing
                 if verbose[7]>1:
@@ -589,7 +591,7 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                                     
                                 test_for_path=graph_pass(delta5k,word,l_1).acc_read_rem()
                                 if test_for_path[2]!=[] or  test_for_path[3]!=l_2:#if this path already exists -- do nothing
-                                    delta5k.addPath(l_1,l_2,word)# add  a path with label word from l_1 to l_2 of delta5k 
+                                    delta5k.addPath(l_1,l_2,word,"-")# add  a path with label word from l_1 to l_2 of delta5k 
                                     if verbose[8]>=1:
                                         output_log_file(logfile,"Mod 5:new path "+str(word)+" added from "+str(l_1)+" to "+str(l_2)+"\n")
                                 #else:

@@ -25,7 +25,7 @@ from alg3 import *
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9
-verbose =[0,0,0,0,0,0,0,0,2,0]
+verbose =[0,0,0,0,0,0,0,1,2,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
 logfile='tmp.txt'
@@ -279,7 +279,13 @@ output_graph_file(delta_2[1],testfile+"D2_2.gv","D2_2",verbose,logfile)
 
 print("now D3")
 (delta_3,Prod)=Mod3(delta_2,H,verbose,logfile)
-
+print("delta_3 Olabel ", delta_3[0].Olabel, " and ",   delta_3[1].Olabel)
+for v in delta_3[1].vertices:
+    if hasattr(v,'parent'):
+        print("parent of ", v," is ", v.parent)
+    else:
+        print("vertex ", v ," has no parent attr")
+    print("v.outedges_write ",  v.outedges_write)
 # Open D3_1.gv in write mode
 output_graph_file(delta_3[0],testfile+"D3_1.gv","D3_1",verbose,logfile)
 
@@ -295,6 +301,9 @@ output_graph_file(Prod[1],testfile+"P_2_2.gv","P22",verbose,logfile)
 
 print("now D4")
 (delta_4,Prod)=Mod4(delta_3,H,verbose,logfile)
+#("delta_4 Olabel ", delta_4[0].Olabel, " and ",   delta_4[1].Olabel)
+#for v in delta_4[1].vertices:
+#    print("parent of ", v," is ", v.parent)
 
 # Open D4_1.gv in write mode
 output_graph_file(delta_4[0],testfile+"D4_1.gv","D4_1",verbose,logfile)
