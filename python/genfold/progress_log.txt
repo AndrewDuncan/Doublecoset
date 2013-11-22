@@ -38,9 +38,12 @@ Mod 4 running ok on example in paper.
 Added log file to take output from test run
 
 19/11/13
-Mod 5 added. Not tested. 
+Mod 5 added. Not tested. Delta_Z does not look right.
 
-Delta_Z does not look right.
+21/11/13
+Mod 5 working ok. Delta_Z fixed and working ok.
+
+
 ==================================================================================
 Notes
 The proof that the algorithm works starts with the claim that a word w, which is
