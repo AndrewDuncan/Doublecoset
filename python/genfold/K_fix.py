@@ -25,7 +25,7 @@ from alg3 import *
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9
-verbose =[0,0,0,1,0,0,0,0,0,0]
+verbose =[0,0,0,0,0,0,0,0,0,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
 logfile='tmp.txt'
@@ -332,6 +332,8 @@ output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
 
 # Open P_4_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)
+
+Reassemble(delta_5,D0[2],H,verbose,logfile)
 
 ### at the end close the log file
 log.close()
