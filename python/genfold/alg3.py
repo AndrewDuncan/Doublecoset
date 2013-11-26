@@ -131,7 +131,7 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                 delta_k0k.removeVertex(v)
         for v in delta_k0k.vertices: #give vertices of k0k their new names
             v.nu_im={v.label} #part d
-            v.name='({0},{1})'.format(v.label,k) #part c
+            v.name='({0},{1})'.format(v.label,k) #make name different from label, for printing?
             v.label='({0},{1})'.format(v.label,k) #part c
 
         #Next remove components of delta_k1k which have only edges of type Z
@@ -209,7 +209,7 @@ def Mod1(delta_k0,Z,H,verbose,logfile):#input delta_k0(X1 and X2 components), Z 
         for v in delta_k1k.vertices:# for each v in k1k
             if not hasattr(v,'original'):
                 v.original=1 # original equals 1, for those vertices added in modification 1
-                v.nu_im={v.label}
+                v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k) 
                 v.label='({0},{1})'.format(v.label,k)
         go = True
@@ -280,7 +280,7 @@ def Mod2(delta1,H,verbose,logfile): #each of delta1 and flower is a pair (delta1
         for v in delta2k.vertices:# for each v in k1k
              if not hasattr(v,'original'): #these are the vertices added in Modification 2
                 v.original=2 # 
-                v.nu_im={v.label}
+                v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
          
@@ -363,7 +363,7 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
         for v in delta3k.vertices:# for each v in k1k
             if not hasattr(v,'original'): #these are the vertices added in Modification 3
                 v.original=3 # 
-                v.nu_im={v.label}
+                v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
 
@@ -474,7 +474,7 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
         for v in delta4k.vertices:# for each v in k1k
             if not hasattr(v,'original'): #these are the vertices added in Modification 4
                 v.original=4 # 
-                v.nu_im={v.label}
+                v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
  
@@ -615,7 +615,7 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
         for v in delta5k.vertices:# for each v in k1k
             if not hasattr(v,'original'): #these are the vertices added in Modification 5
                 v.original=5 # 
-                v.nu_im={v.label}
+                v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
  
@@ -632,56 +632,67 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
 ########################################
 def Reassemble(delta_5,delta_z,H,verbose,logfile):
     
-    delta_n=delta_5
-    delta_n.append(delta_z)
+    delta_n=delta_5# delta_5 is a list of 2 graphs: delta_5[0] and delta_5[1], the X1 and X2 components of delta
+    delta_n.append(delta_z)# extend the list of graphs to include the Z component delta_z
+    #test only...
+    for k in (0,1):
+        for v in delta_n[k].vertices:
+            print("testing: k is ", k," v is ", v," and v.nu_im is ", v.nu_im," and original is ", v.original)
     again=True
-    vertex_delete_list=[]
+    vertex_delete_list=[]# a list of vertices that have become redundant and will be deleted at the end of reassembly
     while again:
         again=False
         for k in (0,1,2):
             for v in delta_n[k].vertices:
-                ind=delta_n[k].vertices.index(v)
+                ind=delta_n[k].vertices.index(v)#extract the index of v
                 for j in (0,1,2):
                     for u in delta_n[j].vertices:
                         if ((j==k and delta_n[j].vertices.index(u)>ind) or j>k) and not (j,u) in vertex_delete_list:
-                            if k<=1 and j<=1:
-                                 if len(v.nu_im.intersection(u.nu_im))>0:#u should be replaced with v
-                                     again=True
-                                     vertex_delete_list.append((k,u))
-                                     print("k is ", k, " v is ", v, " j is ", j, " u is ", u, "nu-im int is ", v.nu_im.intersection(u.nu_im))
-                                     v.nu_im=v.nu_im.union(u.nu_im)
-                                     print("union ",  v.nu_im)
-                                     u.nu_im=set()
-                                     for e in u.outedgesList:#replace all outedges u -> x with v -> x
-                                         target_list=e[1].label.split("-",1)
-                                         target=target_list[0]
-                                         if target in v.nu_im:
-                                             print("e is ", e, " and both ends replaced by v ")
-                                             delta_n[k].addEdge(v,v,e[0])
-                                         else:
-                                             delta_n[k].addEdge(v,e[1],e[0])
-                                             print("e is ", e, " and origin  replaced by v ")
+                            print("passed test  and k,j,v,u ", k, " ", j," ",v," ", u)
+                            if k<=1 and j<=1:#this part applies if both v and u belong to the X1 or X2 components
+                                if len(v.nu_im.intersection(u.nu_im))>0:#u should be replaced with v, and u deleted, in this case
+                                    again=True#something has been done, so the main loop should be repeated
+                                    vertex_delete_list.append((j,u))# need to record j as well as u, so the vertex u can be easily found
+                                    print("something to do: k is ", k, " v is ", v, " j is ", j, " u is ", u, "nu-im int is ", v.nu_im.intersection(u.nu_im))
+                                    v.nu_im=v.nu_im.union(u.nu_im)
+                                    print("union ",  v.nu_im)
+                                    u.nu_im=set()#make this empty so that u will not be considered again (is this necessary with u on vertex_delete_list?)
+                                    for e in u.outedgesList:#replace all outedges u -> x with v -> x
+                                        #here should also find the corresponding inedge u -> x of x, and replace it with v -> x
+                                        target_list=e[1].label.split("-",1)
+                                        target=target_list[0]
+                                        if target in v.nu_im:
+                                            print("u is ", u, " outedge is ", e, " and both ends replaced by ", v)
+                                            delta_n[k].addEdge(v,v,e[0])
+                                        else:
+                                            delta_n[k].addEdge(v,e[1],e[0])
+                                            print("u is ", u," outedge is ", e, " and origin  replaced by ", v)
 
-                                     for e in u.inedgesList:#replace all inedges x -> u with x -> v
-                                         origin_list=e[1].label.split("-",1)
-                                         origin=origin_list[0]
-                                         if origin in v.nu_im:
-                                             print("e is ", e, " and both ends replaced by v ")
-                                             delta_n[k].addEdge(v,v,e[0])
-                                         else:
-                                             delta_n[k].addEdge(e[1],v,e[0])
-                                             print("e is ", e, " and target replaced by v ")    
+                                    for e in u.inedgesList:#replace all inedges x -> u with x -> v
+                                        #here should also find the corresponding outedge x -> u of x, and replace it with x -> v
+                                        origin_list=e[1].label.split("-",1)
+                                        origin=origin_list[0]
+                                        if origin in v.nu_im:
+                                            print("u  is ",u," inedge is ", e, " and both ends replaced by ", v)
+                                            delta_n[k].addEdge(v,v,e[0])
+                                        else:
+                                            delta_n[k].addEdge(e[1],v,e[0])
+                                            print("u is ",u,"inedge is ", e, " and target replaced by ", v)    
                                      
-                                     #if u occurs in an edge replace it with v
-                                     for i in (0,1,2):
-                                         for w in delta_n[i].vertices and not (i,w) in vertex_delete_list:
-                                             for e in w.outedgesList:#if there is an edge w -> v
-                                                 if e[1]==v:
-                                                     delta_n[i].addEdge(w,u,e[0])
-                                                     delta_n[i].removeOutEdge(e)#replace it with w -> u
-
-                                             for e in w.inedgesList:#if there is an edge v -> w
-                                                 if e[1]==v:
-                                                     delta_n[i].addEdge(u,w,e[0])
-                                                     delta_n[i].removeInEdge(e)#replace it with u -> w                                    
+                                    #if u occurs in an edge replace it with v ... if the above have been done should only need to do this for delta_z
+                                    for i in (0,1,2):
+                                        for w in delta_n[i].vertices:
+                                            if not (i,w) in vertex_delete_list:
+                                                for e in w.outedgesList:#if there is an edge w -> u
+                                                    if e[1]==u:
+                                                        w.removeOutEdge(e[0],e[1])#remove it and 
+                                                        delta_n[i].addEdge(w,v,e[0])#replace it with w -> v
+                                                         
+                                                for e in w.inedgesList:#if there is an edge v -> w
+                                                    if e[1]==v:
+                                                        delta_n[i].addEdge(u,w,e[0])
+                                                        w.removeInEdge(e[0],e[1])#replace it with u -> w
+                            else:
+                                print("k,j,v,u ", k, " ", j," ",v," ", u)
+                            #now need to cover the case where k or j>1
     print("dels ", vertex_delete_list)

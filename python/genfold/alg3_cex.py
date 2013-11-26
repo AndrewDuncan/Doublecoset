@@ -304,5 +304,8 @@ output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
 # Open P_4_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)
 
+##############################################
+Reassemble(delta_5,D0[2],H,verbose,logfile)
+
 ### at the end close the log file
 log.close()
