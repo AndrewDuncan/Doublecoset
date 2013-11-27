@@ -7,7 +7,7 @@ from alg3 import *
 ## sequence of answers: n, y, 1, 1, 3
 ###################
 
-#verbose is a list (currently of length 10) of 0's and 1's. List entries correspond to 
+#verbose is a list (currently of length 11) of 0's and 1's. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
 #produce "helpful" output. When it is set to 0 nothin unecessary is output.
 #Entries correspond to files or functions as follows
@@ -20,11 +20,12 @@ from alg3 import *
 #6 Mod3 (alg3.py)
 #7 Mod4 (alg3.py)
 #8 Mod5 (alg3.py)
+#9 Reassemble (alg3.py)
 #
 #  
 #last entry --- this file
-##########0,1,2,3,4,5,6,7,8,9
-verbose =[0,0,0,0,0,0,0,0,0,0]
+##########0,1,2,3,4,5,6,7,8,9,0
+verbose =[0,0,0,0,0,0,0,0,0,0,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
 logfile='tmp.txt'
@@ -141,38 +142,46 @@ if words_in_F!=0: #if some of words2 are not in F2: halt with an error message
 
 Kl=[]
 for w in words1:
-    #print('\n',w,' becomes \n')
+    if verbose[-1]>1:
+        print('\n',w,' becomes \n')
     w=listsplitter(w,F1.mongens,F2.mongens)
-    #print(w, "\n after listsplitter and then \n")
+    if verbose[-1]>1:
+        print(w, "\n after listsplitter and then \n")
     w=amalgam_normal_form(w,F1,F2,H1,H2)
-    #print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
-    print("after amalgam_normal_form w is ", w[1],'\n')
+    if verbose[-1]>1:
+        print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
     Kl.append(w[1])
 
-#for w in Kl:
-#    print("w is ", w)
+if verbose[-1]>1:
+    for w in Kl:
+        print("w is ", w)
 
 Kr=[]
 for w in words2:
-    #print('\n',w,' becomes \n')
+    if verbose[-1]>1:
+        print('\n',w,' becomes \n')
     w=listsplitter(w,F1.mongens,F2.mongens)
-    #print(w, "\n after listsplitter and then \n")
+    if verbose[-1]>1:
+        print(w, "\n after listsplitter and then \n")
     w=amalgam_normal_form(w,F1,F2,H1,H2)
-    #print("after amalgam_normal_form w and wz are ", w[0], "\n and ", w[1],'\n')
-    print("after amalgam_normal_form w is ", w[1],'\n')
+    if verbose[-1]>1:
+        print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
     Kr.append(w[1])
 
-#for w in Kr:
-#    print("w is ", w)
+if verbose[-1]>1:
+    for w in Kr:
+        print("w is ", w)
 
-
+#Now form some generators for K
 k1=kg1+kf1
-#print('\n\n\n',k1,' becomes')
+if verbose[-1]>1:
+    print('\n\n\n',k1,' becomes')
 k1=listsplitter(k1,F1.mongens,F2.mongens)
-#print(k1, "after listsplitter and then")
+if verbose[-1]>1:
+    print(k1, "after listsplitter and then")
 k1=amalgam_normal_form(k1,F1,F2,H1,H2)
-#print(" and after amalgam_normal_form k1 and k1v are", k1[0], "and ", k1[1],'\n')
-#print(" and after amalgam_normal_form k1 is ",  k1[1],'\n')
+if verbose[-1]>1:
+    print(" and after amalgam_normal_form k1 and k1v are", k1[0], "and ", k1[1],'\n')
 
 k1=k1[1]
 k2=Kl[1]
@@ -305,7 +314,10 @@ output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
 output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)
 
 ##############################################
-Reassemble(delta_5,D0[2],H,verbose,logfile)
+delta_n=Reassemble(delta_5,D0[2],H,verbose,logfile)
+
+# Open Dn.gv in write mode
+output_graph_file(delta_n,testfile+"Dn.gv","Delta_n",verbose,logfile)
 
 ### at the end close the log file
 log.close()

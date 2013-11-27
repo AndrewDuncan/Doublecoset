@@ -7,7 +7,7 @@ from alg3 import *
 ## sequence of answers: n, y, 1, 1, 3
 ###################
 
-#verbose is a list (currently of length 10) of integers. List entries correspond to 
+#verbose is a list (currently of length 11) of integers. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
 #produce "helpful" output. When it is set to 0 nothing unecessary is output. When it's more than 1
 #alot of lines, designed to keep track of the program flow, are output to the log file
@@ -21,11 +21,11 @@ from alg3 import *
 #6 Mod3 (alg3.py)
 #7 Mod4 (alg3.py)
 #8 Mod5 (alg3.py)
-#
+#9 Reassemble (alg3.py)
 #  
 #last entry --- this file
-##########0,1,2,3,4,5,6,7,8,9
-verbose =[0,0,0,0,0,0,0,0,0,0]
+##########0,1,2,3,4,5,6,7,8,9,0
+verbose =[0,0,0,0,0,0,0,0,0,0,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
 logfile='tmp.txt'
@@ -333,7 +333,11 @@ output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
 # Open P_4_2.gv in write mode
 output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)
 
+###############################################
 Reassemble(delta_5,D0[2],H,verbose,logfile)
+
+# Open Dn.gv in write mode
+output_graph_file(delta_n,testfile+"Dn.gv","Delta_n",verbose,logfile)
 
 ### at the end close the log file
 log.close()
