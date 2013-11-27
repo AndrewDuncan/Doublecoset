@@ -752,12 +752,10 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
     while go: #fold delta5k, updating of v.nu_im in the process
         go = delta_n.fold()
 
-    i=1
-    for v in delta_n.vertices:# reformat vertices of delta_n
-        #split_label=v.label.split(",")
-        #print("split_label ", split_label)
-        v.original=None # 
-        v.nu_im=set()# the new vertices are not images of vertices of delta
+    i=1 # reformat vertices of delta_n
+    for v in delta_n.vertices:
+        v.original=None 
+        v.nu_im=set()
         v.name=i 
         v.label=v.name
         i+=1
