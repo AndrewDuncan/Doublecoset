@@ -633,14 +633,29 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
 def Reassemble(delta_5,delta_z,H,verbose,logfile):
 
     delta_n=Graph(False,'Delta_n')#make a new graph; the union of delta_5[0], delta_5[1] and delta_z
+    root_set=0
+    root_found=0
     for k in (0,1): # add vertices of delta[k] to delta_n, k=0,1
+        if root_set==0:
+            if hasattr(delta_5[k],'root'):
+                root_found=1
+                n_root=delta_5[k].root
+            
         for v in delta_5[k].vertices:
             u=delta_n.addVertex(v.name)
             u.label=v.label
             u.original=v.original
             u.nu_im=v.nu_im
+            if root_set==0 and root_found==1 and v==n_root:
+                delta_n.root=u
+                root_set=1
             if verbose[9]>1:
-                print("v is ",v," u is ", u) 
+                print("k is", k, " v is ",v," u is ", u, " label, name, nu_im ", u.label, " ", u.name, " ", u.nu_im)
+
+    if root_set==0:
+        if hasattr(delta_z,'root'):
+                root_found=1
+                n_root=delta_z.root
     for v in delta_z.vertices:# add vertices of delta_z to delta_n
         name='({0},{1})'.format(v.label,3) 
         label='({0},{1})'.format(v.label,3)
@@ -648,8 +663,11 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
         u.label=label
         u.original=0
         u.nu_im={v.label}
+        if root_set==0 and root_found==1 and v==n_root:
+            delta_n.root=u
+            root_set=1
         if verbose[9]>1:
-            print("v is ",v," u is ", u, " label, name ", u.label, " ", u.name) 
+            print("delta_z v is ",v," u is ", u, " label, name, nu_im  ", u.label, " ", u.name, " ", u.nu_im) 
 
     for k in (0,1): # add edges of delta_5[k] to delta_n
         for v in delta_5[k].vertices:
@@ -693,21 +711,25 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
                     break
             delta_n.addEdge(w_new,v_new,label)
 
+    count=0
     again=True
-    vertex_delete_list=[]# a list of vertices that have become redundant and will be deleted at the end of reassembly
+    vertex_merge_list={}# a dictionary  of vertices that have become redundant and will be merged at the end of reassembly
     while again:
+        count+=1
         again=False
-        for v in delta_n.vertices: 
+        for v in [w for w in delta_n.vertices if len(w.nu_im)>0]:
             if verbose[9]>1:
                 print("Reassemble: v is ", v," nu_im is ", v.nu_im)
-            for u in delta_n.vertices[delta_n.vertices.index(v)+1:]:
+            for u in [w for w in delta_n.vertices[delta_n.vertices.index(v)+1:] if len(w.nu_im)>0]:
                 if verbose[9]>1:
                     print("Reassemble: u is ", u)
-                if not u in vertex_delete_list:
                 #print("passed test  and k,j,v,u ", k, " ", j," ",v," ", u)
-                    if len(v.nu_im.intersection(u.nu_im))>0:#u should be replaced with v, and u deleted, in this case
+                if len(v.nu_im.intersection(u.nu_im))>0:#u is added to the list of vertices to be merged with v
                         again=True#something has been done, so the main loop should be repeated
-                        vertex_delete_list.append(u)# 
+                        if v in vertex_merge_list:
+                            vertex_merge_list[v].append(u)#
+                        else:
+                            vertex_merge_list[v]=[u]
                         if verbose[9]>1:
                             print("Reassemble: something to do:  v is ", v, " u is ", u, "nu-im int is ", v.nu_im.intersection(u.nu_im))
                         v.nu_im=v.nu_im.union(u.nu_im)
@@ -716,7 +738,31 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
 
 
 
-    #end of main loop        
-    ###########    
-    print("dels ", vertex_delete_list)
+                
+    #end of find merges loop        
+    ###########
+
+    for v in vertex_merge_list:
+        print("merging: v is ",v)
+        for u in vertex_merge_list[v]:
+            print(" and u is ",u)
+            delta_n.mergeVertices(v,u)
+
+    go = True
+    while go: #fold delta5k, updating of v.nu_im in the process
+        go = delta_n.fold()
+
+    i=1
+    for v in delta_n.vertices:# reformat vertices of delta_n
+        #split_label=v.label.split(",")
+        #print("split_label ", split_label)
+        v.original=None # 
+        v.nu_im=set()# the new vertices are not images of vertices of delta
+        v.name=i 
+        v.label=v.name
+        i+=1
+
+    print("dels ", vertex_merge_list)
+    print("count ", count)
+    print("delta_n root", delta_n.root)
     return(delta_n)
