@@ -1,4 +1,4 @@
-from alg3 import *
+from main_loop import *
 
 ###################
 ## To get the spanning trees for H1 and H2 as in the paper (as near as possible)
@@ -238,106 +238,12 @@ flower1=H1.flower
 flower2=H2.flower
 flower=(flower1,flower2)
 #
-print("now D0")
-D0=MakeComps(K.flower,F,FZ,verbose,logfile) # returnsdelta_k0[0],delta_k0[1],delta_z
+#main loop
+Delta=K.flower
+delta_n,loop_count=Main_Loop(Delta,F,FZ,H,verbose,logfile,testfile,5)
 
-# Open D0_1.gv in write mode
-output_graph_file(D0[0],testfile+"D0_1.gv","D0_1",verbose,logfile)
-
-# Open D0_2.gv in write mode
-output_graph_file(D0[1],testfile+"D0_2.gv","D0_2",verbose,logfile)
-
-# Open D0_Z.gv in write mode
-output_graph_file(D0[2],testfile+"D0_Z.gv","D0_Z",verbose,logfile)
-
-delta_0=[D0[0],D0[1]] # take the first two components of D0, that is the X1 and X2 components
-#
-print("now D1")
-delta_1=Mod1(delta_0,FZ,H,verbose,logfile)
-
-# Open D1_1.gv in write mode
-output_graph_file(delta_1[0],testfile+"D1_1.gv","D1_1",verbose,logfile)
-
-# Open D1_2.gv in write mode
-output_graph_file(delta_1[1],testfile+"D1_2.gv","D1_2",verbose,logfile)
-
-print("now D2")
-(delta_2,Prod)=Mod2(delta_1,H,verbose,logfile)
-
-# Open P_1_1.gv in write mode
-output_graph_file(Prod[0],testfile+"P_1_1.gv","P11",verbose,logfile)
-
-# Open P_1_2.gv in write mode
-output_graph_file(Prod[1],testfile+"P_1_2.gv","P12",verbose,logfile)
-
-# Open D2_1.gv in write mode
-output_graph_file(delta_2[0],testfile+"D2_1.gv","D2_1",verbose,logfile)
-
-# Open D2_2.gv in write mode
-output_graph_file(delta_2[1],testfile+"D2_2.gv","D2_2",verbose,logfile)
-
-
-print("now D3")
-(delta_3,Prod)=Mod3(delta_2,H,verbose,logfile)
-print("delta_3 Olabel ", delta_3[0].Olabel, " and ",   delta_3[1].Olabel)
-for v in delta_3[1].vertices:
-    if hasattr(v,'parent'):
-        print("parent of ", v," is ", v.parent)
-    else:
-        print("vertex ", v ," has no parent attr")
-    print("v.outedges_write ",  v.outedges_write)
-# Open D3_1.gv in write mode
-output_graph_file(delta_3[0],testfile+"D3_1.gv","D3_1",verbose,logfile)
-
-# Open D3_2.gv in write mode
-output_graph_file(delta_3[1],testfile+"D3_2.gv","D3_2",verbose,logfile)
-
-# Open P_2_1.gv in write mode
-output_graph_file(Prod[0],testfile+"P_2_1.gv","P21",verbose,logfile)
-
-# Open P_2_2.gv in write mode
-output_graph_file(Prod[1],testfile+"P_2_2.gv","P22",verbose,logfile)
-
-
-print("now D4")
-(delta_4,Prod)=Mod4(delta_3,H,verbose,logfile)
-#("delta_4 Olabel ", delta_4[0].Olabel, " and ",   delta_4[1].Olabel)
-#for v in delta_4[1].vertices:
-#    print("parent of ", v," is ", v.parent)
-
-# Open D4_1.gv in write mode
-output_graph_file(delta_4[0],testfile+"D4_1.gv","D4_1",verbose,logfile)
-
-# Open D4_2.gv in write mode
-output_graph_file(delta_4[1],testfile+"D4_2.gv","D4_2",verbose,logfile)
-
-# Open P_3_1.gv in write mode
-output_graph_file(Prod[0],testfile+"P_3_1.gv","P31",verbose,logfile)
-
-# Open P_3_2.gv in write mode
-output_graph_file(Prod[1],testfile+"P_3_2.gv","P32",verbose,logfile)
-
-
-print("now D5")
-(delta_5,Prod)=Mod5(delta_4,H,verbose,logfile)
-
-# Open D5_1.gv in write mode
-output_graph_file(delta_5[0],testfile+"D5_1.gv","D5_1",verbose,logfile)
-
-# Open D5_2.gv in write mode
-output_graph_file(delta_5[1],testfile+"D5_2.gv","D5_2",verbose,logfile)
-
-# Open P_4_1.gv in write mode
-output_graph_file(Prod[0],testfile+"P_4_1.gv","P41",verbose,logfile)
-
-# Open P_4_2.gv in write mode
-output_graph_file(Prod[1],testfile+"P_4_2.gv","P42",verbose,logfile)
-
-###############################################
-Reassemble(delta_5,D0[2],H,verbose,logfile)
-
-# Open Dn.gv in write mode
-output_graph_file(delta_n,testfile+"Dn.gv","Delta_n",verbose,logfile)
 
 ### at the end close the log file
 log.close()
+
+print("loop count ",loop_count)

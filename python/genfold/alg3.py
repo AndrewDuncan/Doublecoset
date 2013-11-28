@@ -711,30 +711,30 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
                     break
             delta_n.addEdge(w_new,v_new,label)
 
-    count=0
-    again=True
+    #count=0
+    #again=True
     vertex_merge_list={}# a dictionary  of vertices that have become redundant and will be merged at the end of reassembly
-    while again:
-        count+=1
-        again=False
-        for v in [w for w in delta_n.vertices if len(w.nu_im)>0]:
+    #while again:
+    #count+=1
+    #again=False
+    for v in [w for w in delta_n.vertices if len(w.nu_im)>0]:
+        if verbose[9]>1:
+            print("Reassemble: v is ", v," nu_im is ", v.nu_im)
+        for u in [w for w in delta_n.vertices[delta_n.vertices.index(v)+1:] if len(w.nu_im)>0]:
             if verbose[9]>1:
-                print("Reassemble: v is ", v," nu_im is ", v.nu_im)
-            for u in [w for w in delta_n.vertices[delta_n.vertices.index(v)+1:] if len(w.nu_im)>0]:
-                if verbose[9]>1:
-                    print("Reassemble: u is ", u)
+                print("Reassemble: u is ", u)
                 #print("passed test  and k,j,v,u ", k, " ", j," ",v," ", u)
-                if len(v.nu_im.intersection(u.nu_im))>0:#u is added to the list of vertices to be merged with v
-                        again=True#something has been done, so the main loop should be repeated
-                        if v in vertex_merge_list:
-                            vertex_merge_list[v].append(u)#
-                        else:
-                            vertex_merge_list[v]=[u]
-                        if verbose[9]>1:
-                            print("Reassemble: something to do:  v is ", v, " u is ", u, "nu-im int is ", v.nu_im.intersection(u.nu_im))
+            if len(v.nu_im.intersection(u.nu_im))>0:#u is added to the list of vertices to be merged with v
+                #again=True#something has been done, so the main loop should be repeated
+                if v in vertex_merge_list:
+                    vertex_merge_list[v].append(u)#
+                else:
+                    vertex_merge_list[v]=[u]
+                    if verbose[9]>1:
+                        print("Reassemble: something to do:  v is ", v, " u is ", u, "nu-im int is ", v.nu_im.intersection(u.nu_im))
                         v.nu_im=v.nu_im.union(u.nu_im)
                         #print("union ",  v.nu_im)
-                        u.nu_im=set()#make this empty so that u will not be considered again (is this necessary with u on vertex_delete_list?)
+                u.nu_im=set()#make this empty so that u will not be considered again (is this necessary with u on vertex_delete_list?)
 
 
 
@@ -743,9 +743,9 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
     ###########
 
     for v in vertex_merge_list:
-        print("merging: v is ",v)
+        #print("merging: v is ",v)
         for u in vertex_merge_list[v]:
-            print(" and u is ",u)
+            #print(" and u is ",u)
             delta_n.mergeVertices(v,u)
 
     go = True
@@ -760,7 +760,7 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
         v.label=v.name
         i+=1
 
-    print("dels ", vertex_merge_list)
-    print("count ", count)
-    print("delta_n root", delta_n.root)
+    #print("dels ", vertex_merge_list)
+    #print("count ", count)
+    #print("delta_n root", delta_n.root)
     return(delta_n)
