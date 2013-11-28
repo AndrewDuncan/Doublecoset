@@ -1,7 +1,100 @@
 from alg3 import *
 
-def Main_Loop(Delta,F,FZ,H,verbose,logfile,testfile,max_iterations):
+def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations):
+    # construct the group FZ
+    FZ=free_group(int(Hrank),"z")        
+    #
+    
+    
+    # find the folding corresponding to the generators entered
+    #
+    H1=construct_required_folding(Hname1,Hgens1,testfile,F1,Hrank,verbose,FZ,change_tree,logfile)
+    
+    # write the final folding as a graph
+    filename=testfile+"stallings1.gv"
+    output_graph_file(H1.flower,filename,"stallings1",verbose,logfile)
+    # write the double of the folding as a graph
+    filename=testfile+"double1.gv"
+    output_graph_file(H1.double,filename,"double1",verbose,logfile)
+    #    for e in v.out
+    
+    
+    # find the folding corresponding to the generators entered
+    #
+    H2=construct_required_folding(Hname2,Hgens2,testfile,F2,Hrank,verbose,FZ,change_tree,logfile)
+    
+    # write the final folding as a graph
+    filename=testfile+"stallings2.gv"
+    output_graph_file(H2.flower,filename,"stallings2",verbose,logfile)
+    # write the double of the folding as a graph
+    filename=testfile+"double2.gv"
+    output_graph_file(H2.double,filename,"double2",verbose,logfile)
 
+
+    # ###############################################################
+    # test that elements of words1 are in F1
+    words_in_F=generators_in_free_group(F1,words1)# this will be 0 if all elements of words1 are in F1, and 1 otherwise
+    if words_in_F!=0: #if some of words1 are not in F1: halt with an error message
+        error_message="the first list of words entered must only contain elements of F1"
+        sys.exit(error_message)
+        # #########
+        
+    # test that elements of words2 are in F2
+    words_in_F=generators_in_free_group(F2,words2)# this will be 0 if all elements of words2 are in F2, and 1 otherwise
+    if words_in_F!=0: #if some of words2 are not in F2: halt with an error message
+        error_message="the second list of words entered must only contain elements of F2"
+        sys.exit(error_message)
+            
+    g=[]
+    for w in Kgens:
+        if verbose[-1]>1:
+            print('\n\n\n',w,' becomes')
+        w=listsplitter(w,F1.mongens,F2.mongens)
+        if verbose[-1]>1:
+            print(w, "after listsplitter and then")
+        w=amalgam_normal_form(w,F1,F2,H1,H2)
+        if verbose[-1]>1:
+            print(" and after amalgam_normal_form w and wv are", w[0], "and ", w[1],'\n') 
+        w=w[1]
+        g.append(w)
+
+    Kgens=g
+
+    # extract the normal form version of these
+    v=[]
+    g=[]
+    for q in Kgens:
+        for r in q:
+            for s in r:
+                for t in s:
+                    v.append(t)
+        g.append(v)
+        v=[]
+
+    Kgens=g
+
+    # form the subgroup K
+    K=subgroup(Kname,Kgens)
+    # make the Stallings folding of the gens of K
+    K.stallings()
+    # and a spanning tree
+    bfs(K.flower,).forest()
+    # output the folding to a file
+    output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose,logfile)
+
+    #return(F1,F2,H1,H2,K,FZ)
+    # ########################
+
+
+    F=(F1,F2)
+    H=(H1,H2)
+    flower1=H1.flower
+    flower2=H2.flower
+    flower=(flower1,flower2)
+    #
+    # main loop
+    Delta=K.flower
+    # def Main_Loop(Delta,F,FZ,H,verbose,logfile,testfile,max_iterations):
     loop_count=1
     changed=True
     while changed:

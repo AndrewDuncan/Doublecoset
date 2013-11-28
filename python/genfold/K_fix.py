@@ -49,9 +49,6 @@ F2=free_group(4,"y")#do not make both these letters the same
 #Enter the rank of the subgroup
 Hrank=3
 
-#construct the group FZ
-FZ=free_group(int(Hrank),"z")        
-#
 ####################
 #### enter H1
 ################
@@ -74,17 +71,6 @@ h7=['x1','x2','x3']
 #make the generators into a list
 Hgens1=[h5,h6,h7]#,h5]
 
-#find the folding corresponding to the generators entered
-#
-H1=construct_required_folding(Hname1,Hgens1,testfile,F1,Hrank,verbose,FZ,change_tree,logfile)
-
-#write the final folding as a graph
-filename=testfile+"stallings1.gv"
-output_graph_file(H1.flower,filename,"stallings1",verbose,logfile)
-#write the double of the folding as a graph
-filename=testfile+"double1.gv"
-output_graph_file(H1.double,filename,"double1",verbose,logfile)
-#    for e in v.out
 ################
 ### enter H2
 ##############
@@ -99,19 +85,11 @@ g3=['y1','y1','y3','Y1','y2']
 #make the generators into a list
 Hgens2=[g1,g2,g3]
 
-#find the folding corresponding to the generators entered
-#
-H2=construct_required_folding(Hname2,Hgens2,testfile,F2,Hrank,verbose,FZ,change_tree,logfile)
-
-#write the final folding as a graph
-filename=testfile+"stallings2.gv"
-output_graph_file(H2.flower,filename,"stallings2",verbose,logfile)
-#write the double of the folding as a graph
-filename=testfile+"double2.gv"
-output_graph_file(H2.double,filename,"double2",verbose,logfile)
 #########################################################
 #########  now enter K
 ######################
+#enter name of subgroup K
+Kname='K'
 
 # Enter a free generating set for K - in stages, first enter words in the factor groups, then concatenate.
 #First enter some words in F1
@@ -121,126 +99,32 @@ kf3=['x2','X3','x1']
 kf4=['x1','x1','x1','x1','x2','x3','X1','X2']
 kf5=['x1','x2','x3','x2','X3','X3','X2']
 
-#Make a list of these words and 
-#test that they are in F1
+#Make a list of these words
 words1=[kf1,kf2,kf3,kf4,kf5]
-words_in_F=generators_in_free_group(F1,words1)# this will be 0 if all elements of words1 are in F1, and 1 otherwise
-if words_in_F!=0: #if some of words1 are not in F1: halt with an error message
-    error_message="the first list of words entered must only contain elements of F1"
-    sys.exit(error_message)
-##########
+
+#####################
 #Next enter some words in F2
 kg1=['y1','y1','y3','Y1','y2','y3','y4','y1','y2','y3','y4','y2','y2']
 kg2=['y3','y4','Y2','y1','y3']
 
-#Make a list of these words and 
-#test that they are in F2
+#Make a list of these words 
 words2=[kg1,kg2]
-words_in_F=generators_in_free_group(F2,words2)# this will be 0 if all elements of words2 are in F2, and 1 otherwise
-if words_in_F!=0: #if some of words2 are not in F2: halt with an error message
-    error_message="the second list of words entered must only contain elements of F2"
-    sys.exit(error_message)
-
-
-Kl=[]
-kfs=[kf1,kf2,kf3,kf4,kf5]
-for w in kfs:
-    if verbose[-1]>1:
-        print('\n',w,' becomes \n')
-    w=listsplitter(w,F1.mongens,F2.mongens)
-    if verbose[-1]>1:
-        print(w, "\n after listsplitter and then \n")
-    w=amalgam_normal_form(w,F1,F2,H1,H2)
-    if verbose[-1]>1:
-        print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
-    Kl.append(w[1])
-
-if verbose[-1]>1:
-    for w in Kl:
-        print("w is ", w)
-
-Kr=[]
-kgs=[kg1,kg2]
-for w in kgs:
-    if verbose[-1]>1:
-        print('\n',w,' becomes \n')
-    w=listsplitter(w,F1.mongens,F2.mongens)
-    if verbose[-1]>1:
-        print(w, "\n after listsplitter and then \n")
-    w=amalgam_normal_form(w,F1,F2,H1,H2)
-    if verbose[-1]>1:
-        print("after amalgam_normal_form w and wv are", w[0], "\n and ", w[1],'\n')
-    Kr.append(w[1])
-
-if verbose[-1]>1:
-    for w in Kr:
-        print("w is ", w)
 
 #Now form some generators for K
 k1=kf1+kg1+kf2
-if verbose[-1]>1:
-    print('\n\n\n',k1,' becomes')
-k1=listsplitter(k1,F1.mongens,F2.mongens)
-if verbose[-1]>1:
-    print(k1, "after listsplitter and then")
-k1=amalgam_normal_form(k1,F1,F2,H1,H2)
-if verbose[-1]>1:
-    print(" and after amalgam_normal_form k1 and k1v are", k1[0], "and ", k1[1],'\n')
-
 k2=kf3+kg2+kf4
-if verbose[-1]>1:
-    print('\n\n\n',k2,' becomes')
-k2=listsplitter(k2,F1.mongens,F2.mongens)
-if verbose[-1]>1:
-    print(k2, "after listsplitter and then")
-k2=amalgam_normal_form(k2,F1,F2,H1,H2)
-if verbose[-1]>1:
-    print(" and after amalgam_normal_form k2 and k2v are", k2[0], "and ", k2[1],'\n')
-
-k1=k1[1]
-k2=k2[1]
-k3=Kl[4]
-if verbose[-1]>=1:
-    print("k1 = ",k1)
-    print("k2 = ",k2)
-    print("k3 = ",k3)
-
-#enter name of subgroup K
-Kname='K'
-#enter list of generators for K
+k3=kf5
+#Make a list of these words: i.e. a list of generators of K
 Kgens=[k1,k2,k3]
-#extract the normal form version of these
-v=[]
-g=[]
-for q in Kgens:
-    for r in q:
-        for s in r:
-            for t in s:
-                v.append(t)
-    g.append(v)
-    v=[]
 
-Kgens=g
+###############################
+#maximum number of iterations of the main loop
+max_iterations=9
 
-#form the subgroup K
-K=subgroup(Kname,Kgens)
-#make the Stallings folding of the gens of K
-K.stallings()
-#and a spanning tree
-bfs(K.flower,).forest()
-#output the folding to a file
-output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose,logfile)
-#########################
-
-F=(F1,F2)
-H=(H1,H2)
-flower1=H1.flower
-flower2=H2.flower
-flower=(flower1,flower2)
-#
-#main loop
-Delta=K.flower
-delta_n,loop_count=Main_Loop(Delta,F,FZ,H,verbose,logfile,testfile,5)
+######################
+########### No user entry beyond this point
+##################
+delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
 
 
 ### at the end close the log file
