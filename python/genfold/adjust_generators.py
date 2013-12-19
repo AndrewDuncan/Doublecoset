@@ -81,7 +81,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
             output_log_file(logfile,"H.subgroup_free_gens is "+str(H.subgroup_free_gens))
 
         
-        output_graph_file(H.flower,testfile+"firstfolding.gv","fold",verbose,logfile)#for testing only, remove later
+        #output_graph_file(H.flower,testfile+"firstfolding.gv","fold",verbose,logfile)#for testing only, remove later
 
             
         if (H_gens_in_F,num_H_gens,H_rank)==(0,0,0):#if the tests above were passed ...
@@ -118,7 +118,7 @@ def construct_required_folding(Hname,Hgens,testfile,F,Hrank,verbose,FZ,change_tr
        
         stall=label_with_Zs(H,Hgens,verbose,logfile) #relabel Stallings folding with given gens/ Z labels - to set up search for required gens
                     
-        output_graph_file(stall,testfile+"stall_labl.gv","stall",verbose,logfile)#for testing only, remove later
+        #output_graph_file(stall,testfile+"stall_labl.gv","stall",verbose,logfile)#for testing only, remove later
                 
         #check to see that all edges have been used in reading gens and that no (directed) output labels have been assigned twice to the same edge
         edges_rept=check_nielsen_reduced(stall,verbose,logfile)

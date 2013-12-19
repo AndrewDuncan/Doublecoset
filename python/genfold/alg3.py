@@ -357,7 +357,7 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
                                     test_for_path=graph_pass(delta3k,Zword,delta_base).acc_read_rem()
                                     if test_for_path[2]!=[] or  test_for_path[3]!=delta_base:#if this path already exists -- do nothing
                                         if verbose[6]>=1:
-                                            output_log_file(logfile,"Zword"+ str(Zword)+ "added at"+ str(delta_base)+" \n")
+                                            output_log_file(logfile,"Mod3: Zword"+ str(Zword)+ "added at"+ str(delta_base)+" \n")
                                         delta3k.addPath(delta_base,delta_base,Zword,"-")# add  a path of Z's from the root of component col to itself 
 
         for v in delta3k.vertices:# for each v in k1k
@@ -464,7 +464,7 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
                                     test_for_path=graph_pass(delta4k,word,delta_base).acc_read_rem()
                                     if test_for_path[2]!=[] or  test_for_path[3]!=u_L:#if this path already exists -- do nothing
                                         if verbose[7]>=1:
-                                            output_log_file(logfile,"path "+str(word)+" added from "+str(delta_base)+" to "+str(u_L)+"\n")
+                                            output_log_file(logfile,"Mod 4: path "+str(word)+" added from "+str(delta_base)+" to "+str(u_L)+"\n")
                                         delta4k.addPath(delta_base,u_L,word,"-")# add  a path with label word from delta_base to u_L of
                                     
             else:#delete this after testing

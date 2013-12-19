@@ -745,8 +745,8 @@ all automaton graphs, as they may not
 be label-simple.)  
 %safisty condition \eqref{eq:Aut} above.)
 
-A morphism of automata $\G_A$ and $\G_{A^\prime}$ is a map
-$\theta: \G_A\maps \G_{A^\prime}$ which maps vertices to vertices and
+A morphism of automata $\G_A$ and $\G_{H^\prime}$ is a map
+$\theta: \G_A\maps \G_{H^\prime}$ which maps vertices to vertices and
 edges to edges in such a way that
 \be \item if $s$ is a start state  of
 $\G_A$ then $\theta(s)$ is a start state of $\G^\prime$;
@@ -781,14 +781,14 @@ by $(\G_Y(H), v)$ then $\pi(L_Y)=H$.
 The flower automaton of $H$ depends on the chosen generating set, and is,
 in general,
 non-deterministic (at the root vertex $s$). Stallings \cite{stallings83}
-proved that the folded graph $\G(H)$, obtained by applying foldings to the
+proved that the folded graph $\G_H$, obtained by applying foldings to the
 flower automaton of $H$ until the result is folded, is an inverse
 automaton, independent of the generating set chosen.
-Moreover  $(\G(H),s)$ is the minimal (fewest states) automaton accepting
+Moreover  $(\G_H,s)$ is the minimal (fewest states) automaton accepting
 every reduced word representing an element of $H$. (See \cite{BartholdiSilva}
 for a proof in terms of automata.)
 \begin{definition}
-The automaton $(\G(H),s)$ is  called the {\em Stallings automaton} of $H$.
+The automaton $(\G_H,s)$ is  called the {\em Stallings automaton} of $H$.
 \end{definition}
 \subsection{Double coset representatives in free groups}\label{sub:2cosetrepr}
 Let $X$ be a finite alphabet, $F=\FF(X)$ and $H$ a finitely generated subgroup
@@ -806,9 +806,9 @@ is called a set of \emph{double coset representatives for} $H\le F$.
 
 %%%%
 
-Let $A=(\G(H),s_0)$ be the Stallings automaton for $H$, let its start state 
+Let $A=(\G_H,s_0)$ be the Stallings automaton for $H$, let its start state 
 $s_0=1$  and let  $T$ be
-a spanning tree for $\G(H)$.
+a spanning tree for $\G_H$.
 We shall define the non-trivial elements of  a set of double coset representatives for $H$ in two parts.
 We begin with the definition of the first  type of representative.
 \begin{definition}[Double coset representative, type 1] \label{def:repres_t1}
@@ -881,10 +881,10 @@ connected component of $\G\times \G$, which is isomorphic to $\G$,
 and that no other connected component contains a diagonal vertex.
 
 In this notation $P$ is the set of non-diagonal vertices of
-$\G_A\times \G_A$ and $(u,v)\sim (u',v')$ if and only if there is
-a path from $(u,v)$ to $(u',v')$ in $\G_A\times \G_A$.
- Thus, as $\G_A$ is folded, the equivalence class of $(u,v)\in P$
-is the set of vertices of the connected component of $\G_A\times \G_A$
+$\G_H\times \G_H$ and $(u,v)\sim (u',v')$ if and only if there is
+a path from $(u,v)$ to $(u',v')$ in $\G_H\times \G_H$.
+ Thus, as $\G_H$ is folded, the equivalence class of $(u,v)\in P$
+is the set of vertices of the connected component of $\G_H\times \G_H$
 containing $(u,v)$.
 
 We shall choose one double coset representative corresponding to
@@ -914,7 +914,7 @@ A word $w\in \FF(X)$ is
 if $w=w(u)w(v)^{-1}$, for some $(u,v)\in P_0$.
 Let $S^{(2)}=S^{(2)}(H)$ denote the set of all representatives of type $2$.
 
-For each $(u,v)$ in $P$ choose a path in $\G_A\times \G_A$
+For each $(u,v)$ in $P$ choose a path in $\G_H\times \G_H$
 from $(u,v)$ to the $\sim$ representative
 $(u_0,v_0)$ of $(u,v)$ and define the {\em connecting element}
 $c(u,v)$  of $(u,v)$ to be the label of this path.
@@ -931,10 +931,10 @@ If there is cancellation between $a$ and $b^{-1}$ then we can
 However, in this case $(\t(a'),\t(b'))\sim (u,v)$, as shown above
 Definition \ref{def:repres_t2}, and $|w(v)|>|b'|$, contrary to the
 definition of $P_0$. Hence no such cancellation occurs. Moreover, 
-if $s\in H$ then $b^{-1}$ is readable in $\G_A$, starting at $u$ 
+if $s\in H$ then $b^{-1}$ is readable in $\G_H$, starting at $u$ 
 and ending at $1$; so
-$b$ is readable in $\G_A$, starting at $1$ and ending at $u$. It
-follows, since $\G_A$ is folded, that $u=v$, which is a contradiction, 
+$b$ is readable in $\G_H$, starting at $1$ and ending at $u$. It
+follows, since $\G_H$ is folded, that $u=v$, which is a contradiction, 
 as $(u,v)\in P$.  
 \end{proof}
 
@@ -957,10 +957,10 @@ given generators, let  $T$ be a spanning tree for $A$, and
 let $L_Q$ and $L_T$ be the languages defined in Section \ref{sub:foldings} above. 
 \begin{comment}
 To find the equivalence class of a pair $(u,v)\in P$ the
-graph $\G_A\times \G_A$ is constructed. As we pointed out above, $(u',v')\sim
-(u,v)$ if and only if there is a path in $\G_A\times \G_A$ from $(u',v')$
+graph $\G_H\times \G_H$ is constructed. As we pointed out above, $(u',v')\sim
+(u,v)$ if and only if there is a path in $\G_H\times \G_H$ from $(u',v')$
 to $(u,v)$. Therefore the $\sim$ equivalence class of $(u,v)$ is the
-vertex set of the connected component of $\G_A\times \G_A$ containing
+vertex set of the connected component of $\G_H\times \G_H$ containing
 $(u,v)$.
 Having constructed the equivalence classes of $\sim$,
  a set of $\sim$ representatives may be constructed, by considering the
@@ -1018,7 +1018,7 @@ In this case let $u=\t(p)$ and $v=\t(t)$.
 Before proceeding we must show that $(u,v)\in P$; that is, $u\neq v$. 
 To see this note that, as $p$ is the maximal $L_Q$-prefix of 
 $p\circ t^{-1}\circ g^{-1}$, the first letter of $t^{-1}$ is not
-readable from $\t(p)$. On the other hand, as $t$ is readable in $\G_A$,
+readable from $\t(p)$. On the other hand, as $t$ is readable in $\G_H$,
 the last letter of $t^{-1}$ is readable from $\t(t)$. Hence $u=\t(p)\neq
 \t(t)=v$ and we have $(u,v)\in P$. 
 
@@ -1095,7 +1095,7 @@ subgroup $H_1=\la
 h_1,h_2,h_3\ra$, where  $h_1= x_1^3$, $h_2=x_2x_3x_2^{-1}$ and
 $h_3=x_1x_2x_3$.
 
-The Stallings automata, $\G_{A_1}$ for $H_1$,
+The Stallings automata, $\G_{H_1}$ for $H_1$,
 with maximal subtree $T_1$ highlighted and base vertex $1$, is shown
 in Figure %\ref{fig:stall}.
  \ref{fig:stall1}.
@@ -1134,8 +1134,8 @@ maximal $L_{Q_1}$-prefix $p=x_1^{-1}$ of the rest of $f_2$.  Here
 $q^{-1}=1$ and so $g=t=1$, and
 \[f_2=h\circ p.\]
 Therefore $f_2$ will be in $H_1S_1^{(2)}H_1$. To find the required
-double coset representative we construct $\G_{A_1}\times
-\G_{A_1}$, which has two non-diagonal components, shown in Figures
+double coset representative we construct $\G_{H_1}\times
+\G_{H_1}$, which has two non-diagonal components, shown in Figures
 \ref{fig:GxG-1} and \ref{fig:GxG-2},
 with the $\sim$ representatives $(3,1)$ and $(2,1)$,  shown as
 solid vertices. The connecting elements are labels of paths in the
@@ -1165,7 +1165,7 @@ and the double coset representative of $f_2$ is $x_1^{-1}\in S_1^{(2)}$.
 \psfrag{5}{$5$}
 \begin{subfigure}[b]{.25\columnwidth}
 \includegraphics[scale=.52]{stallh1.eps}
-\caption{Stallings automaton $\G_{A_1}$ for $H_1$}
+\caption{Stallings automaton $\G_{H_1}$ for $H_1$}
 \label{fig:stall1}
 \end{subfigure}
 \hspace{5mm}
@@ -1176,7 +1176,7 @@ and the double coset representative of $f_2$ is $x_1^{-1}\in S_1^{(2)}$.
 \psfrag{d}{$(4,5)$}
 \psfrag{e}{$(1,5)$}
 \includegraphics[scale=.52]{GxG-1.eps}
-\caption{$\G_{A_1}\times \G_{A_1}$: connected component of $(3,1)$}
+\caption{$\G_{H_1}\times \G_{H_1}$: connected component of $(3,1)$}
 \label{fig:GxG-1}
 \end{subfigure}
 \hspace{5mm}
@@ -1187,7 +1187,7 @@ and the double coset representative of $f_2$ is $x_1^{-1}\in S_1^{(2)}$.
 \psfrag{d}{$(5,4)$}
 \psfrag{e}{$(5,1)$}
 \includegraphics[scale=.52]{GxG-2.eps}
-\caption{$\G_{A_1}\times \G_{A_1}$: connected component of $(2,1)$}
+\caption{$\G_{H_1}\times \G_{H_1}$: connected component of $(2,1)$}
 \label{fig:GxG-2}
 \end{subfigure}
 \end{center}
@@ -1201,7 +1201,7 @@ h_2^{\prime},h_3^{\prime}\ra$, where
 $h_1^{\prime}=y_2^2$,
 $h_2^{\prime}=y_3y_4$ and
 $h_3^{\prime}=y_1^2y_3y_1^{-1}y_2$.
-The Stallings automata, $\G_{A_2}$ for $H_2$,
+The Stallings automata, $\G_{H_2}$ for $H_2$,
 with maximal subtree $T_2$ highlighted and base vertex $1$, is shown
 in Figure \ref{fig:stallh2}.
 The set $L_{T_2}$ corresponding to the maximal subtree  $T_2$ is
@@ -1220,7 +1220,7 @@ $L_{Q_2}$-prefix $p=y_1$ of the rest of $f_1^\prime$.  Next $q^{-1}=
 y_2^{-2}y_4^{-1}y_3^{-1}y_2^{-1}$, so $g=y_2^{-2}y_4^{-1}y_3^{-1}
 =h_1^{\prime -1}h_2^{\prime -1}$
 and $t=y_2^{-1}$. This element will be represented by an element
-of $S_2^{(2)}$, so we need to construct $\G_{A_2}\times \G_{A_2}$.
+of $S_2^{(2)}$, so we need to construct $\G_{H_2}\times \G_{H_2}$.
 There are $7$  non-trivial, non-diagonal components. One is shown
 in Figure \ref{fig:G2xG2-1} and the remaining
 six in Figure \ref{fig:G2xG2-2}. In all cases the solid vertex
@@ -1263,7 +1263,7 @@ and has double coset representative $y_1y_2\in S_2^{(2)}$.
 \psfrag{c}{$(1,6)$}
 \psfrag{d}{$(3,5)$}
 \includegraphics[scale=.52]{G2xG2-1.eps}
-\caption{$\G_{A_2}\times \G_{A_2}$: connected component of $(6,1)$}
+\caption{$\G_{H_2}\times \G_{H_2}$: connected component of $(6,1)$}
 \label{fig:G2xG2-1}
 \end{subfigure}
 \end{center}
@@ -1330,7 +1330,7 @@ and has double coset representative $y_1y_2\in S_2^{(2)}$.
 \label{fig:G2xG2-2-6}
 \end{subfigure}
 \end{center}
-\caption{Example \ref{ex:f_2}: connected components of $\G_{A_2}\times \G_{A_2}$.}\label{fig:G2xG2-2}
+\caption{Example \ref{ex:f_2}: connected components of $\G_{H_2}\times \G_{H_2}$.}\label{fig:G2xG2-2}
 \end{figure}
 
 In fact if we don't require uniqueness of double coset representatives then
@@ -1421,7 +1421,7 @@ Let $d\in D$. Then $\cT_d$ is a right transversal for $H_d$ in $H$.
 \end{lemma}
 \begin{proof}
 If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the result holds in this case. If $d$ is of Type 1 then no non-trivial element
-of $H$ is accepted by $\G_A$, so $H_d=\{1\}$ and $H$ itself is a transversal for $H_d$; and by definition  $\cT_d\subseteq H$. 
+of $H$ is accepted by $\G_H$, so $H_d=\{1\}$ and $H$ itself is a transversal for $H_d$; and by definition  $\cT_d\subseteq H$. 
 Moreover, if $d=yez^{-1}$ and $h\in H$ then $yez^{-1}h$ has double coset normal form $(1,yez^{-1},h)$, so $H\subseteq \cT_d$.
 It remains to show that the lemma holds when $d$ is of Type 2. 
 Assume then that $d$ is of Type 2, say $d=yz^{-1}$ as in Definition \ref{def:free_dc_nf}.\ref{it:u_Type2} above. 
@@ -1430,34 +1430,34 @@ Assume then that $d$ is of Type 2, say $d=yz^{-1}$ as in Definition \ref{def:fre
 To see that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$
 we must show that if $(a_1,d,b_1)$ and $(a_2,d,b_2)$ are normal forms for elements of $F$, such that $b_2b_1^{-1}\in H_d$,
 then $b_1=b_2$. If $d=1$ then $b_1=b_2$, by definition of normal form, so we may assume that $d$ is in $S$. If 
-$d$ is of Type 1, that is $d\in S^{(1)}$, then no non-trivial element of $H^d$ is accepted by $\G_A$, so $H_d=\{1\}$ and 
+$d$ is of Type 1, that is $d\in S^{(1)}$, then no non-trivial element of $H^d$ is accepted by $\G_H$, so $H_d=\{1\}$ and 
 the result holds. Therefore we assume that $d\in S^{(2)}$; say $d=yz^{-1}$ with $y,z$ as in Definition 
 \ref{def:free_dc_nf}.\ref{it:u_Type2}.  
 
 Let $a_i=h_ip_ic_iy^{-1}$ and $b_i=zc_i^{-1}t_i^{-1}g_i^{-1}$, where $u_i=\t(p_i)$,  $v_i=\t(t_i)$, $c_i=c(u_i,v_i)$, $i=1,2$, 
 $(u_0,v_0)$ is the $\sim$ representative of $(u_1,v_1)$ and $(u_2,v_2)$, $y=\w(u_0)$ and 
  $z=\w(v_0)$. Let $r=b_2b_1^{-1}=zc_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1z^{-1}$. Note that if $t_ic_i$ is not reduced as written
-then the first letter of $t_i^{-1}$ is equal to the first letter of $c_i$ and so is readable, in $\G_A$, from $\t(p_i)$. As
+then the first letter of $t_i^{-1}$ is equal to the first letter of $c_i$ and so is readable, in $\G_H$, from $\t(p_i)$. As
 $p_i$ is the maximal $L_Q$-prefix of $p_i\circ t_i^{-1}\circ g_i^{-1}$, this is a contradiction. Similarly, suppose there
 is $x\in X\cup X^{-1}$ such that $z=z'x$ and 
-$c_i=c_i'x$. As $c_i$ is a path in $\G_A\times \G_A$ with end point $(u_0,v_0)$, it follows that  that $yc_i^{-1}$ is in $L_Q$, 
+$c_i=c_i'x$. As $c_i$ is a path in $\G_H\times \G_H$ with end point $(u_0,v_0)$, it follows that  that $yc_i^{-1}$ is in $L_Q$, 
 so the letter $x^{-1}$ is readable from $\t(y)$. However  this means that 
 $(\t(yx^{-1}),\t(z'))\sim (\t(y),\t(z))=(u_0,v_0)$ and $\w(\t(z'))=z'$ so $|\w(\t(z'))|\le |z|$, contrary to the definition
 of $(u_0,v_0)$.  Thus $zc^{-1}$ is reduced as written and 
 $zc_i^{-1}t_i^{-1}g_i^{-1}=z\circ c_i^{-1}\circ t_i^{-1}\circ g_i^{-1}$, $i=1,2$. 
 
 We have $r=zc_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1z^{-1}\in H_{yz^{-1}}$ so $r^z=c_2^{-1}t_2^{-1}g_2^{-1}g_1t_1c_1 \in H^y\cap H^z$. 
-With $d=yz^{-1}$, denote by $\G_d$ the component of $\G_A\times \G_A$ containing $(u_0,v_0)$. We regard $\G_d$ as an automaton
+With $d=yz^{-1}$, denote by $\G_d$ the component of $\G_H\times \G_H$ containing $(u_0,v_0)$. We regard $\G_d$ as an automaton
 with start and final state the vertex $(u_0,v_0)$. 
 Our claim is that  a reduced word $q$ in $F$ belongs to $H^y\cap H^z$ if and only if $q$ is accepted by $\G_d$. 
 Indeed if $q$ is accepted by $\G_{d}$ then $q_y=yqy^{-1}$ and 
-$q_z=zqz^{-1}$ are both words in $L(\G_A)$, that is they belong to $H$. Thus $q=q_y^y=q_z^z\in H^y\cap H^z$. On the other
-hand if $s\in H^y\cap H^z$ then $s'=ysy^{-1}$ and $s''=zsz^{-1}$ belong to $H$. As $y\in L_Q(\G_A)$ it follows that 
-$s$ labels a closed path in $\G_A$, based at $\t(y)=u_0$. Similarly, $s$ labels a closed path in $\G_A$, based at $v_0$. 
+$q_z=zqz^{-1}$ are both words in $L(\G_H)$, that is they belong to $H$. Thus $q=q_y^y=q_z^z\in H^y\cap H^z$. On the other
+hand if $s\in H^y\cap H^z$ then $s'=ysy^{-1}$ and $s''=zsz^{-1}$ belong to $H$. As $y\in L_Q(\G_H)$ it follows that 
+$s$ labels a closed path in $\G_H$, based at $\t(y)=u_0$. Similarly, $s$ labels a closed path in $\G_H$, based at $v_0$. 
 Hence $s$ labels a closed path in  $\G_d$, as required to complete the proof of the claim. 
 Now let $r'$ be the reduced word representing $r^z$; so $r'$ labels a closed path in $\G_d$. If the first letter of $t_1^{-1}$
 survives in $r'$ then, since $c_1$ is the label of a path in $\G_d$, from $(\t(p_1),\t(t_1))$ to $(u_0,v_0)$, it follows that
-the first letter of $t_1^{-1}$ is readable from $\t(p_i)$ in $\G_A$, contrary to the definition of $p_i$ as a 
+the first letter of $t_1^{-1}$ is readable from $\t(p_i)$ in $\G_H$, contrary to the definition of $p_i$ as a 
 maximal $L_Q$-prefix. Hence the first letter of $t_1^{-1}$ must cancel in reducing $r^z$ to $r'$. Similarly, the last letter
 of $t_2$ cancels in reducing $r^z$ to $r'$. As    $c_i^{-1}t_i^{-1}g_i^{-1}$ is reduced as written this means that 
 \begin{equation}\label{eq:findtr}
@@ -1467,7 +1467,7 @@ c_i=c_{i1}\circ c_{i2},  \textrm{ with }g_1\circ t_1\circ c_{11}=g_2\circ t_2\ci
 Assume first that $g_1=g_2$, so $t_1c_{11}=t_2c_{21}$. Without loss of generality we may assume that $|t_1|\le |t_2|$ and
 $t_2=t_1t_{22}$. Then $c_{11}=t_{22}c_{21}$ so $c_1=t_{22}c_{21}c_{12}$ and as $c_{12}^{-1}c_{22}\in H^y\cap H^z$ 
 it follows that the graph shown in Figure \ref{fig:transv1} folds to 
-a subgraph of $\G_A$. 
+a subgraph of $\G_H$. 
 \begin{figure}
 \begin{center}
 \psfrag{c12}{$c_{12}$}
@@ -1494,7 +1494,7 @@ Now suppose that $g_1\neq g_2$. We may assume that $|g_1|\le |g_2|$ in which cas
 From \eqref{eq:findtr}, then $t_1c_{11}=g_{22}t_2c_{21}$. As the left and right hand sides of the
 latter are reduced as written and $t_1$ has no non-trivial prefix which is in $H$ it follows that
 $g_{22}=t_1g_{222}$, so $c_{11}=g_{222}t_2c_{21}$. Hence the graph shown in Figure \ref{fig:transv2} folds to 
-a subgraph of $\G_A$. 
+a subgraph of $\G_H$. 
 \begin{figure}
 \begin{center}
 \psfrag{c12}{$c_{12}$}
@@ -1512,7 +1512,7 @@ a subgraph of $\G_A$.
 \caption{$g_2=g_1t_1g_{222}$, $c_1=g_{222}t_2c_{21}c_{12}$ and $c_2=c_{21}c_{22}$}\label{fig:transv2}
 \end{center}
 \end{figure}
-However, this means that $t_2^{-1}\circ g_{222}^{-1}$ is readable in $\G_A$ from $\t(p_2)$ and, by definition of $p_2$,
+However, this means that $t_2^{-1}\circ g_{222}^{-1}$ is readable in $\G_H$ from $\t(p_2)$ and, by definition of $p_2$,
  hence $t_2^{-1}\circ g_{222}^{-1}=1$. Thus $g_{222}=1$ and $g_1=g_2$, a contradiction.
 Therefore $b_1=b_2$ and we infer that $\cT_d$ is contained in a transversal of $H_d$ in $H$.
 
@@ -1808,9 +1808,9 @@ the expression for $w$ can in fact be computed using this instead.
 To see this, let $u_i=\t(a_i)$, $i=0,1$. Then there exists
 a path labelled $a_i$ from $1$ to $u_i$, in $\G_H$, for $i=1,2$.
  This implies in particular that, for 
-all $b,c\in H$, there exists 
-a closed path labelled $a_0^{-1}ba_0$, based at 
-$u_0$, and  a closed path labelled $a_1^{-1}ca_1$, based at 
+all $\b,\g\in H$, there exists 
+a closed path labelled $a_0^{-1}\b a_0$, based at 
+$u_0$, and  a closed path labelled $a_1^{-1}\g a_1$, based at 
 $u_1$. 
 
 We have $c\in H_d$ if and only if there exists $b\in H$ such that
@@ -1829,7 +1829,7 @@ from $\pi_1(\G_d', (u_0,u_1))$ to $H_d$ sending $s$ to $a_1sa_1^{-1}$, is
 an isomorphism; and so  
 $\pi_1(\G_d', (u_0,u_1))\cong H^{a_1}\cap H^{a_0}\le F$.
 As $\G_d'$ is folded it is a subgraph of the cover
-$\G_d^*$ of $H^{a_1}\cap H^{a_0}$, and the spanning tree $T_d'$ for 
+$\G_d^*$ corresponding to  $H^{a_1}\cap H^{a_0}$, and the spanning tree $T_d'$ for 
 $\G_d'$ embeds in a spanning tree $T_d^*$ for $\G_d^*$. 
 Note that, by definition of $S^{(2)}$, no non-trivial prefix of 
 $a_1^{-1}$ is readable from $u_0$ in $\G_H$. This means no non-trivial
@@ -2007,12 +2007,12 @@ The next step is to find the representative of $zc^{-1}t^{-1}g^{-1}$
 in $\cT_d$. As in the proof of Lemma \ref{lem:reltran} to do this
 $\b'=zc^{-1}t^{-1}g^{-1}$  is replaced by $\b=z\b'= c^{-1}t^{-1}g^{-1}$.
 Here $y=w(u_0)$ and $z=w(v_0)$, where $u_0=\t(p)$ and $v_0=\t(t)$.  
-The component $\G_d$ of $\G_A\times \G_A$ 
+The component $\G_d$ of $\G_H\times \G_H$ 
 containing the vertex $(u_0,v_0)$ is then
 used to find an expression $\b=\b_0\circ \g_0\circ \g_1$, where $\b_0$
 is the maximal prefix of $\b$ accepted by $A_d=(\G_d,(u_0,v_0))$ and $\g_0$ is
 the maximal prefix of $\b_1$ readable by $A_d$. A spanning forest
-$F_A$ for $\G_A\times \G_A$ has been computed by the algorithm of 
+$F_H$ for $\G_H\times \G_H$ has been computed by the algorithm of 
 Section \ref{sub:sum_algI} and the component of this forest contained
 in $\G_d$ is denoted $T_d$. The algorithm finds the label $\d$ of a path
 from $(u_0,v_0)$ to $\t(\g_0)$ in $T_d$. As in the proof of Lemma 
@@ -2065,12 +2065,12 @@ you probably know how to say this?}
 relative transversals} 
 For example, let $F=\FF(\{a,b,c\})$ and let $H$ be the subgroup
  generated by $bc^{-1}$, $cbc^{-2}$, $c^4$, $c^2bc$, $c^{-1}b$, 
-$a^2$ and $abca^{-1}$. The Stallings folding $\G_A$ for 
+$a^2$ and $abca^{-1}$. The Stallings folding $\G_H$ for 
 $H$ is shown in Figure \ref{fig:reltran}, with spanning tree
 $T$ and root vertex $1$ highligted. Let $w=ab^{-2}$. Then, in 
 the notation of Section \ref{sub:alg1ex}, $h=1$, $p=a$, $g=1$, $t=b^{2}$
 and $e=1$. Then $(\t(p),\t(t))=(5,3)$. The connected component $\G'$ 
-of $\G_A\times \G_A$ containing $(5,3)$ is shown in Figure 
+of $\G_H\times \G_H$ containing $(5,3)$ is shown in Figure 
 \ref{fig:reltranb}. The representative of $(5,3)$ is 
 $(5,1)$, so $y=a$ and $z=1$, and the  connecting element is  $j=c^{-1}b^{-1}$. 
 Therefore the double coset representative of $w$ is $s=yz^{-1}=a$, a 
@@ -2095,7 +2095,7 @@ bcb^{-2})$.
 \psfrag{4}{\scriptsize$4$}
 \psfrag{5}{\scriptsize$5$}
 \psfrag{6}{\scriptsize$6$}
-\psfrag{GH}{$\G_A$}
+\psfrag{GH}{$\G_H$}
 \psfrag{a}{$a$}
 \psfrag{b}{$b$}
 \psfrag{c}{$c$}
@@ -2428,7 +2428,7 @@ b_ia_ib_i,
 a_i^{-1}b_i\ra$, $i=1,2$
 Define $\phi_i$ to map $z_1$ to $  b_ia_i^{-1}$, $z_2$ to $b_i^3$, $z_3$ to 
  $b_ia_ib_i$ and $z_4$ to $a_i^{-1}b_i$. 
-The Stallings folding $\G_{A_i}$ for $H_i$ is shown in Figure \ref{fig:ce}.
+The Stallings folding $\G_{H_i}$ for $H_i$ is shown in Figure \ref{fig:ce}.
 \begin{figure}
 \begin{center}
 \psfrag{a1}{$a|z_1^{-1}$}
@@ -2440,8 +2440,8 @@ The Stallings folding $\G_{A_i}$ for $H_i$ is shown in Figure \ref{fig:ce}.
 \caption{}\label{fig:ce}
 \end{center}
 \end{figure}
-As $H_i$ is normal in $F_i$, the connected components of $\G_{A_i}\times
-\G_{A_i}$ are all isomorphic to $\G_{A_i}$. 
+As $H_i$ is normal in $F_i$, the connected components of $\G_{H_i}\times
+\G_{H_i}$ are all isomorphic to $\G_{H_i}$. 
 
 The normal form of $b_1$ in $F_1$ is $(1,b_1,1)$. The normal form of 
 $b_2a_2b_2^{-2}$ in $F_2$ is $( b_2a_2b_2^{-2}, 1, 1)$. Therefore the 
@@ -2485,7 +2485,7 @@ $F_2$ corresponding to $H_1$ and $H_2$, as in Definition \ref{def:dcreps}.
 %$H_1\le F_1$ and $H_2\le F_2$, respectively. 
 Denote $S= S_1 \cup S_2\cup \{1\}$. Let $A_k$ be the
 Stallings automaton for $H_k$ and let $T_k$ be a spanning tree for
-the associated graph $\G_{A_k}$, $k=1,2$. The alphabet of $A_k$ is
+the associated graph $\G_{H_k}$, $k=1,2$. The alphabet of $A_k$ is
 $X_k$ and the set of states of $A_k$ is denoted $Q_k$.
 
 %\subsection{Construction of the double coset normal form}\label{sub:construction_dcnf}}
@@ -2567,14 +2567,16 @@ normal form of every element of $K$. \\[1em]
 
 \noindent\textbf{Algorithm III}. \\
 
-Here each step of the algorithm is justified as it is introduced. A 
+Here each step of the algorithm is described and shown to preserve the image of the map $\pi:L \maps G$.
+A  
 summary of the algorithm is given in Section \ref{sub:summaryIII}.  
 Let $\D$ be an inverse automaton, with alphabet $\S$ and
 start and final state $1$, such that
 $\pi(L(\D))=K$.
 For $k=1,2$, let $\D_k$ be the graph formed from $\D$ by removing all edges of
 type $X_{k^\prime}$, where $k\neq k^\prime$. An $X_k$ component of
-$\D_k$ is the subgraph of $\D$ formed from a connected component
+$\D_k$ is the subgraph of $\D$, containing at least one edge of type $X_k$, 
+ formed from a connected component
 of $\D_k$ by removing all leaves which are incident to edges of
 type $Z$, and then repeating the process till there are no such
 leaves left. Given an $X_k$ component $\T$ of $\D_k$,  a
@@ -2663,12 +2665,12 @@ $\a$ to $\b$ in $\Theta$, such that $\pi(w^{\prime\prime}) =
 
 \noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
 Here we add to $\T_1$ paths labelled by $\phi_k^{-1}$ images of labels of simple
-paths in $\T_1\times \G_{A_k}$, from $(\a_i,1)$ to $(\a_j,1)$; for
+paths in $\T_1\times \G_{H_k}$, from $(\a_i,1)$ to $(\a_j,1)$; for
 appropriate $i,j$.
- Let $\cP_1=\T_1\times \G_{A_k}$. Then there is a path
+ Let $\cP_1=\T_1\times \G_{H_k}$. Then there is a path
  labelled $w$ from $\a$ to $\b$
 in $\T_1$ and a path labelled $w$ from $\a^\prime $
-to $\b^\prime$ in $\G_{A_k}$ if and only if there is a path
+to $\b^\prime$ in $\G_{H_k}$ if and only if there is a path
 labelled $w$ from $(\a,\a^\prime)$ to $(\b,\b^\prime)$ in $\cP_1$.
  We shall
 use this property of $\cP_1$ to determine which new paths to add  to
@@ -2676,11 +2678,11 @@ $\T_1$. Choose a spanning  forest $\U_1$ of  $\cP_1$. Next
  order the vertices of
 $\T_1$: say these are $\a_0,\ldots, \a_t$, in the order written.
 
-Let $\a_i$, $\a_j$ be vertices of  $\T$  with $i\le j$. If
+Let $\a_i$, $\a_j$ be vertices of  $\T$  with $i< j$. If
 \begin{itemize}
 \item
  there
-exists a simple path $p$ in $\cP_1$ from $(\a_i,1)$ to $(\a_j,1)$ and
+exists a simple path $p$ in $\U_1$ from $(\a_i,1)$ to $(\a_j,1)$ and
 \item
 $p$ does not contain a vertex $(\a_k,1)$ with $k\in\{i,j\}$
 \end{itemize}
@@ -2699,8 +2701,8 @@ with $\a_j$. (See Figure \ref{fig:alg2-2}.)
 \psfrag{bi}{$(\a_j,1)$}
 \psfrag{1}{$1$}
 \psfrag{Th1 to Th2}{$\T_1\leadsto \T_2$}
-\psfrag{cP}{$\cP_1$}
-\psfrag{G_A}{$\G_{A_k}$}
+\psfrag{cP}{\hspace*{-1.5em}$\U_1\subseteq \cP_1$}
+\psfrag{G_H}{$\G_{H_k}$}
 \includegraphics[scale=.5]{alg2-2.eps}
 \end{center}
 \caption{$\Theta_1$ to $\Theta_2$: $w_p=\phi_k^{-1}(l_p)$.}\label{fig:alg2-2}
@@ -2725,14 +2727,14 @@ $\pi(L(\T_1,\a,\b))=\pi(L(\T_2,\theta_2(\a),\theta_2(\b)))$.\\[1em]
 
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
 At this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
-\G_{A_k}$ related to edges of this graph which do not belong to
+\G_{H_k}$ related to edges of this graph which do not belong to
 its spanning subforest and which belong to paths which project 
 to closed paths 
-based at $1$, in $\G_{A_k}$.
+based at $1$, in $\G_{H_k}$.
 
 As the edges added to $\T_1$ to form $\T_2$ are all labelled by elements
-of $Z$, and all edges of $\G_{A_k}$ are labelled by elements of $X_k$
-the graphs $\cP_1=\T_1\times \G_{A_k}$ and $\cP_2=\T_2\times \G_{A_k}$ differ only
+of $Z$, and all edges of $\G_{H_k}$ are labelled by elements of $X_k$
+the graphs $\cP_1=\T_1\times \G_{H_k}$ and $\cP_2=\T_2\times \G_{H_k}$ differ only
 in that the second may have some new isolated vertices. Therefore we may
 choose a spanning forest $\U_2$ of $\cP_2$ consisting of the spanning
 forest $\U_1$ of $\cP_1$ with some new isolated vertices if necessary.
@@ -2752,7 +2754,7 @@ in the same component of $\cP_2$ as $(\a,1)$,
 the path in $\U_2$ from $(\a,1)$ to $(\a_i,\b_1)$ and let $p_j$ be
 the path in $\U_2 $ from  $(\a_j,\b_2)$ to $(\a,1)$ and let $l_i$
 and $l_j$ be the labels of $p_i$ and $p_j$, respectively. Then
-$p_i,e,p_j$ projects to a closed path in $\G_{A_k}$, based at $1$,
+$p_i,e,p_j$ projects to a closed path in $\G_{H_k}$, based at $1$,
 with label $h_e=l_i x l_j \in H_k\subseteq F_k$. Moreover
 $p_i,e,p_j$ projects to a closed path in $\T_2$, based at $\a$,
 also with label $h_e$. Let $w_e=\phi_k^{-1}(h_e) \in \FF(Z)$ and let
@@ -2774,7 +2776,7 @@ the vertex  $\a$ of $\Theta_2$. (See Figure \ref{fig:alg2-3}.)
 \psfrag{1}{$1$}
 \psfrag{Th2 to Th3}{$\T_2\leadsto \T_3$}
 \psfrag{cP}{$\cP_2$}
-\psfrag{G_A}{$\G_{A_k}$}
+\psfrag{G_H}{$\G_{H_k}$}
 \includegraphics[scale=.5]{alg2-3.eps}
 \end{center}
 \caption{$\Theta_2$ to $\Theta_3$: $h_e=l_ixl_j$,
@@ -2795,14 +2797,14 @@ $\pi(L(\T_2,\a,\b))=\pi(L(\T_3, \theta_3(\a),\theta_3(\b)))$.\\[1em]
 \noindent\textbf{Modification 4: $\T_3\leadsto \T_4$.}\\
 Next we wish to add paths to $\T_3$ that allow us to read the normal
 forms of words $w$ which are readable by $\T_3$ and readable,
-but not accepted, by $\G_{A_k}$.
+but not accepted, by $\G_{H_k}$.
  Let
-$\cP_3=\T_3\times \G_{A_k}$.
+$\cP_3=\T_3\times \G_{H_k}$.
 As before we may choose a spanning forest $\U_3$ of $\cP_3$ which
 consists of $\U_2$ and some additional isolated vertices.
 
 Recall that we have fixed a spanning subtree
-$T_k$ of $\G_{A_k}$.
+$T_k$ of $\G_{H_k}$.
 Let $\d=(\a_j,\b)$ be a vertex of $\cP_3$, with $\b\neq 1$, which lies
 in a connected component of $\cP_3$ containing a vertex  $\g=(\a_i,1)$,
 for some vertices $\a_i$ and $\a_j$ of $\T$.
@@ -2837,7 +2839,7 @@ respectively, to form a new graph $\T_3^\prime$.
 \psfrag{b}{$\b$}
 \psfrag{Th3 to Th4}{$\T_3\leadsto \T_4$}
 \psfrag{U3 in cP}{$\U_3\subseteq \cP_3$}
-\psfrag{Tk in G_A}{$T_k\subseteq \G_{A_k}$}
+\psfrag{Tk in G_H}{$T_k\subseteq \G_{H_k}$}
 \includegraphics[scale=.5]{alg2-4.eps}
 \end{center}
 \caption{$\Theta_3$ to $\Theta_4$: $w=\phi_k^{-1}(ab^{-1})$.}\label{fig:alg2-4}
@@ -2858,13 +2860,13 @@ we have $\pi(L_3)=\pi(L_4)$, as in previous cases.\\[1em]
 \noindent\textbf{Modification 5: $\T_4\leadsto \T_5$.}\\
 Finally we wish to add paths which allow double coset representatives
 of type $2$ to be read.
-Let $\cP_4=\T_4\times \G_{A_k}$ and choose a spanning forest $\U_4$ for
+Let $\cP_4=\T_4\times \G_{H_k}$ and choose a spanning forest $\U_4$ for
 $\cP_4$.
 
-Let $(\e_1,\e_2)\in P\subseteq V(\G_{A_k}\times \G_{A_k})$, let 
+Let $(\e_1,\e_2)\in P\subseteq V(\G_{H_k}\times \G_{H_k})$, let 
  the $\sim$ representative of $(\e_1,\e_2)$ be $(\xi_1,\xi_2)$ and  
 set $a_1=w(\xi_1)$ and $a_2=w(\xi_2)$.
-By definition of $\sim$ there are  paths in $\G_{A_k}$,
+By definition of $\sim$ there are  paths in $\G_{H_k}$,
 with label
 $c=c(\e_1,\e_2)$, from $\e_1$ to $\xi_1$ and $\e_2$ to $\xi_2$.
 
@@ -2908,7 +2910,7 @@ of $\T_4$, respectively.
 \psfrag{b}{$\b$}
 \psfrag{Th4 to Th5}{$\T_4\leadsto \T_5$}
 \psfrag{U4 in cP}{$\U_4\subseteq \cP_4$}
-\psfrag{G_A}{$\G_{A_k}$}
+\psfrag{G_H}{$\G_{H_k}$}
 \includegraphics[scale=.5]{alg2-5.eps}
 \end{center}
 \caption{$\Theta_4$ to $\Theta_5$:
@@ -3030,22 +3032,23 @@ $\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\ma
 \Psi$ is called the \emph{dc-folding morphism}.
 \end{definition}
 \section{Summary of the generalised folding algorithm}
+\ajd{this para now needs rewording} \\
 In this section we summarise the algorithms which we have described above,
 in a form suitable for the analysis of their complexity,
 in Section \ref{sec:TC} below. That is we summarise Algorithms I and III
 and the Generalised Folding Loop of Section \ref{sec:dca}. The Generalised Folding Loop, which calls Algorithm III
 during its execution, is what we refer to as the ``Generalised Folding
 Algorithm''.
-\subsection{Summary of Algorithms I}\label{sub:sum_algI}
-\ajd{In this section the automaton for $H$ is $\G_A$ and for 
-$H_i$ is $\G_{A_i}$. This now seems a waste of letters and probably
-is not the notation used elsewhere, or is it?}
+\subsection{Algorithm I}\label{sub:sum_algI}
+\ajd{In this section the automaton for $H$ is $\G_H$ and for 
+$H_i$ is $\G_{H_i}$. This now seems a waste of letters and probably
+is not the notation used elsewhere, or is it? Sorted.}
 \subsubsection{Preproccessing.}\label{sub:algIpre}
 Given $H\le F$
  the
 steps in this subsection are carried out once. Subsequently  execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
 to find double coset normal forms of elements of $F$.
-\ajd{Here we are assuming that the group $H$ is already given by
+\ajd{Now sorted, so no longer a problem. Here we are assuming that the group $H$ is already given by
  a basis $Y$. In principle this is the situation, as we are
 supposed to have an amalgam, which presupposes that we have
 2 isomorphic subgroups: and an isomorphism between them. When it comes
@@ -3065,17 +3068,17 @@ are lucky.}
 \noindent\textbf{Output.}
 \biz
 \item
-$\G_A$, the Stallings automaton for the subgroup $H=\la Y\ra$ of $\FF(X)$.
+$\G_H$, the Stallings automaton for the subgroup $H=\la Y\ra$ of $\FF(X)$.
 \item
-$L_T$, the set of words corresponding to a  maximal subtree $T$ of $\G_A$.
-\item A spanning forest $F_A$ for $\G_A\times \G_A$. 
-\item The set $P$ of non-diagonal elements of $V( \G_A\times \G_A)$
+$L_T$, the set of words corresponding to a  maximal subtree $T$ of $\G_H$.
+\item A spanning forest $F_H$ for $\G_H\times \G_H$. 
+\item The set $P$ of non-diagonal elements of $V( \G_H\times \G_H)$
 partitioned into equivalence classes of $\sim$ (i.e. vertices in the
-same connected components of $\G_A\times \G_A$).
+same connected components of $\G_H\times \G_H$).
 \item $P_0$ the set of representatives of equivalence classes of
 elements of $P$.
 \item $C$ the set of connecting elements, one for each element of $P$.
-(Each element of $C$ is the label of a path in $F_A$.) 
+(Each element of $C$ is the label of a path in $F_H$.) 
 \item \ajd{(We also need to keep track of the map between the basis $B$ corresponding to the tree $T$ and the generators $Y$, assuming the later is a basis. 
 The point is we will specify an isomorphism of $H_1$ and $H_2$ in the
 next section by matching up their generators. If we change basis, then
@@ -3084,30 +3087,30 @@ we need to compute the effect of this isomorphism on the new basis.)}
 \noindent\textbf{Process.}
 Let $N=\sum_{y\in Y} |y|$.
 \be[{A}1]
-\item Construct $\G_A$.
+\item Construct $\G_H$.
 \begin{comp}
 ($t_1(N)$.)
 \end{comp}
-\item Construct a spanning tree $T$ for $\G_A$ and simultaneously
+\item Construct a spanning tree $T$ for $\G_H$ and simultaneously
 compute $L_T=L_T(A)$.
 \begin{comp}
 (This can easily be done if $T$ is constructed by
 BFS or DFS, so one problem I was worrying about disappears.) ($O(N^2)$.)
 \end{comp}
-\item Construct $\G_A\times \G_A$.
+\item Construct $\G_H\times \G_H$.
 \begin{comp}
 ($t_3(N,N)$).
 \end{comp}
-\item Find connected components of $\G_A\times \G_A$. This can be
-done by doing a BFS or DFS of $\G_A\times \G_A$, which constructs
-a spanning forest $F_A$ at the same time as finding the set $C$ of
+\item Find connected components of $\G_H\times \G_H$. This can be
+done by doing a BFS or DFS of $\G_H\times \G_H$, which constructs
+a spanning forest $F_H$ at the same time as finding the set $C$ of
 connecting elements,
-which can be taken to be labels of paths in the spanning forest $F_A$.
+which can be taken to be labels of paths in the spanning forest $F_H$.
 \begin{comp}
 ($O(N^4)$).
 \end{comp}
 \item Construct the set $P_0$. This can be done using $L_T$ and
-the forest $F_A$.
+the forest $F_H$.
 \begin{comp}
 ($O(N^2)$).
 \end{comp}
@@ -3133,14 +3136,14 @@ of $H$.
 \eiz
 \noindent\textbf{Process.}
 \be[{B}1]
-\item\label{it:alg1_1} Find the maximal prefix $h$ of $w$ accepted by $\G_A$.
+\item\label{it:alg1_1} Find the maximal prefix $h$ of $w$ accepted by $\G_H$.
 Let $w=h\circ f$.
 \item If $h=w$ then output $(w,1,1)$ and stop. 
-\item Use $\G_A$ to find the maximal $L_Q$-prefix $p$ of $f$.
+\item Use $\G_H$ to find the maximal $L_Q$-prefix $p$ of $f$.
 Let $f=p\circ q$.
-\item Find the maximal prefix $g$ of $q^{-1}$ accepted by $\G_A$.
+\item Find the maximal prefix $g$ of $q^{-1}$ accepted by $\G_H$.
 Let $q=r^{-1}\circ g^{-1}$.
-\item Use $\G_A$ to find the maximal $L_Q$-prefix $t$ of $r$.
+\item Use $\G_H$ to find the maximal $L_Q$-prefix $t$ of $r$.
 Let $r=t\circ e^{-1}$.
 \item If $e=1$ go to step \ref{it:ss}.
 \item Using $L_T$, set $y=w(\t(p))$ and $z=w(\t(t))$.
@@ -3148,16 +3151,17 @@ Let $r=t\circ e^{-1}$.
 call the results   $a, b$ and $c$, respectively.
 \item\label{it:dc1} Output $(a,b,c)$ and stop.
 \item\label{it:ss} (This step is reached only if $e= 1$.)
- Using $P_0$ and $F_A$ find the representative $(u_0,v_0)$ of $(u,v)$, where
+ Using $P_0$ and $F_H$ find the representative $(u_0,v_0)$ of $(u,v)$, where
 $u=\t(p)$ and $v=\t(t)$.
 \item Look up the connecting element $c=c(u,v)$.
 \item\label{it:dc2} Let $y=w(u_0)$ and $z=w(v_0)$.
-\item \ajd{Now we rewrite into the normal form as in 
+\begin{comment}
+\item \ajd{After an initial panic these extra steps were inserted after B12. Now no longer needed. They were to rewrite into the normal form as in 
 Lemma \ref{lem:reltran}.}
  Let
 $d=yz^{-1}$, let $\b=c^{-1}t^{-1}g^{-1}$ and let $\G_d$ be the component
-of $\G_A\times \G_A$ containing $(u_0,v_0)$. Let $T_d$ be the intersection
-of the spanning forest $F_A$, for $\G_A\times \G_A$, with $\G_d$ and 
+of $\G_H\times \G_H$ containing $(u_0,v_0)$. Let $T_d$ be the intersection
+of the spanning forest $F_H$, for $\G_H\times \G_H$, with $\G_d$ and 
 let $A_d$ be the automaton $A_d=(\G_d,(u_0,v_0))$.
 \item Find the maximal prefix $\b_0$ of $\b$ which belongs to $L(A_d)$;
 say $\b=\b_0\circ \b_1$. 
@@ -3168,6 +3172,10 @@ $\b_1=\g_0\circ \g_1$.
 label of the path in $T_d$ from $(u_0,v_0)$ to $\tilde v$). 
 \item Freely reduce $hpc\b_0\g_0\d^{-1}y^{-1}$ 
 and $z\d\g_1$ and call the
+results $a$ and $b$, respectively.
+\end{comment}
+\item Freely reduce $hpcy^{-1}$ 
+and $zc^{-1}t^{-1}g^{-1}$ and call the
 results $a$ and $b$, respectively.
 \item\label{it:alg1_end} Output $(a,yz^{-1},b)$.
 \ee
@@ -3202,7 +3210,7 @@ $f_i\in F_1\cup F_2$ and $s$ is as small as possible.
 \item\label{it:C1} Let $L$ be a blank list and  set $i=s$. 
 \item\label{it:C2}  
 If $f_i\in F_j$ then 
-input $f_i$ to (Step \ref{it:alg1_1} of) Algorithm I, for the subgroup
+input $f_i$ to the execution phase, Section \ref{sub:alg1ex}, of Algorithm I, for the subgroup
 $H_j$ of $F_j$. Let the output be $(a_i,d_i,c_i)$ and 
 set $a'_i= \phi_{1-j}\phi_j^{-1}(a_i)$ and $t_i=\phi_j^{-1}(c_i)$.
 \item\label{it:C3}
@@ -3231,33 +3239,33 @@ In this section, we assume that
  %$F_1*_{H_1=H_2} F_2$ where 
 $F_k$ is generated by $X_k$, $H_k$ is generated
 by $Y_k=\{h_{k,1},\ldots, h_{k,m}\}$
-and the Stallings automata $\G_{A_k}$ for $H_k$ have
+and the Stallings automata $\G_{H_k}$ for $H_k$ have
 been constructed, for $k=1,2$. Let  $\S=(X_1\cup X_2\cup Z)^{\pm 1}$ and, for $k=1,2$,
 assume that we have constructed, at the preprocessing stage, the following.
 \be
 \item
-A spanning tree  $T_k$ for $\G_{A_k}$,
+A spanning tree  $T_k$ for $\G_{H_k}$,
  the set $L_{T_k}$of words corresponding to the  maximal subtree $T_k$,
 the set $P_k$ of non-diagonal elements of
-$V( \G_{A_k}\times \G_{A_k})$,
+$V( \G_{H_k}\times \G_{H_k})$,
  the set $P_{k,0}$ of representatives  of equivalence classes of
 elements of $P_k$ and the
 set $C_k$ of connecting elements, one for each element of $P_k$.
 %%%%%%%%
 \item A map $\phi_k:Z\maps F_k$  inducing an isomorphism from $\FF(Z)$ to
-$H_k$. This map is encoded as part of $\G_{A_k}$. More precisely,
-edges of $\G_{A_k}$ have two types of label; \emph{input} and \emph{output}.
+$H_k$. This map is encoded as part of $\G_{H_k}$. More precisely,
+edges of $\G_{H_k}$ have two types of label; \emph{input} and \emph{output}.
 Labels discussed above are input labels, are
 referred to simply as \emph{labels}, and are elements of $X_1\cup X_2$.
 \emph{Output labels} are elements of  $Z\cup \{1\}$.
  Edges of $T_k$  all have output label $1$; and each directed
-edge of $\G_{A_k}$ not in $T_k$ has output
+edge of $\G_{H_k}$ not in $T_k$ has output
 label an element of $Z$. Each such edge corresponds uniquely to
  an element $h_{k,i}$ of the free generating set for $H_k$, and the edge
 corresponding to $h_{k,i}$ has
  output label  $z_i\in Z$. Moreover, in this case $\phi_k(z_i)=h_{k,i}$.
   This means that if a word in $H_k$ is given in terms of $Y_k$  then its
-image under $\phi_k^{-1}$ can be read off from $\G_{A_k}$ (regarded as a
+image under $\phi_k^{-1}$ can be read off from $\G_{H_k}$ (regarded as a
  transducer), by reading output labels.
 \ee
 
@@ -3270,7 +3278,7 @@ image under $\phi_k^{-1}$ can be read off from $\G_{A_k}$ (regarded as a
 and final state $1$, such that $\pi(L(\D))=K$. Edges labelled
 with elements of $X_k$ are said to have type $k$. Edges labelled with
 elements of $Z$ are said to have type $Z$.
-\item Stallings automata $\G_{A_1}$ and $\G_{A_2}$ for $H_1$ and $H_2$,
+\item Stallings automata $\G_{H_1}$ and $\G_{H_2}$ for $H_1$ and $H_2$,
 with output labels
 encoding $\phi_1$ and $\phi_2$, as above.
 \item For each $z \in Z$ the images $\phi_1(z)$ and $\phi_2(z)$ of
@@ -3320,7 +3328,7 @@ added,  will be
 called \emph{updating}
 $\vim$, from now on. 
 \item\label{it:D4} (\textbf{Begin Modification 2}.)
- Construct $\cP_{k,1}=\D_{k,1}\times \G_{A_k}$.
+ Construct $\cP_{k,1}=\D_{k,1}\times \G_{H_k}$.
 \item\label{it:D5} Construct a spanning forest $\U_{k,1}$ of $\cP_{k,1}$.
 \begin{comment} and, 
 simultaneously,
@@ -3328,7 +3336,7 @@ the set $L_{\U_k}$ of words corresponding to paths in $\U_k$ from the root
 to each vertex. (A root of $\cP_k$ must  be chosen:
  to be explicit, assume the root is
  $((v,k), u)$, where
-$u$ is minimal in some preassigned order on vertices of $\G_{A_k}$ and
+$u$ is minimal in some preassigned order on vertices of $\G_{H_k}$ and
 $v$ is minimal in some chosen order of vertices of $\D$.)
  We refer to these versions of $\cP_k$ and $\U_k$ as
 $\cP_{k,2}$ and $\U_{k,2}$ in the calculation of complexity below.
@@ -3336,7 +3344,7 @@ $\cP_{k,2}$ and $\U_{k,2}$ in the calculation of complexity below.
 \item\label{it:D6} For each vertex $\a$ of $\D_{k,1}$ do the following.
  Let
 $\theta(\a)$ be the component of $\cP_{k,1}$ containing $(\a,1)$.
-For each vertex $(\b,1)$ of $\theta(\a)$ and for all paths $p$ from
+For each vertex $(\b,1)$ of $\theta(\a)$ and for all paths $p$, in $\U_{k,1}$,  from
 $(\a,1)$ to $(\b,1)$, which do not contain  any vertex $(\g,1)$ other than
 the end points, 
  add a path from $\a$ to $\b$ to the graph $\D_{k,1}$, with
@@ -3344,7 +3352,7 @@ label $\phi_k^{-1}(w)$, where $w$ is the label of $p$.
 The resulting graph is called $\D_{k,2}'$.
 \item\label{it:D7} Construct the Stallings folding $\D_{k,2}$ of $\D'_{k,2}$ and update $\vim$.
 \item\label{it:D8} (\textbf{Begin Modification 3}.)
- Construct $\cP_{k,2}=\D_{k,2}\times \G_{A_k}$ and its spanning
+ Construct $\cP_{k,2}=\D_{k,2}\times \G_{H_k}$ and its spanning
  forest $\U_{k,2}$, by adding new isolated vertices to $\cP_{k,1}$ and 
 $\U_{k,1}$,
 if necessary. 
@@ -3354,15 +3362,26 @@ Let $\theta(\a)$ be the component of $\cP_{k,2}$ containing $(\a,1)$.
 For each edge $e$ of $\theta(\a)\bs \U_{k,2}$: 
 if $e=((\a_i,\b_1),x ,(\a_j,\b_2))$,
 where $\a_i,\a_j$ are vertices of $\D_{k,2}$ and $\b_1,\b_2$ are vertices
-of $\G_{A_k}$ and $x\in X_k$, add to $\D_{k,2}$ a path from $\a$ to $\a$ with
+of $\G_{H_k}$ and $x\in X_k$, add to $\D_{k,2}$ a path from $\a$ to $\a$ with
 label $\phi_k^{-1}(l_ixl_j)$, where $l_i$ and $l_j$ are the labels of
 paths in $\U_{k,2}$ from $(\a,1)$ to $(\a_i,\b_1)$ and from $(a_j,\b_2)$ 
 to $(\a,1)$,
 respectively. The resulting graph is called  $\D_{k,3}'$.
+\ajd{This part of the algorithm can be made quicker. 
+Suppose that \ref{it:D9} is carried out only for the first vertex of form $(\a,1)$ in 
+each component. Assume  component $C$ contains a second vertex $(\a',1)$ and an edge 
+$e=((\a_i,\b_1),x,(\a_j,\b_2))$, as above, with $l_i'$ and $l_j'$ paths from 
+$(\a',1)$ to $(\a_i,\b_1)$ and from $(\a_j,\b_2)$ to $(\a',1)$, respectively. Then 
+$l_i'$ and $l_j'$ are in $\U_{k,2}$. Let the path in $\U_{k,2}$ from $(\a,1)$ to $(\a',1)$ have 
+label $q$. This path had it's 
+$Z$-equivalent added to $\D_{k,1}$ in Modification 2; so in $\D_{k,2}$ there is a path from $\a$
+to $\a'$ labelled $\phi^{-1}(q)$. Now $q^{-1}l_i$ and $q^{-1}l_j$ reduce to $l_i'$ and $l_j'$, as 
+these are all (concatenations of) paths in the forest $\U_{k,2}$. Therefore, after folding,
+$phi^{-1}(l_i'xl_j')$ is the label of  a path in $\D_{k,2}$.}
 \item\label{it:D10} Construct the Stallings folding $\D_{k,3}$ of 
 $\D'_{k,3}$ and update $\vim$.
 \item\label{it:D11} (\textbf{Begin Modification 4}.)
- Construct  $\cP_{k,3}=\D_{k,3}\times \G_{A_k}$ and its spanning
+ Construct  $\cP_{k,3}=\D_{k,3}\times \G_{H_k}$ and its spanning
  forest $\U_{k,3}$, by adding new isolated vertices to $\cP_{k,2}$ and 
 $\U_{k,2}$,
 if necessary. 
@@ -3376,11 +3395,13 @@ the final state, after reading $b$, is $(\a_1,\b)$ there is nothing to do,
 for this vertex $(\a_1,\b)$. Otherwise, let $a$ be the label of the
 path from $(\a,1)$ to $(\a_1,\b)$ in $\U_{k,3}$. Add to $\D_{k,3}$ a path from
 $\a$ to $\a_1$ with label $(\phi_k^{-1}(ab^{-1}))b$.
-The resulting graph is called $\D_{k,4}'$.
+The resulting graph is called $\D_{k,4}'$. 
+\ajd{Here, it's only necessary to consider vertices $\a$ and $\a'$ which are images of vertices in
+$\D$.}
 \item\label{it:D13} Construct the Stallings folding $\D_{k,4}$ of $\D'_{k,4}$ 
 and update $\vim$.
 \item\label{it:D14} (\textbf{Begin Modification 5}.)
-Construct  $\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ and its spanning
+Construct  $\cP_{k,4}=\D_{k,4}\times \G_{H_k}$ and its spanning
  forest $\U_{k,4}$. 
 
 \item\label{it:D15}   For each element $(\e_1,\e_2)\in P$ and
@@ -3416,10 +3437,12 @@ Delete $(v,k')$, once no more such edges exist.
 Continue for as long as possible: that is until 
 $\vim(u,k)\cap \vim(u',k')=\emptyset$, whenever $(u,k)\neq (u',k')$. The resulting graph is denoted $\D''_5$.
 \item\label{it:D18} 
-If $\vim(\a)\cap \vim(u,k)\neq \nul$,
+If $\a\in \vim(u,k)$, 
+%If $\vim(\a)\cap \vim(u,k)\neq \nul$,
  for some
  vertices $\a$ of $\D_Z$ and $(u,k)$ of $\D''_5$ then replace $\a$ 
-with $(u,k)$ and add $\a$ to $\vim(u,k)$. (Note that, as
+with $(u,k)$. % and add $\a$ to $\vim(u,k)$. 
+(Note that, as
 we have completed step \ref{it:D17}, there is at most one such vertex of
 $\D'_5$.)
 If $\a$ has been replaced by $(u,k)$ then, for every edge $e$ of $\D_Z$,
@@ -3514,7 +3537,7 @@ $\D_{2,0}=\T'\cup \T''$. Each of these components is input to
 First consider the $X_1$ component $\Theta$. Modification 1
 results in the graph of Figure \ref{fig:K_f1}. To perform the next
 stages of the  modification process the graph  $\cP_{1,1}=\Theta_1 \times
-\G_{A_1}$ is constructed; where $\G_{A_1}$ is the graph of Example
+\G_{H_1}$ is constructed; where $\G_{H_1}$ is the graph of Example
 \ref{ex:f_1}, shown in Figure \ref{fig:stall1}. The  graph
 $\cP_{1,1}$ is shown in Figure \ref{fig:K_f1-x-g}. The spanning forest
 chosen for $\cP_{1,1}$ is the one obtained by removing the edge
@@ -3527,7 +3550,7 @@ already exist in $\T_1$. The result is  the graph $\D_{1,2}=\Theta_2$,
 shown in Figure \ref{fig:K_f2}. 
 
 The next step is to construct
-$\cP_{1,2}=\T_2\times \G_{A_1}$, but as there are no $X_1$ edges in
+$\cP_{1,2}=\T_2\times \G_{H_1}$, but as there are no $X_1$ edges in
 $\T_2$ that are not in $\T_1$, it follows that  $\cP_{1,2}$ is the
 union of $\cP_{1,1}$ and some isolated vertices, and we may use
 $\cP_{1,1}$ instead of $\cP_{1,2}$. In this instance there is nothing to
@@ -3570,12 +3593,12 @@ $(29,1)$ & $(1,3)$ & $x_3^{-1}x_2^{-1}$ & $x_1 $ & $z_3^{-1} $\\\hline
 After adding these paths to $\T_3$ the graph is folded to
 produce the graph $\T_4$, shown in Figure \ref{fig:K_f4}.
 
-To form $\D_{1,5}=\T_5$ we first construct $\cP_{1,4}=\T_4\times \G_{A_k}$,
+To form $\D_{1,5}=\T_5$ we first construct $\cP_{1,4}=\T_4\times \G_{H_k}$,
 which is shown in Figure \ref{fig:K_f4-x-g}, and choose a spanning
 subforest $\U_4$ of $\cP_{1,4}$. In this example this is done by
 removing the edge  joining vertices $(13,1)$ and $(30,5)$ from
 $\cP_{1,4}$. A path will be added to $\T_4$ whenever a pair $(\e_1,\e_2)$
-in the set $P$ of non-diagonal pairs of vertices of $\G_{A_k}$ is
+in the set $P$ of non-diagonal pairs of vertices of $\G_{H_k}$ is
 found, satisfying the conditions given in Modification 5: namely
 that
 \begin{itemize}
@@ -3621,14 +3644,14 @@ produce the graph $\T_5$, shown in Figure \ref{fig:K_f5}.
 
 Next consider the $X_2$ component $\T^\prime$. There is nothing to
 add to form $\T^\prime_1$. The graph $\cP_1^\prime=\T_1^\prime
-\times \G_{A_2}$ is shown in Figure \ref{fig:K_i1-x-g}. There is
+\times \G_{H_2}$ is shown in Figure \ref{fig:K_i1-x-g}. There is
 nothing to add at the next two  stages so
 $\T_1^\prime=\T_2^\prime=\T_3^\prime$, so
 $\cP_3^\prime=\cP_1^\prime$. There is one pair of vertices not
 covered by $\cP_3$: namely $\g=(6,1)$ and $\d=(5,6)$. Thus a path
 is added to $\T_3^\prime$, from $6$ to $5$, with label
 $z_1y_2^{-1}$, as shown in Figure \ref{fig:K_i4}. The graph
- $\cP_4^\prime=\T_4^\prime \times \G_{A_2}$ is shown in Figure \ref{fig:K_i4-x-g}. The paths
+ $\cP_4^\prime=\T_4^\prime \times \G_{H_2}$ is shown in Figure \ref{fig:K_i4-x-g}. The paths
 from $(5,1)$ to $(7,5)$ and from $(6,1)$ to $(7,3)$, in $\cP_4$, give rise to a path to be
 added to $\T_4^\prime$. However this path has label $y_2z_1^{-1}$, and joins $5$ to $6$, so already
 belongs to $\T_4^\prime$. Hence $\T_4^\prime=\T_5^\prime$.
@@ -4317,7 +4340,7 @@ the algorithm halts after one iteration of the Generalised Folding Loop, outputt
 \psfrag{z}{$z_3$}
 \psfrag{u}{$y_4$}
 \includegraphics[scale=0.5, bb=0 0 790 700]{ex_K_f1-x-g.eps}
-\caption{$\cP_1=\Theta_1\times \G_{A_1}$}
+\caption{$\cP_1=\Theta_1\times \G_{H_1}$}
 \label{fig:K_f1-x-g}
 \end{center}
 \end{figure}
@@ -4911,7 +4934,7 @@ the algorithm halts after one iteration of the Generalised Folding Loop, outputt
 \psfrag{u}{$y_4$}
 \psfrag{1}{$1$}
 \includegraphics[scale=0.47, bb=0 0 1050 1030]{ex_K_f4-x-g.eps}
-\caption{$\cP_4=\Theta_4\times \G_{A_1}$}
+\caption{$\cP_4=\Theta_4\times \G_{H_1}$}
 \label{fig:K_f4-x-g}
 \end{center}
 \end{figure}
@@ -5193,7 +5216,7 @@ the algorithm halts after one iteration of the Generalised Folding Loop, outputt
 \psfrag{u}{$y_4$}
 \psfrag{1}{$1$}
 \includegraphics[scale=0.45, bb=0 0 400 410]{ex_K_i1-x-g.eps}
-\caption{$\cP_1^\prime=\Theta_1^\prime\times \G_{A_2}$}
+\caption{$\cP_1^\prime=\Theta_1^\prime\times \G_{H_2}$}
 \label{fig:K_i1-x-g}
 \end{center}
 \end{figure}
@@ -5735,7 +5758,7 @@ the algorithm halts after one iteration of the Generalised Folding Loop, outputt
 \psfrag{1}{$1$}
 \includegraphics[scale=0.5, bb=0 0 400 410]{ex_K_i4-x-g.eps}
 %\includegraphics[scale=0.45]{ex_K_i4-x-g.eps}
-\caption{$\cP_4^\prime=\Theta_4^\prime\times \G_{A_2}$}
+\caption{$\cP_4^\prime=\Theta_4^\prime\times \G_{H_2}$}
 \label{fig:K_i4-x-g}
 \end{center}
 \end{figure}
@@ -5924,10 +5947,13 @@ III the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
 preserved.
 
 \ref{it:nfcomp2}.
+Let $\cP_j=\cP_{k,j}=\D_{k,j}\times \G_{H_k}$ and let $\U_j=\U_{k,j}$, where $\cP_{k,j}$ and $\U_{k,j}$
+are defined in Algorithm III, Section \ref{sub:summaryIII}. 
 We may assume that $w\in \FF(X_k)$ (given the construction of $\T_1$).
-Let $w$ have normal form $h_1s h_2^{-1}$, where $s\in S_k$ and $h_i\in \FF(Z)$.
+Let $w$ have normal form $h_1s h_2^{-1}$, where  $s\in S_k$ and $h_i\in \FF(Z)$.
 There are two cases to consider, depending on whether $s$ is a
-representative of type $1$ or type $2$.
+representative of type $1$ or type $2$. \ajd{There are \emph{three} cases
+to consider: as it may be that $s=1$}. 
  First consider the case where $s$ is of type $1$, say
  $s= a_1 e a_2^{-1}$, where
 $a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and
@@ -5946,7 +5972,7 @@ Recall that we refer to the images of vertices of $\T$ in $\T_i$ as
  ``vertices of $\T$'', for $i=1,\ldots ,5$.
 Since $g_i\in H_k$ and $w$ is accepted by $\T_1$ there is a path
 labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\T$ and a path
-labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\T$. Therefore, in $\cP$,
+labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\T$. Therefore, in $\cP_1$,
 there are paths $p_1$ from $(\a,1)$ to $(\a_1,1)$ labelled $g_1$, and
 $p_2$
 from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
@@ -5973,7 +5999,7 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \psfrag{h'1a1}{$h_1^\prime a_1$}
 \psfrag{Th5}{$\T_4$}
 \psfrag{cP}{$\cP_3$}
-\psfrag{G_A}{$\G_{A_k}$}
+\psfrag{G_H}{$\G_{H_k}$}
 \psfrag{(a,1)}{$(\a,1)$}
 \psfrag{(a1,1)}{$(\a_1,1)$}
 \psfrag{(a2,e1)}{$(\a_2,\e_1)$}
@@ -5997,11 +6023,11 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \end{figure}
 Now $p_1$ may
 be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l}$,
-where $o_i$ is a simple path in $\U$ and $e_i$ is an edge of $\cP$ which does
-not belong to $\U$.  Let $e_i$ have initial and terminal vertices
-$\g_i$ and $\d_i$, and let $L_i$ and $R_i$ be the simple paths in $\U$ from
+where $o_i$ is a simple path in $\U_1$ and $e_i$ is an edge of $\cP_1$ which does
+not belong to $\U_1$.  Let $e_i$ have initial and terminal vertices
+$\g_i$ and $\d_i$, and let $L_i$ and $R_i$ be the simple paths in $\U_1$ from
 $(\a,1)$ to $\g_i$ and from $\d_i$ to $(\a,1)$, respectively.
-In addition let $L_{l+1}$ be the path in $\U$ from $(\a,1)$ to
+In addition let $L_{l+1}$ be the path in $\U_1$ from $(\a,1)$ to
 $(\a_1,1)$.
 Then $L_1=o_0$ and, for $i=1,\ldots ,l$, $L_{i+1}=R_i^{-1}o_{i}$.
 (See Figure \ref{fig:LeR}.)
@@ -6029,8 +6055,8 @@ Then $L_1=o_0$ and, for $i=1,\ldots ,l$, $L_{i+1}=R_i^{-1}o_{i}$.
 \label{fig:LeR}
 \end{figure}
 Moreover, for $i=1,\ldots ,l$,
-the path $L_i e_i R_i$ is a closed path in $\cP$, based
-at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U$.
+the path $L_i e_i R_i$ is a closed path in $\cP_1\subseteq \cP_2$, based
+at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U_1$, so not in $\U_2$.
 Thus the label of  $L_i e_i R_i$ is $v_i\in H_k$ and $\phi_k^{-1}(v_i)$ is the
 label of a closed path in $\T_3$, based at  $\a$. (All such paths
 were added in the construction of $\T_3$ from $\T_2$.)
@@ -6051,24 +6077,24 @@ label of a path, from $\a$ to   $\a_1$, in $\T_3$. Similarly,
 $\phi_k^{-1}(g_2)$
 is the label of a path from $\b$ to $\b_1$ in $\T_3$.
 
-The word $b_1$ is readable by $\G_{A_k}$ and there
+The word $b_1$ is readable by $\G_{H_k}$ and there
 is a path with label $b_1$ in $\T_1$ from $\a_1$ to some vertex $\a_2$
 of $\T$.
-Hence $b_1$ is the label of a path in $\cP$ from $(\a_1,1)$ to
-$(\a_2,\e_1)$, for some vertex $\e_1$ of $\G_{A_k}$.
+Hence $b_1$ is the label of a path in $\cP_1\subseteq \cP_3$ from $(\a_1,1)$ to
+$(\a_2,\e_1)$, for some vertex $\e_1$ of $\G_{H_k}$.
 By definition $a_1=w(\t(b_1))$ is the label of a path in $T_k$ from $1$ to $\e_1$.
 Let $b_1^\prime$
- be the label of the simple path $p_1^\prime$ in $\U$ from
+ be the label of the simple path $p_1^\prime$ in $\U_3$ from
 $(\a_1,1)$ to $(\a_2,\e_1)$ (see Figure \ref{fig:nf-1}). By construction $\T_4$ contains a path
 from $\a_1$ to $\a_2$ with label $h_1^\prime a_1$, where
 $h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in \FF(Z)$.
-(If $\cP$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
+(If $\cP_3$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
 $b_1^\prime=a_1$ and $h_1^\prime$ is the empty word, while there
 exists a path with label $a_1$ from $\a_1$ to $\a_2$ in $\T_3$.)
 %Furthermore we have
 %$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$.
 Now $b_1(b_1^\prime)^{-1}\in H_k$ and is the label of a closed
-path  in $\cP$ based at $(\a_1,1)$; so by the
+path  in $\cP_1\subseteq \cP_3$ based at $(\a_1,1)$; so by the
 previous part of proof, $\T_3$ contains a closed path, based at $\a_1$,
  with label
 $w_1^\prime=\phi_k^{-1}(b_1(b_1^\prime)^{-1})$. Hence, as it is folded,
@@ -6632,8 +6658,8 @@ be the \emph{lengths} of $Y_1$ and $Y_2$, that is
 $N_1 = |h_1|_1 + |h_2|_1 + \ldots + |h_m|_1$ and $N_2 = |h_1|_2 +
 |h_2|_2 + \ldots + |h_m|_2$. Let $A_k$ be the Stallings automaton
 for $H_k$ and let $T_k$ be a spanning tree for the associated
-graph $\G_{A_k}$, as above. Denote by $E(\G_{A_k})$ the  edge set
-of $\G_{A_k}$, and by $V\G_{A_k}$  its vertex set.
+graph $\G_{H_k}$, as above. Denote by $E(\G_{H_k})$ the  edge set
+of $\G_{H_k}$, and by $V\G_{H_k}$  its vertex set.
 Recall that sets of words  $L_{Q_k}$ and $L_{T_k}$
 were defined in \ref{sub:foldings}, $k=1,2$. Let 
  $S_k^{(i)}=S^{(i)}(H_k)$ be the set
@@ -6647,7 +6673,7 @@ $D_k=S_k\cup\{1\}$ be the corresponding
  set of
 double coset representatives of $H_k$.  
 Let $P_k$ be the set of non-diagonal
-vertices of $\G_{A_k}\times \G_{A_k}$, let $P_{k,0}$ be the set of
+vertices of $\G_{H_k}\times \G_{H_k}$, let $P_{k,0}$ be the set of
 $\sim$ representatives of elements of $P_k$, and let $C_k$ be
 the set of connecting elements for elements of $P_k$, as defined in
 Definition \ref{def:repres_t2}.
@@ -6658,8 +6684,8 @@ construction of $A_k$ and of rewriting words using
 double coset representatives.
 \begin{lemma}\label{lem:dctransversal} Let $w \in F_k \smallsetminus H_k$. Given a finite basis $Y_k$ of $H_k$, one can
 \begin{itemize}
-\item construct the Stallings folding $\G_{A_k}$ for $H_k$ in time $O(N_k^2)$,
-\item and, given $\G_{A_k}$, $L_{T_k}$, the set $P_{k,0}$  of
+\item construct the Stallings folding $\G_{H_k}$ for $H_k$ in time $O(N_k^2)$,
+\item and, given $\G_{H_k}$, $L_{T_k}$, the set $P_{k,0}$  of
  representatives of the equivalence relation $\sim$, and the
 corresponding  set $C_k$ of connecting elements,
 rewrite $w$ in  double coset normal
@@ -6671,7 +6697,7 @@ Therefore, given $Y_k$ and $w$ the total time required to write $w$ in dc-normal
 
 \begin{proof}
 To rewrite an element $w$ in a double coset normal form, it is
-sufficient to compute $\G_{A_k}$, the set $L_{T_k}$,
+sufficient to compute $\G_{H_k}$, the set $L_{T_k}$,
 %$L_{Q_k}$ (or
 %its subset $L^{\prime}_{Q_k}$, defined below),
 the set $P_{k,0}$, and the
@@ -6680,31 +6706,31 @@ corresponding  set $C_k$ of connecting elements (see preprocessing steps, sectio
  Given these structures, one can then proceed to rewrite $w \in
 F_k$ in normal form, using Algorithm I.
 
-Construction of $\G_{A_k}$ takes  $t_1(N_k)$ steps, and then
+Construction of $\G_{H_k}$ takes  $t_1(N_k)$ steps, and then
 computation of its square
- $\G_{A_k} \times \G_{A_k}$ can be completed in
- $t_3(|V\G_{A_k}|,|V\G_{A_k}|) \preceq t_3(N_k,N_k)$.
-A spanning subtree $T_k$ for $\G_{A_k}$ can be found in
-$t^{\prime}_2(|V\G_{A_k}|) \preceq t^{\prime}_2(N_k)$ or $t_2(|E
-T_k|) \preceq t_2(|E\G_{A_k}|) \preceq t_2(N_k)$; here the best
+ $\G_{H_k} \times \G_{H_k}$ can be completed in
+ $t_3(|V\G_{H_k}|,|V\G_{H_k}|) \preceq t_3(N_k,N_k)$.
+A spanning subtree $T_k$ for $\G_{H_k}$ can be found in
+$t^{\prime}_2(|V\G_{H_k}|) \preceq t^{\prime}_2(N_k)$ or $t_2(|E
+T_k|) \preceq t_2(|E\G_{H_k}|) \preceq t_2(N_k)$; here the best
 estimate in terms of $N_k$ is $O(N_k^2)$. Furthermore, the time
 required for computation of $L_{T_k}$ is linear in $|E T_k|$.
 %, while
 %$L^{\prime}_{Q_k}$ can be computed in time linear on
-%$%|V\G_{A_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is the
+%$%|V\G_{H_k}|$, where $L^{\prime}_{Q_k} \subset L_{Q_k}$ is the
 %$subset of words in $L_{Q_k}$ which have no nontrivial prefixes
-% accepted by $\G_{A_k}$.
+% accepted by $\G_{H_k}$.
 To construct the set $P_{k,0}$ of $\sim$
 representatives (see definition \ref{def:repres_t2}), one must
-analyse all vertex sets of connected components of $\G_{A_k}
-\times \G_{A_k}$, and the time  required for this procedure is at
-most $O(|V(\G_{A_k} \times \G_{A_k})|) \preceq O(N^2_k)$. To construct
+analyse all vertex sets of connected components of $\G_{H_k}
+\times \G_{H_k}$, and the time  required for this procedure is at
+most $O(|V(\G_{H_k} \times \G_{H_k})|) \preceq O(N^2_k)$. To construct
 the set of connecting elements we construct a spanning forest for
-$\G_{A_k} \times \G_{A_k}$, which takes time $t_2'(N_k^2)
+$\G_{H_k} \times \G_{H_k}$, which takes time $t_2'(N_k^2)
 =O(N_k^4)$, and once this
 has been done, read off the connecting elements.
 
-Given $\G_{A_k}$, $L_{T_k}$, $P_{k,0}$ and the set $C_k$ of connecting elements,
+Given $\G_{H_k}$, $L_{T_k}$, $P_{k,0}$ and the set $C_k$ of connecting elements,
 the construction of which required time
  $O(N^4_k)$,
  we apply Algorithm I to $w \in F_k$. Analysis
@@ -6774,11 +6800,11 @@ type $Z$ and the set of vertices, respectively, of  $\D$.
 %Similarly, use $E_k\T_i$, $E_Z\T_i$ and $V\T_i$ to denote the
 %corresponding sets for $\T_i$.
  We use the notation $E=E_k = |E_k \D| + |E_Z \D_k|$, $e = |E_Z \D|$, $V = |V \D|$, and $q_k = |V
-\G_{A_k}|$, $r_k = |X_k|$ for short.
+\G_{H_k}|$, $r_k = |X_k|$ for short.
 
 \begin{comment}
 \begin{lemma}\label{lem:resolution} Suppose that $\D = \D_{(n)}$,
-that $\G_{A_k}$, $T_k$ and $P_k$, $P_{k,0}$,  $C_k$, $\D_k$, and $\nu$  have been
+that $\G_{H_k}$, $T_k$ and $P_k$, $P_{k,0}$,  $C_k$, $\D_k$, and $\nu$  have been
 constructed. Then the time required to transform $\D_k$ into $\D_{k,5}$ is
 \[\begin{split}
 O((V &+R_k e)^2\cdot (2r_k)^{(V + R_k e) q_k +1})+\\
@@ -6786,17 +6812,17 @@ O((V &+R_k e)^2\cdot (2r_k)^{(V + R_k e) q_k +1})+\\
 \end{split}
 \]
 where $m_1, \ldots, m_5, q_k, r_k,  R_k $ are constants dependent on
-$\G_{A_k}$ and the basis $Y_k$ for $H_k$.
+$\G_{H_k}$ and the basis $Y_k$ for $H_k$.
 
 \end{lemma}
 \end{comment}
 Suppose that $\D = \D_{(n)}$,
-that $\G_{A_k}$, $T_k$ and $P_k$, $P_{k,0}$,  $C_k$, $\D_k$, and $\nu$  have been
+that $\G_{H_k}$, $T_k$ and $P_k$, $P_{k,0}$,  $C_k$, $\D_k$, and $\nu$  have been
 constructed. We first bound 
 the time required to transform $\D_k$ into $\D_{k,5}$
 
 Let $R_k  = \max \{ |\phi_k(z_1)|_k, \ldots, |\phi_k(z_m)|_k\}$. Thus, as
-every petal of the Stallings automaton $\G_{A_k}$ has at most $R_k$
+every petal of the Stallings automaton $\G_{H_k}$ has at most $R_k$
 edges, the maximal length of a path starting in the root vertex
 and terminating at arbitrary vertex of the tree $T_k$ is at most
 $R_k-1$.
@@ -6827,7 +6853,7 @@ t_{\D_{k,1}} \preceq t_1(|E \D_{k,1}^\prime |) + O(R_k \cdot E) =t_1( E) .
 
 
 {\bf 2. $\D_{k,1} \leadsto \D_{k,2}$.}  (Steps \ref{it:D4}--\ref{it:D7}) The time required for the
-construction of $\cP_{k,1}=\D_{k,1}\times \G_{A_k}$ is $t_3(|V \D_{k,1}|, q_k)$.
+construction of $\cP_{k,1}=\D_{k,1}\times \G_{H_k}$ is $t_3(|V \D_{k,1}|, q_k)$.
 Further, one can choose a spanning subforest $\U_{k,1}$ of $\cP_{k,1}$ in
 $t_2(|V\cP_{k,1}|)$ steps. Without loss of generality one can assume
 that $\cP_{k,1}$ has precisely one connected component (which is the
@@ -6907,15 +6933,15 @@ where $|E\D'_{k,2}|$ is given by (\ref{etheta2}) and $t_{\D'_{k,2}}$ is
 estimated in formula (\ref{theta'2}).
 
 
-{\bf 3. $\D_{k,2} \leadsto \D_{k,3}$.} (Steps \ref{it:D8}--\ref{it:D10}) We construct both $\cP_{k,2}=\D_{k,2}\times \G_{A_k}$ and a spanning
+{\bf 3. $\D_{k,2} \leadsto \D_{k,3}$.} (Steps \ref{it:D8}--\ref{it:D10}) We construct both $\cP_{k,2}=\D_{k,2}\times \G_{H_k}$ and a spanning
 subforest $\U_{k,2}$ of $\cP_{k,2}$, using previously obtained $\cP_{k,1}$ and $\U_{k,1}$. Suppose again
 $\cP_{k,2}$ has only one non-trivial connected component.
  Let $V'\cP_{k,2}$ denote the set of vertices of $\cP_{k,2}$ of valency at least one
 (that is the set of non-isolated vertices). Since $|V\cP_{k,2}|=|V\D_{k,2}|\cdot q_k$, then $|V'\cP_{k,2}|
-\le |V\D_{k,2}|\cdot q_k$. As $\G_{A_k}$ is folded, so is $\cP_{k,2}$, so
+\le |V\D_{k,2}|\cdot q_k$. As $\G_{H_k}$ is folded, so is $\cP_{k,2}$, so
 vertices of $\cP_{k,2}$ have degree at most $2r_k$. Hence the number of
 edges in $\cP_{k,2}$ can be bounded above, in terms of the numbers of
-vertices of set of $\D_{k,2}$ and $\G_{A_k}$, as follows.
+vertices of set of $\D_{k,2}$ and $\G_{H_k}$, as follows.
 \[ |E\cP_{k,2}| \le |V\cP_{k,2}|\cdot r_k =|V\D_{k,2}|\cdot q_k \cdot r_k.\]
 
 Then
@@ -6991,7 +7017,7 @@ where $|E\D'_{k,3}|$, $t_{\D'_{k,3}}$ are given by (\ref{etheta3}) and
 
 {\bf 4. $\D_{k,3} \leadsto \D_{k,4}$.} (Steps \ref{it:D11}--\ref{it:D13})
 We construct $\cP_{k,3}=\D_{k,3}\times
-\G_{A_k}$ and a
+\G_{H_k}$ and a
 spanning subforest $\U_{k,3}$ of $\cP_{k,3}$. Since $E\U_{k,3} =
 E\U_{k,2}$ and $V\cP_{k,3}$ coincides with $V\cP_{k,2}$ plus some new isolated
 vertices, we use both $\cP_{k,2}$ and $\U_{k,2}$ obtained above. Observe that by construction $E\U_{k,3} =
@@ -7047,11 +7073,11 @@ t_{\D_{k,4}} = t_1(|E\D'_{k,4}|) + t_{\D'_{k,4}},
 where $t_{\D'_{k,4}}$ is given by (\ref{theta'4}).
 
 {\bf 5. $\D_{k,4} \leadsto \D_{k,5}$.} (Steps \ref{it:D14}--\ref{it:D16.5}) The time required to construct
-$\cP_{k,4}=\D_{k,4}\times \G_{A_k}$ is $t_3(|V \D_{k,4}|, q_k)$. Further,
+$\cP_{k,4}=\D_{k,4}\times \G_{H_k}$ is $t_3(|V \D_{k,4}|, q_k)$. Further,
  a spanning subforest $\U_{k,4}$ of $\cP_{k,4}$ can be constructed in time
 $t_2(|V\cP_{k,4}|)$. We are assuming that  a spanning tree $T_k$ of
-$\G_{A_k}$, the set of non-diagonal elements $P_k$ of
-$\G_{A_k}\times \G_{A_k}$, the set $P_{k,0}$ of $\sim$ representatives
+$\G_{H_k}$, the set of non-diagonal elements $P_k$ of
+$\G_{H_k}\times \G_{H_k}$, the set $P_{k,0}$ of $\sim$ representatives
 elements of $P_k$, and the set of connecting elements
  $C_k$ have been constructed. Note that the number of elements of $P_k$ is
 $q_k^2-q_k$.
@@ -7276,8 +7302,8 @@ t$, and $\e_i = k$ if $w_i \in F_k$, $k = 1,2$; $t_1$ is defined in (\ref{t1}), 
 According to corollary \ref{cor:dcnf_time}, given $Y_1$ and $Y_2$, one can rewrite $w$ in double coset normal form in time at most 
 $O(N_1^4 + N_2^4+ |w_1|_{\e_1}+|w_2|_{\e_2}+
 \ldots +|w_t|_{\e_t}).$
- As a ``by-product'' of this rewriting, we also obtain $\G_{A_k}$, Stallings automata for the subgroup $H_k=\la Y_k\ra$ of $F_k$,
-$L_{T_k}$, sets of words corresponding to maximal subtrees $T_k$ of $\G_{A_k}$,  sets $P_k$ of non-diagonal elements of $V( \G_{A_k}\times \G_{A_k})$
+ As a ``by-product'' of this rewriting, we also obtain $\G_{H_k}$, Stallings automata for the subgroup $H_k=\la Y_k\ra$ of $F_k$,
+$L_{T_k}$, sets of words corresponding to maximal subtrees $T_k$ of $\G_{H_k}$,  sets $P_k$ of non-diagonal elements of $V( \G_{H_k}\times \G_{H_k})$
 partitioned into equivalence classes of $\sim$, and sets $P_{k,0}$ of representatives of equivalence classes of
 elements of $P_k$ with sets $C_k$ of connecting elements; as well as 
 maps $\phi_k:Z\maps F_k$ inducing isomorphisms from $F(Z)$ to $H_k$. 

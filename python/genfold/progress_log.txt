@@ -9,6 +9,26 @@ alg3_cex.py - the example with 2 identical normal subgroups amalgamated.
 cex_checked directory has output up to Mod 3 as it should be: for comparison after future changes
 (dir cex receives output from alg3_cex.py)
 
+Outputs:
+To standard output: prints "Now Di" each time modification i is carried out.
+
+Files: 
+Path names for logfile and testfile are set in K_fix.py or alg3_cex.py and contain the following.
+logfile: tmp.txt --- printed output goverened by the verbose flags (in K_fix.py or ...) - can be made to say which paths are added by each modification.
+
+testfile (a directory):
+stallings1.gv and stallings2.gv --- stallings foldings of H1 and H2
+double1.gv and double2.gv --- doubles of these foldings
+Kfolding.gv --- initial (free) folding of generators of K
+For the jth iteration of the main loop:
+D0_Z_vj.gv --- Z component of Delta at iteration j
+Di_k_vj.gv --- the result of modification i, on the X_k component of Delta, at iteration j
+Dn_vj.gv --- the new Delta, produced by iteration j of the main loop
+P_i_k_vj --- the product of Di_k_vj.gv with stallingsk.gv 
+
+(There's a file display.sh which can help with displaying the output graphs, but it 
+works in linux; and needs to be in the same directory as the files to be displayed.)
+
 26/10/13
 Ran the program on the example in our paper (as far as Mod 3).
 
@@ -55,7 +75,9 @@ these edges cannot be read as X1 or X2 words.
 Possibly this does not matter, as, if w belongs to K then it is equal in G to 
 a word formed from a product of generators of K, written in dc normal form: 
 so it is this kind of word we need to cope with. It would then be possible
-to read such a word in the flower automaton for K. 
+to read such a word in the flower automaton for K. However, the algorithm
+for putting words in normal form would have to be changed to accommodate
+this.
 
 The criteria used to halt the main loop seem suspect. 
 The idea is to make modifications that allow words readable in the flower
