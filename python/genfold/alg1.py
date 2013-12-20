@@ -247,15 +247,15 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
 
     def spit_out_nf(self):
         LHS=graph_pass(self.graph,self.word).acc_read_rem() #find the left hand maxl readable prefix
-        #print("the LHS is ",LHS)
+        #print("In Normal_form: the LHS is ",LHS)
         LHS_u=LHS[3].label #the last vertex on the maxl readable path, (from the lhs)
         h=element(LHS[0]).word #the maximal acceptable prefix
         p=element(LHS[1]).word #the max readabl prefix following h
         q=element(LHS[2]).word #the remainder of the word
-        #print(q)
+        #print("In Normal_form: q is ",q)
         Q=element(q).inverse() #now read  from the rhs
         RHS=graph_pass(self.graph,Q).acc_read_rem() #find the rh hand maxl readable prefix
-        #print("the RHS is ",RHS)
+        #print("In Normal_form: the RHS is ",RHS)
         RHS_u=RHS[3].label #the last vertex on the maxl readable path, (from the rhs)
         e=element(RHS[2]).inverse()  #the middle part of the word, which could not be read from either end
         if not e==[]:
@@ -272,14 +272,14 @@ class   Normal_form(object): #read word forward, find acc, read, rem, as above, 
             c=element(z+T+G).word
             C_Z=element(RHS[4]).word
             c_Z=element(C_Z).inverse()
-            #print("type 1 nf")
+            #print("In Normal_form: type 1 nf")
             return([a,b,c,a_Z,c_Z])
         else:                               #when e =""
             conn=[]                     #the connecting element
             repr=[]                     #the repr of (LHS_u,RHS_u)
             for x in self.double.vertices: 
-                #print("vertex x of double is ", x)
-                #print("LHS_u-RHS_u is ",str(LHS_u)+"-"+str(RHS_u))
+                #print("In Normal_form: vertex x of double is ", x)
+                #print("In Normal_form: LHS_u-RHS_u is ",str(LHS_u)+"-"+str(RHS_u))
                 if x.label==str(LHS_u)+"-"+str(RHS_u): #find the vertex (LHS_u,RHS_u)
                     conn=element(x.path).inverse() #then the connecting element
                     #child = True 

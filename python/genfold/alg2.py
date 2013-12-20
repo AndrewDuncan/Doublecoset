@@ -200,7 +200,8 @@ def amalgam_normal_form(w,F1,F2,H1,H2):
                     w.pop(len(w)-1)
                     v.pop(len(w)-1)
                     #print("g,len(w)", len(w))
-        else:   #if w[s] is not in H[f]         
+        else:   #if w[s] is not in H[f] 
+            #print("G[f][0],w[s],G[f][1]",G[f][0],"\n\n",w[s],"\n\n",G[f][1])
             (left,Drep, right,left_Z,right_Z)=Normal_form(G[f][0],w[s],G[f][1]).spit_out_nf()#get the normal form of w[s]
             #print("in amal_n_f left,Drep, right,left_Z,right_Z is", left,Drep, right,left_Z,right_Z)
             if s>0:# if w[s] is not the first syllable of w 
