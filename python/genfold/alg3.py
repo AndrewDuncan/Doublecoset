@@ -35,10 +35,12 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                 if label in F[2-k].mongens: # 
                     v.removeOutEdge(label,w)
                     w.removeInEdge(label,v)
+                    v.boundary=1#since an edge has been removed from v, it is a boundary vertex
             for label,w in v.inedgesList[::-1]:
                 if label in F[2-k].mongens:
                     v.removeInEdge(label,w)
                     w.removeOutEdge(label,v)
+                    v.boundary=1#since an edge has been removed from v, it is a boundary vertex
         shoots=1  #part b, remove Z shoots
         while shoots!=0:
             ind=0
@@ -46,7 +48,7 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                 if verbose[3]>1:
                     output_log_file(logfile,"k is "+ str(k)+" v name, v label "+str(v.name)+str(v.label))
                 #print("v ", v," inedgesList ", v.inedgesList, " outedgesList ", v.outedgesList)
-                edgesList=v.inedgesList+v.outedgesList # make a list of all edges incident to v
+                #edgesList=v.inedgesList+v.outedgesList # make a list of all edges incident to v
                 v_in_delta_z=0
                 for u in delta_z.vertices: #now test to see if this vertex v is in the Z component, delta_z
                             if v.label==u.label:
@@ -82,7 +84,8 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                             if verbose[3]>=1:
                                 output_log_file(logfile,"D0 (MakeComps): k is "+ str(k)+ ", added vertex v  to delta_z with label: "+ str(vcopy.label))
                         if vv_in_delta_z==0: #if the other end of the shoot is not in delta_z
-                            vv=edgesList[0][1]
+                            #vv=edgesList[0][1]
+                            vv=edge_found[1]
                             vvcopy=delta_z.addVertex(vv.name)# add it to delta_z
                             vvcopy.label=vv.label
                             if verbose[3]>=1:
@@ -114,6 +117,7 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
  
                         label=edge_found[0]
                         w=edge_found[1]
+                        v.boundary=1# as v has had a shoot removed from it, mark it as a boundary vertex
                         if (label,w) in v.inedgesList: #now remove the shoot from the in or out edges of the non-leaf end
                             v.removeInEdge(label,w)
                             w.removeOutEdge(label,v)
@@ -133,6 +137,8 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
             v.nu_im={v.label} #part d
             v.name='({0},{1})'.format(v.label,k) #make name different from label, for printing?
             v.label='({0},{1})'.format(v.label,k) #part c
+            if not hasattr(v,'boundary'):#mark all non-boundary vertices
+                v.boundary=0 
 
         #Next remove components of delta_k1k which have only edges of type Z
         #First construct the spanning forest, which also finds connected components (identified by col)

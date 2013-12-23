@@ -25,7 +25,7 @@ from main_loop import *
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,0,0,0,0,0,0,1]
+verbose =[0,0,0,0,1,1,1,1,1,1,1]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
 logfile='K_cyclic/log.txt'
