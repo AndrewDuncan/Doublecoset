@@ -175,6 +175,16 @@ class Graph:
                 u.original=min(u.original,v.original)
         #there is nothing to do in any of the other cases
 
+        #in some cases v.boundary is 0, in other cases it is 1, or unset
+        #if either u or v has "boundary" set then u inherits the max of these values 
+        #(as if either u or v is the image of a boundary vertex then the survivor is also the image of a boundary vertex)
+        if hasattr(u,'boundary') or hasattr(v,'boundary'):
+            if not hasattr(u,'boundary') and hasattr(v,'boundary'):
+                u.boundary=v.boundary
+            elif  hasattr(u,'boundary') and hasattr(v,'boundary'):
+                u.boundary=max(u.boundary,v.boundary)
+        #there is nothing to do in any of the other cases
+
         return u                            #return the surviving vertex
     
     #add a labelled edge u->v

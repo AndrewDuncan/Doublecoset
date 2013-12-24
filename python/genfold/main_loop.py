@@ -99,6 +99,7 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
     changed=True
     while changed:
         changed=False
+        print("\n iteration number ", loop_count)
         print("now D0")
         D0=MakeComps(Delta,F,FZ,verbose,logfile) # returnsdelta_k0[0],delta_k0[1],delta_z
     
@@ -193,7 +194,9 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
         # Open Dn.gv in write mode
         output_graph_file(delta_n,testfile+"Dn_v"+str(loop_count)+".gv","Delta_n",verbose,logfile)
         #output_graph_file(Delta,testfile+"Dorig_v"+str(loop_count)+".gv","Delta_orig",verbose,logfile)
-        if Delta!=delta_n and loop_count<=max_iterations:
+        if str(Delta)!=str(delta_n) and loop_count<=max_iterations:
+            print("Delta", Delta)
+            print("delta_n", delta_n)
             changed=True
             loop_count+=1
             Delta=delta_n# delta_n is input to the next iteration

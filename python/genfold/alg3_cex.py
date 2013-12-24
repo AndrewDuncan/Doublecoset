@@ -121,7 +121,7 @@ Kgens=[k1,k2]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=1
+max_iterations=5
 
 ######################
 ########### No user entry beyond this point

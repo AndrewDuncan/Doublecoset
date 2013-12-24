@@ -218,6 +218,7 @@ def Mod1(delta_k0,Z,H,verbose,logfile):#input delta_k0(X1 and X2 components), Z 
                 v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k) 
                 v.label='({0},{1})'.format(v.label,k)
+                v.boundary=0
         go = True
         while go: #fold k1k, updating of v.nu_im in the process
             go = delta_k1k.fold()
@@ -289,6 +290,7 @@ def Mod2(delta1,H,verbose,logfile): #each of delta1 and flower is a pair (delta1
                 v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
+                v.boundary=0
          
         go = True
         while go: #fold k1k, updating of v.nu_im in the process
@@ -372,6 +374,7 @@ def Mod3(delta2,H,verbose,logfile): #each of delta2 and flower is a pair (delta2
                 v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
+                v.boundary=0
 
         
         go = True
@@ -426,9 +429,9 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
             if len(Pcomponents[col])!=1: # if there is only one vertex in a component, go to the next component
                 for v in Pcomponents[col]:
                     if verbose[7]>1:
-                        output_log_file(logfile,"component, vertex, v.label, lhs-original "+ str(col)+ str(v)+ str(v.label)+ str(v.memory[0].original))
-                    #find the next vertex with right hand label 1, which is a vertex of delta_0, and in component col 
-                    if str(v.label).endswith('1') and v.memory[0].original==0:
+                        output_log_file(logfile,"component, vertex, v.label, lhs-original, lhs-boundary "+ str(col)+ str(v)+ str(v.label)+ str(v.memory[0].original)+str(v.memory[0].boundary))
+                    #find the next vertex with right hand label 1, which is a vertex of delta_0 and a boundary vertex, and in component col 
+                    if str(v.label).endswith('1') and v.memory[0].original==0 and v.memory[0].boundary==1:
                         if verbose[7]>1:
                             output_log_file(logfile,str(v)+ " ends with 1 and original")
                         v_base=v # this is the current orginal vertex of type (*,*)-1 found in this component
@@ -439,9 +442,9 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
                             output_log_file(logfile,"current  (*,*)-1 is  "+ str(v_base)+ " in component "+ str(col))
                         for u in Pcomponents[col]:
                             if verbose[7]>1:
-                                output_log_file(logfile,"u vertex, u.label, lhs-original "+str(u)+ str(u.label)+ str(u.memory[0].original))
-                            #find the next vertex with right hand label not 1, which is a vertex of delta_0, and  in component col 
-                            if u.memory[0].original==0 and not str(u.label).endswith('1'):
+                                output_log_file(logfile,"u vertex, u.label, lhs-original "+str(u)+ str(u.label)+ str(u.memory[0].original)+str(u.memory[0].boundary))
+                            #find the next vertex with right hand label not 1, which is a vertex of delta_0 and a boundary vertex, and  in component col 
+                            if u.memory[0].original==0 and u.memory[0].boundary==1 and not str(u.label).endswith('1'):
                                 if verbose[7]>1:
                                     output_log_file(logfile,str(u)+ " does not end with 1, and original")
                                 u_goal=u # this is the current original vertex of type (*,*)-b found in this component
@@ -483,6 +486,7 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
                 v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
+                v.boundary=0
  
         
         go = True
@@ -517,11 +521,16 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
         for v in delta5k.vertices:
             if v.original==0:
                 original_vertices.append(v)
+
+        boundary_vertices=[]
+        for v in delta5k.vertices:
+            if v.boundary==1:
+                boundary_vertices.append(v)
                 
         Pcomponents={}
         Pcomp_1={}
         #construct a dictionary with key the components of the product P_k and for such key a value list of vertices in that component
-        #simultaneously construct a dictionary with the same keys and value list vertices of the form v-1, where v is a vertex of delta0
+        #simultaneously construct a dictionary with the same keys and value list vertices of the form v-1, where v is a boundary vertex of delta0
         for u in  Prod[k].vertices:
             if str(u.colour) in Pcomponents:
                 L=Pcomponents[str(u.colour)]
@@ -533,8 +542,8 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                 
             if str(u.label).endswith('1'):#for vertices with right hand label 1 
                 u_pair=u.label.split("-",1)#get hold of the left and right parts of the vertex label 
-                for l in original_vertices:
-                    if str(u_pair[0])==l.label:# if left part of u is original add u to the dictionary
+                for l in boundary_vertices:
+                    if str(u_pair[0])==l.label:# if left part of u is a boundary vertex add u to the dictionary
                         if str(u.colour) in Pcomp_1:
                             L=Pcomp_1[str(u.colour)]
                             L.append((u,l))
@@ -570,7 +579,7 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                     error_message="Exiting from Mod 5. Path a_l or a_r was not set at vertex "+str(v)+" with root "+str(v_root)+" a_l is "+str(a_l)+" a_r is "+str(a_r)
                     sys.exit(error_message)
 
-                for m in original_vertices:
+                for m in boundary_vertices:
                     v1=m.label+"-"+str(v_l)
                     v2=m.label+"-"+str(v_r)
                     if verbose[8]>1:
@@ -624,6 +633,7 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                 v.nu_im=set()# the new vertices are not images of vertices of delta
                 v.name='({0},{1})'.format(v.label,k+1) 
                 v.label='({0},{1})'.format(v.label,k+1)
+                v.boundary=0
  
         
         go = True

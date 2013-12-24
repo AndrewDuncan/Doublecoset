@@ -187,7 +187,7 @@ u=v
 #if verbose[-1]>=1:
 #    for q in Kgens:
 #        output_log_file(logfile,"Kgens "+str(q))
-for i in range(0,2):
+for i in range(0,6):
     u=element(u+v).word
     if verbose[-1]>=1:
         output_log_file(logfile,"i "+str(i+2)+" v^i "+str(u)+"\n")
@@ -196,9 +196,25 @@ for i in range(0,2):
         print(U, "= v^i after listsplitter and then \n")
     U=amalgam_normal_form(U,F1,F2,H1,H2)
     if verbose[-1]>=1:
-        output_log_file(logfile," and after amalgam_normal_form v^i and v^i(z) are "+str(U[0])+" and "+str(U[1]))
-    #w=w[1]
-    # g.append(w)
+        output_log_file(logfile," and after amalgam_normal_form v^i and v^i(z) are "+str(U[0])+" and "+str(U[1])+"\n\n")
+
+
+v=element(k5).inverse()
+u=[]
+#if verbose[-1]>=1:
+#    for q in Kgens:
+#        output_log_file(logfile,"Kgens "+str(q))
+for i in range(0,5):
+    u=element(u+v).word
+    if verbose[-1]>=1:
+        output_log_file(logfile,"-i "+str(i+1)+" v^-i "+str(u)+"\n")
+    U=listsplitter(u,F1.mongens,F2.mongens)
+    if verbose[-1]>1:
+        print(U, "= v^-i after listsplitter and then \n")
+    U=amalgam_normal_form(U,F1,F2,H1,H2)
+    if verbose[-1]>=1:
+        output_log_file(logfile," and after amalgam_normal_form v^-i and v^-i(z) are "+str(U[0])+" and "+str(U[1])+"\n\n")
+
 
 ### at the end close the log file
 log.close()
