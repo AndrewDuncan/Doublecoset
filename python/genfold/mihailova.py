@@ -139,7 +139,7 @@ Hname1='H1'
 
 # Enter some elements of F1, a selection of which can be used to generate the subgroup H1
 #
-h1=['X3','x1,'x3']
+h1=['X3','x1','x3']
 h2=['X3','x2','x3']
 h3=['x1']
 h4=['x2']
@@ -179,10 +179,10 @@ Kname='K'
 
 # Enter a free generating set for K: \{x_3y_3x_1, x_3y_4x_4x_2, R_i, 0\le i \le 26\}
 k1=['x3','y3','x1']
-k1=['x3','y4','x4','x2']
+k2=['x3','y4','x4','x2']
 
 Kgens=[k1,k2]
-for w in Xrels
+for w in Xrels:
     Kgens.append(w)
 
 ###############################
@@ -192,8 +192,8 @@ max_iterations=2
 ######################
 ########### No user entry beyond this point
 ##################
-#delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
-print("Kgens ",Kgens)
+delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
+
 
 ### at the end close the log file
 log.close()
