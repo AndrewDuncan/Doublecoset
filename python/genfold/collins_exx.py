@@ -31,7 +31,7 @@ for i in range(0,num_rels):
     R.append([]) # the ith relator, initially blank
 
 print("len r", len(r))
-#Input relators: words in the free group on the "Collins generators:
+#Input relators: words in the free group on the "Collins" generators:
 # as words in Collins generators
 R[0]=[(p,10),(a,1),(p,-1),(a,-1)]# the word p^10 a p^{-1} a^{-1}
 R[1]=[(p,10),(b,1),(p,-1),(b,-1)]# p^10 b p^{-1} b^{-1}
@@ -76,7 +76,7 @@ for R in List_rels:
 #to translate the elements of List_rels into elements of F(a,b)
 #... the output appears in outfile
 ######################
-im_Grels,Trels=map_to_two_gens(Grank,List_rels,outfile)
+im_Grels,Trels,Xrels=map_to_two_gens(Grank,List_rels,outfile)
 ##################
 
 ### at the end close the output file

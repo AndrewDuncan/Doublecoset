@@ -59,6 +59,28 @@ def morph(F,w,images,IMAGES):
 
 # ###############################
 # function to:
+# take a word in F(a,b) and map it to a word in  F(x1,...) by
+# mapping generator a to x1 and  b to x2.
+#This assumes the word w is written in a, A, b, B, and if not, every letter which is not in this set is 
+#treated as though it were B
+def AtoX(F,w):
+    W=[]
+    for x in w:
+        if x=='a':
+            W.append('x'+str(1))
+        elif x=='A':
+            W.append('X1')
+        elif x=='b':
+            W.append('x2')
+        else:
+            W.append('X2')
+            
+    W=element(W).word
+    
+    return(W)
+
+# ###############################
+# function to:
 # #write a word in latex format 
 def word_to_tex(w):
     S=''
@@ -135,8 +157,19 @@ def map_to_two_gens(Grank,List_rels,outfile):
 
     for S in Trels:
         with open(outfile, "a") as out: #in append mode
-            out.write(str(S)+"\n\n") #and  write formatted relators to it
+            out.write("$"+str(S)+"$"+"\n%\n") #and  write formatted relators to it
 
-    return(im_Grels,Trels)
+    Xrels=[]
+    for r in im_Grels:
+        xr=AtoX(F,r)
+        Xrels.append(xr)
+
+    
+    k=1
+    for w in Xrels:
+        with open(outfile, "a") as out: #in append mode
+            out.write(str(w)+"\n\n") #and  write unformatted relators in generators x_1, x_2, to it
+
+    return(im_Grels,Trels,Xrels)
 
 

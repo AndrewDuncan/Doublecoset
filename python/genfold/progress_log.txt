@@ -9,6 +9,11 @@ alg3_cex.py - the example with 2 identical normal subgroups amalgamated.
 cex_checked directory has output up to Mod 3 as it should be: for comparison after future changes
 (dir cex receives output from alg3_cex.py)
 
+collins_exx.py writes out the relators for Collins' presentation of a group
+with unsolvable WP into a group on 2 generators. Output is written in directory mihailova
+
+mihailova.py ... the example constructed by Lisa, the program runs the same way as K_fix.py above
+
 Outputs:
 To standard output: prints "Now Di" each time modification i is carried out.
 
