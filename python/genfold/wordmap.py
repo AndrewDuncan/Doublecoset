@@ -111,7 +111,58 @@ def word_to_tex(w):
         S=S+current.lower()+'^{-'+str(power)+'}'
                 
 
-    return(S)      
+    return(S)
+##########################################################################
+#a function which takes a word in $F(x1,...)*F(y1,...) and makes a list
+# of its factors from F1 and another of its factors from F2
+def word_factors(F1,F2,w):
+    factors1=[]
+    factors2=[]
+    if len(w)==0:
+        return(factors1,factors2)
+    if w[0] in F1.mongens:
+        
+        factor_switch=0
+    else:
+        factor_switch=1
+    current=[]
+    for l in w:
+        if l in F1.mongens:
+            if factor_switch==0:
+                current.append(l)
+            else:
+                factors2.append(current)
+                current=[l]
+                factor_switch=0
+        else:
+            if factor_switch==1:
+                current.append(l)
+            else:
+                factors1.append(current)
+                current=[l]
+                factor_switch=1
+    if factor_switch==0:
+        factors1.append(current)
+    else:
+        factors2.append(current)
+        
+    return(factors1,factors2)
+#############################################################
+#a function which takes a list of  words in $F(x1,...)*F(y1,...) and makes a list
+# of their factors from F1 and another of  factors from F2
+def list_factors(F1,F2,L):
+    factors1=[]
+    factors2=[]
+    for w in L:
+        [facs1,facs2]=word_factors(F1,F1,w)
+        for w in facs1:
+            if w not in factors1:
+                factors1.append(w)
+        for w in facs2:
+            if w not in factors2:
+                factors2.append(w)
+    return(factors1,factors2)
+#################################
 ###########################################################################
 # #here begins wordmap main function
 ##########################################################################
