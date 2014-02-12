@@ -182,12 +182,14 @@ k1=['x3','y3','x1']
 k2=['x3','y4','x4','x2']
 
 #make lists of the words in F1 and F2 used as factors in k1 and k2 (this is a pain and not really necessary but a result of how the prog was first written)
-words1=[['x3'],['x1'],['x4','x2']]
+=[['x3'],['x1'],['x4','x2']]
 words2=[['y3'],['y4']]
 Kgens=[k1,k2]
 for w in Xrels:
     Kgens.append(w)
 
+#make lists of the words in F1 and F2 used as factors in k1 and k2 (this is needed only because this is how the prog was first set up)
+words1,words2=list_factors(F1,F2,Kgens)
 ###############################
 #maximum number of iterations of the main loop
 max_iterations=2
