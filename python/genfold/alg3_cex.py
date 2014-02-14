@@ -1,10 +1,8 @@
 from main_loop import *
 
 ###################
-## To get the spanning trees for H1 and H2 as in the paper (as near as possible)
-## set change_tree = 1 and then 
-## when this program is run answer the questions with the
-## sequence of answers: n, y, 1, 1, 3
+## To get the spanning trees for H1 and H2 as in written notes
+## set change_tree = 0 and then 
 ###################
 
 #verbose is a list (currently of length 11) of 0's and 1's. List entries correspond to 

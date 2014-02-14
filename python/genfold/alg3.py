@@ -28,34 +28,22 @@ def alg3_pre():
 def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) and Z generators
     delta_k0=[] # to become a pair of graphs, one for each X_i
     delta_z=Graph(False,'Delta Z') # the Z component, composed of edges labelled with letters of Z, removed in the process of pruning shoots
-    for k in (1,2): # do the following for X_1 and X_2 components
-        delta_k0k=copy.deepcopy(delta) #take a new copy of delta, call it k0k
-        for v in delta_k0k.vertices[::-1]: #part a,remove edges of k0k which are in X_[2-k] to make component
-            for label,w in v.outedgesList[::-1]:
-                if label in F[2-k].mongens: # 
-                    v.removeOutEdge(label,w)
-                    w.removeInEdge(label,v)
-                    v.boundary=1#since an edge has been removed from v, it is a boundary vertex
-            for label,w in v.inedgesList[::-1]:
-                if label in F[2-k].mongens:
-                    v.removeInEdge(label,w)
-                    w.removeOutEdge(label,v)
-                    v.boundary=1#since an edge has been removed from v, it is a boundary vertex
+    for k in (1,2): #part a; do the following for X_1 and X_2 components
+		#make a copy of delta, leaving out edges with labels in  X_[2-k]: to make a component
+        delta_k0k=CopyGraph(delta,F[2-k].mongens)
+		
         shoots=1  #part b, remove Z shoots
         while shoots!=0:
             ind=0
             for v in delta_k0k.vertices[::-1]: #for each vertex of k0k
                 if verbose[3]>1:
                     output_log_file(logfile,"k is "+ str(k)+" v name, v label "+str(v.name)+str(v.label))
-                #print("v ", v," inedgesList ", v.inedgesList, " outedgesList ", v.outedgesList)
-                #edgesList=v.inedgesList+v.outedgesList # make a list of all edges incident to v
                 v_in_delta_z=0
                 for u in delta_z.vertices: #now test to see if this vertex v is in the Z component, delta_z
-                            if v.label==u.label:
-                                v_in_delta_z=1# set this flag to 1 if v is already in delta_z
-                                vcopy=u # keep track of which vertex of delta_z is equal to v
-                #if len(edgesList)==1: # if we have a shoot with leaf v
-                if len(v.inedgesList)+len(v.outedgesList)==1:
+                    if v.label==u.label:
+                        v_in_delta_z=1# set this flag to 1 if v is already in delta_z
+                        vcopy=u # keep track of which vertex of delta_z is equal to v
+                if len(v.inedgesList)+len(v.outedgesList)==1:# if we have a shoot with leaf v
                     if len(v.inedgesList)==1:
                         edge_found=v.inedgesList[0]
                         edge_dir='in'
@@ -68,7 +56,7 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                             output_log_file(logfile,"ind is "+ str(ind))
                             output_log_file(logfile,"we found an ", edge_dir, " edge to remove:"+ str(edge_found))
                         vv_in_delta_z=0
-                        for u in delta_z.vertices:
+                        for u in delta_z.vertices:#search vertices of delta_z for the other end of the shoot
                             if verbose[3]>1:
                                 output_log_file(logfile,"u is"+ str(u)+ " and edge_found is "+ str(edge_found))
                             if edge_found[1].label==u.label: 
@@ -140,7 +128,7 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
             if not hasattr(v,'boundary'):#mark all non-boundary vertices
                 v.boundary=0 
 
-        #Next remove components of delta_k1k which have only edges of type Z
+        #Next remove components of delta_k0k which have only edges of type Z
         #First construct the spanning forest, which also finds connected components (identified by col)
         bfs(delta_k0k,).forest()
         Dcomponents={}
@@ -181,8 +169,8 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
 
 
 
-        delta_k0.append(delta_k0k) #append k0k to the list of delta1 and delta2
-    return delta_k0[0],delta_k0[1],delta_z #these are distinct graphs built from copies of delta
+        delta_k0.append(delta_k0k) #append k0k to the list of delta01 and delta02
+    return delta_k0[0],delta_k0[1],delta_z #these are distinct graphs built from delta
 
 def Mod1(delta_k0,Z,H,verbose,logfile):#input delta_k0(X1 and X2 components), Z gens, H subgroup and its folding. For each Z edge, add a corresponding path in X_k generators 
     flower1=H[0].flower
@@ -780,3 +768,60 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
     #print("count ", count)
     #print("delta_n root", delta_n.root)
     return(delta_n)
+
+
+#######################################################
+#function to make a distinct copy of graph G, ignoring edges with label in L.
+#If a vertex has an edge with label in L it is marked as a boundary=1
+#otherwise it has boundary =0
+########################################################
+def CopyGraph(G,L):
+
+	Clabel=G.label# the label of the copy C is the label of G
+	C=Graph(rooted=False,label=Clabel,Olabel=0) #creat copy
+	for v in G.vertices:#create vertices of the copy
+		vname=v.name
+		vlabel=v.label
+		if G.root==v:
+			C.root=C.addVertex(vname)#if v is the root of G make it root of the copy
+			Cv=C.root 
+		else:
+			Cv=C.addVertex(vname)#and in both cases add a vertex
+
+		Cv.label=vlabel
+		Cv.boundary=0#initialise the boundary, which will be set to 1 later if necessary
+
+	for v in G.vertices:#now add edges 
+		found=0
+		for u in C.vertices: #find the vertex of C corresponding to v in G
+			if v.label==u.label:
+				Cv=u
+				found=1
+				break
+
+		if found==0:
+			error_message="Exiting from CopyGraph: a vertex of original was not recreated in the copy. Original vertex "+str(v)
+			sys.exit(error_message)
+			
+		#now v is equal to Cv and an edge is added at Cv for each edge at v (unless the label is in L)
+		for (label,s) in  v.outedgesList:
+			if label in L:
+				Cv.boundary = 1
+			else:
+				o=v.outedges_write[(label,s)]
+				found=0
+				for u in C.vertices:
+					if s.name==u.name:
+						C.addEdge(Cv,u,label,o) #add a labelled edge
+						found=1
+						break
+				if found==0:
+					error_message="Exiting from CopyGraph: a edge of original was not recreated in the copy. Original vertex "+str(v)+" original edge "+str((label,s))
+					sys.exit(error_message)
+
+		for (label,s) in  v.inedgesList:# in edges with label in L also make the bounary of Cv =1 
+			if label in L:
+				Cv.boundary = 1
+				
+
+	return(C)
