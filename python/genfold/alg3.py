@@ -412,12 +412,12 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
         
         for col in Pcomponents: 
             if verbose[7]>1:
-                output_log_file(logfile,"col is"+ str(col))
+                output_log_file(logfile,"col is "+ str(col))
             #i=0
             if len(Pcomponents[col])!=1: # if there is only one vertex in a component, go to the next component
                 for v in Pcomponents[col]:
                     if verbose[7]>1:
-                        output_log_file(logfile,"component, vertex, v.label, lhs-original, lhs-boundary "+ str(col)+ str(v)+ str(v.label)+ str(v.memory[0].original)+str(v.memory[0].boundary))
+                        output_log_file(logfile,"component, vertex, v.label, lhs-original, lhs-boundary "+ str(col)+" "+ str(v)+" "+ str(v.label)+" "+ str(v.memory[0].original)+" "+str(v.memory[0].boundary))
                     #find the next vertex with right hand label 1, which is a vertex of delta_0 and a boundary vertex, and in component col 
                     if str(v.label).endswith('1') and v.memory[0].original==0 and v.memory[0].boundary==1:
                         if verbose[7]>1:
@@ -441,7 +441,7 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
                                 b=element(u_R.path).word# path from the root of folding of Hk to u_R
                                 if verbose[7]>1:
                                     output_log_file(logfile,"path b in delta"+ str(b)+ " and u_R "+ str(u_R))
-                                b_test=graph_pass(Prod[k],b,v_base).acc_read_rem()
+                                b_test=graph_pass(Prod[k],b_bac_2014_02_13,v_base).acc_read_rem()
                                 if verbose[7]>1:
                                     output_log_file(logfile,"b_test in prod"+ str(b_test))
                                 if len(b_test[2])!=0 or b_test[3]!=u:

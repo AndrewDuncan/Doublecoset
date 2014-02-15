@@ -1,4 +1,4 @@
-from alg3 import *
+from alg3_bac_2014_02_13 import *
 
 def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations):
     # construct the group FZ

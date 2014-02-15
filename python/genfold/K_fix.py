@@ -28,7 +28,7 @@ from main_loop import *
 verbose =[0,0,0,0,1,1,1,1,1,0,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
-logfile='tmp.txt'
+logfile='input_K/K_fix_log.txt'
 with open(logfile, "w") as log: #create logfile 
     log.write("log file K_fix \n\n") #and write text to it
 #log.close()
@@ -119,7 +119,7 @@ Kgens=[k1,k2,k3]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=9
+max_iterations=2
 
 ######################
 ########### No user entry beyond this point

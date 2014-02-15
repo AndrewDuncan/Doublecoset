@@ -7,7 +7,8 @@ from main_loop import *
 
 #verbose is a list (currently of length 11) of 0's and 1's. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
-#produce "helpful" output. When it is set to 0 nothin unecessary is output.
+#produce "helpful" output. When it is set to 0 nothin unecessary is output. When it's more than 1
+#alot of lines, designed to keep track of the program flow, are output to the log file. 
 #Entries correspond to files or functions as follows
 #0 graph.py
 #1 alg1.py
@@ -23,10 +24,10 @@ from main_loop import *
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,0,0,0,0,0,0,0]
+verbose =[0,0,0,0,1,1,1,2,1,1,0]
 
 #if any of the entries of verbose are equal 1, set the name of  the log file
-logfile='cex_log.txt'
+logfile='cex_log_bac.txt'
 with open(logfile, "w") as log: #create logfile 
     log.write("log file K_fix \n\n") #and write text to it
 
@@ -38,7 +39,7 @@ change_tree=0
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
-testfile='cex/'
+testfile='cex_checked/cex/'
 #####################
 #define the free groups F1 and F2, by giving the number of generators, and letter for the generators
 F1=free_group(2,"x")
@@ -119,7 +120,7 @@ Kgens=[k1,k2]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=15
+max_iterations=2
 
 ######################
 ########### No user entry beyond this point
