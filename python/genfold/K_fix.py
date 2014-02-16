@@ -1,5 +1,12 @@
 from main_loop import *
 
+
+#So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
+#if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
+# ... the log file will also have this prefix
+testfile='input_K/'
+#####################
+
 ###################
 ## To get the spanning trees for H1 and H2 as in the paper (as near as possible)
 ## set change_tree = 1 and then 
@@ -27,20 +34,15 @@ from main_loop import *
 ##########0,1,2,3,4,5,6,7,8,9,0
 verbose =[0,0,0,0,1,1,1,1,1,0,0]
 
-#if any of the entries of verbose are equal 1, set the name of  the log file
-logfile='input_K/K_fix_log.txt'
+#open the log file and write an initial line 
+logfile='log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file K_fix \n\n") #and write text to it
+    log.write("log file K_fix.py \n\n") #and write text to it
 #log.close()
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
 change_tree=1
-
-
-#So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
-#if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
-testfile='input_K/'
 
 #define the free groups F1 and F2, by giving the number of generators, and letter for the generators
 F1=free_group(3,"x")
@@ -119,7 +121,7 @@ Kgens=[k1,k2,k3]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=2
+max_iterations=6
 
 ######################
 ########### No user entry beyond this point

@@ -1,11 +1,11 @@
-from main_loop import *
 from wordmap import *
 
 #set the name of  the output file for the relators of Collins' example
 outfile='mihailova/collins.txt'
 
+#open this file and write some initial text
 with open(outfile, "w") as out: #create outfile 
-    out.write("output file wordmap \n\n") #and write text to it
+    out.write("output file for Collins relators from mihailova.py \n\n") #and write text to it
 #out.close()
 
 
@@ -82,12 +82,7 @@ im_Grels,Trels,Xrels=map_to_two_gens(Grank,List_rels,outfile)
 
 ### at the end of the process of formatting Collins relators close the output file
 out.close()
-###################
-## To get the spanning trees for H1 and H2 as required it may be necessary to
-## set change_tree = 1 and then 
-## when this program is run answer the questions with the
-## sequence of answers: ????
-###################
+
 
 #verbose is a list (currently of length 11) of integers. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
@@ -107,7 +102,7 @@ out.close()
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,0,0,0,0,0,0,0]
+verbose =[0,0,0,0,1,1,1,1,1,1,0]
 
 #set the name of  the log file
 logfile='mihailova/log.txt'
@@ -128,7 +123,7 @@ testfile='mihailova/graphs/'
 F1=free_group(4,"x")
 F2=free_group(4,"y")#do not make both these letters the same
 
-#Enter the rank of the subgroup
+#Enter the rank of the amalagamated subgroups
 Hrank=6
 
 ####################
@@ -155,13 +150,6 @@ Hgens1=[h1,h2,h3,h4,h5,h6]
 Hname2='H2'
 
 # Enter some elements of F2, a selection of which can be used to generate the subgroup H2
-#$h'_1= y_1$, 
-#$h'_2 = y_2$, 
-#$h'_3 = y_3^{-1} y_1 y_3 $, 
-#$h'_4 = y_3^{-1} y_2 y_3$,
-#$h'_5= y_4^{-1} y_1 y_4$, 
-#$h'_6 = y_4^{-1} y_2 y_4$.
-
 g1=['y1']
 g2=['y2']
 g3=['Y3','y1','y3']
@@ -177,33 +165,29 @@ Hgens2=[g1,g2,g3,g4,g5,g6]
 #enter name of subgroup K
 Kname='K'
 
-# Enter a free generating set for K: \{x_3y_3x_1, x_3y_4x_4x_2, R_i, 0\le i \le 26\}
+# Enter the first two words of the  free generating set for K: \{x_3y_3x_1, x_3y_4x_4x_2, R_i, 0\le i \le 26\}
 k1=['x3','y3','x1']
 k2=['x3','y4','x4','x2']
 
 #make lists of the words in F1 and F2 used as factors in k1 and k2 (this is a pain and not really necessary but a result of how the prog was first written)
-words1=[['x3'],['x1'],['x4','x2']]
-words2=[['y3'],['y4']]
 Kgens=[k1,k2]
-i=0
+#i=0
 for w in Xrels:
-	for i in range(0,1):
-		#Kgens.append(w)
-		i=+1
-Kgens.append(Xrels[0])
+    #for i in range(0,1):
+    Kgens.append(w)
+    #i=+1
+#Kgens.append(Xrels[0])
 print(Kgens)
 #make lists of the words in F1 and F2 used as factors in k1 and k2 (this is needed only because this is how the prog was first set up)
 words1,words2=list_factors(F1,F2,Kgens)
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=2
+max_iterations=5
 
 ######################
 ########### No user entry beyond this point
 ##################
-#delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
-
-
+delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
 ### at the end close the log file
 log.close()
 

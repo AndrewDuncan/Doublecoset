@@ -211,15 +211,22 @@ def map_to_two_gens(Grank,List_rels,outfile):
             out.write("$"+str(S)+"$"+"\n%\n") #and  write formatted relators to it
 
     Xrels=[]
+    TXrels=[]
     for r in im_Grels:
         xr=AtoX(F,r)
         Xrels.append(xr)
+        txr=word_to_tex(xr)
+        TXrels.append(txr)
 
     
-    k=1
+    #k=1
     for w in Xrels:
         with open(outfile, "a") as out: #in append mode
             out.write(str(w)+"\n\n") #and  write unformatted relators in generators x_1, x_2, to it
+
+    for w in TXrels:
+        with open(outfile, "a") as out: #in append mode
+            out.write(str(w)+"\n") #and  write formatted relators in generators x_1, x_2, to it
 
     return(im_Grels,Trels,Xrels)
 

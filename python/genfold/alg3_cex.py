@@ -1,5 +1,11 @@
 from main_loop import *
 
+#So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
+#if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
+# ... the log file will also have this prefix
+testfile='cex/'
+#####################
+
 ###################
 ## To get the spanning trees for H1 and H2 as in written notes
 ## set change_tree = 0 and then 
@@ -24,12 +30,12 @@ from main_loop import *
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,1,1,1,2,1,1,0]
+verbose =[0,0,0,0,0,0,0,0,2,0,0]
 
-#if any of the entries of verbose are equal 1, set the name of  the log file
-logfile='cex_log_bac.txt'
+#open the log file and write an initial line
+logfile=testfile+'log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file K_fix \n\n") #and write text to it
+    log.write("log file alg3_cex.py \n\n") #and write text to it
 
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
@@ -37,10 +43,6 @@ with open(logfile, "w") as log: #create logfile
 change_tree=0
 
 
-#So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
-#if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
-testfile='cex_checked/cex/'
-#####################
 #define the free groups F1 and F2, by giving the number of generators, and letter for the generators
 F1=free_group(2,"x")
 F2=free_group(2,"y")#do not make both these letters the same

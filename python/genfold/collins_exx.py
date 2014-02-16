@@ -1,6 +1,6 @@
 from wordmap import *
 
-#set the name of  the output file
+#set the name of  the output file for the relators of Collins' example
 outfile='mihailova/collins.txt'
 
 with open(outfile, "w") as out: #create outfile 
@@ -79,5 +79,7 @@ for R in List_rels:
 im_Grels,Trels,Xrels=map_to_two_gens(Grank,List_rels,outfile)
 ##################
 
-### at the end close the output file
+### at the end of the process of formatting Collins relators close the output file
 out.close()
+
+
