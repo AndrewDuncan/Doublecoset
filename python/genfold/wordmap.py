@@ -219,14 +219,15 @@ def map_to_two_gens(Grank,List_rels,outfile):
         TXrels.append(txr)
 
     
-    #k=1
+    i=3
     for w in Xrels:
         with open(outfile, "a") as out: #in append mode
-            out.write(str(w)+"\n\n") #and  write unformatted relators in generators x_1, x_2, to it
+            out.write("k"+str(i)+"="+str(w)+"\n") #and  write unformatted relators in generators x_1, x_2, to it
+            i+=1
 
     for w in TXrels:
         with open(outfile, "a") as out: #in append mode
-            out.write(str(w)+"\n") #and  write formatted relators in generators x_1, x_2, to it
+            out.write("\["+str(w)+"\]\n") #and  write formatted relators in generators x_1, x_2, to it
 
     return(im_Grels,Trels,Xrels)
 

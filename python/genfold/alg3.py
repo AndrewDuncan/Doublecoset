@@ -648,32 +648,35 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
 ########################################
 def Reassemble(delta_5,delta_z,H,verbose,logfile):
 
-    delta_n=Graph(False,'Delta_n')#make a new graph; the union of delta_5[0], delta_5[1] and delta_z
+    delta_n=Graph(False,'Delta_n')#make a new graph; to be the union of delta_5[0], delta_5[1] and delta_z
     root_set=0
     root_found=0
     for k in (0,1): # add vertices of delta[k] to delta_n, k=0,1
-        if root_set==0:
+        if root_set==0:#set n_root  equal to the root of delta_5[0] --- for later use
             if hasattr(delta_5[k],'root'):
                 root_found=1
                 n_root=delta_5[k].root
             
-        for v in delta_5[k].vertices:
+        for v in delta_5[k].vertices:#add a vertex to delta_n for each vertex of delta_5[k]
             u=delta_n.addVertex(v.name)
             u.label=v.label
             u.original=v.original
             u.nu_im=v.nu_im
-            if root_set==0 and root_found==1 and v==n_root:
+            if root_set==0 and root_found==1 and v==n_root:# when v=n_root, make the  vertex with label v.label the root of delta_n 
                 delta_n.root=u
                 root_set=1
-            if verbose[9]>1:
-                print("k is", k, " v is ",v," u is ", u, " label, name, nu_im ", u.label, " ", u.name, " ", u.nu_im)
+                if verbose[9]>1:
+                    output_log_file(logfile,"Reassemble: k is "+str(k)+"root of delta_n set to "+str(u))
+            #if verbose[9]>1:
+            #    output_log_file(logfile,"Reassemble: k is "+str(k)+" v is "+str(v)+" u is "+str(u)+" label, name, nu_im "+str(u.label)+" "+str(u.name)+" "+str(u.nu_im))
 
     if root_set==0:
-        if hasattr(delta_z,'root'):
+        if hasattr(delta_z,'root'):#if no root has been set, set n_root = to the root of delta_z
                 root_found=1
                 n_root=delta_z.root
+
     for v in delta_z.vertices:# add vertices of delta_z to delta_n
-        name='({0},{1})'.format(v.label,3) 
+        name='({0},{1})'.format(v.name,3) 
         label='({0},{1})'.format(v.label,3)
         u=delta_n.addVertex(name)
         u.label=label
@@ -682,9 +685,10 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
         if root_set==0 and root_found==1 and v==n_root:
             delta_n.root=u
             root_set=1
-        if verbose[9]>1:
-            print("delta_z v is ",v," u is ", u, " label, name, nu_im  ", u.label, " ", u.name, " ", u.nu_im) 
-
+            if verbose[9]>1:
+                output_log_file(logfile,"Reassemble: reading in delta_z and root of delta_n set to "+str(u))
+        #if verbose[9]>1:
+        #     output_log_file(logfile,"Reassemble: delta_z v is "+str(v)+" u is "+str(u)+" label, name, nu_im  "+str(u.label)+" "+str( u.name)+" "+str(u.nu_im))
     for k in (0,1): # add edges of delta_5[k] to delta_n
         for v in delta_5[k].vertices:
             for x in delta_n.vertices:#find the vertex of delta_n corresponding to v
@@ -735,19 +739,17 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
     #again=False
     for v in [w for w in delta_n.vertices if len(w.nu_im)>0]:
         if verbose[9]>1:
-            print("Reassemble: v is ", v," nu_im is ", v.nu_im)
+            output_log_file(logfile,"Reassemble: v is "+str(v)+" nu_im is "+str(v.nu_im))
         for u in [w for w in delta_n.vertices[delta_n.vertices.index(v)+1:] if len(w.nu_im)>0]:
             if verbose[9]>1:
-                print("Reassemble: u is ", u)
-                #print("passed test  and k,j,v,u ", k, " ", j," ",v," ", u)
+                 output_log_file(logfile,"Reassemble: v is "+str(u))
             if len(v.nu_im.intersection(u.nu_im))>0:#u is added to the list of vertices to be merged with v
-                #again=True#something has been done, so the main loop should be repeated
                 if v in vertex_merge_list:
                     vertex_merge_list[v].append(u)#
                 else:
                     vertex_merge_list[v]=[u]
                     if verbose[9]>1:
-                        print("Reassemble: something to do:  v is ", v, " u is ", u, "nu-im int is ", v.nu_im.intersection(u.nu_im))
+                        output_log_file(logfile,"Reassemble: something to do:  v is "+str(v)+" u is "+str(u)+" nu-im int is "+str(v.nu_im.intersection(u.nu_im)))
                         v.nu_im=v.nu_im.union(u.nu_im)
                         #print("union ",  v.nu_im)
                 u.nu_im=set()#make this empty so that u will not be considered again (is this necessary with u on vertex_delete_list?)

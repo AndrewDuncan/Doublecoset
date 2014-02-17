@@ -102,7 +102,7 @@ out.close()
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,1,1,1,1,1,1,0]
+verbose =[0,0,0,0,0,0,0,0,0,2,0]
 
 #set the name of  the log file
 logfile='mihailova/log.txt'
@@ -177,7 +177,7 @@ for w in Xrels:
     Kgens.append(w)
     #i=+1
 #Kgens.append(Xrels[0])
-print(Kgens)
+#print(Kgens)
 #make lists of the words in F1 and F2 used as factors in k1 and k2 (this is needed only because this is how the prog was first set up)
 words1,words2=list_factors(F1,F2,Kgens)
 ###############################
