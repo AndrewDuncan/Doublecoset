@@ -30,7 +30,7 @@ testfile='cex/'
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,0,0,0,0,2,0,0]
+verbose =[0,0,0,0,0,0,0,0,0,3,0]
 
 #open the log file and write an initial line
 logfile=testfile+'log.txt'

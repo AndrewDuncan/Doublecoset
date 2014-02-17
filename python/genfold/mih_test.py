@@ -126,8 +126,8 @@ k26=['X1', 'X1', 'X1', 'X1', 'X1', 'x2', 'x2', 'x2', 'x2', 'x2', 'x2', 'x2', 'x2
 k27=['X1', 'X1', 'X1', 'X1', 'X1', 'x2', 'X1', 'X1', 'X1', 'x2', 'x1', 'x1', 'x1', 'X2', 'X1', 'X1', 'X1', 'X2', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1']
 k28=['X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'x2', 'X1', 'X1', 'x2', 'x1', 'x1', 'X2', 'X1', 'X1', 'X2', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1']
 k29=['X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'x2', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'X2', 'X2', 'X2', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'x2', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x2', 'x2', 'x2', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X2', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'X2', 'X2', 'X2', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X1', 'X2', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x1', 'x2', 'x2', 'x2']
-#make lists of the words in F1 and F2 used as factors in k1 and k2 (this is a pain and not really necessary but a result of how the prog was first written)
-Kgens=[k1,k2,k3]#,k4]#,k5,k6]#,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16,k17,k18,k19,k20,k21,k22,k23,k24,k25,k26,k27,k28,k29]
+#make list of generators of K
+Kgens=[k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16,k17,k18,k19,k20,k21,k22,k23,k24,k25,k26,k27,k28,k29]
 #make lists of the words in F1 and F2 used as factors in k1 and k2 (this is needed only because this is how the prog was first set up)
 words1,words2=list_factors(F1,F2,Kgens)
 ###############################

@@ -667,8 +667,8 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
                 root_set=1
                 if verbose[9]>1:
                     output_log_file(logfile,"Reassemble: k is "+str(k)+"root of delta_n set to "+str(u))
-            #if verbose[9]>1:
-            #    output_log_file(logfile,"Reassemble: k is "+str(k)+" v is "+str(v)+" u is "+str(u)+" label, name, nu_im "+str(u.label)+" "+str(u.name)+" "+str(u.nu_im))
+            if verbose[9]>2:
+                output_log_file(logfile,"Reassemble: k is "+str(k)+" v is "+str(v)+" u is "+str(u)+" label, name, nu_im "+str(u.label)+" "+str(u.name)+" "+str(u.nu_im))
 
     if root_set==0:
         if hasattr(delta_z,'root'):#if no root has been set, set n_root = to the root of delta_z
@@ -687,8 +687,8 @@ def Reassemble(delta_5,delta_z,H,verbose,logfile):
             root_set=1
             if verbose[9]>1:
                 output_log_file(logfile,"Reassemble: reading in delta_z and root of delta_n set to "+str(u))
-        #if verbose[9]>1:
-        #     output_log_file(logfile,"Reassemble: delta_z v is "+str(v)+" u is "+str(u)+" label, name, nu_im  "+str(u.label)+" "+str( u.name)+" "+str(u.nu_im))
+        if verbose[9]>2:
+             output_log_file(logfile,"Reassemble: delta_z v is "+str(v)+" u is "+str(u)+" label, name, nu_im  "+str(u.label)+" "+str( u.name)+" "+str(u.nu_im))
     for k in (0,1): # add edges of delta_5[k] to delta_n
         for v in delta_5[k].vertices:
             for x in delta_n.vertices:#find the vertex of delta_n corresponding to v
