@@ -182,7 +182,7 @@ for w in Xrels:
 words1,words2=list_factors(F1,F2,Kgens)
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=5
+max_iterations=2
 
 ######################
 ########### No user entry beyond this point

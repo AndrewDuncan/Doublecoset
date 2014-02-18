@@ -574,7 +574,7 @@ def output_graph_file(graph,filename,graphname,verbose,logfile):
         output_log_file(logfile,"into output_graph_file")
         output_log_file(logfile,"opening file "+str(filename))
     with open(filename, "w") as go:
-        go.write("digraph "+graphname+" {\n") #and write to it
+        go.write("digraph "+graphname+" {\n overlap=false;\n splines=true;\n") #and write to it
     with open(filename, "a") as go: #then open it in append mode
         go.write(str(graph)) #and continue to write to it
         label='labelloc="t";fontsize=8;label= "'+graphname+'" ;'#make a label

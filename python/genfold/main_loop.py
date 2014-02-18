@@ -194,12 +194,11 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
         # Open Dn.gv in write mode
         output_graph_file(delta_n,testfile+"Dn_v"+str(loop_count)+".gv","Delta_n",verbose,logfile)
         #output_graph_file(Delta,testfile+"Dorig_v"+str(loop_count)+".gv","Delta_orig",verbose,logfile)
+
         if str(Delta)!=str(delta_n) and loop_count<max_iterations:
-            #print("Delta", Delta)
-            #print("delta_n", delta_n)
             changed=True
             loop_count+=1
             Delta=delta_n# delta_n is input to the next iteration
-             
-        return(delta_n,loop_count)
+
+    return(delta_n,loop_count)
         

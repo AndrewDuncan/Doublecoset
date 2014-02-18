@@ -132,7 +132,7 @@ Kgens=[k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16,k17,k18,k19,k20,k2
 words1,words2=list_factors(F1,F2,Kgens)
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=5
+max_iterations=2
 
 ######################
 ########### No user entry beyond this point
