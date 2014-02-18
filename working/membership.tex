@@ -1082,12 +1082,13 @@ $S^{(2)}$. As $s_1=as_0b$, with $a,b\in H$, Lemma
 $s_0= s_1$. Therefore $\{1\}\cup S$ is a set of double coset
 representatives.
 \end{proof}
-In Section \ref{sub:sum_algI} we describe an algorithm, Algorithm I, part of 
+In Section \ref{sub:sum_algI} we describe an algorithm, Algorithm I,  
 which finds the double coset representative of an element of $F$, and 
 rewrites it as an element of $HDH$, 
-where $D=\{1\}\cup S$: as in the next two examples. This involves
-the preprocessing stage of Algorithm I, in Section \ref{sub:sum_algI} and
-the first part of the execution stage, in Section \ref{sub:alg1ex}. 
+where $D=\{1\}\cup S$: as in the next two examples. 
+%This involves
+%the preprocessing stage of Algorithm I, in Section \ref{sub:sum_algI} and
+%the first part of the execution stage, in Section \ref{sub:alg1ex}. 
 
 \begin{example}\label{ex:f_1}
 Let $F_1$ be the free group on generators $x_1,x_2,x_3$ and $H_1$ its
@@ -2421,6 +2422,9 @@ Hence the  double coset normal form of $g$ is
 \[L=(z_2^2 z_1,  x_1 x_3^3 x_1, z_1^{-1}z_2,
 y_1y_2, z_2 z_1z_3^{-1}z_2^{-1}, x_1^{-1}).
 \]
+\ajd{This example has been corrected so that $f_1$ here is the same as it is in Example \ref{ex:f_1}.
+  Formerly $x_3^3$ had become $x_3$. However, this may not be the best thing to do, as all the
+diagrams show $x_3$ instead of $x_3^3$.}
 \end{example}
 \begin{example}\label{ex:ce}
 Let $F_1=\FF( a_1,b_1)$, $F_2=\FF(a_2, b_2)$ and $H_i=\la b_ia_i^{-1}, b_i^3, 

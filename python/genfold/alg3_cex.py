@@ -30,7 +30,7 @@ testfile='cex/'
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,0,0,0,0,0,3,0]
+verbose =[0,0,0,0,1,1,1,1,1,1,0]
 
 #open the log file and write an initial line
 logfile=testfile+'log.txt'
@@ -122,7 +122,7 @@ Kgens=[k1,k2]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=2
+max_iterations=15
 
 ######################
 ########### No user entry beyond this point
