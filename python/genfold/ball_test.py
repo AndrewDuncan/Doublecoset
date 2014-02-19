@@ -1,23 +1,18 @@
-from main_loop import *
-
-
+from ball import *
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
-testfile='input_K/'
+testfile='ball/'
 #####################
-
-###################
-## To get the spanning trees for H1 and H2 as in the paper (as near as possible)
-## set change_tree = 1 and then 
-## when this program is run answer the questions with the
-## sequence of answers: n, y, 1, 1, 3
-###################
-
-#verbose is a list (currently of length 11) of integers. List entries correspond to 
+#open the log file and write an initial line 
+logfile=testfile+'log.txt'
+with open(logfile, "w") as log: #create logfile 
+    log.write("log file ball_test.py \n\n") #and write text to it
+#log.close()
+#verbose is a list (currently of length 11) of 0's and 1's. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
-#produce "helpful" output. When it is set to 0 nothing unecessary is output. When it's more than 1
-#alot of lines, designed to keep track of the program flow, are output to the log file
+#produce "helpful" output. When it is set to 0 nothin unecessary is output. When it's more than 1
+#alot of lines, designed to keep track of the program flow, are output to the log file. 
 #Entries correspond to files or functions as follows
 #0 graph.py
 #1 alg1.py
@@ -29,25 +24,21 @@ testfile='input_K/'
 #7 Mod4 (alg3.py)
 #8 Mod5 (alg3.py)
 #9 Reassemble (alg3.py)
+#
 #  
 #last entry --- this file
 ##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,1,1,1,1,1,1,0]
+verbose =[0,0,0,0,0,0,0,0,0,0,0]
 
-#open the log file and write an initial line 
-logfile=testfile+'log.txt'
-with open(logfile, "w") as log: #create logfile 
-    log.write("log file K_fix.py \n\n") #and write text to it
-#log.close()
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
-change_tree=1
+change_tree=0
+
 
 #define the free groups F1 and F2, by giving the number of generators, and letter for the generators
 F1=free_group(3,"x")
 F2=free_group(4,"y")#do not make both these letters the same
-
 #Enter the rank of the subgroup
 Hrank=3
 
@@ -88,6 +79,18 @@ g3=['y1','y1','y3','Y1','y2']
 Hgens2=[g1,g2,g3]
 
 #########################################################
+###put in stuff from main loop 
+FZ=free_group(int(Hrank),"z")        
+#
+# find the folding corresponding to the generators entered
+#
+H1=construct_required_folding(Hname1,Hgens1,testfile,F1,Hrank,verbose,FZ,change_tree,logfile)
+
+# find the folding corresponding to the generators entered
+#
+H2=construct_required_folding(Hname2,Hgens2,testfile,F2,Hrank,verbose,FZ,change_tree,logfile)
+#
+#########################################################
 #########  now enter K
 ######################
 #enter name of subgroup K
@@ -119,17 +122,15 @@ k3=kf5
 #Make a list of these words: i.e. a list of generators of K
 Kgens=[k1,k2,k3]
 
-###############################
-#maximum number of iterations of the main loop
-max_iterations=6
+L=[['y1','y1'], ['x3','X2'],['x1','z1']]
+L1=[['a'],['b'],['c']]
+L2=[['y1','y1'], ['Y1','y2'],['Y2','Y1']]
 
-######################
-########### No user entry beyond this point
-##################
-delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
+S,T,B=ball(3,L2,F1,F2,FZ,H1,H2,logfile)
 
+#print("S = ", S,"\n\n T is \n")
 
-### at the end close the log file
-log.close()
+#for t in T:
+#    print(t,"\n")
 
-print("loop count ",loop_count)
+#print("\n\nB", B,"\n ..B[0]", B[-1])
