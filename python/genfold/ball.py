@@ -1,10 +1,10 @@
-from wordmap import *
+from main_loop import *
 
 ###########################################################################
 # #here begins ball main function, which constructs the ball of radius R
 # #on the list L of words input ... it should be made to check these words are in F1*F2
 ##########################################################################
-def ball(R,L,F1,F2,FZ,H1,H2,outfile):        
+def ball(R,L,F1,F2,Hrank,H1,H2,outfile):        
     #make a list of elements of L and their inverses
     S=[]
     for l in L:

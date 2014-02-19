@@ -33,7 +33,7 @@ verbose =[0,0,0,0,0,0,0,0,0,0,0]
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
-change_tree=0
+change_tree=1
 
 
 #define the free groups F1 and F2, by giving the number of generators, and letter for the generators
@@ -121,12 +121,16 @@ k2=kf3+kg2+kf4
 k3=kf5
 #Make a list of these words: i.e. a list of generators of K
 Kgens=[k1,k2,k3]
+    
+(H1,H2,FZ)=construct_H_foldings(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,verbose,logfile,change_tree)
+K=construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile)
 
 L=[['y1','y1'], ['x3','X2'],['x1','z1']]
 L1=[['a'],['b'],['c']]
 L2=[['y1','y1'], ['Y1','y2'],['Y2','Y1']]
 
-S,T,B=ball(3,L2,F1,F2,FZ,H1,H2,logfile)
+R=1# radius of ball to generate
+S,T,B=ball(R,Kgens,F1,F2,Hrank,H1,H2,logfile)
 
 #print("S = ", S,"\n\n T is \n")
 
