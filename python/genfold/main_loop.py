@@ -1,4 +1,5 @@
 from alg3 import *
+import pickle
 ###########################################
 # a function to construct stallings foldins of H1 and H2
 ##########################################
@@ -62,7 +63,6 @@ def construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfil
         g.append(w)
 
     Kgens=g
-
     # extract the normal form version of these
     v=[]
     g=[]
@@ -75,7 +75,7 @@ def construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfil
         v=[]
 
     Kgens=g
-
+    
     # form the subgroup K
     K=subgroup(Kname,Kgens)
     # make the Stallings folding of the gens of K
@@ -93,6 +93,18 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
 #
     (H1,H2,FZ)=construct_H_foldings(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,verbose,logfile,change_tree)
     K=construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile)
+
+    #save files for later use
+    H1_save=testfile+'H1_save.txt'
+    pickle.dump(H1, open(H1_save, "wb" ))
+    H2_save=testfile+'H2_save.txt'
+    pickle.dump(H2, open(H2_save, "wb" ))
+    FZ_save=testfile+'FZ_save.txt'
+    pickle.dump(FZ, open(FZ_save, "wb" ))
+    K_save=testfile+'K_save.txt'
+    pickle.dump(K, open(K_save, "wb" ))
+    
+    
 
     F=(F1,F2)
     H=(H1,H2)
