@@ -134,7 +134,8 @@ delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,wo
 log.close()
 
 print("loop count ",loop_count)
+
 #save delta_n for later use
 import pickle
 delta_n_save=testfile+'delta_n_save.txt'
-pickle.dump(delta_n, open(delta_n_save, "wb" ) )
+pickle.dump(delta_n, open(delta_n_save, "wb" ))
