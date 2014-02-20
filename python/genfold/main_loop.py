@@ -1,11 +1,12 @@
 from alg3 import *
-
-def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations):
+import pickle
+###########################################
+# a function to construct stallings foldins of H1 and H2
+##########################################
+def construct_H_foldings(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,verbose,logfile,change_tree):
     # construct the group FZ
     FZ=free_group(int(Hrank),"z")        
     #
-    
-    
     # find the folding corresponding to the generators entered
     #
     H1=construct_required_folding(Hname1,Hgens1,testfile,F1,Hrank,verbose,FZ,change_tree,logfile)
@@ -30,8 +31,11 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
     filename=testfile+"double2.gv"
     output_graph_file(H2.double,filename,"double2",verbose,logfile)
 
-
-    # ###############################################################
+    return(H1,H2,FZ)
+# ###############################################################
+# a function to construct the initial folding of the subgroup K
+###############################################################
+def construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile):
     # test that elements of words1 are in F1
     words_in_F=generators_in_free_group(F1,words1)# this will be 0 if all elements of words1 are in F1, and 1 otherwise
     if words_in_F!=0: #if some of words1 are not in F1: halt with an error message
@@ -59,7 +63,6 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
         g.append(w)
 
     Kgens=g
-
     # extract the normal form version of these
     v=[]
     g=[]
@@ -72,7 +75,7 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
         v=[]
 
     Kgens=g
-
+    
     # form the subgroup K
     K=subgroup(Kname,Kgens)
     # make the Stallings folding of the gens of K
@@ -82,17 +85,34 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
     # output the folding to a file
     output_graph_file(K.flower,testfile+"Kfolding.gv","Kfold",verbose,logfile)
 
-    #return(F1,F2,H1,H2,K,FZ)
-    # ########################
+    return(K)
+# ########################
+# main loop
+###########################
+def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations):
+#
+    (H1,H2,FZ)=construct_H_foldings(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,verbose,logfile,change_tree)
+    K=construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile)
 
+    #save files for later use
+    H1_save=testfile+'H1_save.txt'
+    pickle.dump(H1, open(H1_save, "wb" ))
+    H2_save=testfile+'H2_save.txt'
+    pickle.dump(H2, open(H2_save, "wb" ))
+    FZ_save=testfile+'FZ_save.txt'
+    pickle.dump(FZ, open(FZ_save, "wb" ))
+    K_save=testfile+'K_save.txt'
+    pickle.dump(K, open(K_save, "wb" ))
+    
+    
 
     F=(F1,F2)
     H=(H1,H2)
     flower1=H1.flower
     flower2=H2.flower
     flower=(flower1,flower2)
-    #
-    # main loop
+    
+  
     Delta=K.flower
     loop_count=1
     changed=True

@@ -1,5 +1,5 @@
-from main_loop import *
-
+from ball import *
+import pickle
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
@@ -126,10 +126,22 @@ max_iterations=6
 ######################
 ########### No user entry beyond this point
 ##################
+#
+#save inputs for later use
+inputList=[Hrank,Hname1,Hname2,Hgens1,Hgens2,F1,F2,words1,words2,Kname,Kgens]
+input_save=testfile+'input_save.txt'
+pickle.dump(inputList, open(input_save, "wb" ))
+#
 delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
 
-
+#R=1# radius of ball to generate
+#S,T,B=ball(R,Kgens,F1,F2,Hrank,H1,H2,logfile)
 ### at the end close the log file
 log.close()
 
 print("loop count ",loop_count)
+
+#save files for later use
+#import pickle
+delta_n_save=testfile+'delta_n_save.txt'
+pickle.dump(delta_n, open(delta_n_save, "wb" ))
