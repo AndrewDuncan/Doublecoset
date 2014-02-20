@@ -1,0 +1,608 @@
+\documentclass{beamer}
+%
+\usepackage{psfrag,comment}
+%\usepackage{texpower}
+%\usepackage[colormath]{texpower}
+%
+\mode<presentation>
+{
+  %\usetheme{Malmoe}
+%\usetheme{Montpellier}
+\usetheme{Pittsburgh}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\title%[Short Paper Title] % (optional, use only with long paper titles)
+{Automorphisms of partially commutative groups}
+
+\author%[Author, Another]% (optional, use only with lots of authors)
+{Andrew Duncan \\[1em]
+(joint work with  V N Remeslennikov)}
+\date{October  11th, 2010}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\abs}[1]{\left|\mathinner{#1}\right|}
+\newcommand\eps{\varepsilon}
+\newcommand{\Oh}{\mathcal{O}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\QQ{{\mathbb Q}}
+\def\ZZ{{\mathbb Z}}
+\def\CC{{\mathbb C}}
+\def\RR{{\mathbb R}}
+\def\nul{\emptyset }
+\def\D{\Delta }
+\def\b{\beta }
+\def\k{\kappa }
+\def\r{\rho }
+\def\x{\chi }
+\def\e{\varepsilon }
+\def\G{\Gamma }
+\def\g{\gamma }
+\def\a{\alpha }
+\def\t{\tau }
+\def\s{\sigma }
+\def\S{\Sigma }
+\def\w{\omega }
+\def\pd{\partial}
+\def\fC{{\textswab C}}
+\newcommand{\FR}{\operatorname{FR}}
+%\newcommand{\lk}{\operatorname{lk}}
+\newcommand{\ad}{{\operatorname{ad}}}
+\newcommand{\cd}{\textrm{cdim}}
+\newcommand{\CD}{\textrm{CD}}
+\newcommand{\CT}{\textrm{CT}}
+\newcommand{\CSA}{\textrm{CSA}}
+\newcommand{\cL}{{\cal L}}
+\newcommand{\cLg}{{\cal L}^{\textrm{gp}}}
+\newcommand{\cLp}{{\cal L}^{\textrm{pre}}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\cP}{{\cal P}}
+\newcommand{\sdc}{>}
+\newcommand{\sac}{<}
+\newcommand{\nsdc}{\ngtr}
+\newcommand{\nsac}{\nless}
+\newcommand{\edc}{\ge}
+\newcommand{\eac}{\le}
+\newcommand{\nedc}{\ngeq}
+\newcommand{\neac}{\nleq}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Out}{\operatorname{Out}}
+\newcommand{\cl}{\operatorname{cl}}
+\newcommand{\icl}{\operatorname{icl}}
+\newcommand{\acl}{\operatorname{acl}}
+\newcommand{\fcl}{\operatorname{fcl}}
+\newcommand{\CS}{\operatorname{CS}}
+\newcommand{\maps}{\rightarrow}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\bs}{\backslash}
+\newcommand{\conj}{\operatorname{conj}}
+\newcommand{\St}{\operatorname{St}}
+\newcommand{\cSt}{\St^{\conj}}
+\newcommand{\LInn}{\operatorname{LInn}}
+\newcommand{\Inn}{\operatorname{Inn}}
+\newcommand{\rInn}{\ov{\LInn}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Trp}{\operatorname{Tr}_\perp}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\kSt}{\St_{K}}
+\newcommand{\ckSt}{\St^{\conj}}
+\newcommand{\Conj}{\operatorname{Conj}}
+\newcommand{\oConj}{\Conj^{*}}
+\newcommand{\iConj}{\Conj_{\operatorname{I}}}
+\newcommand{\AConj}{\Conj_{\operatorname{A}}}
+\newcommand{\CConj}{\Conj_{\operatorname{C}}}
+\newcommand{\NConj}{\Conj_{\operatorname{N}}}
+\newcommand{\RConj}{\Conj_{\operatorname{R}}}
+\newcommand{\VConj}{\Conj_{\operatorname{V}}}
+\newcommand{\aOonj}{\overline{\aConj}}
+\newcommand{\sConj}{\Conj_{\operatorname{S}}}
+\newcommand{\Isol}{\operatorname{Dom}}
+\newcommand{\cls}{\cl^\sharp}
+\newcommand{\cmp}{{\operatorname{{comp}}}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\lk}{\operatorname{lk}}
+\newcommand{\IFF}{if and only if } %
+%
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bei}{\begin{itemize}}
+\newcommand{\eei}{\end{itemize}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\RAS[2]{\overset{#1}{\underset{#2}{\Longrightarrow}}}
+\newcommand\LAS[2]{\overset{#1}{\underset{#2}{\Longleftarrow}}}
+\newcommand\DAS[2]{\overset{#1}{\underset{#2}{\Longleftrightarrow}}}
+\newcommand\OUTS[5]{#1
+  \overset{#2}{\underset{#3}{\Longleftarrow}} #4
+  \overset{#2}{\underset{#3}{\Longrightarrow}} #5}
+\newcommand\INS[5]{#1
+  \overset{#2}{\underset{#3}{\Longrightarrow}} #4
+  \overset{#2}{\underset{#3}{\Longleftarrow}} #5}
+%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\RA[1]{{\underset{#1}{\Longrightarrow}}}
+\newcommand\LA[1]{{\underset{#1}{\Longleftarrow}}}
+\newcommand\DA[1]{{\underset{#1}{\Longleftrightarrow}}}
+\newcommand\OUT[4]{#1
+ {\underset{#2}{\Longleftarrow}} #3
+ {\underset{#2}{\Longrightarrow}} #4}
+\newcommand\IN[4]{#1
+ {\underset{#2}{\Longrightarrow}} #3
+ {\underset{#2}{\Longleftarrow}} #4}
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%\newtheorem{theorem}{{\bf Theorem}}[section]
+%\newtheorem{corollary}[theorem]{{\bf Corollary}}
+%\newtheorem{definition}[theorem]{{\bf Definition}}
+%%%%%\newtheorem{example}[theorem]{{\bf Example}}
+%\newtheorem{lemma}[theorem]{{\bf Lemma}}
+\newtheorem{proposition}[theorem]{{Proposition}}
+\newtheorem{remark}[theorem]{{Remark}}
+\newtheorem{delusion}[theorem]{{Question}}
+
+%%%%%%%%%%%%%
+\begin{document}
+%
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+\section{Introduction}
+\begin{frame}
+  \frametitle{}
+The class of partially commutative groups (RAAGs, graph groups)
+contains finitely generated free groups and f.g. Abelian groups
+and is closed under free and direct products.\\[1em]\pause
+Automorphisms groups of p.c. groups: contain $\Aut(\FF_n)$ and 
+$\GL_n(\ZZ)$ \pause and automorphism groups of free and direct products of ...
+\\[1em]
+\pause
+
+Given a partially commutative group $G$ this talk
+\bei
+\item describes many important subgroups of $\Aut(G)$;\pause
+\item states decomposition theorems for $\Aut(G)$ (c.f. decomposition theorems
+for linear groups);\pause
+\item and gives a new projection theorem onto the automorphism groups
+of smaller p.c. groups (c.f. restriction and projection maps of Charney and Vogtmann).
+\eei
+\end{frame}
+%
+%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Partially Commutative Groups}
+ $\G$ a graph, with vertices $X=\{x_1,\ldots ,x_n\}$ 
+and edges $E$ a set of $2$-subsets of $X$.\\[1em]
+\pause
+The {\em partially commutative group} $G=G(\G)$ is 
+\[\la X\,|\, [x,y]=1, \forall \{x,y\}\in E\}\ra.\]
+\pause
+(semi-free, graph, right-angled, trace, locally free)\\\pause
+e.g. \\
+free groups: $\G$ the null graph\\\pause
+free Abelian groups: $\G$ the complete graph\\[1em]\pause
+$\FF_2\times \FF_2$:~~~~~~~\raisebox{-.5cm}{%\rule[-1cm]{0pt}{2cm}
+\includegraphics<6->[scale=0.3]{square.eps}}\pause
+~~~~~~~~~~~~~~$\ZZ^2*\ZZ$:~~~~ \includegraphics<7->[scale=0.3]{line.eps} 
+\end{frame}
+%
+%%%%%%%%%%%%%%%
+\section{Automorphisms}
+\begin{frame}
+  \frametitle{Automorphisms}
+\begin{itemize}
+\item Two graph groups $G(\G_1)$ and $G(\G_2)$ are isomorphic if and only if $\G_1\cong \G_2$.
+\pause
+\item Generators for $\Aut(G)$ are known (Laurence, J.London Math. Soc. '95 , using results of 
+Servatius '89).\pause
+\item Decomposing $\Aut(G)$ into two parts, one which embeds in $\Aut(G^{\textrm{ab}})$ and
+the other for which peak reduction works, Day obtains a presentation for $\Aut(G)$.\pause 
+\item 
+Charney, Vogtmann and Crisp have shown that $\Out(G)$ is virtually torsion
+free, and has finite virtual cohomological dimension.\pause ~
+For $\G$ with no triangles,  a finite dimensional, contractible space $O(G)$ 
+on which $\Out(G)$ acts properly is also found.   (Geom Topol. '07)\pause
+\item Gutierrez, Piggot and Ruane describe a semidirect product decomposition
+$(\Inn(G)\rtimes A_1)\rtimes A_2$ of $\Aut(G)$ in the more general setting 
+where $G$ is a graph product of f.g. Abelian groups.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Automorphisms cont. }
+\begin{itemize}
+\item D, Kazachkov and Remeslennikov have described the structure of certain subgroups of 
+$\Aut(G)$ and show that the stabiliser of the lattice $L$ is an arithmetic subgroup of
+$\Aut(G)$ (GGD '10).\pause
+\item Let $\a:\Aut(G)\maps \Aut(G^{\textrm{ab}})$ be the canonical map. Noskov shows 
+that Im$(\a)$ is an arithmetic subgroup of $\GL_n(\RR)$,  and also that, for some
+$\G$, $\Aut(G)$ does not have property $T$.  
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Structure of the automorphism group}
+
+\begin{frame}
+\frametitle{Reduction to connected graphs }
+Let $\G$ have connected components $\G_1,\ldots \G_n$, where 
+$\G_i$ has vertex set $X_i$, and let $G_i=\la X_i\ra$.  Then $G_i=G(\G_i)$ 
+and
+\[G=G_1\ast \cdots \ast G_n.\]
+
+\pause 
+\bei
+\item
+Fouxe-Rabinovitch gave a presentation for $\Aut(G)$ in terms of
+presentations of $\Aut(G_i)$.\pause
+\item
+ Collins and Gilbert refine this presentation and \pause 
+\item
+prove that if a peak reduction 
+theorem holds in  $\Aut(G_i)$, for all $i$, then the same is true of $\Aut(G)$. 
+\eei
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Isolated vertices}
+As before: $\G$ has connected components $\G_1,\ldots \G_n$, where 
+$\G_i$ has vertex set $X_i$, and   $G_i=\la X_i\ra$.\\[1em]\pause
+
+If $\G$ has isolated vertices then $G=G_1\ast \cdots G_m\ast \FF_k$.\\[1em] \pause
+
+In this case the description of $\Aut(G)$ using Collins \& Gilbert is technical: there
+is no obvious semi-direct product decomposition\\[1em]\pause
+ the existence
+of isolated vertices is one major obstruction to a clear structural description
+of $\Aut(G)$.\\[1em]\pause
+
+If $\G$ has no isolated vertices a natural structure theorem exists. 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{No isolated vertices}
+
+For $i\neq j$ and $x\in X_i$ there is an automorphism $\phi$ of $G$ given by
+\[y\phi =y^x, \textrm{ for all } y\in X_j \textrm{ and } y\phi = y, 
+\textrm{ otherwise}.\]
+Let $\FR(G)$ be the subgroup of $\Aut(G)$ generated by all such automorphisms.
+
+\pause
+\begin{theorem}[Collins \& Gilbert]
+\label{theorem:FRker}
+Suppose that no component of $\G$ is an isolated vertex. 
+Define $\bar G=G_1\times \cdots \times G_n$. 
+Then 
+$\FR(G)$ is the kernel of the
+canonical map from $\Aut(G)$ to $\Aut(\bar G)$. Moreover $\FR(G)$ has a normal 
+series 
+\[
+1<P_{n-1}<\cdots <P_2<\FR(G)
+\]
+such that, setting $\FR_i(G)=\FR(G)/P_i$, 
+\be[(a)]
+\item $\FR(G)=P_i \rtimes \FR_i(G)$, 
+\item $\FR_i(G)=\FR(G_1\ast \cdots \ast G_i)$ and
+\item all the $P_i$ are finitely generated.
+\ee
+\end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Servatius-Laurence generators}
+{\textcolor{red}{From now on assume that $\G$ is a connected graph.
+}}
+\pause
+Servatius and Laurence defined the following sets of automorphisms.
+\begin{itemize}
+\item The set $V$ of graph automorphisms. Given a graph automorphism
+ $\theta$ of $\G$ 
+there is a group automorphism $\phi$ of $G$  such that $x\phi =x\theta$, for 
+all $x\in X$. 
+\item Inversions. $I=\{\phi\in \Aut(G): x\phi=x^{\pm 1},$ for all $x\in X\}$.
+\item Transvections. $T=\{\phi\in \Aut(G):$ there exist $x,y\in X^{\pm 1}$ 
+such that $x\phi=xy$ and $z\phi=z$ for all $z\in X\backslash x\}$. 
+\item Basis conjugating automorphisms. $C=\{\phi\in \Aut(G):$ for all
+$x\in X$ there exists $g_x\in G$ such that $x\phi=x^{g_x}\}$. 
+\item Elementary basis conjugating automorphisms. $B=\{\phi\in C:$ for some 
+$y\in X$ and fixed component $Y$ of $\G\bs  \{y^\perp \}$,   $x\phi =x^y$ if $x\in Y$ and 
+$x\phi=x$ otherwise$\}$. 
+\end{itemize}
+\pause
+\begin{theorem}[Laurence] $C=\la B\ra$ and $\Aut(G)=\la V\cup I\cup T\cup B\ra$.
+\end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Decomposition using graph isomorphisms}
+The set $V$ of graph automorphisms: is a finite subgroup of $\Aut(G)$, \pause and 
+we'd like to decompose the group $\Aut(G)$ as \\$\la$ something $\ra \la V\ra$, \pause
+nicely.
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Compression of $\G$}
+For $x\in X$ define 
+\bei
+\item the \em{star} $x^\perp$ of $x$ to be 
+\[x^\perp=\{y\in X: x\textrm{ and }y\textrm{ are incident vertices}\}\] \pause 
+\item
+the \em{link} of $\lk(x)$ to be 
+\[\lk(x)=x^\perp\bs x,\] 
+\pause
+\item
+an equivalence relation $\sim$ on $X$ by \\
+\centerline{$x\sim y$ if 
+$x^\perp=y^\perp$ or $x^\perp\bs x=y^\perp\bs y$. }
+~\\
+\eei
+
+\pause
+{\bf Compression. } 
+Form a new graph $\bar\G$ from $\G$ by identifying equivalence classes
+of $\sim$.
+ \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Decomposition over graph automorphisms}
+ Let $\Aut({\bar \G})$ be the group of vertex automorphisms
+of $G(\bar \G)$ which ``respect equivalence classes of $\sim$''.\\[1em]
+\pause
+Recall:\\
+$I=$ inversions\\
+$T=$ transvections\\
+$B=$ elementary basis conjugating automorphisms\\ 
+\pause
+\begin{theorem}
+\[\Aut(G)\cong \la I\cup T\cup B\ra\rtimes \Aut(\bar \G).\] 
+\end{theorem}
+\pause
+It remains to describe the structure of $\la I\cup T\cup B\ra$.\\[1em]
+\pause
+Define $\Aut^*(G)=\la I\cup T\cup B\ra$.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Charney-Crisp-Vogtmann decomposition}
+Charney, Crisp and Vogtmann consider the subsets 
+\[J_x=[x]\cup x^\perp\]
+of $X$,  and subgroups $V_x=\la J_x\ra$.\\[1em]
+\pause
+
+A vertex is {\bf biggest} if $\lk(x)\subseteq y^\perp$ implies $\lk(y)\subseteq x^\perp$.\\[1em]
+\pause 
+There exists a homomorphism 
+%\[R_x:\Out^*(G)\maps \Out^*(V_x),\]
+%for all maximal $x\in X$, \pause and a homomorphism
+\[R:\Out^*(G)\maps \prod\Out^*(V_x),\]
+where the product is over all biggest $x$. 
+
+\pause
+\begin{theorem}[Charney-Vogtmann-Crisp]
+The kernel of %$\prod R_x$ 
+$R$ is a finitely generated free Abelian subgroup of $\Conj(G)$.
+\end{theorem}
+\pause
+A consequence is that $\Out(G)$ has finite virtual cohomological dimension.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Another decomposition: the sets K}
+For $Y\subseteq X$ define \[Y^\perp={\displaystyle{\bigcap_{y\in Y}}}\, y^\perp.\]\pause
+For $x\in X$ define the set 
+\[\ad(x)=(\lk(x))^\perp.\] 
+\pause
+
+Let $K=\{\ad(x):x\in X\}$. 
+
+\pause
+\begin{itemize}
+\item $x\in \ad(x)$, for all $x\in X$.
+\item If $y\in \ad(x)$ then $\ad(y)\subseteq \ad(x)$. 
+\end{itemize}
+\pause
+
+$K$ $\leadsto$ two graphs: \pause
+\bei
+\item the compressed graph $\bar G$; $\ad(x)$ is incident to $\ad(y)$ iff $[x,y]=1$ \pause and  
+\item the directed transvection graph; $\ad(x)$ is incident to $\ad(y)$ iff 
+$\ad(x)\subseteq \ad(y)$.
+\eei
+\pause
+
+Let $G_x$ denote the (partially commutative) group $\la \ad(x)\ra$. 
+
+Then $G_x=C_G(\lk(x))$. 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Stabilisers}
+Let $\Aut^*(G)=\la I\cup T\cup B\ra$ and, 
+for $x\in X$, define 
+\begin{itemize}
+\item $\St_K=\{\phi \in \Aut^*:G_x\phi =G_x, \forall x\in X\}$;\pause
+\item $\cSt_K=\{\phi \in \Aut^*:G_x\phi=G_x^{g_x}, \forall x\in X\}$.\pause
+\end{itemize}
+
+
+\begin{theorem}
+$\Aut^*(G)=\cSt_K$ and $\St_K=\la I\cup T\ra$.
+\end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Basis conjugating automorphisms}
+$\Conj=\la B\ra$ the group of basis conjugating automorphisms.\pause
+\bei
+\item
+$\a_{Y,y}$ denotes the element of $B$ such that $x\mapsto x^y$ if 
+$x\in Y$ and $x\mapsto x$, otherwise.\pause
+\item
+$\tr_{y,z}$ denotes the element of $T$ such that $y\mapsto yz$, and 
+$a\mapsto a$,  if $a\neq y^{\pm 1}$.  
+\eei  
+\pause
+
+Define  
+\bei 
+\item   
+$\NConj=\{\phi\in \Conj : \forall x\in X, \exists f_x\in G, \textrm{
+ such that } \forall y\in \ad(x), y\phi=y^{f_x} \}.$ \pause
+\item $\sConj=\St_K\cap \Conj$  
+\eei 
+\pause
+
+\begin{theorem}
+\be
+\item $\sConj$ is generated by $\a_{Y,y}$ such that $|Y|={z}$, for some 
+$z\in X$. \pause In this case  $\a_{Y,y}=\tr_{z^{-1},y}\tr_{z,y}$.\pause
+\item 
+$\Inn\lhd \NConj\lhd \Aut^*$.
+\ee
+\end{theorem}
+\begin{delusion}
+Is 
+$\cSt_K=\Conj_N\cdot \St_K$?
+\end{delusion}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Example}
+\begin{center}
+\psfrag{a}{$a$}
+\psfrag{b}{$b$}
+\psfrag{c}{$c$}
+\psfrag{r}{$r$}
+\psfrag{s}{$s$}
+\psfrag{t}{$t$}
+\psfrag{v}{$v$}
+\includegraphics[scale=0.4]{diagex.eps}
+\end{center}
+Let $C=\{a,r,s\}$ and 
+ $\a=\a_{C,v}$, $\t=\tr_{v,a}\tr_{v,b}\tr_{v,a^{-1}}$. Set 
+$\phi=\a\t$. 
+\begin{equation*}
+z\phi=
+\left\{
+\begin{array}{ll}
+z, & \textrm{ if } z=b, c, t\\
+vb^a, &\textrm{ if } z=v\\
+z^{vb^a} & \textrm{ if } z\in C
+\end{array}
+\right.
+\end{equation*}
+$\phi$ cannot be written as $\g\delta$, where $\delta\in \Conj$
+and $\g\in St_K$.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Graphs free of domination}
+%\begin{defn}\label{def:isols}
+If $x$ and $y$ are vertices of $X$ such that 
+$[x,y]\neq 1$ and
+$\ad(x)\subseteq \ad(y)$ \pause
+
+(iff $d(x,y)=2$ and $y^\perp\bs y\subseteq x^\perp$)
+
+\pause
+
+then we say that 
+$x$ {\em dominates} $y$. The set of all vertices dominated by $x$ is denoted 
+$\Isol(x)=\{u\in X\,|\, x \textrm{ dominates } u\}$. The set of all dominated
+vertices is denoted $\Isol(\G)=\cup_{x\in X}\Isol(x)$. \\[1em]
+%\end{defn}
+
+\pause
+
+  \begin{theorem}\label{theorem:nolocisol} Let $\G$ be a connected graph 
+such that $\Isol(\G)=\nul$. Then 
+\be
+\item 
+$\sConj(G)=\{1\}$;
+\item $\Conj(G)=\NConj(G)$, so is normal in $\cSt_K$; and  
+\item $\cSt_K=\Conj(G)\cdot \St_K$; so
+\ee
+\[\cSt_K=\Conj(G)\rtimes \St_K.\]
+\end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Structure of $\St_K$}
+$K$ is ordered by inclusion and the {\bf height} $h(x)$ of  $x\in X$ is the
+maximal length of a strictly ascending  chain $\ad(x_0)\subset\cdots \subset \ad(x_h)=\ad(x)$.\\[1em]
+\pause
+
+$K(r)$ denotes the elements of height $r$ and $K^{\max}$ those of maximal height. 
+\pause
+
+The building blocks of $\St_K$ are obtained by restricting automorphisms to levels:\\[1em]
+Let $h$ be the maximal height of an element of $X$.\\[1em] 
+For $\phi\in \St_K$, $x\in X$ and $r$ such that $0\le r\le h$ let $\phi_{r,x}$ be the 
+map given by
+\bei
+\item $y\phi_{r,x}=y\phi$, if $\ad(y)\subseteq \ad(x)$ and $h(y)=r$;
+\item $y\phi_{r,x}=y$, otherwise.
+\eei
+  
+\pause
+$\phi_{r,x}$ extends to an element of $\St_K$. 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{}
+$\St_{x,r}$ is the subgroup consisting of all elements $\phi_{x,r}$.
+\pause
+\begin{theorem}\label{thm:stkdecomp}
+ Let $h$ be the maximal height of an element of $X$. Then 
+\be
+\item \[\St_{r}=\prod_{x\in V(r)^{\cmp}} \St_{x,k}\] is a subgroup of $\St_K$, 
+for $r=0,\ldots ,h$ \pause and 
+\item 
+\begin{gather*}
+\St(K)=\St_{h}\rtimes (\St_{h-1} \rtimes 
+\cdots \rtimes (\St_{1}\rtimes \St_{0})\cdots )
+\end{gather*}
+\ee
+\end{theorem}
+\pause
+\begin{theorem}\label{prop:stx1gen}
+Given $y\in [x]$ and $z\in \ad(x)$ there exists 
+a transvection $y\mapsto yz$ in $T$. Let $T_x$ denote the set
+of all such transvections. Then 
+$\St_{x,h}$ is generated by 
+\be[(i)]
+\item
+$T_x$ and 
+\item $I_x$,  the set of elements $y\mapsto y^{-1}$ in $I$ such that $y\in [x]$.
+\ee
+\end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Relationship to Charney-Crisp-Vogtmann}
+There exists a homomorphism 
+\[S:\Out^*(G)\maps \prod\Out^*(G_x),\]
+where the product is over a set of representatives of maximal elements
+of $X$. \\[1em]
+\pause
+
+\bei
+\item $\ker(S)=\NConj(G)$;
+\item $\NConj(G)$ contains  a free Abelian subgroup $\AConj(G)$ equal to the kernel of $R$.
+\item $\AConj(G)$ is of rank $\sum_{x\in X} c(x)-1$, where $c(x)$ is the number of components
+of $\G\bs\{x\}$. 
+\eei
+\end{frame}
+\end{document}

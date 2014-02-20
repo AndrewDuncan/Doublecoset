@@ -1,0 +1,1 @@
+(evince:3430): Gtk-CRITICAL **: gtk_tree_model_foreach: assertion `GTK_IS_TREE_MODEL (model)' failed
