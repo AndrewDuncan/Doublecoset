@@ -13,7 +13,7 @@ def ball(R,L,F1,F2,Hrank,H1,H2,logfile,outputfile):
         linv=element(l).inverse()
         S.append(linv)
     
-    print("in ball S", S)
+    #print("in ball S", S)
     #for each element s of S:  make a list of elements of S not equal to s^{-1} and add it to T 
     T=[]
     for s in S:
@@ -31,8 +31,9 @@ def ball(R,L,F1,F2,Hrank,H1,H2,logfile,outputfile):
     
     B.append(sphere)#the first entry of B is the sphere of length one words (usually the generators of K and their inverses)
     #construct successive spheres and append them to B
-    print("in ball sphere 1 ",B[0])
+    #print("in ball sphere 1 ",B[0])
     for r in range(1,R):#construct the sphere of radius r+1 (up to r=R-1)
+        print("creating sphere of radius ", str(r+1))
         sphere=[]
         for w in B[-1]:#for each element w of the sphere of radius r
             w_last=w[-1]#find the element l of S with wich w ends
@@ -42,7 +43,7 @@ def ball(R,L,F1,F2,Hrank,H1,H2,logfile,outputfile):
                 w_new=w+[m]
                 sphere.append(w_new)
         B.append(sphere) #add the sphere of radius r to B
-        print("in ball sphere r+1 ",B[r])
+        #print("in ball sphere r+1 ",B[r])
     
     #make normal forms of the elements constructed
    

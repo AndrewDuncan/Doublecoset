@@ -31,8 +31,9 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
     for k in (1,2): #part a; do the following for X_1 and X_2 components
         #make a copy of delta, leaving out edges with labels in  X_[2-k]: to make a component
         delta_k0k=CopyGraph(delta,F[2-k].mongens)
-		
-        shoots=1  #part b, remove Z shoots
+
+        shoots=0# no-Z-component .... set shoots to 0 so that no shoots are trimmed
+        #shoots=1  #part b, remove Z shoots
         while shoots!=0:
             ind=0
             for v in delta_k0k.vertices[::-1]: #for each vertex of k0k
@@ -162,8 +163,9 @@ def MakeComps(delta,F,Z,verbose,logfile): #input Delta, free groups F=(F1,F2) an
                             break
                     
                 break
-            
-            if col_edge_found==0: # if no edges of type X_k are found remove all vertices of this component
+            # no-Z-component .... set col_edge_found to 1 so the next part is not executed... maybe
+            #col_edge_found=1
+            if col_edge_found==0: # if no edges of type X_k are found remove all vertices of this component... these should be added to delta_Z
                 for v in Dcomponents[col]:
                     delta_k0k.removeVertex(v)
 
