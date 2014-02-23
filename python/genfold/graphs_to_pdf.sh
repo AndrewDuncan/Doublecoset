@@ -29,6 +29,15 @@ dot -Tpdf $DIREC/D5_1_v1.gv > $DIREC/D5_1_v1.pdf
 dot -Tpdf $DIREC/D5_2_v1.gv > $DIREC/D5_2_v1.pdf    
 neato -Tpdf $DIREC/Dn_v1.gv > $DIREC/Dn_v1.pdf
 
+dot -Tpdf $DIREC/D0_1_v2.gv > $DIREC/D0_1_v2.pdf 
+dot -Tpdf $DIREC/D0_2_v2.gv   > $DIREC/D0_2_v2.pdf 
+dot -Tpdf $DIREC/D0_Z_v2.gv  > $DIREC/D0_Z_v2.pdf  
+dot -Tpdf $DIREC/D1_1_v2.gv  > $DIREC/D1_1_v2.pdf  
+dot -Tpdf $DIREC/D1_2_v2.gv  > $DIREC/D1_2_v2.pdf 
+dot -Tpdf $DIREC/D2_1_v2.gv  > $DIREC/D2_1_v2.pdf 
+dot -Tpdf $DIREC/D2_2_v2.gv  > $DIREC/D2_2_v2.pdf 
+neato -Tpdf $DIREC/Dn_v2.gv > $DIREC/Dn_v2.pdf
+
 
 
 
