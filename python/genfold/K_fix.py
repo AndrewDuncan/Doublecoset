@@ -1,4 +1,4 @@
-from ball import *
+from main_loop import *
 import pickle
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
@@ -29,10 +29,13 @@ testfile='input_K/'
 #7 Mod4 (alg3.py)
 #8 Mod5 (alg3.py)
 #9 Reassemble (alg3.py)
+#10 save output of main_loop in files for later use
 #  
 #last entry --- this file
-##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,1,1,1,1,1,1,0]
+#                             1,1  
+##########0,1,2,3,4,5,6,7,8,9,0,1
+verbose =[0,0,0,0,1,1,1,1,1,1,1,0]
+#verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
 
 #open the log file and write an initial line 
 logfile=testfile+'log.txt'
@@ -70,6 +73,7 @@ h4=['X2','x1']
 h5=['x1','x1','x1']
 h6=['x2','x3','X2']
 h7=['x1','x2','x3']
+h8=['x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3',]
 #make the generators into a list
 Hgens1=[h5,h6,h7]#,h5]
 
@@ -128,9 +132,10 @@ max_iterations=6
 ##################
 #
 #save inputs for later use
-inputList=[Hrank,Hname1,Hname2,Hgens1,Hgens2,F1,F2,words1,words2,Kname,Kgens]
-input_save=testfile+'input_save.txt'
-pickle.dump(inputList, open(input_save, "wb" ))
+if verbose[10]>0:
+    inputList=[Hrank,Hname1,Hname2,Hgens1,Hgens2,F1,F2,words1,words2,Kname,Kgens]
+    input_save=testfile+'input_save.txt'
+    pickle.dump(inputList, open(input_save, "wb" ))
 #
 delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
 
@@ -143,5 +148,6 @@ print("loop count ",loop_count)
 
 #save files for later use
 #import pickle
-delta_n_save=testfile+'delta_n_save.txt'
-pickle.dump(delta_n, open(delta_n_save, "wb" ))
+if verbose[10]>0:
+    delta_n_save=testfile+'delta_n_save.txt'
+    pickle.dump(delta_n, open(delta_n_save, "wb" ))

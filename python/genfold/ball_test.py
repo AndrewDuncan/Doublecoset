@@ -3,7 +3,7 @@ import pickle
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
-testfile='ball/'
+testfile='input_K/ball/'
 #####################
 #open the log file and write an initial line 
 logfile=testfile+'ball_test_log.txt'
@@ -19,7 +19,7 @@ graphfile='input_K/delta_n_save.txt'
 delta_n = pickle.load( open(graphfile, "rb" ) )
 
 #input the ball to test
-ballfile='ball/ball_save.txt'
+ballfile=testfile+'ball_save.txt'
 B_nf = pickle.load( open(ballfile,"rb") )
 root=delta_n.root
 

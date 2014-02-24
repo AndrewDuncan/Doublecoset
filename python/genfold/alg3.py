@@ -258,7 +258,8 @@ def Mod2(delta1,H,verbose,logfile): #each of delta1 and flower is a pair (delta1
         for col in Pcomponents:
             i=0
             for v in Pcomponents[col]:
-                if str(v.label).endswith('1'): #if the right hand label is 1, 
+                v_rhs=v.label.split("-",1)[1]
+                if v_rhs=='1': #if the right hand label is 1,
                     if i==0:
                         v_base=v # this is the first vertex of type (*,*)-1 found in this component
                         delta_base=v.memory[0]#the left hand (delta) part of v_base
@@ -464,8 +465,10 @@ def Mod4(delta3,H,verbose,logfile): #each of delta3 and H is a pair (delta2_1,de
                         for u in Pcomponents[col]:
                             if verbose[7]>1:
                                 output_log_file(logfile,"u vertex, u.label, lhs-original "+str(u)+" "+ str(u.label)+" "+ str(u.memory[0].original)+" "+str(u.memory[0].boundary))
-                            #find the next vertex with right hand label not 1, which is a vertex of delta_0 and a boundary vertex, and  in component col 
-                            if u.memory[0].original==0 and u.memory[0].boundary==1 and not str(u.label).endswith('1'):
+                            #find the next vertex with right hand label not 1, which is a vertex of delta_0 
+                            #and  in component col 
+                            #if u.memory[0].original==0 and u.memory[0].boundary==1 and not str(u.label).endswith('1'):
+                            if u.memory[0].original==0 and not str(u.label).endswith('1'):
                                 if verbose[7]>1:
                                     output_log_file(logfile,str(u)+" does not end with 1, and original = "+str(u.memory[0].original)+" and boundary = "+str(u.memory[0].boundary))
                                 u_goal=u # this is the current original vertex of type (*,*)-b found in this component
@@ -559,7 +562,7 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
         Pcomp_1={}
         #construct a dictionary with key the components of the product P_k and for such key a value list of vertices in that component
         #simultaneously construct a dictionary with the same keys and value list pairs of the form (v-1,v), 
-        # where v is a boundary vertex of delta0, and v-1 is a vertex of P_k of colour = key 
+        # where v is a boundary vertex of delta0, and v-1 is a vertex of P_k of colour = key and right hand label = 1 (and lh label = v) 
         for u in  Prod[k].vertices:
             if str(u.colour) in Pcomponents:
                 L=Pcomponents[str(u.colour)]
@@ -568,9 +571,13 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                 Pcomponents[str(u.colour)]=L
             else:
                 Pcomponents[str(u.colour)]=[u]
-                
-            if str(u.label).endswith('1'):#for vertices with right hand label 1 
-                u_pair=u.label.split("-",1)#get hold of the left and right parts of the vertex label 
+
+
+            u_pair=u.label.split("-",1)#get hold of the left and right parts of the vertex label 
+            if u_pair[1]=='1':#if u.label ends with '1'; i.e. for vertices with right hand label 1 
+                #u_pair=u.label.split("-",1)#get hold of the left and right parts of the vertex label 
+                if verbose[8]>1:
+                     output_log_file(logfile,"\n"+"prod vert with rhs equal to '1'"+str(u.label))
                 for l in boundary_vertices:
                     if str(u_pair[0])==l.label:# if left part of u is a boundary vertex add u to the dictionary
                         if str(u.colour) in Pcomp_1:
@@ -611,7 +618,8 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                 if verbose[8]>1:
                     output_log_file(logfile,"paths a1 and a2 = a_l and a_r are "+str(a_l)+" and "+str(a_r))
 
-                for m in boundary_vertices:# for all boundary vertices beta
+                #for m in boundary_vertices:# for all boundary vertices beta
+                for m in original_vertices:# for all original vertices beta
                     v1=m.label+"-"+str(v_l)# try (beta,e1) and 
                     v2=m.label+"-"+str(v_r)# (beta,e2)
                     if verbose[8]>1:
@@ -632,7 +640,7 @@ def Mod5(delta4,H,verbose,logfile): #each of delta4 and H is a pair (delta4_1,de
                     if verbose[8]>1:
                         output_log_file(logfile,"(beta,e1) = w1 = "+str(w1)+ " is in component " +str(col1)+" of Prodk")
                         output_log_file(logfile,"(beta,e2) = w2 = "+str(w2)+ " is in component " +str(col2)+" of Prodk")
-                    #find vertices u-1 and v-1 in the components col1 and col2 
+                    #find vertices u-1 and v-1 in the components col1 and col2, with lhs which are boundary vertices 
                     if col1 in Pcomp_1 and col2 in Pcomp_1:
                         for (a_1,l_1) in Pcomp_1[col1]: #(alpha1,1) = a_1 has format a_1=l_1-1
                             for (a_2,l_2) in Pcomp_1[col2]:#(alpha2,1) = a_2 has format l_2-1

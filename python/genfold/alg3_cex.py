@@ -1,4 +1,5 @@
 from main_loop import *
+import pickle
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
@@ -26,11 +27,12 @@ testfile='cex/'
 #7 Mod4 (alg3.py)
 #8 Mod5 (alg3.py)
 #9 Reassemble (alg3.py)
-#
+#10 save output as files for later use
 #  
 #last entry --- this file
-##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,1,1,1,1,1,1,0]
+#                             1,1  
+##########0,1,2,3,4,5,6,7,8,9,0,1
+verbose =[0,0,0,0,1,1,1,1,1,1,1,0]
 
 #open the log file and write an initial line
 logfile=testfile+'log.txt'
@@ -64,7 +66,7 @@ h1=['x1','X2']
 h2=['x2','x1','x2']
 h3=['x2','x2','x2']
 h4=['X2','x1']
-h5=['x2','x1','x1']
+#h5=['x2','x1','x1']
 
 #make the generators into a list
 Hgens1=[h1,h2,h3,h4]
@@ -122,11 +124,17 @@ Kgens=[k1,k2]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=15
+max_iterations=3
 
 ######################
 ########### No user entry beyond this point
 ##################
+#save inputs for later use
+if verbose[10]>0:
+    inputList=[Hrank,Hname1,Hname2,Hgens1,Hgens2,F1,F2,words1,words2,Kname,Kgens]
+    input_save=testfile+'input_save.txt'
+    pickle.dump(inputList, open(input_save, "wb" ))
+#
 delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfile,change_tree,max_iterations)
 
 
@@ -134,3 +142,9 @@ delta_n,loop_count=main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,wo
 log.close()
 
 print("loop count ",loop_count)
+
+#save files for later use
+#import pickle
+if verbose[10]>0:
+    delta_n_save=testfile+'delta_n_save.txt'
+    pickle.dump(delta_n, open(delta_n_save, "wb" ))

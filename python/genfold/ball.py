@@ -59,10 +59,15 @@ def ball(R,L,F1,F2,Hrank,H1,H2,logfile,outputfile):
             #print("wrd ", wrd,"\n")
             nf_wrd=[]
             if len(wrd)>0:#find the dc normal form of wrd
+                print("wrd ",wrd)
                 lw=listsplitter(wrd,F1.mongens,F2.mongens)
+                print("lw ", lw)
                 nw=amalgam_normal_form(lw,F1,F2,H1,H2)
+                print("nw ",nw)
                 for s in nw[1]:
+                    print("s is ", s)
                     for q in s:
+                        print("q is ", q)
                         if q!=[]:
                             nf_wrd=nf_wrd+q
             C.append(nf_wrd)
