@@ -48,7 +48,15 @@ def construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfil
     if words_in_F!=0: #if some of words2 are not in F2: halt with an error message
         error_message="the second list of words entered must only contain elements of F2"
         sys.exit(error_message)
-            
+
+    # add inverse of each generator to Kgens (the normal form of w^{-1} is not necessarily the free monoid inverse of the nf of w)
+    for w in Kgens:
+        inv=element(w).inverse()
+        Kgens.append(inv)
+        
+    if verbose[-1]>1:
+            output_log_file(logfile,"Main loop, construct_K, after adding inverses, Kgens is "+ str(Kgens))
+
     g=[]
     for w in Kgens:
         if verbose[-1]>1:

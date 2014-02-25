@@ -1,5 +1,7 @@
 from ball import *
 import pickle 
+import time 
+localtime = time.asctime(time.localtime(time.time()))
 #this program generates a ball of a given radius in generators previously stored for a subgroup of a (previously stored) amalgam
 
 #So that each run creates a new set of files: set the prefix for the name of all file names for your particular test here:
@@ -13,9 +15,9 @@ testfile=prefix+'ball/'
 
 #####################
 #open the log file and write an initial line 
-logfile=testfile+'log.txt'
+logfile=testfile+'ball_generate_log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file ball_generate.py \n\n") #and write text to it
+    log.write("log file ball_generate.py: "+str(localtime)+"\n\n") #and write text to it
 #set last entry of verbose to something > 0 to generate a log file listing words in the ball of radius R (could be a large file!)
 
 #as in K_fix.py
@@ -23,14 +25,14 @@ with open(logfile, "w") as log: #create logfile
 #last entry of verbose > 1 --- output log file with dc normal forms saved
 #                             1,1  
 ##########0,1,2,3,4,5,6,7,8,9,0,1
-verbose =[0,0,0,0,1,1,1,1,1,1,1,0]
+verbose =[0,0,0,0,1,1,1,1,1,1,0,1]
 #verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
 #change_tree=0#only needed if foldings are to be generated here
 
 #file to store results
 outputfile=testfile+'ball.txt'
 with open(outputfile, "w") as out:#initialise outputile
-    # do nothing
+    out.write("ball_generate.py output file: "+str(localtime)+"\n\n") 
 
 
 #directory of files in which inputs are stored
@@ -53,7 +55,7 @@ K = pickle.load( open(getfile, "rb" ) )
 #L2=[['y1','y1'], ['Y1','y2'],['Y2','Y1']]
 #Kgrs=K.subgp_gens # not used at present - the generators for K in normal form 
 
-R=10# radius of ball to generate
+R=4# radius of ball to generate
 S,T,B,B_nf=ball(R,Kgens,F1,F2,Hrank,H1,H2,logfile,verbose)
 
 #w=B_nf[0][0]
@@ -66,16 +68,22 @@ if verbose[-1]>0:
     i=0
     with open(outputfile, "a") as out: #write to outputfile 
         for b in B:
+            j=0
             out.write("list B: "+str(i)+"\n") 
             for w in b:
-                out.write(str(w)+"\n")
+                out.write(" j "+str(j)+": "+str(w)+"\n")
+                j+=1
             i+=1
     i=0
     with open(outputfile, "a") as out: #append to outputfile 
+        out.write("\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n")
         for b in B_nf:
+            j=0
             out.write("list B_nf: "+str(i)+"\n") 
             for w in b:
-                out.write(str(w)) 
+                out.write(" j "+str(j)+": "+str(w)+"\n") 
+                j+=1
+            i+=1
   
 ### at the end close files
 log.close()
