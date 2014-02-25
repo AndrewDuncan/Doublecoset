@@ -22,7 +22,7 @@ graphfile=prefix+'delta_n_save.txt'
 delta_n = pickle.load( open(graphfile, "rb" ) )
 
 #input the ball to test
-ballfile=prefix+'special_words/ball_save.txt'
+ballfile=testfile+'ball_save.txt'
 B_nf = pickle.load( open(ballfile,"rb") )
 root=delta_n.root
 

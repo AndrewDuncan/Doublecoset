@@ -25,7 +25,7 @@ with open(logfile, "w") as log: #create logfile
 #last entry of verbose > 1 --- output log file with dc normal forms saved
 #                             1,1  
 ##########0,1,2,3,4,5,6,7,8,9,0,1
-verbose =[0,0,0,0,1,1,1,1,1,1,0,1]
+verbose =[0,0,0,0,1,1,1,1,1,1,1,1]
 #verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
 #change_tree=0#only needed if foldings are to be generated here
 

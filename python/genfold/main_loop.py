@@ -50,10 +50,12 @@ def construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfil
         sys.exit(error_message)
 
     # add inverse of each generator to Kgens (the normal form of w^{-1} is not necessarily the free monoid inverse of the nf of w)
+    L=[]
     for w in Kgens:
         inv=element(w).inverse()
-        Kgens.append(inv)
-        
+        L.append(inv)
+
+    Kgens=Kgens+L
     if verbose[-1]>1:
             output_log_file(logfile,"Main loop, construct_K, after adding inverses, Kgens is "+ str(Kgens))
 
