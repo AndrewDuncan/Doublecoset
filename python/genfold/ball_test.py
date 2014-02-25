@@ -3,7 +3,8 @@ import pickle
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
-testfile='input_K/ball/'
+prefix='cex/'
+testfile=prefix+'ball/'
 #####################
 #open the log file and write an initial line 
 logfile=testfile+'ball_test_log.txt'
@@ -13,13 +14,15 @@ with open(logfile, "w") as log: #create logfile
 
 #file to store results
 outputfile=testfile+'ball_test_results.txt'
+with open(outputfile, "w") as out: #create logfile 
+    out.write("output file for ball_test.py \n\n") #and write text to it
 
 #input delta_n, saved by the previous run of K_fix.py
-graphfile='input_K/delta_n_save.txt'
+graphfile=prefix+'delta_n_save.txt'
 delta_n = pickle.load( open(graphfile, "rb" ) )
 
 #input the ball to test
-ballfile=testfile+'ball_save.txt'
+ballfile=prefix+'special_words/ball_save.txt'
 B_nf = pickle.load( open(ballfile,"rb") )
 root=delta_n.root
 
@@ -33,7 +36,7 @@ for i in range(0,len(B_nf)):
             #print("TA",test_w,"\n\n")
             ind=B_nf[i].index(w)
             with open(outputfile, "a") as out:
-                out.write("word not accepted: i is "+str(i)+"ind is "+str(ind)+"\n") 
+                out.write("word not accepted: i is "+str(i)+" ind is "+str(ind)+" "+str(w)+"\n") 
             #print("i is ", i,"ind ",ind)
             #B_word=B[i][ind]
             #print("original word ",B_word)

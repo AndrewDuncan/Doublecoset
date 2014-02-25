@@ -4,7 +4,7 @@ from main_loop import *
 # #here begins ball main function, which constructs the ball of radius R
 # #on the list L of words input ... it should be made to check these words are in F1*F2
 ##########################################################################
-def ball(R,L,F1,F2,Hrank,H1,H2,logfile,outputfile):        
+def ball(R,L,F1,F2,Hrank,H1,H2,logfile,verbose):        
     #make a list S of elements of L and their inverses
     S=[]
     for l in L:
@@ -59,15 +59,25 @@ def ball(R,L,F1,F2,Hrank,H1,H2,logfile,outputfile):
             #print("wrd ", wrd,"\n")
             nf_wrd=[]
             if len(wrd)>0:#find the dc normal form of wrd
-                print("wrd ",wrd)
+                if verbose[-1]>0:
+                    output_log_file(logfile,"ball.py: wrd is "+ str(wrd))
+                #print("wrd ",wrd)
                 lw=listsplitter(wrd,F1.mongens,F2.mongens)
-                print("lw ", lw)
+                if verbose[-1]>0:
+                    output_log_file(logfile,"ball.py: wrd is changed to lw by listsplitter: "+ str(lw))
+                #print("lw ", lw)
                 nw=amalgam_normal_form(lw,F1,F2,H1,H2)
-                print("nw ",nw)
+                #print("nw ",nw)
+                if verbose[-1]>0:
+                    output_log_file(logfile,"ball.py: lw is changed to nw by amalgam_normal_form: "+ str(nw))              
                 for s in nw[1]:
-                    print("s is ", s)
+                    if verbose[-1]>0:
+                        output_log_file(logfile,"ball.py: nw[1] item s is "+ str(s)) 
+                        #print("s is ", s)
                     for q in s:
-                        print("q is ", q)
+                        if verbose[-1]>0:
+                            #print("q is ", q)
+                            output_log_file(logfile,"ball.py: s item q is "+ str(q))
                         if q!=[]:
                             nf_wrd=nf_wrd+q
             C.append(nf_wrd)

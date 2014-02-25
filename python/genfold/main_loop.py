@@ -52,13 +52,16 @@ def construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfil
     g=[]
     for w in Kgens:
         if verbose[-1]>1:
-            print('\n\n\n',w,' becomes')
+            output_log_file(logfile,"Main loop: construct_K, w in Kgens is "+ str(w)+" and its free product normal form  ")
+            #print('\n\n\n',w,' becomes')
         w=listsplitter(w,F1.mongens,F2.mongens)
         if verbose[-1]>1:
-            print(w, "after listsplitter and then")
+            output_log_file(logfile,"output by alg2.py, listsplitter is "+ str(w))
+            #print(w, "after listsplitter and then")
         w=amalgam_normal_form(w,F1,F2,H1,H2)
         if verbose[-1]>1:
-            print(" and after amalgam_normal_form w and wv are", w[0], "and ", w[1],'\n') 
+            output_log_file(logfile,"and output of alg2.py, amalgam_normal_form is w = "+ str(w[0])+" wv "+str(w[1]))
+            #print(" and after amalgam_normal_form w and wv are", w[0], "and ", w[1],'\n') 
         w=w[1]
         g.append(w)
 

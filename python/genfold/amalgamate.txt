@@ -15,15 +15,11 @@ else set f =1          # f is the factor to which the current syllable belongs
 
 set f'=f # for later
 
-for s= n to 1 # s is the current syllable
-    if w[s] is not in F[f] 
-       issue an error message, set an error flag and return        
-    
+for s= n-1 to 1 # s is the current syllable
     f=1-f # swap f from 0 to 1 and vice-versa
-
-
-If the error flag is not set then continue
-
+    if w[s] is not in F[f] 
+       issue an error message and exit      
+    
 H=[H1,H2] 
 
 f=f' # reset f to the factor which wn belongs to
