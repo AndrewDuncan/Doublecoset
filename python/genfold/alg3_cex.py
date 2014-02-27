@@ -1,4 +1,4 @@
-from main_loop import *
+from main_loop_no_5 import *
 import time 
 localtime = time.asctime(time.localtime(time.time()))
 import pickle
@@ -126,7 +126,7 @@ Kgens=[k1,k2]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=5
+max_iterations=3
 
 ######################
 ########### No user entry beyond this point

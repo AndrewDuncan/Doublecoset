@@ -1,22 +1,25 @@
 from main_loop import *
 import pickle 
+import time 
+localtime = time.asctime(time.localtime(time.time()))
+
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
 prefix='cex/'
 #results of tests and files of words lie in subdirectories of prefix - name the subdir required as testfile
-testfile=prefix+'special_words/'
+testfile=prefix+'ball/'
 #####################
 #open the log file and write an initial line 
 logfile=testfile+'ball_test_log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file for ball_test.py \n\n") #and write text to it
+    log.write("log file for ball_test.py: "+str(localtime)+"\n\n") #and write text to it
 
 
 #file to store results
 outputfile=testfile+'ball_test_results.txt'
 with open(outputfile, "w") as out: #create logfile 
-    out.write("output file for ball_test.py \n\n") #and write text to it
+    out.write("output file for ball_test.py: "+str(localtime)+"\n\n") #and write text to it
 
 #input delta_n, saved by the previous run of K_fix.py
 graphfile=prefix+'delta_n_save.txt'
