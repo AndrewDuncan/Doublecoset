@@ -1,5 +1,7 @@
 #from main_loop import *
 from wordmap import *
+import time 
+localtime = time.asctime(time.localtime(time.time()))
 
 ###################
 ## To get the spanning trees for H1 and H2 as required it may be necessary to
@@ -23,15 +25,17 @@ from wordmap import *
 #7 Mod4 (alg3.py)
 #8 Mod5 (alg3.py)
 #9 Reassemble (alg3.py)
+#10 save output as files for later use
 #  
 #last entry --- this file
-##########0,1,2,3,4,5,6,7,8,9,0
-verbose =[0,0,0,0,0,0,0,0,1,0,0]
+#                             1,1  
+##########0,1,2,3,4,5,6,7,8,9,0,1
+verbose =[0,0,0,0,0,0,0,0,0,0,0,0]
 
 #set the name of  the log file
 logfile='mihailova/log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file from mihailova.py \n\n") #and write text to it
+    log.write("log file from mihailova.py: "+str(localtime)+"\n\n") #and write text to it
 #log.close()
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,

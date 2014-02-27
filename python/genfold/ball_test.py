@@ -4,7 +4,8 @@ import pickle
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
 prefix='cex/'
-testfile=prefix+'ball/'
+#results of tests and files of words lie in subdirectories of prefix - name the subdir required as testfile
+testfile=prefix+'special_words/'
 #####################
 #open the log file and write an initial line 
 logfile=testfile+'ball_test_log.txt'

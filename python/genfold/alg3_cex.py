@@ -1,4 +1,6 @@
 from main_loop import *
+import time 
+localtime = time.asctime(time.localtime(time.time()))
 import pickle
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
@@ -37,7 +39,7 @@ verbose =[0,0,0,0,0,0,0,0,0,0,1,0]
 #open the log file and write an initial line
 logfile=testfile+'log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file alg3_cex.py \n\n") #and write text to it
+    log.write("log file alg3_cex.py: "+str(localtime)+"\n\n") #and write text to it
 
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
@@ -124,7 +126,7 @@ Kgens=[k1,k2]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=4
+max_iterations=5
 
 ######################
 ########### No user entry beyond this point

@@ -1,5 +1,7 @@
 from main_loop import *
 import pickle 
+import time 
+localtime = time.asctime(time.localtime(time.time()))
 #this program generates a ball of a given radius in generators previously stored for a subgroup of a (previously stored) amalgam
 
 #So that each run creates a new set of files: set the prefix for the name of all file names for your particular test here:
@@ -13,7 +15,7 @@ testfile=prefix+'special_words/'
 #open the log file and write an initial line 
 logfile=testfile+'log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file cex_nf.py \n\n") #and write text to it
+    log.write("log file cex_nf.py: "+str(localtime)+"\n\n") #and write text to it
 
 #set verbose as in ball_generate:
 #                             1,1  
@@ -22,9 +24,9 @@ verbose =[0,0,0,0,1,1,1,1,1,1,1,1]
 #verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
 
 #file to store results
-outputfile=testfile+'test_results.txt'
+outputfile=testfile+'words.txt'
 with open(outputfile, "w") as out: #append to outputfile 
-     x=1
+    out.write("cex_nf.py output file: "+str(localtime)+"\n\n") 
 
 #directory of files in which inputs are stored
 inputfile='cex/'
@@ -98,9 +100,12 @@ if verbose[-1]>0:
     i=0
     with open(outputfile, "a") as out: #append to outputfile 
         for b in B_nf:
-            out.write("list B_nf: "+str(i)+"\n") 
+            out.write("list B_nf: "+str(i)+"\n")
+            j=0
             for w in b:
-                out.write(str(w)) 
+                out.write("j: "+str(w)+"\n\n") 
+                j+=1
+            i+=1
                         
 ### at the end close files
 log.close()
