@@ -1,5 +1,7 @@
 from main_loop import *
 import pickle
+import time 
+localtime = time.asctime(time.localtime(time.time()))
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
@@ -32,15 +34,15 @@ testfile='input_K/'
 #10 save output of main_loop in files for later use
 #  
 #last entry --- this file
-#                             1,1  
-##########0,1,2,3,4,5,6,7,8,9,0,1
-verbose =[0,0,0,0,1,1,1,1,1,1,1,2]
+#                             1,1,1  
+##########0,1,2,3,4,5,6,7,8,9,0,1,2
+verbose =[0,0,0,0,1,1,1,1,1,1,1,1,2]
 #verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
 
 #open the log file and write an initial line 
 logfile=testfile+'log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file K_fix.py \n\n") #and write text to it
+    log.write("log file K_fix.py: "+str(localtime)+"\n\n") #and write text to it
 #log.close()
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
