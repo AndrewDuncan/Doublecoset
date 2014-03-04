@@ -55,7 +55,7 @@ K = pickle.load( open(getfile, "rb" ) )
 #L2=[['y1','y1'], ['Y1','y2'],['Y2','Y1']]
 #Kgrs=K.subgp_gens # not used at present - the generators for K in normal form 
 
-R=4# radius of ball to generate
+R=9# radius of ball to generate
 S,T,B,B_nf=ball(R,Kgens,F1,F2,Hrank,H1,H2,logfile,verbose)
 
 #w=B_nf[0][0]

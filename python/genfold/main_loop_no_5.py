@@ -207,25 +207,11 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
         output_graph_file(Prod[1],testfile+"P_3_2_v"+str(loop_count)+".gv","P32",verbose,logfile)
         
         
-        
-        print("now D5")
-        (delta_5,Prod)=Mod5(delta_4,H,verbose,logfile)
-        
-        # Open D5_1.gv in write mode
-        output_graph_file(delta_5[0],testfile+"D5_1_v"+str(loop_count)+".gv","D5_1",verbose,logfile)
-        
-        # Open D5_2.gv in write mode
-        output_graph_file(delta_5[1],testfile+"D5_2_v"+str(loop_count)+".gv","D5_2",verbose,logfile)
-        
-        # Open P_4_1.gv in write mode
-        output_graph_file(Prod[0],testfile+"P_4_1_v"+str(loop_count)+".gv","P41",verbose,logfile)
-        
-        # Open P_4_2.gv in write mode
-        output_graph_file(Prod[1],testfile+"P_4_2_v"+str(loop_count)+".gv","P42",verbose,logfile)
+
         
         ##############################################
         print("now Reassemble")
-        delta_n=Reassemble(delta_5,D0[2],H,verbose,logfile,loop_count)
+        delta_n=Reassemble(delta_4,D0[2],H,verbose,logfile,loop_count)
         
         # Open Dn.gv in write mode
         output_graph_file(delta_n,testfile+"Dn_v"+str(loop_count)+".gv","Delta_n",verbose,logfile)

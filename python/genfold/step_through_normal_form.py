@@ -158,7 +158,7 @@ def amalgam_normal_form_with_steps(w,F1,F2,H1,H2,verbose,logfile):
                     v.pop(s)# and of v
                     if verbose[-1]>0:
                         output_log_file(logfile,"       w is now "+str(w))
-                        output_log_file(logfile,"       and dc normal is unchanged at this step.\n\n")
+                        output_log_file(logfile,"       and output dc normal is unchanged at this step.\n\n")
                         #output_log_file(logfile,"       and the dc normal form so far is "+str(v))
                 else: # the general case: s is pointing at a syllable which is in H[f], but not the 1st or last syll
                     w[s-1]=w[s-1]+w[s]+w[s+1]# replace w[s-1] with w[s-1]+w[s]+w[s+1]
@@ -173,8 +173,8 @@ def amalgam_normal_form_with_steps(w,F1,F2,H1,H2,verbose,logfile):
                     w.pop(len(w)-1)
                     v.pop(len(w)-1)
                     if verbose[-1]>0:
-                        output_log_file(logfile,"       Moving all syllables to the right of s+1 two places left gives w = "+str(w))
-                        output_log_file(logfile,"       and dc normal is unchanged at this step.\n\n")
+                        output_log_file(logfile,"       Moving all syllables of w to the right of s+1 two places left gives w = "+str(w))
+                        output_log_file(logfile,"       and output dc normal is unchanged at this step.\n\n")
         else:   #if w[s] is not in H[f] 
             (left,Drep, right,left_Z,right_Z)=Normal_form(G[f][0],w[s],G[f][1]).spit_out_nf()#get the normal form of w[s]
             if s>0:# if w[s] is not the first syllable of w 
@@ -183,23 +183,23 @@ def amalgam_normal_form_with_steps(w,F1,F2,H1,H2,verbose,logfile):
                 if verbose[-1]>0:
                     fgnf=(left,Drep,right)
                     output_log_file(logfile,"Step"+str(step)+". Free group normal form of syllable "+str(s)+", "+ str(w[s])+" is "+str(fgnf))
-                    output_log_file(logfile,"       add "+str(v[s])+" to left of dc normal form")
+                    output_log_file(logfile,"       add "+str(v[s])+" to left of output dc normal form")
                 w[s-1]=element(w[s-1]+swap).word #right multiply w[s-1] by swap
                 if verbose[-1]>0:
-                    output_log_file(logfile,"       swap left part to other factor: "+str(left)+" = "+str(left_Z)+" to "+str(swap))
-                    output_log_file(logfile,"       and add to rhs of previous syllable to make syllable "+str(s-1)+" = "+str(w[s-1]))
+                    output_log_file(logfile,"       swap left part of nf to other factor: "+str(left)+" = "+str(left_Z)+" to "+str(swap))
+                    output_log_file(logfile,"       and add to rhs of previous syllable of w to make syllable "+str(s-1)+" = "+str(w[s-1]))
                 w[s]=element(Drep+right).word# left multiply w[s] by the inverse of it's left part
                 if verbose[-1]>0:
                     output_log_file(logfile,"       syllable "+str(s)+" becomes "+str(w[s]))
-                    output_log_file(logfile,"       so w "+str(w))
-                    output_log_file(logfile,"       and dc normal form so far is  "+str(v)+"\n\n")
+                    output_log_file(logfile,"       so w becomes "+str(w))
+                    output_log_file(logfile,"       and output dc normal form so far is  "+str(v)+"\n\n")
             else:
                 v[s]=[left_Z,Drep,right_Z] #when s points at the 1st syllable the left hand part of w[s] becomes part of the normal form
                 if verbose[-1]>0:
                     fgnf=(left,Drep,right)
                     output_log_file(logfile,"Step"+str(step)+". Free group normal form of syllable "+str(s)+", "+ str(w[s])+" is "+str(fgnf))
-                    output_log_file(logfile,"       add "+str(v[s])+" to left of dc normal form")
-                    output_log_file(logfile,"       and dc normal is  "+str(v)+".\n\n")
+                    output_log_file(logfile,"       add "+str(v[s])+" to left of output dc normal form")
+                    output_log_file(logfile,"       and final dc normal is  "+str(v)+".\n\n")
 
         f=1-f # swap from group 1 to 2 or vice-versa
         step+=1
@@ -217,7 +217,7 @@ def amalgam_normal_form_with_steps(w,F1,F2,H1,H2,verbose,logfile):
 # here the main process begins
 #####################
 #open the log file and write an initial line 
-logfile=testfile+'log.txt'
+logfile=testfile+'xy3_log.txt'
 with open(logfile, "w") as log: #create logfile 
     log.write("log file step_through_normal_form.py: "+str(localtime)+"\n\n") #and write text to it
 #set last entry of verbose to something > 0 to generate a log file listing words in the ball of radius R (could be a large file!)
@@ -225,14 +225,14 @@ with open(logfile, "w") as log: #create logfile
 #as in K_fix.py
 #10th entry of verbose > 0 --- save ball in file for later use
 #last entry of verbose > 1 --- output log file with dc normal forms saved
-#                             1,1  
-##########0,1,2,3,4,5,6,7,8,9,0,1
-verbose =[0,0,0,0,1,1,1,1,1,1,1,1]
+#                             1,1,1  
+##########0,1,2,3,4,5,6,7,8,9,0,1,2
+verbose =[0,0,0,0,1,1,1,1,1,1,1,0,1]
 #verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
 
 
 #file to store results
-outputfile=prefix+'nf_steps.txt'
+outputfile=prefix+'nf_steps_yx3.txt'
 #outputfile=testfile+'ball.txt'
 with open(outputfile, "w") as out:#initialise outputile
     out.write("step_through_normal_form.py output file: "+str(localtime)+"\n\n") 
@@ -265,10 +265,13 @@ K = pickle.load( open(getfile, "rb" ) )
 #
 #v=[['z1', 'z2', 'Z3', 'y2', 'x2'],['z1', 'z2', 'Z3', 'y2', 'x2'],['z4'],['Z4', 'Z2', 'z3', 'X2', 'Y2'],['Z4', 'Z2', 'z3', 'X2', 'Y2']]
 #v=['z1', 'z2', 'Z3', 'y2', 'x2','z1', 'z2', 'Z3', 'y2', 'x2', 'Z2', 'z3', 'X2', 'Y2','Z4', 'Z2', 'z3', 'X2', 'Y2']
+#v=['z1', 'z2', 'Z3', 'y2', 'x2','z1', 'z2', 'Z3', 'y2', 'x2', 'Z2', 'z3', 'X2', 'Y2','Z4', 'Z2', 'z3', 'X2', 'Y2','y1','x1']
 #v=['Z3', 'y2','y2', 'x2','x1','Z1','y1','x1','X2','z1', 'Z3']
 #v=['Z2','z1']
 #v=[]
-v=['X2','y1','x1','X2','Y2','Z4']
+#v=['X2','y1','x1','X2','Y2','Z4']
+#v=['y1','x1','y1','x1','y1','x1']
+v=['z1', 'z2', 'Z3', 'y2', 'x2','z1', 'z2', 'Z3', 'y2', 'x2','z1', 'z2', 'Z3', 'y2', 'x2']
 #first rewrite v as a word in generators of F1 and F2
 if verbose[-1]>0:
     output_log_file(logfile,"Input word is "+str(v)+"\n\n")

@@ -56,20 +56,20 @@ def construct_K(H1,H2,FZ,testfile,F1,F2,words1,words2,Kname,Kgens,verbose,logfil
         L.append(inv)
 
     Kgens=Kgens+L
-    if verbose[11]>1:
+    if verbose[-1]>1:
             output_log_file(logfile,"Main loop, construct_K, after adding inverses, Kgens is "+ str(Kgens))
 
     g=[]
     for w in Kgens:
-        if verbose[11]>1:
+        if verbose[-1]>1:
             output_log_file(logfile,"Main loop: construct_K, w in Kgens is "+ str(w)+" and its free product normal form  ")
             #print('\n\n\n',w,' becomes')
         w=listsplitter(w,F1.mongens,F2.mongens)
-        if verbose[11]>1:
+        if verbose[-1]>1:
             output_log_file(logfile,"output by alg2.py, listsplitter is "+ str(w))
             #print(w, "after listsplitter and then")
         w=amalgam_normal_form(w,F1,F2,H1,H2)
-        if verbose[11]>1:
+        if verbose[-1]>1:
             output_log_file(logfile,"and output of alg2.py, amalgam_normal_form is w = "+ str(w[0])+" wv "+str(w[1]))
             #print(" and after amalgam_normal_form w and wv are", w[0], "and ", w[1],'\n') 
         w=w[1]
@@ -134,8 +134,6 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
         changed=False
         print("\n iteration number ", loop_count)
         print("now D0")
-        if verbose[11]>0:
-            output_log_file(logfile,"Main loop, start of iteration  "+ str(loop_count))
         D0=MakeComps(Delta,F,FZ,verbose,logfile) # returnsdelta_k0[0],delta_k0[1],delta_z
         
         # Open alg3_test_D0_1.gv in write mode
@@ -191,41 +189,14 @@ def main_loop(Hrank,Hname1,Hname2,Hgens1,Hgens2,testfile,F1,F2,words1,words2,Kna
         output_graph_file(Prod[1],testfile+"P_2_2_v"+str(loop_count)+".gv","P22",verbose,logfile)
         
         
-        print("now D4")
-        (delta_4,Prod)=Mod4(delta_3,H,verbose,logfile)
-        
-        # Open D4_1.gv in write mode
-        output_graph_file(delta_4[0],testfile+"D4_1_v"+str(loop_count)+".gv","D4_1",verbose,logfile)
-        
-        # Open D4_2.gv in write mode
-        output_graph_file(delta_4[1],testfile+"D4_2_v"+str(loop_count)+".gv","D4_2",verbose,logfile)
-        
-        # Open P_3_1.gv in write mode
-        output_graph_file(Prod[0],testfile+"P_3_1_v"+str(loop_count)+".gv","P31",verbose,logfile)
-        
-        # Open P_3_2.gv in write mode
-        output_graph_file(Prod[1],testfile+"P_3_2_v"+str(loop_count)+".gv","P32",verbose,logfile)
+
         
         
-        
-        print("now D5")
-        (delta_5,Prod)=Mod5(delta_4,H,verbose,logfile)
-        
-        # Open D5_1.gv in write mode
-        output_graph_file(delta_5[0],testfile+"D5_1_v"+str(loop_count)+".gv","D5_1",verbose,logfile)
-        
-        # Open D5_2.gv in write mode
-        output_graph_file(delta_5[1],testfile+"D5_2_v"+str(loop_count)+".gv","D5_2",verbose,logfile)
-        
-        # Open P_4_1.gv in write mode
-        output_graph_file(Prod[0],testfile+"P_4_1_v"+str(loop_count)+".gv","P41",verbose,logfile)
-        
-        # Open P_4_2.gv in write mode
-        output_graph_file(Prod[1],testfile+"P_4_2_v"+str(loop_count)+".gv","P42",verbose,logfile)
+
         
         ##############################################
         print("now Reassemble")
-        delta_n=Reassemble(delta_5,D0[2],H,verbose,logfile,loop_count)
+        delta_n=Reassemble(delta_3,D0[2],H,verbose,logfile,loop_count)
         
         # Open Dn.gv in write mode
         output_graph_file(delta_n,testfile+"Dn_v"+str(loop_count)+".gv","Delta_n",verbose,logfile)

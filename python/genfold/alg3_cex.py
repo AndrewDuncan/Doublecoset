@@ -1,12 +1,15 @@
 from main_loop_no_5 import *
+#from main_loop_no_4_or_5 import *
 import time 
 localtime = time.asctime(time.localtime(time.time()))
 import pickle
+sys.setrecursionlimit(1500)
 
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
 testfile='cex/'
+#testfile='cex/no_four'
 #####################
 
 ###################
@@ -30,11 +33,12 @@ testfile='cex/'
 #8 Mod5 (alg3.py)
 #9 Reassemble (alg3.py)
 #10 save output as files for later use
+#11 main_loop
 #  
 #last entry --- this file
-#                             1,1  
-##########0,1,2,3,4,5,6,7,8,9,0,1
-verbose =[0,0,0,0,0,0,0,0,0,0,1,0]
+#                             1,1,1  
+##########0,1,2,3,4,5,6,7,8,9,0,1,2
+verbose =[0,0,0,0,1,1,1,1,1,1,0,1,0]
 
 #open the log file and write an initial line
 logfile=testfile+'log.txt'
@@ -126,7 +130,7 @@ Kgens=[k1,k2]
 
 ###############################
 #maximum number of iterations of the main loop
-max_iterations=3
+max_iterations=7
 
 ######################
 ########### No user entry beyond this point
