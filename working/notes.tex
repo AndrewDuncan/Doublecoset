@@ -1,0 +1,234 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath,amsfonts,amsthm,amscd,amssymb,latexsym}%,eufrak}
+%%%%%%%%%%%%%
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumerate,graphicx,psfrag}%,subfigure}%,jchangebar,oldgerm}
+\usepackage[mathscr]{eucal}
+\usepackage[usenames]{color}
+\usepackage{url}
+\usepackage[shortlabels]{enumitem}
+\usepackage{comment}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{showkeys}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{xr}
+%%%%%%%%%
+\sloppy
+%%%%%%%%%%%%%%%%%%%%%%%
+\title{The subgroup membership problem in amalgamated products of 
+finitely generated free groups
+}
+\author{Andrew J. Duncan, Elizaveta Frenkel}
+
+\renewcommand{\a}{\alpha }
+\renewcommand{\b}{\beta }
+\newcommand{\G}{\Gamma }
+\newcommand{\g}{\gamma }
+\newcommand{\D}{\Delta }
+\renewcommand{\d}{\delta }
+%\def\vd{\vardelta}
+\newcommand{\ep}{\epsilon }
+\newcommand{\e}{\varepsilon }
+\newcommand{\z}{\zeta }
+%\eta
+\renewcommand{\th}{\theta }
+\newcommand{\T}{\Theta }
+\renewcommand{\i}{\iota }
+\renewcommand{\k}{\kappa }
+\renewcommand{\l}{\lambda }
+\renewcommand{\L}{\Lambda }
+%\mu
+%\nu
+%\xi
+%omicron
+%\pi
+\renewcommand{\r}{\rho }
+\newcommand{\s}{\sigma }
+\renewcommand{\S}{\Sigma }
+\renewcommand{\t}{\tau }
+\newcommand{\up}{\upsilon }
+\newcommand{\U}{\Upsilon }
+%\phi
+\newcommand{\x}{\chi }
+%\psi
+\newcommand{\W}{\Omega }
+\newcommand{\w}{\omega }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\pd}{\partial}
+\newcommand{\wht}{\widehat}
+%\newcommand{\cC}{{\mathcal C}}
+%\newcommand{\cdim}{\texttt{cdim}}
+\newcommand{\fC}{{\textswab C}}
+\newenvironment{ef}{\noindent\color{blue} \bf EF: }{}
+%
+\newcommand{\cA}{{\cal{A}}}
+\newcommand{\cD}{{\cal{D}}}
+\newcommand{\cF}{{\cal{F}}}
+\newcommand{\cH}{{\cal{H}}}
+\newcommand{\cJ}{{\cal{J}}}
+\newcommand{\cK}{{\cal{K}}}
+\newcommand{\cP}{{\cal{P}}}
+\newcommand{\cQ}{{\cal{Q}}}
+\newcommand{\cR}{{\cal{R}}}
+\newcommand{\cS}{{\cal{S}}}
+\newcommand{\cV}{{\cal{V}}}
+\newcommand{\cW}{{\cal{W}}}
+%\newcommand{\GG}{\ensuremath{\mathbb{G}}}
+\newcommand{\pp}{\mathbf{p}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nul}{\emptyset }
+\newcommand{\vim}{\nu\textrm{-im}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+%cvs -d :pserver:najd2@cvs.mas.ncl.ac.uk:/CVS/najd2
+\newtheorem{exam}[theorem]{Example}
+%\newtheorem{comment}[theorem]{Comment}
+%
+%
+\newenvironment{example}{\begin{exam} \rm}{\end{exam}}
+%
+%
+%
+\newtheorem{remk}[theorem]{Remark}
+\newenvironment{remark}{\begin{remk} \rm}{\end{remk}}
+%
+%%%%%%%%%%%%
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Loop}{\operatorname{Loop}}
+\newcommand{\Iso}{\operatorname{Isom}}
+\newcommand{\Aut}{\operatorname{Aut}}
+%%%%%%%%%%%%%%%%%%%
+\renewcommand{\AA}{\ensuremath{\mathbb{A}}}
+\newcommand{\ZZ}{\ensuremath{\mathbb{Z}}}
+\newcommand{\QQ}{\ensuremath{\mathbb{Q}}}
+\newcommand{\RR}{\ensuremath{\mathbb{R}}}
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+\newcommand{\CC}{\ensuremath{\mathbb{C}}}
+\newcommand{\FF}{\ensuremath{\mathbb{F}}}
+%\renewcommand{\ker}{\verb"Ker"}
+\newcommand{\cC}{\mathcal{C}}
+\renewcommand{\cF}{\mathcal{F}}
+\newcommand{\cO}{\mathcal{O}}
+\renewcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+%\newcommand{\BA}{\ensuremath{\mathbb{A}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\maps}{\rightarrow}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\bs}{\backslash}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\biz}{\begin{itemize}}
+\newcommand{\eiz}{\end{itemize}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newenvironment{ajd1}{\noindent\color{red} AJD }{}
+\newcommand{\ajd}[1]{\begin{ajd1} #1 \end{ajd1}}
+%
+\newenvironment{bl}{\noindent\color{blue} EF }{}
+\newcommand{\li}[1]{\begin{bl} #1 \end{bl}}
+%\includecomment{comp}% to see environment comp
+\excludecomment{comp}% to hide environment comp
+%
+% EXTERNAL REFERENCES 
+%\externaldocument[M-]{membership}
+\externaldocument{membership}
+\begin{document}
+Note to the reader/writer. The same labels (for \texttt{\char`\\}ref statements) as membership.tex work here.
+\section{Main problems}
+There are some problems with what we wrote before. Some big some small. This is a list of the
+ones I know about.
+\be
+\item The major problem was the halting criterion for the algorithm. The assumption that once the 
+number of $X_1$ and $X_2$ components has settled then the algorithm can stop; was false. This can
+easily be seen in  action in our examples. 
+\item One minor problem was the use of the $\Delta_Z$ component in Algorithm III. The idea was to make 
+life easier by removing $Z$-edges that did not induce any modification to the diagram. Although this
+could work it would either be necessary change the proof of the fact the alg works, 
+or to add $X_1$ and $X_2$ edge paths to follow all such $Z$-edges: that
+is for every such edge labelled $z$ there must be paths labelled $\phi_1(z)$ and $\phi_2(z)$ (with the same end points). 
+The reason this has to be done is that the proof that the algorithm works starts by assuming that a word accepted
+by the folding of $K$ can be rewritten without $Z$ letters; and that the rewritten will still 
+be accepted by the automaton output from the 
+generalised folding. Without these new paths this will not be true in general. 
+Unfortunately I did not see this before. 
+Now that I see it has to be done, it seems useless to have a $\Delta_Z$ component - 
+after the first pass through the main loop it will be empty in any case. Therefore I have rewritten things
+ to leave this out- and it makes everything a bit easier.  
+\ee
+\section{Changes to the text}
+
+\be
+\item Section \ref{sub:reltran} has been changed, twice. The first change was to use
+relative transversals, to make normal forms unique. The second change was to remove 
+relative transversals, on the realisation that normal forms are unique in any case. The 
+new version refers to \emph{right transversals} rather than relative transversals.  
+The old version, along
+with some examples which perhaps may be useful, is in the file scrap.tex.
+
+\item We have two types of double coset normal form in play.
+ There is a double coset normal  form in the free group,
+as in section \ref{sub:reltran} and a double coset normal
+form for an amalgam, in section \ref{sec:dcnf}. The second
+one is the one we really want to call a double coset normal
+form, isn't it? It is confusing therefore to call them
+both the same thing. 
+
+At the moment, where
+I have noticed it, I refer to the free group version as 
+the ``free group, double coset normal form''.  (See 
+for example Defn \ref{def:free_dc_nf} and the proof of Thm \ref{thm:dcnf}.)
+This is too long and needs to be changed, so it's encoded as 
+  ``\texttt{\char`\\}normalform''.
+
+We \emph{could} call the free group version 
+a $D$-normal form, where $D$ is the set of double coset
+representatives. It seems clumsy to me. Do you like it/
+dislike it/have a better suggestion? 
+\item There are two presentations for the amalgam $F_1*_{H_1=H_2}F_2$, in  \eqref{eq:Xpresn}
+and \eqref{eq:Zpresn}. I've called them the $X$-presentation
+and $Z$-presentation. \ajd{Maybe don't need this terminology.} We use both, as we sometimes write words in reduced
+form w.r.t. the first, and other times in dc-normal form, using the second. 
+\item The proof of Theorem \ref{thm:dcnf} has been rewritten, to make
+it a little shorter.
+
+\item Algorithm II has been given a label like Algs I and III; see page \pageref{alg:alg2}.
+ It has also been amended to cope with words in $\FF(X_1\cup X_2\cup Z)$ and not 
+just $\FF(X_1\cup X_2)$. 
+
+\item Preamble to \ref{sec:foldings} changed to accommodate the fact that the main loop may
+repeat forever. 
+
+\item Added a couple of sentences to \ref{sec:dca} to cover the case where $K\subseteq H_k$. 
+\ajd{This needs to be incorporated into the summary of Alg III and the program.}
+\item Trying to keep things simple, the original version of Algorithm III used $\Theta$ to
+denote a connected component of $\Delta_k$. However, this does not seem to make much difference
+and makes life a bit awkward later on, so now $\Theta_i$ is just used as shorthand for $\Delta_{1,i}$ or $\Delta_{2,i}$.
+\item Moved what used to be Lemma 5.3 (lem:dcfold) to the end of Section 3, as it uses all the terminology
+defined there, and nothing else. I'm not sure if the statement about the number of  
+components is needed any more.
+\item The maps that were previously called $\theta_i$ in Section 3 and onwards are now called 
+$\theta_{k,i}$ and $\theta_k=\theta_{k,5}\circ\theta_{k,4}\circ\theta_{k,3}\circ\theta_{k,2}\circ\theta_{k,1}$.   
+\item Now there is no $\D_z$ the first statement  of Lemma \ref{lem:idverts}, is more or less trivial,
+so it is now just a comment at the end of Section \ref{sub:summaryIII}.
+\ee
+\end{document}

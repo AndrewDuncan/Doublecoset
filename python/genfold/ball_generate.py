@@ -1,5 +1,6 @@
 from ball import *
 import pickle 
+sys.setrecursionlimit(1500)
 import time 
 localtime = time.asctime(time.localtime(time.time()))
 #this program generates a ball of a given radius in generators previously stored for a subgroup of a (previously stored) amalgam
@@ -7,8 +8,8 @@ localtime = time.asctime(time.localtime(time.time()))
 #So that each run creates a new set of files: set the prefix for the name of all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
-#prefix
-prefix='cex/'
+prefix='input_K/'
+#prefix='cex/'
 #testfile='input_K/ball/'
 testfile=prefix+'ball/'
 
@@ -23,9 +24,9 @@ with open(logfile, "w") as log: #create logfile
 #as in K_fix.py
 #10th entry of verbose > 0 --- save ball in file for later use
 #last entry of verbose > 1 --- output log file with dc normal forms saved
-#                             1,1  
-##########0,1,2,3,4,5,6,7,8,9,0,1
-verbose =[0,0,0,0,1,1,1,1,1,1,1,1]
+#                             1,1,1 
+##########0,1,2,3,4,5,6,7,8,9,0,1,2
+verbose =[0,0,0,0,1,1,1,1,1,1,1,0,1]
 #verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
 #change_tree=0#only needed if foldings are to be generated here
 
@@ -55,7 +56,7 @@ K = pickle.load( open(getfile, "rb" ) )
 #L2=[['y1','y1'], ['Y1','y2'],['Y2','Y1']]
 #Kgrs=K.subgp_gens # not used at present - the generators for K in normal form 
 
-R=9# radius of ball to generate
+R=5# radius of ball to generate
 S,T,B,B_nf=ball(R,Kgens,F1,F2,Hrank,H1,H2,logfile,verbose)
 
 #w=B_nf[0][0]
