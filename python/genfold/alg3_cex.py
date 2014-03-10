@@ -1,5 +1,5 @@
 from main_loop_no_5 import *
-#from main_loop_no_4_or_5 import *
+#from main_loop import *
 import time 
 localtime = time.asctime(time.localtime(time.time()))
 import pickle
@@ -17,7 +17,7 @@ testfile='cex/'
 ## set change_tree = 0 and then 
 ###################
 
-#verbose is a list (currently of length 11) of 0's and 1's. List entries correspond to 
+#verbose is a list (currently of length 12) of 0's and 1's. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
 #produce "helpful" output. When it is set to 0 nothin unecessary is output. When it's more than 1
 #alot of lines, designed to keep track of the program flow, are output to the log file. 

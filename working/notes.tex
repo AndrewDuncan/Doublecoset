@@ -174,58 +174,140 @@ generalised folding. Without these new paths this will not be true in general.
 Unfortunately I did not see this before. 
 Now that I see it has to be done, it seems useless to have a $\Delta_Z$ component - 
 after the first pass through the main loop it will be empty in any case. Therefore I have rewritten things
- to leave this out- and it makes everything a bit easier.  
+ to leave this out- and it makes everything a bit easier. 
+\item In the previous version of the algorithm the folding of $K$ began by taking the generators of $K$, putting them
+in normal form and then folding the rose obtained from these normal forms. There is a slight difficulty here. If $k$ 
+has normal form the word $a_1\cdots a_m$ then $a_m^{-1}\cdots a_1^{-1}$ is not necessarily then normal form of 
+$k^{-1}$, so the folding of $K$ does not in general accept $k^{-1}$. This makes the claim that ``elements of $K$ expressed
+in terms of the given generators of $K$ are accepted by the folding of $K$'' false. In fact the normal form of 
+$k$ will be accepted after some iterations of the generalised folding loop, so this is not a fatal difficulty. However, 
+it is a nuisance and does not make things go smoothly: so it is better to use symmetrised generators for $K$.
 \item Modification 5 still does too much. To get the example we worked on in Moscow to run through a significant number
 of iterations of the main loop, I changed the program to leave out Mod 5 altogether. You may (or may not) recall
 that we discovered while doing examples, that it was not needed in this particular example. In this example, leaving it
 in results in a massive number of unnecessary additions of paths. In general stricter conditions could be applied.  
+\item One annoyance is that I insisted on not using $Z$ in the 
+free group: keeping it till amamalgams were introduced. Now I understand why you wanted to have $Z$ involved right from the
+ start, but probably it's not a good time to change this.
+
+
 \ee
 \section{Programs}
-I have run two examples which I call K\_fix and cex, through the python programs. K\_fix is the one
-from the paper - corrected. cex is the one we were working thru in Moscow. There are 2 files that run these examples
-K\_fix.py and cex.py. There are comments in the files which are supposed to show how they work. 
+I have run three examples which I call K\_fix, cex and mihailova through the python programs. K\_fix is the one
+from the paper - corrected. cex is the one we were working thru in Moscow. Mihailova is your example. There are 3 files that run these examples
+K\_fix.py, alg3\_cex.py and mih\_test.py. There are comments in the files which are supposed to show how they work. First some
+general remarks, then instructions. 
+
+The programs attempt to run our algorithm. In the K\_fix case, after 2 iterations of the main loop there
+is nothing more to do, so on the 3rd iteration the program halts. In the cex case, I can now get the program
+to run for about 16 iterations, probably more, I haven't tried, and it seems to be going forever. The output begins
+to form some regular kind of pattern. Mihailova: I was able to get this to do 2 iterations before, but only 
+when the program was not working correctly. Last time I tried it, it hung on iteration 2. The time before (when the 
+program had some illegal short cuts), it spent a week 
+working on iteration 4, after which I stopped it before it finished. I need a bigger computer.
+
+I checked the final output of K\_fix only accepts words in K. I checked the cex example only accepts words in K
+after 2 iterations. 
+
+There are now programs to produce lots of words in K and then to see if the automata constructed 
+by the algorithm accepts them.  I haven't told you how these work  yet, so here goes.
+
+I have set things up so output (from K\_fix.py, alg3\_cex.py or mih\_test.py) can be saved to file and then read back in.
+The ``verbose'' list can be used to control this, but some extra directories are needed, as in the instructions below. 
+
+The idea is to generate elements of $K$, by generating balls of radius $R$, in the generators. 
+This can be done with a prog called ball\_generate.py. It has instructions for generating 
+balls of radius $R$ either of K\_fix or cex (or of mihailova). 
+(To make this work, directories input\_K/ball or cex/ball must exist.)
+
+Once the ball of radius $R$ has been constructed then the words in it can be fed to the automaton output
+from K\_fix or cex. This is done by running ball\_test.py. 
+
+As far as I can see the algorithm is working as it should. It takes 2m iterations (or less) to eat up the ball or radius m,
+for the cex example. The K\_fix example eats everything I can give it - I made a ball of radius something like 14, which was 
+all accepted. I also made a file of some special words that seem a problem in the cex example, as an alternative
+to the ball idea. These  seem to get eaten up eventually. 
+
+To see more clearly what is going on in the examples it is necessary to follow how words are put into
+dc normal form. For this, words can be processed by step\_through\_normal\_form.py.
+This allows you to define a word and then 
+see the steps Algorithm II goes through to put the word in normal form. This is I think what we 
+need to understand to see what conditions make the algorithm halt. Examples of words to try can be found in the
+output files from ball\_generate.py.
+
+\subsection*{Instructions}
 \be
-\item K\_fix.py. To run this a subdirectory input\_K needs to exist. You can change the number of iterations. It only needs 3 
-passes through the main loop, then it stops. However, the flag ``change\_tree'' must be set to 1 to get it to run as we want.
-Once this is set (which it is in the file on git) the prog will ask for user inut. The required responses (hit enter after each one) are\\
+\item \textbf{K\_fix.py.} There are instructions in the file itself, so this is a summary. 
+The generators of the subgroups $H_1$ and $H_2$ are as in the paper. The generators for $K$ are 
+not quite as in the paper, but are as near as possible to generators that result in the diagrams made for the 
+paper. (There are some typos in the example in the paper, so the example and the diagrams don't
+actually match up.) 
+\be
+\item 
+To run the program a subdirectory input\_K needs to exist. The output from the programme will appear in this subdir.
+In particular this  is where the graph files and the log file will be. 
+\item The flag ``change\_tree'' must be set to 1 to get the program to use the generators of $H_2$ that we want.
+It is correctly set in the file on git: which means the user must make responses. 
+The required responses (hit enter after each one) are\\
 n\\
 y\\
 1\\
 1\\
 3\\
+\item 
+You can change the number of iterations of the main loop using max\_iterations. It only needs 3 
+passes through the main loop, then it stops, so anything more than 3 makes no difference.
+\item You can change the output to the log file, and the output that is saved for later use.
+To do this use ``verbose'': see line 19 of the program. 
+If you set items 4 to 9 or 11 to 1 then the program will tell you which paths it added to the original
+folding, during each of the modifications (see the program for which item corresponds to which modification). 
+ 
+Item 10 is slightly different. If it is 
+set to more than 0 then the program will save its output, for use later as input to ball\_generate.py or 
+ball\_test.py. 
 
-This gets the right gens for $H_1$ and $H_2$. 
-\item cex. Here change\_tree = 0 is fine. The max number of iterations is important. Too many and the prog will hang. 
-\item Not to forget: mih\_test.py runs the mihailova example. I was able to get this to do 2 iterations before, but only 
-when the program was not working correctly. Last time I tried it, it hung on iteration 2. The time before, it spent a week 
-working on iteration 4, after which I stopped it before it finished. I need a bigger computer. 
+If item 10 is $> 0$ then the groups and subgroups $F_i, H_i, \FF(Z)$ and all their associated foldings, will be
+stored in files in input\_K, in a file called   input\_save.txt. The generalised folding output from the 
+final iteration of the main loop will also be saved in input\_K/delta\_n\_save.txt. These are binary files 
+for input to other python programs, so are not for reading.
+\item Nothing else should need changing in K\_fix.py. 
 \ee
-There are some other things about both these progs which I haven't told you about yet.
-To help with testing I have set things up so output can be saved to file and then read back in.
-The ``verbose'' list can be used to control this, but some extra directories are needed. 
-First a general explanation, then instructions. 
-The idea is to generate elements of $K$, by generating balls of radius $R$, in the generators. 
-This can be done with a prog called ball\_generate.py. It has instructions for generating 
-balls of radius $R$ either of K\_fix or cex. (To make this work directories input\_K/ball or cex/ball must exist.)
-Once the ball of radius $R$ has been constructed then the words in it can be fed to the automaton output
-from K\_fix or cex. This is done by running ball\_test.py. 
-
-As far as I can see these are working as they should. It takes 2m iterations (or less) to eat up the ball or radius m,
-for the cex example. The K\_fix example eats everything I can give it - I made a ball of radius something like 14, which was 
-all accepted. 
-
-To see more clearly what is going on in the cex exx words can be processed by step\_through\_normal\_form.py.
-This allows you to put in a word (you can find words to put in from the output of ball\_generate) and then 
-it describes the steps Algorithm II goes through to put the word in normal form. This is I think what we 
-need to understand to see what conditions make the algorithm halt.
-
-Instructions
+\item \textbf{cex.} The program to run is alg3\_cex.py. The instructions are the same as for K\_fix.py, except that 
+``input\_K'' should everywhere be replaced by ``cex'', and the following things need noting.
+\item  
+Here change\_tree = 0. The default generators for $H_1$ and $H_2$ are the ones we used.
+\item  The max number of iterations is important. Too many and the prog will hang. In fact this also
+depends on the setting of the 10th item of verbose. If this is set to 1 or more, so files are saved, then
+not many iterations are possible - I think I achieved 10. With no files saved lots more iterations are possible: I have
+run 16 and it looks like a few more would work ok. In fact, in the first few lines of the
+file you will see `` sys.setrecursionlimit(1500)'', which stops python from crashing quite as quickly as it would otherwise
+when files are saved. This allows a few more iterations with saving. It could be that 1500 could be increased ... the
+only way to find out is to try it. At some point though it will make your computer hang (or something else bad). 
+(I have not done things in the best way as far as storing files is concerned, but such considerations are secondary 
+at the moment.) 
+\item \textbf{mihailova.} mih\_test.py  runs the mihailova example. 
+The instructions are more or less as before, except.
 \be
-\item will follow -- now I have run out of steam.
+\item ``mihailova'' replaces ``input\_K''. Also subdirectory mihailova/graphs must exist, and this is where the 
+graphs will be found. 
+\item change\_tree should be left set to 0, as it is.
+\item In subdir mihailova (and on git) is a file ex\_mihailova.tex, which explains how this example has been implemented.
+It would be good if one of the other co-authors could read this and comment.
+\item
+Probably best not to try saving files here. 
+\item
+max\_iterations is set to 1 in the version on git. 
+Even after 1 iteration a monster graph is produced as a generalised folding - quite pretty but too big to make sense of.
+I have not tried this prog for a while now. Probably setting  `` sys.setrecursionlimit(1500)'' or something would be
+interesting  so as to get at least 2 iterations out of it. 
+\ee
+\item \textbf{ball_generate.py.} I think I have told you enough now and I will tell more once 
+I hear that you are ready to hear more. 
 \ee
 \section{Changes to the text}
 
 \be
+\item At the moment the Mihailova example is not in the text and it needs to be added.
 \item Section \ref{sub:reltran} has been changed, twice. The first change was to use
 relative transversals, to make normal forms unique. The second change was to remove 
 relative transversals, on the realisation that normal forms are unique in any case. The 
