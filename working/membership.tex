@@ -5465,6 +5465,14 @@ and final state $1$, such that $\pi(L(\D))=K$. Edges labelled
 with elements of $X_k$ are said to have type $k$. Edges labelled with
 elements of $Z$ are said to have type $Z$.
 \section{Proofs of main results}\label{sec:proofs}
+If $w$ is a word in $\FF(X_k\cup Z)$, and $w'$ is the word obtained from $w$ 
+by replacing each occurrence of a letter $z \in Z^{\pm}$ by $\phi_k(z)$, and then freely
+reducing the result in $\FF_k$, then the double coset normal form of $w$ is by definition
+equal to $(h_1,s,h_2)$, where $w'$ has \normalform~ $(u_1,s,u_2)$ and $h_i=\phi_k^{-1}(u_i)$. In the second part of the
+next lemma we show that 
+if such $w$ is a subword of a word accepted by an inverse automaton $\D$, then the normal form of $w$ is accepted by the 
+by the automaton resulting from the operation of the Generalised Folding Loop on $\D$. 
+
 \begin{lemma}\label{lem:nfcomp} Let $\D$ be an inverse automaton with alphabet $\S$ and let 
 $\D_{k,0}$ be an $X_k$ component of $\D$, for $k\in \{1,2\}$. 
 Let $\a$ and $\b$ be boundary vertices of  $\D_{k,0}$ and let $\th_k$ be the map from
@@ -5473,8 +5481,8 @@ $\D_{k,0}$ to $\D_{k,5}$ defined in the Reassembly step of Section \ref{sec:dca}
 \item\label{it:nfcomp1}
   $\pi(L(\D_{k,0},\a,\b))=\pi(L(\D_{k,5},\th_k(\a),\th_k(\b)))$.
 \item\label{it:nfcomp2} Let $w$ be a word
- which is accepted by the automaton $(\D_{k,0}, \a, \b)$. Then the
-normal form of $w$ is accepted by $(\D_{k,5}, \th_k(\a), \th_k(\b))$.
+ which is accepted by the automaton $(\D_{k,0}, \a, \b)$. Then the double coset normal form of 
+$w$ is $(h_1,s,h_2)$, for some $h_i\in \FF(Z)$, and the word $h_1sh_2$  is accepted by $(\D_{k,5}, \th_k(\a), \th_k(\b))$.
 \ee
 \end{lemma}
 \begin{proof} ~
@@ -5484,37 +5492,61 @@ III the image under $\pi$ of the language accepted by $(\D_{k,i},\a,\b)$  is
 preserved. The result now follows directly from the definition of $\th_k$ on page \pageref{def:thk}.
 
 \ref{it:nfcomp2}.
-Let $\cP_j=\cP_{k,j}=\D_{k,j}\times \G_{H_k}$ and let $\U_j=\U_{k,j}$, where $\cP_{k,j}$ and $\U_{k,j}$
-are defined in Algorithm III, Section \ref{sub:summaryIII}. 
-We may assume that $w\in \FF(X_k)$ (given the construction of $\D_{k,1}$). 
-\ajd{May this not require an additional repetition of the main loop?} 
-Let $w$ have \normalform $(u_1,s, u_2^{-1})$, where  $s\in S_k$, $u_i\in F_k$ and 
-$u_2^{-1}\in \cT_s$. Let $h_i=\phi_k^{-1}(u_i)\in \FF(Z)$, so $w=_G h_1sh_2^{-1}$.
+For $j=1,\ldots ,4$, let $\cP_j=\cP_{k,j}=\D_{k,j}\times \G_{H_k}$ and let $\U_j=\U_{k,j}$ be a spanning tree for $\cP_{k,j}$, as in 
+ Algorithm III, Section \ref{sub:summaryIII}. 
+ Let $w'$ be the word obtained from $w$ by replacing each occurrence of a letter $z \in Z^{\pm}$ by $\phi_k(z)$, and then freely
+reducing the result in $\FF_k$. Then there is a path in  $\D_{k,1}$ from $\a$ to $\b$ with label $w'$. 
+Let $w'$ have \normalform~ $(u_1,s, u_2^{-1})$, where  $s\in S_k$, $u_i\in F_k$ and 
+$u_2^{-1}\in \cT_s$. Let $h_i=\phi_k^{-1}(u_i)\in \FF(Z)$, so $w=_G w'=_G h_1sh_2^{-1}$.
 There are three cases to consider, depending on whether $s=1$ or $s$ is a
-representative of type $1$ or type $2$. 
- First consider the case where $s$ is of type $1$, say
+representative of type $1$ or type $2$.
+ 
+ First consider the case $s=1$, so $u_2=1$ and $w'=u_1=_G h_1$. Then $w'$ is 
+the label of a closed path at $1$ in $\G_{H_k}$ so there is a path $p$ from $(\a,1)$ to $(\b,1)$ in $\cP_1$ 
+ with label $w'$. Therefore there is a path from $(\a,1)$ to $(\b,1)$ in $\U_1$ with label $u$, say, 
+and during Modification 2 a path with label $h=\phi_k^{-1}(u)$, from $\a$ to $\b$, is added to $\D_{k,1}$. 
+If $p$ is in $\U_1$ then $u=w'$ and so the result holds in this case. Suppose then that 
+$p$ has $m$ edges not in $\U_1$. Then $p=p_0ep_1$, where $p_0$ is a path in $\U_1$ and $e$ is an edge not in $U_1$, with
+label $x\in X^{\pm 1}$.
+Suppose that $e=(\g,x,\d)$, where $\g$ and $\d$ are vertices of $\cP_1$, and let $w_0$ and $w_1$ be the labels of $p_0$ and $p_1$,
+ respectively. Let $v$ be the label of the path $l$ from $(\a,1)$ to $\d$ in $\U_1$. Then a closed path at $\a$, 
+with label $\phi_k^{-1}(w_0xv^{-1})$, 
+is added to $\D_{k,2}$ during Modification 3. The path $lp_1$ from $(\a,1)$ to $(\b,1)$ has label $vw_1$ and has 
+fewer edges outside $\U_1$ than $p$; so by induction there
+is a path from $\a$ to $\b$ in $\D_{k_3}$ with label $\phi_k^{-1}(vw_1)$. As $\D_{k,3}$ is folded 
+it follows that it contains a path with label $\phi_k^{-1}(w_0xw_1)=\phi_k^{-1}(w_0xv^{-1})\phi_k^{-1}(vw_1)$, that is with label
+$\phi_k^{-1}(w')$. This completes the proof in the case $s=1$. 
+
+Next consider the case where $s$ is of type $1$, say
  $s= a_1 e a_2^{-1}$, where
 $a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and
  $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ e^{-1}$.
- Then, as the normal form is the result of applying $\phi_k$ to the
+ Then, as the normal form is the 
 output of Algorithm I,
  there are words
 $g_1, g_2, b_1$ and $b_2\in \FF(X_k)$ such that
-$w=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
+$w'=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
 $g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
 $b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
 $b_2$ is a maximal $L_Q$-prefix of $b_2\circ e^{-1}$, $e\neq 1$,
-$a_i=w(\t(b_i))$ and $\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
+$a_i=w(\t(b_i))$ and $u_i=g_ib_ia_i^{-1} = \phi_k(h_i)$, $i=1,2$.
 
 Recall that we refer to the images of vertices of $\D_{k,0}$ in $\D_{k,i}$ as
  ``vertices of $\D$'', for $i=1,\ldots ,5$.
-Since $g_i\in H_k$ and $w$ is accepted by $\D_{k,1}$ there is a path
+Since $g_i\in H_k$ and $w'$ is accepted by $\D_{k,1}$ there is a path
 labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\D_{k,0}$ and a path
-labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\D_{k,0}$. Therefore, in $\cP_1$,
+labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\D_{k,0}$. 
+ As in the case where $s=1$,  in $\D_{k,3}$ there exist paths from $\a$ to $\a_1$ and from $\b$ to $\b_1$, with labels
+$\phi_k^{-1}(g_1)$ and $\phi_k^{-1}(g_2)$, respectively.
+
+\begin{comment}
+%%%old below
+Therefore, in $\cP_1$,
 there are paths $p_1$ from $(\a,1)$ to $(\a_1,1)$ labelled $g_1$, and
 $p_2$
 from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 (See Figure \ref{fig:nf-1}.)
+\end{comment}
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a$}
@@ -5546,8 +5578,8 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \psfrag{(b2,e2)}{$(\b_2,\e_2)$}
 \psfrag{g-1}{$g_1$}
 \psfrag{g-2}{$g_2$}
-\psfrag{b'_1}{$b_1^\prime$}
-\psfrag{b'_2}{$b_2^\prime$}
+\psfrag{b'_1}{$t_1$}
+\psfrag{b'_2}{$t_2$}
 \psfrag{a_1}{$a_1$}
 \psfrag{a_2}{$a_2$}
 \psfrag{e1}{$\e_1$}
@@ -5559,6 +5591,7 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \caption{Normal form: type 1.}
 \label{fig:nf-1}
 \end{figure}
+\begin{comment}
 Now $p_1$ may
 be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l}$,
 where $o_i$ is a simple path in $\U_1$ and $e_i$ is an edge of $\cP_1$ which does
@@ -5614,6 +5647,7 @@ in $\D_{k,3}$ and $\D_{k,3}$ is folded this means  that $\phi_k^{-1}(g_1)$ is th
 label of a path, from $\a$ to   $\a_1$, in $\D_{k,3}$. Similarly,
 $\phi_k^{-1}(g_2)$
 is the label of a path from $\b$ to $\b_1$ in $\D_{k,3}$.
+\end{comment}
 
 The word $b_1$ is readable by $\G_{H_k}$ and there
 is a path with label $b_1$ in $\D_{k,1}$ from $\a_1$ to some vertex $\a_2$
@@ -5621,55 +5655,60 @@ of $\D_{k,0}$.
 Hence $b_1$ is the label of a path in $\cP_1\subseteq \cP_3$ from $(\a_1,1)$ to
 $(\a_2,\e_1)$, for some vertex $\e_1$ of $\G_{H_k}$.
 By definition $a_1=w(\t(b_1))$ is the label of a path in $T_k$ from $1$ to $\e_1$.
-Let $b_1^\prime$
+Let $t_1$
  be the label of the simple path $p_1^\prime$ in $\U_3$ from
-$(\a_1,1)$ to $(\a_2,\e_1)$ (see Figure \ref{fig:nf-1}). By construction $\D_{k,4}$ contains a path
-from $\a_1$ to $\a_2$ with label $h_1^\prime a_1$, where
-$h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in \FF(Z)$.
+$(\a,1)$ to $(\a_2,\e_1)$ (see Figure \ref{fig:nf-1}). By construction $\D_{k,4}$ contains a path
+from $\a$ to $\a_2$ with label $h_1^\prime a_1$, where
+$h_1^\prime =\phi_k^{-1}(t_1 a_1^{-1})\in \FF(Z)$.
 (If $\cP_3$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
-$b_1^\prime=a_1$ and $h_1^\prime$ is the empty word, while there
-exists a path with label $a_1$ from $\a_1$ to $\a_2$ in $\D_{k,3}$.)
+$t_1=a_1$ and $h_1^\prime$ is the empty word, while there
+exists a path with label $a_1$ from $\a$ to $\a_2$ in $\D_{k,3}$.)
 %Furthermore we have
-%$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$.
-Now $b_1(b_1^\prime)^{-1}\in H_k$ and is the label of a closed
-path  in $\cP_1\subseteq \cP_3$ based at $(\a_1,1)$; so by the
-previous part of proof, $\D_{k,3}$ contains a closed path, based at $\a_1$,
+%$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(t_1)$.
+Now $g_1b_1t_1^{-1}\in H_k$ and is the label of a closed
+path  in $\cP_1\subseteq \cP_3$ based at $(\a,1)$; so by the
+previous part of proof, $\D_{k,3}$ contains a closed path, based at $\a$,
  with label
-$w_1^\prime=\phi_k^{-1}(b_1(b_1^\prime)^{-1})$. Hence, as it is folded,
+$w_1^\prime=\phi_k^{-1}(g_1b_1t_1^{-1})$. Hence, as it is folded,
 $\D_{k,4}$ contains a path, from $\a$ to $\a_2$,
 with label the reduced word obtained from the product
-$\phi_k^{-1}(g_1)w_1^{\prime} h_1^\prime a_1$, that is
+$w_1^{\prime} h_1^\prime a_1$, that is
  $\phi_k^{-1}(g_1b_1a_1^{-1}) a_1=h_1a_1$.
  Similarly, $\D_{k,1}$ contains a path labelled $b_2$ from $\b_1$ to
 some vertex $\b_2$ of $\D_{k,0}$, and $\D_{k,4}$ contains a path from
 $\b$ to $\b_2$ with label $h_2a_2$.
 
-As $w$ is the label of a path in $\D_{k,1}$ there is a path from $\a_2$ to
+As $w'$ is the label of a path in $\D_{k,1}$ there is a path from $\a_2$ to
 $\b_2$ in $\D_{k,4}$ with label $e$. Therefore, in this case, $\D_{k,4}$ contains
-a path from $\a$ to $\b$ which has label the normal form of $w$.
+a path from $\a$ to $\b$ which has label $h_1a_1ea_2^{-1}h_2^{-1}=h_1sh_2^{-1}$, as required. 
 
 
 
-In the second case,
-let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
-$h_1$ and $h_2$ are in $\FF(Z)$,  $a_1$ and $a_2$ are labels
-of simple paths in the subtree $T_k$ and $s=a_1a_2^{-1}$ is a double coset
-representative of type $2$. Then there are words
+
+
+Finally consider the case where $s$ is a double coset
+representative of type $2$, so $s=a_1a_2^{-1}$, where   
+ $a_1$ and $a_2$ are labels
+of simple paths in the subtree $T_k$. Then   
+ there are words
 $g_1, g_2, b_1, b_2, c$  in $\FF(X_k)$,  such that
 $w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$,
 $g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
-$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in
+$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ is in
 $L_Q$, $c=c(\t(b_1),\t(b_2))$, $a_i=w(v_i)$, where
 $(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$, 
-and $h_i=\phi_k^{-1}(g_ib_ica_i^{-1})$.
+and $h_i=\phi_k^{-1}(g_ib_ica_i^{-1})$. 
 
-Then $\D_{k,0}$ contains vertices $\g_1=\a,\g_2=\b, \a_1, \a_2$ and $\g$ and there are paths
+Then $\D_{k,0}$ contains vertices $\g_1=\a,\g_2=\b, \a_1, \a_2$ and $\g$ such that  there are paths
 in $\D_{k,1}$ 
 labelled $g_i$, from $\g_i$ to $\a_i$, and labelled $b_i$ from $\a_i$ to $\g$,
-$i=1,2$. Moreover, as in the first case there are paths in $\D_{k,3}$ labelled
-$\phi_k^{-1}(g_i)$
-from $\g_i$ to $\a_i$, $i=1,2$.
-(See Figure \ref{fig:nf-2}.)
+$i=1,2$. 
+Let $\e_i=\t(b_i)$, $i=1,2$. 
+As in the previous case,  there is a path labelled 
+$b_i$ in $\cP_{k,3}$ and 
+ a  path labelled $t_i$  in $\U_3$, from $(\a_i,1)$ to $(\g,\e_i)$. 
+Thus, as before,  there is a closed path based at $\g_i$ in $\D_{k,3}$ with
+label $w'_i=\phi_k^{-1}(g_ib_it_i^{-1})$, $i=1,2$. (See Figure \ref{fig:nf-2}.) 
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a=\g_1$}
@@ -5678,8 +5717,8 @@ from $\g_i$ to $\a_i$, $i=1,2$.
 \psfrag{a2}{$\a_2$}
 \psfrag{b1}{$\a_2$}
 \psfrag{b2}{$\b_2$}
-\psfrag{g1}{$\phi_k^{-1}(g_1)$}
-\psfrag{g2}{$\phi_k^{-1}(g_2)$}
+\psfrag{g1}{$w'_1$}
+\psfrag{g2}{$w'_2$}
 \psfrag{Th5}{$\D_{k,5}$}
 \psfrag{b_1}{$b_1$}
 \psfrag{b_2}{$b_2$}
@@ -5694,21 +5733,12 @@ from $\g_i$ to $\a_i$, $i=1,2$.
 \caption{Normal form: type 2, $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$.}
 \label{fig:nf-2}
 \end{figure}
-Let $\e_i=\t(b_i)$, $i=1,2$; so $(\e_1,\e_2)\in P$. 
-As $w$ is readable in $\D_{k,1}$ there is a path labelled 
-$b_i$ from $(\a_i,1)$ to $(\g,\e_i)$ in $\cP_{k,4}$, so there
-exists a simple path, labelled $t_i$, from $(\a_i,1)$ to $(\g,\e_i)$ in 
-$\U_{k,4}$. Then $\D_{k,3}$ contains a path from $\a_i$ to $\a_i$ with 
-label $\phi_k^{-1}(b_it_i^{-1})$. 
 By construction of $\D_{k,5}$ there is also a path labelled
 $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$
 from $\a_1$ to $\a_2$.
- As $\D_{k,5}$ is folded
-$
-\phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
- is readable in
-$\D_{k,5}$, as required.
-
+ Therefore, as $\D_{k,5}$ is folded, it contains a path from $\a=\g_1$ to $\b=\g_2$ with label 
+$\phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$,
+ as required. 
 \end{proof}
 
 \begin{lemma}\label{lem:idverts}
@@ -5758,46 +5788,61 @@ where $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$ and $n$
 minimal, then  say that each $w_i$ is a \emph{maximal} $X_{k_i}$
 \emph{factor}
 of $w$ (or, when the meaning is clear, a \emph{syllable} of $w$).
+
+
 \begin{lemma}\label{lem:loopstop}
+\ajd{This should become part of Lemma \ref{lem:nfcomp} (or a Corollary following it). It used
+to contain a statement about the number of connected components of $(\D_{(n)})_{k,0}$ (never increasing)
+which may still be of some use.}  
 Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$.
-\be
-\item\label{it:loopstop1}
-If $\D_{(0)}$ is input  to  the Generalised Folding Loop then the loop halts after
-finitely many iterations and outputs an inverse automaton  $\D_{(n)}$.
-\item\label{it:loopstop2} Let $\D_{(n)}$ be the output from the Generalised 
+%
+%\be
+%\item\label{it:loopstop1}
+%If $\D_{(0)}$ is input  to  the Generalised Folding Loop then the loop halts after
+%finitely many iterations and outputs an inverse automaton  $\D_{(n)}$.
+%\item\label{it:loopstop2} 
+Let $\D_{(n)}$ be the output from $n$ iterations of the Generalised 
 Folding Loop and let $w$ be a word
-accepted by $\D_{(0)}$. If $w=a\circ b \circ c$,
-where $b$ is a maximal $X_k$ factor of $w$ then $\D_{(n)}$ accepts
+accepted by $\D_{(n)}$. If $w=a\circ b \circ c$,
+where $b$ is a maximal $X_k$ factor of $w$ then $\D_{(n+1)}$ accepts
 the word $avc$, where $v$ is the normal form of $b$.
-\ee
+%\ee
 \end{lemma}
 \begin{proof}
-~
+\begin{comment}
 \ref{it:loopstop1}. The number of $X_k$ components is not
 increased by Steps 1 and 2, so at some point the Generalised Folding 
 Loop must halt.
-\noindent \ref{it:loopstop2}. The word $b$ is accepted by an $X_k$
-component of $\D_{(0)}$. By Lemma \ref{lem:nfcomp}.\ref{it:nfcomp2}, 
+\noindent \ref{it:loopstop2}. 
+\end{comment}
+The word $b$ is accepted by an $X_k$
+component of $\D_{(n)}$. By Lemma \ref{lem:nfcomp}.\ref{it:nfcomp2}, 
  the word $v$ is accepted by
-$\D_{(1)}$, and hence $avc$ is accepted by $\D_{(1)}$. It follows,
-by induction, that $\D_{(n)}$ accepts $avc$.
+$\D_{(n+1)}$, and hence $avc$ is accepted by $\D_{(n+1)}$. 
+%It follows,
+%by induction, that $\D_{(n)}$ accepts $avc$.
 \end{proof}
 \begin{lemma}\label{lem:nfacc}
-Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$ and let
-$\D_{(n)}$ be the output from the Generalised Folding Loop, with input $\D_{(0)}$. If $w$ is
-accepted by $\D_{(0)}$ then the normal form of $w$ is accepted by $\D_{(n)}$.
+Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$ and let 
+$w$ be a word accepted by $\D_{(0)}$ and assume that $w$ factorises as  
+as $w=w_1\cdots w_m$, $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq
+k_{i+1}$. Then the normal form of $w$ is accepted by 
+$\D_{(n)}$, for some $0\le n\le 2m$. 
 \end{lemma}
 \begin{proof}
 Let $w$ be a word accepted by $\D_{(0)}$. Then $w$ factorises as  $w$
-as $w=w_1\cdots w_n$, where $w_i$ is accepted by an $X_k$
+as $w=w_1\cdots w_m$, where $w_i$ is accepted by an $X_k$
 component of $\D_{(0)}$. Thus $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq
-k_{i+1}$. If $n=0$, then $w=1$ and the lemma holds. Suppose the
-lemma holds for all $w$ such that $n\le k$, where $k\ge 0$, and now
-suppose $n=k+1$. Let $v_i$ be the normal form of $w_i$. If $v_i\in
-\FF(Z)$, for some $i$ then there is a factorisation of $w$ with at
-most $k$ factors, and the result follows. Otherwise, from Lemma
-\ref{lem:loopstop}.\ref{it:loopstop2},  $\D_{(n)}$ accepts $v_1\cdots
-v_n$, which is the normal form of $w$.
+k_{i+1}$. If $m=0$, then $w=1$ and the lemma holds. Suppose that $m>0$ and the
+lemma holds for all $w'$ which have such factorisations with fewer than $m$ factors.
+Then the normal form $f$ of $w_2\cdots w_m$ is accepted by $\D_{(n)}$, for some $n\le 2(m-1)$. 
+Thus the word $w_1f$ is accepted by $\D_{(n)}$. 
+ Let $v_1$ be the \normalform~ of $w_1$. Then by Lemma \ref{lem:loopstop}, $v_1f$ is accepted by $\D_{(n+1)}$. 
+If $v_1\in \FF(Z)$ then the dc-normal form of $w$ is the word obtained from $v_1f$ by free reduction, so the 
+result holds in this case. Otherwise, write the dc-normal form $f$ of $w_2\cdots w_n$ as $h_0f'$, where $h_0$ is the maximal
+prefix of $f$ which belongs to $\FF(Z)$. Then the word $v_1h_0$ is accepted by an $X_k$ factor of $\D_{(n+1)}$. Let $v_1h_0$ have  \normalform~
+$d$.  By definition the dc-normal form of $w$ is $df'$, and  by Lemma \ref{lem:loopstop}, this is accepted by  $\D_{(n+2)}$. 
+\ajd{This is a bit sketchy, sorry. Is it comprehensible?}
 \begin{comment}
 Let $\g$ and $\d$ be vertices of $\Phi$ which map to $\a$ and $\b$ in the
 folding of $\Phi$ to $\L$. As this folding involves only edges of type $Z$
@@ -5830,7 +5875,11 @@ that $\cA$ also accepts the word $z_0s_1z_1\cdots z_rs_rz_{r+1}$, which
 is the normal form of $u$.
 \end{proof}
 \end{comment}
+\ajd{Given an element of $K$, if we can express it as a product of generators of $K$ then we 
+can bound the number of iterations of the loop needed to find it's normal form (for what that's worth!).}
 
+\ajd{I left the rest of this section in to remind (me) what we are aiming to 
+prove special cases of.}
 \begin{proof}[Proof of Theorem \ref{thm:membership}]
 First we prove statement \ref{it:membership}.
 Construct the flower automaton $\cF(K)$ of $K$ and then
