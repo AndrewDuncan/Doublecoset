@@ -65,6 +65,8 @@ finitely generated free groups
 \newcommand{\fC}{{\textswab C}}
 \newenvironment{ef}{\noindent\color{blue} \bf EF: }{}
 %
+\newcommand{\normalform}{free group, double coset normal form}
+%
 \newcommand{\cA}{{\cal{A}}}
 \newcommand{\cD}{{\cal{D}}}
 \newcommand{\cF}{{\cal{F}}}
@@ -428,9 +430,12 @@ for all $i$.
 %$\phi_1(z_i)=h_i\in F_1$ and  $\phi_2(z_i)=h^\prime_i\in F_2$, $i=1,\ldots ,m$,
 %determine isomoprhisms from $\FF(Z)$ to $H_1$ and $H_2$.
  Now let $G = F_1 \underset{H_1=H_2}{\ast} F_2$ be the free product  of $F_1$ and
-$F_2$, amalgamating $H_1$ and $H_2$: that is $G$ is the group
+$F_2$, amalgamating $H_1$ and $H_2$ via the isomorphism $\phi$: that is $G$ is the group
  with
- presentation \[\la X_1\cup X_2 | h_i = h_i', i=1, \ldots ,m\ra.\]
+ presentation 
+\begin{equation}\label{eq:Xpresn}
+\la X_1\cup X_2 | h_i = h_i', i=1, \ldots ,m\ra.
+\end{equation}
 
 %%%%%%%%%%
 Given an arbitrary word $g\in F_1\ast F_2$,
@@ -461,21 +466,24 @@ Otherwise
  apply the
 following process.
 \be[Step 1]
-\item\label{it:st1} For $i=1,\ldots ,t$, do the following.
-Write each $f_i$ as  a reduced word in $F_1$ or $F_2$ as appropriate.
+\item\label{it:st1} For $i=1,\ldots ,t$, 
+write each $f_i$ as  a reduced word in $F_1$ or $F_2$ as appropriate.
+\item\label{it:st1a} 
 If $f_i\in F_k$ then,
 using an algorithm for the membership problem in $H_k$, check whether or not
 $f_i \in H_k$.
  If none of the $f_i$'s lies in $H_1$ or $H_2$ then
-$g= f_1 \cdots f_t$ is in  reduced form.
+$g= f_1 \cdots f_t$ is in  reduced form and the process finishes.
 \item\label{it:st2}  Now suppose that some $f_i \in H_k$,  and let  $i$ be the
-minimal index with this property. Then $\phi^{\pm 1}(f_i)=c\in H_{l}$, $l\neq k$.
-If $i = 1$, rewrite $g$  in the
-form $g = f'_2 f_3 \cdots f_t$,  where  $f'_2 = cf_2$, an element of $F_1\cup F_2$.
-If $i > 1$ then rewrite $g$ as
-$g = f_1 \cdots f_{i-2} f'_{i+1}f_{i+2} \cdots f_t$, where
-$f'_{i+1} = f_{i-1}c f_{i+1}\in F_1\cup F_2$. Return to
-\ref{it:st1}.
+maximal index with this property. Then $\phi^{\pm 1}(f_i)=c\in H_{l}$, $l\neq k$.
+If $i = t$, rewrite $g$  in the
+form $g = f_1\cdots f_{t-2} f'_{t}$,  where  $f'_{t} = f_{t-1}c$. 
+If $1<i < t$, rewrite $g$ as
+$g = f_1 \cdots f_{i-2} f'_{i}f_{i+2} \cdots f_t$, where
+$f'_{i} = f_{i-1}c f_{i+1}$. If $i=1$, rewrite $g$ as
+$g = f'_1 f_{3} \cdots f_t$, where
+$f'_{1} = c f_{2}$. In all cases $f'_i\in F_1\cup F_2$. Return to
+\ref{it:st1a}.
 \ee
 
 The reduced form is easy to calculate and gives a solution to the word problem: since
@@ -656,11 +664,11 @@ The automaton $A =(\S, Q, \d,\mathcal{S},\mathcal{F})
 = (\G_A, \mathcal{S}, \mathcal{F})$ is {\em
 involutive} if $\S$ is an
 involutive alphabet and, for all $p, q \in Q$ and $a \in \S$,
-$\d(p,a)=q$ if and only if $\d(q, a^{-1})=p$ (that is $(u, a, v) \in E
+$q\in \d(p,a)$ if and only if $p\in \d(q, a^{-1})$ (that is $(u, a, v) \in E
 \Leftrightarrow (v, a^{-1}, u) \in E$).
 In diagrams of involutive automata an edge labelled $a$  from
 $u$ to $v$  represents
-both $(u,a,v)$ and $(u,a^{-1},v)$.
+both $(u,a,v)$ and $(v,a^{-1},u)$.
 
 From now on we will
 consider only involutive automata and, moreover, we always assume that $\S$ is a subset of a group.
@@ -966,7 +974,7 @@ Having constructed the equivalence classes of $\sim$,
  a set of $\sim$ representatives may be constructed, by considering the
 lengths of $w(a)$ and $w(b)$ for all $(a,b)$ in an equivalence class. Thus the
 set $P_0$ and the connecting element $c(u,v)$, of each element
-$(u,v)\in P$, may be computed at this stage. Algorithm
+$(u,v)\in P$, may be computed at this stage. Algorithm 
 I will now take input a word $w\in  \FF(X)$ and give output a triple
 $(h,d,h')$ such that $w=hdh'$, where $d\in \{1\}\cup S$ and $h,h'\in H$.\\
 
@@ -1345,7 +1353,7 @@ which is a (non-unique) double coset representative.
 %
 \subsection{Relative transversals and unique representation of 
 double cosets}\label{sub:reltran}
-\ajd{{\large \textbf{Alternative text for this section}}\\[1em]
+\ajd{{\large \textbf{This section is significantly different from the previous version, where relative transversals were used.}}}\\[1em]
 In this section we show that the representation of elements of
 $F$ in terms of double cosets of $H$ as described in the proof of 
 Proposition \ref{prop:dcreps} and Algorithm I in Section \ref{sub:sum_algI}, is unique. 
@@ -1370,8 +1378,8 @@ If $g$ can be written as  $g=h_0dt_0=h_1dt_1$, with $h_i\in H$ and
 $t_i\in T_d$, then $t_0t_1^{-1}=d^{-1}h_0^{-1}h_1d\in H_d$. As 
 $T_d$ is a right transversal, this implies that $t_0=t_1$, so $h_0=h_1$. 
 \end{proof}
-\ajd{I am leaving this remark where it is, as I think it is 
-easier to follow once the lemma has been established. What do you think?}
+\ajd{I am leaving this remark where it is, rather than putting it before the lemma above, as I think it is 
+easier to follow once the lemma has been established. Are you convinced?}
 \begin{remark}
 If $H^d=H$ then, in the notation of the lemma above, $T_d=1$ and 
 every element of $HdH$ can be expressed uniquely in the form $hd$, 
@@ -1387,8 +1395,8 @@ The next definition makes explicit the form of representatives of elements of
 $F$ which emerges from the proof of Proposition \ref{prop:dcreps}.
 \begin{definition}\label{def:free_dc_nf}
 Let $S=S(H)$ and $D=\{1\}\cup S$. Let $w,a,b,d\in F$ such that $w=a\circ d\circ b$, 
-$a,b\in H$ and $d\in D$. Then the triple $(a,d,b)$ is called a \emph{double coset normal form for}
-$w\in F$ if (exactly) one of \ref{it:d=1}, \ref{it:u_Type1} or  \ref{it:u_Type2}  below holds.
+$a,b\in H$ and $d\in D$. Then the triple $(a,d,b)$ is called a \emph{\normalform} \emph{of }
+$w\in F$ (\emph{with respect to } $D$) if exactly one of \ref{it:d=1}, \ref{it:u_Type1} or  \ref{it:u_Type2}  below holds.
 \be
 \item\label{it:d=1} $d=b=1$.
 \item\label{it:d!=1} $w=h\circ p\circ e\circ t^{-1}\circ g^{-1}$ where
@@ -1414,8 +1422,7 @@ With the notation of Definition \ref{def:free_dc_nf}, let $d\in D$,
 %let $N_d=\{(a,d,b): (a,d,b) \textrm{ is a  double
 %coset normal form for some} w\in F\}$ 
 and let 
-$\cT_d=\{b\in H:(a,d,b)\textrm{ is a  double
-coset normal form for some } w\in F\}$.
+$\cT_d=\{b\in H:(a,d,b)\textrm{ is a  \normalform~  for some } w\in F\}$.
 \end{definition} 
 \begin{lemma}\label{lem:dc_trans}
 Let $d\in D$. Then $\cT_d$ is a right transversal for $H_d$ in $H$. 
@@ -1423,14 +1430,14 @@ Let $d\in D$. Then $\cT_d$ is a right transversal for $H_d$ in $H$.
 \begin{proof}
 If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the result holds in this case. If $d$ is of Type 1 then no non-trivial element
 of $H$ is accepted by $\G_H$, so $H_d=\{1\}$ and $H$ itself is a transversal for $H_d$; and by definition  $\cT_d\subseteq H$. 
-Moreover, if $d=yez^{-1}$ and $h\in H$ then $yez^{-1}h$ has double coset normal form $(1,yez^{-1},h)$, so $H\subseteq \cT_d$.
+Moreover, if $d=yez^{-1}$ and $h\in H$ then $yez^{-1}h$ has \normalform~ $(1,yez^{-1},h)$, so $H\subseteq \cT_d$.
 It remains to show that the lemma holds when $d$ is of Type 2. 
 Assume then that $d$ is of Type 2, say $d=yz^{-1}$ as in Definition \ref{def:free_dc_nf}.\ref{it:u_Type2} above. 
 
 
 To see that  $\cT_d$ is contained in a right transversal for $H_d$ in $H$
-we must show that if $(a_1,d,b_1)$ and $(a_2,d,b_2)$ are normal forms for elements of $F$, such that $b_2b_1^{-1}\in H_d$,
-then $b_1=b_2$. If $d=1$ then $b_1=b_2$, by definition of normal form, so we may assume that $d$ is in $S$. If 
+we must show that if $(a_1,d,b_1)$ and $(a_2,d,b_2)$ are \normalform{s} for elements of $F$, such that $b_2b_1^{-1}\in H_d$,
+then $b_1=b_2$. If $d=1$ then $b_1=b_2$, by definition of \normalform, so we may assume that $d$ is in $S$. If 
 $d$ is of Type 1, that is $d\in S^{(1)}$, then no non-trivial element of $H^d$ is accepted by $\G_H$, so $H_d=\{1\}$ and 
 the result holds. Therefore we assume that $d\in S^{(2)}$; say $d=yz^{-1}$ with $y,z$ as in Definition 
 \ref{def:free_dc_nf}.\ref{it:u_Type2}.  
@@ -1518,611 +1525,23 @@ However, this means that $t_2^{-1}\circ g_{222}^{-1}$ is readable in $\G_H$ from
 Therefore $b_1=b_2$ and we infer that $\cT_d$ is contained in a transversal of $H_d$ in $H$.
 
 To show that every element of $H$ belongs to a coset $H_db$, with $b\in \cT_d$, we show that for  $h\in H$ 
-there is some normal form $(a,d,b)$ with $h\in H_db$. Set  
+there is some \normalform~ $(a,d,b)$ with $h\in H_db$. Set  
 $s=z^{-1}hz$ and then write $s=\a\circ u\circ v$, where $\a$ is the maximal prefix of $s$ in $H_d$ and $u$ is the maximal prefix of $a^{-1}s$ which is readable in $\G_d$.
-We shall compute the normal form of  $yuvz^{-1}$ and then show that it has the required right hand component. 
- Now verify that the normal form of $yuvz^{-1}$ is $(yucy^{-1}, d, zc^{-1}vz^{-1})$ and that 
+We shall compute the \normalform~ of  $yuvz^{-1}$ and then show that it has the required right hand component. 
+ Now verify that the \normalform~ of $yuvz^{-1}$ is $(yucy^{-1}, d, zc^{-1}vz^{-1})$ and that 
 $h^{-1}zc^{-1}vz^{-1}\in H_d$. ...
  
 \end{proof}
 \begin{proposition}\label{prop:dctotrans}
-Every element of $F$ has a unique double coset normal form. 
+Every element of $F$ has a unique \normalform. 
 \end{proposition}
 \begin{proof}
 This follows from Proposition \ref{prop:dcreps}, Lemma \ref{lem:dc_trans} and Lemma \ref{lem:dcrel}.
 \end{proof}
 ~\\[1em]
-\textbf{\large Now go straight to Section \ref{sec:dcnf}, which needs to revert to it's form before
-it started using transversals for $H_d$. I'm not doing that till we agree that this section is correct!!!}
-~\\[1em]}
-
-Although $D=\{1\}\cup S$ is a set of double coset representatives, the 
-representation of elements of $F$ in terms of double cosets $HDH$ is by 
-no means unique; for example an element $h$ of $H$ may be expressed in
-double coset normal form as  
-as $a\cdot 1 \cdot b$,  for any $a,b\in H$ such that $ab=h$.  
-Following \cite{FrenkelRemeslennikov13}, we use transversals for certain subgroups of $H$ to 
-obtain unique double coset representations of elements of $F$. The subgroups
-in question are the intersection $H\cap H^d$, where $d\in D$. 
- Using the  following lemma, and combining double coset representatives
-with right transversals for these subgroups of $H$, we obtain the unique
-representation we need. (There is no particular reason to choose right 
-transversals here, and an analagous result holds for left transversals. However
-the rewriting of elements of amalgamated products below depends on the choice
-made here.)    
-We write  $H_d=H\cap H^d$, whenever $H$ is a subgroup of a group $G$ and
-$d\in G$. 
-First we record a general property.  
-\begin{lemma}\label{lem:dcrel}
-Let $H$ be a subgroup of a group $G$ and let $D$ be a set of
-double coset representatives for $H$. For each $d\in D$, let 
-$T_d\subseteq H$ be a right transversal for the subgroup $H_d=H\cap H^d$ of $H$.
-Then, given $g\in G$, there exist  unique $h\in H$, $d\in D$ and 
-$t\in T_d$ such that  $g=hdt$. 
-\end{lemma}
-\begin{proof}
-Let $g\in G$. As $D$ is a set of double coset representatives, there
-exists a unique $d\in D$ such that $g\in HdH$, so it suffices to
-show that there exist unique $h\in H$ and $t\in T_d$ such that 
-$g=hdt$. Let $g=h_0dh_1$, where $h_i\in H$. Then there exist $a\in H_d$ 
-and   $t\in T_d$ such that $h_1=at$. Then $a=d^{-1}bd$, for some $b\in H$,
-so $g=h_0dh_1=h_0bdt\in HdT_d$. 
-
-If $g$ can be written as  $g=h_0dt_0=h_1dt_1$, with $h_i\in H$ and 
-$t_i\in T_d$, then $t_0t_1^{-1}=d^{-1}h_0^{-1}h_1d\in H_d$. As 
-$T_d$ is a right transversal, this implies that $t_0=t_1$, so $h_0=h_1$. 
-\end{proof}
-\ajd{I am leaving this remark where it is, as I think it is 
-easier to follow once the lemma has been established. What do you think?}
-\begin{remark}
-If $H^d=H$ then, in the notation of the lemma above, $T_d=1$ and 
-every element of $HdH$ can be expressed uniquely in the form $hd$, 
-with $h\in H$. In particular, if $H$ is normal in $G$ then $D$ is 
-a right transversal for $H$ in $G$. On the other hand, if $H_d=1$ then
-$T_d=H$ and $h_0dh'_0=h_1dh_1'$, with $h_i,h_i'\in H$, implies that 
-$h_i=h'_i$, $i=1,2$. In particular, if $H$ is malnormal in $G$ then 
-every element $g$ of $G\bs H$ can be written uniquely in the form 
-$g=h_0dh_1$, where $h_i\in H$ and $d\in D$. 
-\end{remark}   
-
-Returning to the situation of Section \ref{sub:2cosetrepr}, 
-where  $F=\FF(X)$, $H$ is a finitely generated subgroup of $F$ and $D=\{1\}\cup S^{(1)}\cup
-S^{(2)}$ is a set of double coset representatives for $H$, 
-we require transversals for the subgroups $H_d$ of $H$, for each $d\in D$. 
-\begin{definition}\label{def:reltran}
-Let $d\in D$ and let  $\cT_d'$ be a Schreier transversal for $H_d\le F$.
- Then we call $\cT_d=\cT_d'\cap H$ a 
-\emph{relative  transversal for } $H_d$ in $H$. 
-\end{definition}  
-\ajd{
-Say a bit more about Stallings foldings and Schreier transversals, 
-somewhere, maybe?} 
-\begin{proposition}[\emph{cf.} {\cite[Lemma 3.9]{FrenkelRemeslennikov13}}] \label{prop:reltran}
-\be
-\item\label{it:reltran1} 
-Let $H$ be a finitely generated subgroup of $F$, let   $D=\{1\}\cup S^{(1)}\cup
-S^{(2)}$ be a set of double coset representatives for $H$. Then for  each $d\in D$ the relative
-transversal 
-$\cT_d$ is a  transversal for $H_d$ in $H$.   
-\item Every element $w$ of $F$ has a unique representation as 
-$w=hdt$, where $h\in H$, $d\in D$ and $t\in \cT_d$. 
-\ee
-\end{proposition}
-\begin{proof}
-\be 
-\item Let $g\in H$ and write $g=ht$,  where $h\in H_d$ and $t\in \cT_d'$.
-As $g,h\in H$ it follows that $t\in \cT_D$, so $\cT_d$ is a transversal for 
-$H_d$ in $H$.
-\item This follows from statement \ref{it:reltran1} and Lemma 
-\ref{lem:dcrel}. 
-\ee
-\end{proof}
-\ajd{Now some discussion of relative transversal, which is not necessary, 
-so should be deleted eventually or ....}
-\li{This discussion contains a nice example, and to leave it here we can (try to) show that there is something which is not unique here, but we fix this problem with a help of your magic technic}
- Let $T$ be a spanning tree for $\G_H$ and let    $Y=\{y_1,\ldots, y_m\}$  be 
-the corresponding set of  free generators for $H$. Let $Z=\{z_1,\ldots, z_m\}$ be
- a set disjoint from $F$ and let $\phi$ be the homomorphism from $\FF(Z)$ to $F$ induced by
-$\phi(z_i)=y_i$. Then $\phi$ maps $\FF(Z)$ isomorphically to $H$. Let $\cF_Z$ be the rose of $\FF(Z)$ 
-and let $\pi:\G_H \maps \cF_Z$ be the map which collapses each edge of $T$ to the vertex 
-of $\cF_Z$ and maps  the interior of the edge of $\G_H\bs T$ corresponding to the generator $y_i$ homeomorphically to the interior of the   edge
-(labelled) $z_i$ of $\cF_Z$. Then we relabel each edge $e$  of $\G_H$ as 
-$x|v$, where $x\in X^{\pm 1}$ is the
-original label of $e$, and 
-\begin{itemize}
-\item $v=1$ if $\pi(e)$ is the vertex of $\cF_Z$ and 
-\item 
-$v$ is the 
-label of $\pi(e)$.  
-\end{itemize}
-In this way $\G_H$ becomes a transducer, which on
-input a word $w\in F$ belonging to $H$, outputs a word $w'$ in $\FF(Z)$ such that $\phi(w')=w$. 
- The map $\pi_*$ of fundamental groups induced by $\pi$ is then equal to $\phi^{-1}$. 
-For example, let $F=\FF(\{w,x,y\})$ and let $H$ be the subgroup
- generated by $xy^{-1}$, $yxy^{-2}$, $y^4$, $y^2xy$, $y^{-1}x$, 
-$w^2$ and $wxyw^{-1}$, which we map to $z_1,\ldots ,z_7$ in the given order. 
-Then we have the map of $\G_H$ to $\cF_Z$ shown in Figure \ref{fig:h} 
-(where label $y|1$ is written just as $y$).
-\begin{figure}
-\begin{center}
-\psfrag{pi}{$\pi$}
-\psfrag{pia}{$\pi_a$}
-\psfrag{piz}{$\pi_Z$}
-\psfrag{rho}{$\rho$}
-\psfrag{GH}{$\G_H$}
-\psfrag{Gz}{$\G_a^Z$}
-\psfrag{GHa}{$\G_{H_a}$}
-\psfrag{Fz}{$\cF_Z$}
-\includegraphics[scale=.5]{../python/genfold/hs.eps}
-\end{center}
-\caption{}\label{fig:h}
-\end{figure}
-
-Now let $a$ be the label of a path in $T$ ($a\neq 1$) and let $\t(a)$ be the final vertex of this
-path. Let $\G_a'$ be the core of the connected component of $\G_H\times \G_H$ containing 
-$(\t(a),1)$. Then 
- $w$ is the label of a reduced path in $\G_a'$ if and only if $w$ is both the 
-label of a closed path in $\G_H$ based at $1$ and a closed path based at $\t(a)$. Hence 
-$w$ is the label of a reduced path in $\G_a'$ if and only if $w\in H_a$. Thus, as it is
-folded, and has no vertices of degree $1$, except possibly its root,  $\G_a'$ is the 
-core of the universal cover of $H_a$; which is the Stallings folding of $H_a$. 
-All this is completely standard, and I'm just being pedantic (and establishing notation).
-
-Next, let $\rho:\G_{H_a} \maps \G_H$ be the canonical map (which is an immersion).
-We use the same set of labels for edges of $\G_{H_a}$ as for $\G_H$; that is, if $\rho(e)$ is 
-an oriented edge labelled $x|v$ then the label of $e$ is also $x|v$, for all edges $e$ of $\G_{H_a}$. 
-%Then $\pi\circ \rho$ maps $\G_{H_a}$ to $\cF_Z$ by first mapping to 
-%$\G_H$ and then shrinking edges; an edge $e$ is shrunk to 
-%the vertex of $\cF_Z$ if its label is $x|1$, and has its interior mapped homeomorphically to
-%the interior of the  edge of $\cF_Z$ labelled $z$, if it is labelled $x|z$.
-Let $E_0$ be the set of edges of $\G_{H_a}$ labelled $x|1$, for some $x\in X$. Then the union
-$T_a'$ of all edges in $E_0$ forms a subgraph of  $\G_{H_a}$ which I claim is a forest. The claim
-holds because if $C$ is a non-trivial 
-reduced closed path in $T_a'$ then it maps to a closed  path $C'$ in $T$ (since its 
-edges all have label $x|1$) and, since the map $\rho$ is an immersion, $C'$ is also reduced, a
-contradiction. Now add edges to $T_a'$ to form a spanning subtree $T_a$ of $\G_{H_a}$.  In the example in Figure \ref{fig:h} I have taken $a=w$ and 
-the edges of $T_a'$ are bold black, while the edges added to form $T_a$ are
-red. 
-
-We can form a new graph $\G_a^Z$ from $\G_{H_a}$ by shrinking all edges with label $x|v$ such
-that $x\in X$ and $v=1$ and then folding the resulting graph.  Let $\pi_a$ be the natural map from $\G_{H_a}$ to $\G_a^Z$.  I claim now that $\pi_a(T_a)$ is a spanning tree for $\G_a^Z$. To begin with,
-$\pi_a(T_a)$ is a subgraph of $\G_a^Z$ containing every vertex (as $T_a$ contains every vertex
-of $\G_{H_a}$). Suppose that $\pi_a(T_a)$ contains a closed reduced path. This is obtained from
-a path in $T_a$ by shrinking edges: and so $T_a$ contains a closed reduced path, a contradiction.
-Thus $\pi_a(T_a)$ is a tree as claimed. On the other hand, there is a map $\pi_Z:\G_a^Z\maps
-\cF_Z$, mapping every edge of $\G_a^Z$ labelled $z$ to the unique edge of $\cF_Z$ labelled $z$,
-for all $z\in Z$. Clearly (and we all know what that means) $\pi\circ \rho=\pi_Z\circ \pi_a$, 
-so the image of $\pi_1(\G_a^Z)$ under the map $(\pi_Z)_*$ is equal to 
-$(\pi\circ\rho)_*(\pi_1(\G_{H_a}))=\pi_*(H_a)=\phi^{-1}(H_a)$. This means that the
-rank of $\pi_1(\G_a^Z)$ is greater than or equal the rank of $H_a$, and since it is at most
-the number of edges outside the spanning tree $T_a$ of $\G_{H_a}$, which is equal the to 
-the rank of $H_a$; the rank of $\pi_1(\G_a^Z)$ is equal to the rank of $H_a$. It follows
-(by consideration of Euler characteristic) that no two edges of $\G_{H_a}\bs T_a$ are folded
-together in the map $\pi_a$ from $\G_{H_a}$ to $\G_a^Z$ and that $\G_a^Z$ is the Stallings
-folding for $\phi^{-1}(H_a)$. This is the conclusion that I want because now the spanning
-tree for the Stallings folding $\G_a^Z$ of  $\phi^{-1}(H_a)$ is the image under $\pi_a$ of the 
-spanning tree $T_a$ for $\G_{H_a}$. Moreover, edges of $\G_{H_a}$ outside the spanning tree $T_a$ map to edges
-outside the spanning tree for $\G_a^Z$ (by consideration of rank).
-This means that, if $w$ is the label of a path $p$ in $T_a$, 
-from $1$ to some vertex
-of $\G_{H_a}$, and simultaneously an element of $H$, then the path
-$p$ is mapped by $\pi_a$ to a path in $\G_a^Z$ with label $\phi^{-1}(w)$. 
-\li{comprehensible but not so clearly written...}
-
-
-Now, let $\cT_a^X$ be the Schreier transversal for $H_a\le F$ obtained from
-the spanning tree $T_a$ for $\G_{H_a}$. Let $\cT_a^Y=\cT_a^X\cap H$. Then $\cT_a^Y$ is
- a transversal for $H_a\le H$. From the above,  
- internal representives of the  transversal $\cT_a$ are mapped 
-by $\phi^{-1}$ to labels of paths in  
-in $T_a$. As $\phi^{-1}$ is an isomorphism $\phi^{-1}(\cT_a)$ is 
-a transversal $S$ for  $\phi^{-1}(H_a)$ in $\FF(Z)$. Each exterior representative
-of $\cT_a$ is mapped by $\pi_a$ to a path which represents an element
-of this transversal $S$. Since $T_a$ is mapped by $\pi_a$ to a spanning
-tree for $\G_a^Z$ it follows that all these paths end at vertices of the
-cover of $\phi^{-1}(H_a)$ outside $\G_a^Z$. Hence exterior representatives
-of $\cT_a$ are mapped to exterior representatives of the transversal
-of $\phi^{-1}(H_a)$ corresponding to the tree $\pi_a(T_a)$. Thus $S$
-is in fact a Schreier transversal.
- ($\cT_a^Y$ is not in general a Schreier transversal. For example
-consider the representative $xyx^{-1}y^{-1}$. This is the product
-of $xy^{-1}$ and $y^2x^{-1}y^{-1}$, which are both in $\cT_a$. However
-the cancellation in forming their product means that, even if we 
-restrict to generators $Y$ the transversal does not behave as it 
-should with respect to prefixes.)
-\ajd{End of bit about transversals -- to be deleted in due course.}
-\li{(just in case we will this piece remains, we need to say what is interior and exterior representative.) }
- 
-To rewrite elements of $dH$ in the form $hdt$, where $h\in H$, 
-$d\in D$ and $t\in \cT_d$ 
-we shall fix the transversals $\cT_d$, for elements $d$ of $D$, and
-then use the algorithm implicit in the proof of Lemma \ref{lem:reltran}
-below. We shall use the following facts, the proofs of which
-are left to the reader. \ajd{At least they will probably be deleted 
-from  the final version.}
-\begin{lemma}\label{lem:conjtran}
-Let $K$ be a finitely generated subgroup of $F$ and let $T$ be
-a transversal for $K$. Let $a\in F$ and let 
-$a^{-1}T=\{w\in F:w=a^{-1}t, t\in T\}$ 
-(so elements of $a^{-1}T$ are reduced words). 
-  Then 
-\be
-\item $a^{-1}T$ is a transversal for $K^a$ and 
-\item if $T$ is a Schreier transversal and $a\in T$ 
-then $a^{-1}T$ is a Schreier  transversal for $K^a$.
-\ee
-\end{lemma}
-\begin{proof}
-\be
-\item If $g\in F$ then $ag=kt$, for some $k\in K$ and $t\in T$, 
-so $g=(a^{-1}ka)(a^{-1}t)\in K^aa^{-1}T$. Uniqueness of this representation
-follows from the obvious computation.
-\item Let $t\in T$. 
-We may assume that we have $a=a_0\circ a_1$, $t=t_0\circ t_1$, where
-$t_0=a_0$ and $a^{-1}t=a_1^{-1}\circ t_1$ (and possibly $a_0=1$ or $a_1=1$).  
-%As $a,t\in T$ so are  $a_0$ and $t_0$.  
-Every prefix of $a^{-1}t$ then has the form $a_1^{-1}t'$, for 
-some prefix $t'$ of $t_1$, or the form $a'$, for some prefix $a'$ of 
-$a_1^{-1}$.  If $t'$ is a prefix of $t_1$ then $t_0t'\in T$ and 
-$a_1^{-1}t'=  a^{-1}t_0t'\in a^{-1}T$. If $a^{-1}=a'a''$ then 
-$(a'')^{-1}$ is a prefix of $a$, so belongs to $T$, and $a'=a^{-1}(a'')^{-1}
-\in a^{-1}T$. Hence, in all cases, every prefix of $a^{-1}t$ belongs
-to $a^{-1}T$, which is therefore Schreier.
-\ee
-\end{proof}
-\begin{lemma}\label{lem:reltran}
-For each $d\in D$, there is a 
-relative Schreier transversal $\cT_d$, for $H_d\le H$, and there is  
- an algorithm that, given $d\in D$ and a word $w \in F$ such that 
-$w\in H$, outputs $a,t\in F$ such that $a\in H_d$, $t\in \cT_d$ and 
-$w=_F at$. 
-\end{lemma}
-\begin{proof}
-We may assume that we have constructed $\G_H$ and $\G_H\times \G_H$ and
-that we have chosen  spanning trees for $\G_H$ and for 
-each component of 
- $\G_H\times \G_H$. 
-If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the algorithm 
-%writes 
-%$w$ as a word in the generators $Y$ (using the Stallings folding $\G_H$
-% for $H$) and 
-outputs $a=w$ and $t=1$.  
-If $d\in S^{(1)}$ then no non-trivial element of $H^d$ is accepted 
-by $\G_H$, so
-$H\cap H^d=\{1\}$ and $\cT_d=H$. In this case the algorithm 
-%writes $w$ as a word in the generators $Y$, using $\G_H$,  and 
-outputs $a=1$, $t=w$. 
-
-Assume then that $d\in S^{(2)}$, say $d=a_0a_1^{-1}$, where 
-$a_0$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $d$ and $a_1$ is in 
-$L_T$. 
-%%
-In principle the algorithm  now constructs the 
-Stallings folding for $H_d$ and then uses this to 
-find the required expression for $w$ (in much the same 
-way that the Stallings folding for $H$ is used to find double
-coset representatives.) However, it turns out, as we show below, that
-$\G_H\times \G_H$ contains the Stallings folding for the 
-conjugate $H^{a_1}\cap H^{a_0}=H_d^{a_1}$ of $H_d$; and that 
-the expression for $w$ can in fact be computed using this instead. 
-
-To see this, let $u_i=\t(a_i)$, $i=0,1$. Then there exists
-a path labelled $a_i$ from $1$ to $u_i$, in $\G_H$, for $i=1,2$.
- This implies in particular that, for 
-all $\b,\g\in H$, there exists 
-a closed path labelled $a_0^{-1}\b a_0$, based at 
-$u_0$, and  a closed path labelled $a_1^{-1}\g a_1$, based at 
-$u_1$. 
-
-We have $c\in H_d$ if and only if there exists $b\in H$ such that
-$a_1^{-1}ca_1=a_0^{-1}ba_0$. Thus, if $c\in H_d$ then 
- there exists a closed path
-labelled $a_1^{-1}ca_1$ based at $(u_0,u_1)$ in $\G_H\times \G_H$. 
-Conversely, if there is a closed path labelled $s$ based at 
-$(u_0,u_1)$ then there are closed paths labelled 
-$s$ based at $u_0$ and $u_1$ in $\G_H$. Hence 
-$b=a_0sa_0^{-1}$ and $c=a_1sa_1^{-1}$ are in $H$, 
-and satisfy $a_1^{-1}c a_1=s=a_0^{-1}ba_0$. Therefore $c \in H_d$. 
- Let $\G'_d$ be the component of $\G_H\times \G_H$
-containing $(u_0,u_1)$ and let $T_d'$ be the spanning tree 
-chosen for $\G_d'$. It follows from the above that the map
-from $\pi_1(\G_d', (u_0,u_1))$ to $H_d$ sending $s$ to $a_1sa_1^{-1}$, is 
-an isomorphism; and so  
-$\pi_1(\G_d', (u_0,u_1))\cong H^{a_1}\cap H^{a_0}\le F$.
-As $\G_d'$ is folded it is a subgraph of the cover
-$\G_d^*$ corresponding to  $H^{a_1}\cap H^{a_0}$, and the spanning tree $T_d'$ for 
-$\G_d'$ embeds in a spanning tree $T_d^*$ for $\G_d^*$. 
-Note that, by definition of $S^{(2)}$, no non-trivial prefix of 
-$a_1^{-1}$ is readable from $u_0$ in $\G_H$. This means no non-trivial
-prefix of $a_1^{-1}$ is readable from $(u_0,u_1)$ in $\G_d'$. Therefore
-$T_d^*$ contains a (unique) path  labelled $a_1$ ending
-at the vertex $(u_0,u_1)$ of $\G_d'$, all edges of which lie 
-outside $\G_d'$. 
-
-The labels of paths in $T_d^*$, with inital vertex $(u_0,u_1)$,
- constitute 
-a Schreier transversal $\cT_d'$ for $H^{a_1}\cap H^{a_0}$ in  $F$.
-As $a_1^{-1}$ belongs to this Schreier transversal the set 
-$\cT_d=a_1\cT_d'$ is (according to Lemma \ref{lem:conjtran}) 
-a Schreier transversal for $a_1(H^{a_1}\cap H^{a_0})a_1^{-1}=H^d$ in $F$. 
- 
-Given $w\in F(X)$ such that $w\in H$, we require 
-an expression $w=_F a t$, such that $a\in H_d$ and $t\in \cT_d$ 
-(in which case $t\in \cT_d\cap H$). However, the graph $\G_d'$ 
- which we have constructed, enables us only to find an expression
-$w=a't'$, where $a'\in H^{a_1}\cap H^{a_0}$ and $t'\in \cT_d'$. Therefore
-we first replace $w$ with  
-  $w'=a_1^{-1}w$ (as a reduced word).  
- Next find the maximal
-prefix $f$ of $w' $ which is accepted by $\G_{d}'$ (with
-start and final state $(u_0,u_1)$) say $w'=f\circ q$.
-Let $g$ be the maximal
- prefix of $q$ which is readable by $\G_{d}'$; say $q=g\circ r$. Let 
-$v=\t(g)$ and let $s=w(v)$, the label of the path from $(u_0,u_1)$ 
-to $v$ in $T_d'$, the chosen spanning tree for $\G_d'$. 
-Then $w'=fq=fgr=(fgs^{-1})(sr)$, with $h'=fgs^{-1}\in H^{a_1}\cap H^{a_0}$ 
-and $t'=sr\in \cT_d'$. Hence 
-$w=a_1w'=a_1 h' a_1^{-1}(a_1t')\in H_d \cT_d$. The algorithm outputs
- $a=  a_1 h' a_1^{-1}$ and $t=a_1t'$. 
-\end{proof}
-%%%%%%%%%
-%% keeping this till the alternative is checked
-%%%%%% 
-\begin{comment}
-assume that $H$ is freely generated by a set $Y=\{y_1,\ldots,
-y_m\}$.  
-Let $Z=\{z_1,\ldots ,z_m\}$ be a set disjoint from $F$ and 
-let $\phi$ be the homomorphism from $\FF(Z)$ to $F$ induced by 
-$\phi(z_i)=y_i$, $i=1,\ldots, m$.
-\begin{definition}\label{def:reltran}
-Let $d\in D$ and let $U_d=\phi^{-1}(H_d)$. Let $T_d^Z$ be a spanning tree
-for the Stallings folding of $U_d$ and let $\cT_d^Z$ be the corresponding 
-Schreier transversal, for $U_d$ in $\FF(Z)$. \ajd{The Schreier transversal
-corresponding to a spanning tree of a Stallings folding needs to be
-defined somewhere: probably not just here.} Then $\cT_d=\phi(\cT_d^Z)
-\subseteq H$ is called a \emph{relative transversal for } $H_d$ in $H$. 
-\end{definition}   
-\begin{proposition}[\emph{cf.} {\cite[Lemma 3.9]{FrenkelRemeslennikov13}}] \label{prop:reltran}
-\be
-\item\label{it:reltran1} The set $\cT_d$ is a Schreier transversal for the subgroup 
-$H_d$ of $\FF(Y)$. 
-\item Every element $w$ of $F$ has a unique representation as 
-$w=hdt$, where $h\in H$, $d\in D$ and $t\in \cT_d$. 
-\ee
-\end{proposition}
-\begin{proof}
-\be 
-\item If $g\in \FF(Y)$ then $g=\phi(g')$, for some $g'\in \FF(Z)$, and 
-$g'=ut'$, where $u\in U_d$ and $t'\in \cT_d^Z$. Thus $g=\phi(u)\phi(t')
-\in H_d\cT_d$. Moreover, if $g=h_0t_0=h_1t_1$, with $h_i\in H_d$ and 
-$t_i\in \cT_d$, then $\phi^{-1}(g)=\phi^{-1}(h_i)\phi^{-1}(t_i)$, $i=0,1$,
-from which it follows that $t_0=t_1$ and $h_0=h_1$. Hence $\cT_d$ is 
-a transversal for $H_d$. 
-
-If $w\in \cT_d$ and $w=w_0\circ w_1$ then 
-$\phi^{-1}(w)=\phi^{-1}(w_0)\circ \phi^{-1}(w_1)\in \cT^d_Z$, so $\phi^{-1}(w_0)
-\in \cT_d^Z$ and hence $w_0\in \cT_d$; so $\cT_d$ is a Schreier 
-transversal.
-\item This follows from statement \ref{it:reltran1} and Lemma 
-\ref{lem:dcrel}. 
-\ee
-\end{proof}
-\begin{lemma}\label{lem:reltran}
-There is an algorithm that, given $d\in D$ and a word $w \in F$ such that 
-$w\in H$, outputs $a,t\in \FF(Y)$ such that $a\in H_d$, $t\in \cT_d$ and 
-$w=_F ht$. 
-\end{lemma}
-\begin{proof}
-If $d=1$ then $H_d=H$ and $\cT_d=\{1\}$, so the algorithm writes 
-$w$ as a word in the generators $Y$ (using the Stallings folding $\G_H$
- for $H$) and outputs $a=w$ and $t=1$. 
-
-If $d\in S^{(1)}$ then no non-trivial element of $H^d$ is accepted by $\G_H$, so
-$H\cap H^d=\{1\}$ and $\cT_d=H$. In this case the algorithm writes
-$w$ as a word in the generators $Y$ and outputs $a=1$, $t=w$. 
-
-We may assume then that $d\in S^{(2)}$, say $d=a_0a_1^{-1}$, where 
-$a_0$ is a maximal $L_Q$-prefix and an $L_T$-prefix of $d$ and $a_1$ is in 
-$L_T$. Then $c\in H_d$ if and only if there exists $b\in H$ such that
-$a_1^{-1}ca_1=a_0^{-1}ba_0$. Let $u_i=\t(a_i)$, $i=0,1$. Then there exists
-a path labelled $a_i$ from $1$ to $u_i$, in $\G_H$, for $i=1,2$. Thus for
-all $b,c\in H$ there exists,  in $\G_H$, 
-a closed path labelled $a_0^{-1}ba_0$, based at 
-$u_0$, and  a closed path labelled $a_1^{-1}ca_1$, based at 
-$u_1$. 
-
-If $a_1^{-1}ca_1=a_0^{-1}ba_0$ then there exists a closed path
-labelled $a_1^{-1}ca_1$ based at $(u_0,u_1)$ in $\G_H\times \G_H$. 
-Conversely, if there is a closed path labelled $s$ based at 
-$(u_0,u_1)$ then, in $\G_H$,  there are closed paths labelled 
-$s$ based at $u_0$ and $u_1$. Hence $h_i=a_isa_i^{-1}\in H$, for 
-$i=0,1$,  and so $a_1^{-1}h_1 a_1=s=a_0^{-1}h_0a_0$. Hence $h_1
-=a_1sa_1^{-1}\in H_d$. Let $\G'_d$ be the component of $\G_H\times \G_H$
-containing $(u_0,u_1)$. It follows from the above that the map
-from $\pi_1(\G_d', (u_0,u_1))$ to $H_d$ sending $s$ to $a_1sa_1^{-1}$, is 
-an isomorphism. Hence we may construct $\G_{H_d}$ from $\G'_d$ by
-attaching the terminal vertex of a path labelled $a_1$ to the 
-vertex $(u_0,u_1)$ and folding the result. 
- 
-Now, given $w\in F(X)$ such that $w\in H$ we may find the maximal
-prefix $f$ of $w$ which is accepted by $\G_{H_d}$, say $w=f\circ q$.
-Now choose a spanning tree $T_d$ for $\G_{H_d}$. Let $g$ be the maximal
- prefix of $q$ which is readable by $\G_{H_d}$; say $q=g\circ r$. Let 
-$v=\t(g)$ and let $s=w(v)$, the label of the path from $1$ to $v$ in $T_d$.
-Then $w=fq=fgr=fgs^{-1}sr$, with $fgs^{-1}\in H_d$ and $sr\in \cT_d$.    
-\ajd{This isn't quite complete, as in the definition we choose $\cT_d$ to
-be the image of a Schreier transversal for $U_d\in \FF(Z)$, and this means
-that we should choose a spanning tree for $\G_{H_d}$ which is the
-image of a spanning tree for $\G_{U_d}$ and then construct the 
-transversal from this tree. I'm leaving these details for another day.}
-Then the algorithm outputs $a=fgs^{-1}$ and $t=sr$. Note that we 
-can find expressions for these in terms of generators $Y$  with the
-help of $\G_H$ and its output labels. 
-\end{proof}
-\end{comment}
-%%%%%%%%%%%%%%%%%%%%
-%%delete the above once the alternative is checked
-%%%%%%%%
-\subsection{Double coset normal forms in the free group}
-If $w\in F$ then we say that a triple $(a,d,t)$ is the 
-\emph{double coset normal form} of $w$ 
-(with respect to $H$ and $D$, defined above) if $w=_F adt$, 
-$a\in H$, $d \in D$ and $t\in \cT_d$, the relative transversal 
-for $H_d\le H$. From Proposition \ref{prop:reltran} every element
-of $F$ has a unique double coset normal form. When the meaning
-is clear we shall drop the triple notation and write the
-normal form $(a,d,t)$  as $adt$. 
-In the light of the proof of  Proposition \ref{prop:dcreps} and  Lemma 
-\ref{lem:reltran} there exists an
- algorithm to find the double coset normal form of an element of $F$. 
-Algorithm I in  Sections \ref{sub:sum_algI} and  \ref{sub:alg1ex} carries out this process. The first part of
-this  algorithm, in Section \ref{sub:sum_algI}, constructs the 
-automata necessary for processing  with respect to a chosen
- subgroup $H$ of $F$. The next part of  the  algorithm in 
-Section \ref{sub:alg1ex},  Steps \ref{it:alg1_1} to \ref{it:dc1},
-following the proof of Proposition \ref{prop:dcreps},  
-  takes  a word  $w\in F$ and finds an triple
-$(h,d,h')$, where $h,h'\in H$, $d\in \{1\}\cup S^{(1)}\cup S^{(2)}$
-and $w=_F hdh'$. If $d$ is in $\{1\}\cup S^{(1)}$ the algorithm
-outputs this triple. Otherwise, the word $h'$ is rewritten, 
-as in   
-Lemma \ref{lem:reltran}, as $h'=gt$, where $g\in H_d$ and  $t\in \cT_d$.
-As $g\in H_d$ there exists  and $g'\in H$ such that $g'=d^{-1}gd$ 
-and so we have $w=hdh'=hdgt=hg'dt=adt$, where $a=hg'\in H$. The 
-  algorithm outputs $(a,d,t)$. 
-
-To see that the algorithm in Section \ref{sub:sum_algI} does give the 
-required output, note first that if $w\in F$ belongs to a double
-coset $HdH$, where $d\in \{1\}\cup S^{(1)}$, then Steps \ref{it:alg1_1} to
-\ref{it:dc1} carry through the process implicit in the proof of 
-Proposition \ref{prop:dcreps} and outputs $(a,b,c)$, where $b=d$, $a,c\in H$,
-and $w=abc$. In this case the transversal $\cT_d=\{1\}$ and so 
-$(a,b,c)$ is the double coset normal form of $w$. On the other hand
-if $w=hdh'$, where $d$ is in $S^{(2)}$, then it follows from the 
-proof of Proposition \ref{prop:dcreps}, that such (unique) 
-$d$ is found in Step \ref{it:dc2}
-of the algorithm. At this point 
-$w=hpcy^{-1}\cdot yz^{-1}\cdot zc^{-1}t^{-1}g^{-1}$, with
- $hpcy^{-1}$ and $zc^{-1}t^{-1}g^{-1}$ in $H$ and $d=yz^{-1}\in D$. 
-The next step is to find the representative of $zc^{-1}t^{-1}g^{-1}$ 
-in $\cT_d$. As in the proof of Lemma \ref{lem:reltran} to do this
-$\b'=zc^{-1}t^{-1}g^{-1}$  is replaced by $\b=z\b'= c^{-1}t^{-1}g^{-1}$.
-Here $y=w(u_0)$ and $z=w(v_0)$, where $u_0=\t(p)$ and $v_0=\t(t)$.  
-The component $\G_d$ of $\G_H\times \G_H$ 
-containing the vertex $(u_0,v_0)$ is then
-used to find an expression $\b=\b_0\circ \g_0\circ \g_1$, where $\b_0$
-is the maximal prefix of $\b$ accepted by $A_d=(\G_d,(u_0,v_0))$ and $\g_0$ is
-the maximal prefix of $\b_1$ readable by $A_d$. A spanning forest
-$F_H$ for $\G_H\times \G_H$ has been computed by the algorithm of 
-Section \ref{sub:sum_algI} and the component of this forest contained
-in $\G_d$ is denoted $T_d$. The algorithm finds the label $\d$ of a path
-from $(u_0,v_0)$ to $\t(\g_0)$ in $T_d$. As in the proof of Lemma 
-\ref{lem:reltran}, $\b=(z\b_0\g_0\d^{-1}z^{-1})(z\d\g_0)$, with
-$t=z\d\g_0\in \cT_d$ and $\b''=z\b_0\g_0\d^{-1}z^{-1}\in H_d$. The output
-from the algorithm is then $(a,yz^{-1},t)$, where 
-\[a=hpcy^{-1}(yz^{-1})\b''(yz^{-1})^{-1}
-=hpcz^{-1}(z\b_0\g_0\d^{-1}z^{-1})zy^{-1} =hpc\b_0\g_0\d^{-1}y^{-1}.\]
-
-\begin{example}\label{ex:f_1_again}
-Consider the elements 
-$f_1$ and $f_2$ of the free group $F_1$ of Example \ref{ex:f_1}. 
-In that example we found  
-\[f_1=hs_1(h^\prime)^{-1}=(h_2^{2}h_1) x_1x_3^3x_1(h_1^{-1}h_3^{-1})\in H_1S_1^{(1)}H_1,\]
-with $s_1=x_1x_3^3x_1$ the double coset representative of $f_1$. 
-As $s_1\in S_1^{(1)}$, as in the proof of Lemma \ref{lem:reltran}, 
-$H_{s_1}=\{1\}$ and so $(h^\prime)^{-1}\in \cT_{s_1}$. Thus
-$f_1$ has double coset normal form $(h, s_1, (h^\prime)^{-1})$.
-
-We also found 
-\[f_2=a yz^{-1} b=(h_3^{-1}h_2^{-1}) x_1^{-1}\]
-with $a=h_3^{-1}h_2^{-1}$, $b=1$ and $s_2=yz^{-1}= x_1^{-1}\in S_1^{(2)}$ 
- the double coset representative of $f_2$. 
-In this case $z=1$, so $H^z\cap H^y=H\cap H^y=H\cap H^{s_2}=H_{s_2}$. 
-Furthermore, as $b=1$ we see immediately that $t=b=1$ and the
-double coset normal form of $f_2$ is $(h_3^{-1}h_2^{-1}, x_1^{-1}, 1)$.
-\end{example}
-
-\begin{example}\label{ex:f_2_again}
-Consider the element $f_1'$ of Example \ref{ex:f_2}. 
-We found 
-\[f_1^\prime=h yz^{-1} g^{-1},\]
-where $h=h^\prime_3h_2^\prime$, $g^{-1}=h_2^\prime h_1^\prime$,  
-$y=y_1$, $z=y_2^{-1}$ and $s_1'=yz^{-1}=y_1y_2\in S_2^{(2)}$ is the 
-double coset representative of $f_1'$. In this case $s_1'$ corresponds
-to the vertex $(3,2)$ of $\G_{H_2}\times \G_{H_2}$. As this is an 
-isolated vertex it follows, as in the proof of Lemma \ref{lem:reltran},
-that $H_{s_1'}=\{1\}$. Therefore $\cT_{s_1'}=H_2$ and the 
-double coset normal form of $f_1'$ is 
-$(h,s_1',g^{-1})$.  
-\end{example}
-\ajd{These two examples are typical, as subgroups of $F$ are generically
-malnormal, and even when they are not 
-double cosets representatives are generically of type 1 (aren't they; there
-are only finitely many of type 2). Oh, but this may not be a sensible thing
-to say, as what counts is the size of the dobule cosets $HdH$. Lisa,
-you probably know how to say this?}
-\begin{example}\label{ex:reltran}
-\ajd{This is the same example as above, in the discussion of 
-relative transversals} 
-For example, let $F=\FF(\{a,b,c\})$ and let $H$ be the subgroup
- generated by $bc^{-1}$, $cbc^{-2}$, $c^4$, $c^2bc$, $c^{-1}b$, 
-$a^2$ and $abca^{-1}$. The Stallings folding $\G_H$ for 
-$H$ is shown in Figure \ref{fig:reltran}, with spanning tree
-$T$ and root vertex $1$ highligted. Let $w=ab^{-2}$. Then, in 
-the notation of Section \ref{sub:alg1ex}, $h=1$, $p=a$, $g=1$, $t=b^{2}$
-and $e=1$. Then $(\t(p),\t(t))=(5,3)$. The connected component $\G'$ 
-of $\G_H\times \G_H$ containing $(5,3)$ is shown in Figure 
-\ref{fig:reltranb}. The representative of $(5,3)$ is 
-$(5,1)$, so $y=a$ and $z=1$, and the  connecting element is  $j=c^{-1}b^{-1}$. 
-Therefore the double coset representative of $w$ is $s=yz^{-1}=a$, a 
-representative of type 2. 
-Then $hpjy^{-1}=ac^{-1}b^{-1}a^{-1}\in H$ and $zj^{-1}t^{-1}=bcb^{-2}\in H$ and we 
-can write $w=(ac^{-1}b^{-1}a^{-1})s(bcb^{-2})$ as an element of $HsH$.
-To express $\b=bcb^{-2}$ as an element of $H_s\cT_s$ we use the
-graph $\G'$ with the highligted spanning tree, and 
-root vertex $(5,1)$. The maximal prefix of $\b$ accepted by 
-$\G'$ is $q=bc^{-1}$ and this is the label of a path in the 
-spanning tree $T'$. Hence $bcb^{-2}$ is an element of $\cT_s$. 
-and 
- the double coset normal form of $w$ is $(ac^{-1}b^{-1}a^{-1}, a, 
-bcb^{-2})$.
-\end{example}
-\begin{figure}
-\begin{center}
-\begin{subfigure}[b]{.45\columnwidth}
-\psfrag{1}{\scriptsize$1$}
-\psfrag{2}{\scriptsize$2$}
-\psfrag{3}{\scriptsize$3$}
-\psfrag{4}{\scriptsize$4$}
-\psfrag{5}{\scriptsize$5$}
-\psfrag{6}{\scriptsize$6$}
-\psfrag{GH}{$\G_H$}
-\psfrag{a}{$a$}
-\psfrag{b}{$b$}
-\psfrag{c}{$c$}
-\includegraphics[scale=.5]{relt.eps}
-\caption{}\label{fig:reltrana}
-\end{subfigure}
-\hspace{25mm}
-\begin{subfigure}[b]{.45\columnwidth}
-\psfrag{5-3}{\scriptsize$(5,3)$}
-\psfrag{6-4}{\scriptsize$(6,4)$}
-\psfrag{1-5}{\scriptsize$(1,5)$}
-\psfrag{3-5}{\scriptsize$(3,5)$}
-\psfrag{4-6}{\scriptsize$(4,6)$}
-\psfrag{2-6}{\scriptsize$(2,6)$}
-\psfrag{6-2}{\scriptsize$(6,2)$}
-\psfrag{5-1}{\scriptsize$(5,1)$}
-\psfrag{a}{$a$}
-\psfrag{b}{$b$}
-\psfrag{c}{$c$}
-\psfrag{GHa}{$\G_{H_a}$}
-\includegraphics[scale=.7]{reltd.eps}
-\caption{}\label{fig:reltranb}
-\end{subfigure}
-\end{center}
-\caption{}\label{fig:reltran}
-\end{figure}
+\ajd{The contents of the previous version of this section, with some examples and lemmas
+developed in the interim {\large some of which should perhaps be put back here}, are now in the file scrap.tex}
+~\\[1em]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2143,12 +1562,16 @@ is an isomorphism $\phi_1:\FF(Z)\maps H_1$, such that $\phi_1(z_i)=h_i$,
  Let $G$ be the free product with amalgamation:
 ${G = F_1 \underset{H_1=H_2}{\ast} F_2}$.  Then $G$ has a
  presentation
-\[\la X_1\cup X_2\cup Z  | h_i =z_i= h_i', i=1 \ldots m\ra.\]
+\begin{equation}\label{eq:Zpresn}
+\la X_1\cup X_2\cup Z  | h_i =z_i= h_i', i=1 \ldots m\ra.
+\end{equation}
+We refer to  the presentations \eqref{eq:Xpresn}  and  \eqref{eq:Zpresn} as the $X$\emph{-presentation} and the $Z$\emph{-presentation} of $G$,
+respectively.
 
 \begin{definition}\label{def:dcnf}
- Let $D_1$ and $D_2$ be sets of  double coset representatives for
+ Assume that $X_1$ and $X_2$ are disjoint and let $D_1$ and $D_2$ be sets of  double coset representatives for
 $H_1\le F_1$ and $H_2\le F_2$, respectively. For $j=1,2$ and $d\in D_j$ let 
-$\cT_d$ be a relative transversal for $H_d=H_j\cap H_j^d$ in $H_j$. 
+$\cT_d$ be a right transversal for $H_d=H_j\cap H_j^d$ in $H_j$. 
 The \emph{double coset normal form}, or \emph{dc-normal form, with
 respect to} $D_1\cup D_2$, of a 
  word $w\in \FF(X_1\cup X_2\cup Z)$ is a sequence 
@@ -2157,9 +1580,10 @@ such that
 \be[(a)]
 \item $w = h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, 
 \item $h_i$ is a reduced word in $\FF(Z)$, for $i=0,\ldots, k$;
-\item  $p_i  \in D_1\cup D_2$ and $p_i\neq 1$, for $i=1,\ldots, k$,  
+\item  $p_i  \in D_1\cup D_2$ and $p_i\neq 1$, for $i=1,\ldots, k$, 
 \item if  $p_i\in D_j$ then $p_{i+1}\notin D_j$, for $j\in \{1,2\}$
-and $i=1,\ldots ,k-1$, and 
+and $i=1,\ldots ,k-1$,
+ and 
 \item if $p_i\in D_j$ then $\phi_j(h_i)\in \cT_{p_i}$, $i=1,\ldots ,k$.
 \ee
 \end{definition}
@@ -2168,95 +1592,51 @@ we explicitly say something to the contrary.
  We shall often write the normal form above as 
 $h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$, instead of writing it as 
 sequence. 
-\begin{comment}
-\begin{theorem}\label{thm:dcnf} Let $D_1$ and $D_2$ be sets of  double coset representatives for
-$H_1\le F_1$ and $H_2\le F_2$, respectively. 
-Then every element of $G$ is represented by a unique element of
-$\FF(X_1\cup X_2\cup Z)$ in double coset normal form, with respect
-to $D_1\cup D_2$.
-\end{theorem}
-\begin{proof}
-To see that every $g\in G$ can be written in dc-normal form, first
-write $g$ in reduced form. If the reduced form of $g$ is the empty
-word then this is also the dc-normal form; with $k=0$ and $h_0=1$. 
-Otherwise we have $g=f_1\cdots f_t$, where $f_i$ is in $F_{j_i}$, for
-$j_i\in \{1,2\}$. In this case, let $a_is_ib_i$
-be the double coset representative of $f_i$, where 
-$a_i,b_i\in H_{j_i}$ and $s_i\in D_{j_i}$. For $i=1,\ldots ,t$,
- let $z^{\prime}_i=\phi_j^{-1}(a_i)$ and
-$z^{\prime\prime}_i=\phi_j^{-1}(b_i)$. For $i=1,\ldots ,t-1$, let 
-$z_i$ be the free reduction of $z^{\prime}_iz^{\prime\prime}_{i+1}$, 
-and let $z_0=z^{\prime}_1$ and $z_t=
-z^{\prime\prime}_t$. 
- If $t=1$ and $f_1\in H_{j_1}$ then $a_1=f_1$, $s_1=1$, $b_1=1$ and 
-the dc-normal form of $g$ is $z_0$. Otherwise, for all $i\ge 1$, we 
-have $f_i\notin H_1\cup H_2$, so $s_i\neq 1$ and 
-\[z_0s_1z_1\cdots z_{t-1}s_tz_t\]
-is a dc-normal form for $g$.
 
-Now suppose that $w$ and $w^\prime$ are words in dc-normal form and that
-$w=_G w^\prime$. We show by induction on $k$ that $w=w'$. 
-Let $w=h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$,
-and $w^\prime =h_{0}^\prime p_1^\prime h_{1}^\prime  p_2^\prime
-\cdots h_{k-1}^\prime p_k^\prime h_{{k^\prime}}^\prime$, where
-$h_i, h_i^\prime\in \FF(Z)$ and $p_i,p_i^\prime\in D_1\cup D_2$.
-%If $w$ is the empty word then $k=0$ and $h_0=1$ and in this case it follows
-%from \cite[Chapter IV, Theorem 2.6]{LS} that $k'=0$ and $h'_0=1$, so 
-%$w=w'$. Hence we  assume that either $k>0$ or $h_0\neq 1$. 
-If $k=0$ let $f_1=\phi_1(h_0)$ and, if $k>0$, 
-let $f_1=\phi_{j_1}(h_0)p_1\phi_{j_1}(h_1)$, where $p_1\in F_{j_1}$. 
- In addition, if $k>0$,  
- for fixed $i\ge 2$, assuming that $p_i\in F_{j_i}$, 
-let $f_i=p_i\phi_{j_i}(h_i)$.
- Then $f_1\cdots f_k$, is
-a reduced form for the element $w\in G$. Similarly, we obtain a reduced
-form $f_1^\prime \cdots f_{k^\prime}^\prime$ for $w^\prime=_G w$. 
-
-If $k=0$ then we have $w=_G f_1=\phi_1(h_0)\in H_{1}$, and since all 
-reduced forms representing an element have the same length, $k'=0$ or $1$. 
-Moreover, as $f'_1=_G w\in H_1$ we have 
- $k^\prime =0$ and $w^\prime=_G f_1^\prime=\phi_1(h_0^\prime)\in H_1$.
-As $H_1$ embeds in $G$ this implies that $\phi_1(h_0)=\phi_1(h'_0)$, so
-$w=h_0=h'_0=w'$. Thus the result
-holds when $k=0$ and we may assume inductively that $k>0$ and the result holds
-for elements represented by normal forms of length less than $k$.
-
-Comparing the lengths of reduced forms, we have $k=k^\prime$.
-Moreover, $1=_G w^\prime w^{-1}= f_1^\prime \cdots f_{k}^\prime
-f_k^{-1}\cdots f_1^{-1}$, so by \cite[Chapter IV, Theorem 2.6]{LS}, 
-we have $ f_{k}^\prime f_k^{-1}\in H_{j_k}$, where $j_k=1$, or $2$. Hence, for
-some $a, b\in H_{j_k}$ we have $p_k^\prime=a p_k b$. Therefore $p_k^\prime =p_k$,
-and now, as $p_k$ is a double coset representative and  $ f_{k}^\prime f_k^{-1}\in H_{j_k}$,
-it follows that $h_k=h_k^\prime$. Hence $f_1\cdots f_{k-1}=
-f_1^\prime \cdots f_{k-1}^\prime$ and, applying the inductive hypothesis,
-  we see that $w=w^\prime$, as required.
-\end{proof}
-\end{comment} 
 \begin{theorem}\label{thm:dcnf} Let $D_1$ and $D_2$ be sets of  double coset representatives for
 $H_1\le F_1$ and $H_2\le F_2$, respectively.  For $j=1,2$ and $d\in D_j$ let 
-$\cT_d$ be a relative transversal for $H_d=H_j\cap H_j^d$ in $H_j$. 
+$\cT_d$ be a right transversal for $H_d=H_j\cap H_j^d$ in $H_j$. 
 Then every element of $G$ is represented by a unique element of
 $\FF(X_1\cup X_2\cup Z)$ in double coset normal form, with respect
 to $D_1\cup D_2$.
 \end{theorem}
 \begin{proof}
-To see that every $g\in G$ can be written in dc-normal form, first
+To see that every $g\in G$ can be written in dc-normal form, first 
 write $g$ in reduced form,
-as a word in the amalgamated product. If the reduced form of $g$ is the empty
-word then this is also the dc-normal form; with $k=0$ and $h_0=1$. 
-Otherwise we have $g=f_1\cdots f_r$, where $f_i$ is in $F_{j_i}$, for
-$j_i\in \{1,2\}$. 
-In this case, let $a_is_ib_i$
-be the double coset representative of $f_i$, where 
+as a word in the amalgamated product with presentation \eqref{eq:Xpresn}. If the reduced form of $g$ is the empty
+word then this is also the dc-normal form; with $k=0$ and $h_0=1$. If the reduced form of $g$ is $a\in H_k$, where $k=1$ or $2$, then
+$g$ has double coset normal form $\phi_k^{-1}(g)$. 
+Otherwise we have $g=f_1\cdots f_r$, where $f_i$ is in $F_{j_i}$ and $f_i\notin H_{j_i}$, for
+$j_i\in \{1,2\}$; a word with reduced form of free product length $r$. Assume inductively that 
+if $g'\in G\backslash(H_1=H_2)$, and $g'$ has  reduced form $f'_1\cdots f'_t$ of length $t<r$ then $g'$ has a  dc-normal form 
+$(h'_0,p'_1,h'_1,\ldots,p'_t,h'_t)$ with $p'_i$ in $D_{k_i}$ if and only if $f'_i\in \FF_{k_i}$   
+Then $g'=f_2\cdots f_r$ has  a dc-normal form, 
+$(h'_0,p_2,h_2,\ldots,h_{r-1},p_r,h_r)$, with $p_i\in D_{j_i}$. 
+Now $f=f_1\phi_{j_1}(h'_0)\in F_{j_1}$ so $f$ has \normalform~ $(a,d,b)$, with $a\in H_{j_1}$, $d\in D_{j_1}$ and $b\in \cT_d$. 
+As $f_1\notin H_{j_1}$ and $\phi_{j_1}(h'_0)\in H_{j_1}$,  the element $f$ is not in $H_{j_1}$ so 
+the double coset representative $d$ is non-trivial. 
+Setting $h_0=a$, $p_1=d$ and $h_1=\phi_{j_1}^{-1}(b)$, we 
+have $f_1=_Gh_0p_1h_1$ so 
+\begin{align*}
+g&=f_1g'=_G f_1(h'_0p_2h_2\cdots h_{r-1}p_rh_r)=_G fp_2h_2\cdots h_{r-1}p_rh_r\\
+&=_G h_0p_1h_1p_2h_2\cdots h_{r-1}p_rh_r
+\end{align*}
+and it follows that $(h_0,p_1,h_1,\ldots ,p_r,h_r)$ is a dc-normal form for $g$. 
+
+\begin{comment}
+In this case, let $(a_i,s_i,b_i)$
+be the \normalform~ of $f_i$ in $F_{j_i}$ with respect to $D_{j_i}$, where 
 $a_i,b_i\in H_{j_i}$ and $s_i\in D_{j_i}$. 
 
-Beginning on the right, with $f_r$, we succesively 
-rewrite each syllable, using Lemma \ref{lem:reltran}, and moving
+Beginning on the right, with $f_r$, we successively 
+rewrite each syllable, %using Lemma \ref{lem:reltran}, and 
+moving
 elements of $H_1\cup H_2$ to the left. 
-In detail, suppose that, for some $p$ such that  $1\le p\le r$ we 
-have $t_{p+1},\ldots ,t_r$, where $t_i\in \cT_{s_i}$, for $i=p+1,\ldots,
+In detail, suppose that, for some $p$ such that  $1\le p\le r$ we have $s_{p+1},\ldots ,s_r$ and  
+$t_{p+1},\ldots ,t_r$, where $s_i\in D_1\cup D_2$, $t_i\in \cT_{s_i}$, for $i=p+1,\ldots,
 r$, and an element $h_p\in H_{j_p}$, such that 
-\[f_{p+1}\cdots f_r=_G h_ps_{p+1}t_{p+1}\cdots s_rt_r.\]
+$(h_p,s_{p+1},t_{p+1},\cdots ,s_r,t_r)$ is a double coset normal form for 
+ $f_{p+1}\cdots f_r$. 
 Then $f_p=a_ps_pb_p$, where $b_p\in H_{j_p}$, so $b_ph_p=c_pt_p$, 
 for some $c_p\in H_{j_p}\cap H_{j_p}^{s_p}$ 
 and $t_p\in \cT_{s_p}$. Therefore, for some $d_p\in H_{j_p}$, 
@@ -2275,35 +1655,45 @@ with $\phi_{j_i}^{-1}(t_i)$,
 for $i=1,\ldots, r$, and $h_0$ with $\phi_{j_0}^{-1}$, in the above
 expression. 
 
+%h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$
+\end{comment}
 
-Now suppose that $w$ and $w^\prime$ are words in dc-normal form and that
-$w=_G w^\prime$. We show by induction on $k$ that $w=w'$. 
-Let $w=h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$,
-and $w^\prime =h_{0}^\prime p_1^\prime h_{1}^\prime  p_2^\prime
-\cdots h_{k-1}^\prime p_k^\prime h_{{k^\prime}}^\prime$, where
-$h_i, h_i^\prime\in \FF(Z)$ and $p_i,p_i^\prime\in S_1\cup S_2$.
+
+Now suppose that $W=(h_{0},p_1,h_{1},p_2, \ldots, h_{k-1},p_k,h_{{k}})$ and 
+$W'=(h_{0}^\prime, p_1^\prime ,h_{1}^\prime , p_2^\prime,
+\cdots, h_{k-1}^\prime ,p_k^\prime, h_{{k^\prime}}^\prime)$
+are dc-normal forms for $g\in G$. 
+%$w$ and $w^\prime$ are words in dc-normal form and that
+%$w=_G w^\prime$. 
+We show by induction on $k$ that $W=W'$. %We have  
+%Let $w=h_{0}p_1h_{1}p_2 \cdots h_{k-1}p_kh_{{k}}$,
+%and $w^\prime =h_{0}^\prime p_1^\prime h_{1}^\prime  p_2^\prime
+%\cdots h_{k-1}^\prime p_k^\prime h_{{k^\prime}}^\prime$, where
+%$h_i, h_i^\prime\in \FF(Z)$ and $p_i,p_i^\prime\in S_1\cup S_2$.
 If $k=0$ let $f_1=\phi_1(h_0)$ and, if $k>0$, 
 let $f_1=\phi_{j_1}(h_0)p_1\phi_{j_1}(h_1)$, where $p_1\in F_{j_1}$. 
  In addition, if $k>0$,  
- for fixed $i\ge 2$, assuming that $p_i\in F_{j_i}$, 
+ for each $i\ge 2$, assuming that $p_i\in F_{j_i}$, 
 let $f_i=p_i\phi_{j_i}(h_i)$.
  Then $f_1\cdots f_k$, is
-a reduced form for the element $w\in G$. Similarly, we obtain a reduced
-form $f_1^\prime \cdots f_{k^\prime}^\prime$, for $w^\prime=_G w$, 
+a reduced form, with respect to the presentation \eqref{eq:Xpresn},  for the element $w\in G$. Similarly, starting with $W'$ instead
+of $W$, we obtain a reduced
+form $f_1^\prime \cdots f_{k^\prime}^\prime$ for $w$,  %$w^\prime=_G w$, 
 with
-$f_i'=p'_i\phi_{j'_i}(h'_i)$, $p_i'\in F_{j'_i}$. 
+%$f_i'=p'_i\phi_{j'_i}(h'_i)$, $p_i'\in F_{j'_i}$, $i\ge 2$, and 
+ the analagous definition of $f'_i$, $i=1,\ldots ,k'$. 
 
 If $k=0$ then we have $w=_G f_1=\phi_1(h_0)\in H_{1}$, and since all 
 reduced forms representing an element have the same length, $k'=0$ or $1$. 
 Moreover, as $f'_1=_G w\in H_1$ we have 
- $k^\prime =0$ and $w^\prime=_G f_1^\prime=\phi_1(h_0^\prime)\in H_1$.
+ $k^\prime =0$ and $f'_1=\phi_1(h_0^\prime)\in H_1$.
 As $H_1$ embeds in $G$ this implies that $\phi_1(h_0)=\phi_1(h'_0)$, so
-$w=h_0=h'_0=w'$. Thus the result
+$h_0=h'_0$. Thus the result
 holds when $k=0$ and we may assume inductively that $k>0$ and the result holds
 for elements represented by normal forms of length less than $k$.
 
 Comparing the lengths of reduced forms, we have $k=k^\prime$.
-Moreover, $1=_G w^\prime w^{-1}= f_1^\prime \cdots f_{k}^\prime
+Moreover, $1=_G w w^{-1}= f_1^\prime \cdots f_{k}^\prime
 f_k^{-1}\cdots f_1^{-1}$, so by \cite[Chapter IV, Theorem 2.6]{LS}, 
 we have $ f_{k}^\prime f_k^{-1}\in H_{1}\cup H_2$.
 Assume first that $k>1$. 
@@ -2317,7 +1707,7 @@ $p_k, p'_k$ are  double coset representatives,
 $p_k'=p_k$. 
 Thus $p_k\phi_{j_k}(h'_k h_k^{-1})p_k^{-1}\in H_{j_k}$, 
 and so $\phi_{j_k}(h'_k)(\phi_{j_k}(h_k))^{-1}\in H_{j_k}\cap H_{j_k}^{p_k}$.
-As $\phi_{j_k}(h'_k)$ and $\phi_{j_k}(h_k))$ both belong to the 
+As $\phi_{j_k}(h'_k)$ and $\phi_{j_k}(h_k)$ both belong to the 
 transversal $\cT_{p_k}$, we have $h'_k=h_k$.
 
 %and as 
@@ -2340,51 +1730,78 @@ Hence, in all cases, $f_k=f'_k$.
 Therefore the reduced forms 
 $f_1\cdots f_{k-1}$ and 
 $f_1^\prime \cdots f_{k-1}^\prime$ both represent the same 
-element of $G$. From the inductive assumption we have 
+element $w_0$ of $G$. 
+Moreover $(h_0,p_1,\ldots, p_{k-1},h_{k-1})$ and $(h'_0,p'_1,\ldots, p'_{k-1},h'_{k-1})$ 
+are both dc-normal forms for $w_0$. Hence, from the inductive assumption 
+these normal forms are equal; that is   
 $h_0=h_0'$,  $h_i=h'_i$ and $p_i=p'_i$, for $i=1,\ldots, k-1$. 
 Thus 
-   $w=w^\prime$, as required.
+   $W=W^\prime$, as required.
 \end{proof}
 
 
-To write words in $\FF(X_1\cup X_2)$   double coset normal form  for
+To write words in $\FF(X_1\cup X_2\cup Z)$   in double coset normal form  for
  the group $G$  we run 
 an algorithm which combines
 the reduction process, outlined on page \pageref{it:st1}, 
-\ajd{which needs updating to start from the rhs } with Algorithm I. 
+ with Algorithm I, as suggested by the proof of the preceeding theorem. 
 The following is an outline of this algorithm, which we call 
 Algorithm II. More detail is   given in 
  Section 
-\ref{sub:summaryII}.
- Algorithm II  writes a word $w\in \FF(X_1\cup X_2)$ as a product
-$f_1\cdots f_s$, where $f_i\in F_j$, for $j=1$ or $2$, and $f_i$ and $f_{i+1}$ are not
-both from the same $F_j$. An output list is created, initially blank. 
-Then, starting on the right with $f_t$, Algorithm
-I is applied to write each syllable in its double coset normal form 
- $(a_i, d_i, c_i)$, with respect to the 
- free group to which it belongs. Set 
-$a'_i= \phi_{1-j}\phi_j^{-1}(a_i)$ and $t_i=\phi_j^{-1}(c_i)$. 
- If syllable 
-$f_i$ is not in $H_1\cup H_2$ then $(d_i,t_i)$ 
-is added to the left hand end 
-of the output list. If $i>1$ then $f_{i-1}$ is replaced with 
-$f_{i-1}a'_1$,   
-and the process continues with the new syllable $f_{i-1}$, while
-if $i=1$ then $\phi_j^{-1}(a_i)$ is added to the left of the output list and 
-the algorithm halts.  On the other hand,  
-if $f_i$ turns out to be
-in $H_j$, and $i>1$, then syllables $f_{i-1}$, $f_i$ 
-and $f_{i+1}$  are replaced by a single syllable 
-$f'_{i-1}=f_{i-1}a'_i f_{i+1}$, the pair $(d_{i+1},t_{i+1})$ 
-is deleted from the left hand end of the output list
-and the process continues, starting at the new  $(i-1)$ syllable $f_{i-1}$.
-If $f_i\in H_j$ and  
-$i=1$ then $\phi_{1-j}^{-1}(a'_i)=\phi_j^{-1}(a_i)$ 
-is appended  to the left hand end of the output list and 
-the algorithm halts.
+\ref{sub:summaryII}.\\[1em]
+
+\noindent\textbf{Algorithm II}. \label{alg:alg2} \\
+
+Given a reduced word $w \in \FF(X_1\cup X_2\cup Z)$, if $w$ contains no letters of $(X_1\cup X_2)^{\pm 1}$ then
+$w$ has dc-normal form $(w)$ and the algorithm is finished. 
+Otherwise  the algorithm begins by
+rewriting $w$ as a word in $\FF(X_1\cup X_2)$. This is done from the right: take the maximal subword $w_1$ of
+$w$ such that $w=w_0\circ w_1$ with $w_1\in \FF(X_k\cup Z)$, for $k=1$ or $2$. Replace each $Z^{\pm 1}$ letter of $w_1$ 
+with its image under $\phi_k$ and freely reduce the result to give a word $u_1\in F_k$. Then $w=_G w_0u_1$. Repeat the process
+starting with $w_0$ instead of $w$; and continue until $w_0$ is the empty word. 
+\ajd{(If this is too brief there is a longer version, commented out in the latex file)}
+\begin{comment}
+Initially set $w'$ equal to the empty sequence.
+
+We have $w=w_0xw_1$, where
+$x\in (X_k)^{\pm 1}$, for $k=1$ or $2$,   and $w_1\in \FF(Z)$.   If $w_0\in F(X_k\cup Z)$ then 
+let $f$ be the word  obtained by replacing each $Z^{\pm 1}$ letter $z$ of $w$ by $\phi_k(z)$ and freely reducing.
+Replace  $w'$ with the sequence $(f, w')$ and move on to the next phase of the algorithm, in the next paragraph. On the other hand,
+if $w_0$ is not in $F(X_k\cup Z)$ then $w_0=u_0yu_1$, where $y\in X_{3-k}^{\pm 1}$ and  $u_1\in F(X_k\cup Z)$. 
+In this case let $f\in \FF(X_k)$ be the    word obtained by replacing each $Z^{\pm 1}$ letter $z$ of $u_1xw_1$ by $\phi_k(z)$ 
+and freely reducing. Replace $w'$ with $(f,w')$ and $w$ with $u_0y$. Repeat the procedure of this paragraph (with $k$ replaced by $3-k$, 
+$w_1=1$, $x=y$ and 
+$w_0=u_0$). 
+ 
+The algorithm has now produced a sequence $w'=(f_1,\ldots ,f_s)$, such that $f_1\cdots f_s$ is in free product normal form and is 
+equal in $G$ to $w$.
+\end{comment}
+The result is a sequence of words $(u_1,\ldots, u_s)$ (where $u_s$ is output first, $u_{s-1}$ second and so on), 
+such that $w=_G u_1\cdots u_s$,  $u_i\in F_1\cup F_2$ and  $u_i$ and $u_{i+1}$ do not both
+belong to $F_k$, for all $i$ and $k$.
+%%%%%%%%%%%%%%%%%%%%%%5
+
+To construct the double coset normal form $W$ from $u=(u_1,\ldots, u_s)$, initially set $W$ equal to an empty sequence. Work through the 
+sequence  $u$ from right to left building up $W$ in the process, as follows. Suppose $u_i\in F_{j_i}$. Start with $i=s$.   
+
+Use Algorithm I to find the \normalform~ $(a,d,b)$ of $u_i$.  Set $c=\phi_{1-j_i}\phi_{j_i}^{-1}(a)$. 
+If $d\neq 1$, then insert $(d,\phi_{j_i}^{-1}(b))$ at the start (left)  
+of $W$. Replace the sequence $u$ with 
+$u'=(u_1,\ldots ,u'_{i-1},u'_i,u_{i+1},\ldots ,u_s)$ where $u'_i=db$ and $u'_{i-1}=u_{i-1}c$; so the product of elements of $u$ and $u'$ represent
+the same elements of $G$. If $i=1$ then $\phi_{j_i}^{-1}(a)$ is inserted at the start of $W$, and 
+the algorithm finishes by outputing $W$. Otherwise, decrease $i$ by $1$ and repeat the procedure of this paragraph (and the next).
+  
+On the other hand, if $d=1$  then also $b=1$. In this case let $u'_i=u_{i-1}cu_{i+1}$ (taking $u_{-1}$ and 
+$u_{s+1}$ to be the empty words, if necessary). Replace $u$ with $u'=(u_1,\ldots ,u_{i-2},u_i',u_{i+2},\ldots,u_s)$ and leave $W$ as it is. 
+If $i\neq 1$ then decrease it by $1$. Repeat from the beginning of the previous paragraph; which, given the new value of $i$, 
+means starting at the new element $u'_i$. 
+(Here $s$ is also decreased, but we leave details to the summary of Section \ref{sub:summaryII}.) 
 
 
 \begin{example}\label{ex:g}
+\ajd{I have not checked this example on this reading: but now there is a program that
+will do this, and list the steps as it goes, which I will run later, once I've finished the essential editing.}
+
 Let $F_i$ and $H_i$ be given in Examples \ref{ex:f_1} and
 Example \ref{ex:f_2}, and
 let $f_1$ and $f_2$ be the elements of $F_1$ in Example \ref{ex:f_1} and
@@ -2409,17 +1826,17 @@ f_1^\prime&=h^\prime_3h_2^\prime y_1y_2 h_2^\prime h_1^\prime\\
 \end{align*}
 \end{comment}
 After processing the right hand syllable $f_2$, 
-  the output list $L$ is  $(x_1^{-1})$ 
+  the output list $W$ is  $(x_1^{-1})$ 
 (since by convention we omit  the trivial element) and the syllable 
 $f_1'$ is replaced by $f_1' (h_3')^{-1}(h_2')^{-1}$. The 
 double coset representative of (both versions of) $f_1'$ is 
 $s_1'=y_1y_2$ and $\cT_{s_1'}=H_2$, so after processing $f_1'$ the
-list $L$ becomes $(y_1y_2, z_2z_1z_3^{-1}z_2^{-1}, x_1^{-1})$ and 
+list $W$ becomes $(y_1y_2, z_2z_1z_3^{-1}z_2^{-1}, x_1^{-1})$ and 
 $f_1$ is replaced by $f_1h_3h_2=h_2^{2}h_1 x_1x_3^3x_1 h_1^{-1}h_2$. 
 The double coset representative of $f_1$ is $s_1=x_1x_3x_1$ and 
 $\cT_{s_1}=H_1$. 
 Hence the  double coset normal form of $g$ is 
-\[L=(z_2^2 z_1,  x_1 x_3^3 x_1, z_1^{-1}z_2,
+\[W=(z_2^2 z_1,  x_1 x_3^3 x_1, z_1^{-1}z_2,
 y_1y_2, z_2 z_1z_3^{-1}z_2^{-1}, x_1^{-1}).
 \]
 \ajd{This example has been corrected so that $f_1$ here is the same as it is in Example \ref{ex:f_1}.
@@ -2466,13 +1883,15 @@ $w$ in double coset normal form if and only if it belongs to a
 given subgroup $K$ of $G$. The idea is to do this by starting with the
 flower automaton for the generators of $K$, written in (double
 coset) normal form; carrying out Stallings folding as usual to
-produce an inverse automaton; and next
+produce an inverse automaton $\Delta$; and next
 adding some additional paths to allow normal forms to be read.
 This may introduce new non-determinism in some  states (i.e. edges
 which may be folded), so the resulting automaton must be folded
-again. The result of the final folding is the candidate automaton.
+again. The result of this  final folding is a new inverse automation $\Delta'$.
+The process is repeated, using $\Delta'$ in place of $\Delta$. If at 
+some point no changes are made, then $\Delta'$ is the candidate automaton. 
 
- Suppose $L$ is the
+ Suppose this process halts at some stage and that $L$ is the
 language accepted by the flower automaton of $K$. The image of $L$ under
 the canonical map to $G$ is $K$. All the stages of our generalised folding
 process will preserve this image, so our final automaton will accept a language
@@ -2511,15 +1930,19 @@ d_th_{t+1}$.
 \subsection{Double coset automata}\label{sec:dca}
 %
 %
-Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$
+If $w$ is an element of $G$ and has normal form $(a_1,\ldots, a_n)$ then, 
+in general, the inverse of $w$ need not have normal form 
+$(a_n^{-1},\ldots, a_1^{-1})$. Therefore it is convenient to use  generating
+sets of subgroups of $G$ that are closed under taking inverses. 
+Let $K=\la k_1, \ldots , k_s\ra$, where $k_i$ is an element of $G$ 
 written in normal form: say
 \begin{equation}\label{eq:k-form}
-k_i= h_{i,0}t_{i,1}h_{i,1}\cdots t_{i,m_i}h_{i,m_i},
+k_i= (h_{i,0},t_{i,1},h_{i,1},\cdots ,t_{i,m_i},h_{i,m_i}),
 \end{equation}
 with $m_i\ge 0$, $h_{i,j}\in \FF(Z)$, $t_{i,j}\in S_1\cup S_2$, such that
 if $m_i=0$ then
-$h_{i,0}\neq 1$ (since we may discard any generators of $K$ which equal
-the empty word). Denote
+$h_{i,0}\neq 1$. Assume also that for $1\le i\le s$, there $k_i^{-1}=k_j$, for some $j$. 
+Denote
 by $\hat K$ the subgroup of  $\FF(X_1\cup X_2 \cup Z)$ generated by
 $k_1, \ldots , k_s$. Let $\S=(X_1\cup X_2 \cup Z)^{\pm 1}$.
 Let $\cF(K)$ be the flower automaton of $\hat K$, and let
@@ -2537,9 +1960,15 @@ $L(\G_K)$ does not, in general, contain all normal forms of elements of $K$.
 We wish to transform $\G_K$ to allow it to accept normal forms of
 elements of $K$. In outline this transformation process consists of
 running the loop below, on input $\G_K$,
-until it halts, at which point we shall show that we have an
-inverse automaton which accepts  normal forms of elements of $K$.
-Begin by setting $\G_K=\D_{(0)}$; so  that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
+until it halts. In general  the loop may repeat infinitely often. However, we shall show that if it does halt at some point then
+its output is an 
+inverse automaton which accepts  normal forms of elements of $K$. 
+
+First note that in the case where $m_i=0$, for $i=1,\ldots ,s$, we have $K\subseteq H_k$ and an element of $K$ written in
+normal form is an element of $\FF(Z)$. Thus a word in normal form represents an element of $K$ if and only if it is accepted 
+by $\G_K$. Therefore there is nothing further to do in this case, and from now on we assume that $m_i>0$ for at least one $i$. 
+That is, $\G_K$ has at least one edge of type $X_1$ or $X_2$. 
+Begin by setting $\D_{(0)}=\G_K$; so  that $\D_{(0)}$ is an inverse automaton, with alphabet $\S$
 and $\pi(L(\D_{(0)}))=K$. \\[1em]
 \textbf{Generalised Folding Loop.}
 Set $n=0$.
@@ -2551,23 +1980,26 @@ Call the result $\D_{(n)}^{\prime\prime}$.
 %halt and output  $\G_K^{(n)}$.
 \item\label{it:gf2} Construct the Stallings automaton $\D_{(n+1)}$
 of $\D_{(n)}^{\prime\prime}$. If $\D_{(n+1)}$ and
-$\D_{(n)}$ have the same
- number of
-$X_1$ and $X_2$ components (see below) then output $\D_{(n+1)}$
+$\D_{(n)}$ are the same %have the same
+ %number of
+%$X_1$ and $X_2$ components (see below) 
+ then output $\D_{(n+1)}$
 and stop. Otherwise, add $1$ to $n$ and  return to   \ref{it:gf1}.
 \ee
 
-Algorithm III below describes exactly how to carry out Step 1 of
-this loop. Since Step 1 may run more than once,  the input to 
+Algorithm III below describes exactly how to carry out \ref{it:gf1} of
+this loop. Since \ref{it:gf1} may run more than once,  the input to 
 Algorithm III is assumed to be an arbitrary inverse automaton $\D$,
-with alphabet $\S$ and $\pi(L(\D))=K$. The output of Algorithm III
+with alphabet $\S$ and $\pi(L(\D))=K$. The output of \ref{it:gf1} of Algorithm III
 is a rooted,
-labelled, involutive automaton $\D''$, with the same alphabet, which may
+labelled, involutive automaton $\D''$, with alphabet $\S$, which may
 fail to be deterministic. This automaton $\D''$ is input to \ref{it:gf2}, 
 where it is folded. We shall show that, if we start as above
-with $\G_K=\D_{(0)}$,  the Generalised Folding Loop halts, at some $n<\infty$; at
-which point $\D_{(n+1)}$ is an inverse automaton which accepts the
-normal form of every element of $K$. \\[1em]
+with $\G_K=\D_{(0)}$,  
+ and with an element $w$ of $K$, then for some  $n<\infty$
+the Generalised Folding Loop outputs an inverse automaton 
+ $\D_{(n)}$ which accepts the
+dc-normal form  of $w$. \\[1em]
 
 \noindent\textbf{Algorithm III}. \\
 
@@ -2578,53 +2010,55 @@ Let $\D$ be an inverse automaton, with alphabet $\S$ and
 start and final state $1$, such that
 $\pi(L(\D))=K$.
 For $k=1,2$, let $\D_k$ be the graph formed from $\D$ by removing all edges of
-type $X_{k^\prime}$, where $k\neq k^\prime$. An $X_k$ component of
-$\D_k$ is the subgraph of $\D$, containing at least one edge of type $X_k$, 
- formed from a connected component
-of $\D_k$ by removing all leaves which are incident to edges of
-type $Z$, and then repeating the process till there are no such
-leaves left. Given an $X_k$ component $\T$ of $\D_k$,  a
-{\em boundary vertex} of $\T$ is defined to be a vertex
+type $X_{k^\prime}$, where $k\neq k^\prime$. The $X_k$ component $\D_{k,0}$ of $\D$ 
+is the subgraph of $\D_k$ (and of $\D$)  
+ formed by removing all connected components of $\D_k$ which contain no 
+edge of type $X_k$: that is by removing isolated vertices or components having edges only of type $Z$. 
+ Note that, as $\D$ is connected and has an edge of type $X_1$ or $X_2$, every vertex
+and every edge of $\D$ occurs in at least one of $\D_{1,0}$ or $\D_{2,0}$. 
+
+Let $k=1$ or $2$. 
+A 
+{\em boundary vertex} of $\D_{k,0}$ is defined to be a vertex
 $\a$ such that $\a$ is incident, in $\D$, to a vertex which does not
-belong to $\T$.
- We shall modify each  $X_k$ component $\T$ of $\D_k$ so that if $p$ is a path,
-from a  boundary vertex $u$  to a boundary vertex $v$ of $\T$,
+belong to $\D_{k,0}$.
+ We shall modify $\D_{k,0}$ so that if $p$ is a path,
+from a  boundary vertex $u$  to a boundary vertex $v$ of $\D_{k,0}$,
 then the normal form  of  the label $l(p)$ of $p$ is the label of
 a path from $u$ to $v$. Throughout the modification process we
 keep track of the boundary vertices, so that once modification is
-complete the $X_k$ components can be reassembled, by attaching as
-they did in $\D$. The modification of an $X_k$ component $\Theta$
-of $\D_k$ consists of
-five steps, producing new graphs $\T_1$, $\T_2$, $\T_3$, $\T_4$
-and $\T_5$. In each case there is a canonical morphism $\theta_i$
-from $\T_{i-1}$ to $\T_i$ and,
- (writing $\T=\T_0$)
-we define the {\em boundary vertices} of $\T_{i}$ to be the vertices $\theta_{i}(v)$
-of $\T_i$, such that $v$ is a boundary vertex of $\T_{i-1}$. Moreover the
- images $\theta_i\circ \cdots\circ \theta_1(v)$ of vertices of $\T$ in $\T_i$
-will be referred to as  {\em vertices of} $\T$.
+complete the modified versions of $\D_{1,0}$  and $\D_{2,0}$ can be reassembled, by attaching as
+they did in $\D$. The modification of $\D_{k,0}$
+ consists of
+five steps, producing new graphs $\D_{k,1}$, $\D_{k,2}$, $\D_{k,3}$, $\D_{k,4}$
+and $\D_{k,5}$. In each case there is a canonical morphism $\th_{k,i}$
+from $\D_{k,{i-1}}$ to $\D_{k,i}$ and 
+we define the {\em boundary vertices} of $\D_{k,{i}}$ to be the vertices $\th_{k,i}(v)$
+of $\D_{k,i}$, such that $v$ is a boundary vertex of $\D_{k,{i-1}}$. Moreover the
+ images $\th_{k,i}\circ \cdots\circ \th_{k,1}(v)$ of vertices of $\D_{k,0}$ in $\D_{k,i}$
+will be referred to as  {\em (original) vertices of} $\D_{k,0}$.
 
 
 The modification process is followed by a ``reassembly'' phase, in which
-we reconnect the $X_k$ components of $\D$, 
+we reconnect  $\D_{1,5}$  and $\D_{2,5}$ 
 to form the output of the algorithm. 
 To enable the reassembly the algorithm records, when constructing 
-$\Theta_{i}$ from $\Theta_{i-1}$, the inverse images of vertices of 
-$\Theta_{i}$ under the map $\theta_i$. We leave details of the
+$\D_{k,i}$ from $\D_{k,{i-1}}$, the inverse images of vertices of 
+$\D_{k,i}$ under the map $\th_{k,i}$. We leave details of the
 construction of these inverse image sets to the the summary
 in 
 Section \ref{sub:summaryIII}. 
  
-Let $\T$ be an $X_k$ component of $\D_k$.
+Fix $k=1$ or $2$ and, to reduce notation,  let $\T_i$ denote the graph $\D_{k,i}$, for $0\le i\le 5$.
 \\[1em]
 
-\noindent\textbf{Modification 1: $\T\leadsto \T_1$.}\\
+\noindent\textbf{Modification 1: $\T_0\leadsto \T_1$.}\\
 This step involves the addition of paths labelled by $X_k$-words corresponding to
 $z$-edges of an $X_k$ component.
 
  If $(\a,z,\b)$ is an
-edge of $\T$ labelled by an element $z\in Z$ then add a path from
-$\a$ to $\b$ labelled by $\phi_k(z)$ to the graph $\T$. Do this
+edge of $\T_0$ labelled by an element $z\in Z$ then add a path from
+$\a$ to $\b$ labelled by $\phi_k(z)$ to the graph $\T_0$. Do this
 for all such edges and call the result
 $\T_1^\prime$. Fold $\T_1^\prime$ to form the graph
 $\T_1$. (See Figure \ref{fig:alg2-1}.)
@@ -2650,21 +2084,21 @@ $\T_1$. (See Figure \ref{fig:alg2-1}.)
 %\caption{}
 \end{subfigure}
 \end{center}
-\caption{$\Theta$ to $\Theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
+\caption{$\T_0$ to $\Theta_1$: $w=\phi_k(z)$.}\label{fig:alg2-1}
 \end{figure}
-Let $\theta_1$ be the composition of the inclusion map from 
-$\Theta$ to $\Theta'_1$ with the folding morphism from $\Theta'_1$ to
-$\Theta_1$. If $\a$ and $\b$ are vertices of $\Theta$ then,
-since $\theta_1$ is a morphism
-$\pi(L(\Theta, \a,\b))\subseteq \pi(L(\Theta_1,\theta_1(\a),\theta_1(\b)))$.
-On the other hand if $w$ is in  $L(\Theta_1,\theta_1(\a),\theta_1(\b))$
+Let $\th_{k,1}$ be the composition of the inclusion map from 
+$\T_0$ to $\Theta'_1$ with the folding morphism from $\Theta'_1$ to
+$\Theta_1$. If $\a$ and $\b$ are vertices of $\Theta_0$ then,
+since $\th_{k,1}$ is a morphism
+$\pi(L(\Theta_0, \a,\b))\subseteq \pi(L(\Theta_1,\th_{k,1}(\a),\th_{k,1}(\b)))$.
+On the other hand if $w$ is in  $L(\Theta_1,\th_{k,1}(\a),\th_{k,1}(\b))$
 then, since $\Theta_1$ is a folding of $\Theta_1^\prime$,
  there is a path labelled $w^\prime$ from $\a$ to $\b$ in $\Theta_1^\prime$,
 such that $\pi(w^\prime)=\pi(w)$.
 By construction then there exists  a path $w^{\prime\prime}$ from
-$\a$ to $\b$ in $\Theta$, such that $\pi(w^{\prime\prime}) =
-\pi(w^\prime)$. Hence $\pi(L(\Theta_1,\theta_1(\a),\theta_1(\b)))
-= \pi(L(\Theta, \a,\b))$.  \\[1em]
+$\a$ to $\b$ in $\Theta_0$, such that $\pi(w^{\prime\prime}) =
+\pi(w^\prime)$. Hence $\pi(L(\Theta_1,\th_{k,1}(\a),\th_{k,1}(\b)))
+= \pi(L(\Theta_0, \a,\b))$.  \\[1em]
 %%%
 
 \noindent\textbf{Modification 2: $\T_1\leadsto \T_2$.}\\
@@ -2682,7 +2116,7 @@ $\T_1$. Choose a spanning  forest $\U_1$ of  $\cP_1$. Next
  order the vertices of
 $\T_1$: say these are $\a_0,\ldots, \a_t$, in the order written.
 
-Let $\a_i$, $\a_j$ be vertices of  $\T$  with $i< j$. If
+Let $\a_i$, $\a_j$ be vertices of  $\T_0$  with $i< j$. If
 \begin{itemize}
 \item
  there
@@ -2712,11 +2146,11 @@ with $\a_j$. (See Figure \ref{fig:alg2-2}.)
 \caption{$\Theta_1$ to $\Theta_2$: $w_p=\phi_k^{-1}(l_p)$.}\label{fig:alg2-2}
 \end{figure}
 Repeat this process for all simple paths from  $(\a_i,1)$ to
-$(\a_j,1)$, over all pairs of vertices $\a_i$, $\a_j$ of $\T$,
+$(\a_j,1)$, over all pairs of vertices $\a_i$, $\a_j$ of $\T_0$,
 with $i\le j$. There are finitely many simple paths in $\cP_1$ so
 this process terminates. Call the result $\T_2^\prime$. Then
 $\T_1$ is a subgraph of $\T_2^\prime$. Now fold $\T_2^\prime$ to
-give a new graph $\T_2$. The composition $\theta_2$ of the the
+give a new graph $\T_2$. The composition $\th_{k,2}$ of the the
 embedding map of $\T_1$ into $\T_2^\prime$ with the canonical
 morphism from $\T_2^\prime$ to $\T_2$ is a morphism from $\T_1$ to
 $\T_2$.
@@ -2727,7 +2161,7 @@ $\T_2$.
 a path $q$ from $\a$ to $\b$, with label $w_p$, is added to $\Theta_1$
 in forming $\Theta_2$, then there is a path $p$ in $\Theta_1$ with
 $\pi(l(p))=\pi(w_p)$. Thus the argument of the previous case shows that
-$\pi(L(\T_1,\a,\b))=\pi(L(\T_2,\theta_2(\a),\theta_2(\b)))$.\\[1em]
+$\pi(L(\T_1,\a,\b))=\pi(L(\T_2,\th_{k,2}(\a),\th_{k,2}(\b)))$.\\[1em]
 
 \noindent\textbf{Modification 3: $\T_2\leadsto \T_3$.}\\
 At this stage we add $\phi_k^{-1}$ images of paths in $\T_2\times
@@ -2741,13 +2175,13 @@ of $Z$, and all edges of $\G_{H_k}$ are labelled by elements of $X_k$
 the graphs $\cP_1=\T_1\times \G_{H_k}$ and $\cP_2=\T_2\times \G_{H_k}$ differ only
 in that the second may have some new isolated vertices. Therefore we may
 choose a spanning forest $\U_2$ of $\cP_2$ consisting of the spanning
-forest $\U_1$ of $\cP_1$ with some new isolated vertices if necessary.
+forest $\U_1$ of $\cP_1$,  with some new isolated vertices if necessary.
 If $\cP_2$ is a forest then
 $\cP_2=\U_2$, there is nothing to do at the
 this stage, and we immediately set $\T_3=\T_2$. Otherwise, suppose
 that $e$ is an edge of $\cP_2$ which does not belong to $\U_2$ but
 which does belong to a component $\Xi$  of $\cP_2$ containing a
-vertex $(\a,1)$, for some vertex $\a$ of $\T$. Let $(\a,1)$ be
+vertex $(\a,1)$, for some vertex $\a$ of $\T_0$. Let $(\a,1)$ be
 such a vertex and let $e=((\a_i,\b_1), x, (\a_j,\b_2))$ be an edge
 in the same component of $\cP_2$ as $(\a,1)$,
  with label $x$ in $X_k$.
@@ -2791,12 +2225,12 @@ of $\cP_2$,  fold the resulting graph, and denote the result by
 $\T_3$. (In practice it's not necessary to repeat this process for
 {\em all} such vertices $(\a,1)$ in $\Xi$: but it makes some
 arguments  later easier if we assume that we do so.) As in the
-previous case there is a natural morphism $\theta_3$ from $\T_2$
+previous case there is a natural morphism $\th_{k,3}$ from $\T_2$
 to $\T_3$. Again, if $q$ is a path added to $\Theta_2$ in forming
 $\T_3$ then there is a path $p$ in $\T_2$, with the same end points
 as $q$, such that $\pi(l(p))=\pi(l(q))$. Hence, as before, for all
 vertices   $\a$, $\b$ of $\T_2$,
-$\pi(L(\T_2,\a,\b))=\pi(L(\T_3, \theta_3(\a),\theta_3(\b)))$.\\[1em]
+$\pi(L(\T_2,\a,\b))=\pi(L(\T_3, \th_{k,3}(\a),\th_{k,3}(\b)))$.\\[1em]
 
 \noindent\textbf{Modification 4: $\T_3\leadsto \T_4$.}\\
 Next we wish to add paths to $\T_3$ that allow us to read the normal
@@ -2811,7 +2245,7 @@ Recall that we have fixed a spanning subtree
 $T_k$ of $\G_{H_k}$.
 Let $\d=(\a_j,\b)$ be a vertex of $\cP_3$, with $\b\neq 1$, which lies
 in a connected component of $\cP_3$ containing a vertex  $\g=(\a_i,1)$,
-for some vertices $\a_i$ and $\a_j$ of $\T$.
+for some vertices $\a_i$ and $\a_j$ of $\T_0$.
 Let $b$ be the label of the path in $T_k$ from $1$ to $\b$.
  If $\cP_3$ contains a simple
 path from $(\a_i,1)$ to $(\a_j,\b)$, with label $b$,  then
@@ -2855,8 +2289,8 @@ vertices $\a,\b$ of $\T_3$, then $\pi(L_3)=\pi(L_3^\prime)$.
 Repeat this process for all pairs of  vertices which are not
 covered by $\cP_3$  and fold
 the result to form the graph $\T_4$. Again there is a natural
-morphism $\theta_4$ from $\T_3$ to $\T_4$. If $L_4$ is the
-language accepted by $(\T_4,\theta_4(\a),(\b))$, for some
+morphism $\th_{k,4}$ from $\T_3$ to $\T_4$. If $L_4$ is the
+language accepted by $(\T_4,\th_{k,4}(\a),(\b))$, for some
 vertices $\a,\b$ of $\Theta_3$, then
 we have $\pi(L_3)=\pi(L_4)$, as in previous cases.\\[1em]
 
@@ -2874,7 +2308,7 @@ By definition of $\sim$ there are  paths in $\G_{H_k}$,
 with label
 $c=c(\e_1,\e_2)$, from $\e_1$ to $\xi_1$ and $\e_2$ to $\xi_2$.
 
-Assume that, for  some vertices $\a_1,\a_2, \b$ of $\T$, there exist vertices
+Assume that, for  some vertices $\a_1,\a_2, \b$ of $\T_0$, there exist vertices
 $(\a_1,1)$, $(\a_2,1)$, $(\b,\e_1)$ and $(\b,\e_2)$, and simple 
 paths   $p_1$, from $(\a_1,1)$ to $(\b,\e_1)$,
 and $p_2$, from
@@ -2932,10 +2366,10 @@ the addition of this new path has no effect on the image, under $\pi$, of
 the language accepted by the automaton.
 
  Fold the resulting graph to form $\T_5$. As before, there is
-a natural morphism $\theta_5$ from $\Theta_4$ to $\Theta_5$ and again,
+a natural morphism $\th_{k,5}$ from $\Theta_4$ to $\Theta_5$ and again,
 if $\a,\b$ are
 vertices of $\Theta_4$ and $L_4$ and $L_5$ are the languages accepted by
-$(\Theta_4,\a,\b)$ and $(\Theta_5,\theta_4(\a),\theta_4(\b))$,
+$(\Theta_4,\a,\b)$ and $(\Theta_5,\th_{k,4}(\a),\th_{k,4}(\b))$,
 respectively, then $\pi(L_4)=\pi(L_5)$.
 
 (There is alot of redundancy built in to this modification step. In 
@@ -2944,31 +2378,28 @@ Example \ref{ex:K} below we discuss how to avoid some of the unnecessary
 
 
 \noindent\textbf{Reassembly.}\\
-The modification process is applied to all $X_k$ components of $\D_k$,
-for $k=1$ and $2$. Roughly speaking a new graph is then constructed by
-reconnecting the modified $X_k$ components in the same way as they
-were connected in $\D$. In detail,
-let $\cC$ be the set of all
-$X_1$ and $X_2$ components.
-Define
-\[E_Z=E(\D)\bs \cup_{\Phi\in \cC} E(\Phi)\]
-and $\D_Z$ to be the subgraph of $\D$ consisting of all edges
-of $E_Z$, and their incident vertices.
-Define $\D^\prime$ to be the disjoint union of the
- graphs $\T$, such that $\T\in \cC$, with  the graph $\D_Z$.
-Also define $\D^{\prime}_5$ to be the disjoint union of the graphs
-$\T_5$, such that $\T\in \cC$, with the graph $\D_Z$. For each
-$\T\in \cC$ there is  a morphism
-$\theta_5\circ\theta_4\circ\theta_3\circ\theta_2\circ\theta_1$
-from $\T$ to $\T_5$. Define $\theta$ to be the morphism from
-$\D^\prime$ to $\D^\prime_5$ which consists of the union of these
-morphisms with the identity morphism of $\D_Z$. By
-construction, for each connected component $\Xi$ of $\D^\prime$
-there is an embedding of $\Xi$ into $\D$. Let $\nu$ be the union
-of these embeddings over all components of $\D^\prime$.
+The modification process is applied to $\D_{1,0}$ and $\D_{2,0}$ to produce 
+$\D_{1,5}$ and $\D_{2,5}$, respectively. 
+Roughly speaking a new graph is then constructed by
+reconnecting $\D_{1,5}$ and $\D_{2,5}$  in the same way as they
+were connected in $\D$. In detail, 
+define $\D^\prime$ to be the disjoint union of the
+ graphs $\D_{1,0}$ and $\D_{2,0}$ and 
+ $\D^{\prime}_5$ to be the disjoint union of the graphs 
+$\D_{1,5}$ and $\D_{2,5}$. 
+ For $k=1$ and $2$, there is 
+  a morphism
+$\theta_k=\theta_{k,5}\circ\theta_{k,4}\circ\theta_{k,3}\circ\theta_{k,2}\circ\theta_{k,1}$
+\label{def:thk} 
+from $\D_{k,0}$ to $\D_{k,5}$. Define $\theta$ to be the morphism from
+$\D^\prime$ to $\D^\prime_5$ which consists of the union of $\theta_1$ and $\theta_2$. 
+ By
+construction 
+there is an embedding $\nu_k$ of $\D_{k,0}$ into $\D$, for $k=1,2$. Let $\nu$ be the union
+of $\nu_1$ and $\nu_2$.
 
 %\noindent\textbf{Output of Algorithm III.}\\
-The output of Algorithm III is the quotient $\D''$ of
+The output of the Reassembly step of Algorithm III is the quotient $\D''$ of
  $\D^\prime_5$ defined as follows.
 Let $u$ and $v$ be vertices
  of $\D^\prime_5$.
@@ -2988,10 +2419,11 @@ $\D$.
 In order to compute $\D''$, at each stage of the modification process
 we record the inverse images of vertices, under the maps $\theta_i$: these are the
 sets denoted $\vim$ in the summary of Algorithm III in Section \ref{sub:summaryIII}.
+\ajd{I'm not happy with this notation $\vim$.}
 
 \begin{lemma}\label{lem:resol-quot}
-Let $[\cdot]$ be the equivalence relation on $V(\D^\prime_5)$
-described above. There is a morphism $\rho$ from  $\D$ to
+Let $[\cdot]$ be the  quotient map of the equivalence relation $\approx$ on $V(\D^\prime_5)$
+(sending $x$ to its equivalence class $[x]$, for $x  \in V(\D'_5)$). There is a morphism $\rho$ from  $\D$ to
 $\D^{\prime\prime}$ given by
 \begin{itemize}
 \item
@@ -3000,7 +2432,28 @@ $u\in V(\D)$, and
 \item
 $\rho((u,a,v))=(\rho(u),a,\rho(v))$, for $(u,a,v)\in  E(\D)$.
 \end{itemize}
+(See Figure \ref{fig:rho}.)
 \end{lemma}
+\begin{figure}
+\begin{center}
+\psfrag{D}{$\Delta$}
+\psfrag{D'}{$\Delta'$}
+\psfrag{D''}{$\Delta''$}
+\psfrag{D'5}{$\Delta'_5$}
+\psfrag{F}{$\Phi$}
+\psfrag{v}{$\nu$}
+\psfrag{f}{$\th$}
+\psfrag{fold}{fold}
+\psfrag{p}{$\rho$}
+\psfrag{p'}{$\hat\rho$}
+\psfrag{s}{$[\cdot]$}
+\psfrag{0}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $0$}}
+\includegraphics[scale=0.5]{rho.eps}
+%\includegraphics[scale=0.4]{ex_K.eps}
+\caption{The maps  $\rho$ and $\hat\rho$}
+\label{fig:rho}
+\end{center}
+\end{figure}
 \begin{proof}
 First $\rho$ must be shown to be well defined.
 That is, we must verify that $[\theta(\nu^{-1}(u))]$ is a vertex of
@@ -3026,43 +2479,130 @@ Let $\D$ be an inverse automaton.
 %, with alphabet $\S$ and
 %start and final state $1$, such that
 %$\pi(L(\D))=K$.
- The result $\D^{\prime\prime}$ of applying  \ref{it:gf1}
+ The result $\D^{\prime\prime}$ of applying  \ref{it:gf1} (i.e. Algorithm III) 
 above to $\D$ is called a \emph{double coset resolution} or
 \emph{dc-resolution} of $\D$. The graph $\Psi$ obtained by applying
  \ref{it:gf2} to $\D^{\prime\prime}$ is called a \emph{double
 coset folding} or \emph{dc-folding} of $\D$.  The composition $\hat\rho$ of
 the  morphism
 $\rho:\D\maps \D^{\prime\prime}$ with the folding morphism $\D^{\prime\prime}\maps
-\Psi$ is called the \emph{dc-folding morphism}.
+\Psi$ is called the \emph{dc-folding morphism}. In particular, the root of $\Phi$ is 
+the image $\hat\rho(s)$ of the root $s$ of $\D$. 
+(See Figure \ref{fig:rho}.)
 \end{definition}
+
+\begin{lemma}\label{lem:dcfold}
+Let $\D$ be  an inverse automaton, with alphabet $\S$ and start
+state $s$, let $\D^{\prime\prime}$  and $\Psi$ be the
+dc-resolution and dc-folding of $\D$, respectively, and
+let $\hat\rho:\D\maps \Psi$ be the dc-folding morphism.
+
+ Then the following hold.
+\be
+\item
+\label{it:dcfold1} $\Psi$ is an inverse automaton, with unique
+start and  final state $\s=\hat\rho(s)$. The   $X_k$  component $\Phi_{k,0}$ of $\Phi$ has no
+more connected components than $\D_{k,0}$, for $k=1,2$.
+\item \label{it:dcfold2}
+$\pi(L(\Psi,\s))=\pi(L(\D,s))$.
+\ee
+\end{lemma}
+\begin{proof} ~
+%\be
+\ref{it:dcfold1}.
+%\item
+The automaton $\Psi$ is involutive and folded by definition.
+ Its root is the image of the root $\rho(s)$ of $\D^{\prime\prime}$ under
+ the folding morphism: that is $\hat\rho(s)$.
+ As
+$\D$ is connected  so is $\D^{\prime\prime}$ and therefore also
+$\Psi$. Hence $\Psi$ is inverse. The graph 
+$\D^{\prime\prime}$  has  $X_k$ component $\D''_{k,0}$ with no more connected components than $\D_{k,0}$.
+Folding to form $\Psi$ cannot increase this number, so the final
+statement of \ref{it:dcfold1} follows.
+%\item
+ \\[1em]
+\ref{it:dcfold2}. Let $w$ be a word accepted by $\Psi=(\Psi,\s)$. Since
+$\Psi$ is formed by a sequence of foldings of $\D^{\prime\prime}$,
+there is a word $v$ such that $v$ is accepted by
+$\D^{\prime\prime}$ (with root $\rho(s)$) and $\pi(v)=\pi(w)$.
+Thus $v$ is the label of a path $q_i$ in $\D^{\prime\prime}$, from  $\rho(s)$
+to $\rho(s)$, and
+ $v=v_1\cdots v_n$,
+where each factor $v_i$ is accepted by a connected component $\Xi_i$ of
+$\D^\prime_5$;  and no two consecutive factors are accepted by the
+same component. Let $x'_i$ and $y'_i$ be the initial and terminal vertices of 
+$q_i$, $i=1,\ldots ,n$. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1},  it
+follows that there are paths $p_1,\ldots, p_n$, in $\D^\prime$,
+with labels
+ $u_1,\ldots , u_n$, such that
+$\pi(u_i)=\pi(v_i)$ and
+$p_i$ is a path in the component
+$C_i=\theta^{-1}(\Xi_i)$ of $\D^\prime$, with 
+ initial and terminal vertices of  $x_i$ and  $y_i$ satisfying $\theta(x_i)=x'_i$ and 
+$\theta(y_i)=y'_i$. 
+As $\nu$ restricted to $C_i$ is an embedding, there is a path in $\D$,  from
+$\nu(x_i)$ to $\nu(y_i)$ with label $u_i$, for $i=1,\ldots, n$.
+
+ Moreover, as $v$ is a path in $\D^{\prime\prime}$, based at $\rho(s)$,
+we have
+\[[\theta(x_1)]=[\theta(y_n)]=\rho(s)\textrm{ and }[\theta(y_i)]=[\theta(x_{i+1})],\]
+for $i=1,\ldots ,n-1$. From Lemma \ref{lem:idverts}, there exist paths in
+$\D$,
+\begin{itemize}
+\item
+from $s$ to $\nu(x_1)$, with label $w_0$;
+\item  from $\nu(y_n)$ to $s$, with label $w_n$ and
+\item from $\nu(y_i)$ to $\nu(x_{i+1})$, with label $w_i$, for $i=1,\ldots,
+n-1$,
+\end{itemize}
+such that $\pi(w_i)=1$, for $i=1,\ldots ,n$. Thus $l=w_0u_1\cdots w_{n-1}u_n
+w_n$ is the label of a path in $\D$, based at $s$, such that
+$\pi(l)=\pi(u_0\cdots u_n)=\pi(v)=\pi(w)$.
+ Therefore
+$\pi(L(\Psi,\s))\subseteq \pi(L(\D,s))$. The reverse inclusion follows
+from the existence of the morphism $\hat\rho$ from $\D$ to $\Psi$.
+\begin{comment}
+Let $\Phi=\L_0,\L_1,\ldots, \L_n$ be a sequence of graphs such that
+$\L_{i+1}$ is obtained from $\L_i$ by and elementary folding.
+Suppose that all these foldings except possibly the last involve only edges
+of type $Z$. Assume $\L_n$ is formed from $\L_{n-1}$ by folding edges
+$(\a,x,\b_1)$ and $(\a,x,\b_2)$ with label $x\in X_k$. Since the
+first $n-1$ foldings involve only edges of type $Z$ it follows that
+if $\g_1$ and $\g_2$ are vertices of $\Phi$ which map via these foldings 
+to $\b_1$ and $\b_2$, then there is a path $q$ in $\Phi$ from $\g_1$ to $\g_2$
+which has label in $(Z^{\pm 1}\cup \{x^{\pm 1}\})^\ast$. Hence $\g_1$ and $\g_2$ both belong to
+ the same $X_k$ component of $\Phi$, which also contains the path $q$.
+Therefore all $n$ foldings can be carried out in this $X_k$
+component. However the $X_k$ components of $\Phi$ are folded, since they
+correspond to the graphs $\T_5$ constructed from $X_k$ components of $\D$.
+Therefore no folding involving an edge of type $X_1$ or $X_2$ can occur
+in such a sequence, and the result follows.
+\end{comment}
+%\ee
+\end{proof}
 \section{Summary of the generalised folding algorithm}
-\ajd{this para now needs rewording} \\
+
 In this section we summarise the algorithms which we have described above,
 in a form suitable for the analysis of their complexity,
-in Section \ref{sec:TC} below. That is we summarise Algorithms I and III
+in Section \ref{sec:TC} below. That is we summarise Algorithms I, II and III
 and the Generalised Folding Loop of Section \ref{sec:dca}. The Generalised Folding Loop, which calls Algorithm III
 during its execution, is what we refer to as the ``Generalised Folding
 Algorithm''.
 \subsection{Algorithm I}\label{sub:sum_algI}
-\ajd{In this section the automaton for $H$ is $\G_H$ and for 
-$H_i$ is $\G_{H_i}$. This now seems a waste of letters and probably
-is not the notation used elsewhere, or is it? Sorted.}
+Given $F_1*_{H_1=H_2} F_2$
+ the
+steps in  Section \ref{sub:algIpre} are carried out once for
+each group $H_i$. Once these steps have been completed
+then execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
+to find \normalform{s} for elements
+of $F_1$ or $F_2$.
 \subsubsection{Preproccessing.}\label{sub:algIpre}
 Given $H\le F$
  the
 steps in this subsection are carried out once. Subsequently  execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
 to find double coset normal forms of elements of $F$.
-\ajd{Now sorted, so no longer a problem. Here we are assuming that the group $H$ is already given by
- a basis $Y$. In principle this is the situation, as we are
-supposed to have an amalgam, which presupposes that we have
-2 isomorphic subgroups: and an isomorphism between them. When it comes
-to constructing an algorithm this is a pain. When we input generators
-we do a stallings folding and choose a spanning tree by BFS. We can
-use this to test that our generators $Y$ were free generators. However,
-we may obtain a different set of generators from the original. Then we
-have to specify the automorphism between the 2 subgroups. At present
-our programs automatically fix the automorphism (well they do if we
-are lucky.}
+
 
 \noindent\textbf{Input.}
 \biz
@@ -3083,10 +2623,6 @@ same connected components of $\G_H\times \G_H$).
 elements of $P$.
 \item $C$ the set of connecting elements, one for each element of $P$.
 (Each element of $C$ is the label of a path in $F_H$.) 
-\item \ajd{(We also need to keep track of the map between the basis $B$ corresponding to the tree $T$ and the generators $Y$, assuming the later is a basis. 
-The point is we will specify an isomorphism of $H_1$ and $H_2$ in the
-next section by matching up their generators. If we change basis, then
-we need to compute the effect of this isomorphism on the new basis.)}
 \eiz
 \noindent\textbf{Process.}
 Let $N=\sum_{y\in Y} |y|$.
@@ -3189,17 +2725,10 @@ The time required for these steps is $O(|w|)$.
 \end{comp}
 
 \subsection{Summary of Algorithm II}\label{sub:summaryII}
-Given $F_1*_{H_1=H_2} F_2$
- the
-steps in  Section \ref{sub:algIpre} are carried out once for
-each group $H_i$. Once these steps have been completed
-then execution of Algorithm I of Section \ref{sub:alg1ex} can be carried out as many times as necessary,
-to find double coset normal forms for elements
-of $F_1$ or $F_2$.
 
 \noindent\textbf{Input.}
 \biz
-\item $w\in \FF(X_1\cup X_2)$.
+\item $w\in \FF(X_1\cup X_2\cup Z)$.
 \eiz
 \noindent\textbf{Output.}
 \biz
@@ -3209,23 +2738,41 @@ the conditions of Definition \ref{def:dcnf} for the dc-normal form of $w$.
 \eiz
 \noindent\textbf{Process.}
 \be[{C}1]
-\item\label{it:alg2_start} Write $w=f_1\circ \cdots \circ f_s$, where 
-$f_i\in F_1\cup F_2$ and $s$ is as small as possible. 
+\item\label{it:alg2_ZtoXstart} If $w\in \FF(Z)$ output $(w)$ and halt. (This assumes $w$ is reduced.)
+\item\label{it:alg2_ZtoXnontriv} 
+Let $w=a_1^{\e_1}\cdots a_m^{\e_m}$, where $a_i\in X_1\cup X_2\cup Z$ and $\e_i=\pm 1$. 
+Let $i$ be maximal such that $a_j\in Z$, for all $j>i$. Let $a_i\in X_k$. 
+Set $U$ equal to the empty sequence, $f=k$  and $t=m$.
+\item\label{it:alg2_ZtoXsyll}
+Find the minimal integer
+$j$ such that $0\le j<i$ and $a_s\in Z\cup X_f$, for $j<s\le i$.  
+\item\label{it:alg2_ZtoXreplace} Let $v=b_{j+1}^{\e_{j+1}}\cdots b_t^{\e_t}$, where $b_s=a_s$, 
+if $a_s\in X_k$, and $b_s=\phi_f(a_s)$, if $a_s\in Z$. Freely reduce $v$ in $F_f$ and then insert
+$v$ at the left hand end of the sequence $U$. 
+\item\label{it:alg2_ZtoXrepeat} If $j=0$ continue to the next step. Otherwise set $t$ and $i$ equal to $j$
+, set  
+  $f=3-f$ and repeat from Step \ref{it:alg2_ZtoXsyll}.
+\item\label{it:alg2_start} 
+Let $U=(f_1,\ldots ,f_s)$. 
+%Write $w=f_1\circ \cdots \circ f_s$, where 
+%$f_i\in F_1\cup F_2$ and $s$ is as small as possible. 
 \item\label{it:C1} Let $L$ be a blank list and  set $i=s$. 
 \item\label{it:C2}  
 If $f_i\in F_j$ then 
 input $f_i$ to the execution phase, Section \ref{sub:alg1ex}, of Algorithm I, for the subgroup
 $H_j$ of $F_j$. Let the output be $(a_i,d_i,c_i)$ and 
 set $a'_i= \phi_{1-j}\phi_j^{-1}(a_i)$ and $t_i=\phi_j^{-1}(c_i)$.
-\item\label{it:C3}
-If $d_i\neq 1$ then append $(d_i,t_i)$ to the left hand end of $L$. 
+\item\label{it:C3} 
+If $d_i=1$ go to Step \ref{it:C4}. Otherwise 
+%If $d_i\neq 1$ then 
+append $(d_i,t_i)$ to the left hand end of $L$. 
 If $i>1$ replace $f_{i-1}$ with $f_{i-1}a'_i$, subtract $1$ from 
 $i$ and repeat from Step \ref{it:C2}. If $i=1$, append $\phi_j^{-1}(a_i)$ 
 to the 
 left hand end of $L$, output $L$ and stop. 
-\item If $d_i=1$ (so $t_i=1$) then 
+\item\label{it:C4}  If $d_i=1$ (so $t_i=1$) then 
 \begin{itemize}
-\item if $i=s$, replace $f_{i-1}$ with $f_{i-1}a'_i$, delete $f_i$ and subtract $1$ from $s$;
+\item if $1<i=s$, replace $f_{i-1}$ with $f_{i-1}a'_i$, delete $f_i$ and subtract $1$ from $s$;
 \item if $1<i<s$, replace $f_{i-1}$ with $f_{i-1}a'_if_{i+1}$,  
 replace $f_{i+k}$ with $f_{i+k+2}$, for $k=0,\ldots, s-i-2$, delete 
 $f_{s-1}$, and $f_s$, subtract $2$ from $s$  and
@@ -3302,12 +2849,10 @@ sets will be updated at each stage of the algorithm and will eventually
 equal the sets $\nu\theta^{-1}(v)$, for vertices of $\D'_5$.  In detail the steps are
 the following.
 \be
-\item\label{it:D1a} Remove all edges of type $X_{k'}$, where $k'=3-k$, from $\D$ to give a graph $\D'_{k,0}$.
-\item\label{it:D1b} A \emph{shoot} is an edge incident to a leaf. Remove all shoots
-of type $Z$ from $\D'_{k,0}$; adding
-edges removed to  a graph $\D_Z$ (which starts off empty, when $k=1$, and 
-is not reinitialised when $k$ is incremented to $2$). Continue
-until there are no shoots of type $Z$ in $\D'_{k,0}$. The resulting graph
+\item\label{it:D1a} Remove all edges of type $X_{k'}$, where $k'=3-k$, from $\D$ to give a graph $\D_{k}$.
+ \ajd{This messes up the complexity section which refers to $\D'_{k,0}$.}
+\item\label{it:D1b} Remove all connected components of $\D_k$ which have no edge
+of type $X_k$.  The resulting graph
 is $\D_{k,0}$. 
 \item\label{it:D1c} Rename vertices of $\D_{k,0}$: 
 a vertex named $v$ in $\D$ becomes
@@ -3371,7 +2916,7 @@ label $\phi_k^{-1}(l_ixl_j)$, where $l_i$ and $l_j$ are the labels of
 paths in $\U_{k,2}$ from $(\a,1)$ to $(\a_i,\b_1)$ and from $(a_j,\b_2)$ 
 to $(\a,1)$,
 respectively. The resulting graph is called  $\D_{k,3}'$.
-\ajd{This part of the algorithm can be made quicker. 
+\ajd{This part of the algorithm can be made quicker. (The python program uses the quick version.) 
 Suppose that \ref{it:D9} is carried out only for the first vertex of form $(\a,1)$ in 
 each component. Assume  component $C$ contains a second vertex $(\a',1)$ and an edge 
 $e=((\a_i,\b_1),x,(\a_j,\b_2))$, as above, with $l_i'$ and $l_j'$ paths from 
@@ -3381,7 +2926,7 @@ label $q$. This path had it's
 $Z$-equivalent added to $\D_{k,1}$ in Modification 2; so in $\D_{k,2}$ there is a path from $\a$
 to $\a'$ labelled $\phi^{-1}(q)$. Now $q^{-1}l_i$ and $q^{-1}l_j$ reduce to $l_i'$ and $l_j'$, as 
 these are all (concatenations of) paths in the forest $\U_{k,2}$. Therefore, after folding,
-$phi^{-1}(l_i'xl_j')$ is the label of  a path in $\D_{k,2}$.}
+$\phi^{-1}(l_i'xl_j')$ is the label of  a path in $\D_{k,2}$.}
 \item\label{it:D10} Construct the Stallings folding $\D_{k,3}$ of 
 $\D'_{k,3}$ and update $\vim$.
 \item\label{it:D11} (\textbf{Begin Modification 4}.)
@@ -3390,9 +2935,9 @@ $\D'_{k,3}$ and update $\vim$.
 $\U_{k,2}$,
 if necessary. 
 \item\label{it:D12} For all vertices of $\cP_{k,3}$ of the 
-form $(\a,1)$ do the following.
-Let $\theta(\a)$ be the component of $\cP_{k,3}$ containing $(\a,1)$.
-For all vertices $(\a_1,\b)$ of $\theta(\a)$, with $\b\neq 1$, let
+form $(\a,1)$, where $\a$ is a vertex of $\D$, do the following.
+Let $\cC(\a)$ be the component of $\cP_{k,3}$ containing $(\a,1)$.
+For all vertices $(\a_1,\b)$ of $\cC(\a)$, with $\a_1$ a vertex of $\D$ and $\b\neq 1$, let
 $b=w(\b)$, the label of the path from $1$ to $\b$ in $T_k$. If
 $b$ is readable in the automaton $\cP_{k,3}$ with start state $(\a,1)$ and
 the final state, after reading $b$, is $(\a_1,\b)$ there is nothing to do,
@@ -3400,8 +2945,6 @@ for this vertex $(\a_1,\b)$. Otherwise, let $a$ be the label of the
 path from $(\a,1)$ to $(\a_1,\b)$ in $\U_{k,3}$. Add to $\D_{k,3}$ a path from
 $\a$ to $\a_1$ with label $(\phi_k^{-1}(ab^{-1}))b$.
 The resulting graph is called $\D_{k,4}'$. 
-\ajd{Here, it's only necessary to consider vertices $\a$ and $\a'$ which are images of vertices in
-$\D$.}
 \item\label{it:D13} Construct the Stallings folding $\D_{k,4}$ of $\D'_{k,4}$ 
 and update $\vim$.
 \item\label{it:D14} (\textbf{Begin Modification 5}.)
@@ -3412,7 +2955,7 @@ Construct  $\cP_{k,4}=\D_{k,4}\times \G_{H_k}$ and its spanning
 each vertex $\b\in V(\D_{k,4})$ 
 such that $\vim(\b)\cap V(\D)\neq \emptyset$, do the following. 
 Let $C_1$ and $C_2$ be the components of $\cP_{k,4}$ containing 
-$(\b,\e_1)$ and $(\b,\e_2)$, respectively. Assume that there are vertices
+$(\b,\e_1)$ and $(\b,\e_2)$, respectively. Assume that there are boundary vertices
 $\a_1$ and $\a_2$ of $\D_{k,4}$ such that $\vim(\a_i)\cap V(\D)\neq \emptyset$ and 
 $(\a_i,1)\in V(C_i)$, for $i=1$ and $2$. (If any of these  conditions fail 
  there
@@ -3424,11 +2967,16 @@ let $a_i=w(\xi_i)$, $i=1,2$. Add  a path to $\D_{k,4}$,
 from $\a_1$ to $\a_2$, with label
 $\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}[\phi_k^{-1}(t_2ca_2^{-1})]^{-1}$. 
 The resulting graph is called  $\D_{k,5}'$.
+\ajd{Probably this step can do less. It is used when the free group, double coset normal form
+involves a type 2 representative. So we should make sure that the vertex $\b$ is one at 
+which there could be such a representative added. Care needs to be taken, as one half of the 
+type 2 representative may be trivial (i.e. it may be $s_1s_2^{-1}$ with $s_2=1$). Close scrutiny of
+the proof that the alg works is required to see if anything is possible here.}
 \item\label{it:D16} Construct the Stallings folding $\D_{k,5}$ of $\D'_{k,5}$ 
 and update $\vim$.
 \item\label{it:D16.5} Set $\D'_5$ equal to the disjoint union
-$\D_{1,5}\cup \D_{2,5}\cup \D_Z$. 
-\item\label{it:D17} (\textbf{Begin Reassembly}.) 
+$\D_{1,5}\cup \D_{2,5}$. 
+\item\label{it:D17} (\textbf{Reassembly}.) 
 For each vertex $(u,k)$ of $\D_{1,5}\cup \D_{2,5}$,
 do the following. For each vertex $(v,k')$ of $\D_{1,5}\cup \D_{2,5}$, not
 equal to $(u,k)$, if
@@ -3439,27 +2987,11 @@ initial or terminal vertex equal to $(v,k')$ then replace $e$ with
 an edge having $(u,k)$ as initial or terminal vertex, instead of $(v,k')$.
 Delete $(v,k')$, once no more such edges exist.
 Continue for as long as possible: that is until 
-$\vim(u,k)\cap \vim(u',k')=\emptyset$, whenever $(u,k)\neq (u',k')$. The resulting graph is denoted $\D''_5$.
-\item\label{it:D18} 
-If $\a\in \vim(u,k)$, 
-%If $\vim(\a)\cap \vim(u,k)\neq \nul$,
- for some
- vertices $\a$ of $\D_Z$ and $(u,k)$ of $\D''_5$ then replace $\a$ 
-with $(u,k)$. % and add $\a$ to $\vim(u,k)$. 
-(Note that, as
-we have completed step \ref{it:D17}, there is at most one such vertex of
-$\D'_5$.)
-If $\a$ has been replaced by $(u,k)$ then, for every edge $e$ of $\D_Z$,
- of the form $(\a,\b)$ (or its reverse), replace $e$ with
- the edge $((u,k), \b)$ (or its reverse). Call the resulting graph $\D_Z''$.
-\item\label{it:D19} Form $\D''$ from the union of $\D''_5$ and $\D_Z''$:
- by identifying vertices of $\D_Z''$ with vertices of  $\D''_5$
-of the same name.
-%\item\label{it:D20}  Construct $\D''$, the Stallings folding of $\bar \D$.
+$\vim(u,k)\cap \vim(u',k')=\emptyset$, whenever $(u,k)\neq (u',k')$. The resulting graph is denoted $\D''$.
 \ee
-In Lemma \ref{lem:idverts} below we verify that the graph output from 
-Step \ref{it:D19} is the same as the graph $\D''$ constructed in Section
-\ref{sec:dca}, using the equivalence relation $\approx$.  
+For each vertex $u$ of $\D'_5$ we have $\vim(u)=\nu(\theta^{-1}(u))$ and it follows that the graph
+$\D''$ output by Step \ref{it:D17} is the graph $\D''$ constructed in Section
+\ref{sec:dca}, using the equivalence relation $\approx$. 
 
 \subsection{Summary of the Generalised Folding Algorithm}\label{sec:GFA}
 Here the assumptions are as for Algorithm III.
@@ -3479,6 +3011,7 @@ double coset normal form of every element of $K$.
 \eiz
 \noindent\textbf{Process.}\\
 \be[{E}1]
+\item For each $i$ add the normal form of $k_i^{-1}$ to the list $k_1, \ldots ,k_s$, if it is not there already.
 \item Form the flower automaton $\cF(K)$ of the subgroup $\hat K$ of 
 $\FF(X_1\cup X_2\cup Z)$ generated by $k_1,\ldots, k_s$, as in Section 
 \ref{sec:dca}. 
@@ -3487,8 +3020,8 @@ $\FF(X_1\cup X_2\cup Z)$ generated by $k_1,\ldots, k_s$, as in Section
 \item\label{it:loop2} Input $\D_{(n)}$ to Algorithm III.
 Call the output $\D''_{(n+1)}$.
 \item\label{it:loop3} Fold  $\D''_{(n+1)}$ and call the result   $\D_{(n+1)}$.
-\item\label{it:loop4} If the number of $X_1$ and $X_2$ components of $\D_{(n)}$ and
-$\D_{(n+1)}$ are the same, output $\D_{(n+1)}$ and halt. Otherwise,
+\item\label{it:loop4} If  $\D_{(n)}$ and
+$\D_{(n+1)}$ are the same, output $\D_{(n)}$ and halt. Otherwise,
  add $1$ to $n$ and go to Step \ref{it:loop2}.
 \ee
 \subsection{Generalised folding example}
@@ -3530,15 +3063,15 @@ and
 We form the flower automaton of $K$ and then its (classical) Stallings folding,
 which is
 shown in Figure \ref{fig:Kflower}.
-There is one $X_1$ component $\Theta$ of this graph, shown in Figure \ref{fig:KX}
+There is one $X_1$ component $\Theta_0$ of this graph, shown in Figure \ref{fig:KX}
 and two $X_2$ components, $\Theta^\prime$ and $\Theta^{\prime\prime}$,
-shown in Figure \ref{fig:KY}. Thus $\D_{1,0}=\Theta$ and 
+shown in Figure \ref{fig:KY}. Thus $\D_{1,0}=\Theta_0$ and 
 $\D_{2,0}=\T'\cup \T''$. Each of these components is input to
  the Generalised Folding Loop, in turn.  
 %The graph $\D_Z$ is shown
 %in Figure \ref{fig:notyetdrawn}.
 
-First consider the $X_1$ component $\Theta$. Modification 1
+First consider the $X_1$ component $\Theta_0$. Modification 1
 results in the graph of Figure \ref{fig:K_f1}. To perform the next
 stages of the  modification process the graph  $\cP_{1,1}=\Theta_1 \times
 \G_{H_1}$ is constructed; where $\G_{H_1}$ is the graph of Example
@@ -3767,7 +3300,7 @@ the algorithm halts after one iteration of the Generalised Folding Loop, outputt
 \psfrag{28}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $28$}}
 \psfrag{29}{\hspace{-2pt}\raisebox{-2pt}{\scriptsize $29$}}
 \includegraphics[scale=0.5, bb=0 0 300 600]{ex_K_X.eps}
-\caption{$X_1$ component $\Theta$}
+\caption{$X_1$ component $\Theta_0$}
 \label{fig:KX}
 \end{center}
 \end{figure}
@@ -5932,55 +5465,93 @@ the algorithm halts after one iteration of the Generalised Folding Loop, outputt
 \label{fig:out}
 \end{center}
 \end{sidewaysfigure}
+and start
+and final state $1$, such that $\pi(L(\D))=K$. Edges labelled
+with elements of $X_k$ are said to have type $k$. Edges labelled with
+elements of $Z$ are said to have type $Z$.
 \section{Proofs of main results}\label{sec:proofs}
-\begin{lemma}\label{lem:nfcomp}
-Let $\a$ and $\b$ be boundary vertices of  an $X_k$ component $\T$ of
-an inverse automaton $\D$, with alphabet $\S$. Then   the following hold.
+If $w$ is a word in $\FF(X_k\cup Z)$, and $w'$ is the word obtained from $w$ 
+by replacing each occurrence of a letter $z \in Z^{\pm}$ by $\phi_k(z)$, and then freely
+reducing the result in $\FF_k$, then the double coset normal form of $w$ is by definition
+equal to $(h_1,s,h_2)$, where $w'$ has \normalform~ $(u_1,s,u_2)$ and $h_i=\phi_k^{-1}(u_i)$. In the second part of the
+next lemma we show that 
+if such $w$ is a subword of a word accepted by an inverse automaton $\D$, then the normal form of $w$ is accepted by the 
+by the automaton resulting from the operation of the Generalised Folding Loop on $\D$. 
+
+\begin{lemma}\label{lem:nfcomp} Let $\D$ be an inverse automaton with alphabet $\S$ and let 
+$\D_{k,0}$ be an $X_k$ component of $\D$, for $k\in \{1,2\}$. 
+Let $\a$ and $\b$ be boundary vertices of  $\D_{k,0}$ and let $\th_k$ be the map from
+$\D_{k,0}$ to $\D_{k,5}$ defined in the Reassembly step of Section \ref{sec:dca}.  Then   the following hold.
 \be
 \item\label{it:nfcomp1}
-  $\pi(L(\T,\a,\b))=\pi(L(\T_5,\theta(\a),\theta(\b)))$.
+  $\pi(L(\D_{k,0},\a,\b))=\pi(L(\D_{k,5},\th_k(\a),\th_k(\b)))$.
 \item\label{it:nfcomp2} Let $w$ be a word
- which is accepted by the automaton $(\T, \a, \b)$. Then the
-normal form of $w$ is accepted by $(\T_5, \theta(\a), \theta(\b))$.
+ which is accepted by the automaton $(\D_{k,0}, \a, \b)$. Then the double coset normal form of 
+$w$ is $(h_1,s,h_2)$, for some $h_i\in \FF(Z)$, and the word $h_1sh_2$  is accepted by $(\D_{k,5}, \th_k(\a), \th_k(\b))$.
 \ee
 \end{lemma}
 \begin{proof} ~
 \ref{it:nfcomp1}.
 At each stage of the modification process of Algorithm
-III the image under $\pi$ of the language accepted by $(\T_i,\a,\b)$  was
-preserved.
+III the image under $\pi$ of the language accepted by $(\D_{k,i},\a,\b)$  is
+preserved. The result now follows directly from the definition of $\th_k$ on page \pageref{def:thk}.
 
 \ref{it:nfcomp2}.
-Let $\cP_j=\cP_{k,j}=\D_{k,j}\times \G_{H_k}$ and let $\U_j=\U_{k,j}$, where $\cP_{k,j}$ and $\U_{k,j}$
-are defined in Algorithm III, Section \ref{sub:summaryIII}. 
-We may assume that $w\in \FF(X_k)$ (given the construction of $\T_1$).
-Let $w$ have normal form $h_1s h_2^{-1}$, where  $s\in S_k$ and $h_i\in \FF(Z)$.
-There are two cases to consider, depending on whether $s$ is a
-representative of type $1$ or type $2$. \ajd{There are \emph{three} cases
-to consider: as it may be that $s=1$}. 
- First consider the case where $s$ is of type $1$, say
+For $j=1,\ldots ,4$, let $\cP_j=\cP_{k,j}=\D_{k,j}\times \G_{H_k}$ and let $\U_j=\U_{k,j}$ be a spanning tree for $\cP_{k,j}$, as in 
+ Algorithm III, Section \ref{sub:summaryIII}. 
+ Let $w'$ be the word obtained from $w$ by replacing each occurrence of a letter $z \in Z^{\pm}$ by $\phi_k(z)$, and then freely
+reducing the result in $\FF_k$. Then there is a path in  $\D_{k,1}$ from $\a$ to $\b$ with label $w'$. 
+Let $w'$ have \normalform~ $(u_1,s, u_2^{-1})$, where  $s\in S_k$, $u_i\in F_k$ and 
+$u_2^{-1}\in \cT_s$. Let $h_i=\phi_k^{-1}(u_i)\in \FF(Z)$, so $w=_G w'=_G h_1sh_2^{-1}$.
+There are three cases to consider, depending on whether $s=1$ or $s$ is a
+representative of type $1$ or type $2$.
+ 
+ First consider the case $s=1$, so $u_2=1$ and $w'=u_1=_G h_1$. Then $w'$ is 
+the label of a closed path at $1$ in $\G_{H_k}$ so there is a path $p$ from $(\a,1)$ to $(\b,1)$ in $\cP_1$ 
+ with label $w'$. Therefore there is a path from $(\a,1)$ to $(\b,1)$ in $\U_1$ with label $u$, say, 
+and during Modification 2 a path with label $h=\phi_k^{-1}(u)$, from $\a$ to $\b$, is added to $\D_{k,1}$. 
+If $p$ is in $\U_1$ then $u=w'$ and so the result holds in this case. Suppose then that 
+$p$ has $m$ edges not in $\U_1$. Then $p=p_0ep_1$, where $p_0$ is a path in $\U_1$ and $e$ is an edge not in $U_1$, with
+label $x\in X^{\pm 1}$.
+Suppose that $e=(\g,x,\d)$, where $\g$ and $\d$ are vertices of $\cP_1$, and let $w_0$ and $w_1$ be the labels of $p_0$ and $p_1$,
+ respectively. Let $v$ be the label of the path $l$ from $(\a,1)$ to $\d$ in $\U_1$. Then a closed path at $\a$, 
+with label $\phi_k^{-1}(w_0xv^{-1})$, 
+is added to $\D_{k,2}$ during Modification 3. The path $lp_1$ from $(\a,1)$ to $(\b,1)$ has label $vw_1$ and has 
+fewer edges outside $\U_1$ than $p$; so by induction there
+is a path from $\a$ to $\b$ in $\D_{k_3}$ with label $\phi_k^{-1}(vw_1)$. As $\D_{k,3}$ is folded 
+it follows that it contains a path with label $\phi_k^{-1}(w_0xw_1)=\phi_k^{-1}(w_0xv^{-1})\phi_k^{-1}(vw_1)$, that is with label
+$\phi_k^{-1}(w')$. This completes the proof in the case $s=1$. 
+
+Next consider the case where $s$ is of type $1$, say
  $s= a_1 e a_2^{-1}$, where
 $a_1$ is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $s$ and
  $a_2$  is a maximal $L_{Q_k}$-prefix and an $L_{T_k}$-prefix of $a_2\circ e^{-1}$.
- Then, as the normal form is the result of applying $\phi_k$ to the
+ Then, as the normal form is the 
 output of Algorithm I,
  there are words
 $g_1, g_2, b_1$ and $b_2\in \FF(X_k)$ such that
-$w=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
+$w'=g_1\circ b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
 $g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
 $b_1\circ e \circ b_2^{-1}\circ g_2^{-1}$,
 $b_2$ is a maximal $L_Q$-prefix of $b_2\circ e^{-1}$, $e\neq 1$,
-$a_i=w(\t(b_i))$ and $\phi_k(h_i)=g_ib_ia_i^{-1}$, $i=1,2$.
+$a_i=w(\t(b_i))$ and $u_i=g_ib_ia_i^{-1} = \phi_k(h_i)$, $i=1,2$.
 
-Recall that we refer to the images of vertices of $\T$ in $\T_i$ as
- ``vertices of $\T$'', for $i=1,\ldots ,5$.
-Since $g_i\in H_k$ and $w$ is accepted by $\T_1$ there is a path
-labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\T$ and a path
-labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\T$. Therefore, in $\cP_1$,
+Recall that we refer to the images of vertices of $\D_{k,0}$ in $\D_{k,i}$ as
+ ``vertices of $\D$'', for $i=1,\ldots ,5$.
+Since $g_i\in H_k$ and $w'$ is accepted by $\D_{k,1}$ there is a path
+labelled $g_1$ from $\a$ to a vertex $\a_1$ of $\D_{k,0}$ and a path
+labelled $g_2$ from $\b$ to a vertex $\b_1$ of $\D_{k,0}$. 
+ As in the case where $s=1$,  in $\D_{k,3}$ there exist paths from $\a$ to $\a_1$ and from $\b$ to $\b_1$, with labels
+$\phi_k^{-1}(g_1)$ and $\phi_k^{-1}(g_2)$, respectively.
+
+\begin{comment}
+%%%old below
+Therefore, in $\cP_1$,
 there are paths $p_1$ from $(\a,1)$ to $(\a_1,1)$ labelled $g_1$, and
 $p_2$
 from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 (See Figure \ref{fig:nf-1}.)
+\end{comment}
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a$}
@@ -6001,7 +5572,7 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \psfrag{g2}{$\phi_k^{-1}(g_2)$}
 \psfrag{h'2a2}{$h_2^\prime a_2$}
 \psfrag{h'1a1}{$h_1^\prime a_1$}
-\psfrag{Th5}{$\T_4$}
+\psfrag{Th5}{$\D_{k,4}$}
 \psfrag{cP}{$\cP_3$}
 \psfrag{G_H}{$\G_{H_k}$}
 \psfrag{(a,1)}{$(\a,1)$}
@@ -6012,8 +5583,8 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \psfrag{(b2,e2)}{$(\b_2,\e_2)$}
 \psfrag{g-1}{$g_1$}
 \psfrag{g-2}{$g_2$}
-\psfrag{b'_1}{$b_1^\prime$}
-\psfrag{b'_2}{$b_2^\prime$}
+\psfrag{b'_1}{$t_1$}
+\psfrag{b'_2}{$t_2$}
 \psfrag{a_1}{$a_1$}
 \psfrag{a_2}{$a_2$}
 \psfrag{e1}{$\e_1$}
@@ -6025,6 +5596,7 @@ from $(\b,1)$ to $(\b_1,1)$ labelled $g_2$.
 \caption{Normal form: type 1.}
 \label{fig:nf-1}
 \end{figure}
+\begin{comment}
 Now $p_1$ may
 be written as a concatenation of paths $p_1=o_0e_1\cdots e_l o_{l}$,
 where $o_i$ is a simple path in $\U_1$ and $e_i$ is an edge of $\cP_1$ which does
@@ -6062,12 +5634,12 @@ Moreover, for $i=1,\ldots ,l$,
 the path $L_i e_i R_i$ is a closed path in $\cP_1\subseteq \cP_2$, based
 at $(\a,1)$, containing exactly one edge, $e_i$, which is not in $\U_1$, so not in $\U_2$.
 Thus the label of  $L_i e_i R_i$ is $v_i\in H_k$ and $\phi_k^{-1}(v_i)$ is the
-label of a closed path in $\T_3$, based at  $\a$. (All such paths
-were added in the construction of $\T_3$ from $\T_2$.)
+label of a closed path in $\D_{k,3}$, based at  $\a$. (All such paths
+were added in the construction of $\D_{k,3}$ from $\D_{k,2}$.)
 Also, the path $L_{l+1}$, from $(\a,1)$ to $(\a_1,1)$, has
 label $v_{l+1}\in H$,
-and by construction of $\T_2$ there is a path from $\a$ to
-$\a_1$ in $\T_2$ with label $\phi_k^{-1}(v_{l+1})$.
+and by construction of $\D_{k,2}$ there is a path from $\a$ to
+$\a_1$ in $\D_{k,2}$ with label $\phi_k^{-1}(v_{l+1})$.
 The path
 $p_1$ is the result of reducing (deleting adjacent edges $e,e^{-1}$) the path
 $o_0 e_1 (R_1 R_1^{-1}) o_1 \cdots e_{l}(R_l R_l^{-1}) o_{l}$, which
@@ -6076,66 +5648,72 @@ of $p_1$ is the result of
 reducing the word $v_1\cdots v_l v_{l+1}$
  and $\phi_k^{-1}(g_1)$ is the result of
 reducing $\phi_k^{-1}(v_1) \cdots \phi_k^{-1}(v_{l+1})$. As each $\phi_k^{-1}(v_i)$ is readable
-in $\T_3$ and $\T_3$ is folded this means  that $\phi_k^{-1}(g_1)$ is the
-label of a path, from $\a$ to   $\a_1$, in $\T_3$. Similarly,
+in $\D_{k,3}$ and $\D_{k,3}$ is folded this means  that $\phi_k^{-1}(g_1)$ is the
+label of a path, from $\a$ to   $\a_1$, in $\D_{k,3}$. Similarly,
 $\phi_k^{-1}(g_2)$
-is the label of a path from $\b$ to $\b_1$ in $\T_3$.
+is the label of a path from $\b$ to $\b_1$ in $\D_{k,3}$.
+\end{comment}
 
 The word $b_1$ is readable by $\G_{H_k}$ and there
-is a path with label $b_1$ in $\T_1$ from $\a_1$ to some vertex $\a_2$
-of $\T$.
+is a path with label $b_1$ in $\D_{k,1}$ from $\a_1$ to some vertex $\a_2$
+of $\D_{k,0}$.
 Hence $b_1$ is the label of a path in $\cP_1\subseteq \cP_3$ from $(\a_1,1)$ to
 $(\a_2,\e_1)$, for some vertex $\e_1$ of $\G_{H_k}$.
 By definition $a_1=w(\t(b_1))$ is the label of a path in $T_k$ from $1$ to $\e_1$.
-Let $b_1^\prime$
+Let $t_1$
  be the label of the simple path $p_1^\prime$ in $\U_3$ from
-$(\a_1,1)$ to $(\a_2,\e_1)$ (see Figure \ref{fig:nf-1}). By construction $\T_4$ contains a path
-from $\a_1$ to $\a_2$ with label $h_1^\prime a_1$, where
-$h_1^\prime =\phi_k^{-1}(b_1^\prime a_1^{-1})\in \FF(Z)$.
+$(\a,1)$ to $(\a_2,\e_1)$ (see Figure \ref{fig:nf-1}). By construction $\D_{k,4}$ contains a path
+from $\a$ to $\a_2$ with label $h_1^\prime a_1$, where
+$h_1^\prime =\phi_k^{-1}(t_1 a_1^{-1})\in \FF(Z)$.
 (If $\cP_3$ covers the pair $(\a_1,1)$, $(\a_2,\e_1)$ then
-$b_1^\prime=a_1$ and $h_1^\prime$ is the empty word, while there
-exists a path with label $a_1$ from $\a_1$ to $\a_2$ in $\T_3$.)
+$t_1=a_1$ and $h_1^\prime$ is the empty word, while there
+exists a path with label $a_1$ from $\a$ to $\a_2$ in $\D_{k,3}$.)
 %Furthermore we have
-%$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(b_1^\prime)$.
-Now $b_1(b_1^\prime)^{-1}\in H_k$ and is the label of a closed
-path  in $\cP_1\subseteq \cP_3$ based at $(\a_1,1)$; so by the
-previous part of proof, $\T_3$ contains a closed path, based at $\a_1$,
+%$\pi(\phi_k(h_1^\prime)b_1^{\prime\prime})=\pi(t_1)$.
+Now $g_1b_1t_1^{-1}\in H_k$ and is the label of a closed
+path  in $\cP_1\subseteq \cP_3$ based at $(\a,1)$; so by the
+previous part of proof, $\D_{k,3}$ contains a closed path, based at $\a$,
  with label
-$w_1^\prime=\phi_k^{-1}(b_1(b_1^\prime)^{-1})$. Hence, as it is folded,
-$\T_4$ contains a path, from $\a$ to $\a_2$,
+$w_1^\prime=\phi_k^{-1}(g_1b_1t_1^{-1})$. Hence, as it is folded,
+$\D_{k,4}$ contains a path, from $\a$ to $\a_2$,
 with label the reduced word obtained from the product
-$\phi_k^{-1}(g_1)w_1^{\prime} h_1^\prime a_1$, that is
+$w_1^{\prime} h_1^\prime a_1$, that is
  $\phi_k^{-1}(g_1b_1a_1^{-1}) a_1=h_1a_1$.
- Similarly, $\T_1$ contains a path labelled $b_2$ from $\b_1$ to
-some vertex $\b_2$ of $\T$, and $\T_4$ contains a path from
+ Similarly, $\D_{k,1}$ contains a path labelled $b_2$ from $\b_1$ to
+some vertex $\b_2$ of $\D_{k,0}$, and $\D_{k,4}$ contains a path from
 $\b$ to $\b_2$ with label $h_2a_2$.
 
-As $w$ is the label of a path in $\T_1$ there is a path from $\a_2$ to
-$\b_2$ in $\T_4$ with label $e$. Therefore, in this case, $\T_4$ contains
-a path from $\a$ to $\b$ which has label the normal form of $w$.
+As $w'$ is the label of a path in $\D_{k,1}$ there is a path from $\a_2$ to
+$\b_2$ in $\D_{k,4}$ with label $e$. Therefore, in this case, $\D_{k,4}$ contains
+a path from $\a$ to $\b$ which has label $h_1a_1ea_2^{-1}h_2^{-1}=h_1sh_2^{-1}$, as required. 
 
 
 
-In the second case,
-let $w$ have normal form $h_1 a_1 a_2^{-1} h_2^{-1} $, where
-$h_1$ and $h_2$ are in $\FF(Z)$,  $a_1$ and $a_2$ are labels
-of simple paths in the subtree $T_k$ and $s=a_1a_2^{-1}$ is a double coset
-representative of type $2$. Then there are words
+
+
+Finally consider the case where $s$ is a double coset
+representative of type $2$, so $s=a_1a_2^{-1}$, where   
+ $a_1$ and $a_2$ are labels
+of simple paths in the subtree $T_k$. Then   
+ there are words
 $g_1, g_2, b_1, b_2, c$  in $\FF(X_k)$,  such that
 $w=g_1\circ b_1 \circ b_2^{-1}\circ g_2^{-1}$,
 $g_i\in H_k$, $b_1$ is a maximal $L_Q$-prefix of
-$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ in
+$b_1 \circ b_2^{-1}\circ g_2^{-1}$, $b_2$ is in
 $L_Q$, $c=c(\t(b_1),\t(b_2))$, $a_i=w(v_i)$, where
 $(v_1,v_2)$ is the $\sim$ representative of $(\t(b_1),\t(b_2))$, 
-and $h_i=\phi_k^{-1}(g_ib_ica_i^{-1})$.
+and $h_i=\phi_k^{-1}(g_ib_ica_i^{-1})$. 
 
-Then $\T$ contains vertices $\g_1=\a,\g_2=\b, \a_1, \a_2$ and $\g$ and there are paths
-in $\T_1$ 
+Then $\D_{k,0}$ contains vertices $\g_1=\a,\g_2=\b, \a_1, \a_2$ and $\g$ such that  there are paths
+in $\D_{k,1}$ 
 labelled $g_i$, from $\g_i$ to $\a_i$, and labelled $b_i$ from $\a_i$ to $\g$,
-$i=1,2$. Moreover, as in the first case there are paths in $\T_3$ labelled
-$\phi_k^{-1}(g_i)$
-from $\g_i$ to $\a_i$, $i=1,2$.
-(See Figure \ref{fig:nf-2}.)
+$i=1,2$. 
+Let $\e_i=\t(b_i)$, $i=1,2$. 
+As in the previous case,  there is a path labelled 
+$b_i$ in $\cP_{k,3}$ and 
+ a  path labelled $t_i$  in $\U_3$, from $(\a_i,1)$ to $(\g,\e_i)$. 
+Thus, as before,  there is a closed path based at $\g_i$ in $\D_{k,3}$ with
+label $w'_i=\phi_k^{-1}(g_ib_it_i^{-1})$, $i=1,2$. (See Figure \ref{fig:nf-2}.) 
 \begin{figure}
 \begin{center}
 \psfrag{a}{$\a=\g_1$}
@@ -6144,9 +5722,9 @@ from $\g_i$ to $\a_i$, $i=1,2$.
 \psfrag{a2}{$\a_2$}
 \psfrag{b1}{$\a_2$}
 \psfrag{b2}{$\b_2$}
-\psfrag{g1}{$\phi_k^{-1}(g_1)$}
-\psfrag{g2}{$\phi_k^{-1}(g_2)$}
-\psfrag{Th5}{$\T_5$}
+\psfrag{g1}{$w'_1$}
+\psfrag{g2}{$w'_2$}
+\psfrag{Th5}{$\D_{k,5}$}
 \psfrag{b_1}{$b_1$}
 \psfrag{b_2}{$b_2$}
 \psfrag{w}{$r$}
@@ -6160,21 +5738,12 @@ from $\g_i$ to $\a_i$, $i=1,2$.
 \caption{Normal form: type 2, $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$.}
 \label{fig:nf-2}
 \end{figure}
-Let $\e_i=\t(b_i)$, $i=1,2$; so $(\e_1,\e_2)\in P$. 
-As $w$ is readable in $\T_1$ there is a path labelled 
-$b_i$ from $(\a_i,1)$ to $(\g,\e_i)$ in $\cP_{k,4}$, so there
-exists a simple path, labelled $t_i$, from $(\a_i,1)$ to $(\g,\e_i)$ in 
-$\U_{k,4}$. Then $\T_3$ contains a path from $\a_i$ to $\a_i$ with 
-label $\phi_k^{-1}(b_it_i^{-1})$. 
-By construction of $\T_5$ there is also a path labelled
+By construction of $\D_{k,5}$ there is also a path labelled
 $r=\phi_k^{-1}(t_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}t_2^{-1})$
 from $\a_1$ to $\a_2$.
- As $\T_5$ is folded
-$
-\phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$
- is readable in
-$\T_5$, as required.
-
+ Therefore, as $\D_{k,5}$ is folded, it contains a path from $\a=\g_1$ to $\b=\g_2$ with label 
+$\phi_k^{-1}(g_1 b_1ca_1^{-1})a_1a_2^{-1}\phi_k^{-1}(a_2c^{-1}b_2^{-1}g_2)$,
+ as required. 
 \end{proof}
 
 \begin{lemma}\label{lem:idverts}
@@ -6183,72 +5752,23 @@ phase of Algorithm III, in Section \ref{sec:dca}, and
 let $\approx$ be the equivalence relation on $V(\D^\prime_5)$, defined 
 in \ref{it:R1}, above. For $v\in V(\D^\prime_5)$, 
 let $[v]$ denote the equivalence class of $v$ under $\approx$. 
-\be
-\item
-The graph $\D''$ defined in Section \ref{sec:dca} is isomorphic
-to the graph output by  Step \ref{it:D19} of Algorithm III as described in
-Section \ref{sub:summaryIII}. 
-\item
+
 If $x$ and $y$ are vertices of $\D^\prime$, such that
 $[\theta(x)]= [\theta(y)]$ in $\D^{\prime\prime}$, then
 there exists a path in $\D$, from $\nu(x)$ to $\nu(y)$, with label $w$,
 such that $\pi(w)=1$.
-\ee
 \end{lemma}
-\begin{proof}
-\be
-\item
-The Steps of Algorithm III in Section \ref{sub:summaryIII}, as far as 
-Step \ref{it:D16.5} carry out Modifications 1 to 5, as described in
-Section \ref{sec:dca}. Thus the 
-two versions of the graph $\D'$,
-the first defined in Section \ref{sec:dca} and the second in
-Section \ref{sub:summaryIII}, are the same. 
-We need then to  show that the quotient $\D''$ of 
- $\D'$ constructed in Section \ref{sec:dca} is isomorphic to
-the graph output by Step \ref{it:D19} of the algorithm in 
-Section \ref{sub:summaryIII}. 
-To avoid ambiguity the graph output by Step \ref{it:D19} will be
-called $\hat\D''$ here. In the process of constructing $\hat\D''$
-from $\D'$, two vertices $u$ and $v$ of $\D'$ are identified
-if and only if there is a sequence $u=u_0,\ldots ,u_n=v$, such 
-that $\vim(u_{i-1})\cap \vim(u_ i)\neq \emptyset$,  $i=1,\ldots , n$. 
-Moreover, if the vertex $w$ of $\hat\D''$ is the result of identifying 
-exactly $n$ vertices $v_1,\ldots ,v_n$ of $\D'$, then 
-$\vim(w)=\cup_{i=1}^n\vim(v_i)$ and also, if $w$ and $w'$ are distinct
-vertices of $\hat \D''$ then $\vim(w)\cap \vim(w')=\emptyset$. 
-This being the case we  
- let  $\bowtie$ denote the equivalence relation on vertices of $\D'$ 
-generated  by setting $\a\bowtie \b$ if and only if  $\vim(\a)\cap 
-\vim(\b)\neq \nul$.  Now, from the above, we may identify vertices
-of $\hat\D''$ with equivalence classes $[\cdot]_{\bowtie}$ of $\bowtie$. 
-  With this notation, if 
-$u$ and $v$ are vertices of $\hat\D''$ then there is an edge from
-$u$ to  
-$v$, labelled $x$, if and only if there are vertices
-$u'$ and $v'$ of $\D'$ and an edge  from $u'$ to $v'$, labelled $x$,
-in $\D'$, such that  $u=[u']_{\bowtie}$  and $v=[v']_{\bowtie}$.
-Therefore $\hat\D''$ is the quotient of $\D'$ by $\bowtie$. 
-
-Thus, to see  that $\D''$  and $\hat\D''$ are isomorphic  
-we must check that $\bowtie=\approx$. As $\bowtie$ is generated by
-relating elements of $\vim(u)$, for $u\in V(\D')$ and $\approx$ is 
-generated by relating elements of the sets  $\nu(\theta^{-1}(u))$, for
-$u\in \D'$,  it 
-suffices to show that $\vim(u)=\nu(\theta^{-1}(u))$, for all $u\in \D'$. 
-However, this follows directly from the definitions of the maps $\nu$ and
-$\theta$. 
-\item
+\begin{proof} 
 Let $\a=\theta(x)$ and $\b=\theta(y)$. As $[\a]=[\b]$ there exists a
 sequence of vertices $\g_0,\ldots ,\g_m$ of $\D^\prime_5$ such that
 $\a=\g_0$, $\b=\g_m$ and
 \[\nu(\theta^{-1}(\g_i))\cap \nu(\theta^{-1}(\g_{i+1}))\neq \nul,\]
 for $i=0,\ldots, m-1$. Suppose first that $m=0$. Then $\theta(x)=
 \a=\b=\theta(y)$, so $x$ and $y$ both belong to some $X_k$ component
-$\Theta$ of $\D^\prime$. As $\pi(L(\Theta,x,y))=\pi(L(\Theta_5, \a,\b)
-=\pi(L(\Theta_5,\a,\a))$, there is a path in $\Theta$, from $x$ to 
+$\Theta_0$ of $\D^\prime$. As $\pi(L(\Theta_0,x,y))=\pi(L(\Theta_5, \a,\b)
+=\pi(L(\Theta_5,\a,\a))$, there is a path in $\T_0$, from $x$ to 
 $y$,
-with label $w$, such that $\pi(w)=1$. $\Theta$ is embedded in $\D$ by the
+with label $w$, such that $\pi(w)=1$. $\T_0$ is embedded in $\D$ by the
 map $\nu$, so the same holds for $\nu(x)$ and $\nu(y)$ in $\D$.
 
 Now assume that $m>0$ and that the result holds in all cases where the
@@ -6264,144 +5784,70 @@ there is a path in  $\D$, from $\nu(x)$ to $a=\nu(b_{m-1})$, with label $w_1$, s
  the case $m=0$, that there exists a path in $\D$, from $a=\nu(b_m)$ to $\nu(y)$,
  with label $w_2$, such that $\pi(w_2)=1$. Concatenating these paths we
  obtain the required result.
-\ee
 \end{proof}
 
 
-\begin{lemma}\label{lem:dcfold}
-Let $\D$ be  an inverse automaton, with alphabet $\S$ and start
-state $s$, let $\D^{\prime\prime}$  and $\Psi$ be the
-dc-resolution and dc-folding of $\D$, respectively, and
-let $\hat\rho:\D\maps \Psi$ be the dc-folding morphism.
 
- Then the following hold.
-\be
-\item
-\label{it:dcfold1} $\Psi$ is an inverse automaton, with unique
-start and  final state $\s=\hat\rho(s)$, and has no more $X_1$ and
-$X_2$ components than $\D$.
-\item \label{it:dcfold2}
-$\pi(L(\Psi,\s))=\pi(L(\D,s))$.
-\ee
-\end{lemma}
-\begin{proof} ~
-%\be
-\ref{it:dcfold1}.
-%\item
-The automaton $\Psi$ is involutive and folded by definition.
- Its root is the image of the root $\rho(s)$ of $\D^{\prime\prime}$ under
- the folding morphism: that is $\hat\rho(s)$.
- As
-$\D$ is connected  so is $\D^{\prime\prime}$ and therefore also
-$\Psi$. Hence $\Psi$ is inverse. The graph 
-$\D^{\prime\prime}$  has  no more $X_k$ components than $\D$, and 
-folding to form $\Psi$ cannot increase this number, so the final
-statement of \ref{it:dcfold1} follows.
-%\item
- \\[1em]
-\ref{it:dcfold2}. Let $w$ be a word accepted by $\Psi=(\Psi,\s)$. Since
-$\Psi$ is formed by a sequence of foldings of $\D^{\prime\prime}$,
-there is a word $v$ such that $v$ is accepted by
-$\D^{\prime\prime}$ (with root $\rho(s)$) and $\pi(v)=\pi(w)$.
-Thus $v$ is the label of a path $q_i$ in $\D^{\prime\prime}$, from  $\rho(s)$
-to $\rho(s)$, and
- $v=v_1\cdots v_n$,
-where each factor $v_i$ is accepted by a connected component $\Xi_i$ of
-$\D^\prime_5$;  and no two consecutive factors are accepted by the
-same component. From Lemma \ref{lem:nfcomp}.\ref{it:nfcomp1} and the 
-fact that $\D_Z$ embeds in $\D$,  it
-follows that there are paths $p_1,\ldots, p_n$, in $\D^\prime$,
-with labels
- $u_1,\ldots , u_n$, such that
-$\pi(u_i)=\pi(v_i)$ and
-$p_i$ is a path in the component
-$C_i=\theta^{-1}(\Xi_i)$ of $\D^\prime$.
-Let the initial and terminal vertices of $p_i$ be $x_i$ and  $y_i$.
-As $\nu$ restricted to $C_i$ is an embedding, there is a path in $\D$,  from
-$\nu(x_i)$ to $\nu(y_i)$ with label $u_i$, for $i=1,\ldots, n$.
-
- Moreover, as $v$ is a path in $\D^{\prime\prime}$, based at $\rho(s)$,
-we have
-\[[\theta(x_1)]=[\theta(y_n)]=\rho(s)\textrm{ and }[\theta(y_i)]=[\theta(x_{i+1})],\]
-for $i=1,\ldots ,n-1$. From Lemma \ref{lem:idverts}, there exist paths in
-$\D$,
-\begin{itemize}
-\item
-from $s$ to $\nu(x_1)$, with label $w_0$;
-\item  from $\nu(y_n)$ to $s$, with label $w_n$ and
-\item from $\nu(y_i)$ to $\nu(x_{i+1})$, with label $w_i$, for $i=1,\ldots,
-n-1$,
-\end{itemize}
-such that $\pi(w_i)=1$, for $i=1,\ldots ,n$. Thus $l=w_0u_1\cdots w_{n-1}u_n
-w_n$ is the label of a path in $\D$, based at $s$, such that
-$\pi(l)=\pi(u_0\cdots u_n)=\pi(v)=\pi(w)$.
- Therefore
-$\pi(L(\Psi,\s))\subseteq \pi(L(\D,s))$. The reverse inclusion follows
-from the existence of the morphism $\hat\rho$ from $\D$ to $\Psi$.
-\begin{comment}
-Let $\Phi=\L_0,\L_1,\ldots, \L_n$ be a sequence of graphs such that
-$\L_{i+1}$ is obtained from $\L_i$ by and elementary folding.
-Suppose that all these foldings except possibly the last involve only edges
-of type $Z$. Assume $\L_n$ is formed from $\L_{n-1}$ by folding edges
-$(\a,x,\b_1)$ and $(\a,x,\b_2)$ with label $x\in X_k$. Since the
-first $n-1$ foldings involve only edges of type $Z$ it follows that
-if $\g_1$ and $\g_2$ are vertices of $\Phi$ which map via these foldings 
-to $\b_1$ and $\b_2$, then there is a path $q$ in $\Phi$ from $\g_1$ to $\g_2$
-which has label in $(Z^{\pm 1}\cup \{x^{\pm 1}\})^\ast$. Hence $\g_1$ and $\g_2$ both belong to
- the same $X_k$ component of $\Phi$, which also contains the path $q$.
-Therefore all $n$ foldings can be carried out in this $X_k$
-component. However the $X_k$ components of $\Phi$ are folded, since they
-correspond to the graphs $\T_5$ constructed from $X_k$ components of $\D$.
-Therefore no folding involving an edge of type $X_1$ or $X_2$ can occur
-in such a sequence, and the result follows.
-\end{comment}
-%\ee
-\end{proof}
 If $w$ is a word in $\FF(X_1\cup X_2\cup Z)$ and $w=w_1\cdots w_n$,
 where $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq k_{i+1}$ and $n$
 minimal, then  say that each $w_i$ is a \emph{maximal} $X_{k_i}$
 \emph{factor}
 of $w$ (or, when the meaning is clear, a \emph{syllable} of $w$).
+
+
 \begin{lemma}\label{lem:loopstop}
+\ajd{This should become part of Lemma \ref{lem:nfcomp} (or a Corollary following it). It used
+to contain a statement about the number of connected components of $(\D_{(n)})_{k,0}$ (never increasing)
+which may still be of some use.}  
 Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$.
-\be
-\item\label{it:loopstop1}
-If $\D_{(0)}$ is input  to  the Generalised Folding Loop then the loop halts after
-finitely many iterations and outputs an inverse automaton  $\D_{(n)}$.
-\item\label{it:loopstop2} Let $\D_{(n)}$ be the output from the Generalised 
+%
+%\be
+%\item\label{it:loopstop1}
+%If $\D_{(0)}$ is input  to  the Generalised Folding Loop then the loop halts after
+%finitely many iterations and outputs an inverse automaton  $\D_{(n)}$.
+%\item\label{it:loopstop2} 
+Let $\D_{(n)}$ be the output from $n$ iterations of the Generalised 
 Folding Loop and let $w$ be a word
-accepted by $\D_{(0)}$. If $w=a\circ b \circ c$,
-where $b$ is a maximal $X_k$ factor of $w$ then $\D_{(n)}$ accepts
+accepted by $\D_{(n)}$. If $w=a\circ b \circ c$,
+where $b$ is a maximal $X_k$ factor of $w$ then $\D_{(n+1)}$ accepts
 the word $avc$, where $v$ is the normal form of $b$.
-\ee
+%\ee
 \end{lemma}
 \begin{proof}
-~
+\begin{comment}
 \ref{it:loopstop1}. The number of $X_k$ components is not
 increased by Steps 1 and 2, so at some point the Generalised Folding 
 Loop must halt.
-\noindent \ref{it:loopstop2}. The word $b$ is accepted by an $X_k$
-component of $\D_{(0)}$. By Lemma \ref{lem:nfcomp}.\ref{it:nfcomp2}, 
+\noindent \ref{it:loopstop2}. 
+\end{comment}
+The word $b$ is accepted by an $X_k$
+component of $\D_{(n)}$. By Lemma \ref{lem:nfcomp}.\ref{it:nfcomp2}, 
  the word $v$ is accepted by
-$\D_{(1)}$, and hence $avc$ is accepted by $\D_{(1)}$. It follows,
-by induction, that $\D_{(n)}$ accepts $avc$.
+$\D_{(n+1)}$, and hence $avc$ is accepted by $\D_{(n+1)}$. 
+%It follows,
+%by induction, that $\D_{(n)}$ accepts $avc$.
 \end{proof}
 \begin{lemma}\label{lem:nfacc}
-Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$ and let
-$\D_{(n)}$ be the output from the Generalised Folding Loop, with input $\D_{(0)}$. If $w$ is
-accepted by $\D_{(0)}$ then the normal form of $w$ is accepted by $\D_{(n)}$.
+Let $\D_{(0)}$ be an inverse automaton with alphabet $\S$ and let 
+$w$ be a word accepted by $\D_{(0)}$ and assume that $w$ factorises as  
+as $w=w_1\cdots w_m$, $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq
+k_{i+1}$. Then the normal form of $w$ is accepted by 
+$\D_{(n)}$, for some $0\le n\le 2m$. 
 \end{lemma}
 \begin{proof}
 Let $w$ be a word accepted by $\D_{(0)}$. Then $w$ factorises as  $w$
-as $w=w_1\cdots w_n$, where $w_i$ is accepted by an $X_k$
+as $w=w_1\cdots w_m$, where $w_i$ is accepted by an $X_k$
 component of $\D_{(0)}$. Thus $w_i\in \FF(X_{k_i}\cup Z)$, with $k_i\neq
-k_{i+1}$. If $n=0$, then $w=1$ and the lemma holds. Suppose the
-lemma holds for all $w$ such that $n\le k$, where $k\ge 0$, and now
-suppose $n=k+1$. Let $v_i$ be the normal form of $w_i$. If $v_i\in
-\FF(Z)$, for some $i$ then there is a factorisation of $w$ with at
-most $k$ factors, and the result follows. Otherwise, from Lemma
-\ref{lem:loopstop}.\ref{it:loopstop2},  $\D_{(n)}$ accepts $v_1\cdots
-v_n$, which is the normal form of $w$.
+k_{i+1}$. If $m=0$, then $w=1$ and the lemma holds. Suppose that $m>0$ and the
+lemma holds for all $w'$ which have such factorisations with fewer than $m$ factors.
+Then the normal form $f$ of $w_2\cdots w_m$ is accepted by $\D_{(n)}$, for some $n\le 2(m-1)$. 
+Thus the word $w_1f$ is accepted by $\D_{(n)}$. 
+ Let $v_1$ be the \normalform~ of $w_1$. Then by Lemma \ref{lem:loopstop}, $v_1f$ is accepted by $\D_{(n+1)}$. 
+If $v_1\in \FF(Z)$ then the dc-normal form of $w$ is the word obtained from $v_1f$ by free reduction, so the 
+result holds in this case. Otherwise, write the dc-normal form $f$ of $w_2\cdots w_n$ as $h_0f'$, where $h_0$ is the maximal
+prefix of $f$ which belongs to $\FF(Z)$. Then the word $v_1h_0$ is accepted by an $X_k$ factor of $\D_{(n+1)}$. Let $v_1h_0$ have  \normalform~
+$d$.  By definition the dc-normal form of $w$ is $df'$, and  by Lemma \ref{lem:loopstop}, this is accepted by  $\D_{(n+2)}$. 
+\ajd{This is a bit sketchy, sorry. Is it comprehensible?}
 \begin{comment}
 Let $\g$ and $\d$ be vertices of $\Phi$ which map to $\a$ and $\b$ in the
 folding of $\Phi$ to $\L$. As this folding involves only edges of type $Z$
@@ -6434,7 +5880,11 @@ that $\cA$ also accepts the word $z_0s_1z_1\cdots z_rs_rz_{r+1}$, which
 is the normal form of $u$.
 \end{proof}
 \end{comment}
+\ajd{Given an element of $K$, if we can express it as a product of generators of $K$ then we 
+can bound the number of iterations of the loop needed to find it's normal form (for what that's worth!).}
 
+\ajd{I left the rest of this section in to remind (me) what we are aiming to 
+prove special cases of.}
 \begin{proof}[Proof of Theorem \ref{thm:membership}]
 First we prove statement \ref{it:membership}.
 Construct the flower automaton $\cF(K)$ of $K$ and then
@@ -7188,7 +6638,9 @@ where bounds on $t_{\D_k}$ are given by \eqref{thetafin}, for $k=1,2$.
 
 
 \noindent{\bf Reassembly: construction of $\D_Z''$.}
-(Step \ref{it:D18}) The number of vertices of  $\D_Z$ is at most $V$,
+\ajd{Not needed no mo.}
+(Step D18)%\ref{it:D18}) 
+The number of vertices of  $\D_Z$ is at most $V$,
 and as $\D_5''$ has at most  $|V\D_{1,5}|+|V\D_{2,5}|$ vertices the time
 taken to construct $\D_Z''$ from $\D_Z$ and $\D''_5$ is at most
 \begin{equation}\label{eq:D'_Z}
@@ -7198,7 +6650,9 @@ where, as before $|V\D_{1,5}|$ and $|V\D_{2,5}|$ can be estimated
 using \eqref{vtheta5}, \eqref{etheta5}, \eqref{vtheta4} and \eqref{etheta4}.\\[1em]
 
 \noindent{\bf Reassembly: construction of $\D^{\prime\prime}$.}
- (Step \ref{it:D19})
+\ajd{Not needed any more}
+ (Step D19% \ref{it:D19})
+)
 The time required to construct $\D^{\prime\prime}$  from
 $\D_5''$ and $\D_Z''$ is at most
 \begin{equation}\label{eq:D'}

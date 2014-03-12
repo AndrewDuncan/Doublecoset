@@ -16,7 +16,7 @@ testfile='input_K/'
 ## sequence of answers: n, y, 1, 1, 3
 ###################
 
-#verbose is a list (currently of length 11) of integers. List entries correspond to 
+#verbose is a list (currently of length 12) of integers. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
 #produce "helpful" output. When it is set to 0 nothing unecessary is output. When it's more than 1
 #alot of lines, designed to keep track of the program flow, are output to the log file
@@ -32,12 +32,12 @@ testfile='input_K/'
 #8 Mod5 (alg3.py)
 #9 Reassemble (alg3.py)
 #10 save output of main_loop in files for later use
-#  
+# 11 the main_loop  
 #last entry --- this file
 #                             1,1,1  
 ##########0,1,2,3,4,5,6,7,8,9,0,1,2
 verbose =[0,0,0,0,1,1,1,1,1,1,1,1,2]
-#verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
+
 
 #open the log file and write an initial line 
 logfile=testfile+'log.txt'

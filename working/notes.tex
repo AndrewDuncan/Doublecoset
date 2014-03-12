@@ -1,0 +1,371 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath,amsfonts,amsthm,amscd,amssymb,latexsym}%,eufrak}
+%%%%%%%%%%%%%
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumerate,graphicx,psfrag}%,subfigure}%,jchangebar,oldgerm}
+\usepackage[mathscr]{eucal}
+\usepackage[usenames]{color}
+\usepackage{url}
+\usepackage[shortlabels]{enumitem}
+\usepackage{comment}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{showkeys}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{xr}
+%\usepackage{underscore}
+%%%%%%%%%
+\sloppy
+%%%%%%%%%%%%%%%%%%%%%%%
+\title{The subgroup membership problem in amalgamated products of 
+finitely generated free groups
+}
+\author{Andrew J. Duncan, Elizaveta Frenkel}
+
+\renewcommand{\a}{\alpha }
+\renewcommand{\b}{\beta }
+\newcommand{\G}{\Gamma }
+\newcommand{\g}{\gamma }
+\newcommand{\D}{\Delta }
+\renewcommand{\d}{\delta }
+%\def\vd{\vardelta}
+\newcommand{\ep}{\epsilon }
+\newcommand{\e}{\varepsilon }
+\newcommand{\z}{\zeta }
+%\eta
+\renewcommand{\th}{\theta }
+\newcommand{\T}{\Theta }
+\renewcommand{\i}{\iota }
+\renewcommand{\k}{\kappa }
+\renewcommand{\l}{\lambda }
+\renewcommand{\L}{\Lambda }
+%\mu
+%\nu
+%\xi
+%omicron
+%\pi
+\renewcommand{\r}{\rho }
+\newcommand{\s}{\sigma }
+\renewcommand{\S}{\Sigma }
+\renewcommand{\t}{\tau }
+\newcommand{\up}{\upsilon }
+\newcommand{\U}{\Upsilon }
+%\phi
+\newcommand{\x}{\chi }
+%\psi
+\newcommand{\W}{\Omega }
+\newcommand{\w}{\omega }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\pd}{\partial}
+\newcommand{\wht}{\widehat}
+%\newcommand{\cC}{{\mathcal C}}
+%\newcommand{\cdim}{\texttt{cdim}}
+\newcommand{\fC}{{\textswab C}}
+\newenvironment{ef}{\noindent\color{blue} \bf EF: }{}
+%
+\newcommand{\cA}{{\cal{A}}}
+\newcommand{\cD}{{\cal{D}}}
+\newcommand{\cF}{{\cal{F}}}
+\newcommand{\cH}{{\cal{H}}}
+\newcommand{\cJ}{{\cal{J}}}
+\newcommand{\cK}{{\cal{K}}}
+\newcommand{\cP}{{\cal{P}}}
+\newcommand{\cQ}{{\cal{Q}}}
+\newcommand{\cR}{{\cal{R}}}
+\newcommand{\cS}{{\cal{S}}}
+\newcommand{\cV}{{\cal{V}}}
+\newcommand{\cW}{{\cal{W}}}
+%\newcommand{\GG}{\ensuremath{\mathbb{G}}}
+\newcommand{\pp}{\mathbf{p}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nul}{\emptyset }
+\newcommand{\vim}{\nu\textrm{-im}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+%cvs -d :pserver:najd2@cvs.mas.ncl.ac.uk:/CVS/najd2
+\newtheorem{exam}[theorem]{Example}
+%\newtheorem{comment}[theorem]{Comment}
+%
+%
+\newenvironment{example}{\begin{exam} \rm}{\end{exam}}
+%
+%
+%
+\newtheorem{remk}[theorem]{Remark}
+\newenvironment{remark}{\begin{remk} \rm}{\end{remk}}
+%
+%%%%%%%%%%%%
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Loop}{\operatorname{Loop}}
+\newcommand{\Iso}{\operatorname{Isom}}
+\newcommand{\Aut}{\operatorname{Aut}}
+%%%%%%%%%%%%%%%%%%%
+\renewcommand{\AA}{\ensuremath{\mathbb{A}}}
+\newcommand{\ZZ}{\ensuremath{\mathbb{Z}}}
+\newcommand{\QQ}{\ensuremath{\mathbb{Q}}}
+\newcommand{\RR}{\ensuremath{\mathbb{R}}}
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+\newcommand{\CC}{\ensuremath{\mathbb{C}}}
+\newcommand{\FF}{\ensuremath{\mathbb{F}}}
+%\renewcommand{\ker}{\verb"Ker"}
+\newcommand{\cC}{\mathcal{C}}
+\renewcommand{\cF}{\mathcal{F}}
+\newcommand{\cO}{\mathcal{O}}
+\renewcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+%\newcommand{\BA}{\ensuremath{\mathbb{A}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\maps}{\rightarrow}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\bs}{\backslash}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\biz}{\begin{itemize}}
+\newcommand{\eiz}{\end{itemize}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newenvironment{ajd1}{\noindent\color{red} AJD }{}
+\newcommand{\ajd}[1]{\begin{ajd1} #1 \end{ajd1}}
+%
+\newenvironment{bl}{\noindent\color{blue} EF }{}
+\newcommand{\li}[1]{\begin{bl} #1 \end{bl}}
+%\includecomment{comp}% to see environment comp
+\excludecomment{comp}% to hide environment comp
+%
+% EXTERNAL REFERENCES 
+%\externaldocument[M-]{membership}
+\externaldocument{membership}
+\begin{document}
+Note to the reader/writer. The same labels (for \texttt{\char`\\}ref statements) as membership.tex work here.
+\section{Main problems}
+There are some problems with what we wrote before. Some big some small. This is a list of the
+ones I know about.
+\be
+\item The major problem was the halting criterion for the algorithm. The assumption that once the 
+number of $X_1$ and $X_2$ components has settled then the algorithm can stop; was false. This can
+easily be seen in  action in our examples. 
+\item A minor problem was the use of the $\Delta_Z$ component in Algorithm III. The idea was to make 
+life easier by removing $Z$-edges that did not induce any modification to the diagram. Although this
+could work it would either be necessary change the proof of the fact the alg works, 
+or to add $X_1$ and $X_2$ edge paths to follow all such $Z$-edges: that
+is for every such edge labelled $z$ there must be paths labelled $\phi_1(z)$ and $\phi_2(z)$ (with the same end points). 
+The reason this has to be done is that the proof that the algorithm works starts by assuming that a word accepted
+by the folding of $K$ can be rewritten without $Z$ letters; and that the rewritten will still 
+be accepted by the automaton output from the 
+generalised folding. Without these new paths this will not be true in general. 
+Unfortunately I did not see this before. 
+Now that I see it has to be done, it seems useless to have a $\Delta_Z$ component - 
+after the first pass through the main loop it will be empty in any case. Therefore I have rewritten things
+ to leave this out- and it makes everything a bit easier. 
+\item In the previous version of the algorithm the folding of $K$ began by taking the generators of $K$, putting them
+in normal form and then folding the rose obtained from these normal forms. There is a slight difficulty here. If $k$ 
+has normal form the word $a_1\cdots a_m$ then $a_m^{-1}\cdots a_1^{-1}$ is not necessarily then normal form of 
+$k^{-1}$, so the folding of $K$ does not in general accept $k^{-1}$. This makes the claim that ``elements of $K$ expressed
+in terms of the given generators of $K$ are accepted by the folding of $K$'' false. In fact the normal form of 
+$k$ will be accepted after some iterations of the generalised folding loop, so this is not a fatal difficulty. However, 
+it is a nuisance and does not make things go smoothly: so it is better to use symmetrised generators for $K$.
+\item Modification 5 still does too much. To get the example we worked on in Moscow to run through a significant number
+of iterations of the main loop, I changed the program to leave out Mod 5 altogether. You may (or may not) recall
+that we discovered while doing examples, that it was not needed in this particular example. In this example, leaving it
+in results in a massive number of unnecessary additions of paths. In general stricter conditions could be applied.  
+\item One annoyance is that I insisted on not using $Z$ in the 
+free group: keeping it till amamalgams were introduced. Now I understand why you wanted to have $Z$ involved right from the
+ start, but probably it's not a good time to change this.
+
+
+\ee
+\section{Programs}
+I have run three examples which I call K\_fix, cex and mihailova through the python programs. K\_fix is the one
+from the paper - corrected. cex is the one we were working thru in Moscow. Mihailova is your example. There are 3 files that run these examples
+K\_fix.py, alg3\_cex.py and mih\_test.py. There are comments in the files which are supposed to show how they work. First some
+general remarks, then instructions. 
+
+The programs attempt to run our algorithm. In the K\_fix case, after 2 iterations of the main loop there
+is nothing more to do, so on the 3rd iteration the program halts. In the cex case, I can now get the program
+to run for about 16 iterations, probably more, I haven't tried, and it seems to be going forever. The output begins
+to form some regular kind of pattern. Mihailova: I was able to get this to do 2 iterations before, but only 
+when the program was not working correctly. Last time I tried it, it hung on iteration 2. The time before (when the 
+program had some illegal short cuts), it spent a week 
+working on iteration 4, after which I stopped it before it finished. I need a bigger computer.
+
+I checked the final output of K\_fix only accepts words in K. I checked the cex example only accepts words in K
+after 2 iterations. 
+
+There are now programs to produce lots of words in K and then to see if the automata constructed 
+by the algorithm accepts them.  I haven't told you how these work  yet, so here goes.
+
+I have set things up so output (from K\_fix.py, alg3\_cex.py or mih\_test.py) can be saved to file and then read back in.
+The ``verbose'' list can be used to control this, but some extra directories are needed, as in the instructions below. 
+
+The idea is to generate elements of $K$, by generating balls of radius $R$, in the generators. 
+This can be done with a prog called ball\_generate.py. It has instructions for generating 
+balls of radius $R$ either of K\_fix or cex (or of mihailova). 
+(To make this work, directories input\_K/ball or cex/ball must exist.)
+
+Once the ball of radius $R$ has been constructed then the words in it can be fed to the automaton output
+from K\_fix or cex. This is done by running ball\_test.py. 
+
+As far as I can see the algorithm is working as it should. It takes 2m iterations (or less) to eat up the ball or radius m,
+for the cex example. The K\_fix example eats everything I can give it - I made a ball of radius something like 14, which was 
+all accepted. I also made a file of some special words that seem a problem in the cex example, as an alternative
+to the ball idea. These  seem to get eaten up eventually. 
+
+To see more clearly what is going on in the examples it is necessary to follow how words are put into
+dc normal form. For this, words can be processed by step\_through\_normal\_form.py.
+This allows you to define a word and then 
+see the steps Algorithm II goes through to put the word in normal form. This is I think what we 
+need to understand to see what conditions make the algorithm halt. Examples of words to try can be found in the
+output files from ball\_generate.py.
+
+\subsection*{Instructions}
+\be
+\item \textbf{K\_fix.py.} There are instructions in the file itself, so this is a summary. 
+The generators of the subgroups $H_1$ and $H_2$ are as in the paper. The generators for $K$ are 
+not quite as in the paper, but are as near as possible to generators that result in the diagrams made for the 
+paper. (There are some typos in the example in the paper, so the example and the diagrams don't
+actually match up.) 
+\be
+\item 
+To run the program a subdirectory input\_K needs to exist. The output from the programme will appear in this subdir.
+In particular this  is where the graph files and the log file will be. 
+\item The flag ``change\_tree'' must be set to 1 to get the program to use the generators of $H_2$ that we want.
+It is correctly set in the file on git: which means the user must make responses. 
+The required responses (hit enter after each one) are\\
+n\\
+y\\
+1\\
+1\\
+3\\
+\item 
+You can change the number of iterations of the main loop using max\_iterations. It only needs 3 
+passes through the main loop, then it stops, so anything more than 3 makes no difference.
+\item You can change the output to the log file, and the output that is saved for later use.
+To do this use ``verbose'': see line 19 of the program. 
+If you set items 4 to 9 or 11 to 1 then the program will tell you which paths it added to the original
+folding, during each of the modifications (see the program for which item corresponds to which modification). 
+ 
+Item 10 is slightly different. If it is 
+set to more than 0 then the program will save its output, for use later as input to ball\_generate.py or 
+ball\_test.py. 
+
+If item 10 is $> 0$ then the groups and subgroups $F_i, H_i, \FF(Z)$ and all their associated foldings, will be
+stored in files in input\_K, in a file called   input\_save.txt. The generalised folding output from the 
+final iteration of the main loop will also be saved in input\_K/delta\_n\_save.txt. These are binary files 
+for input to other python programs, so are not for reading.
+\item Nothing else should need changing in K\_fix.py. 
+\ee
+\item \textbf{cex.} The program to run is alg3\_cex.py. The instructions are the same as for K\_fix.py, except that 
+``input\_K'' should everywhere be replaced by ``cex'', and the following things need noting.
+\item  
+Here change\_tree = 0. The default generators for $H_1$ and $H_2$ are the ones we used.
+\item  The max number of iterations is important. Too many and the prog will hang. In fact this also
+depends on the setting of the 10th item of verbose. If this is set to 1 or more, so files are saved, then
+not many iterations are possible - I think I achieved 10. With no files saved lots more iterations are possible: I have
+run 16 and it looks like a few more would work ok. In fact, in the first few lines of the
+file you will see `` sys.setrecursionlimit(1500)'', which stops python from crashing quite as quickly as it would otherwise
+when files are saved. This allows a few more iterations with saving. It could be that 1500 could be increased ... the
+only way to find out is to try it. At some point though it will make your computer hang (or something else bad). 
+(I have not done things in the best way as far as storing files is concerned, but such considerations are secondary 
+at the moment.) 
+\item \textbf{mihailova.} mih\_test.py  runs the mihailova example. 
+The instructions are more or less as before, except.
+\be
+\item ``mihailova'' replaces ``input\_K''. Also subdirectory mihailova/graphs must exist, and this is where the 
+graphs will be found. 
+\item change\_tree should be left set to 0, as it is.
+\item In subdir mihailova (and on git) is a file ex\_mihailova.tex, which explains how this example has been implemented.
+It would be good if one of the other co-authors could read this and comment.
+\item
+Probably best not to try saving files here. 
+\item
+max\_iterations is set to 1 in the version on git. 
+Even after 1 iteration a monster graph is produced as a generalised folding - quite pretty but too big to make sense of.
+I have not tried this prog for a while now. Probably setting  `` sys.setrecursionlimit(1500)'' or something would be
+interesting  so as to get at least 2 iterations out of it. 
+\ee
+\item \textbf{ball_generate.py.} I think I have told you enough now and I will tell more once 
+I hear that you are ready to hear more. 
+\ee
+\section{Changes to the text}
+
+\be
+\item At the moment the Mihailova example is not in the text and it needs to be added.
+\item Section \ref{sub:reltran} has been changed, twice. The first change was to use
+relative transversals, to make normal forms unique. The second change was to remove 
+relative transversals, on the realisation that normal forms are unique in any case. The 
+new version refers to \emph{right transversals} rather than relative transversals.  
+The old version, along
+with some examples which perhaps may be useful, is in the file scrap.tex.
+
+\item We have two types of double coset normal form in play.
+ There is a double coset normal  form in the free group,
+as in section \ref{sub:reltran} and a double coset normal
+form for an amalgam, in section \ref{sec:dcnf}. The second
+one is the one we really want to call a double coset normal
+form, isn't it? It is confusing therefore to call them
+both the same thing. 
+
+At the moment, where
+I have noticed it, I refer to the free group version as 
+the ``free group, double coset normal form''.  (See 
+for example Defn  \ref{def:free_dc_nf} %\ref{def:free_dc_nf} 
+and the proof of Thm \ref{thm:dcnf}.)
+This is too long and needs to be changed, so it's encoded as 
+  ``\texttt{\char`\\}normalform''.
+
+We \emph{could} call the free group version 
+a $D$-normal form, where $D$ is the set of double coset
+representatives. It seems clumsy to me. Do you like it/
+dislike it/have a better suggestion? 
+\item There are two presentations for the amalgam $F_1*_{H_1=H_2}F_2$, in  \eqref{eq:Xpresn}
+and \eqref{eq:Zpresn}. I've called them the $X$-presentation
+and $Z$-presentation. \ajd{Maybe don't need this terminology.} We use both, as we sometimes write words in reduced
+form w.r.t. the first, and other times in dc-normal form, using the second. 
+\item The proof of Theorem \ref{thm:dcnf} has been rewritten, to make
+it a little shorter.
+
+\item Algorithm II has been given a label like Algs I and III; see page \pageref{alg:alg2}.
+ It has also been amended to cope with words in $\FF(X_1\cup X_2\cup Z)$ and not 
+just $\FF(X_1\cup X_2)$. 
+
+\item Preamble to \ref{sec:foldings} changed to accommodate the fact that the main loop may
+repeat forever. 
+
+\item Added a couple of sentences to \ref{sec:dca} to cover the case where $K\subseteq H_k$. 
+\ajd{This needs to be incorporated into the summary of Alg III and the program.}
+\item Trying to keep things simple, the original version of Algorithm III used $\Theta$ to
+denote a connected component of $\Delta_k$. However, this does not seem to make much difference
+and makes life a bit awkward later on, so now $\Theta_i$ is just used as shorthand for $\Delta_{1,i}$ or $\Delta_{2,i}$.
+\item Moved what used to be Lemma 5.3 (lem:dcfold) to the end of Section 3, as it uses all the terminology
+defined there, and nothing else. I'm not sure if the statement about the number of  
+components is needed any more.
+\item The maps that were previously called $\theta_i$ in Section 3 and onwards are now called 
+$\theta_{k,i}$ and $\theta_k=\theta_{k,5}\circ\theta_{k,4}\circ\theta_{k,3}\circ\theta_{k,2}\circ\theta_{k,1}$.   
+\item Now there is no $\D_z$ the first statement  of Lemma \ref{lem:idverts}, is more or less trivial,
+so it is now just a comment at the end of Section \ref{sub:summaryIII}.
+\item Proof of Lemma \ref{lem:nfcomp}. The inclusion of the case $s=1$ makes the proof go better.
+It reduces the length of the proof of the other 2 cases: in particular Figure ref\{fig:LeR\} is no longer needed. 
+The proof of the cases $s\neq 1$ has changed
+to accommodate the fact that paths are only added to boundary vertices: the changes are reflectd in Figs \ref{fig:nf-1}
+and \ref{fig:nf-2}.
+\item The main result so far is now Lemma \ref{lem:nfacc}. 
+\ee
+\end{document}

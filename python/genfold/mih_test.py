@@ -3,17 +3,11 @@ from wordmap import *
 import time 
 localtime = time.asctime(time.localtime(time.time()))
 
-###################
-## To get the spanning trees for H1 and H2 as required it may be necessary to
-## set change_tree = 1 and then 
-## when this program is run answer the questions with the
-## sequence of answers: ????
-###################
 
-#verbose is a list (currently of length 11) of integers. List entries correspond to 
+#verbose is a list (currently of length 12) of 0's and 1's. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
-#produce "helpful" output. When it is set to 0 nothing unecessary is output. When it's more than 1
-#alot of lines, designed to keep track of the program flow, are output to the log file
+#produce "helpful" output. When it is set to 0 nothin unecessary is output. When it's more than 1
+#alot of lines, designed to keep track of the program flow, are output to the log file. 
 #Entries correspond to files or functions as follows
 #0 graph.py
 #1 alg1.py
@@ -26,11 +20,12 @@ localtime = time.asctime(time.localtime(time.time()))
 #8 Mod5 (alg3.py)
 #9 Reassemble (alg3.py)
 #10 save output as files for later use
+#11 main_loop
 #  
 #last entry --- this file
-#                             1,1  
-##########0,1,2,3,4,5,6,7,8,9,0,1
-verbose =[0,0,0,0,0,0,0,0,0,0,0,0]
+#                             1,1,1  
+##########0,1,2,3,4,5,6,7,8,9,0,1,2
+verbose =[0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 #set the name of  the log file
 logfile='mihailova/log.txt'
