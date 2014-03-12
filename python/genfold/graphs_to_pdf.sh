@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DIREC=input_K
-v=1
+DIREC=cex
+v=2
 
 dot -Tpdf $DIREC/stallings1.gv   > $DIREC/stallings1.pdf 
 dot -Tpdf $DIREC/stallings2.gv  > $DIREC/stallings2.pdf 
@@ -29,7 +29,7 @@ neato -Tpdf $DIREC/P_4_1_v$v.gv > $DIREC/P_4_1_v$v.pdf
 neato -Tpdf $DIREC/P_4_2_v$v.gv> $DIREC/P_4_2_v$v.pdf 
 dot -Tpdf $DIREC/D5_1_v$v.gv > $DIREC/D5_1_v$v.pdf   
 dot -Tpdf $DIREC/D5_2_v$v.gv > $DIREC/D5_2_v$v.pdf    
-neato -Tpdf $DIREC/Dn_v$v.gv > $DIREC/Dn_v$v.pdf
+dot -Tpdf $DIREC/Dn_v$v.gv > $DIREC/Dn_v$v.pdf
 
 
 
