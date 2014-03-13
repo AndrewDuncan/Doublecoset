@@ -301,8 +301,44 @@ Even after 1 iteration a monster graph is produced as a generalised folding - qu
 I have not tried this prog for a while now. Probably setting  `` sys.setrecursionlimit(1500)'' or something would be
 interesting  so as to get at least 2 iterations out of it. 
 \ee
-\item \textbf{ball_generate.py.} I think I have told you enough now and I will tell more once 
-I hear that you are ready to hear more. 
+\item \textbf{Testing.} To test the operation of the algorithm, balls of radius $R$ in the generators of the subgroup
+$K$ can be stored and then read into the output of the generalised folding alg.
+I wrote a progam ball\_generate.py which works as follows. First you run alg3\_cex or K\_fix, with verbose set to
+output files. Then ball\_generate picks up the generators of $K$ from the saved files, and uses them to 
+write all words of length at most $R$ in these gens. It then saves the file of words for later use.  
+
+So to run ball\_generate for the cex example:
+\be
+\item run alg3\_cex.py making sure item 10 of verbose is equal 1 (counting of items starts at 0).
+\item run ball\_generate.py making sure ``prefix'' is set to `cex/', item 10 of verbose is 1
+ and $R$ is set to the required radius.
+\item The directory cex/ball will contain a file ball\_save.txt, which contains the results. This file is for input
+to python, so not human readable. To see the output, make the prog generate a log file, by setting item the
+last entry of verbose equal to 2 or more. Then a text file ball.txt will appear in cex/ball, with the results 
+(in 2 different formats neither of which  are ideal). It's best to start generating small radius examples to
+see what happens, then see how big you can get things before everything slows down to stop.
+\ee
+
+Now to see if these words are accepted by the output of alg3\_cex.py (for however many iterations you ran it)
+the program ball\_test.py is run. To process the output of ball\_generate above 
+run ball\_test.py with ``prefix'' set to 'cex/'. Afterwards the directory cex/ball will contain a text file 
+ball\_test\_results.txt which will contain a list of words of the words in ball\_save.txt which were not accepted.
+
+(I have not done this ball generating in the best way. It would have been better to write a program to save 
+balls of radius $R$ in generators $x_1,\ldots ,x_n$, for whichever $n$ are needed, and then construct the 
+balls of radius $R$ in  the generators of $K$ by substitution of generators of $K$ into $x_1,...$. 
+This is one more thing to add to a list of not so important things to sort out.)
+\item \textbf{Graphs to pdf files.} There is a script to generate pdf files from graph files, called graphs\_to\_pdf.sh.
+Unfortunately it's a bash shell script and I don't know how to run such things in windows. However there
+must be some analogue. All it does is run dot or neato on a list of graph files (somegraph.gv) with output set as pdf.
+
+There are 2 variables in the file ``DIREC'' which should be cex or input\_K, depending on which example you want, 
+and ``v'' which is set to an integer n to pick up the files from the nth iteration of the main loop, and make them into pdfs. 
+
+If it's a pain to run this I can save pdfs on git.
+\item \textbf{Latex graphs} The pdf files of graphs can all be processed by the tex file main\_loop\_graphs.tex. 
+This also has 2 variables at the top: {\textbackslash}direc and {\textbackslash}ver, which should be set in the same way as ``DIREC'' and ``v'' above.
+ Some messing about is usually needed to get things looking the way you want.
 \ee
 \section{Changes to the text}
 

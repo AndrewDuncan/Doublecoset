@@ -3,14 +3,27 @@ import pickle
 sys.setrecursionlimit(1500)
 import time 
 localtime = time.asctime(time.localtime(time.time()))
-#this program generates a ball of a given radius in generators previously stored for a subgroup of a (previously stored) amalgam
 
-#So that each run creates a new set of files: set the prefix for the name of all file names for your particular test here:
-#if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
+########################################
+#this program generates a ball of a given radius in generators previously stored for a subgroup of a (previously stored) amalgam
+#before running it 
+#alg3_cex.py or K_fix.py should have been run, with 10th item of verbose set to 1 (to store H1 and H2 and K) 
+#and testfile = cex or input_K; 
+# and the following must be set (instructions below):
+#prefix
+#verbose
+#R
+#########################################
+########################################
+
+
+#Set the prefix for the name of all files here:
+#this should be the name of the directory where H1 and H2 were stored by alg3_cex or K_fix  
 # ... the log file will also have this prefix
 prefix='input_K/'
 #prefix='cex/'
-#testfile='input_K/ball/'
+#
+#whatever prefix is, the results of ball_generate will be stored in  directory prefix/ball/ which must be a subdir of prefix
 testfile=prefix+'ball/'
 
 
@@ -28,7 +41,7 @@ with open(logfile, "w") as log: #create logfile
 ##########0,1,2,3,4,5,6,7,8,9,0,1,2
 verbose =[0,0,0,0,1,1,1,1,1,1,1,0,1]
 #verbose =[0,0,0,0,0,0,0,0,1,0,0,0]
-#change_tree=0#only needed if foldings are to be generated here
+#
 
 #file to store results
 outputfile=testfile+'ball.txt'
@@ -56,6 +69,7 @@ K = pickle.load( open(getfile, "rb" ) )
 #L2=[['y1','y1'], ['Y1','y2'],['Y2','Y1']]
 #Kgrs=K.subgp_gens # not used at present - the generators for K in normal form 
 
+#set the radius R
 R=5# radius of ball to generate
 S,T,B,B_nf=ball(R,Kgens,F1,F2,Hrank,H1,H2,logfile,verbose)
 

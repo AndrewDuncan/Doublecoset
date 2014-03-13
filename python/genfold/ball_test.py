@@ -3,11 +3,26 @@ import pickle
 import time 
 localtime = time.asctime(time.localtime(time.time()))
 
-#So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
-#if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
-# ... the log file will also have this prefix
+######################
+###################
+# This program picks up a previously stored automaton A (output from K_fix or alg3_cex)
+# and a previously generated ball B of radius R, of elements of K
+# and outputs a file of those elements of  B which are not accepted by A
+#########################
+########################
+
+#To run it set
+# prefix 
+#
+#
+#
+#Set the prefix for all file names  here:
+#this should be the name of the directory where H1 and H2 and delta_n were stored by alg3_cex or K_fix  
+# ... the log file and output files will have this prefix...  plus something else set by "testfile" below
 prefix='cex/'
-#results of tests and files of words lie in subdirectories of prefix - name the subdir required as testfile
+#prefix='input_K/'
+#
+#results of tests and files of words are put in subdirectories of prefix - name the subdir required as testfile
 testfile=prefix+'ball/'
 #####################
 #open the log file and write an initial line 
@@ -21,7 +36,7 @@ outputfile=testfile+'ball_test_results.txt'
 with open(outputfile, "w") as out: #create logfile 
     out.write("output file for ball_test.py: "+str(localtime)+"\n\n") #and write text to it
 
-#input delta_n, saved by the previous run of K_fix.py
+#input delta_n, saved by the previous run of K_fix.py or cex
 graphfile=prefix+'delta_n_save.txt'
 delta_n = pickle.load( open(graphfile, "rb" ) )
 
