@@ -6,15 +6,8 @@ localtime = time.asctime(time.localtime(time.time()))
 #So that each test creates a new set of graphs: set the prefix for all file names for your particular test here:
 #if this name is the name of a directory - then that directory must exist as a sub-directory of the home dir of this file
 # ... the log file will also have this prefix
-testfile='input_K/'
+testfile='cyclic/'
 #####################
-
-###################
-## To get the spanning trees for H1 and H2 as in the paper (as near as possible)
-## set change_tree = 1 and then 
-## when this program is run answer the questions with the
-## sequence of answers: n, y, 1, 1, 3
-###################
 
 #verbose is a list (currently of length 12) of integers. List entries correspond to 
 #functions or files as below. When the corresponding entry is set to one the program (or file) will
@@ -42,19 +35,19 @@ verbose =[0,0,0,0,1,1,1,1,1,1,1,1,1]
 #open the log file and write an initial line 
 logfile=testfile+'log.txt'
 with open(logfile, "w") as log: #create logfile 
-    log.write("log file K_fix.py: "+str(localtime)+"\n\n") #and write text to it
+    log.write("log file cyclic.py: "+str(localtime)+"\n\n") #and write text to it
 #log.close()
 
 #if you have run the program, and the spanning tree gives the correct generators, but is not the tree you want,
 #then set change_tree to 1, to allow user editing of the output labels
-change_tree=1
+change_tree=0
 
 #define the free groups F1 and F2, by giving the number of generators, and letter for the generators
 F1=free_group(3,"x")
 F2=free_group(4,"y")#do not make both these letters the same
 
 #Enter the rank of the subgroup
-Hrank=3
+Hrank=1
 
 ####################
 #### enter H1
@@ -68,16 +61,9 @@ Hname1='H1'
 #h3=['x2','x2','x2']
 #h4=['X2','x1','x3','x2']
 #
-h1=['x1','X2']
-h2=['x2','x1','x2']
-h3=['x2','x2','x2']
-h4=['X2','x1']
-h5=['x1','x1','x1']
-h6=['x2','x3','X2']
-h7=['x1','x2','x3']
-h8=['x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3','x3',]
+h1=['x1','X2','X2','x1','x3','X1']
 #make the generators into a list
-Hgens1=[h5,h6,h7]#,h5]
+Hgens1=[h1]
 
 ################
 ### enter H2
@@ -86,12 +72,10 @@ Hgens1=[h5,h6,h7]#,h5]
 Hname2='H2'
 
 # Enter some elements of F2, a selection of which can be used to generate the subgroup H2
-g1=['y2','y2']
-g2=['y3','y4']
-g3=['y1','y1','y3','Y1','y2']
+g1=['y2','y2','y3','y4']
 
 #make the generators into a list
-Hgens2=[g1,g2,g3]
+Hgens2=[g1]
 
 #########################################################
 #########  now enter K
@@ -106,6 +90,8 @@ kf2=['X3','X2','X1','x2','X3','X2','X1']
 kf3=['x2','X3','x1']
 kf4=['x1','x1','x1','x1','x2','x3','X1','X2']
 kf5=['x1','x2','x3','x2','X3','X3','X2']
+kf6=['x1']
+kf7=['x1','X2','X2','x1','x3','X1']#=h1
 
 #Make a list of these words
 words1=[kf1,kf2,kf3,kf4,kf5]
@@ -114,6 +100,7 @@ words1=[kf1,kf2,kf3,kf4,kf5]
 #Next enter some words in F2
 kg1=['y1','y1','y3','Y1','y2','y3','y4','y1','y2','y3','y4','y2','y2']
 kg2=['y3','y4','Y2','y1','y3']
+kg3=['y1']
 
 #Make a list of these words 
 words2=[kg1,kg2]
@@ -122,8 +109,10 @@ words2=[kg1,kg2]
 k1=kf1+kg1+kf2
 k2=kf3+kg2+kf4
 k3=kf5
+k4=kf1+kg1
+k5=kf7
 #Make a list of these words: i.e. a list of generators of K
-Kgens=[k1,k2,k3]
+Kgens=[k5,k2,k3]
 
 ###############################
 #maximum number of iterations of the main loop
