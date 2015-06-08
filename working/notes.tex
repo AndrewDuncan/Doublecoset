@@ -10,7 +10,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{comment}
 %\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 %\usepackage{showkeys}
 \usepackage{wrapfig}
 \usepackage{lscape}
@@ -177,7 +177,7 @@ after the first pass through the main loop it will be empty in any case. Therefo
  to leave this out- and it makes everything a bit easier. 
 \item In the previous version of the algorithm the folding of $K$ began by taking the generators of $K$, putting them
 in normal form and then folding the rose obtained from these normal forms. There is a slight difficulty here. If $k$ 
-has normal form the word $a_1\cdots a_m$ then $a_m^{-1}\cdots a_1^{-1}$ is not necessarily then normal form of 
+has normal form the word $a_1\cdots a_m$ then $a_m^{-1}\cdots a_1^{-1}$ is not necessarily the normal form of 
 $k^{-1}$, so the folding of $K$ does not in general accept $k^{-1}$. This makes the claim that ``elements of $K$ expressed
 in terms of the given generators of $K$ are accepted by the folding of $K$'' false. In fact the normal form of 
 $k$ will be accepted after some iterations of the generalised folding loop, so this is not a fatal difficulty. However, 
@@ -189,7 +189,8 @@ in results in a massive number of unnecessary additions of paths. In general str
 \item One annoyance is that I insisted on not using $Z$ in the 
 free group: keeping it till amamalgams were introduced. Now I understand why you wanted to have $Z$ involved right from the
  start, but probably it's not a good time to change this.
-
+\item The algorithm splits the folding for $K$ into 2 parts, by first removing $X_2$ edges and then removing $X_1$ edges.
+This is a waste of time and complicates everything, so it should be simplified so as not to do this.
 
 \ee
 \section{Programs}

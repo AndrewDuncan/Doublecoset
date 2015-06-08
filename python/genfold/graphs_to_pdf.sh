@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DIREC=cex
-v=2
+DIREC=cyclic
+v=1
 
 dot -Tpdf $DIREC/stallings1.gv   > $DIREC/stallings1.pdf 
 dot -Tpdf $DIREC/stallings2.gv  > $DIREC/stallings2.pdf 
